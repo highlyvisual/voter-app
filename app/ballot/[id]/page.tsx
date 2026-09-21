@@ -14,6 +14,7 @@ import CouncilPledges from "@/components/CouncilPledges";
 import PlacePanel from "@/components/PlacePanel";
 import SinceThen from "@/components/SinceThen";
 import Journey from "@/components/Journey";
+import CiteThis from "@/components/CiteThis";
 import { img } from "@/lib/site";
 import CountUp from "@/components/CountUp";
 import ProfileApply from "@/components/ProfileApply";
@@ -102,7 +103,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
           <div className="face-strip" aria-label="Candidates in ballot-paper order">
             {candidates.map((c, i) => (
               <a key={c.id} href={`#c-${c.id}`} className="face" style={{ borderColor: c.parties?.colour_hex ?? "var(--rule)" }} title={`${i + 1}. ${c.name}, ${c.party_name_on_ballot}`}>
-                {showPhotos && c.photo_url ? <img src={img(c.photo_url)} alt="" loading="lazy" width={52} height={52} /> : <span className="initials">{c.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("")}</span>}
+                {showPhotos && c.photo_url ? <img src={img(c.photo_url, 112)} alt="" loading="lazy" width={52} height={52} /> : <span className="initials">{c.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("")}</span>}
                 <span className="face-label"><strong>{i + 1}. {c.name}</strong><br />{c.party_name_on_ballot}</span>
               </a>
             ))}
@@ -233,6 +234,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
           <p className="meta">Candidate lists and nominations: <a href="https://democracyclub.org.uk/" rel="noopener">Democracy Club</a> (CC BY 4.0). Tax and benefit figures: <a href="https://policyengine.org/uk" rel="noopener">PolicyEngine UK</a>, open source.</p>
         </section>
       ) : null}
+      <CiteThis title={`${ballot.area_name}: ${ballot.level === "parliamentary" ? "UK Parliament" : "council"} election, ${fmt(ballot.poll_date)}`} />
     </>
   );
 }

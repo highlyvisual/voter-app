@@ -3,6 +3,8 @@ import Journey, { JourneyNext } from "@/components/Journey";
 import OfficeExplainer from "@/components/OfficeExplainer";
 import SystemExplainer from "@/components/SystemExplainer";
 import Deadlines from "@/components/Deadlines";
+import CouncilTax from "@/components/CouncilTax";
+import { Suspense } from "react";
 import { getBallot, listCandidates } from "@/lib/data";
 export const dynamic = "force-dynamic";
 export default async function Office({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
@@ -18,6 +20,7 @@ export default async function Office({ params, searchParams }: { params: Promise
       <h1>What you're voting for.</h1>
       <p className="lede">The single biggest source of confusion in politics is crediting or blaming people for things their job doesn't control. Thirty seconds on what this one does.</p>
       <OfficeExplainer level={ballot.level} areaName={ballot.area_name} seats={ballot.winner_count} generalElection={ballot.level === "parliamentary" && !ballotId.includes(".by.")} parties={parties} />
+      {ballot.level === "local" ? <Suspense fallback={null}><CouncilTax areaName={ballot.area_name} /></Suspense> : null}
       <SystemExplainer system={ballot.voting_system} seats={ballot.winner_count} />
       {!ballot.archived ? <Deadlines pollDate={ballot.poll_date} noticeUrl={ballot.official_sopn_url} gss={ballot.area_gss} level={ballot.level} /> : null}
       <JourneyNext ballotId={ballotId} current="office" qs={qs} />

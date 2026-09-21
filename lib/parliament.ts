@@ -3,7 +3,8 @@
 const H = { "User-Agent": "voter-app (github.com/highlyvisual/voter-app)" };
 
 export type Membership = { house: string; from: string | null; start: string; end: string | null };
-export type Division = { id: number; title: string; date: string; votedAye: boolean | null; ayes: number; noes: number; context: string; topic: string | null; justification: { text: string; url: string; debate: string } | null };
+export type PartySplit = { party: string; aye: number; no: number };
+export type Division = { id: number; title: string; date: string; votedAye: boolean | null; ayes: number; noes: number; context: string; topic: string | null; justification: { text: string; url: string; debate: string } | null; split?: PartySplit[]; ownParty?: string | null; withParty?: boolean | null };
 export type Interest = { category: string; summary: string; registered: string };
 export type ParliamentRecord = { memberId: number; name: string; party: string | null; memberships: Membership[]; divisions: Division[]; totalDivisionsSampled: number; interests?: Interest[]; interestsTotal?: number };
 
@@ -82,4 +83,24 @@ export async function interestsFor(memberId: number, take = 12): Promise<{ items
     if (!j) return null;
     return { total: j.totalResults ?? 0, items: (j.items ?? []).map((i: { summary: string; registrationDate: string; category?: { name: string } }) => ({ category: i.category?.name ?? "", summary: i.summary, registered: i.registrationDate })) };
   } catch { return null; }
+}
+
+// How each party voted in a division, and whether this member voted with most of their own party at the time.
+// Counts only; a vote against one's party can be principle, constituency or conscience, and the record doesn't say.
+export async function withPartySplits(memberId: number, divisions: Division[]): Promise<Division[]> {
+  return Promise.all(divisions.map(async (d) => {
+    try {
+      const j = await fetch(`https://commonsvotes-api.parliament.uk/data/division/${d.id}.json`, { headers: H, next: { revalidate: 604800 } }).then((r) => (r.ok ? r.json() : null));
+      if (!j) return d;
+      type M = { MemberId: number; Party: string };
+      const tally = new Map<string, PartySplit>();
+      const add = (list: M[] | undefined, side: "aye" | "no") => (list ?? []).forEach((m) => { const t = tally.get(m.Party) ?? { party: m.Party, aye: 0, no: 0 }; t[side]++; tally.set(m.Party, t); });
+      add(j.Ayes, "aye"); add(j.Noes, "no"); add(j.AyeTellers, "aye"); add(j.NoTellers, "no");
+      const all: M[] = [...(j.Ayes ?? []), ...(j.Noes ?? []), ...(j.AyeTellers ?? []), ...(j.NoTellers ?? [])];
+      const own = all.find((m) => m.MemberId === memberId)?.Party ?? null;
+      const t = own ? tally.get(own) : null;
+      const withParty = t && d.votedAye !== null && t.aye !== t.no ? (d.votedAye ? t.aye > t.no : t.no > t.aye) : null;
+      return { ...d, split: [...tally.values()].sort((a, b) => b.aye + b.no - (a.aye + a.no)), ownParty: own, withParty };
+    } catch { return d; }
+  }));
 }

@@ -6,6 +6,7 @@ import AreaPanel from "@/components/AreaPanel";
 import PlacePanel from "@/components/PlacePanel";
 import Representatives from "@/components/Representatives";
 import WardHistory from "@/components/WardHistory";
+import Layers from "@/components/Layers";
 import ProfileApply from "@/components/ProfileApply";
 import { getBallot } from "@/lib/data";
 export const dynamic = "force-dynamic";
@@ -25,6 +26,7 @@ export default async function Area({ params, searchParams }: { params: Promise<{
       <p className="lede">Before anyone asks for your vote: what the official record says about the ground around {outcode ? `your postcode, ${outcode}` : "this area"} — housing sites, schools, protected areas, air quality — and who represents you now.</p>
       <AreaMap ballotId={ballotId} areaName={ballot.area_name} lat={ballot.area_lat} lng={ballot.area_lng} outcode={outcode} levelLabel={ballot.level === "local" ? "ward" : "constituency"} loc={loc} />
       <Suspense fallback={<p className="meta">Looking up who represents you…</p>}><Representatives areaName={ballot.area_name} level={ballot.level} /></Suspense>
+      {loc ? <Suspense fallback={<p className="meta">Working out who represents this postcode…</p>}><Layers lat={loc.lat} lng={loc.lng} electionCouncil={ballot.level === "local" ? ballot.area_name.split(":")[0] : null} /></Suspense> : null}
       {loc ? <Suspense fallback={null}><PlacePanel lat={loc.lat} lng={loc.lng} /></Suspense> : null}
       <Suspense fallback={null}><AreaPanel areaName={ballot.area_name} level={ballot.level} lat={ballot.area_lat} lng={ballot.area_lng} pointNote={ballot.area_point_note} hpiRegion={ballot.hpi_region} gss={ballot.area_gss} loc={loc} /></Suspense>
       {ballot.level === "local" ? <Suspense fallback={null}><WardHistory ballotId={ballotId} /></Suspense> : null}

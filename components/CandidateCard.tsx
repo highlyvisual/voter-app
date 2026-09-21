@@ -1,7 +1,7 @@
 import { TOPICS, effectivePartyId, type Candidate, type Claim, type ReceiptRow } from "@/lib/data";
 import { claimApplies, type Household } from "@/lib/household";
 import { conditionText, layerOf, precisionLabel, splitForHousehold, LEGEND } from "@/lib/claims";
-import { interestsFor, parliamentRecord } from "@/lib/parliament";
+import { interestsFor, parliamentRecord, withPartySplits } from "@/lib/parliament";
 import ParliamentaryRecordView from "@/components/ParliamentaryRecord";
 import ActionBlock from "@/components/ActionBlock";
 import ExplainThis from "@/components/ExplainThis";
@@ -93,7 +93,11 @@ export default async function CandidateCard({
     : `Statement published${invitation.responded_at ? ` (received ${fmtD(invitation.responded_at)})` : ""}.`;
   const hhQs = new URLSearchParams(Object.entries(household).filter(([k, v]) => k !== "postcode" && typeof v === "string") as [string, string][]).toString();
   const record = candidate.parliament_member_id ? await parliamentRecord(candidate.parliament_member_id) : null;
-  if (record && candidate.parliament_member_id) { const ints = await interestsFor(candidate.parliament_member_id); if (ints) { record.interests = ints.items; record.interestsTotal = ints.total; } }
+  if (record && candidate.parliament_member_id) {
+    const [ints, splits] = await Promise.all([interestsFor(candidate.parliament_member_id), withPartySplits(candidate.parliament_member_id, record.divisions)]);
+    if (ints) { record.interests = ints.items; record.interestsTotal = ints.total; }
+    record.divisions = splits;
+  }
   const mine = claimsFor(candidate, claims);
   const verifiedSourceIds = new Set(mine.map((c) => c.sources?.id).filter((x): x is number => typeof x === "number"));
   const partyColour = candidate.parties?.colour_hex ?? null; // only ever here, on this candidate's own panel

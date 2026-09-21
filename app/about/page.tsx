@@ -114,6 +114,18 @@ export default function About() {
         Open source under AGPL-3.0: <a href="https://github.com/highlyvisual/voter-app">github.com/highlyvisual/voter-app</a>. Anyone can run the same
         ballot and household and get the same result.
       </p>
+      <h2 id="limits">What this site can't tell you</h2>
+      <p>Every source has limits, and some matter a great deal when deciding how to vote:</p>
+      <ul>
+        <li><strong>A record is not a person.</strong> Votes, statements and leaflets are what candidates chose to publish or had to do on the record. Casework, constituency work and private negotiation aren't captured.</li>
+        <li><strong>Many Commons votes are whipped.</strong> An MP voting with their party may not reflect their own view, and voting against it can be principle, constituency or conscience. The record doesn't say which, so neither do we.</li>
+        <li><strong>An absence is not a position.</strong> "No published position found" means we found nothing we could source, not that the candidate has no view. We never count silence for or against anyone.</li>
+        <li><strong>Donations over a threshold only.</strong> Parties report donations above £11,180 (£2,230 for local branches); smaller gifts are invisible to us.</li>
+        <li><strong>Area statistics describe places, not people.</strong> Deprivation, claimants and crime are about an area, and can hide big differences street by street.</li>
+        <li><strong>Recorded crime isn't all crime,</strong> and near-real-time sewage data is the water companies' own unverified feed, not the Environment Agency's audited annual figures.</li>
+        <li><strong>Council data can lag.</strong> Councillor lists are as recorded after the May 2026 elections; by-elections mean some seats have changed since.</li>
+        <li><strong>Coverage is uneven.</strong> Some statistics exist for England only, and Scottish, Welsh and Northern Irish sources differ. Where something is missing for your area, we say so rather than fill the gap.</li>
+      </ul>
     </>
   );
 }

@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import ExplainThis from "@/components/ExplainThis";
 import ProfileApply from "@/components/ProfileApply";
 import ReadAloud from "@/components/ReadAloud";
+import CiteThis from "@/components/CiteThis";
 import { claimsFor } from "@/components/CandidateCard";
 import { TOPICS, getBallot, listCandidates, listVerifiedClaims, listPreviousCandidacies, ballotLabel, type Claim } from "@/lib/data";
 import { claimApplies, householdComplete, householdFromParams } from "@/lib/household";
@@ -110,6 +111,7 @@ export default async function CandidatePage({ params, searchParams }: { params: 
       </div>
 
       <p><ReadAloud selector="main" label="Read this page aloud" /></p>
+      <CiteThis title={`${c.name}: candidate in ${ballot.area_name}, polling day ${ballot.poll_date}`} />
       <nav className="cand-nav" aria-label="Other candidates, in ballot-paper order">
         {prev ? <Link href={nav(prev)} className="button secondary-link">← {idx}. {prev.name}</Link> : <span />}
         <Link href={`/ballot/${encodeURIComponent(ballotId)}/compare${qs ? `?${qs}` : ""}`} className="quiet-link">Compare side by side</Link>

@@ -1045,3 +1045,22 @@ button.secondary:hover { background: var(--sand); color: var(--ink); border-colo
 .history-year { border-top: 1px solid var(--rule); padding: 0.4rem 0; }
 .history-year summary { cursor: pointer; }
 .history-year table { margin: 0.4rem 0 0.2rem; }
+
+.split { display: inline-block; margin-left: 0.3rem; font-size: 0.8rem; }
+.split summary { cursor: pointer; color: var(--ink-soft); }
+.split div { white-space: nowrap; }
+
+.layers { margin: 1.4rem 0; }
+.layers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 0.7rem; margin: 0.8rem 0; }
+.layer { border: 1px solid var(--rule); border-radius: 8px; padding: 0.8rem 0.9rem; }
+.layer.now { border: 2px solid var(--slate); box-shadow: 0 4px 18px rgba(20,28,38,.08); }
+.layer-name { font-family: var(--sans); font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); margin: 0; display: flex; gap: 0.5rem; align-items: center; }
+.layer-tag { background: var(--slate); color: #fff; border-radius: 999px; padding: 0.05rem 0.5rem; font-size: 0.68rem; letter-spacing: 0.03em; }
+.layer-area { font-family: var(--display); font-size: 1.15rem; font-weight: 500; margin: 0.2rem 0 0; }
+
+.cite { margin: 1.4rem 0; font-family: var(--sans); font-size: 0.92rem; }
+.cite summary { cursor: pointer; color: var(--ink-soft); }
+
+.ctax { margin: 1.4rem 0; }
+.ctax-bar { height: 14px; background: var(--sand); border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; max-width: 34rem; margin: 0.4rem 0 0.6rem; }
+.ctax-bar span { display: block; height: 100%; background: var(--slate); }

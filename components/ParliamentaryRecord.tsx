@@ -21,7 +21,7 @@ export default function ParliamentaryRecordView({ rec, note }: { rec: Parliament
             <div key={t.k} style={{ marginBottom: "0.6rem" }}>
               <p className="meta" style={{ margin: 0 }}>{t.l}</p>
               {t.rows.length < 2 ? <p className="empty">Not enough recorded votes on this topic to say anything concrete ({t.rows.length} with a justification).</p> : (
-                <ul className="small">{t.rows.map((d) => <li key={d.id}>{fmt(d.date)}: <a href={`https://votes.parliament.uk/Votes/Commons/Division/${d.id}`} rel="noopener">{d.title}</a> — {voted(d.votedAye)} <span className="chip none">{d.context}</span></li>)}</ul>
+                <ul className="small">{t.rows.map((d) => <li key={d.id}>{fmt(d.date)}: <a href={`https://votes.parliament.uk/Votes/Commons/Division/${d.id}`} rel="noopener">{d.title}</a> — {voted(d.votedAye)} <span className="chip none">{d.context}</span>{partyNote(d)}</li>)}</ul>
               )}
             </div>
           ))}
@@ -39,7 +39,7 @@ export default function ParliamentaryRecordView({ rec, note }: { rec: Parliament
           <div className="scroll" tabIndex={0}><table className="plain" style={{ marginTop: "0.4rem" }}>
             <thead><tr><th>Date</th><th>Division</th><th>Context</th><th>Recorded</th><th className="num">Ayes–Noes</th></tr></thead>
             <tbody>{rec.divisions.map((d) => (
-              <tr key={d.id}><td style={{ whiteSpace: "nowrap" }}>{fmt(d.date)}</td><td><a href={`https://votes.parliament.uk/Votes/Commons/Division/${d.id}`} rel="noopener">{d.title}</a></td><td><span className="chip none">{d.context}</span></td><td>{voted(d.votedAye)}</td><td className="num">{d.ayes}–{d.noes}</td></tr>
+              <tr key={d.id}><td style={{ whiteSpace: "nowrap" }}>{fmt(d.date)}</td><td><a href={`https://votes.parliament.uk/Votes/Commons/Division/${d.id}`} rel="noopener">{d.title}</a></td><td><span className="chip none">{d.context}</span></td><td>{voted(d.votedAye)}{partyNote(d)}</td><td className="num">{d.ayes}–{d.noes}{d.split && d.split.length ? <details className="split"><summary>by party</summary>{d.split.map((p) => <div key={p.party}>{p.party}: {p.aye} aye, {p.no} no</div>)}</details> : null}</td></tr>
             ))}</tbody>
           </table></div>
           <p className="meta">Every division for this member: <a href={`https://members.parliament.uk/member/${rec.memberId}/voting`} rel="noopener">members.parliament.uk</a>. Context tags come from the division title; "Free vote" is never asserted because the record does not say.</p>
@@ -55,4 +55,12 @@ export default function ParliamentaryRecordView({ rec, note }: { rec: Parliament
       </div>
     </section>
   );
+}
+
+// "Voted with / against most of their party" as a plain count. Never "rebel": the record doesn't say why.
+function partyNote(d: { ownParty?: string | null; withParty?: boolean | null; split?: { party: string; aye: number; no: number }[] }) {
+  if (d.withParty === null || d.withParty === undefined || !d.ownParty) return null;
+  const t = d.split?.find((p) => p.party === d.ownParty);
+  const tally = t ? ` (${d.ownParty}: ${t.aye} aye, ${t.no} no)` : "";
+  return <span className="meta"> · {d.withParty ? "with most of their party" : "against most of their party"}{tally}</span>;
 }

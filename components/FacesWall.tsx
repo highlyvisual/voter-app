@@ -10,7 +10,7 @@ export default function FacesWall({ tiles }: { tiles: FaceTile[] }) {
         {tiles.map((t, i) => (
           <li key={t.id} style={{ animationDelay: `${Math.min(i * 12, 1400)}ms` }}>
             <Link href={`/ballot/${encodeURIComponent(t.ballot)}#c-${t.id}`} className="face" style={{ borderColor: t.colour ?? "var(--rule)" }} title={`${t.name}, ${t.party}, ${t.area}`}>
-              {t.photo ? <img src={img(t.photo)} alt="" loading="lazy" width={56} height={56} /> : <span className="initials">{t.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("")}</span>}
+              {t.photo ? <img src={img(t.photo, 120)} alt="" loading="lazy" width={56} height={56} /> : <span className="initials">{t.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("")}</span>}
               <span className="face-label"><strong>{t.name}</strong><br />{t.party}<br /><span className="meta">{t.area}</span></span>
             </Link>
           </li>

@@ -9,4 +9,11 @@ export const SITE = {
   photos: (process.env.NEXT_PUBLIC_PHOTOS_MODE ?? "any") as "any" | "all-or-none",
 };
 
-export const img = (u: string | null | undefined) => (u ? `/api/img?u=${encodeURIComponent(u)}` : "");
+// Candidate photos, emblems and leaflets, resized and converted by Netlify's image CDN (cached at the edge), so a
+// 56px face costs a few kilobytes rather than a ~900 KB original. Falls back to the plain proxy for other hosts.
+const RESIZABLE = ["candidates.democracyclub.org.uk", "static-candidates.democracyclub.org.uk", "images.electionleaflets.org"];
+export const img = (u: string | null | undefined, w = 240) => {
+  if (!u) return "";
+  try { if (RESIZABLE.includes(new URL(u).hostname)) return `/.netlify/images?url=${encodeURIComponent(u)}&w=${w}&fm=webp&q=75`; } catch {}
+  return `/api/img?u=${encodeURIComponent(u)}`;
+};

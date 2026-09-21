@@ -20,3 +20,7 @@
   to = "https://hustings.org/:splat"
   status = 301
   force = true
+
+# Netlify Image CDN may fetch, resize and cache images from these hosts only.
+[images]
+  remote_images = ["https://candidates\\.democracyclub\\.org\\.uk/.*", "https://static-candidates\\.democracyclub\\.org\\.uk/.*", "https://images\\.electionleaflets\\.org/.*"]
