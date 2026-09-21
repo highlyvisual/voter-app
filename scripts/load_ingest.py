@@ -1,12 +1,15 @@
 """Load scripts/sql/ingest.json into Supabase with the service-role key (env SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY). Preserves hand-set fields."""
-import json, os, urllib.request, datetime
+import json, os, urllib.request, urllib.error, datetime
 NOW = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 URL = os.environ["SUPABASE_URL"].rstrip("/") + "/rest/v1"; KEY = os.environ["SUPABASE_SERVICE_ROLE_KEY"]
 H = {"apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json"}
 def req(path, method="GET", body=None, prefer=None):
     h = dict(H); 
     if prefer: h["Prefer"] = prefer
-    r = urllib.request.urlopen(urllib.request.Request(URL + path, data=json.dumps(body).encode() if body is not None else None, method=method, headers=h), timeout=60)
+    try:
+        r = urllib.request.urlopen(urllib.request.Request(URL + path, data=json.dumps(body).encode() if body is not None else None, method=method, headers=h), timeout=60)
+    except urllib.error.HTTPError as ex:
+        raise SystemExit(f"Database refused {method} {path.split('?')[0]}: HTTP {ex.code} {ex.read().decode()[:600]}")
     return json.load(r) if r.status != 204 and r.headers.get("Content-Type", "").startswith("application/json") else None
 d = json.load(open(os.path.join(os.path.dirname(__file__), "sql", "ingest.json")))
 req("/parties?on_conflict=ec_id", "POST", d["parties"], "resolution=ignore-duplicates,return=minimal")
@@ -18,7 +21,11 @@ for b in d["ballots"]:
     for k in ["postponed", "postponed_note"]:
         if ex.get(k) is not None: b[k] = ex[k]
 for b in d["ballots"]: b["retrieved_at"] = NOW   # record when each ballot was last refreshed from Democracy Club
-req("/ballots?on_conflict=ballot_paper_id", "POST", d["ballots"], "resolution=merge-duplicates,return=minimal")
+# One request per ballot: a batch must have identical fields in every row, but existing ballots carry hand-set
+# fields (map point, previous result) that new ballots do not have yet. Writing each on its own lets new rows take
+# the table's defaults and leaves anything not supplied untouched.
+for b in d["ballots"]:
+    req("/ballots?on_conflict=ballot_paper_id", "POST", [b], "resolution=merge-duplicates,return=minimal")
 print(f"loaded {len(d['ballots'])} ballots at {NOW}")
 exc = {(r["ballot_paper_id"], r["dc_person_id"]): r for r in req("/candidates?select=ballot_paper_id,dc_person_id,statement_to_voters,statement_retrieved_at,parliament_member_id,parliament_match_note")}
 keys = ["ballot_paper_id","dc_person_id","dc_person_url","name","surname_sort","party_ec_id","party_name_on_ballot","party_description_on_ballot","homepage_url","wikipedia_url","statement_to_voters_present","statement_to_voters","statement_retrieved_at","previous_candidacies_count","parliament_member_id","parliament_match_note"]
