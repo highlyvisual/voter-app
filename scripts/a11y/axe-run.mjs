@@ -1,0 +1,11 @@
+import puppeteer from "puppeteer-core";
+import fs from "node:fs";
+const url = process.argv[2];
+const b = await puppeteer.launch({ executablePath: "/opt/google/chrome/chrome", args: ["--no-sandbox", "--disable-dev-shm-usage"] });
+const p = await b.newPage(); await p.setViewport({ width: 1200, height: 900 });
+await p.goto(url, { waitUntil: "networkidle2", timeout: 120000 });
+await p.addScriptTag({ path: "node_modules/axe-core/axe.min.js" });
+const r = await p.evaluate(async () => await axe.run(document, { runOnly: { type: "tag", values: ["wcag2a", "wcag2aa"] } }));
+console.log(JSON.stringify({ violations: r.violations.map(v => ({ id: v.id, impact: v.impact, help: v.help, nodes: v.nodes.length, sample: v.nodes[0]?.target })), passes: r.passes.length }, null, 1));
+await p.screenshot({ path: process.argv[3] ?? "/tmp/rt/chrome.png", fullPage: false });
+await b.close();

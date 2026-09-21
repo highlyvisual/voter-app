@@ -1,0 +1,47 @@
+// Plain-English glossary. Neutral definitions of what a term means, never whether it is good or bad.
+// Terms are matched case-insensitively on word boundaries in quoted political language.
+export const GLOSSARY: Record<string, string> = {
+  "personal allowance": "The amount you can earn each year before you start paying income tax.",
+  "national insurance": "A tax on earnings paid by workers and employers, which also builds entitlement to the state pension.",
+  "universal credit": "The main working-age benefit, paid monthly, combining what used to be six separate payments.",
+  "two-child limit": "A rule that limits the child element of Universal Credit and tax credits to the first two children in most families.",
+  "pip": "Personal Independence Payment: a benefit for extra costs caused by long-term illness or disability. It is not means-tested and does not depend on working.",
+  "stamp duty": "A tax paid when buying a property above a certain price in England and Northern Ireland.",
+  "right to buy": "The right of many council tenants to buy their home at a discount.",
+  "section 21": "The rule that allowed landlords in England to end an assured shorthold tenancy without giving a reason. The Renters' Rights Act 2025 abolished it.",
+  "green belt": "Land around some cities where building is tightly restricted, to stop urban sprawl.",
+  "article 4 direction": "A council decision removing some automatic permissions, so works that normally need no planning application do need one.",
+  "conservation area": "An area protected for its architectural or historic interest, with extra planning controls.",
+  "local plan": "A council's published plan for what can be built where, over roughly fifteen years.",
+  "precept": "An extra amount added to council tax for a specific purpose, such as adult social care or the police.",
+  "echr": "The European Convention on Human Rights: a treaty, and the court that enforces it, covering rights such as a fair trial and family life. Separate from the European Union.",
+  "indefinite leave to remain": "Permission to stay in the UK permanently, without a time limit on your visa.",
+  "net migration": "The number of people moving to the UK for a year or more, minus the number leaving.",
+  "first past the post": "The voting system where one cross is counted per ballot and the candidate with the most votes wins, even without a majority.",
+  "single transferable vote": "A voting system where you rank candidates and votes transfer between them until the seats are filled.",
+  "manifesto": "A party's published programme for an election, setting out what it says it would do.",
+  "division": "A recorded vote in Parliament. Members walk through one of two lobbies and their names are published.",
+  "second reading": "The Commons debate on the principle of a bill, and the first main vote on it.",
+  "royal assent": "The final step that turns a bill into law.",
+  "private member's bill": "A bill introduced by a backbench member rather than the government. Most do not become law.",
+  "ten minute rule": "A short slot allowing a backbencher to make the case for a new bill.",
+  "quango": "A body set up by government to run something at arm's length from ministers.",
+  "levelling up": "A label used for policies intended to reduce economic differences between parts of the UK.",
+  "obr": "The Office for Budget Responsibility: the official independent body that checks the government's tax and spending figures.",
+  "fiscal rules": "Self-imposed limits a government sets on its own borrowing and debt.",
+  "carbon tax": "A charge on emitting carbon dioxide, intended to make polluting activities more expensive.",
+  "net zero": "Cutting greenhouse gas emissions to as close to zero as possible, with the small remainder balanced by removals. The UK's target is 2050, in law.",
+  "trident": "The UK's nuclear weapons system, carried on submarines.",
+  "tpnw": "The UN Treaty on the Prohibition of Nuclear Weapons, which the UK has not signed.",
+  "equality act": "The 2010 law that brings together protection from discrimination, covering characteristics such as age, disability, race, religion, sex and sexual orientation.",
+  "socio-economic duty": "A part of the Equality Act, not yet in force in England, that would require public bodies to consider how their decisions affect inequality.",
+  "respect orders": "Court orders proposed to ban persistent adult offenders from a town centre or from certain behaviour.",
+  "devolution": "Handing powers from Westminster to Scotland, Wales, Northern Ireland, or to mayors and councils in England.",
+  "by-election": "An election held between scheduled elections, usually because the sitting member has died, resigned or been removed.",
+  "sopn": "Statement of Persons Nominated: the official list of everyone standing, published once nominations close.",
+  "returning officer": "The official legally responsible for running an election in an area and declaring the result.",
+};
+export function findTerms(text: string): string[] {
+  const t = text.toLowerCase();
+  return Object.keys(GLOSSARY).filter((k) => new RegExp(`\\b${k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i").test(t)).slice(0, 4);
+}

@@ -1,0 +1,89 @@
+# Changelog
+
+## 2026-09-19 — Tier A from the comparator brief
+- WP-A1: every view defaults to every candidate in ballot-paper order; "Showing N of M. Show all." when a subset is chosen.
+- WP-A2: `precision` on claims (measurable/aspiration) with the "Stated aim" label; `/coverage/[ballot]` grid of sourced counts per party × topic; `docs/claims-style-guide.md`.
+- WP-A3: all-or-none photo rule stated under every ballot; initials for everyone until photos exist for all.
+- WP-A4: fixed layer chips (Manifesto · Enacted record · Candidate statement · Campaign leaflet · Third-party analysis) from `sources.layer`; legend on every list.
+- WP-A5: invitations and submissions tables; `/candidates/submit?token=`; maintainer issue/publish/hold in `/review`; per-candidate invitation state and "Where this information comes from" block; `/about/moderation`.
+- WP-A6: Summaries / Exact quotations toggle, localStorage only, default summaries.
+- WP-A7: `scripts/check-ballots.py` and `/about/accuracy` (first report: 20/20 postcodes resolve for Holborn and St Pancras).
+- WP-A8: empty states replaced by an action block: what the body decides, submit link, where to look (council notices, party site, electionleaflets.org).
+- WP-A9: `/about/parties-standing` and a party-coverage line on local ballots.
+- WP-A10: practical block: WhereDoIVote deep link, official notices from `election_dates`, Electoral Commission accepted-ID list.
+- WP-A11: two-question feedback widget, `feedback_totals` daily counts, comments without identifiers, public roll-up at `/about/impact`.
+- WP-A12: `/ballot/[id]/notes` printable notes sheet, localStorage only.
+- WP-A13: "Which topics do you want to see first?" reorders topic sections only; localStorage only.
+- WP-A14: `/share` link and embed snippet; `/ballot/[id]/embed` candidate list; QR deliberately omitted (would need a new third-party script).
+- WP-A15: `docs/never-build.md`, `CONTRIBUTING.md`, `docs/partners.md`.
+
+### Handover (needs a human)
+- Maintainer email and complaints address (WP-A5, A8; About page still shows placeholders).
+- Election notice URLs for each ballot beyond the SoPN (`election_dates`; optional overrides for computed deadlines).
+- Delete `POC_SINGLE_APPROVAL` in Netlify; push this zip.
+- Romily to confirm party colours; working name.
+- Reform UK and Liberal Democrat primary sources.
+- A scheduler and secret for the daily ballot ingest.
+
+## 2026-09-19 — Rebrand
+- Name and domain: This Shit Matters, thisshitmatters.org, set in lib/site.ts (one-variable change). Wordmark, metadata, OpenGraph, footer, share and embed URLs, README updated. Decision by Barny; Romily to confirm.
+
+## 2026-09-19 — Tier B, first set
+- WP-B3: `winner_count`, `uncontested`, `postponed`, `cancelled` on ballots with notices; ingest captures them.
+- WP-B8: inline voting-system explainer with worked example (FPTP, STV, AMS) above every candidate list.
+- WP-B12: seat-context sentence from the stored previous result (margin, share, turnout); nothing predictive.
+- WP-B14: `/data`, `/api/data/[ballot]` JSON (CC BY-SA 4.0), schema note; sitemap.
+- WP-B15: `robots.txt` excluding input pages; `/about/data-use` crawler and logging policy.
+- Appearance: dark mode following the system setting (party colours unchanged; emblems on white); party pill contrast fixed for dark.
+- Ingest: fetches only candidates not already held (Democracy Club's 10-a-minute limit); refreshed 19 Sept, no new nominations published.
+- WP-B6: record panel on Real-O-Mat rules. Position (only votes with a recorded justification, grouped by topic, "not enough recorded votes" below two), Justification (the member's own words in the same debate that day, from Hansard, with link), Source (every sampled division with a context tag from a fixed set; "Free vote" never asserted; absences as "Did not vote (reason not recorded)").
+
+## 2026-09-19 — Loop, set 3
+- WP-A2 audit: 10 claims reclassified as aspirations under the threshold-precision rule (superseding rows, logged); current_claims view now carries precision.
+- Ingest scheduler ready: .github/workflows/ingest.yml (daily 05:17 UTC) with scripts/load_ingest.py; needs SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY as repository secrets.
+- WP-B1: docs/parity-audit.md.
+- WP-B11 (part): Plain English toggle on the guide with a short version; localStorage only. Welsh locale still to do.
+- WP-B4: leaflets table and card section; scan of electionleaflets.org (latest 600 uploads) matched 2 candidates; layer chip "Campaign leaflet" available for claims drafted from them.
+- Leaflets: 25 archived leaflets across 12 candidates; cards separate this campaign from earlier ones by date. B9 (part): boundary note on parliamentary ballots. B13 (part): 2024 vs 2026 law comparison on the receipt.
+- Theme switch (Light / Auto / Dark) in the header, localStorage only; explicit dark variant added; segmented controls fixed in dark.
+- Council candidate positions: 39 statements quoted verbatim from 24 candidates across 15 wards (190 live positions). 25 archived leaflets across 12 candidates.
+- Nightly leaflet scan added to the ingest workflow (scripts/scan_leaflets.py). Topic page: nine-topic wording, summary/verbatim toggle, A8 empty wording. Candidate photos: Democracy Club holds them with uploader-asserted licences; human confirmation needed before the all-or-none rule can be applied.
+- Home: each election shows its count of sourced positions.
+- Candidate photos from Democracy Club shown where they exist (mode 'any', Barny's instruction 19 Sept; departs from WP-A3's all-or-none rule, switchable via NEXT_PUBLIC_PHOTOS_MODE). Attribution and licence shown in the card links; count of photos per ballot stated.
+- Read-through of all 190 summaries against quotations: 8 corrected by superseding rows (5 distinct overreaches), logged. Compare cells honour the summaries/exact-quotations toggle.
+- WP-A7: sampling keeps only postcodes whose centroid lies inside the boundary; second report (Queen's Park, 20/20) published at /about/accuracy.
+- WP-B7: council_pledges table and panel on local ballots (manual entries from minutes and budgets; Full Fact state vocabulary; "Not measurable as worded"); Full Fact Government Tracker link on the governing partys manifesto pledges. Embed page: minimal chrome. docs/welsh.md handover for a translator.
+- Performance: area panel and candidate rows stream with Suspense; cold TTFB on the by-election page 12.8s → 1.4s, Lambeth 2.9s → 0.6s.
+- Coverage grid: short topic headers. Council pledges: Lambeth budget decision (4 March 2026) located only via secondary summaries; primary minutes need a browser; not entered.
+- Caching: previous results and boundaries cached a week (stale-while-revalidate on the boundary route); Parliament memberships weekly, votes daily.
+- Key dates: polling-day countdown and next-deadline countdown. "Stood before": previous candidacies from Democracy Club (61 loaded for the by-election candidates), with elected/not elected as recorded.
+- Accessibility: axe-core (WCAG 2.0 A/AA) in a real Chrome: zero violations on ballot, home and compare pages after fixing party-pill contrast, Leaflet role (region, not img) and links inside <summary>. Print stylesheet for whole ballot pages. Tooling: scripts axe-run.mjs and axe-detail.mjs (puppeteer-core + system Chrome).
+- Romily round 3: party colours kept on party-linked material only; hero glow neutralised. Place panel (planning.data.gov.uk: conservation areas, Article 4, listed buildings, flood zones, tree orders, planning authority) from a location rounded to ~100 m carried from the postcode step, never stored. 'Since then' section on archive pages: the winning party's enacted record from the successor ballot, separated and dated.
+- Interface redesign: ballot-paper visual system (white paper, black rules, Bricolage Grotesque display, square ballot box on every row), faces wall of every candidate on the home page, face strip on ballot pages, postcode form in the hero, image proxy (/api/img) so photos and emblems load reliably.
+- Dark mode re-tuned for the ballot-paper system (black paper, white ink); topic and compare pages on the same rules; faces in comparison headers.
+- "Stood before" now covers council candidates too: 271 previous candidacies across the 28 ballots.
+- Lambeth Myatt's Fields May 2026 archive (11 candidates, 2 seats). About page colour rule updated to Romily's wording. Eligibility checker on the guide (browser-only). RSS feed of elections at /feed.xml. Screenshot and axe pass over guide, about, data and both Lambeth pages: zero violations.
+- Position search on every ballot page: filters the rendered quotations and summaries in the browser.
+- Compare: sticky header offset fixed inside the scroll container; wrapper squared; display face in headers. National map zoom capped; step cards squared.
+- Area panel: local-authority average house price and annual change from HM Land Registry UK HPI (flats and detached shown where published).
+- Live smoke suite (scripts/a11y/smoke.mjs): status, broken images, console errors and axe for every page type against the deployed site. First run found and fixed: empty-state contrast on topic pages, unfocusable scroll region on the coverage grid, hydration mismatch on /share.
+- Tester feedback (20 Sept, real phone): eligibility pills were white on white (fixed); header nav forced a 565px layout viewport on a 390px screen (wraps now, with an explicit viewport export and an overflow guard); postcode field made controlled and tab-persistent; not-covered messages rewritten to say when coverage arrives and where to look meanwhile; comparison matrix stacks into labelled blocks under 52rem instead of scrolling sideways; new /positions page: every position searchable and filterable by election, topic and kind of source.
+- Long explanatory pages given pull-outs and key-point cards, and section rules, so they are scannable (tester feedback).
+- Romily's product brief, first build: /start one-question-at-a-time profile (skip anywhere, 'why are we asking this?' on every question, nothing stored); 'You're voting for' office explainer on every ballot (what this office decides and what it does not); /ballot/[id]/quick two-minute guide; home page leads with Get started and the new proposition copy.
+- Romily brief, batch two: /parties exploration mode with dated positions per topic and a last-checked date; /learn with thirty-second answers; 'Explain this' plain-English glossary (38 terms) under any quotation containing political language; reading settings (text size, high contrast) in the header; 'What's happening now' block on the home page.
+- Romily brief, fourth pass: positions shown in four labelled layers (their position, what that means, who it applies to, the source) and grouped by whose statement it is (this candidate / done in office / their party); read-aloud per candidate using the browser's own speech synthesis; map layers from planning.data.gov.uk drawn around the postcode point, each shape tappable for the official record and the candidates' housing positions.
+- General-election UI built against the 2024 archive: the office explainer gains a "you are choosing twice over" section (one MP, and which party can form a government), explains why positions are labelled by whose they are, and links each party standing to its own page.
+- Local issues on the map (Romily §6): bounding-box queries to planning.data.gov.uk bring in land identified for homes (with the council's estimated dwelling count and permission status), schools, air-quality management areas, ancient woodland, green belt, conservation areas, Article 4 directions and flood zones. Sites are tappable dots, areas are shaded; every popup links to the official record and to what candidates on that ballot have published on the matching topic.
+- Research document applied: 44px touch targets on coarse pointers (451 controls under 44px → 1, an inline chip); secondary text raised from 13.6px to 14.7px; measure capped at 68ch; every image given explicit dimensions (CLS); overview band on ballot pages (candidates, positions, coverage, sources) per Shneidermans mantra; ballot filter and search merged into one control with a live "Showing N of M" count, removable chips, URL state so any filtered view is shareable, and an exit from every empty result stating that hiding is a view not a judgement.
+- Composition rebuild: ballot page from twelve stacked boxes to four zones with a sticky where-and-when rail (map, key dates, notices collapsed); header reduced from nine controls to six with one Display control holding text size, contrast and theme; one primary action on the home page; content measure widened to 64rem with forms capped at 46rem; candidate rows revealed on scroll via scroll-driven animation, disabled under reduced motion.
+- Signature identity: magenta (no UK party uses it) for interaction only — links, focus, hover, selected state, big numbers, progress. Party colours remain the only colours on party material. Motion: scroll progress rail, count-up statistics, staggered faces with hover lift, animated tick in the ballot square when a candidate opens, press-in hover on buttons and cards, live ticker (paused on hover, static under reduced motion), highlighted headline phrase.
+- Search rebuilt (lib/search.ts, 7 unit tests): normalises punctuation and hyphens on both sides, stems word forms, understands everyday synonyms (doctor↔GP, tenant↔renting, bins↔waste), forgives one typo, requires every query word to match, highlights matches in results, and offers "did you mean" from words that actually occur. Live comparison: "renting" 0→15, "potholes" 0→1, "two child limit" 0→1, "doctor" 1→8, "police" and "policing" now both 27.
+- My profile (Romily §4–5): answers from /start can be kept on the device (localStorage only, never sent), shown on /profile as editable cards with the reason each is asked, applied automatically to any ballot page opened without household answers (with a note and a one-tap way to see the page without it), deletable in one tap. Wording across the site corrected from 'nothing is stored' to 'nothing is sent to us'.
+- Romily brief, completion pass: the guided journey (postcode lookups land on stage 1; four stages — Your area, What you're voting for, What's at stake, Meet the candidates — with a stepper and 'skip to the candidates' on each); What's at stake cards counting published positions that touch the profile, in a fixed order; current representatives (sitting MP from the Parliament API, stated plainly when the seat is vacant; councillors from the last full result); candidate pages with a short intro, six large topic cards (Money, Housing, Health, Education, Climate, Your area) opening into four labelled layers, other topics below, and previous/next in ballot order; compare with category tabs and 'pick 2 to 4'; Your democracy home for returning visitors (countdown, candidates, new positions this week, hub); persistent 'How do you know this?' with badge names from the brief; map layer toggles and popups saying how many candidates have published on that topic; low-data mode; previous-version links on party pages; animated onboarding steps.
+- Rebrand to Hustings (hustings.org): light and dark logos extracted from the supplied artwork as transparent PNGs (full lockup, mark and wordmark), header and home use them and swap with the theme, favicon and Apple icon from the mark; every reference to the old name and domain updated; About explains the name.
+- hustings.org live as primary domain (Netlify, Let's Encrypt certificate covering hustings.org and www); DNS at Vercel: A @ 75.2.60.5 and 99.83.231.61, CNAME www voter-app-uk.netlify.app; old thisshitmatters.org addresses 301 to hustings.org with path preserved.
+- Editorial refinement: Newsreader for headings and reading, Inter for interface; hairline rules; soft corners; buttons and selected states in the logo's slate; no hard offset shadows; italic emphasis replaces the highlighter bars; duplicate hero logo removed; hero in two columns with an 'Elections coming up' panel listing each current election with a verified postcode that fills the box on tap.
+- Share images: a site-wide Open Graph/Twitter card (Newsreader headline, logo mark, the three promises) and one generated per election (type, date, name, candidates, sourced positions, named sources; no candidate pictured or named, so no one is favoured in a preview). Twitter card set to summary_large_image.
+- Share metadata per election: every election page (ballot, stages, candidate pages, compare) shares as '<area> <kind>, <date>' with a factual description and that election's image; site-wide title and description rewritten; separate Twitter image removed so X uses the correct per-page image.
+- Topic tabs and topic links no longer prefetch in bulk (a page with 16 links was firing 16 background requests at once; one returned 503 under the burst). Invisible to users, but unnecessary load.
+- Home: 'What's coming up' with a horizon slider (2 weeks, 6 weeks, 3 months, 1 year, up to the next general election). Confirmed ballots listed by date; elections fixed by law or officially stated but without candidates shown as scheduled cards with their source (6 May 2027 local elections across the UK; NI Assembly expected May 2027; general election on or before 15 August 2029); a note says where confirmed data currently ends.

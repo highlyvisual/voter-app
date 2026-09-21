@@ -1,0 +1,22 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# The old name's addresses redirect permanently to hustings.org, keeping the path.
+[[redirects]]
+  from = "https://uk.thisshitmatters.org/*"
+  to = "https://hustings.org/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://thisshitmatters.org/*"
+  to = "https://hustings.org/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://www.thisshitmatters.org/*"
+  to = "https://hustings.org/:splat"
+  status = 301
+  force = true

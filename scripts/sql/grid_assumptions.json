@@ -1,0 +1,16 @@
+{
+ "policyengine_version": "2.98.0",
+ "cells": 8100,
+ "assumptions": {
+  "region": "LONDON",
+  "income": "household gross income at band midpoint (over_100k uses 130000); split 60/40 between adults in a couple",
+  "income_type": "employed -> employment income; self_employed -> self-employment income; retired -> private pension income; unemployed and not_working_other -> no earned income (band not applied)",
+  "age": "representative age per band: 17, 21, 30, 42, 57, 70; partner same age",
+  "children": "none -> no children; under_5 -> one child aged 3; school_age -> one child aged 10; adult_dependant -> treated as none",
+  "rent": "private_rent: 15600/yr single without children, 21600/yr otherwise; social_rent: 9000/yr; owners and other: 0 (mortgage interest not modelled)",
+  "student": "no effect modelled (student finance is outside the tax-benefit model)",
+  "other_adults": "household type 'other' modelled as a single adult; other adults' incomes not included",
+  "benefits": "household assumed to claim Universal Credit and Child Benefit if entitled",
+  "policy": "current law as encoded in policyengine-uk 2.98.0"
+ }
+}
