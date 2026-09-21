@@ -8,7 +8,10 @@ Idempotent (on conflict do nothing / update statements). Run, then execute scrip
 import json, urllib.request, urllib.parse, datetime, time, os, re, sys
 
 H = {"User-Agent": "voter-app (github.com/highlyvisual/voter-app)"}
+TOKEN = os.environ.get("DEMOCRACY_CLUB_TOKEN")
 def get(u, tries=6):
+    if TOKEN and "democracyclub.org.uk" in u:
+        u = u + ("&" if "?" in u else "?") + "auth_token=" + urllib.parse.quote(TOKEN)
     for i in range(tries):
         try:
             r = urllib.request.urlopen(urllib.request.Request(u, headers=H), timeout=40); return json.load(r)

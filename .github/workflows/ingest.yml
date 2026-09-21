@@ -19,6 +19,8 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          DEMOCRACY_CLUB_TOKEN: ${{ secrets.DEMOCRACY_CLUB_TOKEN }}   # optional: lifts the 10-requests-a-minute limit
+          PYTHONUNBUFFERED: "1"                                      # show progress in the log as it happens
         run: |
           python scripts/ingest_ballots.py
           python scripts/load_ingest.py

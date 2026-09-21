@@ -1,5 +1,6 @@
 """Load scripts/sql/ingest.json into Supabase with the service-role key (env SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY). Preserves hand-set fields."""
-import json, os, urllib.request
+import json, os, urllib.request, datetime
+NOW = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 URL = os.environ["SUPABASE_URL"].rstrip("/") + "/rest/v1"; KEY = os.environ["SUPABASE_SERVICE_ROLE_KEY"]
 H = {"apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json"}
 def req(path, method="GET", body=None, prefer=None):
@@ -16,7 +17,9 @@ for b in d["ballots"]:
         if b.get(k) is None and ex.get(k) is not None: b[k] = ex[k]
     for k in ["postponed", "postponed_note"]:
         if ex.get(k) is not None: b[k] = ex[k]
+for b in d["ballots"]: b["retrieved_at"] = NOW   # record when each ballot was last refreshed from Democracy Club
 req("/ballots?on_conflict=ballot_paper_id", "POST", d["ballots"], "resolution=merge-duplicates,return=minimal")
+print(f"loaded {len(d['ballots'])} ballots at {NOW}")
 exc = {(r["ballot_paper_id"], r["dc_person_id"]): r for r in req("/candidates?select=ballot_paper_id,dc_person_id,statement_to_voters,statement_retrieved_at,parliament_member_id,parliament_match_note")}
 keys = ["ballot_paper_id","dc_person_id","dc_person_url","name","surname_sort","party_ec_id","party_name_on_ballot","party_description_on_ballot","homepage_url","wikipedia_url","statement_to_voters_present","statement_to_voters","statement_retrieved_at","previous_candidacies_count","parliament_member_id","parliament_match_note"]
 rows = []
