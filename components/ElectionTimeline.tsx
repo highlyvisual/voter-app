@@ -6,7 +6,8 @@ import { SCHEDULED } from "@/lib/scheduled";
 // "What's coming up": slide the horizon from two weeks to the next general election. Elections with confirmed
 // candidates (from Democracy Club) are listed in full; elections fixed by law but without candidates yet are shown as
 // scheduled, with their source. Order is by polling date only.
-type B = { id: string; area: string; date: string; level: string; locked: boolean; positions: number };
+type Face = { name: string; photo: string | null; colour: string | null };
+type B = { id: string; area: string; date: string; level: string; locked: boolean; positions: number; faces: Face[] };
 const STOPS: [string, number | null, string, string][] = [
   ["2 weeks", 14, "in the next two weeks", "2 weeks"],
   ["6 weeks", 42, "in the next six weeks", "6 weeks"],
@@ -40,19 +41,56 @@ export default function ElectionTimeline({ ballots, today }: { ballots: B[]; tod
         <strong>{inRange.length}</strong> {inRange.length === 1 ? "election" : "elections"} with candidates confirmed{sched.length ? <>, and <strong>{sched.length}</strong> scheduled {sched.length === 1 ? "election" : "elections"} whose candidates aren't known yet</> : ""}.
       </p>
 
-      {dates.map((d) => (
-        <section key={d} className="date-group">
-          <h3>{fmt(d)}</h3>
-          <ul className="election-list">
-            {inRange.filter((b) => b.date === d).map((b) => (
-              <li key={b.id}>
-                <Link href={`/ballot/${encodeURIComponent(b.id)}`}>{b.area}</Link>
-                <span className="meta"> {b.level === "parliamentary" ? "UK Parliament" : "Council"}{b.locked ? "" : " · nominations not yet closed"} · {b.positions} sourced {b.positions === 1 ? "position" : "positions"}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
+      <ol className="tl">
+        {dates.map((d) => {
+          const dt = new Date(d + "T00:00:00Z");
+          const diff = Math.round((dt.getTime() - new Date(today + "T00:00:00Z").getTime()) / 86400000);
+          const rel = diff === 0 ? "Today" : diff === 1 ? "Tomorrow" : `In ${diff} days`;
+          return (
+            <li key={d} className="tl-day">
+              <div className="tl-date" aria-hidden>
+                <span className="tl-dow">{dt.toLocaleDateString("en-GB", { weekday: "short", timeZone: "UTC" })}</span>
+                <span className="tl-dnum">{dt.getUTCDate()}</span>
+                <span className="tl-mon">{dt.toLocaleDateString("en-GB", { month: "short", timeZone: "UTC" })}</span>
+                <span className="tl-rel">{rel}</span>
+              </div>
+              <div className="tl-body">
+                <h3 className="sr-only">{fmt(d)}</h3>
+                <ul className="tl-rows">
+                  {inRange.filter((b) => b.date === d).map((b) => {
+                    const [council, place] = b.area.includes(":") ? b.area.split(":").map((x) => x.trim()) : [null, b.area];
+                    const name = (place ?? b.area).replace(/\s+ward$/i, "");
+                    const where = b.level === "parliamentary" ? "UK Parliament · constituency by-election" : `${council ?? "Council"} · ${/\bdivision\b|County/i.test(b.area) && !/ward$/i.test(b.area) ? "county division" : "ward"} by-election`;
+                    const shown = b.faces.slice(0, 7);
+                    return (
+                      <li key={b.id}>
+                        <Link href={`/ballot/${encodeURIComponent(b.id)}`} className="tl-row">
+                          <span className="tl-main">
+                            <span className="tl-name">{name}</span>
+                            <span className="tl-where">{where}</span>
+                          </span>
+                          <span className="tl-faces" aria-hidden>
+                            {shown.map((f, k) => f.photo
+                              ? <img key={k} src={f.photo} alt="" width={30} height={30} loading="lazy" style={{ borderColor: f.colour ?? "var(--rule)" }} />
+                              : <span key={k} className="tl-initials" style={{ borderColor: f.colour ?? "var(--rule)" }}>{f.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("")}</span>)}
+                            {b.faces.length > shown.length ? <span className="tl-more">+{b.faces.length - shown.length}</span> : null}
+                          </span>
+                          <span className="tl-stats">
+                            <span><b>{b.faces.length}</b> {b.faces.length === 1 ? "candidate" : "candidates"}</span>
+                            <span className={b.positions ? "" : "tl-none"}>{b.positions ? <><b>{b.positions}</b> sourced {b.positions === 1 ? "position" : "positions"}</> : "No positions sourced yet"}</span>
+                            {!b.locked ? <span className="tl-none">Nominations open</span> : null}
+                          </span>
+                          <span className="tl-go" aria-hidden>→</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </li>
+          );
+        })}
+      </ol>
 
       {days !== null && days > 42 && inRange.length && lastConfirmed && lastConfirmed < end ? (
         <p className="meta gap-note">No other elections have candidates confirmed after {fmt(lastConfirmed)}. By-elections are added as they're called, usually a few weeks before polling day.</p>

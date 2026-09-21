@@ -1,6 +1,8 @@
+import Link from "next/link";
 export default function About() {
   return (
     <>
+      <p className="meta"><Link href="/who-we-are">Who we are, and why Hustings exists →</Link></p>
       <h1>How this works</h1>
       <p className="lede">The rules below are not aspirations. They are built into the code, which is public.</p>
 
@@ -101,7 +103,8 @@ export default function About() {
       <h2 id="contact">Who runs this</h2>
       <p>
         Hustings is an independent, non-partisan, not-for-profit project. A hustings is the old public meeting where every candidate stands on the same platform and answers the same questions from voters. That is what this site tries to be. It takes no advertising and sells no data.
-        <span className="muted"> [Names, entity and contact address to be confirmed before public launch.]</span>
+        {" "}It was started by Romily Johnson (Founder and Product Lead), with Barny Trevelyan-Johnson (Technical Lead), and is self-funded for now. Neither is a member of, works for, or is paid by any political party or campaign. <Link href="/who-we-are">Why Hustings exists, in Romily's words</Link>.
+        <span className="muted"> [Contact address to be confirmed.]</span>
       </p>
       <h3>Complaints and corrections</h3>
       <p>
