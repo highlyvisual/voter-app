@@ -57,3 +57,35 @@ export async function hpiFor(region: string): Promise<Hpi | null> {
   }
   return null;
 }
+
+// Claimant count (ONS via Nomis, Open Government Licence): people claiming unemployment-related benefits, with the
+// rate as a share of working-age residents, for a ward or constituency GSS code, beside the national rate.
+export type Claimant = { period: string; count: number; rate: number; nationRate: number | null; nationName: string };
+export async function claimantFor(gss: string): Promise<Claimant | null> {
+  const nation = gss.startsWith("W") ? ["W92000004", "Wales"] : gss.startsWith("S") ? ["S92000003", "Scotland"] : ["E92000001", "England"];
+  try {
+    // Wards can be requested by their ONS code; Westminster constituencies cannot, so fetch all 650 (2024 boundaries,
+    // Nomis type 172; about 110 KB, cached a day) and pick this one out.
+    const isConstituency = /^(E14|W07|S14|N05)/.test(gss);
+    const url = `https://www.nomisweb.co.uk/api/v01/dataset/NM_162_1.data.csv?geography=${isConstituency ? "TYPE172" : gss},${nation[0]}&date=latest&gender=0&age=0&measure=1,2&measures=20100&select=date_name,geography_code,measure_name,obs_value`;
+    const txt = await fetch(url, { headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.text() : ""));
+    const rows = txt.trim().split("\n").slice(1).map((l) => l.split(",").map((x) => x.replace(/^"|"$/g, "")));
+    const get = (code: string, measure: string) => rows.find((r) => r[1] === code && r[2].startsWith(measure));
+    const c = get(gss, "Claimant count"), r = get(gss, "Claimants as a proportion"), n = get(nation[0], "Claimants as a proportion");
+    if (!c || !r) return null;
+    return { period: c[0], count: Number(c[3]), rate: Number(r[3]), nationRate: n ? Number(n[3]) : null, nationName: nation[1] };
+  } catch { return null; }
+}
+// English Indices of Deprivation 2025 for the neighbourhood (LSOA) containing a point. England only.
+export type Deprivation = { lsoa: string; name: string; imd: number; income: number; employment: number; education: number; health: number; crime: number; housing: number; living: number };
+export async function deprivationAt(lat: number, lng: number): Promise<Deprivation | null> {
+  try {
+    const pc = await fetch(`https://api.postcodes.io/postcodes?lon=${lng}&lat=${lat}&limit=1&radius=300`, { next: { revalidate: 604800 } }).then((r) => r.json());
+    const code: string | undefined = pc?.result?.[0]?.codes?.lsoa21 ?? pc?.result?.[0]?.codes?.lsoa;
+    if (!code || !code.startsWith("E01")) return null;
+    const { publicClient } = await import("@/lib/data");
+    const { data } = await publicClient().from("deprivation_2025").select("*").eq("lsoa_code", code).maybeSingle();
+    if (!data) return null;
+    return { lsoa: data.lsoa_code, name: data.lsoa_name, imd: data.imd_decile, income: data.income_decile, employment: data.employment_decile, education: data.education_decile, health: data.health_decile, crime: data.crime_decile, housing: data.housing_services_decile, living: data.living_env_decile };
+  } catch { return null; }
+}

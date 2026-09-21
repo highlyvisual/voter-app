@@ -1,10 +1,11 @@
-import { crimeNear, hpiFor, hpiRegionFromArea, topPetitionsFor } from "@/lib/area";
+import { claimantFor, crimeNear, deprivationAt, hpiFor, hpiRegionFromArea, topPetitionsFor } from "@/lib/area";
 
 // "Your area in numbers": official statistics that describe the place, never a household, each with its source and its limits.
-export default async function AreaPanel({ areaName, level, lat, lng, pointNote, hpiRegion }: { areaName: string; level: string; lat: number | null; lng: number | null; pointNote: string | null; hpiRegion?: string | null }) {
+export default async function AreaPanel({ areaName, level, lat, lng, pointNote, hpiRegion, gss = null, loc = null }: { areaName: string; level: string; lat: number | null; lng: number | null; pointNote: string | null; hpiRegion?: string | null; gss?: string | null; loc?: { lat: number; lng: number } | null }) {
   const region = hpiRegion ?? hpiRegionFromArea(areaName);
-  const [petitions, crime, hpi] = await Promise.all([level === "parliamentary" ? topPetitionsFor(areaName) : Promise.resolve(null), lat && lng ? crimeNear(lat, lng) : Promise.resolve(null), region ? hpiFor(region) : Promise.resolve(null)]);
-  if (!petitions?.rows.length && !crime && !hpi) return null;
+  const [petitions, crime, hpi, claimant, dep] = await Promise.all([level === "parliamentary" ? topPetitionsFor(areaName) : Promise.resolve(null), lat && lng ? crimeNear(lat, lng) : Promise.resolve(null), region ? hpiFor(region) : Promise.resolve(null), gss ? claimantFor(gss) : Promise.resolve(null), loc ? deprivationAt(loc.lat, loc.lng) : Promise.resolve(null)]);
+  if (!petitions?.rows.length && !crime && !hpi && !claimant && !dep) return null;
+  const decileWords = (d: number) => d === 1 ? "among the 10% most deprived" : d === 10 ? "among the 10% least deprived" : d <= 5 ? `in the ${["", "", "second", "third", "fourth", "fifth"][d]} most deprived tenth` : `in the ${["", "", "", "", "", "", "fifth", "fourth", "third", "second"][d]} least deprived tenth`;
   const num = new Intl.NumberFormat("en-GB");
   return (
     <section className="area" aria-labelledby="area-heading">
@@ -20,6 +21,23 @@ export default async function AreaPanel({ areaName, level, lat, lng, pointNote, 
               ))}
             </ol>
             <p className="meta">Open petitions with the most signatures from this constituency, among the 25 largest nationally. Source: petition.parliament.uk, {petitions.asOf}.</p>
+          </div>
+        ) : null}
+        {claimant ? (
+          <div>
+            <h3>People claiming unemployment-related benefits</h3>
+            <p className="small" style={{ margin: "0 0 0.3rem" }}><b>{claimant.count.toLocaleString("en-GB")}</b> people in {areaName.split(":").pop()?.trim()}, <b>{claimant.rate}%</b> of residents aged 16–64{claimant.nationRate !== null ? `, against ${claimant.nationRate}% across ${claimant.nationName}` : ""} ({claimant.period}).</p>
+            <p className="meta">Claimant count, Office for National Statistics via Nomis (Open Government Licence). It counts people claiming Jobseeker's Allowance or Universal Credit while required to seek work; it is not the same as the unemployment rate.</p>
+          </div>
+        ) : null}
+        {dep ? (
+          <div>
+            <h3>How this neighbourhood compares</h3>
+            <p className="small" style={{ margin: "0 0 0.3rem" }}>The neighbourhood around your postcode ({dep.name}) is <b>{decileWords(dep.imd)}</b> of England's 33,755 neighbourhoods on the official Index of Multiple Deprivation 2025.</p>
+            <ul className="small dep-grid">
+              {([["Income", dep.income], ["Employment", dep.employment], ["Education", dep.education], ["Health", dep.health], ["Crime", dep.crime], ["Housing and services", dep.housing], ["Living environment", dep.living]] as [string, number][]).map(([l, d]) => <li key={l}><span>{l}</span><span className="dep-bar" aria-label={`decile ${d} of 10, where 1 is most deprived`}>{Array.from({ length: 10 }, (_, k) => <i key={k} className={k < d ? "on" : ""} />)}</span><span className="meta">{d}/10</span></li>)}
+            </ul>
+            <p className="meta">English Indices of Deprivation 2025, Ministry of Housing, Communities and Local Government (Open Government Licence). Deciles: 1 is the most deprived tenth of neighbourhoods, 10 the least. A measure of an area, not of anyone who lives there.</p>
           </div>
         ) : null}
         {hpi ? (

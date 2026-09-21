@@ -5,6 +5,7 @@ import AreaMap from "@/components/AreaMap";
 import AreaPanel from "@/components/AreaPanel";
 import PlacePanel from "@/components/PlacePanel";
 import Representatives from "@/components/Representatives";
+import WardHistory from "@/components/WardHistory";
 import ProfileApply from "@/components/ProfileApply";
 import { getBallot } from "@/lib/data";
 export const dynamic = "force-dynamic";
@@ -25,7 +26,8 @@ export default async function Area({ params, searchParams }: { params: Promise<{
       <AreaMap ballotId={ballotId} areaName={ballot.area_name} lat={ballot.area_lat} lng={ballot.area_lng} outcode={outcode} levelLabel={ballot.level === "local" ? "ward" : "constituency"} loc={loc} />
       <Suspense fallback={<p className="meta">Looking up who represents you…</p>}><Representatives areaName={ballot.area_name} level={ballot.level} /></Suspense>
       {loc ? <Suspense fallback={null}><PlacePanel lat={loc.lat} lng={loc.lng} /></Suspense> : null}
-      <Suspense fallback={null}><AreaPanel areaName={ballot.area_name} level={ballot.level} lat={ballot.area_lat} lng={ballot.area_lng} pointNote={ballot.area_point_note} hpiRegion={ballot.hpi_region} /></Suspense>
+      <Suspense fallback={null}><AreaPanel areaName={ballot.area_name} level={ballot.level} lat={ballot.area_lat} lng={ballot.area_lng} pointNote={ballot.area_point_note} hpiRegion={ballot.hpi_region} gss={ballot.area_gss} loc={loc} /></Suspense>
+      {ballot.level === "local" ? <Suspense fallback={null}><WardHistory ballotId={ballotId} /></Suspense> : null}
       <JourneyNext ballotId={ballotId} current="area" qs={qs} />
     </>
   );

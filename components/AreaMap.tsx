@@ -53,8 +53,10 @@ export default function AreaMap({ ballotId, areaName, lat, lng, outcode, levelLa
               const nPub = (res.published ?? {})[l.topic] ?? 0;
               const n = l.dataset === "brownfield-land" ? homes(pr) : "";
               const status = pr["planning-permission-status"] ? String(pr["planning-permission-status"]).replace(/-/g, " ") : "";
-              return `<strong>${l.label}</strong><br>${title}${n ? `<br><b>${n} homes</b> estimated${status ? `, ${status}` : ""}` : ""}<div style="margin-top:.35rem;font-size:.85em">${l.note}</div><div style="margin-top:.35rem"><a href="/ballot/${encodeURIComponent(ballotId)}/topic/${l.topic}">${nPub ? `${nPub} candidate${nPub === 1 ? " has" : "s have"} published on this — compare them →` : "What candidates have published on this →"}</a><br><a href="https://www.planning.data.gov.uk/entity/${pr.entity}" target="_blank" rel="noopener">The official record</a></div>`;
+              const school = l.dataset === "educational-establishment" && pr.reference ? `<div style="margin-top:.35rem"><a href="https://reports.ofsted.gov.uk/provider/21/${pr.reference}" target="_blank" rel="noopener">Ofsted inspection reports</a> · <a href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/${pr.reference}" target="_blank" rel="noopener">School details</a></div>` : "";
+              return `<strong>${l.label}</strong><br>${title}${n ? `<br><b>${n} homes</b> estimated${status ? `, ${status}` : ""}` : ""}<div style="margin-top:.35rem;font-size:.85em">${l.note}</div>${school}<div style="margin-top:.35rem"><a href="/ballot/${encodeURIComponent(ballotId)}/topic/${l.topic}">${nPub ? `${nPub} candidate${nPub === 1 ? " has" : "s have"} published on this — compare them →` : "What candidates have published on this →"}</a><br><a href="https://www.planning.data.gov.uk/entity/${pr.entity}" target="_blank" rel="noopener">The official record</a></div>`;
             };
+            if (l.dataset === "educational-establishment" && l.geojson?.features) l.geojson.features = l.geojson.features.filter((f: { properties?: Record<string, string> }) => (f.properties?.["educational-establishment-status"] ?? "1") === "1");
             const layer = L.geoJSON(l.geojson, {
               style: { color: l.colour, weight: 2, fillColor: l.colour, fillOpacity: 0.16 },
               pointToLayer: (f: { properties?: Record<string, string> }, latlng: unknown) => L.circleMarker(latlng, { radius: 7, color: l.colour, weight: 2, fillColor: "#fff", fillOpacity: 0.95 }),
@@ -63,6 +65,24 @@ export default function AreaMap({ ballotId, areaName, lat, lng, outcode, levelLa
             groups[l.label] = layer;
             found.push({ label: l.label, colour: l.colour, n: l.count });
           }
+          try {
+            const ov = await fetch(`/api/overflows?lat=${loc.lat}&lng=${loc.lng}`).then((r) => r.json());
+            const list = (ov?.overflows ?? []) as { id: string; company: string; status: number | null; latestStart: number | null; latestEnd: number | null; water: string | null; lat: number; lng: number }[];
+            if (list.length) {
+              const OVC = "#7a5230";
+              const when = (t: number | null) => (t ? new Date(t).toLocaleString("en-GB", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }) : "unknown");
+              const g = L.layerGroup(list.map((o) => {
+                const live = o.status === 1;
+                const txt = live ? `<b>Discharging now</b> (since ${when(o.latestStart)})` : o.status === -1 ? "Monitor offline" : `Not discharging. Last discharge ended ${when(o.latestEnd)}`;
+                return L.circleMarker([o.lat, o.lng], { radius: live ? 9 : 6, color: OVC, weight: 2, fillColor: live ? OVC : "#fff", fillOpacity: 0.95 })
+                  .bindPopup(`<strong>Storm overflow</strong> ${o.id}<br>${o.company}${o.water ? ` · into ${o.water}` : ""}<div style="margin-top:.35rem">${txt}</div><div style="margin-top:.35rem;font-size:.85em">Near real-time, unverified data from the water company via the National Storm Overflows Hub (Water UK and Stream, open licence). Verified annual spill counts are published separately by the Environment Agency.</div><div style="margin-top:.35rem"><a href="/ballot/${encodeURIComponent(ballotId)}/topic/environment_climate_and_energy">What candidates have published on the environment →</a></div>`);
+              })).addTo(map);
+              groups["Storm overflows"] = g as unknown as { addTo: (m: unknown) => void; remove: () => void };
+              const live = list.filter((o) => o.status === 1).length;
+              found.push({ label: live ? `Storm overflows (${live} discharging now)` : "Storm overflows", colour: OVC, n: list.length });
+              if (live) groups[`Storm overflows (${live} discharging now)`] = groups["Storm overflows"];
+            }
+          } catch { /* optional */ }
           found.sort((a, b) => b.n - a.n);
           setLayers(found);
           // With a postcode, show the neighbourhood rather than the whole area, so local detail is legible.

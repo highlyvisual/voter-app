@@ -209,7 +209,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
       {!ballot.archived ? <div id="area" style={{ scrollMarginTop: "6rem" }} /> : null}
       {!ballot.archived ? (
         <Suspense fallback={<section className="area"><h2>{ballot.area_name} in numbers</h2><p className="meta">Loading official figures for the area…</p></section>}>
-          <AreaPanel areaName={ballot.area_name} level={ballot.level} lat={ballot.area_lat} lng={ballot.area_lng} pointNote={ballot.area_point_note} hpiRegion={ballot.hpi_region} />
+          <AreaPanel areaName={ballot.area_name} level={ballot.level} lat={ballot.area_lat} lng={ballot.area_lng} pointNote={ballot.area_point_note} hpiRegion={ballot.hpi_region} gss={ballot.area_gss} loc={loc} />
         </Suspense>
       ) : null}
 

@@ -1031,3 +1031,17 @@ button.secondary:hover { background: var(--sand); color: var(--ink); border-colo
 .sched-when { font-family: var(--sans); font-weight: 600; font-size: 0.9rem; margin: 0; }
 .sched-tag { display: inline-block; margin-left: 0.4rem; font-weight: 500; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid var(--rule); border-radius: 999px; padding: 0.05rem 0.5rem; color: var(--ink-soft); }
 @media (max-width: 40rem) { .range-ticks button { font-size: 0.7rem; } }
+
+.dep-grid { list-style: none; padding: 0; margin: 0.4rem 0; display: grid; gap: 0.25rem; max-width: 30rem; }
+.dep-grid li { display: grid; grid-template-columns: 11rem 1fr auto; gap: 0.6rem; align-items: center; }
+.dep-bar { display: inline-flex; gap: 2px; }
+.dep-bar i { width: 12px; height: 10px; background: var(--sand); border: 1px solid var(--rule); }
+.dep-bar i.on { background: var(--slate); border-color: var(--slate); }
+
+.funding { border-top: 1px solid var(--rule); margin-top: 2rem; }
+.donors { padding-left: 1.3rem; }
+.donors li { margin-bottom: 0.2rem; }
+
+.history-year { border-top: 1px solid var(--rule); padding: 0.4rem 0; }
+.history-year summary { cursor: pointer; }
+.history-year table { margin: 0.4rem 0 0.2rem; }

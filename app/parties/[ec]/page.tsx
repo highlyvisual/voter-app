@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ExplainThis from "@/components/ExplainThis";
+import PartyFunding from "@/components/PartyFunding";
 import { TOPICS, publicClient, type Claim } from "@/lib/data";
 import { layerOf } from "@/lib/claims";
 import { img } from "@/lib/site";
@@ -42,6 +43,7 @@ export default async function Party({ params }: { params: Promise<{ ec: string }
           </section>
         );
       })}
+      <PartyFunding ecId={ecId} partyName={party.name} />
       <p className="meta">Positions change. Where a party has superseded something, the ledger keeps both and shows the reason: <Link href="/ledger">the public ledger</Link>.</p>
     </>
   );

@@ -44,6 +44,14 @@ export default function ParliamentaryRecordView({ rec, note }: { rec: Parliament
           </table></div>
           <p className="meta">Every division for this member: <a href={`https://members.parliament.uk/member/${rec.memberId}/voting`} rel="noopener">members.parliament.uk</a>. Context tags come from the division title; "Free vote" is never asserted because the record does not say.</p>
         </details>
+        {rec.interests && rec.interests.length ? (
+          <details className="tab"><summary>Declared interests ({rec.interestsTotal})</summary>
+            <ul className="small" style={{ marginTop: "0.4rem" }}>
+              {rec.interests.map((i, k) => <li key={k} style={{ marginBottom: "0.3rem" }}><span className="chip none">{i.category.replace(/ \(including loans\)/, "")}</span> {i.summary} <span className="meta">— registered {fmt(i.registered)}</span></li>)}
+            </ul>
+            <p className="meta">Latest entries in the Register of Members' Financial Interests (UK Parliament, Open Parliament Licence). MPs must register anything that might reasonably be thought to influence them within 28 days; a registered interest is a disclosure, not a finding of wrongdoing. <a href={`https://members.parliament.uk/member/${rec.memberId}/registeredinterests`} rel="noopener">The full register for this member</a>.</p>
+          </details>
+        ) : null}
       </div>
     </section>
   );

@@ -4,7 +4,8 @@ const H = { "User-Agent": "voter-app (github.com/highlyvisual/voter-app)" };
 
 export type Membership = { house: string; from: string | null; start: string; end: string | null };
 export type Division = { id: number; title: string; date: string; votedAye: boolean | null; ayes: number; noes: number; context: string; topic: string | null; justification: { text: string; url: string; debate: string } | null };
-export type ParliamentRecord = { memberId: number; name: string; party: string | null; memberships: Membership[]; divisions: Division[]; totalDivisionsSampled: number };
+export type Interest = { category: string; summary: string; registered: string };
+export type ParliamentRecord = { memberId: number; name: string; party: string | null; memberships: Membership[]; divisions: Division[]; totalDivisionsSampled: number; interests?: Interest[]; interestsTotal?: number };
 
 export async function parliamentRecord(memberId: number, take = 8): Promise<ParliamentRecord | null> {
   try {
@@ -71,4 +72,14 @@ export function topicOf(title: string): string | null {
   ];
   for (const [re, k] of map) if (re.test(t)) return k;
   return null;
+}
+
+// Register of Members' Financial Interests (UK Parliament Interests API, Open Parliament Licence). Entries stay on the
+// register for twelve months after they expire, so a recent former MP may still have some.
+export async function interestsFor(memberId: number, take = 12): Promise<{ items: Interest[]; total: number } | null> {
+  try {
+    const j = await fetch(`https://interests-api.parliament.uk/api/v1/Interests?MemberId=${memberId}&Take=${take}&SortOrder=PublishingDateDescending`, { headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : null));
+    if (!j) return null;
+    return { total: j.totalResults ?? 0, items: (j.items ?? []).map((i: { summary: string; registrationDate: string; category?: { name: string } }) => ({ category: i.category?.name ?? "", summary: i.summary, registered: i.registrationDate })) };
+  } catch { return null; }
 }
