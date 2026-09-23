@@ -27,6 +27,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <script dangerouslySetInnerHTML={{ __html: "try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);var s=localStorage.getItem('textsize');if(s)document.documentElement.style.fontSize=s+'%';if(localStorage.getItem('contrast')==='high')document.documentElement.classList.add('high-contrast');if(localStorage.getItem('lite')==='1')document.documentElement.classList.add('lite')}catch(e){}" }} />
+        <script id="img-error-guard" dangerouslySetInnerHTML={{ __html: "addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('gone');var p=t.parentElement;if(p&&!p.querySelector('.avatar-fallback')){var s=document.createElement('span');s.className='avatar-fallback';s.style.width=(t.width||24)+'px';s.style.height=(t.height||24)+'px';s.setAttribute('aria-hidden','true');p.insertBefore(s,t);}}},true)" }} />
+        <script id="img-fallback" dangerouslySetInnerHTML={{ __html: "addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('gone');var p=t.parentElement;if(p)p.classList.add('gone-parent');}},true)" }} />
         <div className="progress-rail" aria-hidden><span /></div>
         <a className="skip" href="#main">Skip to content</a>
         <header className="site-header">
@@ -34,8 +36,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="wordmark" aria-label={`${SITE.name}, home`}>
               <img className="brand brand-light" src="/brand/mark-light.png" alt="" width={34} height={40} />
               <img className="brand brand-dark" src="/brand/mark-dark.png" alt="" width={34} height={40} />
-              <img className="brand-word brand-light" src="/brand/word-light.png" alt="hustings.org" width={150} height={25} />
-              <img className="brand-word brand-dark" src="/brand/word-dark.png" alt="hustings.org" width={150} height={25} />
+              <img className="brand-word brand-light" src="/brand/word-light.png" alt="What’s It To Me?" width={150} height={25} />
+              <img className="brand-word brand-dark" src="/brand/word-dark.png" alt="What’s It To Me?" width={150} height={25} />
             </Link>
             <nav aria-label="Site">
               <Link href="/how-to-vote">How to vote</Link>
@@ -60,7 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <a href="https://policyengine.org/uk">PolicyEngine UK</a> model. Code is open source under AGPL-3.0 at{" "}
             <a href={SITE.repo}>{SITE.repo.replace("https://", "")}</a>. {SITE.name}, {SITE.url.replace("https://", "")}.
           </p>
-          <p><Link href="/who-we-are">Who we are</Link> · contact, corrections and complaints: <a href="mailto:hello@hustings.org">hello@hustings.org</a> · <Link href="/about#contact">How we handle complaints</Link>.</p>
+          <p><Link href="/who-we-are">Who we are</Link> · contact, corrections and complaints: <a href="mailto:hello@whatsittome.org">hello@whatsittome.org</a> · <Link href="/about#contact">How we handle complaints</Link>.</p>
         </footer>
       </body>
     </html>

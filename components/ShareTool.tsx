@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { TOPICS } from "@/lib/data";
 export default function ShareTool({ ballots }: { ballots: { id: string; name: string }[] }) {
   const [b, setB] = useState(ballots[0]?.id ?? ""); const [view, setView] = useState("ballot"); const [copied, setCopied] = useState("");
-  const [origin, setOrigin] = useState("https://hustings.org");
+  const [origin, setOrigin] = useState("https://whatsittome.org");
   useEffect(() => { setOrigin(window.location.origin); }, []);
   const path = view === "ballot" ? `/ballot/${encodeURIComponent(b)}` : view === "compare" ? `/ballot/${encodeURIComponent(b)}/compare` : `/ballot/${encodeURIComponent(b)}/topic/${view}`;
   const url = origin + path; const embed = `<iframe src="${origin}/ballot/${encodeURIComponent(b)}/embed" width="100%" height="480" style="border:1px solid #e2dacb;border-radius:12px" title="Candidates: ${ballots.find((x) => x.id === b)?.name ?? ""}"></iframe>`;

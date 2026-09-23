@@ -4,23 +4,34 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# The old name's addresses redirect permanently to hustings.org, keeping the path.
+# The old names' addresses redirect permanently to whatsittome.org, keeping the path.
 [[redirects]]
   from = "https://uk.thisshitmatters.org/*"
-  to = "https://hustings.org/:splat"
+  to = "https://whatsittome.org/:splat"
   status = 301
   force = true
 [[redirects]]
   from = "https://thisshitmatters.org/*"
-  to = "https://hustings.org/:splat"
+  to = "https://whatsittome.org/:splat"
   status = 301
   force = true
 [[redirects]]
   from = "https://www.thisshitmatters.org/*"
-  to = "https://hustings.org/:splat"
+  to = "https://whatsittome.org/:splat"
   status = 301
   force = true
 
 # Netlify Image CDN may fetch, resize and cache images from these hosts only.
 [images]
   remote_images = ["https://candidates\\.democracyclub\\.org\\.uk/.*", "https://static-candidates\\.democracyclub\\.org\\.uk/.*", "https://images\\.electionleaflets\\.org/.*"]
+
+[[redirects]]
+  from = "https://hustings.org/*"
+  to = "https://whatsittome.org/:splat"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://www.hustings.org/*"
+  to = "https://whatsittome.org/:splat"
+  status = 301
+  force = true

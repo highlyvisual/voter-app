@@ -13,7 +13,7 @@ export default async function Embed({ params }: { params: Promise<{ id: string }
       <ol className="election-list" style={{ gridTemplateColumns: "1fr" }}>
         {candidates.map((c, i) => <li key={c.id}><span className="meta">{i + 1}</span> <strong>{c.name}</strong> <span className="muted">{c.party_description_on_ballot && c.party_description_on_ballot !== "[blank]" ? c.party_description_on_ballot : c.party_name_on_ballot}</span></li>)}
       </ol>
-      <p className="meta">Ballot-paper order · <a href={`/ballot/${encodeURIComponent(ballotId)}`} target="_top">See full detail on Hustings</a>.</p>
+      <p className="meta">Ballot-paper order · <a href={`/ballot/${encodeURIComponent(ballotId)}`} target="_top">See full detail on What's It To Me</a>.</p>
     </div>
   );
 }

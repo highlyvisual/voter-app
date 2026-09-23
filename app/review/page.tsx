@@ -117,7 +117,7 @@ export default async function Review({ searchParams }: { searchParams: Promise<R
       {!pending?.length ? <p className="muted">None waiting.</p> : null}
 
       <h2 id="invitations">Invite a candidate to submit</h2>
-      {newToken ? <div className="notice small"><p style={{ margin: 0 }}>Invitation link for {typeof sp.for === "string" ? sp.for : "the candidate"} (shown once; send it by the channel you chose): <code>https://hustings.org/candidates/submit?token={newToken}</code></p></div> : null}
+      {newToken ? <div className="notice small"><p style={{ margin: 0 }}>Invitation link for {typeof sp.for === "string" ? sp.for : "the candidate"} (shown once; send it by the channel you chose): <code>https://whatsittome.org/candidates/submit?token={newToken}</code></p></div> : null}
       <form action={issueInvitation} className="household small" style={{ maxWidth: "36rem" }}>
         <label>Candidate
           <select name="candidate_id" style={{ width: "100%" }}>

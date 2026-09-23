@@ -41,9 +41,9 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
         <p className="hero-rules">No political quiz. No recommendation. Just the evidence: every candidate gets the same page, in ballot-paper order, and every statement links to where it was published.</p>
         </div>
         <TryPostcode today={new Date().toISOString().slice(0, 10)} />
-        <aside className="word-card" aria-label="What the word hustings means">
-          <p className="word-head"><span className="word">hustings</span> <span className="pron">/ˈhʌs.tɪŋz/</span></p>
-          <p>A meeting where every candidate in an election stands on the same platform and answers the same questions from voters. From Old Norse <em>hūsþing</em>, &ldquo;house assembly&rdquo;. That is what this site tries to be. <Link href="/who-we-are#the-word">The story of the word →</Link></p>
+        <aside className="word-card" aria-label="Where the name comes from">
+          <p className="word-head"><span className="word">What&rsquo;s it to me?</span></p>
+          <p>The question people actually ask about politics, and the hardest one to get answered. Not who is winning &mdash; what it would mean for you, your household, your street. <Link href="/who-we-are#the-name">Where the name comes from &rarr;</Link></p>
         </aside>
         <div className="hero-foot">
         <ul className="stats" aria-label="What is on the site">

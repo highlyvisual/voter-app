@@ -112,7 +112,8 @@ button.link { background: none; border: 0; color: var(--ink-soft); text-decorati
 .dates { font-family: var(--sans); font-size: 0.88rem; color: var(--ink-soft); background: var(--sand); border-radius: var(--radius-sm); padding: 0.6rem 0.9rem; margin: 1rem 0; display: flex; gap: 0.4rem 1.2rem; flex-wrap: wrap; align-items: baseline; }
 .dates > * { margin-right: 1rem; }
 .dates > *:last-child { margin-right: 0; }
-.dates .past { color: var(--faint); text-decoration: line-through; }
+.dates .past { color: var(--ink-soft); text-decoration: line-through; text-decoration-thickness: 1px; }
+.dates .past a { color: var(--ink-soft); }
 .dates details { display: inline; }
 .dates summary { display: inline; cursor: pointer; text-decoration: underline; }
 .dates ul { margin: 0.5rem 0 0; padding-left: 1.1rem; }
@@ -1111,10 +1112,18 @@ button.secondary:hover { background: var(--sand); color: var(--ink); border-colo
   .tl-rel { margin: 0 0 0 auto; }
 }
 
-/* The meaning of "hustings" */
+/* The name: "What's it to me?" */
 .word-head { margin: 0 0 0.3rem; font-family: var(--sans); display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.7rem; }
 .word-head .word { font-family: var(--display); font-size: 1.6rem; font-weight: 500; font-style: italic; color: var(--ink); }
 .word-head .pron { color: var(--ink-soft); font-size: 0.95rem; }
 .word-head .pos { color: var(--ink-soft); font-size: 0.85rem; font-style: italic; }
 .word-card { grid-column: 1 / -1; border-left: 3px solid var(--slate); padding: 0.4rem 0 0.4rem 1rem; margin: 0.4rem 0 0.8rem; max-width: 46rem; }
 .word-card p:last-child { margin: 0; font-size: 1.02rem; }
+
+/* A candidate photo that 404s at source leaves a gap; show the neutral panel instead of a broken-image icon. */
+img.gone { display: none; }
+.avatar-fallback { background: var(--sand); border: 1px solid var(--rule); display: inline-block; }
+
+/* A candidate photo that 404s at the source leaves a broken icon; hide it and show the neutral initials instead. */
+img.gone { display: none !important; }
+.face.gone-parent .initials, .avatar.gone-parent { display: grid; }

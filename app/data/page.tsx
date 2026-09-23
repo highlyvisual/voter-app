@@ -18,7 +18,7 @@ export default async function Data() {
       <ul className="small">{[...live, ...archived].map((b) => <li key={b.ballot_paper_id}><Link href={`/api/data/${encodeURIComponent(b.ballot_paper_id)}`}>{b.ballot_paper_id}</Link></li>)}</ul>
       <h2>Schema</h2>
       <p className="small">A <code>claim</code> has <code>topic</code>, <code>tier</code> (computed or documented), <code>precision</code> (measurable or aspiration), <code>claim_text</code> (summary), <code>source_quote</code> (verbatim), <code>applies_if</code> (household conditions), <code>candidate_id</code> (null for party-level), <code>party_ec_id</code>, and a <code>sources</code> object with publisher, title, url, published_on, retrieved_at and layer. Rows are never edited; a correction is a new row whose <code>supersedes</code> points at the old one.</p>
-      <p className="meta">Please attribute "Hustings" with a link, and Democracy Club for candidate data. See <Link href="/about/data-use">data use and crawlers</Link>.</p>
+      <p className="meta">Please attribute "What's It To Me" with a link, and Democracy Club for candidate data. See <Link href="/about/data-use">data use and crawlers</Link>.</p>
     </>
   );
 }

@@ -2,7 +2,7 @@ import Link from "next/link";
 export default function About() {
   return (
     <>
-      <p className="meta"><Link href="/who-we-are">Who we are, and why Hustings exists →</Link></p>
+      <p className="meta"><Link href="/who-we-are">Who we are, and why What's It To Me exists →</Link></p>
       <h1>How this works</h1>
       <p className="lede">The rules below are not aspirations. They are built into the code, which is public.</p>
 
@@ -102,14 +102,14 @@ export default function About() {
 
       <h2 id="contact">Who runs this</h2>
       <p>
-        Hustings is an independent, non-partisan, not-for-profit project. A hustings is the old public meeting where every candidate stands on the same platform and answers the same questions from voters. That is what this site tries to be. It takes no advertising and sells no data.
-        {" "}It was started by Romily Johnson (Founder and Product Lead), with Barny Trevelyan-Johnson (Technical Lead), and is self-funded for now. Neither is a member of, works for, or is paid by any political party or campaign. <Link href="/who-we-are">Why Hustings exists, in Romily's words</Link>.
-        {" "}Contact us at <a href="mailto:hello@hustings.org">hello@hustings.org</a>.
+        What's It To Me is an independent, non-partisan, not-for-profit project. It answers one question: what would this election mean for you? Every candidate gets the same page, in ballot-paper order, and every statement links to where it was published. It takes no advertising and sells no data.
+        {" "}It was started by Romily Johnson (Founder and Product Lead), with Barny Trevelyan-Johnson (Technical Lead), and is self-funded for now. Neither is a member of, works for, or is paid by any political party or campaign. <Link href="/who-we-are">Why What's It To Me exists, in Romily's words</Link>.
+        {" "}Contact us at <a href="mailto:hello@whatsittome.org">hello@whatsittome.org</a>.
       </p>
       <h3>Complaints and corrections</h3>
       <p>
         If you believe a claim is wrong, unfair or misattributed, tell us. Every complaint is logged publicly with its outcome, whether or not we change anything.
-        {" "}Email <a href="mailto:hello@hustings.org?subject=Correction%20or%20complaint">hello@hustings.org</a> with the page, the claim and what you think is wrong.
+        {" "}Email <a href="mailto:hello@whatsittome.org?subject=Correction%20or%20complaint">hello@whatsittome.org</a> with the page, the claim and what you think is wrong.
       </p>
 
       <h2>Code</h2>

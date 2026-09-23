@@ -24,7 +24,7 @@ export default async function Submit({ searchParams }: { searchParams: Promise<R
       {!inv ? (
         <>
           <p className="lede">Candidates and their agents can send us a statement on each of the nine topics, with a source, and it is published as written once we have confirmed it appears at the source you give.</p>
-          <p>Submission needs an invitation link, which we send to every nominated candidate for whom we can find a contact address. If you are a candidate and have not received one, email <a href="mailto:hello@hustings.org?subject=Candidate%20statement%20invitation">hello@hustings.org</a> with your name and ward or constituency, and we will send a link. There is no self-registration, so that statements can only come from candidates.</p>
+          <p>Submission needs an invitation link, which we send to every nominated candidate for whom we can find a contact address. If you are a candidate and have not received one, email <a href="mailto:hello@whatsittome.org?subject=Candidate%20statement%20invitation">hello@whatsittome.org</a> with your name and ward or constituency, and we will send a link. There is no self-registration, so that statements can only come from candidates.</p>
           <p className="meta">What we check: that the statement exists at the URL you cite. What we do not check: whether it is true. Every published statement carries the label "Candidate statement". See <Link href="/about/moderation">what is refused or held</Link>.</p>
           {token ? <p className="small" role="alert">That link isn't recognised or has been used. Contact the maintainers for a fresh one.</p> : null}
         </>

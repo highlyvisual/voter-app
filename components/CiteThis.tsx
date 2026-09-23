@@ -6,7 +6,7 @@ export default function CiteThis({ title }: { title: string }) {
   const cite = () => {
     const url = window.location.origin + window.location.pathname;
     const today = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
-    return `Hustings (${new Date().getFullYear()}) ${title}. Available at: ${url} (Accessed: ${today}).`;
+    return `What's It To Me (${new Date().getFullYear()}) ${title}. Available at: ${url} (Accessed: ${today}).`;
   };
   return (
     <details className="cite">
