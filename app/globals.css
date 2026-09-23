@@ -1110,3 +1110,11 @@ button.secondary:hover { background: var(--sand); color: var(--ink); border-colo
   .tl-dnum { font-size: 1.4rem; }
   .tl-rel { margin: 0 0 0 auto; }
 }
+
+/* The meaning of "hustings" */
+.word-head { margin: 0 0 0.3rem; font-family: var(--sans); display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.7rem; }
+.word-head .word { font-family: var(--display); font-size: 1.6rem; font-weight: 500; font-style: italic; color: var(--ink); }
+.word-head .pron { color: var(--ink-soft); font-size: 0.95rem; }
+.word-head .pos { color: var(--ink-soft); font-size: 0.85rem; font-style: italic; }
+.word-card { grid-column: 1 / -1; border-left: 3px solid var(--slate); padding: 0.4rem 0 0.4rem 1rem; margin: 0.4rem 0 0.8rem; max-width: 46rem; }
+.word-card p:last-child { margin: 0; font-size: 1.02rem; }

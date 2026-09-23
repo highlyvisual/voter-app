@@ -104,12 +104,12 @@ export default function About() {
       <p>
         Hustings is an independent, non-partisan, not-for-profit project. A hustings is the old public meeting where every candidate stands on the same platform and answers the same questions from voters. That is what this site tries to be. It takes no advertising and sells no data.
         {" "}It was started by Romily Johnson (Founder and Product Lead), with Barny Trevelyan-Johnson (Technical Lead), and is self-funded for now. Neither is a member of, works for, or is paid by any political party or campaign. <Link href="/who-we-are">Why Hustings exists, in Romily's words</Link>.
-        <span className="muted"> [Contact address to be confirmed.]</span>
+        {" "}Contact us at <a href="mailto:hello@hustings.org">hello@hustings.org</a>.
       </p>
       <h3>Complaints and corrections</h3>
       <p>
         If you believe a claim is wrong, unfair or misattributed, tell us. Every complaint is logged publicly with its outcome, whether or not we change anything.
-        <span className="muted"> [Complaints address to be confirmed.]</span>
+        {" "}Email <a href="mailto:hello@hustings.org?subject=Correction%20or%20complaint">hello@hustings.org</a> with the page, the claim and what you think is wrong.
       </p>
 
       <h2>Code</h2>

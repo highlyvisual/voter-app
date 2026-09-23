@@ -56,15 +56,27 @@ def previous_ballot(post_id, current_id, poll_date):
     return None
 
 def main():
-    d = get("https://elections.democracyclub.org.uk/api/elections/?current=true&limit=500"); res = d["results"]
-    while d.get("next"): d = get(d["next"]); res += d["results"]
-    ballots = [e for e in res if e["identifier_type"] == "ballot" and not e["cancelled"] and datetime.date.fromisoformat(e["poll_open_date"]) >= TODAY]
+    # Take the union of "current" and "future": Democracy Club's two flags do not always agree, and on 23 September
+    # a live Wiltshire by-election appeared in one and not the other. Missing a ballot means a voter sees nothing.
+    res = []
+    for flag in ("current=true", "future=1"):
+        d = get(f"https://elections.democracyclub.org.uk/api/elections/?{flag}&limit=500"); res += d["results"]
+        while d.get("next"): d = get(d["next"]); res += d["results"]
+    by_id = {e["election_id"]: e for e in res}
+    ballots = [e for e in by_id.values() if e["identifier_type"] == "ballot" and not e["cancelled"] and datetime.date.fromisoformat(e["poll_open_date"]) >= TODAY]
+    print(f"{len(ballots)} ballots to fetch")
     sql_b, sql_p, sql_c, seen_parties = [], [], [], set()
     J = {"ballots": [], "parties": [], "candidates": []}
+    failed = []
     for e in sorted(ballots, key=lambda x: x["poll_open_date"]):
         bid = e["election_id"]
         try: b = get(f"https://candidates.democracyclub.org.uk/api/next/ballots/{bid}/")
-        except Exception as ex: print("skip", bid, ex); continue
+        except Exception as ex:
+            # Usually rate limiting. Wait and try once more; if it still fails, record it and fail the run at the end
+            # rather than quietly dropping an election from the site.
+            print("retrying", bid, ex); time.sleep(30)
+            try: b = get(f"https://candidates.democracyclub.org.uk/api/next/ballots/{bid}/")
+            except Exception as ex2: print("FAILED", bid, ex2); failed.append(bid); continue
         etype = bid.split(".")[0]
         level = {"parl": "parliamentary", "local": "local", "mayor": "mayoral", "sp": "devolved", "senedd": "devolved", "nia": "devolved"}.get(etype, "other")
         org = (e.get("organisation") or {}).get("official_name") or ""
@@ -96,5 +108,11 @@ def main():
         open(os.path.join(out, name + ".sql"), "w").write("\n".join(rows))
     json.dump(J, open(os.path.join(out, "ingest.json"), "w"))
     print("wrote", len(sql_b), "ballots", len(sql_p), "parties", len(sql_c), "candidates")
+    if failed:
+        # Fail the run: a ballot missing from the file would silently disappear from the site for voters in that ward.
+        print(f"\nERROR: {len(failed)} ballot(s) could not be fetched and are missing from this run:")
+        for f in failed: print("   ", f)
+        print("Usually Democracy Club rate limiting. Setting the DEMOCRACY_CLUB_TOKEN secret lifts the 10-per-minute limit.")
+        sys.exit(1)
 
 if __name__ == "__main__": main()

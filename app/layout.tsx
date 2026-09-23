@@ -60,7 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <a href="https://policyengine.org/uk">PolicyEngine UK</a> model. Code is open source under AGPL-3.0 at{" "}
             <a href={SITE.repo}>{SITE.repo.replace("https://", "")}</a>. {SITE.name}, {SITE.url.replace("https://", "")}.
           </p>
-          <p><Link href="/who-we-are">Who we are</Link> · how to contact us and how to complain: <Link href="/about#contact">How this works</Link>.</p>
+          <p><Link href="/who-we-are">Who we are</Link> · contact, corrections and complaints: <a href="mailto:hello@hustings.org">hello@hustings.org</a> · <Link href="/about#contact">How we handle complaints</Link>.</p>
         </footer>
       </body>
     </html>
