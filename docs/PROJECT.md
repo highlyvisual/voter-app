@@ -41,8 +41,9 @@ The shared folder `/Volumes/BTJ_ONE/Projects/UKPolitcs` on Barny's Mac Studio is
 - **Domains and DNS:** whatsittome.org registered via Vercel, DNS at Vercel (A records, www CNAME, MX, SPF). hustings.org and thisshitmatters.org 301 to it with the path preserved.
 - **Database:** Supabase project `voter-app` (ref `urufvcutpksjppbjxouc`, London / eu-west-2, free tier), Postgres + PostGIS. Append-only claims ledger enforced by trigger.
 - **Repo:** https://github.com/highlyvisual/voter-app — private for now, AGPL. Working copy on the Mac Studio at `~/code/voter-app`; the clone's remote carries a fine-grained token so the build session can commit and push directly.
-- **Nightly job:** `.github/workflows/ingest.yml` (05:17 UTC) — Democracy Club ballots and candidates, then the leaflet scan. Needs the `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` repository secrets; `DEMOCRACY_CLUB_TOKEN` is optional (Democracy Club has not issued one; postcode lookup uses postcodes.io).
-- **Secrets held only by Barny:** `SUPABASE_SERVICE_ROLE_KEY`, `REVIEWERS`, the GitHub token, Netlify and Vercel accounts.
+- **Nightly job:** `.github/workflows/ingest.yml` (05:17 UTC) — Democracy Club ballots and candidates, then the leaflet scan. Needs the `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` repository secrets; `DEMOCRACY_CLUB_TOKEN` (candidates-API token) is optional and not yet issued.
+- **Democracy Club developers API:** account "What's It To Me?" on developers.democracyclub.org.uk (created 24 Sep from Romily's login link), hobbyist plan: one key, 1,000 requests a day, `?auth_token=`. Held in Netlify as `DEMOCRACY_CLUB_DEVELOPERS_KEY`; used for postcode lookup. It is not accepted by the candidates API (tested). Peter Keeling (Democracy Club) offered a call: Monday 28 Sep 3–5pm UK, or 7–9 Oct; he also pointed at localintelligencehub.com (Climate Coalition / mySociety / Green Alliance) and dashboard.constituencies.org.uk as data sources.
+- **Secrets held only by Barny:** `SUPABASE_SERVICE_ROLE_KEY`, `REVIEWERS`, `DEMOCRACY_CLUB_DEVELOPERS_KEY`, the GitHub token, Netlify and Vercel accounts.
 - **Money layer:** precomputed PolicyEngine UK grid (`scripts/compute_grid.py`), assumptions listed on every calculation.
 
 ## Decisions log
@@ -65,6 +66,7 @@ Dates are when the decision was made or relayed. Newest last.
 | 23 Sep | Romily | Logo: at the time, the "five figures forming a star" option, question mark added to the name, no strapline. |
 | 24 Sep | Barny | Logo now the profiles-and-question-mark emblem, home lockup "Politics, in your context." Never to be regressed. |
 | 24 Sep | Barny | Map legend layer colours must be clearly different from each other and clearly not party colours; each legend item links to an explanation of what it means in context. |
+| 24 Sep | Romily | Empty record section: option 4 from paper 03 — party positions for everyone, a candidate's own record as extra, with the same neutral factual line for anyone without a record. Built 24 Sep. |
 | 24 Sep | Romily | Round five answers (full text in [docs/romily/README.md](romily/README.md)): all seven journey changes in progress; feedback version after the new journey; profile with postcode as step one but not framed as "where do you live", with the option to skip; photos only on a candidate's own page, name and party everywhere else; topics ordered by profile with the reason shown, then "Explore all topics"; no-election postcodes get next vote and representatives, then the map; all five levels shown for each layer of government; global issues included; leans to strict pledge-to-vote pairing with no verdict; wants to see both journey shapes (steps vs one page). |
 
 ## Open decisions (waiting on a person)
@@ -74,7 +76,6 @@ From the research index and round six. Answers arrive in the Netlify form `romil
 - **Barny:** which opening line (paper 01).
 - **Barny:** what to do about the shared Netlify credit pot before 8 October — separate team or plan, fewer deploys, or another host (paper 07).
 - **Romily:** adopt the strict pledge-to-vote pairing rule, and the per-topic way of choosing pledges? (paper 02)
-- **Romily:** which of the four "no record" layouts (paper 03).
 - **Romily:** what, if anything, to show for councillors where named votes don't exist (paper 04).
 - **Romily:** what "regional" means on the site, level by level (paper 05).
 - **Romily:** whether council business belongs on a parliamentary by-election page at all, and the thresholds in the local-issues rule (paper 06).
@@ -90,6 +91,7 @@ Carried from CHANGELOG handovers, still open on 24 Sep:
 - Human confirmation of Democracy Club photo licences before any all-or-none rule could apply.
 - Council pledges for Lambeth (primary minutes need a browser).
 - Welsh translation (docs/welsh.md).
+- Democracy Club call with Peter Keeling: Romily to pick Mon 28 Sep 3–5pm UK or 7–9 Oct. Ask: is a candidates-API token separate; rate limits for by-election-day traffic (hobbyist key is 1,000/day); candidate photo licences; scheduled 2027 elections before they are called.
 
 ## How the sessions work
 

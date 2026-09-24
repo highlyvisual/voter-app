@@ -25,7 +25,7 @@ Next.js (App Router) on Netlify · Supabase Postgres + PostGIS · PolicyEngine U
 
 ## Environment
 
-See `.env.example`. `SUPABASE_SERVICE_ROLE_KEY` and `REVIEWERS` (`Name:passcode,Name:passcode`) are secrets set only in the host's dashboard.
+See `.env.example`. `SUPABASE_SERVICE_ROLE_KEY`, `REVIEWERS` (`Name:passcode,Name:passcode`) and `DEMOCRACY_CLUB_DEVELOPERS_KEY` (developers.democracyclub.org.uk, hobbyist: 1,000 requests a day, used for postcode lookup) are secrets set only in the host's dashboard. `DEMOCRACY_CLUB_TOKEN` is the separate candidates-API token for the nightly job, set as a GitHub Actions secret.
 
 ## Develop
 

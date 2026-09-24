@@ -9,8 +9,35 @@ function withToken(url: string) {
 
 export type DcBallotSummary = { ballot_paper_id: string; election_date: string; post_label: string; election_name: string; candidates_locked: boolean };
 
-// Every current ballot at a postcode, all election levels.
+// Democracy Club developers API (aggregator: postcode -> ballots, polling station, timetable). Needs a key on every request;
+// the hobbyist key (issued 24 Sept 2026, account "What's It To Me?") allows 1,000 requests a day. Distinct from the
+// candidates-API token above: the two systems do not accept each other's keys (tested 24 Sept).
+const DEV_BASE = "https://developers.democracyclub.org.uk/api/v1";
+
+async function ballotsForPostcodeDevelopers(postcode: string): Promise<DcBallotSummary[] | null> {
+  const key = process.env.DEMOCRACY_CLUB_DEVELOPERS_KEY;
+  if (!key) return null;
+  try {
+    const r = await fetch(`${DEV_BASE}/postcode/${encodeURIComponent(postcode)}/?auth_token=${encodeURIComponent(key)}`, {
+      headers: { "User-Agent": "voter-app (github.com/highlyvisual/voter-app)" }, next: { revalidate: 3600 },
+    });
+    if (!r.ok) return null;
+    const j = (await r.json()) as { address_picker?: boolean; dates?: { date: string; ballots: { ballot_paper_id: string; election_name: string; post_name: string; candidates_verified: boolean; cancelled: boolean }[] }[] };
+    // A split postcode needs an address picker we do not offer; let the candidates API decide instead.
+    if (j.address_picker) return null;
+    return (j.dates ?? []).flatMap((d) => d.ballots.filter((b) => !b.cancelled).map((b) => ({
+      ballot_paper_id: b.ballot_paper_id, election_date: d.date, election_name: b.election_name.replace(/\s+/g, " ").trim(), post_label: b.post_name, candidates_locked: b.candidates_verified,
+    })));
+  } catch {
+    return null;
+  }
+}
+
+// Every current ballot at a postcode, all election levels. Developers API first (1,000/day with the key), then the
+// candidates API (10/minute without a token).
 export async function ballotsForPostcode(postcode: string): Promise<DcBallotSummary[] | null> {
+  const dev = await ballotsForPostcodeDevelopers(postcode);
+  if (dev) return dev;
   try {
     const r = await fetch(withToken(`${BASE}/ballots/?for_postcode=${encodeURIComponent(postcode)}&current=1&page_size=50`), {
       headers: { "User-Agent": "voter-app (github.com/highlyvisual/voter-app)" }, next: { revalidate: 3600 },
