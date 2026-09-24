@@ -1,10 +1,15 @@
 "use client";
 // The elections happening now, each with a postcode inside it. Tapping one fills the postcode box, so anyone can see
 // the product working even if there is no election where they live. Listed by polling date; no other ordering.
+import { useEffect, useState } from "react";
 import { EXAMPLE_POSTCODES } from "@/lib/examples";
+import { readProfile } from "@/lib/profile";
 export default function TryPostcode({ today }: { today: string }) {
   const upcoming = EXAMPLE_POSTCODES.filter((e) => e.date >= today).slice(0, 6);
-  if (!upcoming.length) return null;
+  // Once someone has their own election saved on this device, the examples get out of the way (Romily, round 5, q7).
+  const [own, setOwn] = useState(false);
+  useEffect(() => { try { setOwn(Boolean(readProfile()?.ballot)); } catch {} }, []);
+  if (!upcoming.length || own) return null;
   const fill = (pc: string) => {
     const el = document.getElementById("postcode") as HTMLInputElement | null;
     if (!el) return;

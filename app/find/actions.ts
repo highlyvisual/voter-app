@@ -34,16 +34,15 @@ export async function findElection(formData: FormData) {
     const outcode = raw.slice(0, -3);
     const loc = pio ? `${Number(pio.latitude).toFixed(3)},${Number(pio.longitude).toFixed(3)}` : "";
     if (hit) { const hq = householdQuery(formData); redirect(`/ballot/${encodeURIComponent(hit.ballot_paper_id)}/area?pc=${encodeURIComponent(outcode)}${loc ? `&loc=${loc}` : ""}${hq ? `&${hq}` : ""}`); }
-    if (dc.length) {
-      const names = [...new Set(dc.map((b) => `${b.post_label} (${b.election_name}, ${b.election_date})`))].slice(0, 3).join("; ");
-      redirect(`/?error=${encodeURIComponent(`Not covered yet: ${names}. We add every by-election as nominations close, and every seat in the country for the May 2027 local elections. Meanwhile, WhoCanIVoteFor lists your candidates: https://whocanivotefor.co.uk/. We don't keep a record of your search, so we can't tell you when it's added; the elections list on this page updates daily.`)}`);
-    }
-    redirect(`/?error=${encodeURIComponent("No election is scheduled at that postcode at the moment, which usually means there is simply nothing to vote in there until May 2027. Check you are registered at gov.uk/register-to-vote, and open any election on this page to see how it works.")}`);
+    // No covered election here: show the place, the next vote and current representatives instead of an error (Romily, round 5, q7).
+    const next = [...new Set(dc.map((b) => `${b.post_label.replace(/[|;]/g, " ")}|${b.election_date}`))].slice(0, 3).join(";");
+    const area = pio?.parliamentary_constituency ?? "";
+    redirect(`/place?pc=${encodeURIComponent(outcode)}${loc ? `&loc=${loc}` : ""}${area ? `&area=${encodeURIComponent(area)}` : ""}${next ? `&next=${encodeURIComponent(next)}` : ""}`);
   }
 
   const constituency: string | null = pio?.parliamentary_constituency ?? null;
   if (!constituency) redirect(`/?error=${encodeURIComponent("We couldn't look up that postcode just now. Please try again in a minute.")}`);
   const match = ours.find((b) => b.area_name.toLowerCase() === constituency!.toLowerCase());
   if (match) { const hq = householdQuery(formData); redirect(`/ballot/${encodeURIComponent(match.ballot_paper_id)}/area?pc=${encodeURIComponent(raw.slice(0, -3))}${pio ? `&loc=${Number(pio.latitude).toFixed(3)},${Number(pio.longitude).toFixed(3)}` : ""}${hq ? `&${hq}` : ""}`); }
-  redirect(`/?error=${encodeURIComponent(`That postcode is in ${constituency}. No election there is covered yet: we add each by-election as its nominations close, and every seat for May 2027. WhoCanIVoteFor (whocanivotefor.co.uk) lists candidates for any postcode today.`)}`);
+  redirect(`/place?pc=${encodeURIComponent(raw.slice(0, -3))}${pio ? `&loc=${Number(pio.latitude).toFixed(3)},${Number(pio.longitude).toFixed(3)}` : ""}&area=${encodeURIComponent(constituency)}`);
 }

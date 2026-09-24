@@ -1142,3 +1142,6 @@ img.gone { display: none !important; }
 .topic-why { font-weight: 400; font-size: 0.8rem; margin-left: 0.4rem; }
 .stake-why { display: block; font-size: 0.8rem; margin: -0.2rem 0 0.3rem; }
 html.lite .name-strip { display: flex; }
+.timeline-body > summary { cursor: pointer; margin: 0 0 0.6rem; }
+.timeline-body[open] > summary { display: none; }
+.next-vote ul { padding-left: 1.1rem; }

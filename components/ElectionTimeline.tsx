@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { readProfile } from "@/lib/profile";
 import { SCHEDULED } from "@/lib/scheduled";
 
 // "What's coming up": slide the horizon from two weeks to the next general election. Elections with confirmed
@@ -18,6 +19,8 @@ const STOPS: [string, number | null, string, string][] = [
 
 export default function ElectionTimeline({ ballots, today }: { ballots: B[]; today: string }) {
   const [i, setI] = useState(1);
+  const [own, setOwn] = useState(false);
+  useEffect(() => { try { setOwn(Boolean(readProfile()?.ballot)); } catch {} }, []);
   const [, days, phrase] = STOPS[i];
   const end = useMemo(() => {
     if (days === null) return "2029-08-15";
@@ -30,7 +33,10 @@ export default function ElectionTimeline({ ballots, today }: { ballots: B[]; tod
   const lastConfirmed = ballots.map((b) => b.date).sort().at(-1);
   return (
     <section className="timeline" aria-labelledby="elections">
-      <h2 id="elections">What's coming up</h2>
+      <h2 id="elections">{own ? "Other elections we cover" : "What's coming up"}</h2>
+      {own ? <p className="meta">Your own election is above. These are the others, in case you want to look at one.</p> : null}
+      <details open={!own} className="timeline-body">
+      <summary className="meta">{own ? "Show the full list" : "Hide the list"}</summary>
       <div className="range">
         <label htmlFor="horizon" className="range-label">Show elections <strong>{phrase}</strong></label>
         <input id="horizon" type="range" min={0} max={STOPS.length - 1} step={1} value={i} onChange={(e) => setI(Number(e.target.value))} aria-valuetext={phrase} list="horizon-stops" />
@@ -108,6 +114,7 @@ export default function ElectionTimeline({ ballots, today }: { ballots: B[]; tod
           ))}
         </div>
       ) : null}
+      </details>
     </section>
   );
 }
