@@ -161,3 +161,17 @@ These are not wrong; they are a different kind of thing from a statistic, and ou
 - **Local Intelligence Hub repository licence:** LICENSE.txt exists in the repository; its terms were not read.
 - **Dataset counts:** 156 for the Hub and 139 for the Dashboard are counts of the entries on each site's own list as read on 24 Sep 2026; the Dashboard's two "school allocations per pupil" entries appear to be duplicates.
 - **Whether either site has any party link:** none was found on the pages read. The Hub's partners are campaigning charities and think tanks; the Dashboard's author states no affiliation. Absence of evidence only.
+
+## Addendum (24 Sep, later): can the five priority sources be cut to wards as well as constituencies?
+
+Checked against the publishers' own files, not the aggregators. A national dataset covers every constituency at once, so "constituency-level for all elections" is one load, not 650.
+
+| Source | Constituency | Ward or finer | How |
+|---|---|---|---|
+| Crime (data.police.uk) | yes, by aggregation | **yes** | Point-level: `crimes-street/all-crime?lat=&lng=&date=` returned 2,707 crimes within a mile of a Holborn point for June 2026, in 14 categories. Any polygon (ward or constituency) can be cut from points; the API also takes a custom polygon. |
+| Fuel poverty (DESNZ, 2023 data published 30 Apr 2025, OGL) | **yes**, Table 3 "Fuel Poverty by Parliamentary Constituency" | **yes**, Table 4 "Fuel Poverty by Lower layer Super Output Area (LSOA)" | One workbook (`Sub-regional_fuel_poverty_statistics_2023.xlsx`); LSOAs roll up to wards with the ONS lookup we already use for deprivation. England only. |
+| GP access (OHID Fingertips, OGL) | by aggregation | **partly** | Area types include "General Practice" (id 7) and "Electoral Best Fit Wards (2024)" (id 8). The GP-appointment indicators are practice-level; showing "practices serving this ward" is the honest cut. Which indicators exist at ward level needs checking per indicator. |
+| Income and wages (HMRC 3.15a; ASHE via Nomis) | **yes** | **no** | HMRC publishes by constituency (and by local authority); ASHE is a sample survey and is not published below local authority. For a ward page the local-authority figure is the finest honest number. |
+| School results and funding (Commons Library, Open Parliament Licence) | **yes** | **yes, with work** | The Commons Library aggregates DfE per-school data. DfE publishes per school with postcodes (explore-education-statistics; Ofsted per school, already linked), so a ward can be built from the schools inside it. |
+
+So: crime and fuel poverty come ready for both; schools can be built for both; GP access is practice-level and should be shown as such; income stops at constituency and local authority. For a ward page, show the finest level that is real and label it ("for Camden as a whole", "for Holborn and St Pancras constituency"), never a figure for an area the voter is not in.
