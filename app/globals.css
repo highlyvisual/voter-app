@@ -1145,3 +1145,47 @@ html.lite .name-strip { display: flex; }
 .timeline-body > summary { cursor: pointer; margin: 0 0 0.6rem; }
 .timeline-body[open] > summary { display: none; }
 .next-vote ul { padding-left: 1.1rem; }
+
+/* Journey prototypes (round 5, q6) */
+.js-trail { list-style: none; display: flex; gap: 0.25rem; padding: 0; margin: 0 0 1.4rem; overflow-x: auto; scrollbar-width: none; }
+.js-trail li { flex: none; }
+.js-trail button { background: none; border: 0; color: var(--ink-soft); font-family: var(--sans); font-size: 0.8rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.3rem 0.4rem; cursor: pointer; transform: none; box-shadow: none; }
+.js-trail button:hover { background: var(--hover); color: var(--ink); transform: none; box-shadow: none; }
+.js-trail .n { display: inline-grid; place-items: center; width: 1.4rem; height: 1.4rem; border: 2px solid currentColor; border-radius: 50%; font-size: 0.72rem; }
+.js-trail li.now button { color: var(--ink); }
+.js-trail li.now .n, .js-trail li.done .n { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.js-trail li.done button { color: var(--ink-soft); }
+.js-trail .t { white-space: nowrap; }
+@media (max-width: 40rem) { .js-trail li:not(.now) .t { display: none; } }
+.js-screen { min-height: 40vh; animation: js-in 260ms var(--ease) both; }
+@keyframes js-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .js-screen { animation: none; } }
+.js-screen h1 { margin-top: 0.2rem; }
+.js-promises { padding-left: 1.1rem; font-size: 1.05rem; }
+.js-promises li { margin: 0.3rem 0; }
+.js-actions { display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; margin: 2rem 0 0; padding-top: 1rem; border-top: 1px solid var(--rule); }
+.js-cands { list-style: none; padding: 0; margin: 0.6rem 0; }
+.js-cands li { border-top: 1px solid var(--rule); }
+.js-cands li:last-child { border-bottom: 1px solid var(--rule); }
+.js-cands a { display: grid; grid-template-columns: 2rem 1fr auto; align-items: center; gap: 0.6rem; padding: 0.75rem 0.2rem; text-decoration: none; color: var(--ink); }
+.js-cands a:hover { background: var(--hover); }
+.js-cands .n { font-family: var(--sans); color: var(--ink-soft); font-size: 0.85rem; }
+.js-cands .who { display: flex; flex-direction: column; gap: 0.1rem; }
+.js-cands .party { font-family: var(--sans); font-size: 0.88rem; color: var(--ink-soft); display: inline-flex; align-items: center; gap: 0.4rem; }
+.js-cands .party-dot { display: inline-block; width: 0.55rem; height: 0.55rem; border-radius: 50%; }
+.js-links { padding-left: 1.1rem; }
+.js-links li { margin: 0.4rem 0; }
+.jp-q { border: 0; padding: 0; margin: 0 0 1rem; }
+.jp-q legend { font-family: var(--sans); font-weight: 700; margin-bottom: 0.4rem; }
+.jf-hero { margin-bottom: 1.5rem; }
+.jf-sec { padding: 1.4rem 0 0.6rem; border-top: 1px solid var(--rule); animation: js-in 320ms var(--ease) both; }
+.jf-sec h2 { border-top: 0; padding-top: 0; margin-top: 0; display: flex; align-items: center; gap: 0.6rem; }
+.jf-sec h2 .n { display: inline-grid; place-items: center; width: 1.7rem; height: 1.7rem; border: 2px solid var(--ink); border-radius: 50%; font-family: var(--sans); font-size: 0.85rem; }
+.jf-more > summary { cursor: pointer; font-family: var(--sans); font-weight: 600; margin: 0.6rem 0; }
+.jf-topics { display: grid; gap: 0.4rem; margin: 0.6rem 0; }
+.jf-topic { border: 1px solid var(--rule); padding: 0.5rem 0.8rem; }
+.jf-topic > summary { cursor: pointer; display: grid; grid-template-columns: 1fr auto; column-gap: 0.8rem; align-items: baseline; list-style: none; }
+.jf-topic > summary::-webkit-details-marker { display: none; }
+.jf-tname { font-family: var(--sans); font-weight: 700; }
+.jf-tn { font-family: var(--display); font-weight: 800; font-size: 1.6rem; line-height: 1; grid-row: span 2; }
+.jf-tbody { padding: 0.5rem 0 0.2rem; }
