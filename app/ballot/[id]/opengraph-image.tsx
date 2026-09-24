@@ -29,7 +29,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
         <img src={MARK} width={400 * MARK_RATIO} height={400} style={{ position: "absolute", right: -30, bottom: -30, opacity: 0.06 }} />
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <img src={MARK} width={48 * MARK_RATIO} height={48} />
-          <div style={{ display: "flex", fontFamily: "Inter", fontWeight: 600, fontSize: 32, color: SLATE }}>whatsittome.org</div>
+          <div style={{ display: "flex", fontFamily: "Inter", fontWeight: 600, fontSize: 32, color: SLATE }}>What’s It To Me?</div>
         </div>
         <div style={{ display: "flex", fontFamily: "Inter", fontWeight: 600, fontSize: 24, color: SOFT, textTransform: "uppercase", letterSpacing: 2, marginTop: 44 }}>{`${kind}${ballot?.archived ? " · archive" : ""} · ${date}`}</div>
         <div style={{ display: "flex", fontFamily: "Newsreader", fontWeight: 500, fontSize: titleSize, lineHeight: 1.04, color: INK, letterSpacing: -1.2, marginTop: 14, maxWidth: 1000 }}>{name}</div>

@@ -35,14 +35,12 @@ export async function findElection(formData: FormData) {
     const loc = pio ? `${Number(pio.latitude).toFixed(3)},${Number(pio.longitude).toFixed(3)}` : "";
     if (hit) { const hq = householdQuery(formData); redirect(`/ballot/${encodeURIComponent(hit.ballot_paper_id)}/area?pc=${encodeURIComponent(outcode)}${loc ? `&loc=${loc}` : ""}${hq ? `&${hq}` : ""}`); }
     // No covered election here: show the place, the next vote and current representatives instead of an error (Romily, round 5, q7).
-    const next = [...new Set(dc.map((b) => `${b.post_label.replace(/[|;]/g, " ")}|${b.election_date}`))].slice(0, 3).join(";");
-    const area = pio?.parliamentary_constituency ?? "";
-    redirect(`/place?pc=${encodeURIComponent(outcode)}${loc ? `&loc=${loc}` : ""}${area ? `&area=${encodeURIComponent(area)}` : ""}${next ? `&next=${encodeURIComponent(next)}` : ""}`);
+    redirect(`/place?pc=${encodeURIComponent(outcode)}${loc ? `&loc=${loc}` : ""}`);
   }
 
   const constituency: string | null = pio?.parliamentary_constituency ?? null;
   if (!constituency) redirect(`/?error=${encodeURIComponent("We couldn't look up that postcode just now. Please try again in a minute.")}`);
   const match = ours.find((b) => b.area_name.toLowerCase() === constituency!.toLowerCase());
   if (match) { const hq = householdQuery(formData); redirect(`/ballot/${encodeURIComponent(match.ballot_paper_id)}/area?pc=${encodeURIComponent(raw.slice(0, -3))}${pio ? `&loc=${Number(pio.latitude).toFixed(3)},${Number(pio.longitude).toFixed(3)}` : ""}${hq ? `&${hq}` : ""}`); }
-  redirect(`/place?pc=${encodeURIComponent(raw.slice(0, -3))}${pio ? `&loc=${Number(pio.latitude).toFixed(3)},${Number(pio.longitude).toFixed(3)}` : ""}&area=${encodeURIComponent(constituency)}`);
+  redirect(`/place?pc=${encodeURIComponent(raw.slice(0, -3))}${pio ? `&loc=${Number(pio.latitude).toFixed(3)},${Number(pio.longitude).toFixed(3)}` : ""}`);
 }

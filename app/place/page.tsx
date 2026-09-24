@@ -1,57 +1,62 @@
-import { Suspense } from "react";
 import Link from "next/link";
+import { Suspense } from "react";
 import AreaMap from "@/components/AreaMap";
+import AreaPanel from "@/components/AreaPanel";
 import Layers from "@/components/Layers";
 import PlacePanel from "@/components/PlacePanel";
-import { SCHEDULED } from "@/lib/scheduled";
+import NextElections from "@/components/NextElections";
+import { listBallots } from "@/lib/data";
+
+export const metadata = { title: "Your area", description: "Who represents you, when you next vote, and what is happening around you." };
 export const dynamic = "force-dynamic";
 
-// A postcode with no covered election (Romily, round 5, question 7: "both"). Instead of an error, the person sees
-// their next vote and everyone who represents them now, on a map of where they live. The full postcode never reaches
-// this page: only the outward code, a rounded location, and the names and dates of any elections Democracy Club lists.
-type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
-const fmt = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
-
-export default async function Place({ searchParams }: Props) {
+// Shown when a postcode has no election running. Most of the country is in that position most of the time, and
+// "nothing here" is a poor answer: the representatives, the next scheduled elections and the local record all exist.
+export default async function Place({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const sp = await searchParams;
-  const locm = typeof sp.loc === "string" ? sp.loc.match(/^(-?\d{1,2}\.\d{1,3}),(-?\d{1,3}\.\d{1,3})$/) : null;
-  const loc = locm ? { lat: Number(locm[1]), lng: Number(locm[2]) } : null;
   const outcode = typeof sp.pc === "string" && /^[A-Z]{1,2}\d[A-Z\d]?$/i.test(sp.pc) ? sp.pc.toUpperCase() : null;
-  const area = typeof sp.area === "string" ? sp.area.slice(0, 80) : null;
-  // Elections Democracy Club lists at this postcode that we do not cover yet: "label|date" pairs, at most three.
-  const next = (typeof sp.next === "string" ? sp.next.split(";") : []).map((s) => s.split("|")).filter((p) => p.length === 2 && /^\d{4}-\d{2}-\d{2}$/.test(p[1])).slice(0, 3) as [string, string][];
-  const today = new Date().toISOString().slice(0, 10);
-  const scheduled = SCHEDULED.filter((s) => s.date >= today).slice(0, 2);
-  if (!loc && !outcode) {
-    return (<><h1>Where do you live?</h1><p>Enter a postcode on the <Link href="/">home page</Link> and this page shows your next vote and who represents you now.</p></>);
+  const m = typeof sp.loc === "string" ? sp.loc.match(/^(-?\d{1,2}\.\d{1,3}),(-?\d{1,3}\.\d{1,3})$/) : null;
+  const loc = m ? { lat: Number(m[1]), lng: Number(m[2]) } : null;
+  let area: { constituency: string | null; gss: string | null; district: string | null; country: string | null } = { constituency: null, gss: null, district: null, country: null };
+  if (loc) {
+    try {
+      const r = await fetch(`https://api.postcodes.io/postcodes?lon=${loc.lng}&lat=${loc.lat}&limit=1&radius=600`, { next: { revalidate: 604800 } }).then((x) => x.json());
+      const p = r?.result?.[0];
+      if (p) area = { constituency: p.parliamentary_constituency, gss: p.codes?.parliamentary_constituency ?? null, district: p.admin_district, country: p.country };
+    } catch { /* optional */ }
   }
+  const ballots = await listBallots();
+  const soonest = ballots.filter((b) => b.poll_date >= new Date().toISOString().slice(0, 10)).slice(0, 3);
   return (
     <>
-      <p className="eyebrow">{outcode ? `Around ${outcode}` : "Your area"}{area ? ` · ${area}` : ""}</p>
-      <h1>Nothing to vote in here right now. Here is what there is.</h1>
-      <p className="lede">No election at this postcode is covered yet. That is normal: most of the country has nothing to vote in until May 2027. What you can see now is your next vote, and everyone who already represents you.</p>
+      <p className="eyebrow">Your area{outcode ? ` · ${outcode}` : ""}</p>
+      <h1>No election here right now — but plenty is happening</h1>
+      <p className="lede">There is no election running at that postcode today. Most of the UK has none until May 2027. Here is who represents you now, when you next get a vote, and what the public record says about the ground around you.</p>
 
-      <section className="next-vote" aria-labelledby="next-vote">
-        <h2 id="next-vote">Your next vote</h2>
-        {next.length ? (
-          <ul>
-            {next.map(([label, date]) => <li key={label + date}><strong>{label}</strong> — {fmt(date)}. <span className="meta">Listed by Democracy Club; we add it as candidates are confirmed.</span></li>)}
-          </ul>
-        ) : null}
-        {scheduled.map((s) => (
-          <p key={s.id}><strong>{s.title}</strong> — {s.when}. {s.detail} <span className="meta">{s.certainty}; {s.sources.map(([t, u], i) => <span key={u}>{i ? ", " : ""}<a href={u} rel="noopener">{t}</a></span>)}.</span></p>
-        ))}
-        <p className="meta">We add every by-election as its nominations close, and every seat in the country for the May 2027 local elections. Check you are registered at <a href="https://www.gov.uk/register-to-vote" rel="noopener">gov.uk/register-to-vote</a>.</p>
-      </section>
+      <Suspense fallback={<p className="meta">Looking up your next elections…</p>}>
+        <NextElections lat={loc?.lat ?? null} lng={loc?.lng ?? null} />
+      </Suspense>
 
-      <section id="map" aria-label="Map of where you live" style={{ scrollMarginTop: "6rem" }}>
-        <AreaMap ballotId="" areaName={area ?? outcode ?? "your area"} lat={loc?.lat ?? null} lng={loc?.lng ?? null} outcode={outcode} levelLabel="area" loc={loc} />
-      </section>
-      {loc ? <Suspense fallback={<p className="meta">Working out who represents this postcode…</p>}><Layers lat={loc.lat} lng={loc.lng} electionCouncil={null} /></Suspense> : null}
-      {loc ? <Suspense fallback={null}><PlacePanel lat={loc.lat} lng={loc.lng} /></Suspense> : null}
+      {loc ? (
+        <>
+          <h2>The ground around you</h2>
+          <AreaMap areaName={area.constituency ?? outcode ?? "your area"} lat={loc.lat} lng={loc.lng} outcode={outcode} levelLabel="constituency" loc={loc} />
+          <Suspense fallback={null}><PlacePanel lat={loc.lat} lng={loc.lng} /></Suspense>
+          <Suspense fallback={<p className="meta">Working out who represents this postcode…</p>}>
+            <Layers lat={loc.lat} lng={loc.lng} electionCouncil={null} />
+          </Suspense>
+          <Suspense fallback={null}>
+            <AreaPanel areaName={area.constituency ?? "your constituency"} level="parliamentary" lat={loc.lat} lng={loc.lng} pointNote={null} gss={area.gss} loc={loc} />
+          </Suspense>
+        </>
+      ) : null}
 
-      <p><Link href="/start" className="button">Build my profile</Link> <span className="meta">Kept on this device only, so your ballot page is ready the moment your election appears.</span></p>
-      <p className="meta">Meanwhile you can look at any election we cover, whether or not you live there: <Link href="/#elections">what's coming up</Link>.</p>
+      <h2>See how an election looks here</h2>
+      <p>Open any election running now and you will see exactly what this site does when your turn comes: every candidate, in ballot-paper order, with what they have published and where it came from.</p>
+      <ul className="small">
+        {soonest.map((b) => <li key={b.ballot_paper_id}><Link href={`/ballot/${encodeURIComponent(b.ballot_paper_id)}`}>{b.area_name}</Link> — {new Date(b.poll_date + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", timeZone: "UTC" })}</li>)}
+      </ul>
+      <p className="meta">Not registered, or not sure? <a href="https://www.gov.uk/register-to-vote" rel="noopener">Register to vote</a> takes about five minutes, and you need photo ID at a polling station in Great Britain. <Link href="/learn">How voting works</Link> · <Link href="/status">Is this data up to date?</Link></p>
     </>
   );
 }
