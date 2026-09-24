@@ -92,7 +92,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
       {!ballot.archived ? <Journey ballotId={ballotId} current="" qs={qs} /> : null}
       <div className="ballot-masthead">
         <div className="masthead-main">
-          <p className="lede">{candidates.length} candidates{ballot.winner_count > 1 ? ` for ${ballot.winner_count} seats` : ""}. Same page for each, in ballot-paper order.</p>
+          <p className="lede">{candidates.length} candidates{ballot.winner_count > 1 ? ` for ${ballot.winner_count} seats` : ""}. The same page for each of them, in the order you will see on the ballot paper. Read them all, or start with the one you have heard of.</p>
           <div className="overview" aria-label="This election at a glance">
             <div><b><CountUp value={candidates.length} /></b><span>candidates{ballot.winner_count > 1 ? ` for ${ballot.winner_count} seats` : " for one seat"}</span></div>
             <div><b><CountUp value={claims.length} /></b><span>sourced positions</span></div>

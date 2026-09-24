@@ -1347,3 +1347,9 @@ main a { overflow-wrap: anywhere; }
 .whats-it-topics span { font-weight: 600; }
 .whats-it-shift { margin: 0.8rem 0 0.2rem; font-size: 1.02rem; }
 .whats-it-shift a { margin-right: 0.15rem; }
+
+/* Council page (Romily, round six q7) */
+.council-links { font-family: var(--sans); font-size: 0.92rem; margin: 0.6rem 0 1.2rem; }
+.council-topic { border-top: 1px solid var(--rule); padding-top: 0.6rem; }
+.council-fact { margin: 0.4rem 0 1rem; }
+.council-quote { margin: 0.3rem 0 0.3rem; padding: 0.4rem 0.9rem; border-left: 3px solid var(--ink); font-family: var(--serif); font-size: 1.02rem; }

@@ -25,7 +25,7 @@ A non-partisan UK voter-information site. Someone enters a postcode and a few ho
 | Things we will refuse to build | [docs/never-build.md](never-build.md) |
 | How to write a claim | [docs/claims-style-guide.md](claims-style-guide.md) |
 | Parity audit, partners, Welsh handover | [docs/parity-audit.md](parity-audit.md), [docs/partners.md](partners.md), [docs/welsh.md](welsh.md) |
-| Research brief and the seven papers | [docs/research/](research/) — start at [INDEX.md](research/INDEX.md) |
+| Research briefs and the ten papers | [docs/research/](research/) — start at [INDEX.md](research/INDEX.md) |
 | Romily's question rounds and her answers | [docs/romily/](romily/) — [README.md](romily/README.md); every answer with its status: [feedback-log.md](romily/feedback-log.md) |
 | Source of the questions site (romily-app-questions.netlify.app) | [docs/romily/questions-site/](romily/questions-site/) |
 | External datasets loaded once (sources, licences, refresh cadence) | [scripts/loaders/README.md](../scripts/loaders/README.md) |
@@ -79,7 +79,7 @@ From the research index and round six. Answers arrive in the Netlify form `romil
 - **Romily:** what she wants rethought in the local-issues rule (round six q12).
 - **Romily:** which journey shape — steps (`/journey/steps`) or one page opening up (`/journey/flow`); both are built, unlinked and noindex.
 - **Romily:** reconsider the "nothing found" wording (she said fine for now).
-- **Next build, from round six:** the council page; the site-wide copy pass after the opening line; unelected bodies behind "Who else runs things here"; promises-and-votes research round two. Full detail in [docs/romily/feedback-log.md](romily/feedback-log.md).
+- **From round six, still open:** council motions by proposing group; a refresh routine for the council facts in lib/councils.json; the rest of the copy pass once the opening line is chosen. Full detail in [docs/romily/feedback-log.md](romily/feedback-log.md).
 
 ## Handover items still needing a human
 

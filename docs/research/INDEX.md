@@ -1,7 +1,7 @@
 # Research index — What's It To Me?
 
 **Date:** 24 September 2026
-**Brief:** [00-BRIEF.md](00-BRIEF.md) (seven questions, in priority order). Paper 08 is the earlier data-source test the brief builds on.
+**Brief:** [00-BRIEF.md](00-BRIEF.md) (seven questions, in priority order); [00-BRIEF-round-2.md](00-BRIEF-round-2.md) (questions 8–10, from Romily's round six). Paper 08 is the earlier data-source test the first brief builds on.
 **How this was done:** one researcher per question, then an independent fact-check of each file. The fact-check re-opened the sources, corrected errors and moved anything it couldn't confirm into that file's "Could not verify" list. No file recommends, ranks or scores any candidate or party, and none picks an option for Romily or Barny.
 
 | # | File | One-line conclusion |
@@ -15,6 +15,7 @@
 | 7 | [07-running-costs.md](07-running-costs.md) | The site shares a $9/month, 1,000-credit Netlify pot with 27 other sites. It has run out every month since June, and all sites were suspended at 10:08 UTC on 24 Sep (the site was back by 10:22). Each production deploy costs 15 credits. Rough monthly costs for Netlify, Vercel, Cloudflare and Supabase are set out under stated assumptions; no vendor is picked. |
 | 8 | [08-track-record-sources.md](08-track-record-sources.md) | Data sources tested 24 Sep before the brief: Commons Votes API (free, per-MP), TheyWorkForYou (paid key; topic summaries are mySociety's judgement), Modern.gov web service (no individual votes; some councils block), ElectionLeaflets.org API, planning.data.gov.uk (England only). |
 | 9 | [09-sources-behind-lih-and-dashboard.md](09-sources-behind-lih-and-dashboard.md) | Local Intelligence Hub (Climate Coalition, mySociety, Green Alliance) and Open Innovations' Constituency Dashboards are aggregators, not sources. Underneath: around 60 official datasets we don't yet use, nearly all OGL or Open Parliament Licence, all by constituency. Biggest gaps they expose: crime, income and wages, GP access, school attainment and funding, fuel poverty. Campaign polling, TheyWorkForYou stances and movement data are separated out. |
+| 10 | [10-promises-every-method.md](10-promises-every-method.md) | Six families of method for putting a promise next to what happened. Only two stay pure fact: a named Bill's Royal Assent date from Parliament's Bills API (18 of 25 Labour 2024 commitments checked have one; 3 still going through; 4 have no Bill) and a numbered money pledge checked against a Treasury or OBR document. Every other method needs a human judgement, and every tracker says so. All of them work only for the governing party; the published practice is to say why data is absent. |
 
 ## Decisions these papers put to Romily or Barny
 

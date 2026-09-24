@@ -29,7 +29,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
         <div className="hero-main">
 
         <h1>Politics affects your life. Understanding it <em>shouldn&rsquo;t be difficult.</em></h1>
-        <p className="lede" style={{ maxWidth: "44rem" }}>See who is asking for your vote, what they have actually published, and what it could mean for a household like yours.</p>
+        <p className="lede" style={{ maxWidth: "44rem" }}>Someone is asking for your vote. Here is who they are, what they have actually put in writing, and what it could mean for a home like yours.</p>
         
         <form action={findElection} className="find-big" aria-label="Find your election">
           <label htmlFor="postcode">Your postcode</label>
@@ -40,7 +40,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
           <p className="meta">Used once to find the elections at that address, via Democracy Club. Never kept by us. <Link href="/start" className="quiet-link">Or build your profile first →</Link></p>
           {error ? <p className="notice small" role="alert" style={{ marginTop: "0.6rem" }}>{error}</p> : null}
         </form>
-        <p className="hero-rules">No political quiz. No recommendation. Just the evidence: every candidate gets the same page, in ballot-paper order, and every statement links to where it was published.</p>
+        <p className="hero-rules">We will never tell you who to vote for, and we never score anyone. Every candidate gets the same page, in the order they appear on the ballot paper, and every statement links to where they said it. The judgement stays with you.</p>
         </div>
         <TryPostcode today={new Date().toISOString().slice(0, 10)} />
         <aside className="word-card" aria-label="Where the name comes from">
@@ -108,8 +108,8 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
 
       <ol className="steps">
         <li><strong>Open a ballot</strong>Every candidate, from the official nomination list, in the order they appear on the paper.</li>
-        <li><strong>Describe a household</strong>Seven quick bands. Yours, a friend's, a neighbour's. Nothing is saved.</li>
-        <li><strong>See what applies</strong>Calculated tax and benefit figures, and each candidate's published positions on nine topics, with sources and independent further reading.</li>
+        <li><strong>Describe a household</strong>Seven quick questions. Yours, a friend's, a neighbour's, someone unlike you. Nothing leaves your device.</li>
+        <li><strong>See what applies</strong>What each candidate has said on nine topics, what it would mean for that household in pounds where it can be calculated, and where every word came from.</li>
       </ol>
 
       {ballots.length > 3 ? (<>
