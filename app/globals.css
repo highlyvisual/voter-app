@@ -1189,3 +1189,6 @@ html.lite .name-strip { display: flex; }
 .jf-tname { font-family: var(--sans); font-weight: 700; }
 .jf-tn { font-family: var(--display); font-weight: 800; font-size: 1.6rem; line-height: 1; grid-row: span 2; }
 .jf-tbody { padding: 0.5rem 0 0.2rem; }
+.key-what { background: none; border: 0; padding: 0 0.2rem; margin: 0 0.4rem 0 0; font: inherit; font-size: 0.85rem; color: var(--ink-soft); text-decoration: underline; cursor: pointer; transform: none; box-shadow: none; }
+.key-what:hover, .key-what.on { color: var(--ink); background: none; transform: none; box-shadow: none; }
+.key-explain { display: block; margin: 0.5rem 0 0.2rem; padding: 0.6rem 0.8rem; border-left: 3px solid var(--ink); background: var(--panel); font-size: 0.92rem; color: var(--ink); }

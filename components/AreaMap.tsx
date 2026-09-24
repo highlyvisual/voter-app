@@ -7,7 +7,8 @@ type Props = { ballotId: string; areaName: string; lat: number | null; lng: numb
 declare global { interface Window { L?: any } }
 
 export default function AreaMap({ ballotId, areaName, lat, lng, outcode, levelLabel, loc = null }: Props) {
-  const [layers, setLayers] = useState<{ label: string; colour: string; n: number }[]>([]);
+  const [layers, setLayers] = useState<{ label: string; colour: string; n: number; whatItMeans?: string; more?: string }[]>([]);
+  const [explain, setExplain] = useState<string | null>(null);
   const [hidden, setHidden] = useState<Record<string, boolean>>({});
   const groups = (typeof window !== "undefined" ? ((window as unknown as { __tsmLayers?: Record<string, { addTo: (m: unknown) => void; remove: () => void }> }).__tsmLayers ??= {}) : {}) as Record<string, { addTo: (m: unknown) => void; remove: () => void }>;
   const mapRefObj = useRef<unknown>(null);
@@ -45,7 +46,7 @@ export default function AreaMap({ ballotId, areaName, lat, lng, outcode, levelLa
       if (loc) {
         try {
           const res = await fetch(`/api/place-layers?lat=${loc.lat}&lng=${loc.lng}&ballot=${encodeURIComponent(ballotId)}`).then((r) => r.json());
-          const found: { label: string; colour: string; n: number }[] = [];
+          const found: { label: string; colour: string; n: number; whatItMeans?: string; more?: string }[] = [];
           const homes = (p: Record<string, string>) => p["maximum-net-dwellings"] || p["minimum-net-dwellings"] || "";
           for (const l of res?.layers ?? []) {
             const popup = (pr: Record<string, string>) => {
@@ -63,7 +64,7 @@ export default function AreaMap({ ballotId, areaName, lat, lng, outcode, levelLa
               onEachFeature: (f: { properties?: Record<string, string> }, lyr: { bindPopup: (s: string) => void }) => lyr.bindPopup(popup(f.properties ?? {})),
             }).addTo(map);
             groups[l.label] = layer;
-            found.push({ label: l.label, colour: l.colour, n: l.count });
+            found.push({ label: l.label, colour: l.colour, n: l.count, whatItMeans: l.whatItMeans, more: l.more });
           }
           try {
             const ov = await fetch(`/api/overflows?lat=${loc.lat}&lng=${loc.lng}`).then((r) => r.json());
@@ -79,7 +80,7 @@ export default function AreaMap({ ballotId, areaName, lat, lng, outcode, levelLa
               })).addTo(map);
               groups["Storm overflows"] = g as unknown as { addTo: (m: unknown) => void; remove: () => void };
               const live = list.filter((o) => o.status === 1).length;
-              found.push({ label: live ? `Storm overflows (${live} discharging now)` : "Storm overflows", colour: OVC, n: list.length });
+              found.push({ label: live ? `Storm overflows (${live} discharging now)` : "Storm overflows", colour: OVC, n: list.length, whatItMeans: "Points where a water company is allowed to release untreated sewage mixed with rainwater into a river or the sea when its system is overwhelmed. Filled dots are discharging now, from the company's own live feed; verified annual figures are published separately by the Environment Agency.", more: "https://www.gov.uk/government/publications/storm-overflows-discharge-reduction-plan" });
               if (live) groups[`Storm overflows (${live} discharging now)`] = groups["Storm overflows"];
             }
           } catch { /* optional */ }
@@ -105,7 +106,9 @@ export default function AreaMap({ ballotId, areaName, lat, lng, outcode, levelLa
           <button key={l.label} type="button" className={`key-item key-toggle${hidden[l.label] ? " off" : ""}`} aria-pressed={!hidden[l.label]} onClick={() => { const g = groups[l.label]; const off = !hidden[l.label]; if (g && mapRefObj.current) { off ? g.remove() : g.addTo(mapRefObj.current); } setHidden((h) => ({ ...h, [l.label]: off })); }}>
             <span className="key-swatch" style={{ background: l.colour }} aria-hidden /> {l.label} ({l.n})
           </button>
-        ))} Tap any shape or dot for what it is, the official record, and what candidates here have published on it. These are facts about the ground, not anyone's proposals. Layer colours are chosen to be unlike any party's.</p>
+        ))}
+        {layers.map((l) => l.whatItMeans ? <button key={`${l.label}-q`} type="button" className={`key-what${explain === l.label ? " on" : ""}`} aria-expanded={explain === l.label} onClick={() => setExplain((e) => (e === l.label ? null : l.label))} title={`What "${l.label}" means`}>What does "{l.label.replace(/ \(.*\)$/, "")}" mean?</button> : null)}
+        {explain ? (() => { const l = layers.find((x) => x.label === explain); return l?.whatItMeans ? <span className="key-explain" role="note"><strong>{l.label.replace(/ \(.*\)$/, "")}:</strong> {l.whatItMeans}{l.more ? <> <a href={l.more} target="_blank" rel="noopener">Official guidance →</a></> : null}</span> : null; })() : null} Tap any shape or dot for what it is, the official record, and what candidates here have published on it. These are facts about the ground, not anyone's proposals. Layer colours are chosen to be unlike any party's.</p>
       ) : null}
       <p className="meta map-note">Boundary: ONS Open Geography Portal (Open Government Licence). Map tiles: OpenStreetMap. {outcode ? "The highlighted circle is the centre of your postcode district, not your address." : ""}</p>
     </div>
