@@ -67,6 +67,7 @@ Dates are when the decision was made or relayed. Newest last.
 | 24 Sep | Barny | Logo now the profiles-and-question-mark emblem, home lockup "Politics, in your context." Never to be regressed. |
 | 24 Sep | Barny | Map legend layer colours must be clearly different from each other and clearly not party colours; each legend item links to an explanation of what it means in context. |
 | 24 Sep | Romily | Empty record section: option 4 from paper 03 — party positions for everyone, a candidate's own record as extra, with the same neutral factual line for anyone without a record. Built 24 Sep. |
+| 24 Sep | Romily | Round six answers: no council business on a parliamentary by-election page, the council gets its own page ("What's happening where you live" by topic, sources, then councillors with a register-of-interests link; no attendance, no allowances); no-record line in her wording; promises and votes kept separate for now, research to continue on every method; "regional" becomes whatever exists between council and Westminster as a layered mechanism, elected bodies first; local-issues rule to be rethought; the whole site's copy to sound human, emotional yet factual, never AI. |
 | 24 Sep | Romily | Round five answers (full text in [docs/romily/README.md](romily/README.md)): all seven journey changes in progress; feedback version after the new journey; profile with postcode as step one but not framed as "where do you live", with the option to skip; photos only on a candidate's own page, name and party everywhere else; topics ordered by profile with the reason shown, then "Explore all topics"; no-election postcodes get next vote and representatives, then the map; all five levels shown for each layer of government; global issues included; leans to strict pledge-to-vote pairing with no verdict; wants to see both journey shapes (steps vs one page). |
 
 ## Open decisions (waiting on a person)
@@ -75,12 +76,10 @@ From the research index and round six. Answers arrive in the Netlify form `romil
 
 - **Barny:** which opening line (paper 01).
 - **Barny:** what to do about the shared Netlify credit pot before 8 October — separate team or plan, fewer deploys, or another host (paper 07).
-- **Romily:** adopt the strict pledge-to-vote pairing rule, and the per-topic way of choosing pledges? (paper 02)
-- **Romily:** what, if anything, to show for councillors where named votes don't exist (paper 04).
-- **Romily:** what "regional" means on the site, level by level (paper 05).
-- **Romily:** whether council business belongs on a parliamentary by-election page at all, and the thresholds in the local-issues rule (paper 06).
+- **Romily:** what she wants rethought in the local-issues rule (round six q12).
 - **Romily:** which journey shape — steps (`/journey/steps`) or one page opening up (`/journey/flow`); both are built, unlinked and noindex.
 - **Romily:** reconsider the "nothing found" wording (she said fine for now).
+- **Next build, from round six:** the council page; the site-wide copy pass after the opening line; unelected bodies behind "Who else runs things here"; promises-and-votes research round two. Full detail in [docs/romily/feedback-log.md](romily/feedback-log.md).
 
 ## Handover items still needing a human
 

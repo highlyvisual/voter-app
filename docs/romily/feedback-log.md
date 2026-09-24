@@ -89,6 +89,28 @@ Status key: **Done** · **Done, her way changed later** · **Partly** · **Waiti
 | 19 | Councillors: research first. | **Done** — paper 04. **Waiting on Romily** (round six q7–9). |
 | — | "Housing. What's it to me? Tax… The council… Climate policy… What's it to my neighbourhood? My region? The country? Someone unlike me? — include it cleverly, keep it impartial." | **Done 24 Sep (was missed until this audit).** Home-page progression, each line a link to a page that treats every candidate the same; "someone unlike me" opens the ballot for a different household. |
 
+## Round six — 24 September, 14:39 UTC (form `romily-answers-round-6`)
+
+| # | She said | Status |
+|---|---|---|
+| 1 | Council business on the Holborn and St Pancras page: **nothing** — "the camden council can come up seperately not under the same page or area as this election as that complicates things - do include it though". | **Done** as far as the by-election page goes (it shows no council business). The separate council page is the new work item (see q7). |
+| 2 | Record layout: party positions for everyone, a candidate's own record as extra (option 4). | **Done** — built and deployed 24 Sep. |
+| 3 | No-record line: "Has not held this office before, so there is no voting record to show." | **Done 24 Sep** — her sentence, verbatim, with a line beneath saying what was checked (Parliament's Members register). Council candidates keep the factual line about councils not recording votes, because we cannot verify past council office. |
+| 4 | Promises against votes: **no pairing for now**, show promises and votes separately. "I dont want to do this right now, as this will take a long time and we need to train the AI… It doesn't have to be pairings necessarily but look at MP's policies and see what they followed through - we would have to state clearly why some parties or MP's don't have the data." | **Done** — this is the current state (manifesto pledges and the voting record are separate sections). Research continues (q17). |
+| 5 | How pledges are chosen: "other", no detail. | Moot while q4 is "no pairing". |
+| 6 | Wording where a promise has no vote: "leave this for now." | **Parked** at her request. |
+| 7 | Councillors: only a **link to their register of interests** (not summarised). Then the bigger idea: "Lets focus on Councils as the major data set — What's happening where you live: Housing (your council plans to build X homes by 2030; two major developments being considered) · Transport (the council is consulting on X) · Council tax (the council approved X for 2026–27) · Environment (the council has committed to X target) · Education (X change is proposed for local schools). Sources: council plan · budget · meeting papers — then introduce councillors." | **New work item: a council page.** We hold council tax (MHCLG), control and councillors (Open Council Data), council pledges (manual), planning layers and brownfield sites (planning.data.gov.uk). Local Plan housing targets, consultations and meeting papers need new loaders (Modern.gov where open; Camden blocks us — paper 06). Register-of-interests links need a per-council URL we do not yet hold. |
+| 8 | Attendance: don't show. | **Done** (never built). |
+| 9 | Allowances: don't show at all. | **Done** (never built). |
+| 10 | "Regional": one row showing whatever exists between council and Westminster; "This shouldnt be set up as a table rather as an interactive layered mechanism - maybe stop using regional and use the word wider area instead. When i said regional earlier i was applying how each parties mandates affects the entirety of the united kingdom and europe etc." | **Partly.** The word "regional" is not used on the site; /place already shows representatives layer by layer. Combined authorities, the GLA, PCCs and the devolved bodies still need our own tables (paper 05). Her clarification — the UK-and-Europe reach of a party's mandate — is the defence, foreign affairs and EU topic, now sourced for every party. |
+| 11 | Unelected bodies: elected first, unelected behind "Who else runs things here". | **To build** with the paper 05 tables; nothing unelected is shown today. |
+| 12 | Local-issues rule: **rethink it** (no detail). | **Waiting on Romily** — what to rethink. Meanwhile the by-election page shows no council items (q1), so nothing is live that depends on the rule. |
+| 13 | Council motions: show all, labelled with the proposing group, and later the result. | **To build** as part of the council page; depends on a council whose Modern.gov feed we can read (five of eight, paper 06). |
+| 14 | Fixes to the rule: none ticked. | — |
+| 15 | For Dad on the opening line: "I don't want it to sound AI, in fact I want you to go through the whole web and make it sound more human, still impartial, but I want it to feel emotional yet factual - I want the messages to be powerful, not easily guessed to be AI. Politics is personal". | **Waiting on Barny** for the line; **site-wide copy pass** is a new work item, to do after the line is chosen so the voice is set once. |
+| 16 | Did the research change her mind: blank. | — |
+| 17 | Next research: "continue looking into promises and votes, be clever i know their is a way we can do this… it doesn't have to be pairs or word but calculations or lets look into ALL OPTIONS - take your time, make it good." | **New research brief** (round two of RESEARCH-BRIEF.md): every method, including computed ones, with the no-verdict rule intact. |
+
 ## WhatsApp, 24 September
 
 | She said | Status |
@@ -99,10 +121,12 @@ Status key: **Done** · **Done, her way changed later** · **Partly** · **Waiti
 
 ## What is left, and who it waits on
 
-**Waiting on Romily (round six, or by WhatsApp):** council business on a by-election page and the local-issues rule thresholds (q1, q12–14); pledge-to-vote pairing and how pledges are chosen (q4–6); what to show for councillors (q7–9); what "regional" means, level by level (q10–11); which journey shape; whether area statistics belong and which gap first; transport as a tenth topic; the nothing-found wording, when she wants to; the Democracy Club call slot.
+**Waiting on Romily:** what she wants rethought in the local-issues rule (round six q12); which journey shape (steps or one page); whether area statistics belong and which gap first; transport as a tenth topic; the nothing-found wording, when she wants to; the Democracy Club call slot.
+
+**New work from round six, in order:** (1) a council page — "What's happening where you live" by topic with sources, then the councillors with a register-of-interests link, motions labelled by proposing group; (2) the site-wide copy pass once the opening line is chosen; (3) unelected bodies behind "Who else runs things here" once the paper 05 tables exist; (4) promises-and-votes research, round two.
 
 **Waiting on Barny:** the opening line (paper 01); the Netlify credit pot before 8 October (paper 07); whether to revisit the identity questions (round three q7).
 
 **Needs a person neither of us can conjure:** a Welsh translator (docs/welsh.md).
 
-**Nothing else outstanding.** Every other answer she has given has been built, researched, or superseded by a later answer of hers, and the two misses found in this audit (the "where do you live" wording and the "What's it to me?" progression) were fixed on 24 September.
+**Nothing else outstanding** from rounds one to five: every other answer has been built, researched, or superseded by a later answer of hers, and the two misses found in this audit (the "where do you live" wording and the "What's it to me?" progression) were fixed on 24 September.

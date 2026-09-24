@@ -11,7 +11,7 @@ Romily is the project owner. Each round of decisions is put to her as a page on 
 | 3 | `/round-3/` | Decisions (party colours kept to party material, hero glow neutralised, place panel) | Answered |
 | 4 | `/round-4/` | The About page and Who we are message | Answered; her message is published verbatim on whatsittome.org/who-we-are |
 | 5 | `/round-5/` | Shaping the journey | Answered 24 Sep, 12:08 — below |
-| 6 | `/round-6/` | What the research found: 17 questions in six sections | Published 24 Sep; 0 submissions at publish |
+| 6 | `/round-6/` | What the research found: 17 questions in six sections | Answered 24 Sep, 14:39 UTC — see feedback-log.md |
 
 ## Round five answers (24 Sep 2026, 12:08)
 

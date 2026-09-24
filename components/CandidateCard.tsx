@@ -174,7 +174,11 @@ export default async function CandidateCard({
           <section className="slot record">
             <h4>Record in office</h4>
             {level === "parliamentary" ? (
-              <p className="empty">No parliamentary record: UK Parliament's Members register does not list this candidate as a current or former MP or member of the Lords, so there are no votes to show. Every candidate has this section; positions below come from what the candidate and their party have published.</p>
+              <>
+                {/* Wording is Romily's (round six, q3). The line beneath says what was checked. */}
+                <p className="empty">Has not held this office before, so there is no voting record to show.</p>
+                <p className="meta">Checked against UK Parliament's Members register, which lists no current or former MP of this name. Every candidate has this section; positions below come from what the candidate and their party have published.</p>
+              </>
             ) : (
               <p className="empty">No voting record is shown for any council candidate: councils record votes by name only in limited cases (in England, budget and council tax decisions), and no dataset of them exists. Positions below come from what the candidate and their party have published.</p>
             )}
