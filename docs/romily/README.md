@@ -1,5 +1,7 @@
 # Romily's question rounds
 
+Every answer she has given, with its status against the site, is in [feedback-log.md](feedback-log.md).
+
 Romily is the project owner. Each round of decisions is put to her as a page on https://romily-app-questions.netlify.app/ with a Netlify form for her answers. The source of that site is in [questions-site/](questions-site/) (rounds 2–6 and the research pages; round one is the site's home page). Her answers land in Netlify forms named `romily-answers-round-N`.
 
 | Round | Page | Subject | Status (24 Sep 2026) |

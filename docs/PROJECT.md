@@ -26,7 +26,7 @@ A non-partisan UK voter-information site. Someone enters a postcode and a few ho
 | How to write a claim | [docs/claims-style-guide.md](claims-style-guide.md) |
 | Parity audit, partners, Welsh handover | [docs/parity-audit.md](parity-audit.md), [docs/partners.md](partners.md), [docs/welsh.md](welsh.md) |
 | Research brief and the seven papers | [docs/research/](research/) — start at [INDEX.md](research/INDEX.md) |
-| Romily's question rounds and her answers | [docs/romily/](romily/) — [README.md](romily/README.md) |
+| Romily's question rounds and her answers | [docs/romily/](romily/) — [README.md](romily/README.md); every answer with its status: [feedback-log.md](romily/feedback-log.md) |
 | Source of the questions site (romily-app-questions.netlify.app) | [docs/romily/questions-site/](romily/questions-site/) |
 | External datasets loaded once (sources, licences, refresh cadence) | [scripts/loaders/README.md](../scripts/loaders/README.md) |
 | SQL for those tables | [scripts/sql/migrations/](../scripts/sql/migrations/) |

@@ -1338,3 +1338,12 @@ h1 { font-size: clamp(1.9rem, 5.2vw + 0.6rem, 3.9rem); }
 main a { overflow-wrap: anywhere; }
 .face-label { max-width: min(16rem, 80vw); }
 .compare-controls label, .compare .small { white-space: normal; }
+
+/* "What's it to me?" progression on the home page (Romily, round 5) */
+.whats-it { margin: 1.6rem 0 0.4rem; padding: 1.1rem 0 0.2rem; border-top: 1px solid var(--rule); }
+.whats-it-topics { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr)); gap: 0.35rem 1.2rem; font-family: var(--serif, inherit); font-size: 1.15rem; }
+.whats-it-topics a { text-decoration: none; color: var(--ink); }
+.whats-it-topics a:hover { text-decoration: underline; }
+.whats-it-topics span { font-weight: 600; }
+.whats-it-shift { margin: 0.8rem 0 0.2rem; font-size: 1.02rem; }
+.whats-it-shift a { margin-right: 0.15rem; }

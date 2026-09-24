@@ -68,6 +68,21 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
         "We never ask who you support",
       ]} />
 
+      {/* Romily (round 5, "anything else"): the question, asked of each topic, then with the perspective widened. Every link goes to a page
+          that treats every candidate the same; the order is fixed and nothing here depends on who is standing. */}
+      {ballots.length ? (() => { const b = encodeURIComponent(ballots[0].ballot_paper_id); return (
+        <section className="whats-it" aria-label="What's it to me?">
+          <ul className="whats-it-topics">
+            <li><Link href={`/ballot/${b}/topic/housing_and_property`}><span>Housing.</span> What&rsquo;s it to me?</Link></li>
+            <li><Link href={`/ballot/${b}/topic/money_and_cost_of_living`}><span>Tax.</span> What&rsquo;s it to me?</Link></li>
+            <li><Link href={`/ballot/${b}/office`}><span>The council, the MP.</span> What&rsquo;s it to me?</Link></li>
+            <li><Link href={`/ballot/${b}/topic/environment_climate_and_energy`}><span>Climate policy.</span> What&rsquo;s it to me?</Link></li>
+          </ul>
+          <p className="whats-it-shift">Then widen the question: <Link href={`/ballot/${b}/area`}>what&rsquo;s it to my neighbourhood?</Link> <Link href={`/ballot/${b}/area#reps-heading`}>My region?</Link> <Link href="/parties">The country?</Link> <Link href={`/ballot/${b}?age_band=65_plus&household=single&children=none&tenure=social_rent&income_band=under_15k&employment=retired&student=no`}>Someone unlike me?</Link></p>
+          <p className="meta">Describe any household, not only your own. The same page, the same rules, for every candidate.</p>
+        </section>
+      ); })() : null}
+
       <p className="meta faces-note">{tiles.length} candidates are asking for a vote right now across {ballots.length} elections. Each election below lists them in ballot-paper order; photos appear only on a candidate's own page.</p>
 
       {ballots.length ? (
