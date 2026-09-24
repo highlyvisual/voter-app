@@ -43,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/how-to-vote">How to vote</Link>
               <Link href="/learn">Learn</Link>
               <Link href="/about">How this works</Link>
+              <Link href="/who-we-are">Who we are</Link>
               <Link href="/positions">Positions</Link>
               <Link href="/parties">Parties</Link>
               <Link href="/profile">My profile</Link>
