@@ -156,17 +156,30 @@ export default async function CandidateCard({
           )}
         </section>
 
-        {stoodBefore.length ? (
-          <section className="slot">
-            <h4>Stood before</h4>
+        {/* Round 6, option 4 (Romily, 24 Sept): every candidate has the same "Stood before" and "Record in office" sections in the same place.
+            Where there is nothing to show, the section says so as a fact about the sources, never as a judgement. */}
+        <section className="slot">
+          <h4>Stood before</h4>
+          {stoodBefore.length ? (<>
             <ul className="small" style={{ paddingLeft: "1.1rem", margin: "0.2rem 0" }}>
               {stoodBefore.slice(0, 6).map((p) => <li key={p.id}>{ballotLabel(p.ballot_paper_id)}{p.election_date ? `, ${new Date(p.election_date + "T00:00:00Z").toLocaleDateString("en-GB", { month: "long", year: "numeric", timeZone: "UTC" })}` : ""}{p.party ? ` (${p.party})` : ""}{p.elected === true ? " — elected" : p.elected === false ? " — not elected" : ""}</li>)}
               {stoodBefore.length > 6 ? <li className="meta">and {stoodBefore.length - 6} more; full history on their Democracy Club profile</li> : null}
             </ul>
             <p className="meta">Previous candidacies from Democracy Club. A record of standing, not a judgement.</p>
+          </>) : (
+            <p className="empty">No previous candidacy on Democracy Club's record. Every candidate has this section.</p>
+          )}
+        </section>
+        {record ? <ParliamentaryRecordView rec={record} note={candidate.parliament_match_note} /> : (
+          <section className="slot record">
+            <h4>Record in office</h4>
+            {level === "parliamentary" ? (
+              <p className="empty">No parliamentary record: UK Parliament's Members register does not list this candidate as a current or former MP or member of the Lords, so there are no votes to show. Every candidate has this section; positions below come from what the candidate and their party have published.</p>
+            ) : (
+              <p className="empty">No voting record is shown for any council candidate: councils record votes by name only in limited cases (in England, budget and council tax decisions), and no dataset of them exists. Positions below come from what the candidate and their party have published.</p>
+            )}
           </section>
-        ) : null}
-        {record ? <ParliamentaryRecordView rec={record} note={candidate.parliament_match_note} /> : null}
+        )}
 
         {leaflets.length ? (
           <section className="slot">
