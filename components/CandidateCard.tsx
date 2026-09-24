@@ -114,7 +114,7 @@ export default async function CandidateCard({
       <summary aria-label={`${candidate.name}, ${partyLabel}, ${total} ${total === 1 ? "position" : "positions"}`}>
         <div className="who">
           {showPhotos && candidate.photo_url ? (
-            <img className="avatar photo" src={img(candidate.photo_url)} alt="" loading="lazy" width={52} height={52} style={partyColour ? { boxShadow: `0 0 0 2px ${partyColour}` } : undefined} />
+            <img className="avatar photo" src={img(candidate.photo_url)} alt="" loading="lazy" width={52} height={52} data-initials={candidate.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("")} style={partyColour ? { boxShadow: `0 0 0 2px ${partyColour}` } : undefined} />
           ) : (
             <span className="avatar" aria-hidden style={partyColour ? { boxShadow: `inset 0 0 0 3px ${partyColour}`, background: "#fff", color: "var(--ink)" } : undefined}>{candidate.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("").toUpperCase()}</span>
           )}

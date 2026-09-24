@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { SCHEDULED } from "@/lib/scheduled";
+import ShowMore from "@/components/ShowMore";
 
 // "What's coming up": slide the horizon from two weeks to the next general election. Elections with confirmed
 // candidates (from Democracy Club) are listed in full; elections fixed by law but without candidates yet are shown as
@@ -41,6 +42,7 @@ export default function ElectionTimeline({ ballots, today }: { ballots: B[]; tod
         <strong>{inRange.length}</strong> {inRange.length === 1 ? "election" : "elections"} with candidates confirmed{sched.length ? <>, and <strong>{sched.length}</strong> scheduled {sched.length === 1 ? "election" : "elections"} whose candidates aren't known yet</> : ""}.
       </p>
 
+      <ShowMore label={`Show all ${inRange.length} elections`}>
       <ol className="tl">
         {dates.map((d) => {
           const dt = new Date(d + "T00:00:00Z");
@@ -91,6 +93,7 @@ export default function ElectionTimeline({ ballots, today }: { ballots: B[]; tod
           );
         })}
       </ol>
+      </ShowMore>
 
       {days !== null && days > 42 && inRange.length && lastConfirmed && lastConfirmed < end ? (
         <p className="meta gap-note">No other elections have candidates confirmed after {fmt(lastConfirmed)}. By-elections are added as they're called, usually a few weeks before polling day.</p>

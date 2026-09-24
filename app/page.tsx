@@ -23,6 +23,10 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
   return (
     <>
       <YourDemocracy />
+      <div className="home-lockup">
+        <img className="brand-light" src="/brand/lockup-light.png" alt="What&rsquo;s It To Me? Politics, in your context." width={633} height={514} />
+        <img className="brand-dark" src="/brand/lockup-dark.png" alt="What&rsquo;s It To Me? Politics, in your context." width={633} height={515} />
+      </div>
       <section className="hero-ballot hero-grid">
         <div className="hero-main">
 
@@ -72,7 +76,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
         <section className="democracy">
           <h2 style={{ borderTop: 0, paddingTop: 0, marginTop: 0 }}>What's happening now</h2>
           <ul className="keypoints">
-            <li><b>{Math.max(0, Math.round((new Date(ballots[0].poll_date + "T00:00:00Z").getTime() - new Date(new Date().toISOString().slice(0, 10) + "T00:00:00Z").getTime()) / 86400000))}</b>days until the next polling day, {new Date(ballots[0].poll_date + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", timeZone: "UTC" })}</li>
+            {(() => { const d = Math.max(0, Math.round((new Date(ballots[0].poll_date + "T00:00:00Z").getTime() - new Date(new Date().toISOString().slice(0, 10) + "T00:00:00Z").getTime()) / 86400000)); const when = new Date(ballots[0].poll_date + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", timeZone: "UTC" }); return d === 0 ? <li><b>Today</b>is polling day, {when}</li> : <li><b>{d}</b>{d === 1 ? "day" : "days"} until the next polling day, {when}</li>; })()}
             <li><b>{tiles.length}</b>candidates confirmed across {ballots.length} elections</li>
             <li><b>{recent.data?.length ?? 0}</b>sourced positions added in the last seven days</li>
           </ul>

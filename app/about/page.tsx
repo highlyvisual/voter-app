@@ -100,6 +100,9 @@ export default function About() {
         <li>Pledges: the party's or candidate's own published manifesto, website or statement, linked on every claim.</li>
       </ul>
 
+      <h2>Is this up to date?</h2>
+      <p>Election data is refreshed every morning from Democracy Club. <Link href="/status">The data status page</Link> shows exactly when each kind of information was last refreshed, and flags any election that has been missed &mdash; so you can check rather than take our word for it.</p>
+
       <h2 id="contact">Who runs this</h2>
       <p>
         What's It To Me is an independent, non-partisan, not-for-profit project. It answers one question: what would this election mean for you? Every candidate gets the same page, in ballot-paper order, and every statement links to where it was published. It takes no advertising and sells no data.

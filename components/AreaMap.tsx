@@ -3,10 +3,10 @@ import { useEffect, useRef, useState } from "react";
 
 // Leaflet map: the voting area's boundary (ONS), an approximate marker for the postcode district if one was supplied (outward code only),
 // and the area's representative point. Tiles from OpenStreetMap. Nothing about the viewer is recorded.
-type Props = { ballotId: string; areaName: string; lat: number | null; lng: number | null; outcode?: string | null; levelLabel: string; loc?: { lat: number; lng: number } | null };
+type Props = { ballotId?: string; areaName: string; lat: number | null; lng: number | null; outcode?: string | null; levelLabel: string; loc?: { lat: number; lng: number } | null };
 declare global { interface Window { L?: any } }
 
-export default function AreaMap({ ballotId, areaName, lat, lng, outcode, levelLabel, loc = null }: Props) {
+export default function AreaMap({ ballotId = "", areaName, lat, lng, outcode, levelLabel, loc = null }: Props) {
   const [layers, setLayers] = useState<{ label: string; colour: string; n: number }[]>([]);
   const [hidden, setHidden] = useState<Record<string, boolean>>({});
   const groups = (typeof window !== "undefined" ? ((window as unknown as { __tsmLayers?: Record<string, { addTo: (m: unknown) => void; remove: () => void }> }).__tsmLayers ??= {}) : {}) as Record<string, { addTo: (m: unknown) => void; remove: () => void }>;
@@ -24,7 +24,7 @@ export default function AreaMap({ ballotId, areaName, lat, lng, outcode, levelLa
       map.getContainer().setAttribute("role", "region");
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "&copy; OpenStreetMap contributors" }).addTo(map);
       try {
-        const gj = await fetch(`/api/boundary?ballot=${encodeURIComponent(ballotId)}`).then((r) => r.json());
+        const gj = ballotId ? await fetch(`/api/boundary?ballot=${encodeURIComponent(ballotId)}`).then((r) => r.json()) : null;
         if (gj?.features?.length) {
           const layer = L.geoJSON(gj, { style: { color: "#23262d", weight: 2, fillColor: "#23262d", fillOpacity: 0.07 } }).addTo(map);
           layer.bindTooltip(`${areaName} (${levelLabel} boundary)`, { sticky: true });
@@ -44,7 +44,7 @@ export default function AreaMap({ ballotId, areaName, lat, lng, outcode, levelLa
       // Local issues around the supplied point: areas you are inside, and sites you can tap.
       if (loc) {
         try {
-          const res = await fetch(`/api/place-layers?lat=${loc.lat}&lng=${loc.lng}&ballot=${encodeURIComponent(ballotId)}`).then((r) => r.json());
+          const res = await fetch(`/api/place-layers?lat=${loc.lat}&lng=${loc.lng}${ballotId ? `&ballot=${encodeURIComponent(ballotId)}` : ""}`).then((r) => r.json());
           const found: { label: string; colour: string; n: number }[] = [];
           const homes = (p: Record<string, string>) => p["maximum-net-dwellings"] || p["minimum-net-dwellings"] || "";
           for (const l of res?.layers ?? []) {
@@ -54,7 +54,7 @@ export default function AreaMap({ ballotId, areaName, lat, lng, outcode, levelLa
               const n = l.dataset === "brownfield-land" ? homes(pr) : "";
               const status = pr["planning-permission-status"] ? String(pr["planning-permission-status"]).replace(/-/g, " ") : "";
               const school = l.dataset === "educational-establishment" && pr.reference ? `<div style="margin-top:.35rem"><a href="https://reports.ofsted.gov.uk/provider/21/${pr.reference}" target="_blank" rel="noopener">Ofsted inspection reports</a> · <a href="https://get-information-schools.service.gov.uk/Establishments/Establishment/Details/${pr.reference}" target="_blank" rel="noopener">School details</a></div>` : "";
-              return `<strong>${l.label}</strong><br>${title}${n ? `<br><b>${n} homes</b> estimated${status ? `, ${status}` : ""}` : ""}<div style="margin-top:.35rem;font-size:.85em">${l.note}</div>${school}<div style="margin-top:.35rem"><a href="/ballot/${encodeURIComponent(ballotId)}/topic/${l.topic}">${nPub ? `${nPub} candidate${nPub === 1 ? " has" : "s have"} published on this — compare them →` : "What candidates have published on this →"}</a><br><a href="https://www.planning.data.gov.uk/entity/${pr.entity}" target="_blank" rel="noopener">The official record</a></div>`;
+              return `<strong>${l.label}</strong><br>${title}${n ? `<br><b>${n} homes</b> estimated${status ? `, ${status}` : ""}` : ""}<div style="margin-top:.35rem;font-size:.85em">${l.note}</div>${school}<div style="margin-top:.35rem">${ballotId ? `<a href="/ballot/${encodeURIComponent(ballotId)}/topic/${l.topic}">${nPub ? `${nPub} candidate${nPub === 1 ? " has" : "s have"} published on this — compare them →` : "What candidates have published on this →"}</a><br>` : ""}<a href="https://www.planning.data.gov.uk/entity/${pr.entity}" target="_blank" rel="noopener">The official record</a></div>`;
             };
             if (l.dataset === "educational-establishment" && l.geojson?.features) l.geojson.features = l.geojson.features.filter((f: { properties?: Record<string, string> }) => (f.properties?.["educational-establishment-status"] ?? "1") === "1");
             const layer = L.geoJSON(l.geojson, {
@@ -75,7 +75,7 @@ export default function AreaMap({ ballotId, areaName, lat, lng, outcode, levelLa
                 const live = o.status === 1;
                 const txt = live ? `<b>Discharging now</b> (since ${when(o.latestStart)})` : o.status === -1 ? "Monitor offline" : `Not discharging. Last discharge ended ${when(o.latestEnd)}`;
                 return L.circleMarker([o.lat, o.lng], { radius: live ? 9 : 6, color: OVC, weight: 2, fillColor: live ? OVC : "#fff", fillOpacity: 0.95 })
-                  .bindPopup(`<strong>Storm overflow</strong> ${o.id}<br>${o.company}${o.water ? ` · into ${o.water}` : ""}<div style="margin-top:.35rem">${txt}</div><div style="margin-top:.35rem;font-size:.85em">Near real-time, unverified data from the water company via the National Storm Overflows Hub (Water UK and Stream, open licence). Verified annual spill counts are published separately by the Environment Agency.</div><div style="margin-top:.35rem"><a href="/ballot/${encodeURIComponent(ballotId)}/topic/environment_climate_and_energy">What candidates have published on the environment →</a></div>`);
+                  .bindPopup(`<strong>Storm overflow</strong> ${o.id}<br>${o.company}${o.water ? ` · into ${o.water}` : ""}<div style="margin-top:.35rem">${txt}</div><div style="margin-top:.35rem;font-size:.85em">Near real-time, unverified data from the water company via the National Storm Overflows Hub (Water UK and Stream, open licence). Verified annual spill counts are published separately by the Environment Agency.</div>${ballotId ? `<div style="margin-top:.35rem"><a href="/ballot/${encodeURIComponent(ballotId)}/topic/environment_climate_and_energy">What candidates have published on the environment →</a></div>` : ""}`);
               })).addTo(map);
               groups["Storm overflows"] = g as unknown as { addTo: (m: unknown) => void; remove: () => void };
               const live = list.filter((o) => o.status === 1).length;

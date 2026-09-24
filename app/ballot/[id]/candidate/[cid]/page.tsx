@@ -64,7 +64,7 @@ export default async function CandidatePage({ params, searchParams }: { params: 
       <Suspense fallback={null}><ProfileApply /></Suspense>
       <p className="eyebrow"><Link href={`/ballot/${encodeURIComponent(ballotId)}${qs ? `?${qs}` : ""}#ballot-paper`}>{ballot.area_name}</Link> · number {idx + 1} of {candidates.length} on the ballot paper</p>
       <div className="cand-hero" id="cand">
-        {c.photo_url ? <img src={img(c.photo_url)} alt="" width={120} height={120} className="cand-photo" style={{ borderColor: colour ?? "var(--ink)" }} /> : <span className="cand-photo initials" style={{ borderColor: colour ?? "var(--ink)" }}>{c.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("")}</span>}
+        {c.photo_url ? <img src={img(c.photo_url)} alt="" width={120} height={120} className="cand-photo" data-initials={c.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("")} style={{ borderColor: colour ?? "var(--ink)" }} /> : <span className="cand-photo initials" style={{ borderColor: colour ?? "var(--ink)" }}>{c.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("")}</span>}
         <div>
           <h1 style={{ margin: "0 0 0.3rem" }}>{c.name}</h1>
           <p className="party"><span className="party-pill" style={colour ? { borderColor: colour, background: colour + "33" } : undefined}>{party}</span></p>

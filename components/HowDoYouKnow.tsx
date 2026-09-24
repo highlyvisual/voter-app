@@ -6,7 +6,7 @@ export default function HowDoYouKnow() {
   const [open, setOpen] = useState(false);
   return (
     <div className="hdyk">
-      <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className="hdyk-btn">How do you know this?</button>
+      <button type="button" onClick={() => setOpen((o) => !o)} aria-expanded={open} className="hdyk-btn" aria-label="How do you know this?"><span aria-hidden>?</span> <span className="long">How do you know this?</span></button>
       {open ? (
         <div className="hdyk-panel" role="dialog" aria-label="How we know what we show">
           <p><strong>Every position on this site is a quotation</strong> from something a party or candidate published, with its name, date and link. The short version underneath is a reading aid; the quotation is the record.</p>
