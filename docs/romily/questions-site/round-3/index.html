@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Round three — decisions for Romily</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #000;
+    --paper: #fff;
+    --rule: #000;
+    --muted: #555;
+    --field: #f4f4f4;
+    --measure: 40rem;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 4rem 1.25rem 6rem;
+  }
+  header { margin-bottom: 3.5rem; }
+  h1 {
+    font-size: clamp(2.6rem, 8vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.25rem;
+  }
+  .lede { margin: 0 0 1rem; }
+  .lede + .lede { margin-top: 0; }
+  .small { font-size: 0.95rem; color: var(--muted); }
+  .meta {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+    margin-top: 2rem;
+  }
+  .meta span { white-space: nowrap; }
+
+  section { margin: 3.5rem 0 0; }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0 0 0.25rem;
+  }
+  .why { margin: 0 0 2rem; color: var(--muted); }
+
+  .q { margin: 0 0 2.5rem; }
+  .q label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .q label .n {
+    display: inline-block;
+    width: 2rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .q .hint {
+    margin: 0 0 0.6rem 2rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .q .hint em { font-style: italic; }
+  textarea, input[type=text] {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    font: inherit;
+    color: var(--ink);
+    background: var(--field);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    padding: 0.7rem 0.75rem;
+    resize: vertical;
+    min-height: 6.5rem;
+  }
+  input[type=text] { min-height: 0; }
+  textarea:focus, input:focus, button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .choices { margin: 0 0 0.75rem 2rem; }
+  .choices label {
+    display: block; font-weight: 400; margin: 0.15rem 0;
+  }
+  .choices input { margin-right: 0.5rem; accent-color: #000; }
+
+  .submit {
+    margin-top: 4rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+  button {
+    font: inherit;
+    font-weight: 500;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+  }
+  button.secondary { background: var(--paper); color: var(--ink); margin-left: 0.75rem; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  #status { margin-top: 1rem; min-height: 1.6rem; }
+  .hidden { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    #status { transition: opacity 200ms; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Round three.</h1>
+    <p class="lede">Much has been built since round two: the site is live at voter-app-uk.netlify.app with 28 elections, 190 sourced positions, maps, photos, a parliamentary record panel and the comparison views. Along the way a few of your original rules were reversed by decisions taken in the build, and some new choices arose that are yours. Nothing below is urgent to the code; each is a switch. What matters is that they are your decisions and not ours.</p>
+    <p class="lede small">As before: answers save in this browser as you type, nothing is sent until you press "Send my answers", and "I don't know yet" is fine.</p>
+    <div class="meta" aria-live="polite">
+      <span id="progress">0 of 8 answered</span>
+      <span id="saved"></span>
+    </div>
+  </header>
+
+  <form id="form" method="POST" name="romily-answers-round-3" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="romily-answers-round-3">
+    <p class="hidden"><label>Leave this empty: <input name="bot-field"></label></p>
+
+    <div class="q">
+      <label for="name"><span class="n"></span>Your name</label>
+      <input type="text" id="name" name="name" autocomplete="name" value="Romily">
+    </div>
+
+    <section>
+      <h2>The name</h2>
+      <p class="why">Barny chose <em>This Shit Matters</em> and the domain thisshitmatters.org, and it is live. Your shortlist was WhereYouStand, WhatChanges, Impact. The strong case for his: memorable, honest about the mission. The cost: school filters, some partner meetings (Democracy Club, mySociety, the Electoral Commission), and any admissions reader. It is a one-minute change either way.</p>
+      <div class="q">
+        <label for="q1"><span class="n">1</span>Keep This Shit Matters, or change it?</label>
+        <div class="choices">
+          <label><input type="radio" name="q1_name" value="keep"> Keep it</label>
+          <label><input type="radio" name="q1_name" value="whereyoustand"> Change to WhereYouStand</label>
+          <label><input type="radio" name="q1_name" value="other"> Something else (say below)</label>
+        </div>
+        <textarea id="q1" name="q1_name_why" placeholder="Why, or what instead?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Party colours</h2>
+      <p class="why">Your round-one rule was no symbolically loaded colour anywhere. Barny reversed it: candidates now carry their party's established colour (Labour red, Tory blue, and so on) on their mark, a pill, and the comparison columns. It is identification only, at identical weight; parties without an established colour stay grey. The interface itself uses no party-adjacent colour.</p>
+      <div class="q">
+        <label for="q2"><span class="n">2</span>Party colours: keep or remove?</label>
+        <div class="choices">
+          <label><input type="radio" name="q2_colours" value="keep"> Keep them</label>
+          <label><input type="radio" name="q2_colours" value="remove"> Remove them; back to neutral</label>
+        </div>
+        <textarea id="q2" name="q2_colours_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Photos</h2>
+      <p class="why">Barny's own build brief set an all-or-none rule: show photos only when every candidate on a ballot has one, so nobody is visually disadvantaged. He then asked for photos wherever available, and that is what is live: 116 of 138 candidates have one on Democracy Club; the rest show initials, and each page says a missing photo means nothing about the candidate.</p>
+      <div class="q">
+        <label for="q3"><span class="n">3</span>Photos where available, or all-or-none?</label>
+        <div class="choices">
+          <label><input type="radio" name="q3_photos" value="any"> Where available (current)</label>
+          <label><input type="radio" name="q3_photos" value="all-or-none"> All-or-none per ballot</label>
+          <label><input type="radio" name="q3_photos" value="none"> No photos at all</label>
+        </div>
+        <textarea id="q3" name="q3_photos_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>The map marker</h2>
+      <p class="why">After a postcode lookup, the page shows the voting-area boundary and an approximate circle at the centre of the postcode <em>district</em> (NW1, not NW1 2DB). Only the district travels to the page; the full postcode is discarded in the lookup and nothing is stored. It is still the first time anything about the visitor's location reaches a page.</p>
+      <div class="q">
+        <label for="q4"><span class="n">4</span>Keep the postcode-district circle?</label>
+        <div class="choices">
+          <label><input type="radio" name="q4_marker" value="keep"> Keep it</label>
+          <label><input type="radio" name="q4_marker" value="remove"> Show the boundary only</label>
+        </div>
+        <textarea id="q4" name="q4_marker_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>The place panel</h2>
+      <p class="why">A fuller place panel is possible: conservation areas, Article 4 directions and (where councils publish it) planning applications near an address, from planning.data.gov.uk. It needs a coarse location, about 100 metres, to be carried from the postcode step to the ballot page. That is finer than the district circle above.</p>
+      <div class="q">
+        <label for="q5"><span class="n">5</span>May a location of about 100 metres be used for a place panel, never stored?</label>
+        <div class="choices">
+          <label><input type="radio" name="q5_place" value="yes"> Yes</label>
+          <label><input type="radio" name="q5_place" value="no"> No; district level only</label>
+          <label><input type="radio" name="q5_place" value="later"> Not yet; ask again after the by-election</label>
+        </div>
+        <textarea id="q5" name="q5_place_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>The archive and hindsight</h2>
+      <p class="why">The 2024 general election in this seat is on the site as an archive, shown as it stood at the time. Labour's enacted record since (the two-child limit, the Renters' Rights Act) exists on the by-election page as dated, sourced positions. Showing it on the archive page too would let people compare "what they said" with "what they did", which is the pledged-versus-record idea from round one, but it edges toward hindsight on a page that promises none.</p>
+      <div class="q">
+        <label for="q6"><span class="n">6</span>Should the archive page carry a "since then" section for the party that won?</label>
+        <div class="choices">
+          <label><input type="radio" name="q6_since" value="yes"> Yes, clearly separated and dated</label>
+          <label><input type="radio" name="q6_since" value="no"> No; keep the archive as it stood</label>
+        </div>
+        <textarea id="q6" name="q6_since_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Identity questions</h2>
+      <p class="why">The household form now has optional yes/no questions: disability or long-term condition, unpaid carer, visa or asylum, means-tested benefit, drives, armed-forces service. Blank answers are never assumed either way. Sexual orientation, gender identity, religion and ethnicity are deliberately not asked; equality positions are shown to everyone instead. Our recommendation is to keep it that way.</p>
+      <div class="q">
+        <label for="q7"><span class="n">7</span>Add any optional question on sexual orientation, gender identity, religion or ethnicity?</label>
+        <div class="choices">
+          <label><input type="radio" name="q7_identity" value="no"> No; show equality positions to everyone (recommended)</label>
+          <label><input type="radio" name="q7_identity" value="yes"> Yes (say which, and why)</label>
+        </div>
+        <textarea id="q7" name="q7_identity_why"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Welsh</h2>
+      <p class="why">Four of the 28 current elections are in Wales or Scotland. A Welsh version of the fixed text and the guides is planned, and the strings are listed for a translator. We should not ship a machine translation.</p>
+      <div class="q">
+        <label for="q8"><span class="n">8</span>Do you know a Welsh speaker who could translate about 120 short strings and two guide pages?</label>
+        <textarea id="q8" name="q8_welsh"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Not yours to answer, but so you can see them</h2>
+      <p class="why">Barny's list, in his order of usefulness: add two repository secrets so the site refreshes ballots, leaflets and photos nightly; register and point thisshitmatters.org; a maintainer email and complaints address for the About page; read the primary council minutes (Lambeth, Camden) and the Reform UK and Liberal Democrat manifesto chapters, which scripts cannot fetch; the Democracy Club token and pricing before May 2027; delete an unused setting. None of these needs you.</p>
+    </section>
+
+    <div class="submit">
+      <div class="q">
+        <label for="note"><span class="n"></span>Anything else</label>
+        <textarea id="note" name="anything_else"></textarea>
+      </div>
+      <button type="submit" id="send">Send my answers</button>
+      <button type="button" class="secondary" id="clear">Clear everything</button>
+      <p id="status" role="status"></p>
+      <p class="small">You can send more than once.</p>
+    </div>
+  </form>
+  <p class="small" style="margin-top:3rem"><a href="/round-4/">Round four: the About page</a></p>
+</main>
+
+<script>
+(function () {
+  var form = document.getElementById('form');
+  var status = document.getElementById('status');
+  var progress = document.getElementById('progress');
+  var saved = document.getElementById('saved');
+  var KEY = 'romily-app-answers-round-3';
+  var fields = Array.prototype.slice.call(form.querySelectorAll('textarea, input[type=text], input[type=radio], input[type=checkbox]'));
+  var questionNames = [];
+  fields.forEach(function (f) {
+    var base = f.name.replace(/_why$/, '');
+    if (/^q\d+_/.test(base) && questionNames.indexOf(base) === -1) questionNames.push(base);
+  });
+
+  function read() {
+    var data = {};
+    fields.forEach(function (f) {
+      if (f.type === 'radio') { if (f.checked) data[f.name] = f.value; }
+      else if (f.type === 'checkbox') { if (f.checked) data[f.name] = (data[f.name] ? data[f.name] + '; ' : '') + f.value; }
+      else data[f.name] = f.value;
+    });
+    return data;
+  }
+  function write(data) {
+    fields.forEach(function (f) {
+      if (!(f.name in data)) return;
+      if (f.type === 'radio') f.checked = (f.value === data[f.name]);
+      else if (f.type === 'checkbox') f.checked = String(data[f.name]).split('; ').indexOf(f.value) !== -1;
+      else f.value = data[f.name];
+    });
+  }
+  function answered(data) {
+    var n = 0;
+    questionNames.forEach(function (q) {
+      var has = false;
+      Object.keys(data).forEach(function (k) {
+        if (k.indexOf(q) === 0 && String(data[k]).trim() !== '') has = true;
+      });
+      if (has) n++;
+    });
+    return n;
+  }
+  function refresh() {
+    var data = read();
+    progress.textContent = answered(data) + ' of ' + questionNames.length + ' answered';
+    try {
+      localStorage.setItem(KEY, JSON.stringify(data));
+      saved.textContent = 'Saved in this browser';
+    } catch (e) {
+      saved.textContent = 'Could not save in this browser; send before you close the page';
+    }
+  }
+
+  try {
+    var stored = localStorage.getItem(KEY);
+    if (stored) write(JSON.parse(stored));
+  } catch (e) {}
+  refresh();
+  form.addEventListener('input', refresh);
+  form.addEventListener('change', refresh);
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var btn = document.getElementById('send');
+    btn.disabled = true;
+    status.textContent = 'Sending…';
+    var body = new URLSearchParams(new FormData(form)).toString();
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body
+    }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      status.textContent = 'Sent. Your answers stay saved here, so you can add to them and send again.';
+    }).catch(function () {
+      status.textContent = 'That didn\'t send. Your answers are still saved in this browser; try again in a minute.';
+    }).then(function () { btn.disabled = false; });
+  });
+
+  document.getElementById('clear').addEventListener('click', function () {
+    if (!confirm('Clear every answer on this page? This cannot be undone.')) return;
+    fields.forEach(function (f) {
+      if (f.type === 'radio' || f.type === 'checkbox') f.checked = false;
+      else if (f.name !== 'name') f.value = '';
+    });
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    refresh();
+    status.textContent = 'Cleared.';
+  });
+})();
+</script>
+</body>
+</html>

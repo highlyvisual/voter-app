@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Round two — questions for Romily</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #000;
+    --paper: #fff;
+    --rule: #000;
+    --muted: #555;
+    --field: #f4f4f4;
+    --measure: 40rem;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 4rem 1.25rem 6rem;
+  }
+  header { margin-bottom: 3.5rem; }
+  h1 {
+    font-size: clamp(2.6rem, 8vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.25rem;
+  }
+  .lede { margin: 0 0 1rem; }
+  .lede + .lede { margin-top: 0; }
+  .small { font-size: 0.95rem; color: var(--muted); }
+  .meta {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+    margin-top: 2rem;
+  }
+  .meta span { white-space: nowrap; }
+
+  section { margin: 3.5rem 0 0; }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0 0 0.25rem;
+  }
+  .why { margin: 0 0 2rem; color: var(--muted); }
+
+  .q { margin: 0 0 2.5rem; }
+  .q label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .q label .n {
+    display: inline-block;
+    width: 2rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .q .hint {
+    margin: 0 0 0.6rem 2rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .q .hint em { font-style: italic; }
+  textarea, input[type=text] {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    font: inherit;
+    color: var(--ink);
+    background: var(--field);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    padding: 0.7rem 0.75rem;
+    resize: vertical;
+    min-height: 6.5rem;
+  }
+  input[type=text] { min-height: 0; }
+  textarea:focus, input:focus, button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .choices { margin: 0 0 0.75rem 2rem; }
+  .choices label {
+    display: block; font-weight: 400; margin: 0.15rem 0;
+  }
+  .choices input { margin-right: 0.5rem; accent-color: #000; }
+
+  .submit {
+    margin-top: 4rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+  button {
+    font: inherit;
+    font-weight: 500;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+  }
+  button.secondary { background: var(--paper); color: var(--ink); margin-left: 0.75rem; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  #status { margin-top: 1rem; min-height: 1.6rem; }
+  .hidden { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    #status { transition: opacity 200ms; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Round two.</h1>
+    <p class="lede">Thank you for the first set. Almost everything is settled and in the plan. Six things came out of your answers that are worth a second look, plus one question rephrased because it was badly asked the first time.</p>
+    <p class="lede small">Same as before: answers save in this browser as you type, nothing is sent until you press "Send my answers", and "I don't know yet" is a fine answer.</p>
+    <div class="meta" aria-live="polite">
+      <span id="progress">0 of 7 answered</span>
+      <span id="saved"></span>
+    </div>
+  </header>
+
+  <form id="form" method="POST" name="romily-answers-round-2" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="romily-answers-round-2">
+    <p class="hidden"><label>Leave this empty: <input name="bot-field"></label></p>
+
+    <div class="q">
+      <label for="name"><span class="n"></span>Your name</label>
+      <input type="text" id="name" name="name" autocomplete="name" value="Romily">
+    </div>
+
+    <section>
+      <h2>Trust without scoring</h2>
+      <p class="why">You said pledged-vs-delivered data could show how trustworthy a candidate or party is, as long as it is purely factual and applied to everyone equally.</p>
+      <div class="q">
+        <label><span class="n">1</span>Where is the line between showing the record and scoring it?</label>
+        <p class="hint">Showing "pledged X in 2024; voted against X in 2025, source" for every incumbent is a fact. Turning that into "kept 7 of 10 promises" is a number, and numbers get compared, and a comparison is a ranking. Which do you want?</p>
+        <div class="choices">
+          <label><input type="radio" name="q1_record" value="Record only, no numbers">Show the record only. Never compute a number from it.</label>
+          <label><input type="radio" name="q1_record" value="Record plus counts, clearly labelled">Show the record and a simple count, clearly labelled as a count, not a verdict</label>
+          <label><input type="radio" name="q1_record" value="Not sure">Not sure</label>
+        </div>
+        <textarea id="q1" name="q1_record_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Who is behind this</h2>
+      <p class="why">You said the owners should be anonymous so nobody reads bias into the app.</p>
+      <div class="q">
+        <label for="q2"><span class="n">2</span>The case against anonymity, and your response to it.</label>
+        <p class="hint">Every credible tool in the worldwide scan names who runs it: a civic-education agency in Germany, a university in Ireland, a newsroom in New Zealand. UK law already requires some campaign material to say who is behind it, and a bill in the Lords would widen that. The first question a journalist asks about an election tool is "who made this and who pays for it", and "we won't say" is the worst possible answer. Impartiality can come from open process (published rules, open code, public change log) rather than hidden founders. Does that change your view? If you still want distance, what would you accept: a named not-for-profit with trustees, a named advisory board, founders named but not front-and-centre?</p>
+        <textarea id="q2" name="q2_anonymity"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Version one scope</h2>
+      <p class="why">Your nineteen topic areas are the right long-term map. Version one needs a subset, and there is a real ballot to test it on: a parliamentary by-election in Holborn and St Pancras on 8 October, fifteen candidates.</p>
+      <div class="q">
+        <label><span class="n">3</span>Pick the topics for the first version. Up to five.</label>
+        <p class="hint">Choose the ones a first-time voter in central London would open first, and that we can actually source for fifteen candidates in three weeks.</p>
+        <div class="choices">
+          <label><input type="checkbox" name="q3_topics" value="Personal finances and taxation">Personal finances and taxation</label>
+          <label><input type="checkbox" name="q3_topics" value="Cost of living">Cost of living</label>
+          <label><input type="checkbox" name="q3_topics" value="Housing and property">Housing and property</label>
+          <label><input type="checkbox" name="q3_topics" value="Healthcare and social care">Healthcare and social care</label>
+          <label><input type="checkbox" name="q3_topics" value="Education and universities">Education and universities</label>
+          <label><input type="checkbox" name="q3_topics" value="Environment, climate and energy">Environment, climate and energy</label>
+          <label><input type="checkbox" name="q3_topics" value="Immigration, integration and citizenship">Immigration, integration and citizenship</label>
+          <label><input type="checkbox" name="q3_topics" value="Crime, policing and justice">Crime, policing and justice</label>
+          <label><input type="checkbox" name="q3_topics" value="Transport and infrastructure">Transport and infrastructure</label>
+          <label><input type="checkbox" name="q3_topics" value="Democracy, constitution and government">Democracy, constitution and government</label>
+        </div>
+        <textarea id="q3" name="q3_topics_why" placeholder="Anything to add, or a topic from your list that isn't here?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>The other angle</h2>
+      <p class="why">You said money-only felt lopsided and it has to be interactive. Three candidates for what else version one does.</p>
+      <div class="q">
+        <label><span class="n">4</span>Which of these would you build first?</label>
+        <div class="choices">
+          <label><input type="radio" name="q4_angle" value="Pledged vs record panel">A pledged-vs-record panel for candidates who have held office before, from public voting records</label>
+          <label><input type="radio" name="q4_angle" value="Place panel from the address">A place panel from the address: housing sites, planning applications, transport, schools nearby, and what each candidate has said about them</label>
+          <label><input type="radio" name="q4_angle" value="Issues filter">An "issues that matter to you" filter that reorders topics on screen without ever reordering candidates</label>
+          <label><input type="radio" name="q4_angle" value="Something else">Something else</label>
+        </div>
+        <textarea id="q4" name="q4_angle_why" placeholder="Why, or what instead?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Fact-checking</h2>
+      <p class="why">You weren't sure who should check claims before they go live. A concrete proposal to react to.</p>
+      <div class="q">
+        <label for="q5"><span class="n">5</span>Proposal: two people sign off every claim; one of them is never the person who drafted it; every change and every complaint is logged publicly. For the by-election test, those two people are you and Dad. Later, a small named panel. Yes, no, or change what?</label>
+        <textarea id="q5" name="q5_verification"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>A name</h2>
+      <div class="q">
+        <label for="q6"><span class="n">6</span>Three names you don't hate.</label>
+        <p class="hint">No need to pick a winner. Neutral, no party echo, works on a school whiteboard. Ideas can be words, not brands.</p>
+        <textarea id="q6" name="q6_names"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>The application, asked properly this time</h2>
+      <div class="q">
+        <label for="q7"><span class="n">7</span>If a Cambridge interviewer asked "what was the hardest thing about this project?", what would you say?</label>
+        <p class="hint">Not the app; the thinking. For example: is "neutral" even possible, or only "balanced"? Can you honestly predict what a candidate winning would change? Does more information make people vote, or just change who they vote for? Or something of your own you've been chewing on. Write it the way you'd say it out loud.</p>
+        <textarea id="q7" name="q7_hardest"></textarea>
+      </div>
+    </section>
+
+    <div class="submit">
+      <div class="q">
+        <label for="note"><span class="n"></span>Anything else</label>
+        <textarea id="note" name="anything_else"></textarea>
+      </div>
+      <button type="submit" id="send">Send my answers</button>
+      <button type="button" class="secondary" id="clear">Clear everything</button>
+      <p id="status" role="status"></p>
+      <p class="small">You can send more than once.</p>
+    </div>
+  </form>
+</main>
+
+
+<script>
+(function () {
+  var form = document.getElementById('form');
+  var status = document.getElementById('status');
+  var progress = document.getElementById('progress');
+  var saved = document.getElementById('saved');
+  var KEY = 'romily-app-answers-round-2';
+  var fields = Array.prototype.slice.call(form.querySelectorAll('textarea, input[type=text], input[type=radio], input[type=checkbox]'));
+  var questionNames = [];
+  fields.forEach(function (f) {
+    var base = f.name.replace(/_why$/, '');
+    if (/^q\d+_/.test(base) && questionNames.indexOf(base) === -1) questionNames.push(base);
+  });
+
+  function read() {
+    var data = {};
+    fields.forEach(function (f) {
+      if (f.type === 'radio') { if (f.checked) data[f.name] = f.value; }
+      else if (f.type === 'checkbox') { if (f.checked) data[f.name] = (data[f.name] ? data[f.name] + '; ' : '') + f.value; }
+      else data[f.name] = f.value;
+    });
+    return data;
+  }
+  function write(data) {
+    fields.forEach(function (f) {
+      if (!(f.name in data)) return;
+      if (f.type === 'radio') f.checked = (f.value === data[f.name]);
+      else if (f.type === 'checkbox') f.checked = String(data[f.name]).split('; ').indexOf(f.value) !== -1;
+      else f.value = data[f.name];
+    });
+  }
+  function answered(data) {
+    var n = 0;
+    questionNames.forEach(function (q) {
+      var has = false;
+      Object.keys(data).forEach(function (k) {
+        if (k.indexOf(q) === 0 && String(data[k]).trim() !== '') has = true;
+      });
+      if (has) n++;
+    });
+    return n;
+  }
+  function refresh() {
+    var data = read();
+    progress.textContent = answered(data) + ' of ' + questionNames.length + ' answered';
+    try {
+      localStorage.setItem(KEY, JSON.stringify(data));
+      saved.textContent = 'Saved in this browser';
+    } catch (e) {
+      saved.textContent = 'Could not save in this browser; send before you close the page';
+    }
+  }
+
+  try {
+    var stored = localStorage.getItem(KEY);
+    if (stored) write(JSON.parse(stored));
+  } catch (e) {}
+  refresh();
+  form.addEventListener('input', refresh);
+  form.addEventListener('change', refresh);
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var btn = document.getElementById('send');
+    btn.disabled = true;
+    status.textContent = 'Sending…';
+    var body = new URLSearchParams(new FormData(form)).toString();
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body
+    }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      status.textContent = 'Sent. Your answers stay saved here, so you can add to them and send again.';
+    }).catch(function () {
+      status.textContent = 'That didn\'t send. Your answers are still saved in this browser; try again in a minute.';
+    }).then(function () { btn.disabled = false; });
+  });
+
+  document.getElementById('clear').addEventListener('click', function () {
+    if (!confirm('Clear every answer on this page? This cannot be undone.')) return;
+    fields.forEach(function (f) {
+      if (f.type === 'radio' || f.type === 'checkbox') f.checked = false;
+      else if (f.name !== 'name') f.value = '';
+    });
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    refresh();
+    status.textContent = 'Cleared.';
+  });
+})();
+</script>
+</body>
+</html>

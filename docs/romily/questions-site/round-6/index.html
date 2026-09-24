@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Round six — what the research found</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #000;
+    --paper: #fff;
+    --rule: #000;
+    --muted: #555;
+    --field: #f4f4f4;
+    --measure: 40rem;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 4rem 1.25rem 6rem;
+  }
+  header { margin-bottom: 3.5rem; }
+  h1 {
+    font-size: clamp(2.6rem, 8vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.25rem;
+  }
+  .lede { margin: 0 0 1rem; }
+  .lede + .lede { margin-top: 0; }
+  .small { font-size: 0.95rem; color: var(--muted); }
+  .meta {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+    margin-top: 2rem;
+  }
+  .meta span { white-space: nowrap; }
+
+  section { margin: 3.5rem 0 0; }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0 0 0.25rem;
+  }
+  .why { margin: 0 0 2rem; color: var(--muted); }
+
+  .q { margin: 0 0 2.5rem; }
+  .q label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .q label .n {
+    display: inline-block;
+    width: 2rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .q .hint {
+    margin: 0 0 0.6rem 2rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .q .hint em { font-style: italic; }
+  textarea, input[type=text] {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    font: inherit;
+    color: var(--ink);
+    background: var(--field);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    padding: 0.7rem 0.75rem;
+    resize: vertical;
+    min-height: 6.5rem;
+  }
+  input[type=text] { min-height: 0; }
+  textarea:focus, input:focus, button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .choices { margin: 0 0 0.75rem 2rem; }
+  .choices label {
+    display: block; font-weight: 400; margin: 0.15rem 0;
+  }
+  .choices input { margin-right: 0.5rem; accent-color: #000; }
+
+  .submit {
+    margin-top: 4rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+  button {
+    font: inherit;
+    font-weight: 500;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+  }
+  button.secondary { background: var(--paper); color: var(--ink); margin-left: 0.75rem; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  #status { margin-top: 1rem; min-height: 1.6rem; }
+  .hidden { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    #status { transition: opacity 200ms; }
+  }
+  .why a, .q a { color: inherit; }
+  .tablewrap { overflow-x: auto; margin: 0 0 1rem; border-top: 1px solid var(--rule); }
+  .tablewrap table { border-collapse: collapse; font-size: 0.95rem; line-height: 1.45; min-width: 36rem; width: 100%; }
+  .tablewrap th, .tablewrap td { text-align: left; vertical-align: top; padding: 0.5rem 0.6rem 0.5rem 0; border-bottom: 1px solid #ccc; }
+  .tablewrap th { font-weight: 500; border-bottom: 1px solid var(--rule); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Round six.</h1>
+    <p class="lede">In round five you asked for research before deciding on track records, councillors, local issues and what "regional" means. It's done. There are six papers for you (plus one on running costs that's Dad's to deal with), and each one was checked a second time against its sources by a separate checker.</p>
+    <p class="lede">Each section below starts with what we found, in three lines or so, then asks the questions. If you want the detail, every section links to the full paper, where every fact has its source and anything we couldn't confirm is listed at the end.</p>
+    <p class="lede">None of the options is marked as ours. They're set out side by side, and you decide.</p>
+    <p class="lede small">The first two sections matter before the by-election on 8 October; the rest are for the May 2027 elections. As before: answers save in this browser as you type, nothing is sent until you press "Send my answers", and "I don't know yet" is fine.</p>
+    <div class="meta" aria-live="polite">
+      <span id="progress">0 of 17 answered</span>
+      <span id="saved"></span>
+    </div>
+  </header>
+
+  <form id="form" method="POST" name="romily-answers-round-6" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="romily-answers-round-6">
+    <p class="hidden"><label>Leave this empty: <input name="bot-field"></label></p>
+
+    <div class="q">
+      <label for="name"><span class="n"></span>Your name</label>
+      <input type="text" id="name" name="name" autocomplete="name" value="Romily">
+    </div>
+
+    <section>
+      <h2>Council business on a by-election page</h2>
+      <p class="why">Holborn and St Pancras on 8 October is a vote for an MP, and an MP doesn't decide council business. Camden Council does, and its councillors were last elected in May 2026, with the next election due in May 2030. On top of that, Camden's meetings website blocked our automatic reading, although its list of open consultations can be read. <a href="/research/local-issues/">Local issues paper</a> · <a href="/research/regional/">Regional paper</a></p>
+      <div class="q">
+        <label><span class="n">1</span>On the Holborn and St Pancras page, what should appear about the council and the other levels?</label>
+        <div class="choices">
+          <label><input type="radio" name="q1_council_on_byelection" value="nothing"> Nothing: this is a vote for an MP, so keep the page to that</label>
+          <label><input type="radio" name="q1_council_on_byelection" value="context-line"> A short line for each other level, for context only: "Camden Council: not voting this time, next due May 2030. Mayor of London and London Assembly: next due May 2028."</label>
+          <label><input type="radio" name="q1_council_on_byelection" value="context-plus-consultations"> The same context lines, plus Camden's open consultations</label>
+          <label><input type="radio" name="q1_council_on_byelection" value="other"> Something else (say below)</label>
+        </div>
+        <textarea id="q1w" name="q1_council_on_byelection_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Candidates with no record</h2>
+      <p class="why">Other sites do one of three things. They give everyone the same section, with a neutral line when it's empty (TheyWorkForYou, Ballotpedia). They hide a section when it's empty (Democracy Club's WhoCanIVoteFor). Or they ask every party the same questions, so nobody needs a record (Germany's Wahl-O-Mat, the Netherlands' StemWijzer). StemWijzer says it doesn't use voting records because new parties have never voted. Research on decisions finds people give more weight to facts that every option has than to facts only some have. We found almost no research on the exact case, though: an empty "record" box on a candidate's page. Democracy Club lists 15 candidates for Holborn and St Pancras. <a href="/research/empty-record/">Full paper</a></p>
+      <div class="q">
+        <label><span class="n">2</span>How should the record section work?</label>
+        <div class="choices">
+          <label><input type="radio" name="q2_record_layout" value="same-section-neutral-line"> The same section for every candidate, with a neutral line where there's no record (like TheyWorkForYou and Ballotpedia)</label>
+          <label><input type="radio" name="q2_record_layout" value="behind-a-link"> Keep records off the main page, behind a link or tab, so every main page is the same length (like WhoCanIVoteFor)</label>
+          <label><input type="radio" name="q2_record_layout" value="what-they-said-first"> Give everyone a "What they have said" section, sourced the same way for all, with any record after it (like Ballotpedia's candidate survey)</label>
+          <label><input type="radio" name="q2_record_layout" value="party-positions-first"> Party positions for everyone, with a candidate's own record as extra (like Wahl-O-Mat and StemWijzer)</label>
+          <label><input type="radio" name="q2_record_layout" value="not-sure"> Not sure yet</label>
+        </div>
+        <p class="hint">What each one still leaves for us to judge: with the first, whether an empty box makes a newcomer look worse. With the second, whether a link only some candidates have is itself a difference. With the third, which questions to ask, and what to do if few candidates answer (one US site's response rate reportedly fell to 20% by 2016). With the fourth, what to show for independents and parties with no manifesto, and there are several in Holborn and St Pancras.</p>
+        <textarea id="q2w" name="q2_record_layout_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label for="q3w"><span class="n">3</span>The line for a candidate with no record. Keep, change or rewrite?</label>
+        <p class="hint">Proposed: <em>"Has not held this office before, so there is no voting record."</em> The paper points out that "has not held this office" is a plain fact, while "no record" on its own can sound like a fault. TheyWorkForYou uses <em>"This person has not voted on any of the key issues which we keep track of."</em> The same pattern would be used for councillors: <em>"No council record, because this candidate has not been a councillor."</em></p>
+        <textarea id="q3w" name="q3_no_record_wording"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Promises and votes</h2>
+      <p class="why">In round five you leaned towards pairing a promise with a vote only where the promise names the exact measure, with no "kept" or "broken". We wrote that as a rule with four tests and tried it on 50 promises from the 2024 manifestos, 10 from each of Labour, the Conservatives, the Liberal Democrats, the Greens and Reform UK, chosen the same way for all five. 5 paired cleanly, 7 were unclear, and 38 were never put to a Commons vote that names the measure. Every clean pair came from a vote the party set up itself. Smaller parties have fewer ways to get a vote held: of the 20 "opposition days" in each session of Parliament, when opposition parties can set up debates and votes, 17 go to the biggest opposition party and 3 to the second-biggest, which shares them with smaller parties. Full Fact, PolitiFact and others do give verdicts, and TheyWorkForYou sums up how MPs voted. The complaints about these sites that we found were mostly about <em>which</em> items were chosen, and about summaries that hide why someone voted the way they did. None we found were about a mechanical rule like this one. <a href="/research/promises-and-votes/">Full paper</a></p>
+      <div class="q">
+        <label><span class="n">4</span>Which pairings should the site show?</label>
+        <div class="choices">
+          <label><input type="radio" name="q4_pairs" value="clean-only"> Clean pairs only: the vote names the same measure as the promise</label>
+          <label><input type="radio" name="q4_pairs" value="clean-plus-ambiguous"> Clean pairs, plus unclear ones with a label saying why (for example "This vote also covered…")</label>
+          <label><input type="radio" name="q4_pairs" value="plus-related"> All of those, plus related votes. This means we choose what counts as "related", more like TheyWorkForYou does</label>
+          <label><input type="radio" name="q4_pairs" value="record-only"> No pairing at all: show promises and votes separately</label>
+        </div>
+        <p class="hint">From the first option to the third, each step adds more of our own judgement.</p>
+        <textarea id="q4w" name="q4_pairs_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">5</span>How should we choose which promises to show?</label>
+        <p class="hint">In the test we took the first ten qualifying promises in page order. That is mechanical, but it bunches topics together: all ten Green promises came from their health chapter, because it comes first. The alternative the paper gives is the first qualifying promise in each of the site's nine topics. Either way, the method would be published on the site.</p>
+        <div class="choices">
+          <label><input type="radio" name="q5_selection" value="page-order"> The first ten in page order</label>
+          <label><input type="radio" name="q5_selection" value="per-topic"> The first qualifying promise in each of the nine topics</label>
+          <label><input type="radio" name="q5_selection" value="other"> Something else (say below)</label>
+        </div>
+        <textarea id="q5w" name="q5_selection_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label for="q6w"><span class="n">6</span>Most promises will have no vote next to them. What should that say?</label>
+        <p class="hint">Proposed: <em>"No Commons vote on this exact measure, July 2024 – September 2026."</em> It would be shown the same way for every party, and it must not read as a criticism. The paper also suggests a short explainer, the same for all parties, saying that how many votes a party can trigger depends on its number of MPs and the Commons rules.</p>
+        <textarea id="q6w" name="q6_no_vote_wording"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Councillors</h2>
+      <p class="why">Since 25 February 2014, English councils have had to record each councillor's name on the budget and council tax vote. Otherwise a named vote usually only happens when councillors ask for one, and we found no rule like the budget one in Wales, Scotland or Northern Ireland. We looked at 20 councils as a sample (not a survey): a few (Cardiff, Highland, Aberdeen, Fife, Kent) record names on most contested votes; many only on the budget or when asked. We found no dataset of council votes anywhere in the UK, so for now any votes would have to be entered by hand, with a link for each. Attendance and committee membership can be collected automatically from the meetings system many councils use, though Camden's blocked us. <a href="/research/councillors/">Full paper</a></p>
+      <div class="q">
+        <label><span class="n">7</span>What should a sitting councillor's page show? Tick any.</label>
+        <div class="choices">
+          <label><input type="checkbox" name="q7_councillor_shows" value="budget-vote"> How they voted on the budget and council tax (England only, the same for every English council)</label>
+          <label><input type="checkbox" name="q7_councillor_shows" value="other-named-votes"> Other named votes where the council records them, with a line explaining that council's rule ("This council records names only when six councillors ask")</label>
+          <label><input type="checkbox" name="q7_councillor_shows" value="attendance"> Attendance at meetings</label>
+          <label><input type="checkbox" name="q7_councillor_shows" value="committees"> Which committees they sit on</label>
+          <label><input type="checkbox" name="q7_councillor_shows" value="interests-link"> A link to their register of interests (linked, not summarised, because summarising means choosing what matters; the page would explain that some entries are withheld by law for safety)</label>
+          <label><input type="checkbox" name="q7_councillor_shows" value="allowances"> Allowances paid to them</label>
+          <label><input type="checkbox" name="q7_councillor_shows" value="none"> None of these for now</label>
+        </div>
+        <textarea id="q7w" name="q7_councillor_shows_why" placeholder="Anything to add?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">8</span>If attendance is shown, how?</label>
+        <p class="hint">A low figure can come from illness, pregnancy, caring or bereavement, and "sent apologies" and "didn't turn up" look the same in a percentage. New councillors have had few meetings, so one absence moves the figure a lot. Councils record it differently, so figures from different councils can't fairly be compared.</p>
+        <div class="choices">
+          <label><input type="radio" name="q8_attendance" value="raw-numbers"> Raw numbers with the dates ("expected at X meetings, present at Y, apologies Z"), plus a short note on why people miss meetings</label>
+          <label><input type="radio" name="q8_attendance" value="percentage"> A percentage</label>
+          <label><input type="radio" name="q8_attendance" value="not-shown"> Don't show attendance</label>
+        </div>
+        <textarea id="q8w" name="q8_attendance_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">9</span>If allowances are shown, what about the carers' allowance?</label>
+        <p class="hint">English councils publish each councillor's dependants' carers' allowance by name. It's lawful, but it reveals family circumstances. A higher total usually reflects a senior role rather than anything else, and some councillors turn allowances down.</p>
+        <div class="choices">
+          <label><input type="radio" name="q9_carers" value="show-all"> Show every published figure, including carers' allowance</label>
+          <label><input type="radio" name="q9_carers" value="leave-out-carers"> Show the totals but leave out the carers' allowance line</label>
+          <label><input type="radio" name="q9_carers" value="no-allowances"> Don't show allowances at all</label>
+        </div>
+        <textarea id="q9w" name="q9_carers_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>What "regional" means</h2>
+      <p class="why">There is no single regional level. What sits between the council and Westminster depends on where you live, and some of it is elected and some isn't. The site would need its own table for things the postcode tools don't give (which combined authority you're in, meaning the group of councils some areas have, often with a mayor; and who runs your police and fire), and its own calendar of when each level next votes, because Democracy Club only lists an election once it has been called. Six real postcodes are below. <a href="/research/regional/">Full paper</a></p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Postcode</th><th>Between the council and Westminster (elected)</th><th>Also there, not elected</th></tr></thead>
+          <tbody>
+            <tr><td>Manchester (M60 2LA)</td><td>Greater Manchester mayor, who also runs police and fire. Next due May 2028</td><td>NHS Greater Manchester</td></tr>
+            <tr><td>Rural Lincolnshire (PE23 5AE)</td><td>Greater Lincolnshire mayor (next due May 2029); Lincolnshire police and crime commissioner</td><td>NHS Lincolnshire; fire is run by the county council (no separate vote)</td></tr>
+            <tr><td>Glasgow (G2 1DU)</td><td>Scottish Parliament: Glasgow Central, plus the Glasgow region. Next due May 2031</td><td>Police Scotland; Strathclyde transport; NHS Greater Glasgow and Clyde</td></tr>
+            <tr><td>Cardiff (CF10 3ND)</td><td>Senedd: Caerdydd Penarth (next due May 2030); South Wales police and crime commissioner</td><td>Health board; fire authority</td></tr>
+            <tr><td>Belfast (BT1 5GS)</td><td>Northern Ireland Assembly: Belfast South and Mid Down. Next due 6 May 2027</td><td>Policing Board; fire service</td></tr>
+            <tr><td>Holborn (WC1H 9JE)</td><td>Mayor of London, who also oversees police and fire, and the London Assembly (Barnet and Camden). Next due May 2028</td><td>NHS West and North London</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">The government plans to abolish police and crime commissioners in May 2028, but the law hadn't been changed when we checked.</p>
+
+      <div class="q">
+        <label><span class="n">10</span>How should this level appear?</label>
+        <div class="choices">
+          <label><input type="radio" name="q10_regional" value="whatever-exists"> One row, called something like "Between your council and Westminster", showing whatever exists where you live, named properly. Where there's no mayor (Kent or Surrey, for example), it says so plainly</label>
+          <label><input type="radio" name="q10_regional" value="fixed-steps"> The same fixed steps for everyone, saying plainly when a step doesn't exist where you live</label>
+          <label><input type="radio" name="q10_regional" value="other"> Something else (say below)</label>
+        </div>
+        <textarea id="q10w" name="q10_regional_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">11</span>Should it show only bodies you can vote for?</label>
+        <div class="choices">
+          <label><input type="radio" name="q11_unelected" value="elected-only"> Only elected ones</label>
+          <label><input type="radio" name="q11_unelected" value="both-marked"> Elected and unelected (NHS boards, fire authorities, national parks), with the unelected ones clearly marked "not elected"</label>
+          <label><input type="radio" name="q11_unelected" value="elected-then-more"> Elected first, with the unelected ones behind something like "Who else runs things here"</label>
+        </div>
+        <textarea id="q11w" name="q11_unelected_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Local issues: the fixed rule</h2>
+      <p class="why">We checked the eight councils in the brief. Five (Brighton and Hove, Cotswold, Milton Keynes, Windsor and Maidenhead, Blackpool) have an open data feed of their meetings. South Staffordshire uses a different system, Stirling posts its agendas only as PDFs, and Camden blocked us. You asked for research first, so we turned round five's "fixed rule" option into a real draft, to show how it would work if nobody picked items by hand. It takes items from Full Council and Cabinet, the council's own "key decisions" (the ones the council itself labels as major), and anything naming your ward. It looks back six months and ahead three, removes routine, private and repeated items, and shows at most 8 per list, with a link to the council's full list. We ran it on Queen's Park ward in Brighton: 86 meetings and 639 agenda items. The only item tied to the ward was a pub licence. The first four "coming up" items were Full Council motions, titled in the proposers' own words. <a href="/research/local-issues/">Full paper, with the rule written out in full</a></p>
+      <div class="q">
+        <label><span class="n">12</span>The draft rule as a whole?</label>
+        <div class="choices">
+          <label><input type="radio" name="q12_rule" value="use-as-drafted"> Use it as drafted</label>
+          <label><input type="radio" name="q12_rule" value="use-with-changes"> Use it with changes (tick them in question 14, or say below)</label>
+          <label><input type="radio" name="q12_rule" value="another-council-first"> Run it on another council first so I can see more real results</label>
+          <label><input type="radio" name="q12_rule" value="rethink"> Rethink it</label>
+        </div>
+        <textarea id="q12w" name="q12_rule_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">13</span>Council motions are proposed by party groups and titled in their own words (in Brighton on 1 October, for example: "Dignity and Trauma-Informed Audit of Housing and Homelessness Services" from the Green group, "Disability-Friendly City" from the Conservatives, "Building a Care System That Works" from Labour). What should happen to them?</label>
+        <p class="hint">The paper sees this as the biggest neutrality risk. Its one firm point: show all or none, never pick some.</p>
+        <div class="choices">
+          <label><input type="radio" name="q13_motions" value="all-labelled"> Show all of them, each labelled with the group that proposed it, and later the result</label>
+          <label><input type="radio" name="q13_motions" value="none"> Show none</label>
+          <label><input type="radio" name="q13_motions" value="other"> Something else (say below)</label>
+        </div>
+        <textarea id="q13w" name="q13_motions_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">14</span>Which of these fixes for odd results should go in? Tick any.</label>
+        <p class="hint">Each came from something that went wrong in the Brighton test. Each is a judgement, so each is your call.</p>
+        <div class="choices">
+          <label><input type="checkbox" name="q14_fixes" value="private-items"> Private items: drop the private copy when a public item has the same title; otherwise show the title with "Discussed in private; papers not published"</label>
+          <label><input type="checkbox" name="q14_fixes" value="licensing"> Licensing decisions about a single pub or shop: label them as such and never put them at the top</label>
+          <label><input type="checkbox" name="q14_fixes" value="licensing-out"> Or instead: leave licensing decisions out of the "your ward" items altogether</label>
+          <label><input type="checkbox" name="q14_fixes" value="never-shown-list"> A published list of committees never shown (pension fund, trustees, shareholder, twinning, museum and so on)</label>
+          <label><input type="checkbox" name="q14_fixes" value="duplicates-31-days"> Treat two items as the same only if their titles match and they're within 31 days of each other</label>
+          <label><input type="checkbox" name="q14_fixes" value="repeating-reports"> Monthly reports that repeat (like budget updates): show only the newest, with earlier ones linked</label>
+          <label><input type="checkbox" name="q14_fixes" value="reference-titles"> Titles that are mostly a reference number: place planning items in your ward by their address (using a national planning dataset, which only covers some areas), and leave out very short code-like titles (under 3 words) unless they're in the council's list of upcoming decisions</label>
+          <label><input type="checkbox" name="q14_fixes" value="ward-items-90-days"> Put items about your ward first only if they're from the last 90 days</label>
+          <label><input type="checkbox" name="q14_fixes" value="consultations-open"> Show a consultation only if it's still open and started in the last 12 months</label>
+          <label><input type="checkbox" name="q14_fixes" value="decisions-label"> Call the list "Decisions by [council]" rather than "issues in your street", since so little is tied to one ward</label>
+          <label><input type="checkbox" name="q14_fixes" value="publish-thresholds"> Publish every number in the rule (6 months, 3 months, 8 items, the routine-items list) on the "How this works" page</label>
+        </div>
+        <textarea id="q14w" name="q14_fixes_why" placeholder="Anything to add?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>The opening line</h2>
+      <p class="why">You asked for research on your four lines and for Dad's view. He'll make the call, but here's what the paper found. The neutral election sites we checked mostly open with a plain task ("Find out…", "Compare…") rather than a slogan. Research finds that small wording changes rarely change what people actually do. It also finds a "your life" frame isn't blank: it nudges people to weigh their own interests more. "Politics is Personal" turns around "The personal is political", the 1969–70 feminist slogan, which turns up in A-level Politics study notes, though we found no party using it. "Their policies. Your life." loosely echoes "Our Society, Your Life", a 2007 Conservative policy paper. "Where you stand" is already the Political Compass quiz's call to action. The paper suggests a quick test with 5–10 people to see how first-time visitors read quiz-like words such as "where you stand", since the research can't answer that. <a href="/research/opening-line/">Full paper, with the four lines compared side by side</a></p>
+      <div class="q">
+        <label for="q15w"><span class="n">15</span>Anything you want Dad to weigh when he picks?</label>
+        <textarea id="q15w" name="q15_opening_line_note"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Last two</h2>
+      <div class="q">
+        <label for="q16w"><span class="n">16</span>Did the research change your mind about anything you answered in round five?</label>
+        <textarea id="q16w" name="q16_changed_mind"></textarea>
+      </div>
+      <div class="q">
+        <label for="q17w"><span class="n">17</span>Is there anything the research should look at next?</label>
+        <textarea id="q17w" name="q17_next_research"></textarea>
+      </div>
+    </section>
+
+    <div class="submit">
+      <div class="q">
+        <label for="note"><span class="n"></span>Anything else</label>
+        <textarea id="note" name="anything_else"></textarea>
+      </div>
+      <button type="submit" id="send">Send my answers</button>
+      <button type="button" class="secondary" id="clear">Clear everything</button>
+      <p id="status" role="status"></p>
+      <p class="small">You can send more than once.</p>
+    </div>
+  </form>
+</main>
+
+<script>
+(function () {
+  var form = document.getElementById('form');
+  var status = document.getElementById('status');
+  var progress = document.getElementById('progress');
+  var saved = document.getElementById('saved');
+  var KEY = 'romily-app-answers-round-6';
+  var fields = Array.prototype.slice.call(form.querySelectorAll('textarea, input[type=text], input[type=radio], input[type=checkbox]'));
+  var questionNames = [];
+  fields.forEach(function (f) {
+    var base = f.name.replace(/_why$/, '');
+    if (/^q\d+_/.test(base) && questionNames.indexOf(base) === -1) questionNames.push(base);
+  });
+
+  function read() {
+    var data = {};
+    fields.forEach(function (f) {
+      if (f.type === 'radio') { if (f.checked) data[f.name] = f.value; }
+      else if (f.type === 'checkbox') { if (f.checked) data[f.name] = (data[f.name] ? data[f.name] + '; ' : '') + f.value; }
+      else data[f.name] = f.value;
+    });
+    return data;
+  }
+  function write(data) {
+    fields.forEach(function (f) {
+      if (!(f.name in data)) return;
+      if (f.type === 'radio') f.checked = (f.value === data[f.name]);
+      else if (f.type === 'checkbox') f.checked = String(data[f.name]).split('; ').indexOf(f.value) !== -1;
+      else f.value = data[f.name];
+    });
+  }
+  function answered(data) {
+    var n = 0;
+    questionNames.forEach(function (q) {
+      var has = false;
+      Object.keys(data).forEach(function (k) {
+        if (k.indexOf(q) === 0 && String(data[k]).trim() !== '') has = true;
+      });
+      if (has) n++;
+    });
+    return n;
+  }
+  function refresh() {
+    var data = read();
+    progress.textContent = answered(data) + ' of ' + questionNames.length + ' answered';
+    try {
+      localStorage.setItem(KEY, JSON.stringify(data));
+      saved.textContent = 'Saved in this browser';
+    } catch (e) {
+      saved.textContent = 'Could not save in this browser; send before you close the page';
+    }
+  }
+
+  try {
+    var stored = localStorage.getItem(KEY);
+    if (stored) write(JSON.parse(stored));
+  } catch (e) {}
+  refresh();
+  form.addEventListener('input', refresh);
+  form.addEventListener('change', refresh);
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var btn = document.getElementById('send');
+    btn.disabled = true;
+    status.textContent = 'Sending…';
+    var body = new URLSearchParams(new FormData(form)).toString();
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body
+    }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      status.textContent = 'Sent. Your answers stay saved here, so you can add to them and send again.';
+    }).catch(function () {
+      status.textContent = 'That didn\'t send. Your answers are still saved in this browser; try again in a minute.';
+    }).then(function () { btn.disabled = false; });
+  });
+
+  document.getElementById('clear').addEventListener('click', function () {
+    if (!confirm('Clear every answer on this page? This cannot be undone.')) return;
+    fields.forEach(function (f) {
+      if (f.type === 'radio' || f.type === 'checkbox') f.checked = false;
+      else if (f.name !== 'name') f.value = '';
+    });
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    refresh();
+    status.textContent = 'Cleared.';
+  });
+})();
+</script>
+</body>
+</html>

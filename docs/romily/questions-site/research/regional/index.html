@@ -1,0 +1,1286 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Research — What sits between council and Westminster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #000;
+    --paper: #fff;
+    --rule: #000;
+    --muted: #555;
+    --field: #f4f4f4;
+    --measure: 40rem;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 4rem 1.25rem 6rem;
+  }
+  header { margin-bottom: 3.5rem; }
+  h1 {
+    font-size: clamp(2.6rem, 8vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.25rem;
+  }
+  .lede { margin: 0 0 1rem; }
+  .lede + .lede { margin-top: 0; }
+  .small { font-size: 0.95rem; color: var(--muted); }
+  .meta {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+    margin-top: 2rem;
+  }
+  .meta span { white-space: nowrap; }
+
+  section { margin: 3.5rem 0 0; }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0 0 0.25rem;
+  }
+  .why { margin: 0 0 2rem; color: var(--muted); }
+
+  .q { margin: 0 0 2.5rem; }
+  .q label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .q label .n {
+    display: inline-block;
+    width: 2rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .q .hint {
+    margin: 0 0 0.6rem 2rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .q .hint em { font-style: italic; }
+  textarea, input[type=text] {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    font: inherit;
+    color: var(--ink);
+    background: var(--field);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    padding: 0.7rem 0.75rem;
+    resize: vertical;
+    min-height: 6.5rem;
+  }
+  input[type=text] { min-height: 0; }
+  textarea:focus, input:focus, button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .choices { margin: 0 0 0.75rem 2rem; }
+  .choices label {
+    display: block; font-weight: 400; margin: 0.15rem 0;
+  }
+  .choices input { margin-right: 0.5rem; accent-color: #000; }
+
+  .submit {
+    margin-top: 4rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+  button {
+    font: inherit;
+    font-weight: 500;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+  }
+  button.secondary { background: var(--paper); color: var(--ink); margin-left: 0.75rem; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  #status { margin-top: 1rem; min-height: 1.6rem; }
+  .hidden { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    #status { transition: opacity 200ms; }
+  }
+</style>
+<style>
+  .paper h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); }
+  .paper h2 { margin-top: 3rem; }
+  .paper h3 { font-size: 1.2rem; font-weight: 500; margin: 2rem 0 0.25rem; }
+  .paper a { color: var(--ink); }
+  .paper blockquote { margin: 0 0 1.5rem; padding: 0 0 0 1rem; border-left: 2px solid var(--rule); }
+  .paper hr { border: 0; border-top: 1px solid var(--rule); margin: 3rem 0; }
+  .paper code { font-size: 0.85em; background: var(--field); padding: 0 0.2em; word-break: break-word; }
+  .paper li { margin: 0.2rem 0; }
+  .tablewrap { overflow-x: auto; margin: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .tablewrap table { border-collapse: collapse; font-size: 0.9rem; line-height: 1.45; min-width: 40rem; }
+  .tablewrap th, .tablewrap td { text-align: left; vertical-align: top; padding: 0.5rem 0.6rem 0.5rem 0; border-bottom: 1px solid #ccc; }
+  .tablewrap th { font-weight: 500; border-bottom: 1px solid var(--rule); }
+  .backlink { margin: 0 0 2rem; }
+</style>
+</head>
+<body>
+<main class="paper">
+  <p class="small backlink"><a href="/round-6/">Back to round six</a> · The full research paper. Every source is linked so you can check it yourself.</p>
+<h1>What sits between your council and Westminster?</h1>
+<p><strong>Date:</strong> 24 September 2026
+<strong>Question:</strong> For any UK postcode, what is the "regional" level between the council and Westminster, what does it decide, and is it elected?</p>
+<p><strong>Summary</strong>
+1. There is no single "regional" level. England has mayors and combined authorities in some places only. London has its own Mayor and Assembly. Scotland, Wales and Northern Ireland have their own parliaments instead.
+2. Some things in between are elected: mayors, police and crime commissioners, the three devolved parliaments and the London Assembly. Many are not: health boards, fire authorities in most places, national park authorities, Welsh joint committees, Scottish police and fire boards.
+3. postcodes.io gives most of the geography the site needs, but not combined authorities, Northern Ireland council areas or Scottish community councils. Democracy Club only lists an election once it has been called. So the site will need its own calendar of when each level is next due.</p>
+<hr />
+<h2>How to read this paper</h2>
+<ul>
+<li>"Elected?" means <strong>directly elected by voters</strong>. A body run by councillors that other councillors chose is marked "No (appointed)".</li>
+<li>Every date is correct as of the source date shown. Devolution in England is changing month by month. Where we could not check something, we say <strong>unverified</strong>.</li>
+<li>We looked up six real postcodes on postcodes.io and on the Democracy Club elections API on 24 September 2026. Four of them (M60 2LA, G2 1DU, BT1 5GS and WC1H 9JE) belong to big public buildings (town or city halls), not homes. They still show the right areas.</li>
+</ul>
+<hr />
+<h2>1. The big picture: one table per nation</h2>
+<h3>1a. England</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>What it decides (main powers)</th>
+<th>Size of budget (order of magnitude)</th>
+<th>Elected? How?</th>
+<th>Next election</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Parish / town council</strong> (only in some places; big cities are mostly "unparished")</td>
+<td>Small local services: allotments, parks, street lights, public toilets. Comments on planning. Can write a neighbourhood plan. Raises a small extra charge on council tax (the "precept"). <a href="https://www.nalc.gov.uk/about/parish-and-town-councils.html" target="_blank" rel="noopener">NALC, accessed 24 Sep 2026</a></td>
+<td>About 10,000 councils and 100,000 councillors; "over £2 billion" a year in total. <a href="https://www.nalc.gov.uk/about/parish-and-town-councils.html" target="_blank" rel="noopener">NALC, accessed 24 Sep 2026</a></td>
+<td>Yes. Usually every four years. Many seats are not contested.</td>
+<td>Varies by council. Democracy Club has not covered parish elections since 2022. <a href="https://democracyclub.org.uk/blog/2021/03/30/parish-councils-on-whocanivotefor/" target="_blank" rel="noopener">Democracy Club blog, 30 Mar 2021 (updated note)</a></td>
+</tr>
+<tr>
+<td><strong>Principal council</strong> (district + county, or one unitary council)</td>
+<td>Most local services. (Covered in other papers.)</td>
+<td>—</td>
+<td>Yes. First past the post. Every four years, or by thirds or halves. <a href="https://www.electoralcommission.org.uk/voting-and-elections/how-elections-work/types-elections/local-councils" target="_blank" rel="noopener">Electoral Commission, accessed 24 Sep 2026</a></td>
+<td>Usually May each year somewhere. See Part 3.</td>
+</tr>
+<tr>
+<td><strong>Combined authority (CA) or combined county authority (CCA)</strong>. The law now calls these <strong>strategic authorities</strong>.</td>
+<td>Transport, adult skills, housing and regeneration, economic growth. Some also do planning, policing or health. <a href="https://www.instituteforgovernment.org.uk/explainer/regional-mayors-devolution" target="_blank" rel="noopener">Institute for Government, updated 3 Aug 2026</a></td>
+<td>Greater Manchester, the largest outside London, set out about <strong>£3 billion</strong> for 2026/27, including over £900m for policing and £313m for fire. <a href="https://www.greatermanchester-ca.gov.uk/news/greater-manchester-sets-out-3bn-spending-plans-to-deliver-next-year-of-good-growth/" target="_blank" rel="noopener">GMCA, 6 Feb 2026</a> Others are much smaller (not gathered).</td>
+<td><strong>Mayor: yes.</strong> The board is council leaders (not directly elected). The 2026 Act brings back the <strong>supplementary vote</strong> (you mark a first and a second choice) for mayors and PCCs. <a href="https://www.legislation.gov.uk/ukpga/2026/23" target="_blank" rel="noopener">English Devolution and Community Empowerment Act 2026, s.63 and Sch.30, legislation.gov.uk</a> So far it has been switched on <strong>only for combined-authority and combined-county-authority mayors</strong>, from 18 June 2026. <a href="https://www.legislation.gov.uk/uksi/2026/656/made" target="_blank" rel="noopener">Commencement No. 1 and Saving Regulations 2026 (SI 2026/656), reg.2</a> We found no commencement rules yet for the Mayor of London, council mayors or PCCs (legislation.gov.uk, checked 24 Sep 2026). The Greater Manchester by-election on 30 July 2026 used the supplementary vote. <a href="https://www.greatermanchester-ca.gov.uk/news/bev-craig-announced-as-the-new-mayor-of-greater-manchester/" target="_blank" rel="noopener">GMCA, 31 Jul 2026</a></td>
+<td>Mayors serve four years. See the area table in Part 2.</td>
+</tr>
+<tr>
+<td><strong>Greater London Authority (GLA)</strong>: the Mayor of London plus the 25-member London Assembly</td>
+<td>Transport for London, policing (through the Mayor's Office for Policing and Crime), the London Fire Commissioner, and planning and housing. <a href="https://www.london.gov.uk/who-we-are/governance-and-spending/spending-money-wisely/mayors-budget" target="_blank" rel="noopener">London.gov.uk, updated 2 Jul 2026</a></td>
+<td>GLA Group budget for 2026/27: <strong>£22.7 billion</strong> (draft budget). <a href="https://www.london.gov.uk/who-we-are/what-london-assembly-does/london-assembly-press-releases/mayors-draft-consolidated-2026-27-budget" target="_blank" rel="noopener">London Assembly, 15 Jan 2026</a></td>
+<td><strong>Yes.</strong> Three ballots: Mayor; 14 constituency Assembly members; 11 London-wide Assembly members. Every four years. <a href="https://www.london.gov.uk/who-we-are/governance-and-spending/good-governance/electing-mayor-and-assembly" target="_blank" rel="noopener">London.gov.uk, updated 19 May 2025</a></td>
+<td><strong>May 2028.</strong> <a href="https://www.london.gov.uk/who-we-are/governance-and-spending/good-governance/electing-mayor-and-assembly" target="_blank" rel="noopener">same source</a></td>
+</tr>
+<tr>
+<td><strong>Police and crime commissioner (PCC)</strong></td>
+<td>Sets the police budget and local policing plan. Hires and can dismiss the chief constable. In 4 areas also runs fire (a "PFCC"): Essex, Staffordshire, Northamptonshire and Cumbria. <a href="https://www.instituteforgovernment.org.uk/explainer/police-and-crime-commissioners" target="_blank" rel="noopener">Institute for Government, accessed 24 Sep 2026</a></td>
+<td>Home Office police grant for England and Wales in 2025/26: £10.1 billion. <a href="https://www.instituteforgovernment.org.uk/explainer/police-and-crime-commissioners" target="_blank" rel="noopener">same source</a></td>
+<td><strong>Yes</strong>, every four years. There are 37 PCC areas in England and Wales. Last election 2 May 2024. <a href="https://elections.democracyclub.org.uk/api/elections/pcc.2024-05-02/" target="_blank" rel="noopener">Democracy Club election list, queried 24 Sep 2026</a> In <strong>London, Greater Manchester, West Yorkshire, South Yorkshire, and York and North Yorkshire</strong> the mayor does this job instead. <a href="https://researchbriefings.files.parliament.uk/documents/CBP-10194/CBP-10194.pdf" target="_blank" rel="noopener">House of Commons Library, 21 Jul 2026</a>; <a href="https://www.instituteforgovernment.org.uk/explainer/police-and-crime-commissioners" target="_blank" rel="noopener">IfG</a></td>
+<td><strong>None planned.</strong> The government says PCCs will be abolished when their terms end in May 2028. Mayors take over where possible. Elsewhere, "policing and crime boards" of council leaders take over. <a href="https://www.gov.uk/government/news/police-and-crime-commissioners-to-be-scrapped" target="_blank" rel="noopener">GOV.UK, 13 Nov 2025</a>; <a href="https://www.gov.uk/government/publications/from-local-to-national-a-new-model-for-policing/from-local-to-national-a-new-model-for-policing-accessible" target="_blank" rel="noopener">GOV.UK, Jan 2026</a> <strong>The law has not been changed yet.</strong> As of 18 Aug 2026 the bill had not been published. <a href="https://commonslibrary.parliament.uk/research-briefings/sn06104/" target="_blank" rel="noopener">House of Commons Library, updated 18 Aug 2026</a></td>
+</tr>
+<tr>
+<td><strong>Fire and rescue authority</strong></td>
+<td>Fire and rescue service, fire safety.</td>
+<td>Example: Greater Manchester fire £313m. <a href="https://www.greatermanchester-ca.gov.uk/news/greater-manchester-sets-out-3bn-spending-plans-to-deliver-next-year-of-good-growth/" target="_blank" rel="noopener">GMCA, 6 Feb 2026</a></td>
+<td><strong>Usually no.</strong> It can be: the county council (e.g. Lincolnshire <a href="https://www.lincolnshire.gov.uk/council-councillors/statement-assurance-2025-2026-lincolnshire-fire-rescue/3" target="_blank" rel="noopener">Lincolnshire CC, 2025/26</a>); a board of councillors; a PFCC (elected); or a mayor (Greater Manchester, York and North Yorkshire <a href="https://researchbriefings.files.parliament.uk/documents/CBP-10194/CBP-10194.pdf" target="_blank" rel="noopener">Commons Library, 21 Jul 2026</a>; London through the London Fire Commissioner).</td>
+<td>Follows whoever runs it.</td>
+</tr>
+<tr>
+<td><strong>Integrated care board (ICB)</strong>, the local NHS</td>
+<td>Plans and pays for most local NHS care. Under the Health Bill, ICBs will control about 93% of NHS commissioning budgets. <a href="https://www.gov.uk/government/publications/health-bill-icbs-as-strategic-commissioners-fact-sheet/health-bill-icbs-as-strategic-commissioners-fact-sheet" target="_blank" rel="noopener">GOV.UK, updated 9 Sep 2026</a></td>
+<td>About <strong>£179 billion</strong> planned for 2027/28. <a href="https://www.gov.uk/government/publications/health-bill-icbs-as-strategic-commissioners-fact-sheet/health-bill-icbs-as-strategic-commissioners-fact-sheet" target="_blank" rel="noopener">same source</a></td>
+<td><strong>No</strong> (appointed). The Health Bill would add a member nominated by each strategic-authority mayor. <a href="https://www.gov.uk/government/publications/health-bill-icbs-as-strategic-commissioners-fact-sheet/health-bill-icbs-as-strategic-commissioners-fact-sheet" target="_blank" rel="noopener">same source</a> ICBs had to cut running costs by 50%. <a href="https://www.kingsfund.org.uk/insight-and-analysis/blogs/icb-cuts-what-does-it-mean" target="_blank" rel="noopener">King's Fund, 9 Apr 2025</a> Mergers took 42 ICBs to about 31 in April 2026, with more planned for April 2027. <a href="https://thenhsalliance.org/resources/icb-clusters-and-mergers-what-you-need-to-know" target="_blank" rel="noopener">NHS Confederation, 6 Oct 2025</a></td>
+<td>Not elected.</td>
+</tr>
+<tr>
+<td><strong>National park authority</strong> (15 across the UK)</td>
+<td>Planning decisions inside the park; conservation.</td>
+<td>Not gathered.</td>
+<td><strong>No.</strong> Most members come from local and parish councils; some are appointed by government. <a href="https://nationalparks.uk/who-looks-after-national-parks/" target="_blank" rel="noopener">National Parks UK, accessed 24 Sep 2026</a></td>
+<td>Not elected.</td>
+</tr>
+<tr>
+<td><strong>UK Parliament (Westminster)</strong></td>
+<td>Everything not devolved. For England it also runs things that are devolved elsewhere, such as health. <a href="https://www.instituteforgovernment.org.uk/explainer/devolution-and-nhs" target="_blank" rel="noopener">IfG, Devolution and the NHS</a></td>
+<td>—</td>
+<td>Yes. First past the post.</td>
+<td>By 2029 at the latest: Parliament ends automatically five years after it first met. <a href="https://www.legislation.gov.uk/ukpga/2022/11/section/4" target="_blank" rel="noopener">Dissolution and Calling of Parliament Act 2022, s.4</a> Holborn and St Pancras by-election: <strong>8 Oct 2026.</strong> <a href="https://elections.democracyclub.org.uk/api/elections/?postcode=WC1H9JE&amp;future=1" target="_blank" rel="noopener">Democracy Club, queried 24 Sep 2026</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3>1b. Scotland</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>What it decides</th>
+<th>Budget</th>
+<th>Elected? How?</th>
+<th>Next election</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Community council</strong></td>
+<td>No real powers. Councils must consult it on planning applications, some licences and common good property. About 1,200 are active. <a href="https://spice-spotlight.scot/2023/06/21/community-councils-at-50-the-forgotten-front-line-of-democracy/" target="_blank" rel="noopener">SPICe (Scottish Parliament research), 21 Jun 2023</a></td>
+<td>Tiny</td>
+<td>Yes, in principle. Volunteers; elections "are rarely contested". <a href="https://spice-spotlight.scot/2023/06/21/community-councils-at-50-the-forgotten-front-line-of-democracy/" target="_blank" rel="noopener">same source</a></td>
+<td>Set by each council's scheme. Unverified for our postcode.</td>
+</tr>
+<tr>
+<td><strong>Council</strong></td>
+<td>Most local services.</td>
+<td>—</td>
+<td>Yes. <strong>Single transferable vote (STV)</strong>: you number candidates 1, 2, 3. Every five years. <a href="https://www.electoralcommission.org.uk/voting-and-elections/how-elections-work/types-elections/local-councils" target="_blank" rel="noopener">Electoral Commission, accessed 24 Sep 2026</a></td>
+<td><strong>6 May 2027.</strong> <a href="https://www.emb.scot/scottish-local-government/scottish-local-government-elections-2027" target="_blank" rel="noopener">Electoral Management Board for Scotland, accessed 24 Sep 2026</a></td>
+</tr>
+<tr>
+<td><strong>Regional transport partnership</strong> (e.g. Strathclyde Partnership for Transport, SPT)</td>
+<td>Regional transport planning. SPT runs the Glasgow Subway. <a href="https://www.spt.co.uk/about-us/who-we-are/" target="_blank" rel="noopener">SPT, accessed 24 Sep 2026</a></td>
+<td>Not gathered</td>
+<td>No. Board make-up not checked (unverified).</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Scottish Parliament</strong> (129 MSPs)</td>
+<td>Health, education, justice and <strong>policing</strong>, local government and more. <a href="https://www.instituteforgovernment.org.uk/explainer/criminal-justice-and-devolution" target="_blank" rel="noopener">IfG, Criminal justice and devolution, 7 Apr 2020</a>; <a href="https://www.instituteforgovernment.org.uk/explainer/devolution-and-nhs" target="_blank" rel="noopener">IfG, Devolution and the NHS</a></td>
+<td>Scottish Budget 2026/27: nearly <strong>£68 billion</strong>. <a href="https://www.gov.scot/news/scottish-budget-2026-27-2/" target="_blank" rel="noopener">Scottish Government, 13 Jan 2026</a></td>
+<td>Yes. <strong>Additional member system</strong>: two votes. One for a constituency MSP, one for a party or independent in one of 8 regions. Each voter has 1 constituency + 7 regional MSPs. <a href="https://www.electoralcommission.org.uk/voting-and-elections/how-elections-work/types-elections/scottish-parliament" target="_blank" rel="noopener">Electoral Commission, accessed 24 Sep 2026</a></td>
+<td>Last 7 May 2026. Next <strong>May 2031</strong>. <a href="https://www.parliament.scot/msps/elections" target="_blank" rel="noopener">Scottish Parliament, accessed 24 Sep 2026</a></td>
+</tr>
+<tr>
+<td><strong>Police</strong>: Police Scotland, overseen by the Scottish Police Authority</td>
+<td>One national force. The Authority holds the Chief Constable to account.</td>
+<td>Not gathered</td>
+<td><strong>No.</strong> Up to 15 members appointed by Scottish Ministers. <a href="https://www.spa.police.uk/who-we-are/" target="_blank" rel="noopener">Scottish Police Authority, accessed 24 Sep 2026</a> <strong>Scotland has no PCCs.</strong></td>
+<td>Not elected.</td>
+</tr>
+<tr>
+<td><strong>Fire</strong>: Scottish Fire and Rescue Service</td>
+<td>One national service since 2013. <a href="https://www.gov.scot/policies/fire-and-rescue/" target="_blank" rel="noopener">Scottish Government, accessed 24 Sep 2026</a></td>
+<td>Not gathered</td>
+<td>No.</td>
+<td>Not elected.</td>
+</tr>
+<tr>
+<td><strong>Health board</strong> (e.g. NHS Greater Glasgow and Clyde)</td>
+<td>Runs local NHS services. Health is devolved. <a href="https://www.instituteforgovernment.org.uk/explainer/devolution-and-nhs" target="_blank" rel="noopener">IfG</a></td>
+<td>Not gathered</td>
+<td>No (appointed). Details unverified.</td>
+<td>Not elected.</td>
+</tr>
+<tr>
+<td><strong>National park authority</strong></td>
+<td>Planning and conservation in the park.</td>
+<td>Not gathered</td>
+<td><strong>Partly.</strong> Cairngorms: 5 of 19 board members are directly elected by residents; last vote 23 Mar 2023. <a href="https://cairngorms.co.uk/working-together/authority/about/board/elections/" target="_blank" rel="noopener">Cairngorms NPA, accessed 24 Sep 2026</a> Loch Lomond: unverified.</td>
+<td>Cairngorms: unverified.</td>
+</tr>
+<tr>
+<td><strong>UK Parliament</strong></td>
+<td>Matters not devolved to Scotland.</td>
+<td>—</td>
+<td>Yes. First past the post.</td>
+<td>By 2029 at the latest.</td>
+</tr>
+</tbody>
+</table></div>
+<h3>1c. Wales</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>What it decides</th>
+<th>Budget</th>
+<th>Elected? How?</th>
+<th>Next election</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Community or town council</strong> (731; cover about 70% of people)</td>
+<td>Local services and events; comments on planning; raises a precept. <a href="https://www.onevoicewales.wales/about/what-is-a-community-or-town-council/" target="_blank" rel="noopener">One Voice Wales, accessed 24 Sep 2026</a></td>
+<td>Small</td>
+<td>Yes.</td>
+<td>With council elections, May 2027 (assumed; not checked for each council).</td>
+</tr>
+<tr>
+<td><strong>Council</strong> (22 in Wales <a href="https://www.wlga.wales/town-and-community-councils" target="_blank" rel="noopener">WLGA, accessed 24 Sep 2026</a>)</td>
+<td>Most local services.</td>
+<td>—</td>
+<td>Yes. First past the post. All seats every five years. <a href="https://www.electoralcommission.org.uk/voting-and-elections/how-elections-work/types-elections/local-councils" target="_blank" rel="noopener">Electoral Commission, accessed 24 Sep 2026</a></td>
+<td><strong>May 2027.</strong> <a href="https://www.electoralcommission.org.uk/voting-and-elections/how-elections-work/types-elections/local-councils" target="_blank" rel="noopener">same source</a> Exact day not confirmed by the source.</td>
+</tr>
+<tr>
+<td><strong>Corporate joint committee (CJC)</strong> (4 regions)</td>
+<td>Regional land-use plans, regional transport plans, economic growth. <a href="https://www.gov.wales/corporate-joint-committees-position-statement-regional-collaboration-html" target="_blank" rel="noopener">Welsh Government, 24 Mar 2026</a></td>
+<td>Not gathered</td>
+<td><strong>No.</strong> Run by the leaders of the member councils. <a href="https://www.gov.wales/corporate-joint-committees-position-statement-regional-collaboration-html" target="_blank" rel="noopener">same source</a></td>
+<td>Not elected.</td>
+</tr>
+<tr>
+<td><strong>Senedd</strong> (Welsh Parliament)</td>
+<td>Makes laws for Wales, including on schools and hospitals, and decides some taxes. <a href="https://www.electoralcommission.org.uk/resources/resources-young-people/who-responsible/senedd-cymru/mss-responsibilities" target="_blank" rel="noopener">Electoral Commission, accessed 24 Sep 2026</a> <strong>Policing and justice are not devolved.</strong> <a href="https://www.instituteforgovernment.org.uk/explainer/criminal-justice-and-devolution" target="_blank" rel="noopener">IfG, 7 Apr 2020</a></td>
+<td>Welsh Government final budget 2026/27: <strong>£27.5 billion</strong>. <a href="https://www.gov.wales/welsh-government-publishes-final-budget" target="_blank" rel="noopener">Welsh Government, 20 Jan 2026</a></td>
+<td>Yes. <strong>New system from May 2026:</strong> 96 Members; 16 constituencies; 6 Members each; <strong>closed lists</strong> (you vote for a party or an independent, not a person); seats shared out by the D'Hondt formula; one vote. <a href="https://www.legislation.gov.uk/asc/2024/4/notes" target="_blank" rel="noopener">Senedd Cymru (Members and Elections) Act 2024, Explanatory Notes</a>; <a href="https://research.senedd.wales/research-articles/closed-lists-d-hondt-how-are-seats-allocated/" target="_blank" rel="noopener">Senedd Research, 1 Apr 2026</a></td>
+<td>Last 7 May 2026. Terms are now <strong>four years</strong>, so next <strong>May 2030</strong>. <a href="https://www.gov.wales/senedd-reform" target="_blank" rel="noopener">Welsh Government, updated 13 Nov 2024</a></td>
+</tr>
+<tr>
+<td><strong>Police and crime commissioner</strong> (4 in Wales)</td>
+<td>Same as England.</td>
+<td>Included in £10.1bn above</td>
+<td>Yes.</td>
+<td>None planned. PCCs are to go in 2028. For Wales the government said only that it would consider "the unique circumstances of devolved local government arrangements in Wales"; what replaces PCCs there is not yet set out. <a href="https://www.gov.uk/government/news/police-and-crime-commissioners-to-be-scrapped" target="_blank" rel="noopener">GOV.UK, 13 Nov 2025</a></td>
+</tr>
+<tr>
+<td><strong>Fire and rescue authority</strong> (3)</td>
+<td>Fire service.</td>
+<td>Not gathered</td>
+<td><strong>No.</strong> Councillors nominated by councils. From a reform announced in Dec 2025: smaller boards; each council's nominee must sit on its cabinet; one third independent experts. <a href="https://www.gov.wales/written-statement-governance-fire-and-rescue-services" target="_blank" rel="noopener">Welsh Government, 17 Dec 2025</a></td>
+<td>Not elected.</td>
+</tr>
+<tr>
+<td><strong>Local health board</strong> (7)</td>
+<td>Runs local NHS services.</td>
+<td>Not gathered</td>
+<td><strong>No.</strong> Chair and most members appointed by Welsh Ministers. <a href="https://law.gov.wales/public-services/health-and-health-services/local-health-boards" target="_blank" rel="noopener">Law Wales, accessed 24 Sep 2026</a></td>
+<td>Not elected.</td>
+</tr>
+<tr>
+<td><strong>National park authority</strong></td>
+<td>Planning and conservation in the park.</td>
+<td>Not gathered</td>
+<td>No.</td>
+<td>Not elected.</td>
+</tr>
+<tr>
+<td><strong>UK Parliament</strong></td>
+<td>Reserved matters, including policing and justice in Wales.</td>
+<td>—</td>
+<td>Yes.</td>
+<td>By 2029 at the latest.</td>
+</tr>
+</tbody>
+</table></div>
+<h3>1d. Northern Ireland</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>What it decides</th>
+<th>Budget</th>
+<th>Elected? How?</th>
+<th>Next election</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Parish / community council</strong></td>
+<td>There is no such tier in NI (unverified, no source checked).</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Council</strong></td>
+<td>Local services (fewer than in Great Britain).</td>
+<td>—</td>
+<td>Yes. <strong>STV.</strong> Councillors are elected by <strong>district electoral areas (DEAs)</strong>, which are groups of wards. <a href="https://www.electoralcommission.org.uk/voting-and-elections/how-elections-work/types-elections/local-councils" target="_blank" rel="noopener">Electoral Commission</a>; <a href="https://www.eoni.org.uk/results-data/electoral-areas/" target="_blank" rel="noopener">EONI, accessed 24 Sep 2026</a></td>
+<td><strong>6 May 2027.</strong> <a href="https://questions-statements.parliament.uk/written-questions/detail/2025-06-17/60790/" target="_blank" rel="noopener">UK Parliament written answer, 17 Jun 2025</a></td>
+</tr>
+<tr>
+<td><strong>Northern Ireland Assembly</strong> (90 MLAs)</td>
+<td>Health, education, welfare, justice and <strong>policing</strong> (since 2010), environment. <a href="https://www.instituteforgovernment.org.uk/explainer/northern-ireland-assembly" target="_blank" rel="noopener">IfG, 1 Feb 2024</a></td>
+<td>NI Executive 2026/27: about <strong>£16.1 billion</strong> day-to-day plus £2.3 billion capital. <a href="https://www.niassembly.gov.uk/assembly-business/committees/2022-2027/finance/reports/report-on-the-minister-for-finances-2026-2930-draft-budget/" target="_blank" rel="noopener">NI Assembly Finance Committee, 15 Apr 2026</a></td>
+<td>Yes. <strong>STV.</strong> 18 constituencies, 5 MLAs each. Five-year term. <a href="https://www.electoralcommission.org.uk/voting-and-elections/how-elections-work/types-elections/northern-ireland-assembly" target="_blank" rel="noopener">Electoral Commission, accessed 24 Sep 2026</a> Constituencies are by law the same as Westminster's, so 2027 uses the new 2024 boundaries. <a href="https://www.agendani.com/constituency-changes-for-northern-irelands-elections/" target="_blank" rel="noopener">agendaNi, citing Northern Ireland Act 1998 s.33</a></td>
+<td><strong>6 May 2027.</strong> <a href="https://questions-statements.parliament.uk/written-questions/detail/2025-06-17/60790/" target="_blank" rel="noopener">UK Parliament written answer, 17 Jun 2025</a></td>
+</tr>
+<tr>
+<td><strong>Police</strong>: PSNI, overseen by the Northern Ireland Policing Board</td>
+<td>Holds the Chief Constable to account.</td>
+<td>Not gathered</td>
+<td><strong>No</strong> direct election. 10 political members (MLAs) and 9 independent members. <a href="https://www.nipolicingboard.org.uk/about-board" target="_blank" rel="noopener">NI Policing Board, accessed 24 Sep 2026</a> <strong>NI has no PCC.</strong></td>
+<td>Not elected.</td>
+</tr>
+<tr>
+<td><strong>Fire</strong>: NI Fire &amp; Rescue Service</td>
+<td>Fire service for all of NI.</td>
+<td>Not gathered</td>
+<td><strong>No.</strong> Board appointed by the Health Minister; includes 4 district councillors. <a href="https://www.nifrs.org/home/about-us/nifrs-board/" target="_blank" rel="noopener">NIFRS, accessed 24 Sep 2026</a></td>
+<td>Not elected.</td>
+</tr>
+<tr>
+<td><strong>Health and social care</strong></td>
+<td>Run as one health-and-social-care system. <a href="https://www.instituteforgovernment.org.uk/explainer/devolution-and-nhs" target="_blank" rel="noopener">IfG</a></td>
+<td>Part of Executive budget</td>
+<td>No.</td>
+<td>Not elected.</td>
+</tr>
+<tr>
+<td><strong>UK Parliament</strong></td>
+<td>Reserved and excepted matters.</td>
+<td>—</td>
+<td>Yes.</td>
+<td>By 2029 at the latest.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Note: the NI Executive's own budget pages (northernireland.gov.uk) could not be fetched because the site blocks automated reading (robots.txt). We used the NI Assembly committee report instead.</p>
+<hr />
+<h2>2. Every English combined / strategic authority (as of 24 September 2026)</h2>
+<p><strong>Where the list comes from.</strong> The Office for National Statistics (ONS) list dated December 2025 has <strong>15</strong> combined authorities. <a href="https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LAD25_CAUTH25_EN_LU/FeatureServer/0/query?where=1%3D1&amp;outFields=*&amp;returnGeometry=false&amp;f=json" target="_blank" rel="noopener">ONS Open Geography, LAD25_CAUTH25 lookup, queried 24 Sep 2026</a> Four more were set up by law in 2026. That makes <strong>19</strong>, plus the GLA. Two more (Greater Essex; Norfolk and Suffolk) are planned but <strong>not yet set up</strong>. <a href="https://www.instituteforgovernment.org.uk/article/explainer/devolution-priority-programme-dpp" target="_blank" rel="noopener">Institute for Government, updated 23 Sep 2026</a></p>
+<p>"Last mayoral election" comes from the Democracy Club election lists for <a href="https://elections.democracyclub.org.uk/api/elections/mayor.2024-05-02/" target="_blank" rel="noopener">2 May 2024</a> and <a href="https://elections.democracyclub.org.uk/api/elections/mayor.2025-05-01/" target="_blank" rel="noopener">1 May 2025</a> (queried 24 Sep 2026). There were <strong>no</strong> combined-authority mayoral elections on 7 May 2026 (only six council mayors). <a href="https://elections.democracyclub.org.uk/api/elections/mayor.2026-05-07/" target="_blank" rel="noopener">Democracy Club</a> "Next" assumes the four-year cycle in the law: "subsequent elections … in every fourth year". <a href="https://www.legislation.gov.uk/ukpga/2009/20/schedule/5B" target="_blank" rel="noopener">Local Democracy, Economic Development and Construction Act 2009, Sch.5B para.2</a></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Type</th>
+<th>Councils in it (ONS)</th>
+<th>Mayor?</th>
+<th>Mayor has PCC powers?</th>
+<th>Mayor runs fire?</th>
+<th>Last mayoral election</th>
+<th>Next mayoral election</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Greater London</td>
+<td>GLA</td>
+<td>All of Greater London</td>
+<td>Yes</td>
+<td><strong>Yes</strong> (MOPAC)</td>
+<td><strong>Yes</strong> (London Fire Commissioner)</td>
+<td>2 May 2024</td>
+<td><strong>May 2028</strong></td>
+</tr>
+<tr>
+<td>Greater Manchester</td>
+<td>Mayoral CA</td>
+<td>Bolton, Bury, Manchester, Oldham, Rochdale, Salford, Stockport, Tameside, Trafford, Wigan</td>
+<td>Yes</td>
+<td><strong>Yes</strong></td>
+<td><strong>Yes</strong></td>
+<td>By-election 30 Jul 2026 (the old mayor became an MP on 18 Jun 2026) <a href="https://www.greatermanchester-ca.gov.uk/news/bev-craig-announced-as-the-new-mayor-of-greater-manchester/" target="_blank" rel="noopener">GMCA, 31 Jul 2026</a>; <a href="https://www.instituteforgovernment.org.uk/explainer/regional-mayors-devolution" target="_blank" rel="noopener">IfG, 3 Aug 2026</a></td>
+<td><strong>May 2028</strong></td>
+</tr>
+<tr>
+<td>West Yorkshire</td>
+<td>Mayoral CA</td>
+<td>Bradford, Calderdale, Kirklees, Leeds, Wakefield</td>
+<td>Yes</td>
+<td><strong>Yes</strong></td>
+<td>No</td>
+<td>2 May 2024</td>
+<td>May 2028</td>
+</tr>
+<tr>
+<td>South Yorkshire</td>
+<td>Mayoral CA</td>
+<td>Barnsley, Doncaster, Rotherham, Sheffield</td>
+<td>Yes</td>
+<td><strong>Yes</strong> (from May 2024)</td>
+<td>No</td>
+<td>2 May 2024</td>
+<td>May 2028</td>
+</tr>
+<tr>
+<td>York and North Yorkshire</td>
+<td>Mayoral CCA</td>
+<td>York, North Yorkshire</td>
+<td>Yes</td>
+<td><strong>Yes</strong></td>
+<td><strong>Yes</strong></td>
+<td>2 May 2024 (first)</td>
+<td>May 2028</td>
+</tr>
+<tr>
+<td>Liverpool City Region</td>
+<td>Mayoral CA</td>
+<td>Halton, Knowsley, Liverpool, St Helens, Sefton, Wirral</td>
+<td>Yes</td>
+<td>No (Merseyside PCC)</td>
+<td>No</td>
+<td>2 May 2024</td>
+<td>May 2028</td>
+</tr>
+<tr>
+<td>West Midlands</td>
+<td>Mayoral CA</td>
+<td>Birmingham, Coventry, Dudley, Sandwell, Solihull, Walsall, Wolverhampton</td>
+<td>Yes</td>
+<td>No (West Midlands PCC elected 2024)</td>
+<td>No</td>
+<td>2 May 2024</td>
+<td>May 2028</td>
+</tr>
+<tr>
+<td>North East</td>
+<td>Mayoral CA</td>
+<td>County Durham, Gateshead, Newcastle, North Tyneside, Northumberland, South Tyneside, Sunderland</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>2 May 2024 (first)</td>
+<td>May 2028</td>
+</tr>
+<tr>
+<td>Tees Valley</td>
+<td>Mayoral CA</td>
+<td>Darlington, Hartlepool, Middlesbrough, Redcar and Cleveland, Stockton-on-Tees</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>2 May 2024</td>
+<td>May 2028</td>
+</tr>
+<tr>
+<td>East Midlands</td>
+<td>Mayoral CCA</td>
+<td>Derby, Nottingham, Derbyshire and Nottinghamshire districts (17 in all)</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>2 May 2024 (first)</td>
+<td>May 2028</td>
+</tr>
+<tr>
+<td>Cambridgeshire and Peterborough</td>
+<td>Mayoral CA</td>
+<td>Peterborough, Cambridge, East Cambs, Fenland, Huntingdonshire, South Cambs</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>1 May 2025</td>
+<td>May 2029</td>
+</tr>
+<tr>
+<td>West of England</td>
+<td>Mayoral CA</td>
+<td>Bath and NE Somerset, Bristol, South Gloucestershire</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>1 May 2025</td>
+<td>May 2029</td>
+</tr>
+<tr>
+<td>Greater Lincolnshire</td>
+<td>Mayoral CCA</td>
+<td>North Lincs, NE Lincs, and the 7 Lincolnshire districts</td>
+<td>Yes</td>
+<td>No (Lincolnshire and Humberside PCCs)</td>
+<td>No</td>
+<td>1 May 2025 (first)</td>
+<td>May 2029</td>
+</tr>
+<tr>
+<td>Hull and East Yorkshire</td>
+<td>Mayoral CA</td>
+<td>Hull, East Riding</td>
+<td>Yes</td>
+<td>No (Humberside PCC)</td>
+<td>No</td>
+<td>1 May 2025 (first)</td>
+<td>May 2029</td>
+</tr>
+<tr>
+<td>Devon and Torbay</td>
+<td><strong>Non-mayoral</strong> CCA</td>
+<td>Torbay and the 8 Devon districts</td>
+<td><strong>No</strong></td>
+<td>No</td>
+<td>No</td>
+<td>—</td>
+<td>None planned (unverified)</td>
+</tr>
+<tr>
+<td>Lancashire</td>
+<td><strong>Non-mayoral</strong> CCA</td>
+<td>Blackburn with Darwen, Blackpool and 12 Lancashire districts</td>
+<td><strong>No</strong></td>
+<td>No</td>
+<td>No</td>
+<td>—</td>
+<td>None planned (unverified)</td>
+</tr>
+<tr>
+<td>Cumbria</td>
+<td>Mayoral CA (new)</td>
+<td>Cumberland; Westmorland and Furness</td>
+<td>Yes, from 2027</td>
+<td>Not in the founding order</td>
+<td>Not in the founding order</td>
+<td>—</td>
+<td><strong>6 May 2027</strong> <a href="https://www.legislation.gov.uk/uksi/2026/158/made" target="_blank" rel="noopener">Cumbria Combined Authority Order 2026 (SI 2026/158; made 23 Feb 2026), art.6</a></td>
+</tr>
+<tr>
+<td>Cheshire and Warrington</td>
+<td>Mayoral CA (new)</td>
+<td>Cheshire East, Cheshire West and Chester, Warrington</td>
+<td>Yes, from 2027</td>
+<td>Not in the founding order</td>
+<td>Not in the founding order</td>
+<td>—</td>
+<td><strong>6 May 2027</strong> <a href="https://www.legislation.gov.uk/uksi/2026/159/made" target="_blank" rel="noopener">Cheshire and Warrington Combined Authority Order 2026 (SI 2026/159; made 23 Feb 2026), art.6</a></td>
+</tr>
+<tr>
+<td>Sussex and Brighton</td>
+<td>Mayoral CCA (new; made 25 Mar 2026)</td>
+<td>Brighton and Hove, East Sussex, West Sussex</td>
+<td>Yes, from 2028</td>
+<td>Not in the founding rules</td>
+<td>Not in the founding rules</td>
+<td>—</td>
+<td><strong>4 May 2028</strong> <a href="https://www.legislation.gov.uk/uksi/2026/362/made" target="_blank" rel="noopener">SI 2026/362, reg.6</a></td>
+</tr>
+<tr>
+<td>Hampshire and the Solent</td>
+<td>Mayoral CCA (new; made 3 Jun 2026)</td>
+<td>Hampshire, Isle of Wight, Portsmouth, Southampton</td>
+<td>Yes, from 2028</td>
+<td>Not in the founding rules</td>
+<td>Not in the founding rules</td>
+<td>—</td>
+<td><strong>4 May 2028</strong> <a href="https://www.legislation.gov.uk/uksi/2026/595/made" target="_blank" rel="noopener">Hampshire and the Solent CCA Regulations 2026 (SI 2026/595), reg.6</a></td>
+</tr>
+<tr>
+<td><em>Greater Essex</em></td>
+<td><em>Planned mayoral CCA, not yet set up</em></td>
+<td>Essex, Southend, Thurrock</td>
+<td>Planned</td>
+<td>Essex CC expects the mayor to take over the PFCC role <a href="https://essex.gov.uk/running-council/plans-and-strategies/devolution-greater-essex" target="_blank" rel="noopener">Essex CC, undated</a></td>
+<td>(as left)</td>
+<td>—</td>
+<td>Government "minded to" hold the first election in <strong>May 2028</strong> <a href="https://questions-statements.parliament.uk/written-statements/detail/2025-12-04/hcws1128" target="_blank" rel="noopener">Written statement HCWS1128, 4 Dec 2025</a>. IfG (23 Sep 2026): the three councils have not yet approved the draft order.</td>
+</tr>
+<tr>
+<td><em>Norfolk and Suffolk</em></td>
+<td><em>Planned mayoral CCA, not yet set up</em></td>
+<td>Norfolk, Suffolk</td>
+<td>Planned</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>Government "minded to" hold the first election in <strong>May 2028</strong> <a href="https://questions-statements.parliament.uk/written-statements/detail/2025-12-04/hcws1128" target="_blank" rel="noopener">same statement</a>. IfG (23 Sep 2026): not yet set up; local leaders are seeking changes to the deal.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Mayors with PCC and fire powers.</strong> Sources: <a href="https://researchbriefings.files.parliament.uk/documents/CBP-10194/CBP-10194.pdf" target="_blank" rel="noopener">House of Commons Library, 21 Jul 2026</a>; <a href="https://www.instituteforgovernment.org.uk/explainer/police-and-crime-commissioners" target="_blank" rel="noopener">IfG PCC explainer</a>. The 2026 Act lets more mayors take over PCC powers where the areas match (s.46, in force 29 Jun 2026 under s.108(5): two months after Royal Assent). <a href="https://www.legislation.gov.uk/ukpga/2026/23" target="_blank" rel="noopener">legislation.gov.uk</a> We found no new transfers after July 2026 (unverified).</p>
+<p><strong>What changed and when (timeline)</strong></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>What happened</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>13 Nov 2025</td>
+<td>Government says PCCs will be abolished in 2028</td>
+<td><a href="https://www.gov.uk/government/news/police-and-crime-commissioners-to-be-scrapped" target="_blank" rel="noopener">GOV.UK</a></td>
+</tr>
+<tr>
+<td>4 Dec 2025</td>
+<td>Government says it is "minded to" hold the first mayoral elections for Sussex and Brighton, Hampshire and the Solent, Norfolk and Suffolk, and Greater Essex in May 2028. Cumbria and Cheshire and Warrington had asked to delay theirs to May 2027. (The 2026 orders later fixed 6 May 2027 and 4 May 2028 for the four areas now set up.)</td>
+<td><a href="https://questions-statements.parliament.uk/written-statements/detail/2025-12-04/hcws1128" target="_blank" rel="noopener">Written statement HCWS1128</a></td>
+</tr>
+<tr>
+<td>16 Feb 2026</td>
+<td>Government drops plan to delay May 2026 council elections in 30 areas, after legal advice</td>
+<td><a href="https://www.instituteforgovernment.org.uk/explainer/local-elections-2026" target="_blank" rel="noopener">IfG, updated 17 Feb 2026</a></td>
+</tr>
+<tr>
+<td>29 Apr 2026</td>
+<td>English Devolution and Community Empowerment Act 2026 becomes law. Creates "strategic authorities"; provides for the supplementary vote for mayors and PCCs (switched on for combined-authority mayors only, from 18 Jun 2026, by <a href="https://www.legislation.gov.uk/uksi/2026/656/made" target="_blank" rel="noopener">SI 2026/656</a>); limits how long reorganisation can delay a council election (53 weeks, s.64)</td>
+<td><a href="https://www.legislation.gov.uk/ukpga/2026/23" target="_blank" rel="noopener">legislation.gov.uk</a></td>
+</tr>
+<tr>
+<td>7 May 2026</td>
+<td>Scottish Parliament and Senedd elections; council elections in 134 English councils</td>
+<td><a href="https://www.instituteforgovernment.org.uk/explainer/local-elections-2026" target="_blank" rel="noopener">IfG</a>; <a href="https://www.parliament.scot/msps/elections" target="_blank" rel="noopener">Scottish Parliament</a></td>
+</tr>
+<tr>
+<td>30 Jul 2026</td>
+<td>Greater Manchester mayoral by-election (supplementary vote)</td>
+<td><a href="https://www.greatermanchester-ca.gov.uk/news/bev-craig-announced-as-the-new-mayor-of-greater-manchester/" target="_blank" rel="noopener">GMCA</a></td>
+</tr>
+<tr>
+<td>7 Sep 2026</td>
+<td>Government withdraws its council-reorganisation decisions for Essex, Suffolk, Norfolk, and Hampshire and Isle of Wight; July 2026 decisions elsewhere under review. 2027 elections to <em>existing</em> councils now expected to go ahead unless the review is quick.</td>
+<td><a href="https://commonslibrary.parliament.uk/research-briefings/cbp-10494/" target="_blank" rel="noopener">House of Commons Library, modified 11 Sep 2026</a></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>3. Six real postcodes</h2>
+<p>We looked up each postcode on postcodes.io and on the Democracy Club elections API on 24 September 2026. The last column says <strong>where the site could get that fact</strong>:
+- <strong>PIO</strong> = postcodes.io main lookup (<code>/postcodes/&lt;pc&gt;</code>)
+- <strong>PIO-Scot</strong> = postcodes.io Scottish lookup (<code>/scotland/postcodes/&lt;pc&gt;</code>)
+- <strong>DC</strong> = Democracy Club Every Election API (free, no key). Note: DC's developer postcode API needs a key; we got "401 Unauthorized", so we did not use it.
+- <strong>Own table</strong> = neither API gives it; the site must keep it up to date itself.</p>
+<h3>3a. Greater Manchester: M60 2LA (Manchester Town Hall)</h3>
+<p>Sources: <a href="https://api.postcodes.io/postcodes/M602LA" target="_blank" rel="noopener">postcodes.io M60 2LA</a>; <a href="https://elections.democracyclub.org.uk/api/elections/?postcode=M602LA" target="_blank" rel="noopener">DC elections for M60 2LA</a></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Body</th>
+<th>Elected?</th>
+<th>Next election</th>
+<th>Data source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Parish</td>
+<td>None: "Manchester, unparished area"</td>
+<td>—</td>
+<td>—</td>
+<td>PIO <code>parish</code></td>
+</tr>
+<tr>
+<td>Council ward</td>
+<td>Manchester City Council, <strong>Piccadilly</strong> ward</td>
+<td>Yes, first past the post, by thirds (three years in four) <a href="https://www.manchester.gov.uk/the-council-and-democracy/elections-and-voting/elections/the-different-types-of-elections-held-in-manchester" target="_blank" rel="noopener">Manchester CC</a></td>
+<td><strong>May 2027</strong> expected (pattern: 2021–24 and 2026 in DC; exact 2027 poll not yet listed)</td>
+<td>PIO <code>admin_ward</code>; DC once called</td>
+</tr>
+<tr>
+<td>Combined authority</td>
+<td><strong>Greater Manchester</strong> Mayor</td>
+<td>Yes, supplementary vote</td>
+<td><strong>May 2028</strong></td>
+<td><strong>Own table</strong> (PIO has no combined-authority field; use ONS lookup)</td>
+</tr>
+<tr>
+<td>Police</td>
+<td>Mayor acts as PCC for Greater Manchester Police</td>
+<td>(via Mayor)</td>
+<td>—</td>
+<td>PIO <code>pfa</code> gives "Greater Manchester" but not who runs it → <strong>own table</strong></td>
+</tr>
+<tr>
+<td>Fire</td>
+<td>Mayor (Greater Manchester Fire and Rescue)</td>
+<td>(via Mayor)</td>
+<td>—</td>
+<td><strong>Own table</strong></td>
+</tr>
+<tr>
+<td>NHS</td>
+<td>NHS Greater Manchester ICB</td>
+<td>No</td>
+<td>—</td>
+<td>PIO <code>icb</code></td>
+</tr>
+<tr>
+<td>Westminster</td>
+<td><strong>Manchester Central</strong></td>
+<td>Yes</td>
+<td>By 2029</td>
+<td>PIO <code>parliamentary_constituency</code></td>
+</tr>
+</tbody>
+</table></div>
+<h3>3b. Rural Lincolnshire: PE23 5AE (Toynton All Saints, near Spilsby)</h3>
+<p>Sources: <a href="https://api.postcodes.io/postcodes/PE235AE" target="_blank" rel="noopener">postcodes.io PE23 5AE</a>; <a href="https://elections.democracyclub.org.uk/api/elections/?postcode=PE235AE" target="_blank" rel="noopener">DC elections for PE23 5AE</a>. postcodes.io classes it as rural (<code>ruc21</code>: RSF1).</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Body</th>
+<th>Elected?</th>
+<th>Next election</th>
+<th>Data source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Parish</td>
+<td><strong>Toynton All Saints</strong> parish</td>
+<td>Yes, if it has a parish council (a small parish may only have a parish meeting; unverified)</td>
+<td>Likely May 2027 with the district (unverified)</td>
+<td>PIO <code>parish</code>; DC does not cover parishes</td>
+</tr>
+<tr>
+<td>District ward</td>
+<td>East Lindsey District Council, <strong>Halton Holegate</strong> ward</td>
+<td>Yes, first past the post. DC marks the 2023 poll "cancelled", which usually means nobody stood against the winner</td>
+<td><strong>May 2027.</strong> LincsOnline reported on 9 Sep 2026 that elections will now be to the <em>existing</em> district councils, all seats, on current boundaries <a href="https://www.lincsonline.co.uk/lincoln/elections-will-be-held-next-year-but-the-plan-has-changed-9482075/" target="_blank" rel="noopener">LincsOnline</a>, instead of the earlier plan for a new "shadow" unitary council (<a href="https://www.lincolnshire.gov.uk/news/article/2843/decision-on-local-government-reorganisation-in-greater-lincolnshire" target="_blank" rel="noopener">Lincolnshire CC</a>). The Commons Library says 2027 elections to existing councils are expected "unless the review is sufficiently rapid" <a href="https://commonslibrary.parliament.uk/research-briefings/cbp-10494/" target="_blank" rel="noopener">Commons Library</a>. <strong>Likely, but not final.</strong></td>
+<td>PIO <code>admin_ward</code>; DC once called</td>
+</tr>
+<tr>
+<td>County division</td>
+<td>Lincolnshire County Council, <strong>Wainfleet</strong> division</td>
+<td>Yes, first past the post</td>
+<td>Last 1 May 2025. No county election in 2027. The council is due to be replaced by reorganisation (timing under review)</td>
+<td>PIO <code>ced</code></td>
+</tr>
+<tr>
+<td>Combined authority</td>
+<td><strong>Greater Lincolnshire</strong> CCA Mayor</td>
+<td>Yes</td>
+<td><strong>May 2029</strong></td>
+<td><strong>Own table</strong></td>
+</tr>
+<tr>
+<td>Police</td>
+<td><strong>Lincolnshire PCC</strong></td>
+<td>Yes (last 2 May 2024)</td>
+<td>None planned. Role to end 2028. Who takes over (mayor or a board) not yet decided. The Lincolnshire police area is not the same as the combined authority area (North and NE Lincolnshire are policed by Humberside), from PIO <code>pfa</code></td>
+<td>PIO <code>pfa</code>; DC</td>
+</tr>
+<tr>
+<td>Fire</td>
+<td>Lincolnshire County Council</td>
+<td>(via county councillors)</td>
+<td>—</td>
+<td><strong>Own table</strong></td>
+</tr>
+<tr>
+<td>NHS</td>
+<td>NHS Lincolnshire ICB</td>
+<td>No</td>
+<td>—</td>
+<td>PIO <code>icb</code></td>
+</tr>
+<tr>
+<td>Westminster</td>
+<td><strong>Louth and Horncastle</strong></td>
+<td>Yes</td>
+<td>By 2029</td>
+<td>PIO</td>
+</tr>
+</tbody>
+</table></div>
+<h3>3c. Glasgow: G2 1DU (Glasgow City Chambers, George Square)</h3>
+<p>Sources: <a href="https://api.postcodes.io/postcodes/G21DU" target="_blank" rel="noopener">postcodes.io G2 1DU</a>; <a href="https://api.postcodes.io/scotland/postcodes/G21DU" target="_blank" rel="noopener">postcodes.io Scottish lookup</a>; <a href="https://elections.democracyclub.org.uk/api/elections/?postcode=G21DU" target="_blank" rel="noopener">DC elections for G2 1DU</a></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Body</th>
+<th>Elected?</th>
+<th>Next election</th>
+<th>Data source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Community council</td>
+<td>Which one covers this postcode: <strong>unverified</strong></td>
+<td>Yes in principle, rarely contested</td>
+<td>Unverified</td>
+<td><strong>Neither API</strong></td>
+</tr>
+<tr>
+<td>Council ward</td>
+<td>Glasgow City Council, <strong>Anderston/City/Yorkhill</strong> ward</td>
+<td>Yes, STV</td>
+<td><strong>6 May 2027</strong></td>
+<td>PIO <code>admin_ward</code></td>
+</tr>
+<tr>
+<td>Regional transport</td>
+<td>Strathclyde Partnership for Transport (runs the Subway)</td>
+<td>No</td>
+<td>—</td>
+<td><strong>Own table</strong></td>
+</tr>
+<tr>
+<td>Scottish Parliament</td>
+<td><strong>Glasgow Central</strong> constituency + <strong>Glasgow</strong> region</td>
+<td>Yes, additional member system</td>
+<td><strong>May 2031</strong></td>
+<td><strong>PIO-Scot only</strong> (<code>scottish_parliamentary_constituency</code>, <code>scottish_parliamentary_region</code>). The main lookup returns nothing for this. DC agrees: <code>sp.c.glasgow-central.2026-05-07</code>, <code>sp.r.glasgow.2026-05-07</code></td>
+</tr>
+<tr>
+<td>Police</td>
+<td>Police Scotland / Scottish Police Authority</td>
+<td>No</td>
+<td>—</td>
+<td>PIO <code>pfa</code> = "Scotland"</td>
+</tr>
+<tr>
+<td>Fire</td>
+<td>Scottish Fire and Rescue Service</td>
+<td>No</td>
+<td>—</td>
+<td>Own table</td>
+</tr>
+<tr>
+<td>NHS</td>
+<td>NHS Greater Glasgow and Clyde</td>
+<td>No</td>
+<td>—</td>
+<td>PIO <code>nhs_ha</code></td>
+</tr>
+<tr>
+<td>Westminster</td>
+<td><strong>Glasgow North East</strong></td>
+<td>Yes</td>
+<td>By 2029</td>
+<td>PIO</td>
+</tr>
+</tbody>
+</table></div>
+<h3>3d. Cardiff: CF10 3ND (city centre, Cathays ward)</h3>
+<p>Sources: <a href="https://api.postcodes.io/postcodes/CF103ND" target="_blank" rel="noopener">postcodes.io CF10 3ND</a>; <a href="https://elections.democracyclub.org.uk/api/elections/?postcode=CF103ND" target="_blank" rel="noopener">DC elections for CF10 3ND</a></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Body</th>
+<th>Elected?</th>
+<th>Next election</th>
+<th>Data source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Community</td>
+<td>"<strong>Castle</strong>" community. Whether it has a community council: <strong>unverified</strong> (Cardiff's council web page for this returned "not found")</td>
+<td>—</td>
+<td>—</td>
+<td>PIO <code>parish</code></td>
+</tr>
+<tr>
+<td>Council ward</td>
+<td>Cardiff Council, <strong>Cathays</strong> ward</td>
+<td>Yes, first past the post</td>
+<td><strong>May 2027</strong></td>
+<td>PIO <code>admin_ward</code></td>
+</tr>
+<tr>
+<td>Regional</td>
+<td>South East Wales corporate joint committee (Cardiff's membership assumed, not checked)</td>
+<td>No</td>
+<td>—</td>
+<td>Own table</td>
+</tr>
+<tr>
+<td>Senedd</td>
+<td><strong>Caerdydd Penarth</strong> (6 Members, closed list)</td>
+<td>Yes</td>
+<td><strong>May 2030</strong></td>
+<td>PIO <code>senedd_constituency</code> (also <code>senedd_constituency_no</code>: 14). DC agrees: <code>senedd.caerdydd-penarth.2026-05-07</code></td>
+</tr>
+<tr>
+<td>Police</td>
+<td><strong>South Wales PCC</strong></td>
+<td>Yes (last 2 May 2024)</td>
+<td>None planned; role to end 2028</td>
+<td>PIO <code>pfa</code>; DC</td>
+</tr>
+<tr>
+<td>Fire</td>
+<td>South Wales Fire and Rescue Authority</td>
+<td>No</td>
+<td>—</td>
+<td>Own table</td>
+</tr>
+<tr>
+<td>NHS</td>
+<td>Cardiff and Vale University Health Board</td>
+<td>No</td>
+<td>—</td>
+<td>PIO <code>nhs_ha</code></td>
+</tr>
+<tr>
+<td>Westminster</td>
+<td><strong>Cardiff South and Penarth</strong></td>
+<td>Yes</td>
+<td>By 2029</td>
+<td>PIO</td>
+</tr>
+</tbody>
+</table></div>
+<h3>3e. Belfast: BT1 5GS (Belfast City Hall)</h3>
+<p>Sources: <a href="https://api.postcodes.io/postcodes/BT15GS" target="_blank" rel="noopener">postcodes.io BT1 5GS</a>; <a href="https://elections.democracyclub.org.uk/api/elections/?postcode=BT15GS" target="_blank" rel="noopener">DC elections for BT1 5GS</a></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Body</th>
+<th>Elected?</th>
+<th>Next election</th>
+<th>Data source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Parish/community</td>
+<td>None</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Council</td>
+<td>Belfast City Council. postcodes.io gives the <strong>ward</strong> ("Central"). Voting happens by <strong>district electoral area</strong>: DC lists <strong>Botanic</strong> for 2023</td>
+<td>Yes, STV</td>
+<td><strong>6 May 2027</strong></td>
+<td><strong>DC only</strong> for the DEA. PIO gives ward, not DEA</td>
+</tr>
+<tr>
+<td>NI Assembly</td>
+<td><strong>Belfast South and Mid Down</strong> (same as Westminster seat)</td>
+<td>Yes, STV, 5 MLAs</td>
+<td><strong>6 May 2027</strong></td>
+<td>PIO <code>parliamentary_constituency</code>, plus our rule that Assembly = Westminster seat. DC still shows the old 2022 seat (<code>nia.belfast-south.2022-05-05</code>) until the 2027 poll is added</td>
+</tr>
+<tr>
+<td>Police</td>
+<td>PSNI / NI Policing Board</td>
+<td>No</td>
+<td>—</td>
+<td>PIO <code>pfa</code> is empty for NI</td>
+</tr>
+<tr>
+<td>Fire</td>
+<td>NI Fire &amp; Rescue Service</td>
+<td>No</td>
+<td>—</td>
+<td>Own table</td>
+</tr>
+<tr>
+<td>Health</td>
+<td>Health and social care (Department of Health)</td>
+<td>No</td>
+<td>—</td>
+<td>PIO gives "Belfast" in <code>ccg</code></td>
+</tr>
+<tr>
+<td>Westminster</td>
+<td><strong>Belfast South and Mid Down</strong></td>
+<td>Yes</td>
+<td>By 2029</td>
+<td>PIO</td>
+</tr>
+</tbody>
+</table></div>
+<h3>3f. Optional: Holborn and St Pancras, WC1H 9JE (Camden Town Hall)</h3>
+<p>Sources: <a href="https://api.postcodes.io/postcodes/WC1H9JE" target="_blank" rel="noopener">postcodes.io WC1H 9JE</a>; <a href="https://elections.democracyclub.org.uk/api/elections/?postcode=WC1H9JE" target="_blank" rel="noopener">DC elections for WC1H 9JE</a></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Body</th>
+<th>Elected?</th>
+<th>Next election</th>
+<th>Data source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Parish</td>
+<td>None: "Camden, unparished area"</td>
+<td>—</td>
+<td>—</td>
+<td>PIO</td>
+</tr>
+<tr>
+<td>Council ward</td>
+<td>Camden Council, <strong>King's Cross</strong> ward</td>
+<td>Yes, first past the post, all seats together</td>
+<td>Last 7 May 2026 → <strong>May 2030</strong></td>
+<td>PIO; DC</td>
+</tr>
+<tr>
+<td>London</td>
+<td>Mayor of London; London Assembly: <strong>Barnet and Camden</strong> constituency + London-wide list</td>
+<td>Yes</td>
+<td><strong>May 2028</strong></td>
+<td><strong>DC only</strong> for the Assembly constituency (<code>gla.c.barnet-and-camden</code>). PIO has no GLA field</td>
+</tr>
+<tr>
+<td>Police</td>
+<td>Mayor's Office for Policing and Crime (Metropolitan Police)</td>
+<td>(via Mayor)</td>
+<td>—</td>
+<td>PIO <code>pfa</code> = "Metropolitan Police" → own table</td>
+</tr>
+<tr>
+<td>Fire</td>
+<td>London Fire Commissioner (under the Mayor)</td>
+<td>(via Mayor)</td>
+<td>—</td>
+<td>Own table</td>
+</tr>
+<tr>
+<td>NHS</td>
+<td>NHS West and North London ICB (a merged ICB)</td>
+<td>No</td>
+<td>—</td>
+<td>PIO <code>icb</code></td>
+</tr>
+<tr>
+<td>Westminster</td>
+<td><strong>Holborn and St Pancras</strong></td>
+<td>Yes</td>
+<td><strong>By-election 8 Oct 2026</strong></td>
+<td>PIO; DC <code>parl.holborn-and-st-pancras.by.2026-10-08</code></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>4. What the two data sources do and do not give us</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Level</th>
+<th>postcodes.io</th>
+<th>Democracy Club (elections API)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Parish / community</td>
+<td>Yes: <code>parish</code> (England and Wales). Scotland: no community councils</td>
+<td><strong>No.</strong> Parishes not covered since 2022</td>
+</tr>
+<tr>
+<td>Council ward</td>
+<td>Yes: <code>admin_ward</code></td>
+<td>Yes, once an election is called</td>
+</tr>
+<tr>
+<td>County division (two-tier areas)</td>
+<td>Yes: <code>ced</code></td>
+<td>Yes, once called</td>
+</tr>
+<tr>
+<td>NI district electoral area</td>
+<td><strong>No</strong> (ward only)</td>
+<td>Yes (as the ballot area)</td>
+</tr>
+<tr>
+<td>Combined / strategic authority</td>
+<td><strong>No field.</strong> Map council → authority with the ONS lookup (latest is Dec 2025, so it lacks the four 2026 authorities)</td>
+<td>Yes, for mayoral elections once called</td>
+</tr>
+<tr>
+<td>GLA constituency</td>
+<td><strong>No</strong></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Police force area</td>
+<td>Yes: <code>pfa</code> (not NI)</td>
+<td>PCC elections: yes, once called</td>
+</tr>
+<tr>
+<td>Who runs police or fire (PCC, mayor, board)</td>
+<td><strong>No</strong></td>
+<td>Partly (it shows whether there is a PCC election)</td>
+</tr>
+<tr>
+<td>Scottish Parliament constituency and region</td>
+<td>Only in the <code>/scotland/postcodes</code> lookup</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Senedd constituency</td>
+<td>Yes: <code>senedd_constituency</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>NI Assembly constituency</td>
+<td>Not a separate field; use <code>parliamentary_constituency</code></td>
+<td>Yes, but old boundaries until the 2027 poll is added</td>
+</tr>
+<tr>
+<td>ICB / health board</td>
+<td>Yes: <code>icb</code>, <code>nhs_ha</code></td>
+<td>Not elected</td>
+</tr>
+<tr>
+<td>National park</td>
+<td>Yes: <code>national_park</code></td>
+<td>Not elected (except Cairngorms board votes: unverified)</td>
+</tr>
+<tr>
+<td>Westminster</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><strong>"When is the next election?"</strong></td>
+<td>No</td>
+<td><strong>Only once called.</strong> On 24 Sep 2026 the only future elections listed anywhere were by-elections up to 29 Oct 2026. Nothing for May 2027 yet. <a href="https://elections.democracyclub.org.uk/api/elections/?poll_open_date__gte=2026-09-24&amp;limit=200" target="_blank" rel="noopener">DC, queried 24 Sep 2026</a></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>What this means for the site</h2>
+<p>These are options, not recommendations about any candidate or party.</p>
+<ol>
+<li><strong>"Regional" means a different thing in each nation.</strong> One neutral way to show it: a row called "Between your council and Westminster". It would show whatever applies to that postcode: a combined-authority mayor, the GLA, the Scottish Parliament, the Senedd or the NI Assembly. Some English postcodes have <strong>no mayor at all</strong>: for example Kent or Surrey (not in the ONS list or the 2026 orders), and Devon or Lancashire (in a combined county authority that has no mayor). One option is to say so plainly rather than leave a gap (a choice for Romily and Barny). Romily answered "I don't know" on this. The choice between (a) showing only bodies you can vote for, or (b) also listing unelected ones like ICBs and fire authorities, is a product decision for Romily and Barny.</li>
+<li><strong>The site needs its own small table</strong> for things neither API gives: council → combined authority (start from the ONS Dec 2025 lookup and add Cumbria, Cheshire and Warrington, Sussex and Brighton, Hampshire and the Solent); who runs police and fire in each area; and the <strong>next scheduled election date</strong> for each level (from the law, as in this paper).</li>
+<li><strong>Use two postcodes.io lookups for Scotland.</strong> The main lookup returns nothing for the Scottish Parliament.</li>
+<li><strong>Northern Ireland needs Democracy Club for council areas.</strong> postcodes.io gives the ward, but people vote by district electoral area.</li>
+<li><strong>Things to re-check before May 2027:</strong>
+   - The PCC abolition bill (not yet published on 18 Aug 2026).
+   - The council-reorganisation review from 7 Sep 2026. It decides whether Lincolnshire and others elect old or new councils in May 2027.
+   - Whether Greater Essex and Norfolk and Suffolk authorities are set up.
+   - Any new PCC transfers to mayors under the 2026 Act.
+   - ICB mergers in April 2027.</li>
+<li><strong>For the Holborn and St Pancras test on 8 Oct 2026</strong>, only the Westminster ballot is live. The page could still show the other levels (Camden, the Mayor of London and the London Assembly) as "not voting this time; next due May 2030 / May 2028".</li>
+</ol>
+<hr />
+<h2>Could not verify</h2>
+<ul>
+<li>Whether <strong>Toynton All Saints</strong> has a parish council or only a parish meeting, and the date of its next election.</li>
+<li>Which <strong>Glasgow community council</strong> covers G2 1DU, and when it next holds elections.</li>
+<li>Whether the <strong>Castle</strong> community in Cardiff has a community council.</li>
+<li>That Cardiff is in the <strong>South East Wales</strong> corporate joint committee (very likely, but not checked on an official page).</li>
+<li>That <strong>Northern Ireland has no parish or community council tier</strong> (no source checked).</li>
+<li>The make-up of the <strong>SPT board</strong>; how Scottish health boards are appointed.</li>
+<li>Establishment dates for the <strong>Devon and Torbay</strong> and <strong>Lancashire</strong> CCAs, and whether either plans a mayor.</li>
+<li>Whether any <strong>new PCC-to-mayor transfers</strong> happened after July 2026.</li>
+<li>The exact <strong>day</strong> of the May 2027 Welsh and English council elections (sources say "May 2027"; 6 May 2027 is confirmed only for Scotland and Northern Ireland).</li>
+<li>When the supplementary vote will be switched on for the <strong>Mayor of London</strong>, council mayors and <strong>PCCs</strong>. On 24 Sep 2026 legislation.gov.uk listed commencement rules only for combined-authority and combined-county-authority mayors (SI 2026/656).</li>
+<li>The exact <strong>number of ICBs</strong> in September 2026 (about 31 after April 2026, per NHS Confederation, October 2025).</li>
+<li>Budget figures for fire authorities, national parks, Police Scotland and most combined authorities (not gathered).</li>
+<li><strong>Loch Lomond and The Trossachs</strong> National Park board elections.</li>
+<li>Pages we could not fetch: northernireland.gov.uk (blocked by robots.txt); the IfG "metro mayors" URL and Warrington Council's devolution news (403 errors); Cardiff Council's community councils page (404).</li>
+</ul>
+  <p class="small" style="margin-top:3rem"><a href="/round-6/">Back to round six</a></p>
+</main>
+</body>
+</html>

@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Round five — shaping the journey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #000;
+    --paper: #fff;
+    --rule: #000;
+    --muted: #555;
+    --field: #f4f4f4;
+    --measure: 40rem;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 4rem 1.25rem 6rem;
+  }
+  header { margin-bottom: 3.5rem; }
+  h1 {
+    font-size: clamp(2.6rem, 8vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.25rem;
+  }
+  .lede { margin: 0 0 1rem; }
+  .lede + .lede { margin-top: 0; }
+  .small { font-size: 0.95rem; color: var(--muted); }
+  .meta {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+    margin-top: 2rem;
+  }
+  .meta span { white-space: nowrap; }
+
+  section { margin: 3.5rem 0 0; }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0 0 0.25rem;
+  }
+  .why { margin: 0 0 2rem; color: var(--muted); }
+
+  .q { margin: 0 0 2.5rem; }
+  .q label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .q label .n {
+    display: inline-block;
+    width: 2rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .q .hint {
+    margin: 0 0 0.6rem 2rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .q .hint em { font-style: italic; }
+  textarea, input[type=text] {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    font: inherit;
+    color: var(--ink);
+    background: var(--field);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    padding: 0.7rem 0.75rem;
+    resize: vertical;
+    min-height: 6.5rem;
+  }
+  input[type=text] { min-height: 0; }
+  textarea:focus, input:focus, button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .choices { margin: 0 0 0.75rem 2rem; }
+  .choices label {
+    display: block; font-weight: 400; margin: 0.15rem 0;
+  }
+  .choices input { margin-right: 0.5rem; accent-color: #000; }
+
+  .submit {
+    margin-top: 4rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+  button {
+    font: inherit;
+    font-weight: 500;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+  }
+  button.secondary { background: var(--paper); color: var(--ink); margin-left: 0.75rem; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  #status { margin-top: 1rem; min-height: 1.6rem; }
+  .hidden { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    #status { transition: opacity 200ms; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Round five.</h1>
+    <p class="lede">Your feedback on 24 September, turned into decisions. Most of it is clear enough to just get on with, so this round only asks the things that change what gets built, or where there's a trade-off you should decide rather than us.</p>
+    <p class="lede">The big idea in your note is one we agree with: not more information, but a different way of meeting it. Someone tells us a bit about themselves, their place appears, the things that matter to them come forward, and they go deeper only when they want to.</p>
+    <p class="lede">Where we have doubts about an idea, we've put them to you as questions rather than deciding for you. They're not objections, just things we'd want you to have thought through.</p>
+    <p class="lede small">As before: answers save in this browser as you type, nothing is sent until you press "Send my answers", and "I don't know yet" is fine. Where we have a suggestion, we've said so, but it's your call.</p>
+    <div class="meta" aria-live="polite">
+      <span id="progress">0 of 19 answered</span>
+      <span id="saved"></span>
+    </div>
+  </header>
+
+  <form id="form" method="POST" name="romily-answers-round-5" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="romily-answers-round-5">
+    <p class="hidden"><label>Leave this empty: <input name="bot-field"></label></p>
+
+    <div class="q">
+      <label for="name"><span class="n"></span>Your name</label>
+      <input type="text" id="name" name="name" autocomplete="name" value="Romily">
+    </div>
+
+    <section>
+      <h2>Timing</h2>
+      <p class="why">You want to send it round for feedback after this weekend, and start the social account after next weekend. The Holborn and St Pancras by-election is on 8 October. Some of your ideas are a day's work; the council issues and the zoom between scales are weeks, and need research first. Our suggestion: do the quick ones before feedback goes out, the new journey next, and the big features after the by-election.</p>
+      <div class="q">
+        <label><span class="n">1</span>Which of these must be done before people see it this weekend? Tick any.</label>
+        <div class="choices">
+          <label><input type="checkbox" name="q1_before_feedback" value="who-we-are-in-menu"> "Who we are" in the top menu, next to "How this works"</label>
+          <label><input type="checkbox" name="q1_before_feedback" value="new-opening-line"> A new opening line</label>
+          <label><input type="checkbox" name="q1_before_feedback" value="calmer-candidates"> Calmer candidate photos</label>
+          <label><input type="checkbox" name="q1_before_feedback" value="simpler-coming-up"> A simpler "What's coming up"</label>
+          <label><input type="checkbox" name="q1_before_feedback" value="profile-first"> The profile-first start</label>
+          <label><input type="checkbox" name="q1_before_feedback" value="layered-journey"> The step-by-step, unfolding journey</label>
+          <label><input type="checkbox" name="q1_before_feedback" value="tidier-positions"> A tidier Positions section</label>
+          <label><input type="checkbox" name="q1_before_feedback" value="send-as-is"> None: send it as it is and let the feedback shape the redesign</label>
+        </div>
+        <textarea id="q1" name="q1_before_feedback_why" placeholder="Anything to add?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">2</span>If the site changes a lot in the next fortnight, which version should people give feedback on?</label>
+        <p class="hint">Feedback on today's version might be about things that are already changing. But waiting for the new journey pushes feedback, and possibly the social launch, into the week of the by-election, when the site matters most and should be steady.</p>
+        <div class="choices">
+          <label><input type="radio" name="q2_feedback_version" value="today"> Today's version, this weekend: the feedback shapes the redesign</label>
+          <label><input type="radio" name="q2_feedback_version" value="after-quick-changes"> After the quick changes, so people see the calmer version</label>
+          <label><input type="radio" name="q2_feedback_version" value="after-new-journey"> After the new journey is built, even if that means later</label>
+          <label><input type="radio" name="q2_feedback_version" value="freeze-until-8-oct"> Keep the site steady until the by-election on 8 October, and do the redesign after</label>
+        </div>
+        <textarea id="q2n" name="q2_feedback_version_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>The start of the journey</h2>
+      <p class="why">You're right that asking for location straight away could put people off before they know what they're getting.</p>
+      <div class="q">
+        <label for="q3n"><span class="n">3</span>The postcode is the least personal thing we ask. Age, who lives with you, renting or owning, and income are all more private. If the profile comes first, we'd be asking those before showing anything back. Does that worry you, and how would you get round it?</label>
+        <p class="hint">The postcode is also what brings up the map, the moment people see it's about their real place. One idea is to show something straight away, before asking anything personal.</p>
+        <textarea id="q3n" name="q3_personal_first"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">4</span>Knowing that, what should the very first step be?</label>
+        <div class="choices">
+          <label><input type="radio" name="q4_first_step" value="profile-then-postcode"> "Create your profile": household questions first, postcode last</label>
+          <label><input type="radio" name="q4_first_step" value="postcode-as-profile-step-one"> "Create your profile", with "Where do you live?" as step one, so the map appears straight away as the reward, then the other questions build around it (our suggestion)</label>
+          <label><input type="radio" name="q4_first_step" value="choose"> Let people choose where to start</label>
+          <label><input type="radio" name="q4_first_step" value="other"> Something else (say below)</label>
+        </div>
+        <textarea id="q2" name="q4_first_step_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">5</span>The opening line. Which is closest, or write your own?</label>
+        <p class="hint">It has to make someone curious without sounding like a campaign, and without promising more than the site can show. The name already asks a question, so the line can answer it or sharpen it.</p>
+        <div class="choices">
+          <label><input type="radio" name="q5_headline" value="Every election changes something near you. Find out what."> Every election changes something near you. Find out what.</label>
+          <label><input type="radio" name="q5_headline" value="Before you vote, see what it means for you."> Before you vote, see what it means for you.</label>
+          <label><input type="radio" name="q5_headline" value="Your street. Your ballot. What actually changes."> Your street. Your ballot. What actually changes.</label>
+          <label><input type="radio" name="q5_headline" value="Politics, starting from you."> Politics, starting from you.</label>
+          <label><input type="radio" name="q5_headline" value="own"> My own (write it below)</label>
+        </div>
+        <textarea id="q3" name="q5_headline_why" placeholder="Your own line, or why you chose that one"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Layers</h2>
+      <p class="why">Whichever way it goes, the whole page will still be there for anyone who wants it, and every step will have its own link so it can be shared.</p>
+      <div class="q">
+        <label><span class="n">6</span>How should it unfold?</label>
+        <div class="choices">
+          <label><input type="radio" name="q6_unfold" value="steps"> One step at a time: a screen per stage, with Back and a trail showing where you are, like an app</label>
+          <label><input type="radio" name="q6_unfold" value="opening-page"> One page that opens up as you go: each section appears once the one before is done, and details expand in place</label>
+          <label><input type="radio" name="q6_unfold" value="steps-then-page"> Steps the first time; after that, everything on one page with "take me through it again"</label>
+          <label><input type="radio" name="q6_unfold" value="not-sure"> Not sure: show me two quick versions to compare</label>
+        </div>
+        <textarea id="q4" name="q6_unfold_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">7</span>Most people have no election where they live until May 2027. What should they see instead?</label>
+        <p class="hint">Once someone has told us where they live, "What's coming up" would show only their own elections. Today, anyone without one gets a list of other places' by-elections, which is the wordy bit.</p>
+        <div class="choices">
+          <label><input type="radio" name="q7_no_election" value="next-vote-and-reps"> Their next vote ("Your next vote: May 2027, your council") and who represents them now at each level</label>
+          <label><input type="radio" name="q7_no_election" value="scales"> Straight into the local-to-national view of their area (see question 14)</label>
+          <label><input type="radio" name="q7_no_election" value="both"> Both: next vote and representatives first, then the zoom</label>
+          <label><input type="radio" name="q7_no_election" value="keep-examples"> Keep the example elections elsewhere, tucked away</label>
+        </div>
+        <textarea id="q5" name="q7_no_election_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Candidates and positions</h2>
+      <p class="why">Whatever we choose, every candidate is treated identically.</p>
+      <div class="q">
+        <label><span class="n">8</span>How should candidates first appear?</label>
+        <div class="choices">
+          <label><input type="radio" name="q8_photos" value="own-page-only"> Name and party in the list; the photo only on each candidate's own page</label>
+          <label><input type="radio" name="q8_photos" value="small-grey"> Small, same-size, black-and-white photos in the list (initials in the same style where there is no photo)</label>
+          <label><input type="radio" name="q8_photos" value="no-photos"> No photos anywhere</label>
+          <label><input type="radio" name="q8_photos" value="later-in-journey"> As now, but only after you've seen your area and issues</label>
+        </div>
+        <textarea id="q6" name="q8_photos_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">9</span>Some candidates have a photo and some only have initials. Doesn't that already make them look different on the page, and how should we handle it?</label>
+        <p class="hint">A face tends to draw the eye more than a grey circle with initials, so candidates with a photo may get more attention just for having one.</p>
+        <div class="choices">
+          <label><input type="radio" name="q9_no_photo" value="same-style-placeholder"> Show photos where we have them, and a same-size, same-style placeholder where we don't</label>
+          <label><input type="radio" name="q9_no_photo" value="no-photos-in-lists"> No photos in any list or comparison, so everyone looks the same; photos only on each candidate's own page</label>
+          <label><input type="radio" name="q9_no_photo" value="ask-candidates"> Contact every candidate without a photo and ask for one, and until then use a placeholder</label>
+          <label><input type="radio" name="q9_no_photo" value="not-a-problem"> I don't think it's a problem</label>
+        </div>
+        <textarea id="q9n" name="q9_no_photo_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">10</span>How should people get into Positions?</label>
+        <p class="hint">Topic first means: pick "Housing", see what every candidate has published on it, side by side, in ballot-paper order. Candidate first means: pick a candidate, see everything they've published. The detail and sources stay one tap away either way.</p>
+        <div class="choices">
+          <label><input type="radio" name="q10_positions" value="topic-first"> Topic first</label>
+          <label><input type="radio" name="q10_positions" value="candidate-first"> Candidate first</label>
+          <label><input type="radio" name="q10_positions" value="both-topic-default"> Both, starting with topics</label>
+          <label><input type="radio" name="q10_positions" value="both-candidate-default"> Both, starting with candidates</label>
+        </div>
+        <textarea id="q7" name="q10_positions_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">11</span>Should the topics most relevant to someone's profile come first?</label>
+        <p class="hint">For example, a renter sees Housing first; a household with children at school sees Education first. This orders topics, never candidates, and uses only the profile, never anyone's politics. The other side: two people see the site differently, and someone might say we're steering what they look at.</p>
+        <div class="choices">
+          <label><input type="radio" name="q11_topic_order" value="by-profile"> Yes, order by the profile, and say why ("shown first because you rent")</label>
+          <label><input type="radio" name="q11_topic_order" value="user-picks"> No, let people pick which topics they care about</label>
+          <label><input type="radio" name="q11_topic_order" value="fixed"> No, the same fixed order for everyone</label>
+        </div>
+        <textarea id="q8" name="q11_topic_order_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>What's happening around you</h2>
+      <p class="why">This is doable. Councils publish their meeting agendas and decisions online (many through a common system called Modern.gov), and Democracy Club's ElectionLeaflets.org archives the leaflets candidates put through doors, which is often the only place a local candidate says anything about a local issue.</p>
+      <div class="q">
+        <label><span class="n">12</span>Choosing which issues count as "the issues" in an area is itself a judgement. How do we stop our own view deciding what people see?</label>
+        <p class="hint">Whoever picks the issues shapes the election: an area where we highlight potholes feels different from one where we highlight housing. The options below go from "a fixed rule, no choosing by us" to "we choose, but publish how".</p>
+        <div class="choices">
+          <label><input type="radio" name="q12_local_issues" value="mechanical"> A fixed rule, no choosing by us: the council's open consultations and the items on its upcoming decision meetings, newest first</label>
+          <label><input type="radio" name="q12_local_issues" value="mechanical-plus-planning"> The same, plus planning applications near the postcode</label>
+          <label><input type="radio" name="q12_local_issues" value="curated"> We pick a handful of main issues per area, using written criteria we publish</label>
+          <label><input type="radio" name="q12_local_issues" value="research-first"> Research it first and bring me the options</label>
+        </div>
+        <textarea id="q9" name="q12_local_issues_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label for="q10w"><span class="n">13</span>The wording when we find nothing. Keep, change or rewrite?</label>
+        <p class="hint">Proposed: <em>"We haven't found anything [name] has published on this. That doesn't mean they have no view on it. If you're the candidate, send us a link and we'll add it."</em></p>
+        <textarea id="q10w" name="q13_nothing_found"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Zooming in and out</h2>
+      <p class="why">The map already zooms, so it can become the control: street, then ward and council, then region, then the whole country, with the page changing at each level.</p>
+      <div class="q">
+        <label><span class="n">14</span>What should each level show? Tick any.</label>
+        <div class="choices">
+          <label><input type="checkbox" name="q14_levels" value="who-represents"> Who represents you at this level</label>
+          <label><input type="checkbox" name="q14_levels" value="what-it-decides"> What this level actually has power over (bins and planning, schools, the NHS, tax, defence)</label>
+          <label><input type="checkbox" name="q14_levels" value="next-election"> The next election at this level</label>
+          <label><input type="checkbox" name="q14_levels" value="issues"> Issues being decided at this level right now</label>
+          <label><input type="checkbox" name="q14_levels" value="positions"> What the parties have published on those issues</label>
+        </div>
+        <textarea id="q11" name="q14_levels_why" placeholder="Anything to add? Which matters most?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">15</span>"Regional" means different things in different parts of the UK. What should that level be for each person?</label>
+        <p class="hint">In parts of England it's a combined-authority mayor. In other parts of England there is nothing between the county council and Westminster. In Scotland, Wales and Northern Ireland it's their own parliament or assembly, which runs things like the NHS and schools there, so it matters far more than "regional" suggests.</p>
+        <div class="choices">
+          <label><input type="radio" name="q15_regional" value="whatever-exists"> Show whatever actually exists where you live, named properly ("Scottish Parliament", "Greater Manchester mayor"), and skip the level where there's nothing</label>
+          <label><input type="radio" name="q15_regional" value="fixed-steps"> Keep the same four steps for everyone, and say plainly when a level doesn't exist where you live</label>
+          <label><input type="radio" name="q15_regional" value="research-first"> Show me what it would look like for a few real postcodes first</label>
+        </div>
+        <textarea id="q15n" name="q15_regional_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">16</span>Nobody in the UK votes in a global election. So what would "global" mean on the site, and is it worth including?</label>
+        <p class="hint">The honest version is the UK's decisions abroad: what the parties have published on things like foreign affairs, trade, aid and climate, which are already topics on the site. It would be the one level with no election or representative of its own.</p>
+        <div class="choices">
+          <label><input type="radio" name="q16_global" value="include"> Include it, as "the UK in the world", from the parties' published positions</label>
+          <label><input type="radio" name="q16_global" value="stop-at-national"> Stop at national for now</label>
+          <label><input type="radio" name="q16_global" value="later"> Later, once the other levels work</label>
+        </div>
+        <textarea id="q12" name="q16_global_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Track record</h2>
+      <p class="why">We agree it needs proper research before anything is built. The first pass is done: <a href="/research/track-record/">what the evidence allows</a> (five minutes to read, every source linked). It also covers the local-issues sources for question 12. In short: for MPs the facts exist, every Commons vote is recorded by name; these questions are about where it gets harder.</p>
+      <div class="q">
+        <label><span class="n">17</span>The votes themselves are facts, but deciding which vote "matches" which promise is a judgement. Which principle should the research start from?</label>
+        <div class="choices">
+          <label><input type="radio" name="q17_record" value="record-only"> Show the record only (how they voted, with links), never paired with promises</label>
+          <label><input type="radio" name="q17_record" value="strict-pairing"> Pair a promise with a vote only where the promise names the exact bill or measure, and never add a verdict like "kept" or "broken"</label>
+          <label><input type="radio" name="q17_record" value="open"> No starting point: research all the options and bring them back</label>
+        </div>
+        <textarea id="q13" name="q17_record_why" placeholder="Why, and anything the research should look at?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">18</span>Only people who have held office have a record. How should the section work when some candidates can't have one?</label>
+        <p class="hint">Newcomers and many independents would have an empty section. Depending on how it looks, that could make incumbents seem more accountable, or more exposed, just because the section exists.</p>
+        <div class="choices">
+          <label><input type="radio" name="q18_no_record" value="everyone-labelled"> Every candidate gets the section; where there is no record it says plainly "Has not held this office before"</label>
+          <label><input type="radio" name="q18_no_record" value="incumbents-only"> Only candidates with a record get the section, with a note explaining why others don't</label>
+          <label><input type="radio" name="q18_no_record" value="separate-page"> Keep records off the candidate pages altogether, on a separate page about the office</label>
+          <label><input type="radio" name="q18_no_record" value="not-sure"> Not sure: include it in the research</label>
+        </div>
+        <textarea id="q18n" name="q18_no_record_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">19</span>Councillors' votes are often not recorded individually. Should track records cover councillors at all?</label>
+        <p class="hint">Council decisions are usually by show of hands, with names recorded only when a vote is formally requested. A councillor's record could be patchy through no choice of their own, which is hard to present fairly next to an MP's complete one.</p>
+        <div class="choices">
+          <label><input type="radio" name="q19_councillors" value="mps-only"> MPs (and other elected bodies with full voting records) only, for now</label>
+          <label><input type="radio" name="q19_councillors" value="whatever-recorded"> Include councillors where votes were recorded, and say clearly that it's incomplete</label>
+          <label><input type="radio" name="q19_councillors" value="research-first"> Decide after the research</label>
+        </div>
+        <textarea id="q19n" name="q19_councillors_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Not questions, just happening</h2>
+      <p class="why">"Who we are" moves into the top menu beside "How this works". More maps, expandable sections and visual summaries in place of the wordier blocks, with the full text still one tap away. The Positions section gets tidied whichever way question 10 goes.</p>
+    </section>
+
+    <div class="submit">
+      <div class="q">
+        <label for="note"><span class="n"></span>Anything else</label>
+        <textarea id="note" name="anything_else"></textarea>
+      </div>
+      <button type="submit" id="send">Send my answers</button>
+      <button type="button" class="secondary" id="clear">Clear everything</button>
+      <p id="status" role="status"></p>
+      <p class="small">You can send more than once.</p>
+    </div>
+  </form>
+</main>
+<script>
+(function () {
+  var form = document.getElementById('form');
+  var status = document.getElementById('status');
+  var progress = document.getElementById('progress');
+  var saved = document.getElementById('saved');
+  var KEY = 'romily-app-answers-round-5';
+  var fields = Array.prototype.slice.call(form.querySelectorAll('textarea, input[type=text], input[type=radio], input[type=checkbox]'));
+  var questionNames = [];
+  fields.forEach(function (f) {
+    var base = f.name.replace(/_why$/, '');
+    if (/^q\d+_/.test(base) && questionNames.indexOf(base) === -1) questionNames.push(base);
+  });
+
+  function read() {
+    var data = {};
+    fields.forEach(function (f) {
+      if (f.type === 'radio') { if (f.checked) data[f.name] = f.value; }
+      else if (f.type === 'checkbox') { if (f.checked) data[f.name] = (data[f.name] ? data[f.name] + '; ' : '') + f.value; }
+      else data[f.name] = f.value;
+    });
+    return data;
+  }
+  function write(data) {
+    fields.forEach(function (f) {
+      if (!(f.name in data)) return;
+      if (f.type === 'radio') f.checked = (f.value === data[f.name]);
+      else if (f.type === 'checkbox') f.checked = String(data[f.name]).split('; ').indexOf(f.value) !== -1;
+      else f.value = data[f.name];
+    });
+  }
+  function answered(data) {
+    var n = 0;
+    questionNames.forEach(function (q) {
+      var has = false;
+      Object.keys(data).forEach(function (k) {
+        if (k.indexOf(q) === 0 && String(data[k]).trim() !== '') has = true;
+      });
+      if (has) n++;
+    });
+    return n;
+  }
+  function refresh() {
+    var data = read();
+    progress.textContent = answered(data) + ' of ' + questionNames.length + ' answered';
+    try {
+      localStorage.setItem(KEY, JSON.stringify(data));
+      saved.textContent = 'Saved in this browser';
+    } catch (e) {
+      saved.textContent = 'Could not save in this browser; send before you close the page';
+    }
+  }
+
+  try {
+    var stored = localStorage.getItem(KEY);
+    if (stored) write(JSON.parse(stored));
+  } catch (e) {}
+  refresh();
+  form.addEventListener('input', refresh);
+  form.addEventListener('change', refresh);
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var btn = document.getElementById('send');
+    btn.disabled = true;
+    status.textContent = 'Sending…';
+    var body = new URLSearchParams(new FormData(form)).toString();
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body
+    }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      status.textContent = 'Sent. Your answers stay saved here, so you can add to them and send again.';
+    }).catch(function () {
+      status.textContent = 'That didn\'t send. Your answers are still saved in this browser; try again in a minute.';
+    }).then(function () { btn.disabled = false; });
+  });
+
+  document.getElementById('clear').addEventListener('click', function () {
+    if (!confirm('Clear every answer on this page? This cannot be undone.')) return;
+    fields.forEach(function (f) {
+      if (f.type === 'radio' || f.type === 'checkbox') f.checked = false;
+      else if (f.name !== 'name') f.value = '';
+    });
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    refresh();
+    status.textContent = 'Cleared.';
+  });
+})();
+</script>
+</body>
+</html>

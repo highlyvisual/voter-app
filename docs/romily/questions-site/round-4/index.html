@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Round four — the About page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #000;
+    --paper: #fff;
+    --rule: #000;
+    --muted: #555;
+    --field: #f4f4f4;
+    --measure: 40rem;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 4rem 1.25rem 6rem;
+  }
+  header { margin-bottom: 3.5rem; }
+  h1 {
+    font-size: clamp(2.6rem, 8vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.25rem;
+  }
+  .lede { margin: 0 0 1rem; }
+  .lede + .lede { margin-top: 0; }
+  .small { font-size: 0.95rem; color: var(--muted); }
+  .meta {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+    margin-top: 2rem;
+  }
+  .meta span { white-space: nowrap; }
+
+  section { margin: 3.5rem 0 0; }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0 0 0.25rem;
+  }
+  .why { margin: 0 0 2rem; color: var(--muted); }
+
+  .q { margin: 0 0 2.5rem; }
+  .q label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .q label .n {
+    display: inline-block;
+    width: 2rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .q .hint {
+    margin: 0 0 0.6rem 2rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .q .hint em { font-style: italic; }
+  textarea, input[type=text] {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    font: inherit;
+    color: var(--ink);
+    background: var(--field);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    padding: 0.7rem 0.75rem;
+    resize: vertical;
+    min-height: 6.5rem;
+  }
+  input[type=text] { min-height: 0; }
+  textarea:focus, input:focus, button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .choices { margin: 0 0 0.75rem 2rem; }
+  .choices label {
+    display: block; font-weight: 400; margin: 0.15rem 0;
+  }
+  .choices input { margin-right: 0.5rem; accent-color: #000; }
+
+  .submit {
+    margin-top: 4rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+  button {
+    font: inherit;
+    font-weight: 500;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+  }
+  button.secondary { background: var(--paper); color: var(--ink); margin-left: 0.75rem; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  #status { margin-top: 1rem; min-height: 1.6rem; }
+  .hidden { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    #status { transition: opacity 200ms; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Round four.</h1>
+    <p class="lede">One topic this time: an About page for Hustings. The site already promises that its founders are named. The question is how. Barny's suggestion is a page that names you as founder, carries a short personal message in your own words, and sets out who is behind the site, who pays for it, and how to report a mistake.</p>
+    <p class="lede">For a site whose whole claim is impartiality, that page is where people will go to ask "who is really behind this?" It is also a public page with your name on it during a contested by-election, so how much of you goes on it is entirely your call.</p>
+    <p class="lede small">As before: answers save in this browser as you type, nothing is sent until you press "Send my answers", and "I don't know yet" is fine.</p>
+    <div class="meta" aria-live="polite">
+      <span id="progress">0 of 7 answered</span>
+      <span id="saved"></span>
+    </div>
+  </header>
+
+  <form id="form" method="POST" name="romily-answers-round-4" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="romily-answers-round-4">
+    <p class="hidden"><label>Leave this empty: <input name="bot-field"></label></p>
+
+    <div class="q">
+      <label for="name"><span class="n"></span>Your name</label>
+      <input type="text" id="name" name="name" autocomplete="name" value="Romily">
+    </div>
+
+    <section>
+      <h2>The page itself</h2>
+      <p class="why">Besides who you are, the page would carry: that Hustings is not-for-profit; who pays the running costs; a statement that neither founder is a member of, or paid by, any political party (if that is true); that the code is open source, with a link; a link to how sources are chosen; and how to report an error.</p>
+      <div class="q">
+        <label for="q1"><span class="n">1</span>Should there be an About page with a personal message from you?</label>
+        <div class="choices">
+          <label><input type="radio" name="q1_about" value="yes-with-message"> Yes, with a personal message from me</label>
+          <label><input type="radio" name="q1_about" value="yes-no-message"> Yes, but factual only: no personal message</label>
+          <label><input type="radio" name="q1_about" value="no"> No</label>
+        </div>
+        <textarea id="q1" name="q1_about_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Roles</h2>
+      <p class="why">The wording should match what actually happened: you had the idea and set the direction; Barny builds and runs it.</p>
+      <div class="q">
+        <label for="q2"><span class="n">2</span>How should the roles be described?</label>
+        <div class="choices">
+          <label><input type="radio" name="q2_roles" value="founder-built-with"> "Founded by Romily, built with Barny"</label>
+          <label><input type="radio" name="q2_roles" value="co-founders"> "Co-founders", with a line on who does what</label>
+          <label><input type="radio" name="q2_roles" value="other"> Something else (say below)</label>
+        </div>
+        <textarea id="q2" name="q2_roles_why" placeholder="Why, or what wording?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>How much of you</h2>
+      <p class="why">Political sites attract attention, not all of it friendly, and a by-election concentrates it. Our suggestion is your name and your message, and nothing that would help someone find you: no school, no home area, and a shared contact address rather than your own.</p>
+      <div class="q">
+        <label for="q3"><span class="n">3</span>Which name should appear?</label>
+        <div class="choices">
+          <label><input type="radio" name="q3_name" value="full"> First name and surname</label>
+          <label><input type="radio" name="q3_name" value="first"> First name only</label>
+          <label><input type="radio" name="q3_name" value="other"> Something else (say below)</label>
+        </div>
+        <textarea id="q3" name="q3_name_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label for="q4"><span class="n">4</span>A photo of you?</label>
+        <div class="choices">
+          <label><input type="radio" name="q4_photo" value="yes"> Yes</label>
+          <label><input type="radio" name="q4_photo" value="no"> No</label>
+          <label><input type="radio" name="q4_photo" value="later"> Not now; maybe after the by-election</label>
+        </div>
+        <textarea id="q4" name="q4_photo_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">5</span>Which of these are you happy for the page to mention? Tick any.</label>
+        <div class="choices">
+          <label><input type="checkbox" name="q5_details" value="student"> That you are a student</label>
+          <label><input type="checkbox" name="q5_details" value="where-grew-up"> Where you grew up, in general terms</label>
+          <label><input type="checkbox" name="q5_details" value="study-plans"> What you hope to study</label>
+          <label><input type="checkbox" name="q5_details" value="none"> None of these</label>
+        </div>
+        <textarea id="q5" name="q5_details_why" placeholder="Anything to add or rule out?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Your message</h2>
+      <p class="why">This should be yours, in your voice; nobody will rewrite it beyond typos. A few hundred words is plenty. If it helps, three prompts: why you started this; what you hope it changes for someone who uses it; and what "impartial" means to you in practice. Leave it blank for now if you'd rather write it later.</p>
+      <div class="q">
+        <label for="q6"><span class="n">6</span>Your message (draft is fine)</label>
+        <textarea id="q6" name="q6_message" style="min-height:16rem"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Declaration of interests</h2>
+      <p class="why">The page will say that neither founder is a member of, works for, or is paid by any political party or campaign. Barny will confirm his side.</p>
+      <div class="q">
+        <label for="q7"><span class="n">7</span>Is that statement true for you, and is there anything a reader should know?</label>
+        <div class="choices">
+          <label><input type="radio" name="q7_interests" value="true"> Yes, it is true for me</label>
+          <label><input type="radio" name="q7_interests" value="something-to-declare"> There is something to declare (say below)</label>
+        </div>
+        <textarea id="q7" name="q7_interests_why"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Not yours to answer, but so you can see them</h2>
+      <p class="why">Barny's side: confirming his own declaration, deciding who pays the running costs and how that is described, and setting up a shared contact address such as hello@hustings.org for the page.</p>
+    </section>
+
+    <div class="submit">
+      <div class="q">
+        <label for="note"><span class="n"></span>Anything else</label>
+        <textarea id="note" name="anything_else"></textarea>
+      </div>
+      <button type="submit" id="send">Send my answers</button>
+      <button type="button" class="secondary" id="clear">Clear everything</button>
+      <p id="status" role="status"></p>
+      <p class="small">You can send more than once.</p>
+    </div>
+  </form>
+</main>
+
+<script>
+(function () {
+  var form = document.getElementById('form');
+  var status = document.getElementById('status');
+  var progress = document.getElementById('progress');
+  var saved = document.getElementById('saved');
+  var KEY = 'romily-app-answers-round-4';
+  var fields = Array.prototype.slice.call(form.querySelectorAll('textarea, input[type=text], input[type=radio], input[type=checkbox]'));
+  var questionNames = [];
+  fields.forEach(function (f) {
+    var base = f.name.replace(/_why$/, '');
+    if (/^q\d+_/.test(base) && questionNames.indexOf(base) === -1) questionNames.push(base);
+  });
+
+  function read() {
+    var data = {};
+    fields.forEach(function (f) {
+      if (f.type === 'radio') { if (f.checked) data[f.name] = f.value; }
+      else if (f.type === 'checkbox') { if (f.checked) data[f.name] = (data[f.name] ? data[f.name] + '; ' : '') + f.value; }
+      else data[f.name] = f.value;
+    });
+    return data;
+  }
+  function write(data) {
+    fields.forEach(function (f) {
+      if (!(f.name in data)) return;
+      if (f.type === 'radio') f.checked = (f.value === data[f.name]);
+      else if (f.type === 'checkbox') f.checked = String(data[f.name]).split('; ').indexOf(f.value) !== -1;
+      else f.value = data[f.name];
+    });
+  }
+  function answered(data) {
+    var n = 0;
+    questionNames.forEach(function (q) {
+      var has = false;
+      Object.keys(data).forEach(function (k) {
+        if (k.indexOf(q) === 0 && String(data[k]).trim() !== '') has = true;
+      });
+      if (has) n++;
+    });
+    return n;
+  }
+  function refresh() {
+    var data = read();
+    progress.textContent = answered(data) + ' of ' + questionNames.length + ' answered';
+    try {
+      localStorage.setItem(KEY, JSON.stringify(data));
+      saved.textContent = 'Saved in this browser';
+    } catch (e) {
+      saved.textContent = 'Could not save in this browser; send before you close the page';
+    }
+  }
+
+  try {
+    var stored = localStorage.getItem(KEY);
+    if (stored) write(JSON.parse(stored));
+  } catch (e) {}
+  refresh();
+  form.addEventListener('input', refresh);
+  form.addEventListener('change', refresh);
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var btn = document.getElementById('send');
+    btn.disabled = true;
+    status.textContent = 'Sending…';
+    var body = new URLSearchParams(new FormData(form)).toString();
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body
+    }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      status.textContent = 'Sent. Your answers stay saved here, so you can add to them and send again.';
+    }).catch(function () {
+      status.textContent = 'That didn\'t send. Your answers are still saved in this browser; try again in a minute.';
+    }).then(function () { btn.disabled = false; });
+  });
+
+  document.getElementById('clear').addEventListener('click', function () {
+    if (!confirm('Clear every answer on this page? This cannot be undone.')) return;
+    fields.forEach(function (f) {
+      if (f.type === 'radio' || f.type === 'checkbox') f.checked = false;
+      else if (f.name !== 'name') f.value = '';
+    });
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    refresh();
+    status.textContent = 'Cleared.';
+  });
+})();
+</script>
+</body>
+</html>

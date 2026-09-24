@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Research — The empty record section</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #000;
+    --paper: #fff;
+    --rule: #000;
+    --muted: #555;
+    --field: #f4f4f4;
+    --measure: 40rem;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 4rem 1.25rem 6rem;
+  }
+  header { margin-bottom: 3.5rem; }
+  h1 {
+    font-size: clamp(2.6rem, 8vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.25rem;
+  }
+  .lede { margin: 0 0 1rem; }
+  .lede + .lede { margin-top: 0; }
+  .small { font-size: 0.95rem; color: var(--muted); }
+  .meta {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+    margin-top: 2rem;
+  }
+  .meta span { white-space: nowrap; }
+
+  section { margin: 3.5rem 0 0; }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0 0 0.25rem;
+  }
+  .why { margin: 0 0 2rem; color: var(--muted); }
+
+  .q { margin: 0 0 2.5rem; }
+  .q label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .q label .n {
+    display: inline-block;
+    width: 2rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .q .hint {
+    margin: 0 0 0.6rem 2rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .q .hint em { font-style: italic; }
+  textarea, input[type=text] {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    font: inherit;
+    color: var(--ink);
+    background: var(--field);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    padding: 0.7rem 0.75rem;
+    resize: vertical;
+    min-height: 6.5rem;
+  }
+  input[type=text] { min-height: 0; }
+  textarea:focus, input:focus, button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .choices { margin: 0 0 0.75rem 2rem; }
+  .choices label {
+    display: block; font-weight: 400; margin: 0.15rem 0;
+  }
+  .choices input { margin-right: 0.5rem; accent-color: #000; }
+
+  .submit {
+    margin-top: 4rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+  button {
+    font: inherit;
+    font-weight: 500;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+  }
+  button.secondary { background: var(--paper); color: var(--ink); margin-left: 0.75rem; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  #status { margin-top: 1rem; min-height: 1.6rem; }
+  .hidden { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    #status { transition: opacity 200ms; }
+  }
+</style>
+<style>
+  .paper h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); }
+  .paper h2 { margin-top: 3rem; }
+  .paper h3 { font-size: 1.2rem; font-weight: 500; margin: 2rem 0 0.25rem; }
+  .paper a { color: var(--ink); }
+  .paper blockquote { margin: 0 0 1.5rem; padding: 0 0 0 1rem; border-left: 2px solid var(--rule); }
+  .paper hr { border: 0; border-top: 1px solid var(--rule); margin: 3rem 0; }
+  .paper code { font-size: 0.85em; background: var(--field); padding: 0 0.2em; word-break: break-word; }
+  .paper li { margin: 0.2rem 0; }
+  .tablewrap { overflow-x: auto; margin: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .tablewrap table { border-collapse: collapse; font-size: 0.9rem; line-height: 1.45; min-width: 40rem; }
+  .tablewrap th, .tablewrap td { text-align: left; vertical-align: top; padding: 0.5rem 0.6rem 0.5rem 0; border-bottom: 1px solid #ccc; }
+  .tablewrap th { font-weight: 500; border-bottom: 1px solid var(--rule); }
+  .backlink { margin: 0 0 2rem; }
+</style>
+</head>
+<body>
+<main class="paper">
+  <p class="small backlink"><a href="/round-6/">Back to round six</a> · The full research paper. Every source is linked so you can check it yourself.</p>
+<h1>3. The empty record section</h1>
+<p><strong>Date:</strong> 24 September 2026
+<strong>Question:</strong> How do comparable sites show incumbents and challengers side by side without favouring either, and what do we know about how voters read a blank "record" section?</p>
+<p><strong>Summary</strong>
+1. Other sites handle this in one of three ways. They show a neutral line in the same section for everyone (TheyWorkForYou, Ballotpedia). They hide a section when it is empty (WhoCanIVoteFor). Or they ask every party or candidate the same questions, so nobody needs a record (Wahl-O-Mat, StemWijzer, smartvote, Ballotpedia's survey).
+2. Research shows people give more weight to facts that every option has than to facts only some options have. It also suggests they may read gaps in favour of the option they already like. So a record shown for one candidate only is not a neutral fact.
+3. There is almost no research on the exact question (how voters read an empty "record" box on a candidate page). Most of what follows comes from nearby findings, so treat it as a guide, not proof.</p>
+<p>All pages below were opened on 24 September 2026 unless stated.</p>
+<hr />
+<h2>Part A: What comparable sites do</h2>
+<h3>Democracy Club — WhoCanIVoteFor (UK)</h3>
+<ul>
+<li><strong>Ballot page.</strong> Candidates are listed alphabetically by surname, with name, party and photo. Incumbency is not shown. The only context line is "This by-election was called because the elected member resigned." <a href="https://whocanivotefor.co.uk/elections/parl.holborn-and-st-pancras.by.2026-10-08/" target="_blank" rel="noopener">WhoCanIVoteFor, Holborn and St Pancras by-election, accessed 24 Sep 2026</a></li>
+<li><strong>Candidate pages share a core set of sections:</strong> "[Name]'s policies" (when there is a statement), "[Name] online", "[Name]'s elections". Past elections appear in the same table for everyone. A candidate who won is shown as "<strong>Elected</strong> (12,335 votes) … 1st / 11 candidates", and one who lost as "<strong>Not elected</strong>". <a href="https://whocanivotefor.co.uk/person/4754/" target="_blank" rel="noopener">WhoCanIVoteFor, George Galloway</a>; <a href="https://whocanivotefor.co.uk/person/138784/" target="_blank" rel="noopener">WhoCanIVoteFor, Ewan Cameron</a></li>
+<li><strong>Former MPs get an extra "Record in office" heading</strong> with one line: "See this candidate's record on TheyWorkForYou - their speeches, voting history and more". Pages for people who have not been MPs (for example Ewan Cameron's and Clare Fischer's) have no such heading and nothing in its place. <a href="https://whocanivotefor.co.uk/person/4754/" target="_blank" rel="noopener">WhoCanIVoteFor, George Galloway</a></li>
+<li><strong>When there is no statement, the policies section is removed completely.</strong> The page ends with: "That's all we know! Will you help us find more about this candidate?" and "If you can add information to this page - such as Ben Walker's policy statement or contact information - please use our crowdsourcing website." <a href="https://whocanivotefor.co.uk/person/4863/" target="_blank" rel="noopener">WhoCanIVoteFor, Ben Walker (UKIP)</a></li>
+<li><strong>When contact details are missing, the section stays and says:</strong> "We don't have Clare Fischer's contact info. Can you add it?" <a href="https://whocanivotefor.co.uk/person/139514/" target="_blank" rel="noopener">WhoCanIVoteFor, Clare Fischer (Climate Party)</a></li>
+<li><strong>Every statement carries a provenance note:</strong> "This statement was added by [name], their team, or by a Democracy Club volunteer, based on information published by the candidate elsewhere." <a href="https://whocanivotefor.co.uk/person/6911/" target="_blank" rel="noopener">WhoCanIVoteFor, Jonathan Silberman</a></li>
+<li>The Democracy Club API lists 15 candidates for this by-election, with the list marked "locked". <a href="https://candidates.democracyclub.org.uk/api/next/ballots/parl.holborn-and-st-pancras.by.2026-10-08/" target="_blank" rel="noopener">Democracy Club candidates API, ballot record last updated 16 Sep 2026</a></li>
+</ul>
+<h3>TheyWorkForYou (mySociety, UK)</h3>
+<ul>
+<li><strong>This site covers only people who hold office</strong>, so it never shows a challenger. It is still useful because of how it words a record that is empty.</li>
+<li><strong>A new MP with no tracked votes gets a plain statement:</strong> "This person has not voted on any of the key issues which we keep track of." <a href="https://www.theyworkforyou.com/mp/26683/sarah_pochin/runcorn_and_helsby/votes" target="_blank" rel="noopener">TheyWorkForYou, Sarah Pochin votes page</a></li>
+<li><strong>It warns readers what a record does and does not show.</strong> There is a heading, "Votes are not opinions, but they matter". It also says: "we do not count absences because we cannot be clear on how they should be interpreted". <a href="https://www.theyworkforyou.com/voting-information/" target="_blank" rel="noopener">TheyWorkForYou, "Voting and decisions on TheyWorkForYou"</a></li>
+</ul>
+<h3>Ballotpedia (US)</h3>
+<ul>
+<li><strong>On race pages, the sitting office-holder is called the incumbent in the text</strong>, for example "Incumbent Brian Fitzpatrick is running in the Republican primary…" (in the candidate table itself his name appears without the label, in what we read). If nobody has answered the survey, the page says: "No candidate in this race has completed Ballotpedia's Candidate Connection survey. Ballotpedia is seeking 100 percent participation so voters can learn more about all the candidates on their ballots." <a href="https://ballotpedia.org/Pennsylvania's_1st_Congressional_District_election,_2026" target="_blank" rel="noopener">Ballotpedia, Pennsylvania's 1st Congressional District election, 2026</a></li>
+<li><strong>Every candidate page uses the same neutral line.</strong> A challenger's page says "Bob Harvie has not yet completed Ballotpedia's 2026 Candidate Connection survey." <a href="https://ballotpedia.org/Bob_Harvie" target="_blank" rel="noopener">Ballotpedia, Bob Harvie</a> The incumbent's page says "Brian Fitzpatrick has not yet completed Ballotpedia's 2026 Candidate Connection survey." It also says "did not complete" for 2024, 2022 and 2020. <a href="https://ballotpedia.org/Brian_Fitzpatrick" target="_blank" rel="noopener">Ballotpedia, Brian Fitzpatrick</a></li>
+<li><strong>Only the incumbent's page has a "Key votes" section.</strong> The challenger's page has no voting-record section at all; it is left out, not labelled empty. Its "Campaign themes" heading is there but has no content. <a href="https://ballotpedia.org/Bob_Harvie" target="_blank" rel="noopener">Ballotpedia, Bob Harvie</a>; <a href="https://ballotpedia.org/Brian_Fitzpatrick" target="_blank" rel="noopener">Ballotpedia, Brian Fitzpatrick</a></li>
+<li><strong>The survey fills the gap.</strong> It goes to "all federal, state, and local candidates". Two questions must be answered by everyone who takes part: "Who are you? Tell us about yourself." and "What areas of public policy are you personally passionate about?" <a href="https://ballotpedia.org/Ballotpedia's_Candidate_Connection" target="_blank" rel="noopener">Ballotpedia, Ballotpedia's Candidate Connection</a></li>
+</ul>
+<h3>Vote Smart (US)</h3>
+<ul>
+<li><strong>Its Political Courage Test is a questionnaire for candidates.</strong> The site describes it this way: "Vote Smart measures candidates' willingness to answer voters' questions through the Political Courage Test." Its wording for people who do not answer is harsh: "Those candidates who refuse to answer before the election will fail." <a href="https://justfacts.votesmart.org/about/political-courage-test/" target="_blank" rel="noopener">Vote Smart, About the Political Courage Test, no date shown</a></li>
+<li><strong>For people who refuse, Vote Smart fills the gap from other material:</strong> "When candidates refuse to take the Political Courage Test, Vote Smart uses their public record, including public statements, voting record, and special interest group ratings and endorsements to provide information on their positions." <a href="https://justfacts.votesmart.org/about/political-courage-test/" target="_blank" rel="noopener">same page</a></li>
+<li><strong>"Key Votes" are chosen by Vote Smart staff using set criteria.</strong> For example, a vote must "be demonstrative of an issue stance", "should be easy to understand", and "should have received substantial media attention". Picking these votes is an editorial judgement. <a href="https://votesmart.org/blog-archive/2008/apr/17/what-is-a-key-vote/" target="_blank" rel="noopener">Vote Smart blog, "What is a 'Key Vote'?", 17 Apr 2008</a></li>
+<li><strong>Fewer candidates answer now.</strong> Wikipedia reports response rates falling "from 72% in 1996 to 48% in 2008 and even further to 20% by 2016". A Florida state legislator (the Florida House Democrats' leader pro tempore, per Wikipedia) said: "We tell our candidates not to do it. It sets them up for a hit piece." <a href="https://en.wikipedia.org/wiki/Vote_Smart" target="_blank" rel="noopener">Wikipedia, "Vote Smart", accessed 24 Sep 2026</a> (secondary source)</li>
+<li>I could not load real candidate pages to quote their exact on-page wording. The site blocked or rendered them in a way I could not read (see "Could not verify").</li>
+</ul>
+<h3>Wahl-O-Mat (Germany, Federal Agency for Civic Education, bpb)</h3>
+<ul>
+<li><strong>The positions come from the parties themselves:</strong> "Die Positionen und Begründungen der Parteien zu den Thesen im Wahl-O-Mat stammen ausschließlich von den Parteien selbst." (The parties' positions and reasons come only from the parties themselves.) All parties standing with a state list are invited. <a href="https://www.bpb.de/themen/wahl-o-mat/bundestagswahl-2025/558464/haeufig-gestellte-fragen-zum-wahl-o-mat/" target="_blank" rel="noopener">bpb, FAQ Wahl-O-Mat Bundestagswahl 2025, 6 Feb 2025</a></li>
+<li><strong>The answers are shown without interpretation:</strong> "Die Parteien haben immer die letzte Entscheidung über ihre Positionierung. Ihre Antworten werden im Wahl-O-Mat nicht interpretiert sondern direkt wiedergegeben." (Parties always have the last word on their position. Their answers are not interpreted but shown directly.) <a href="https://www.bpb.de/themen/wahl-o-mat/45292/die-entstehung-eines-wahl-o-mat/" target="_blank" rel="noopener">bpb, Die Entstehung eines Wahl-O-Mat, 27 Jul 2017</a></li>
+<li><strong>Party order does give some advantage to established parties.</strong> On the page where users pick parties, the order follows "ihrem Wahlergebnis bei der Bundestagswahl 2021" (their result at the 2021 federal election). <a href="https://www.bpb.de/themen/wahl-o-mat/bundestagswahl-2025/558464/haeufig-gestellte-fragen-zum-wahl-o-mat/" target="_blank" rel="noopener">bpb FAQ, 6 Feb 2025</a></li>
+</ul>
+<h3>StemWijzer (Netherlands, ProDemos)</h3>
+<ul>
+<li><strong>Parties give their own answers and explanations:</strong> "Partijen geven zelf aan of ze het eens of oneens zijn met de stelling" (Parties say themselves whether they agree or disagree). They can also add a short explanation for voters. Staff check each answer against the party's manifesto. <a href="https://source.stemwijzer.nl/faq/" target="_blank" rel="noopener">StemWijzer, Veelgestelde vragen</a></li>
+<li><strong>This is the clearest precedent for our problem.</strong> Under the question "Waarom baseren jullie de posities van partijen niet op wat ze de afgelopen periode hebben gestemd?" (Why don't you base parties' positions on how they have voted recently?), the answer includes: "Nieuwe partijen hebben nog niet eerder gestemd, waardoor wij geen informatie hebben om hun posities te bepalen." (New parties have not voted before, so we would have no information to place them.) <a href="https://source.stemwijzer.nl/faq/" target="_blank" rel="noopener">StemWijzer FAQ</a></li>
+<li>A party that chooses not to take part is left out entirely. <a href="https://source.stemwijzer.nl/faq/" target="_blank" rel="noopener">same page</a></li>
+</ul>
+<h3>Kieskompas (Netherlands)</h3>
+<ul>
+<li><strong>Reported (not re-checked):</strong> parties answer the statements, and a team of experts is said to check every answer against official party documents, with sources viewable in the tool. The page could not be opened on re-check, so the Dutch quote originally given here has been removed (see "Could not verify"). <a href="https://home.kieskompas.nl/nl/tools/hoe-werkt-het-kieskompas/" target="_blank" rel="noopener">Kieskompas, Hoe werkt het Kieskompas</a></li>
+</ul>
+<h3>smartvote (Switzerland)</h3>
+<ul>
+<li><strong>Individual candidates fill in the questionnaire themselves.</strong> It is all or nothing: "Parties and candidates who have not completed and confirmed the questionnaire in full will therefore not be included in the voting recommendation." Results are a ranked match list, so it would break our no-ranking rule. <a href="https://www.smartvote.ch/en/faq" target="_blank" rel="noopener">smartvote, FAQ</a></li>
+</ul>
+<h3>Vote Compass (Vox Pop Labs)</h3>
+<ul>
+<li><strong>Researchers place each party from "manifestos, election platforms, websites, speeches, press releases, legislative debates, and statements to media".</strong> Parties are then invited to place themselves. Disagreements go to an advisory board of scholars. Parties need "a fully developed policy platform" to be included. <a href="https://files.voxpoplabs.com/votecompass/methodology.pdf" target="_blank" rel="noopener">Vote Compass Methodology, v2026.1, June 2026</a></li>
+</ul>
+<h3>iSideWith (US/UK)</h3>
+<ul>
+<li><strong>Staff research stances and use the "most recent stated position".</strong> Voting record and past actions then affect how strongly a candidate is matched to that stance: "Each time a candidate changes their stance they receive a lower conviction score for that issue." So a candidate with a long record can be marked down in a way a newcomer cannot. It also produces rankings, which our rules forbid. <a href="https://www.isidewith.com/faqs/" target="_blank" rel="noopener">iSideWith, FAQs</a></li>
+</ul>
+<h3>News candidate lists</h3>
+<ul>
+<li><strong>ITV News London's list gives names and parties only</strong>, apparently alphabetical, with no descriptions and no mention of incumbency or past office. <a href="https://www.itv.com/news/london/2026-09-16/candidates-running-in-the-holborn-and-st-pancras-by-election" target="_blank" rel="noopener">ITV News London, 16 Sep 2026</a></li>
+<li>I did not check the BBC or the Guardian. LBC's list would not load.</li>
+</ul>
+<h3>UK ballot paper (the legal baseline)</h3>
+<ul>
+<li><strong>The ballot paper shows only names and the details from the nomination statement.</strong> "The order of the names in the ballot paper shall be the same as in the statement of persons nominated." Nothing on the paper marks a sitting member. <a href="https://www.legislation.gov.uk/ukpga/1983/2/schedule/1/paragraph/19" target="_blank" rel="noopener">Representation of the People Act 1983, Sch. 1, rule 19, legislation.gov.uk</a></li>
+</ul>
+<h3>Why party-answer tools avoid the problem</h3>
+<p>Wahl-O-Mat, StemWijzer and Kieskompas ask every party the same questions before the election. Every party then has an answer in the same place. Nobody's section is empty just because they have never held office. StemWijzer says openly that this is why it does not use voting records. There are two costs:
+- A party that does not answer is left out (StemWijzer) or leaves a gap of its own.
+- An answer is a promise, not a record, so the site shows what parties say rather than what they have done.</p>
+<p>Independents and very small parties are the hard case for us, because there may be no party answer to show.</p>
+<hr />
+<h2>Part B: What research says about empty sections and missing information</h2>
+<p><strong>How voters use candidate information</strong>
+- <strong>Incumbency does help in the UK, but the size depends on the party.</strong> One estimate is 5–15% of the vote for Liberal Democrat MPs, about 2% for Labour and about 1% for Conservatives. <a href="https://www.sciencedirect.com/science/article/abs/pii/S0261379412001485" target="_blank" rel="noopener">Smith, <em>Electoral Studies</em> 32(1), 2013</a> The advantage is bigger where voters care less about which party wins, such as close Conservative–Liberal seats. <a href="https://www.journals.uchicago.edu/doi/abs/10.1086/690617?journalCode=jop" target="_blank" rel="noopener">Eggers &amp; Spirling, <em>Journal of Politics</em> 79(3), 2017</a>
+- <strong>Experience matters more when other cues are missing.</strong> In US experiments, "when subjects cannot rely on party labels to infer ideological positions, they give greater weight to candidate competence", measured as career and political experience. <a href="https://alexandercoppock.com/kirkland_coppock_2018.html" target="_blank" rel="noopener">Kirkland &amp; Coppock, <em>Political Behavior</em> 40(3), 2018</a> For us, this suggests a visible record may count for more with voters who know little about the parties. That is a guess from US data.
+- <strong>Uncertainty about a candidate may hurt them, or may not. The evidence is mixed.</strong> Bartels found that "voters dislike uncertainty" about candidates' positions. <a href="https://cdn.vanderbilt.edu/vu-my/wp-content/uploads/sites/402/2011/12/14094034/Issue_Voting.pdf" target="_blank" rel="noopener">Bartels, <em>American Journal of Political Science</em> 30(4), 1986</a> Later experiments found that "on average, ambiguity does not repel and may, in fact, attract voters". People also read vague positions from their own party hopefully. <a href="https://www.cambridge.org/core/journals/american-political-science-review/article/abs/electoral-implications-of-candidate-ambiguity/D49DC460706D55A96D4CBC91F01631DB" target="_blank" rel="noopener">Tomz &amp; Van Houweling, <em>APSR</em> 103(1), 2009</a></p>
+<p><strong>How people treat missing facts (from decision research)</strong>
+- <strong>Facts that every option has count for more.</strong> People compared pairs where one fact was shared and one was unique to each option. "Dimensions were weighted more heavily in the comparison when they were common than when they were unique." Warnings and rewards for accuracy did not remove the effect. <a href="https://www.sciencedirect.com/science/article/abs/pii/0030507374900130" target="_blank" rel="noopener">Slovic &amp; MacPhillamy, <em>Organizational Behavior and Human Performance</em> 11(2), 1974</a>
+- <strong>People fill gaps in favour of the option that looks better on the shared facts.</strong> Buyers give more weight to "common attributes" and "tend to interpret missing attribute values in a way that supports the purchase of the option that is superior on the common attribute". <a href="https://business.columbia.edu/sites/default/files-efs/pubfiles/946/Incomplete_Information_Consumer_Choice.pdf" target="_blank" rel="noopener">Kivetz &amp; Simonson, <em>Journal of Marketing Research</em> 37(4), 2000</a>
+- <strong>What this could mean for us.</strong> A record shown for one candidate only is a "unique" fact, so people may give it less weight. But they may also fill the blank for other candidates in favour of whoever looks better on the facts all candidates share, and (from Tomz &amp; Van Houweling above) read gaps hopefully for the party they already support. Sections that every candidate has (party, statement, answers to the same questions) are likely to count most. These studies were about students and shopping, not elections, so this is a reasonable reading rather than a tested result.</p>
+<p><strong>Layout and order</strong>
+- <strong>Being higher on the list helps.</strong> British local elections show "a clear advantage to those placed first", and it grows with the number of candidates. <a href="https://academic.oup.com/pa/article-abstract/67/1/119/1539298" target="_blank" rel="noopener">Webber, Rallings, Borisyuk &amp; Thrasher, <em>Parliamentary Affairs</em> 67(1), 2014</a> Because our site follows ballot order, it copies this bias rather than adding a new one. Making one candidate's page longer or more eye-catching could add a separate visual advantage. I found no study of how voters react to the length of a candidate page.</p>
+<p><strong>Voting advice application (VAA) research</strong>
+- <strong>These tools matter mostly for people who are still choosing.</strong> Kieskompas advice changed votes mainly "when the site recommended a party that was being seriously contemplated by the user". <a href="https://journals.sagepub.com/doi/abs/10.1177/1354068811436054" target="_blank" rel="noopener">Wall, Krouwel &amp; Vitiello, <em>Party Politics</em> 20(3), 2014</a>
+- <strong>Small design choices change results.</strong> "A majority of the users of StemWijzer would have received another advice, if another spatial model had been used." <a href="https://link.springer.com/article/10.1057/ap.2013.30" target="_blank" rel="noopener">Louwerse &amp; Rosema, <em>Acta Politica</em>, 2014</a> Choices that look neutral can still move outcomes.
+- <strong>Where to read more.</strong> Garzia &amp; Marschall map the field and call for more research. Their abstract does not cover empty records. <a href="https://www.inderscience.com/info/inarticle.php?artid=51309" target="_blank" rel="noopener">Garzia &amp; Marschall, <em>International Journal of Electronic Governance</em> 5(3/4), 2012</a>
+- <strong>Where the evidence is thin.</strong> I found no study that tests how voters react to an empty "record" section, or to wording like "has not held this office before", on a candidate page. The nearest evidence is the missing-information research above.</p>
+<hr />
+<h2>What this means for the site</h2>
+<p>Here are four options, each taken from the sites above. Each one still needs Romily's judgement; none is recommended over the others.</p>
+<p><strong>Option 1 — The same record section for everyone, with a neutral line when it is empty.</strong>
+- <em>Follows:</em> TheyWorkForYou ("This person has not voted on any of the key issues which we keep track of") and Ballotpedia ("has not yet completed…", used for incumbents and challengers alike).
+- <em>Example wording:</em> "Has not held this office before, so there is no voting record."
+- <em>Judgement needed:</em>
+  - The exact words. "Has not held this office" is a fact. "No record" can sound like a fault.
+  - Whether to add past candidacies, shown the same way for everyone (WhoCanIVoteFor's Elected / Not elected table).
+  - Whether the empty box itself makes a challenger look worse. The research suggests it might, but it is not proof.</p>
+<p><strong>Option 2 — Leave the record out of the main page and put it behind a link or tab.</strong>
+- <em>Follows:</em> WhoCanIVoteFor (the TheyWorkForYou link appears only for former MPs, and empty sections are removed) and Vote Smart (records on separate tabs).
+- <em>Result:</em> the main pages look the same length for everyone.
+- <em>Judgement needed:</em>
+  - Whether a link that only some candidates have is itself a visible difference.
+  - Whether hiding the record undersells information that voters do use. The Kirkland &amp; Coppock study suggests experience is a cue voters rely on.</p>
+<p><strong>Option 3 — Give everyone a "What they have said" section, with the record (if any) after it.</strong>
+- <em>Follows:</em> Ballotpedia's Candidate Connection, Vote Smart's Political Courage Test, smartvote, and WhoCanIVoteFor's candidate statements with a provenance note.
+- <em>Result:</em> every candidate has a section, sourced in the same way, under the same heading.
+- <em>Judgement needed:</em>
+  - Which questions to ask. They could follow our nine topics.
+  - Whether to contact candidates directly, or only collect what they have published.
+  - How to word a non-answer. Ballotpedia's "has not yet completed" is neutral. Vote Smart's "will fail" is a verdict, which breaks our rules.
+  - What to do when uptake is low. Vote Smart's response rate fell to 20% by 2016.</p>
+<p><strong>Option 4 — Use party positions for everyone, with a candidate's own record as extra.</strong>
+- <em>Follows:</em> Wahl-O-Mat, StemWijzer (party answers checked against the manifesto) and Kieskompas, and Vote Compass (researchers place parties from their manifestos, and parties are invited to check).
+- <em>Result:</em> StemWijzer rejected voting records for exactly our reason: new parties have none.
+- <em>Judgement needed:</em>
+  - What to show for independents and parties with no manifesto. There are several in Holborn and St Pancras.
+  - Whether our staff placing a party's position from its manifesto is an interpretation. Vote Compass needs an advisory board to settle disputes.
+  - Page and party order. Wahl-O-Mat's order by past result favours established parties, while ballot order does not.</p>
+<hr />
+<h2>Could not verify</h2>
+<ul>
+<li><strong>Vote Smart candidate pages:</strong> the exact wording shown to a candidate who refused the Political Courage Test, and what the Key Votes tab shows for a challenger. The pages would not load (403 errors or content drawn by scripts). Only the "About" page wording is verified.</li>
+<li><strong>Wahl-O-Mat:</strong> how a party that does not answer is shown. The FAQ does not say.</li>
+<li><strong>Kieskompas:</strong> the method page could not be opened on re-check (fetch refused), so the claim that experts check every party answer against official documents, and the Dutch quote first given for it, are unconfirmed. How new parties are handled is also unknown.</li>
+<li><strong>iSideWith:</strong> what is shown when a candidate's stance is unknown.</li>
+<li><strong>BBC and Guardian candidate lists:</strong> not checked. <strong>LBC</strong> list: would not load (too many redirects).</li>
+<li><strong>smartvote:</strong> any feature comparing incumbents' answers with how they voted. Not checked.</li>
+<li><strong>UK ballot order:</strong> that the statement of persons nominated is alphabetical by surname. Only rule 19(3) (ballot follows that statement) was checked. The WhoCanIVoteFor and ITV lists appear alphabetical.</li>
+<li><strong>Research texts:</strong> for Bartels (1986) I saw only a short piece of the abstract. For Kivetz &amp; Simonson (2000), Slovic &amp; MacPhillamy (1974), Garzia &amp; Marschall (2012) and Turner (2014, a Plymouth thesis on incumbency in English local elections, not used above) I read abstracts only, not the full papers.</li>
+<li><strong>Vote Smart response-rate figures:</strong> these come from Wikipedia (secondary). I did not check them against the original Wall Street Journal source.</li>
+</ul>
+  <p class="small" style="margin-top:3rem"><a href="/round-6/">Back to round six</a></p>
+</main>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Questions for Romily — the voting app</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #000;
+    --paper: #fff;
+    --rule: #000;
+    --muted: #555;
+    --field: #f4f4f4;
+    --measure: 40rem;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 4rem 1.25rem 6rem;
+  }
+  header { margin-bottom: 3.5rem; }
+  h1 {
+    font-size: clamp(2.6rem, 8vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.25rem;
+  }
+  .lede { margin: 0 0 1rem; }
+  .lede + .lede { margin-top: 0; }
+  .small { font-size: 0.95rem; color: var(--muted); }
+  .meta {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+    margin-top: 2rem;
+  }
+  .meta span { white-space: nowrap; }
+
+  section { margin: 3.5rem 0 0; }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0 0 0.25rem;
+  }
+  .why { margin: 0 0 2rem; color: var(--muted); }
+
+  .q { margin: 0 0 2.5rem; }
+  .q label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .q label .n {
+    display: inline-block;
+    width: 2rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .q .hint {
+    margin: 0 0 0.6rem 2rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .q .hint em { font-style: italic; }
+  textarea, input[type=text] {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    font: inherit;
+    color: var(--ink);
+    background: var(--field);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    padding: 0.7rem 0.75rem;
+    resize: vertical;
+    min-height: 6.5rem;
+  }
+  input[type=text] { min-height: 0; }
+  textarea:focus, input:focus, button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .choices { margin: 0 0 0.75rem 2rem; }
+  .choices label {
+    display: block; font-weight: 400; margin: 0.15rem 0;
+  }
+  .choices input { margin-right: 0.5rem; accent-color: #000; }
+
+  .submit {
+    margin-top: 4rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+  button {
+    font: inherit;
+    font-weight: 500;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+  }
+  button.secondary { background: var(--paper); color: var(--ink); margin-left: 0.75rem; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  #status { margin-top: 1rem; min-height: 1.6rem; }
+  .hidden { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    #status { transition: opacity 200ms; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Your call, Romily.</h1>
+    <p class="lede">This is your project, so the decisions that shape it should be yours. Below are the open questions from Friday's conversation with Lynda and Dad, plus a few that came up while researching how the app could be built.</p>
+    <p class="lede">Answer in your own words, as short or as long as you like. Skip anything you're not sure about and come back to it. Your answers save in this browser as you type, and nothing is sent until you press "Send my answers".</p>
+    <p class="lede small">Your answers go to Dad, who will feed them into the build plan. There are no right answers; "I don't know yet, let's test it" is a perfectly good one.</p>
+    <div class="meta" aria-live="polite">
+      <span id="progress">0 of 18 answered</span>
+      <span id="saved"></span>
+    </div>
+    <p class="lede small" style="margin-top:1rem"><strong>Latest: <a href="/round-6/">round six, what the research found</a>.</strong> Earlier: <a href="/round-2/">round two</a>, <a href="/round-3/">three</a>, <a href="/round-4/">four</a>, <a href="/round-5/">five</a>.</p>
+  </header>
+
+  <form id="form" method="POST" name="romily-answers" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="romily-answers">
+    <p class="hidden"><label>Leave this empty: <input name="bot-field"></label></p>
+
+    <div class="q">
+      <label for="name"><span class="n"></span>Your name</label>
+      <input type="text" id="name" name="name" autocomplete="name" value="Romily">
+    </div>
+
+    <section>
+      <h2>What it's for</h2>
+      <p class="why">Everything else follows from these three.</p>
+
+      <div class="q">
+        <label for="q01"><span class="n">1</span>Who is the first person you picture using it?</label>
+        <p class="hint">Be specific: a first-time voter the week before polling day, someone who stopped voting years ago, a parent at the kitchen table. Age, situation, what they're worried about.</p>
+        <textarea id="q01" name="q01_first_user"></textarea>
+      </div>
+
+      <div class="q">
+        <label for="q02"><span class="n">2</span>What does success look like, and how would we know?</label>
+        <p class="hint">More people voting? People understanding what's on their ballot? Both? What would you measure after the May 2027 elections to say it worked?</p>
+        <textarea id="q02" name="q02_success"></textarea>
+      </div>
+
+      <div class="q">
+        <label for="q03"><span class="n">3</span>What should it be called?</label>
+        <p class="hint">The Athens / origins-of-democracy idea came up on Friday. Give a shortlist of three or four, and say which one you'd pick today.</p>
+        <textarea id="q03" name="q03_name"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Version one</h2>
+      <p class="why">The smallest thing worth shipping. Everything not chosen here waits.</p>
+
+      <div class="q">
+        <label><span class="n">4</span>Which election should it work for first?</label>
+        <p class="hint">Local councils and mayors are on 6 May 2027. By-elections happen all the time. The general election must be held by August 2029.</p>
+        <div class="choices">
+          <label><input type="radio" name="q04_first_election" value="May 2027 local elections">The May 2027 local elections</label>
+          <label><input type="radio" name="q04_first_election" value="A by-election, as a live test">A by-election, as a live test before May</label>
+          <label><input type="radio" name="q04_first_election" value="The general election">The general election, however long that takes</label>
+          <label><input type="radio" name="q04_first_election" value="Not sure">Not sure</label>
+        </div>
+        <textarea id="q04" name="q04_first_election_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label for="q05"><span class="n">5</span>The four tabs: Financials, Community, Healthcare, Environment. Keep, reorder, rename, drop?</label>
+        <p class="hint">Those were proposed on Friday. Which one matters most to your first user from question 1? Is anything missing, such as housing or education?</p>
+        <textarea id="q05" name="q05_tabs"></textarea>
+      </div>
+
+      <div class="q">
+        <label for="q06"><span class="n">6</span>For version one, is it enough to calculate money effects and only describe everything else?</label>
+        <p class="hint">Tax and benefits can be worked out for a household from open-source models, with a source for every number. NHS waiting times or the environment can only be described from what a party has published, not calculated. Is a money-first first version acceptable, or does that feel lopsided?</p>
+        <textarea id="q06" name="q06_money_first"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>What we ask people</h2>
+      <p class="why">Friday's decision was a small mandatory core with everything else optional. This pins it down.</p>
+
+      <div class="q">
+        <label for="q07"><span class="n">7</span>Which fields are mandatory, and which are optional?</label>
+        <p class="hint">Candidates: postcode, age band, who lives in the household, whether you rent or own, rough income band, whether you have children in school, whether you drive. Optional ones raised on Friday included disability and gender identity. List your mandatory set and your optional set.</p>
+        <textarea id="q07" name="q07_fields"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">8</span>Should the app ever ask someone about their own politics?</label>
+        <p class="hint">For example "who did you vote for last time" or "which issues matter most to you". Asking makes the results feel more tailored; never asking makes the accusation "it favoured a party" impossible to sustain, and keeps the app out of the most sensitive category of personal data.</p>
+        <div class="choices">
+          <label><input type="radio" name="q08_ask_politics" value="Never">Never</label>
+          <label><input type="radio" name="q08_ask_politics" value="Only which issues matter, not who they support">Only which issues matter to them, never who they support</label>
+          <label><input type="radio" name="q08_ask_politics" value="Yes, optionally">Yes, as an optional question</label>
+        </div>
+        <textarea id="q08" name="q08_ask_politics_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label for="q09"><span class="n">9</span>What happens to the answers people type in?</label>
+        <p class="hint">Option A: nothing is stored; the page works it out and forgets it. Option B: people can make an account to save their profile. Option C: we keep anonymous totals (how many people used it, which areas) but never individual answers. Friday's conversation also raised selling aggregated data one day, like polling. Where's your line?</p>
+        <textarea id="q09" name="q09_data_retention"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Staying impartial</h2>
+      <p class="why">Agreed on Friday: no opinions generated by AI, black-and-white design, party colour only on that party's own panel, a verifiable source on every claim. These are the edge cases.</p>
+
+      <div class="q">
+        <label for="q10"><span class="n">10</span>Every candidate gets exactly the same template, including the Monster Raving Loony Party and independents. Agree?</label>
+        <p class="hint">Same sections, same order, same space, listed in ballot-paper order (alphabetical by surname). Where a candidate has published nothing on a topic, the slot says "No published position found". Anything you'd change?</p>
+        <textarea id="q10" name="q10_equal_template"></textarea>
+      </div>
+
+      <div class="q">
+        <label for="q11"><span class="n">11</span>Broken promises: should the app show what a sitting politician pledged last time against what they actually did?</label>
+        <p class="hint">The winter fuel allowance example came up on Friday. For an MP standing again, their voting record is public and factual. Showing "pledged vs voted" is information; but it will look like an attack to that candidate's supporters. Include it, and if so, with what rules?</p>
+        <textarea id="q11" name="q11_broken_promises"></textarea>
+      </div>
+
+      <div class="q">
+        <label for="q12"><span class="n">12</span>Who checks the facts before they go live, and what happens when a party complains?</label>
+        <p class="hint">Proposal: every claim needs two people to sign it off, and there's a public log of every change and every complaint with how it was resolved. Who should those people be? Should there be an outside advisory group?</p>
+        <textarea id="q12" name="q12_verification"></textarea>
+      </div>
+
+      <div class="q">
+        <label for="q13"><span class="n">13</span>Any other design rules?</label>
+        <p class="hint">Beyond black-and-white and party colour only on that party's panel. Tone of voice, what the app never says, how it handles a topic where the parties' claims contradict each other.</p>
+        <textarea id="q13" name="q13_design_rules"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>How it's run</h2>
+      <p class="why">Structure decisions are hard to reverse, so they're worth deciding early.</p>
+
+      <div class="q">
+        <label><span class="n">14</span>Not-for-profit, or a company?</label>
+        <p class="hint">Not-for-profit was floated on Friday. It makes impartiality easier to believe and partnerships easier to get; it makes fundraising and paying people harder.</p>
+        <div class="choices">
+          <label><input type="radio" name="q14_structure" value="Not-for-profit">Not-for-profit (charity, CIC or similar)</label>
+          <label><input type="radio" name="q14_structure" value="Company">A company</label>
+          <label><input type="radio" name="q14_structure" value="Decide later">Decide later, once it exists</label>
+        </div>
+        <textarea id="q14" name="q14_structure_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label for="q15"><span class="n">15</span>Keep it quiet, or talk to people early?</label>
+        <p class="hint">The worry on Friday was being copied. The other view: the organisations already doing non-partisan election data in the UK (Democracy Club, mySociety, Full Fact) are natural allies, and their backing is the strongest defence against "who is behind this". Which instinct do you trust?</p>
+        <textarea id="q15" name="q15_partnerships"></textarea>
+      </div>
+
+      <div class="q">
+        <label for="q16"><span class="n">16</span>How do you reach people your age without it looking like a campaign?</label>
+        <p class="hint">"Catchy" hooks were discussed and flagged as risky. What would actually make you and your friends open it the week before an election? Who would you trust to share it?</p>
+        <textarea id="q16" name="q16_reach"></textarea>
+      </div>
+
+      <div class="q">
+        <label for="q17"><span class="n">17</span>Who else is doing this, and what do they get wrong?</label>
+        <p class="hint">You raised analysing the competition. Do you want to own that? If so, list what you've found so far, or say what you'd want help finding.</p>
+        <textarea id="q17" name="q17_competitors"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>The application</h2>
+      <p class="why">One question, because the deadline is close.</p>
+
+      <div class="q">
+        <label for="q18"><span class="n">18</span>Which hard question about this project do you actually want to write about?</label>
+        <p class="hint">Some candidates: can impartiality be built, or only approximated? What can honestly be predicted about "if this candidate wins", and what can't? Does more information change whether people vote, or only who they vote for? Who decides which facts matter to a voter, and is that itself political? Pick one, or write your own.</p>
+        <textarea id="q18" name="q18_reflection"></textarea>
+      </div>
+    </section>
+
+    <div class="submit">
+      <div class="q">
+        <label for="note"><span class="n"></span>Anything else</label>
+        <p class="hint">Questions you have for Dad, things this page got wrong, ideas that don't fit anywhere above.</p>
+        <textarea id="note" name="anything_else"></textarea>
+      </div>
+      <button type="submit" id="send">Send my answers</button>
+      <button type="button" class="secondary" id="clear">Clear everything</button>
+      <p id="status" role="status"></p>
+      <p class="small">You can send more than once. Each send is a separate copy, so it's fine to send a first pass now and a fuller one later.</p>
+    </div>
+  </form>
+  <p class="small" style="margin-top:3rem"><a href="/round-3/">Round three: decisions from the build</a></p>
+  <p class="small"><a href="/round-4/">Round four: the About page</a></p>
+  <p class="small"><a href="/round-5/">Round five: shaping the journey</a></p>
+</main>
+
+<script>
+(function () {
+  var form = document.getElementById('form');
+  var status = document.getElementById('status');
+  var progress = document.getElementById('progress');
+  var saved = document.getElementById('saved');
+  var KEY = 'romily-app-answers-v1';
+  var fields = Array.prototype.slice.call(form.querySelectorAll('textarea, input[type=text], input[type=radio]'));
+  var questionNames = [];
+  fields.forEach(function (f) {
+    var base = f.name.replace(/_why$/, '');
+    if (/^q\d\d_/.test(base) && questionNames.indexOf(base) === -1) questionNames.push(base);
+  });
+
+  function read() {
+    var data = {};
+    fields.forEach(function (f) {
+      if (f.type === 'radio') { if (f.checked) data[f.name] = f.value; }
+      else data[f.name] = f.value;
+    });
+    return data;
+  }
+  function write(data) {
+    fields.forEach(function (f) {
+      if (!(f.name in data)) return;
+      if (f.type === 'radio') f.checked = (f.value === data[f.name]);
+      else f.value = data[f.name];
+    });
+  }
+  function answered(data) {
+    var n = 0;
+    questionNames.forEach(function (q) {
+      var has = false;
+      Object.keys(data).forEach(function (k) {
+        if (k.indexOf(q) === 0 && String(data[k]).trim() !== '') has = true;
+      });
+      if (has) n++;
+    });
+    return n;
+  }
+  function refresh() {
+    var data = read();
+    progress.textContent = answered(data) + ' of ' + questionNames.length + ' answered';
+    try {
+      localStorage.setItem(KEY, JSON.stringify(data));
+      saved.textContent = 'Saved in this browser';
+    } catch (e) {
+      saved.textContent = 'Could not save in this browser; send before you close the page';
+    }
+  }
+
+  try {
+    var stored = localStorage.getItem(KEY);
+    if (stored) write(JSON.parse(stored));
+  } catch (e) {}
+  refresh();
+  form.addEventListener('input', refresh);
+  form.addEventListener('change', refresh);
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var btn = document.getElementById('send');
+    btn.disabled = true;
+    status.textContent = 'Sending…';
+    var body = new URLSearchParams(new FormData(form)).toString();
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body
+    }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      status.textContent = 'Sent. Your answers stay saved here, so you can add to them and send again.';
+    }).catch(function () {
+      status.textContent = 'That didn\'t send. Your answers are still saved in this browser; try again in a minute.';
+    }).then(function () { btn.disabled = false; });
+  });
+
+  document.getElementById('clear').addEventListener('click', function () {
+    if (!confirm('Clear every answer on this page? This cannot be undone.')) return;
+    fields.forEach(function (f) {
+      if (f.type === 'radio') f.checked = false;
+      else if (f.name !== 'name') f.value = '';
+    });
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    refresh();
+    status.textContent = 'Cleared.';
+  });
+})();
+</script>
+</body>
+</html>

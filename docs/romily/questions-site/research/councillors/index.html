@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Research — Councillors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #000;
+    --paper: #fff;
+    --rule: #000;
+    --muted: #555;
+    --field: #f4f4f4;
+    --measure: 40rem;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 4rem 1.25rem 6rem;
+  }
+  header { margin-bottom: 3.5rem; }
+  h1 {
+    font-size: clamp(2.6rem, 8vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.25rem;
+  }
+  .lede { margin: 0 0 1rem; }
+  .lede + .lede { margin-top: 0; }
+  .small { font-size: 0.95rem; color: var(--muted); }
+  .meta {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+    margin-top: 2rem;
+  }
+  .meta span { white-space: nowrap; }
+
+  section { margin: 3.5rem 0 0; }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0 0 0.25rem;
+  }
+  .why { margin: 0 0 2rem; color: var(--muted); }
+
+  .q { margin: 0 0 2.5rem; }
+  .q label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .q label .n {
+    display: inline-block;
+    width: 2rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .q .hint {
+    margin: 0 0 0.6rem 2rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .q .hint em { font-style: italic; }
+  textarea, input[type=text] {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    font: inherit;
+    color: var(--ink);
+    background: var(--field);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    padding: 0.7rem 0.75rem;
+    resize: vertical;
+    min-height: 6.5rem;
+  }
+  input[type=text] { min-height: 0; }
+  textarea:focus, input:focus, button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .choices { margin: 0 0 0.75rem 2rem; }
+  .choices label {
+    display: block; font-weight: 400; margin: 0.15rem 0;
+  }
+  .choices input { margin-right: 0.5rem; accent-color: #000; }
+
+  .submit {
+    margin-top: 4rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+  button {
+    font: inherit;
+    font-weight: 500;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+  }
+  button.secondary { background: var(--paper); color: var(--ink); margin-left: 0.75rem; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  #status { margin-top: 1rem; min-height: 1.6rem; }
+  .hidden { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    #status { transition: opacity 200ms; }
+  }
+</style>
+<style>
+  .paper h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); }
+  .paper h2 { margin-top: 3rem; }
+  .paper h3 { font-size: 1.2rem; font-weight: 500; margin: 2rem 0 0.25rem; }
+  .paper a { color: var(--ink); }
+  .paper blockquote { margin: 0 0 1.5rem; padding: 0 0 0 1rem; border-left: 2px solid var(--rule); }
+  .paper hr { border: 0; border-top: 1px solid var(--rule); margin: 3rem 0; }
+  .paper code { font-size: 0.85em; background: var(--field); padding: 0 0.2em; word-break: break-word; }
+  .paper li { margin: 0.2rem 0; }
+  .tablewrap { overflow-x: auto; margin: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .tablewrap table { border-collapse: collapse; font-size: 0.9rem; line-height: 1.45; min-width: 40rem; }
+  .tablewrap th, .tablewrap td { text-align: left; vertical-align: top; padding: 0.5rem 0.6rem 0.5rem 0; border-bottom: 1px solid #ccc; }
+  .tablewrap th { font-weight: 500; border-bottom: 1px solid var(--rule); }
+  .backlink { margin: 0 0 2rem; }
+</style>
+</head>
+<body>
+<main class="paper">
+  <p class="small backlink"><a href="/round-6/">Back to round six</a> · The full research paper. Every source is linked so you can check it yourself.</p>
+<h1>4. Councillors: named votes, and what else we can fairly show</h1>
+<p><strong>Date:</strong> 24 September 2026</p>
+<p><strong>Question:</strong> When must councils record how each councillor voted, how often do they do it, is there any dataset of those votes, and what else could we fairly show for a councillor?</p>
+<p><strong>Summary</strong>
+1. In England, the law has required councils to record every councillor's name on budget and council tax votes since 25 February 2014. Otherwise, a named vote usually only happens if councillors ask for one. We found no rule like the budget one in Wales, Scotland or Northern Ireland.
+2. Practice varies a lot. In our sample of 20 councils (a sample, not a survey), some record names on most contested votes (Cardiff, Highland, Aberdeen, Fife, Kent). Many record names only on the budget or when asked. We found no dataset of council votes anywhere in the UK.
+3. We can collect attendance and committee membership from the Modern.gov web service. The register of interests and allowances must be published by law, but mostly as web pages or PDFs. Each of these has fairness problems, and we will need to explain them on the page.</p>
+<hr />
+<h2>(a) What the law says</h2>
+<h3>England: the budget rule (SI 2014/165)</h3>
+<p>Checked on legislation.gov.uk, 24 September 2026.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Point</th>
+<th>What the law says</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What it is</td>
+<td>The Local Authorities (Standing Orders) (England) (Amendment) Regulations 2014. It changes the Local Authorities (Standing Orders) (England) Regulations 2001.</td>
+<td><a href="https://www.legislation.gov.uk/uksi/2014/165/made" target="_blank" rel="noopener">legislation.gov.uk, SI 2014/165 as made</a></td>
+</tr>
+<tr>
+<td>Since when</td>
+<td>Made 29 January 2014. In force from <strong>25 February 2014</strong>.</td>
+<td><a href="https://www.legislation.gov.uk/uksi/2014/165/made" target="_blank" rel="noopener">same</a></td>
+</tr>
+<tr>
+<td>The rule (exact words)</td>
+<td>"Immediately after any vote is taken at a budget decision meeting of an authority there must be recorded in the minutes of the proceedings of that meeting the names of the persons who cast a vote for the decision or against the decision or who abstained from voting."</td>
+<td><a href="https://www.legislation.gov.uk/uksi/2014/165/made" target="_blank" rel="noopener">same, reg. 2(3)</a></td>
+</tr>
+<tr>
+<td>Which decisions</td>
+<td>A "budget decision meeting" is a meeting where the council makes the council tax calculations under the Local Government Finance Act 1992, or issues a precept (a county council asking district councils to collect its share of council tax). It includes any meeting where either item is on the agenda. "Vote" means a vote on any decision "related to" that calculation or precept.</td>
+<td><a href="https://www.legislation.gov.uk/uksi/2014/165/made" target="_blank" rel="noopener">same</a></td>
+</tr>
+<tr>
+<td>Amendments too?</td>
+<td>Yes. The government's note says the rule covers "the substantive budget motion ... and any amendments proposed at the budget meeting".</td>
+<td><a href="https://www.legislation.gov.uk/uksi/2014/165/pdfs/uksiem_20140165_en.pdf" target="_blank" rel="noopener">Explanatory Memorandum to SI 2014/165, DCLG, 2014, para 8.2</a></td>
+</tr>
+<tr>
+<td>Which councils</td>
+<td>The rule sits in standing orders that every "relevant authority" must adopt. A relevant authority means "a county council, a district council or a London borough council". Unitary and metropolitan councils are legally county or district councils, so they are covered. The rule is written for mayor-and-cabinet, leader-and-cabinet and committee-system councils alike.</td>
+<td><a href="https://www.legislation.gov.uk/uksi/2001/3384/regulation/2" target="_blank" rel="noopener">2001 Regulations, reg. 2</a>; <a href="https://www.legislation.gov.uk/uksi/2014/165/made" target="_blank" rel="noopener">SI 2014/165 reg. 2</a></td>
+</tr>
+<tr>
+<td>What is recorded</td>
+<td>Names of councillors voting <strong>for</strong>, <strong>against</strong>, and <strong>abstaining</strong>. Absent councillors are not mentioned, although some councils list them anyway.</td>
+<td><a href="https://www.legislation.gov.uk/uksi/2014/165/made" target="_blank" rel="noopener">SI 2014/165</a></td>
+</tr>
+<tr>
+<td>Why</td>
+<td>"With recorded votes, electors and local tax payers will be able to see how those who represent them voted on the issue of the local tax."</td>
+<td><a href="https://www.legislation.gov.uk/uksi/2014/165/pdfs/uksiem_20140165_en.pdf" target="_blank" rel="noopener">Explanatory Memorandum, para 7.1</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>In plain words: at the yearly budget and council tax meeting, every English council must write down in its minutes how each councillor voted, including on amendments.</p>
+<h3>England and Wales: any councillor can have their own vote recorded</h3>
+<p>This is an older rule, and many people don't know about it.</p>
+<ul>
+<li><strong>England:</strong> the Local Authorities (Standing Orders) Regulations 1993 make councils include this in their standing orders: "Where immediately after a vote is taken at a meeting of a relevant body any member of that body so requires, there shall be recorded in the minutes ... whether that person cast his vote for the question or against the question or whether he abstained from voting." It applies to the full council, committees, sub-committees and joint committees. <a href="https://www.legislation.gov.uk/uksi/1993/202/made" target="_blank" rel="noopener">legislation.gov.uk, SI 1993/202, Sch. 2 para 1</a>. The 2001 Regulations removed other parts of the 1993 Regulations for England, but not this one (<a href="https://www.legislation.gov.uk/uksi/2001/3384/regulation/8/made" target="_blank" rel="noopener">SI 2001/3384 reg. 8</a>). legislation.gov.uk warns that some changes to the 1993 text have not yet been applied, so "still in force in England" is our reading, not something we could fully confirm.</li>
+<li><strong>This records one person's vote, not everyone's.</strong> A councillor can only have their <em>own</em> vote recorded.</li>
+<li><strong>Wales:</strong> the same rule appears, with almost the same words, in the Local Authorities (Standing Orders) (Wales) Regulations 2006 (in force 3 July 2006). It covers county and county borough councils. <a href="https://www.legislation.gov.uk/wsi/2006/1275" target="_blank" rel="noopener">legislation.gov.uk, WSI 2006/1275, Sch. 2 para 1</a></li>
+</ul>
+<h3>"A set number of members can demand a recorded vote"</h3>
+<p>We found <strong>no national law that sets this number</strong>. Each council picks its own number in its constitution. Examples we read are in the table below: 1, 2, 6 and 10 councillors. A named vote of the whole meeting (a "recorded vote" or "roll call") depends entirely on these local rules. The one exception is England's budget rule.</p>
+<p>The only national rule on recording names is about <em>attendance</em>, not votes:
+- England and Wales: "The names of the members present at a meeting of a local authority shall be recorded." <a href="https://www.legislation.gov.uk/ukpga/1972/70/schedule/12" target="_blank" rel="noopener">Local Government Act 1972, Sch. 12 para 40</a>
+- Scotland: "The names of the members present at a meeting of a council shall be recorded." <a href="https://www.legislation.gov.uk/ukpga/1973/65/schedule/7" target="_blank" rel="noopener">Local Government (Scotland) Act 1973, Sch. 7 para 6</a></p>
+<h3>Wales, Scotland and Northern Ireland</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Nation</th>
+<th>Budget votes named by law?</th>
+<th>Other national rules</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wales</td>
+<td>We found none. The 2006 Regulations contain nothing about budgets.</td>
+<td>Any member can have their own vote recorded. Principal councils must also broadcast their meetings, so video is a second source.</td>
+<td><a href="https://www.legislation.gov.uk/wsi/2006/1275" target="_blank" rel="noopener">WSI 2006/1275</a>; <a href="https://www.legislation.gov.uk/asc/2021/1/section/46" target="_blank" rel="noopener">Local Government and Elections (Wales) Act 2021, s.46</a></td>
+</tr>
+<tr>
+<td>Scotland</td>
+<td>We found none.</td>
+<td>Decisions are made by a majority of members "present and voting". Names of those present must be recorded. Each council's standing orders decide how votes are taken.</td>
+<td><a href="https://www.legislation.gov.uk/ukpga/1973/65/schedule/7" target="_blank" rel="noopener">Local Government (Scotland) Act 1973, Sch. 7</a></td>
+</tr>
+<tr>
+<td>Northern Ireland</td>
+<td>We found none.</td>
+<td><strong>Qualified majority</strong> means 80% of the votes of members present and voting (s.40). <strong>Call-in</strong>: if 15% of the council's members ask, the council must reconsider a decision. The two grounds are that it was not properly considered, or that it would "disproportionately affect adversely any section of the inhabitants of the district" (s.41). Standing orders must list which decisions need a qualified majority. The draft Standing Orders Regulations require one for decisions on a call-in made on the second ("disproportionately affect") ground, and for suspending standing orders (with some exceptions). We found no national rule on recording named votes.</td>
+<td><a href="https://www.legislation.gov.uk/nia/2014/8/part/7" target="_blank" rel="noopener">Local Government Act (Northern Ireland) 2014, Part 7</a>; <a href="https://www.legislation.gov.uk/nidsr/2015/9780337996016" target="_blank" rel="noopener">draft Local Government (Standing Orders) Regulations (NI) 2015</a></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>(b) How often do councils record named votes?</h2>
+<h3>How many councils there are</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Nation</th>
+<th>Councils</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>England</td>
+<td>307 as of May 2026 (20 county, 153 district, 134 single-tier, of which 33 London boroughs and 36 metropolitan boroughs). The number keeps changing because councils are being merged.</td>
+<td><a href="https://researchbriefings.files.parliament.uk/documents/SN07104/SN07104.pdf" target="_blank" rel="noopener">House of Commons Library, <em>Local government in England: structures</em>, SN07104, 6 May 2026</a></td>
+</tr>
+<tr>
+<td>Scotland</td>
+<td>32</td>
+<td><a href="https://www.gov.scot/policies/local-government/" target="_blank" rel="noopener">Scottish Government, Local government policy page</a> (accessed 24 Sep 2026)</td>
+</tr>
+<tr>
+<td>Wales</td>
+<td>22</td>
+<td><a href="https://www.gov.wales/sites/default/files/publications/2019-06/councils-and-councillors-an-introduction.pdf" target="_blank" rel="noopener">Welsh Government, <em>Councils and councillors: an introduction</em>, June 2019</a></td>
+</tr>
+<tr>
+<td>Northern Ireland</td>
+<td>11</td>
+<td><a href="https://www.nidirect.gov.uk/articles/local-councils" target="_blank" rel="noopener">nidirect, Local councils</a> (accessed 24 Sep 2026)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Total: about 372 principal councils. We could not find anyone who has counted how many of them record named votes routinely.</p>
+<h3>Our sample: 20 councils, not a survey</h3>
+<p>We used four labels:
+- <strong>Routine</strong>: names are recorded on most or all contested votes.
+- <strong>On request</strong>: names are recorded only when a set number of councillors ask.
+- <strong>Budget + request</strong>: the English legal minimum, plus any vote councillors ask for.
+- <strong>Blocked</strong>: we could not read the council's documents with our tools.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Council (type)</th>
+<th>What we found</th>
+<th>Label</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Camden</strong> (London borough)</td>
+<td>Constitution and minutes returned "403 Forbidden" to both curl and WebFetch on 24 Sep 2026. The English budget rule applies by law.</td>
+<td>Blocked (budget rule applies)</td>
+<td><a href="https://democracy.camden.gov.uk/documents/s69533/Constitution.pdf" target="_blank" rel="noopener">Camden constitution PDF</a> (not readable)</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Brighton and Hove</strong> (unitary)</td>
+<td>The budget meeting on 27 Feb 2025 has a full For/Against/Abstain table naming every councillor ("carried by 37 votes to 11 with 1 abstention"). On 23 June 2025, "Councillor Goldsmith called for a recorded vote". The ordinary meeting on 18 Dec 2025 records only "carried" or "lost". We could not read the procedure rules (403).</td>
+<td>Budget + request</td>
+<td><a href="https://democracy.brighton-hove.gov.uk/documents/b41604/Addendum%201%20-%20Minutes%2010th-Jul-2025%2016.30%20Council.pdf?T=9" target="_blank" rel="noopener">Minutes addendum, Council 10 Jul 2025 (contains 27 Feb and 23 Jun 2025 minutes)</a>; <a href="https://democracy.brighton-hove.gov.uk/documents/s214039/Minutes%2018.12.2025.pdf" target="_blank" rel="noopener">Minutes 18 Dec 2025</a></td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Southwark</strong> (London borough)</td>
+<td>At the budget meeting on 21 Feb 2024, a roll-call vote was taken under "council assembly procedure rule 1.16(4)", with every name listed.</td>
+<td>Budget + request (the rule for other votes was not checked)</td>
+<td><a href="https://moderngov.southwark.gov.uk/mgAi.aspx?ID=69850" target="_blank" rel="noopener">Southwark Council, agenda item, 21 Feb 2024</a></td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Kent</strong> (county)</td>
+<td>Minutes for 16 Jul 2026 list names under For / Against / Abstain for each contested vote. Procedural votes say "agreed by a majority". We could not read the constitution (403), so we don't know the underlying rule.</td>
+<td>Routine for contested votes (in the minutes we checked)</td>
+<td><a href="https://democracy.kent.gov.uk/documents/g9810/Printed%20minutes%2016th-Jul-2026%2010.00%20County%20Council.pdf?T=1" target="_blank" rel="noopener">Kent CC printed minutes, 16 Jul 2026</a></td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Gloucestershire</strong> (county)</td>
+<td>"If 10 Members present at the meeting demand it", names are recorded (rule 14.5). There is a budget rule (14.7).</td>
+<td>Budget + request (10 members)</td>
+<td><a href="https://www.gloucestershire.gov.uk/gcc-constitution/part-4-rules-of-procedure/14-voting/" target="_blank" rel="noopener">Gloucestershire CC constitution, rule 14, reviewed 16 Aug 2023</a></td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Lancashire</strong> (county)</td>
+<td>"Any six councillors may request a named vote" (SO 46.6). Every budget vote is recorded (46.7). Any councillor can have their own vote recorded (46.5).</td>
+<td>Budget + request (6)</td>
+<td><a href="https://www.lancashire.gov.uk/council/constitution/10-standing-orders/section-b-full-council-procedural-standing-orders/" target="_blank" rel="noopener">Lancashire CC standing orders, Section B</a> (accessed 24 Sep 2026)</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>East Sussex</strong> (county)</td>
+<td>A recorded vote happens if "six members demand" it (SO 33.1). All budget votes, including amendments, are taken by roll call (33.3–33.4). In committees the number is two (55.1).</td>
+<td>Budget + request (6; 2 in committee)</td>
+<td><a href="https://democracy.eastsussex.gov.uk/documents/g6100/Public%20reports%20pack%2025th-Mar-2026%20Constitution.pdf?T=10" target="_blank" rel="noopener">East Sussex CC constitution, reports pack 25 Mar 2026</a></td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Oldham</strong> (metropolitan)</td>
+<td>A recorded vote needs "any member supported by five other Members". The chamber's electronic system records each person's vote. However, without a request "the outcome of the individual electronic votes will not be published in Minutes ... A record of individual electronic votes will only be retained where a recorded vote has been requested."</td>
+<td>Budget + request (6)</td>
+<td><a href="https://committees.oldham.gov.uk/documents/s155368/Electronic%20Voting%20v1.pdf" target="_blank" rel="noopener">Oldham Council, <em>Electronic Voting</em> report, 12 Nov 2025</a></td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Hartlepool</strong> (unitary)</td>
+<td>For Full Council decisions, "the Chair shall ensure that recorded votes are taken" (15.5), except where the meeting agrees to a show of hands (15.3). There is a budget rule (15.6). The two rules refer to each other, so it is unclear which is the default.</td>
+<td>Mostly routine (needs checking against minutes)</td>
+<td><a href="https://www.hartlepool.gov.uk/council-democracy/constitution-part-4-full-council-rules-procedure/15" target="_blank" rel="noopener">Hartlepool BC constitution, Part 4 rule 15, dated 24 Feb 2026</a></td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>Wealden</strong> (district)</td>
+<td>"A recorded vote will be held for any vote taken at the Council's budget setting meeting, including in respect of amendments" (1.29). We did not find the request number on the page we read.</td>
+<td>Budget (the request rule was not found)</td>
+<td><a href="https://www.wealden.gov.uk/councillors-and-committees/about-the-elected-council/council-constitution/council-constitution-part-3-procedure-rules/" target="_blank" rel="noopener">Wealden DC constitution Part 3</a></td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>Glasgow</strong></td>
+<td>The standing orders (May 2026) allow votes by roll call, electronic system or show of hands, "with a clear public audit trail between the member and the vote cast" (SO 19(1)). The minutes we read (2022) give totals only, for example "33 members voted for the amendment". Where the vote is electronic, "a copy of the record of how each member voted is available on request from Committee Services".</td>
+<td>Names kept, but not published in minutes (2022 practice)</td>
+<td><a href="https://glasgow.gov.uk/media/5905/Council-and-Committee-Standing-Orders/pdf/1_-_Council_Standing_Orders_September_2024_002.pdf?m=1727184470037" target="_blank" rel="noopener">Glasgow CC standing orders, May 2026</a>; <a href="https://onlineservices.glasgow.gov.uk/councillorsandcommittees/viewSelectedDocument.asp?c=P62AFQDNZL81DX2U81" target="_blank" rel="noopener">Minutes of Glasgow City Council 2022/23, Print 1</a></td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>Highland</strong></td>
+<td>Votes are normally taken electronically or by calling the roll. "In the event of a vote Members' names will be recorded in the minute" (SO 25.7).</td>
+<td>Routine</td>
+<td><a href="https://www.highland.gov.uk/downloads/file/241/standing-orders-relating-to-the-conduct-of-meetings" target="_blank" rel="noopener">Highland Council standing orders (document footer says Sept 2026)</a></td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>Aberdeen</strong></td>
+<td>Council votes use electronic voting; committee votes use roll call (SO 32.1, 2022 version). Named results are published, for example "For the motion (17) - Councillors Ali, Blake ..." in a separate "Additional circulation – votes" document.</td>
+<td>Routine</td>
+<td><a href="https://sites.aberdeencity.gov.uk/sites/default/files/2022-05/Standing%20Orders%202022%20Final.pdf" target="_blank" rel="noopener">Aberdeen CC standing orders 2022</a>; <a href="https://committees.aberdeencity.gov.uk/documents/b27949/Additional+circulation+-+votes+16th-Jan-2025+10.30+Council.pdf?T=9" target="_blank" rel="noopener">Additional circulation – votes, Council 16 Jan 2025</a></td>
+</tr>
+<tr>
+<td>14</td>
+<td><strong>Fife</strong></td>
+<td>"Recording of votes at meetings will be taken as a roll call vote and the members' names recorded in the minute" (SO 35.7). But committees that meet wholly in person use a show of hands (SO 32.3).</td>
+<td>Routine at council; show of hands at some committees</td>
+<td><a href="https://www.fife.gov.uk/__data/assets/file/0017/56051/Standing-Orders-20.3.26.pdf" target="_blank" rel="noopener">Fife Council standing orders v1.2, published 25 Mar 2026</a></td>
+</tr>
+<tr>
+<td>15</td>
+<td><strong>Edinburgh</strong></td>
+<td>The standing orders PDF returned 403 to curl and WebFetch.</td>
+<td>Blocked</td>
+<td><a href="https://democracy.edinburgh.gov.uk/documents/s92117/StandingOrdersDecember2025clean.pdf" target="_blank" rel="noopener">Edinburgh standing orders Dec 2025</a> (not readable)</td>
+</tr>
+<tr>
+<td>16</td>
+<td><strong>Cardiff</strong></td>
+<td>In the minutes of 30 Jan 2025, every vote lists named councillors under FOR, AGAINST and ABSTAIN. There were four votes: the Local Development Plan, an amendment and the substantive motion on employer National Insurance, and a building safety motion.</td>
+<td>Routine (in the minutes we checked)</td>
+<td><a href="https://cardiff.moderngov.co.uk/mgConvert2PDF.aspx?ID=84098" target="_blank" rel="noopener">Cardiff Council minutes, 30 Jan 2025</a></td>
+</tr>
+<tr>
+<td>17</td>
+<td><strong>Vale of Glamorgan</strong></td>
+<td>On 6 Mar 2024, the council changed its rules so that one member (previously six) can ask for names "to be taken down in writing and entered into the minutes".</td>
+<td>On request (1 member)</td>
+<td><a href="https://www.bromorgannwg.gov.uk/Documents/_Committee%20Reports/Council/2024/24-03-06/DN.pdf" target="_blank" rel="noopener">Vale of Glamorgan Council decision notice, 6 Mar 2024</a></td>
+</tr>
+<tr>
+<td>18</td>
+<td><strong>Monmouthshire</strong></td>
+<td>"Individual members votes are not recorded electronically due to the interpretation of the constitution". Recorded votes at full council "will be manually input and reflected on the website".</td>
+<td>On request</td>
+<td><a href="https://democracy.monmouthshire.gov.uk/documents/s41405/Minutes%20Public%20Pack%2013012025%20Democratic%20Services%20Committee.pdf?LLL=0" target="_blank" rel="noopener">Monmouthshire CC, Democratic Services Committee minutes, 13 Jan 2025</a></td>
+</tr>
+<tr>
+<td>19</td>
+<td><strong>Belfast</strong></td>
+<td>Under Standing Order 24, any single member can ask for a recorded vote. There were 33 recorded votes between June 2017 and May 2018. A 2018 proposal to record all votes was lost 3 to 11. The 2024 remote-meeting rules say minutes give numbers only "unless a Recorded Vote is called".</td>
+<td>On request (1 member)</td>
+<td><a href="https://minutes.belfastcity.gov.uk/mgAi.aspx?ID=45826" target="_blank" rel="noopener">Belfast CC, SP&amp;R Committee, 21 Sep 2018</a>; <a href="https://minutes.belfastcity.gov.uk/mgAi.aspx?ID=79504" target="_blank" rel="noopener">Belfast CC, SP&amp;R Committee, 23 Aug 2024</a></td>
+</tr>
+<tr>
+<td>20</td>
+<td><strong>Mid and East Antrim</strong></td>
+<td>"Any Member may request a recorded vote ... The record shall show whether each Member present and voting gave their vote for or against that question or abstained" (SO 8.3).</td>
+<td>On request (1 member)</td>
+<td><a href="https://www.midandeastantrim.gov.uk/council/civic-and-ceremonial/constitution/standing-orders/standing-orders-p3" target="_blank" rel="noopener">Mid and East Antrim BC standing orders, SO 8</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>Also blocked: we asked the Modern.gov web service for Islington, Manchester, Bristol, Swansea and Edinburgh on 24 Sep 2026, and each returned 403 from the council's own server (not from our network). Birmingham's CMIS site also returned 403.</p>
+<p><strong>Patterns (from the sample only):</strong>
+- <strong>England:</strong> named votes on the budget are guaranteed. Other votes depend on local rules, where the number of councillors needed to ask ranges from 1 (for your own vote only) to 10. Kent and Hartlepool record names more widely.
+- <strong>Scotland:</strong> roll-call and electronic voting are common, and three of the four readable councils publish names routinely. Glasgow is the exception: it keeps the names but did not publish them in the 2022 minutes.
+- <strong>Wales and Northern Ireland:</strong> names are mostly recorded on request, often by just one member. Cardiff published names on every vote in the minutes we checked.
+- <strong>Electronic voting systems usually capture each person's vote.</strong> Whether the council <em>publishes</em> that record is a choice. Oldham's system, for example, captures votes but does not keep them unless someone asks.</p>
+<hr />
+<h2>(c) Is there a dataset of recorded council votes?</h2>
+<p><strong>We found no UK-wide or multi-council dataset of councillors' votes.</strong></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Source</th>
+<th>What it has</th>
+<th>Council votes?</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Open Council Data UK</td>
+<td>Councillors, wards, parties, contact details. CSV/JSON. Paid for the full data.</td>
+<td>No. The site offers no votes, attendance or interests data.</td>
+<td><a href="https://opencouncildata.co.uk/datasets.php" target="_blank" rel="noopener">opencouncildata.co.uk/datasets</a></td>
+</tr>
+<tr>
+<td>Democracy Club</td>
+<td>Elections API, polling stations, candidates, results</td>
+<td>No</td>
+<td><a href="https://democracyclub.org.uk/projects/data/" target="_blank" rel="noopener">Democracy Club, Data and APIs</a></td>
+</tr>
+<tr>
+<td>mySociety / TheyWorkForYou Votes</td>
+<td>Votes in the House of Commons, House of Lords and Scottish Parliament (launched 19 May 2025)</td>
+<td>No, it covers parliaments only</td>
+<td><a href="https://www.mysociety.org/2025/05/19/theyworkforyou-votes/" target="_blank" rel="noopener">mySociety, 19 May 2025</a></td>
+</tr>
+<tr>
+<td>OpenlyLocal</td>
+<td>A former open council-data project</td>
+<td>No. The domain now shows an unrelated "startup tech &amp; strategy" site (checked by curl, 24 Sep 2026). When the project closed is unverified.</td>
+<td><a href="https://openlylocal.com/" target="_blank" rel="noopener">openlylocal.com</a></td>
+</tr>
+<tr>
+<td>Modern.gov web service</td>
+<td>Meetings, agenda items, attendees with party, committees, councillors by ward or postcode, election results. The methods we saw listed: GetMeetings, GetMeeting, GetCommittees, GetCommitteesByUser, GetCouncillorsByWard(Id), GetCouncillorsByPostcode, GetElectionResults, GetAttachment and others.</td>
+<td><strong>No vote method.</strong> Minutes are not in the XML. They are PDFs, or on some councils HTML text on the agenda item page.</td>
+<td><a href="https://cardiff.moderngov.co.uk/mgWebService.asmx" target="_blank" rel="noopener">Cardiff mgWebService.asmx</a> (method list, 24 Sep 2026)</td>
+</tr>
+<tr>
+<td>Modern.gov minutes HTML</td>
+<td>Southwark puts the minutes text on each agenda item page, including named vote lists in plain text. Brighton offers "View draft minutes as HTML" for some meetings, but its 2025 budget vote tables are only in the PDF.</td>
+<td>Could be read by a program, but the format differs between councils and it is messy (see below)</td>
+<td><a href="https://moderngov.southwark.gov.uk/mgAi.aspx?ID=69850" target="_blank" rel="noopener">Southwark item, 21 Feb 2024</a>; <a href="https://democracy.brighton-hove.gov.uk/ieListDocuments.aspx?CId=117&amp;MId=12097" target="_blank" rel="noopener">Brighton Council meeting 23 Jun 2025</a></td>
+</tr>
+<tr>
+<td>CMIS councils (e.g. Birmingham)</td>
+<td>Not tested. The site returned 403.</td>
+<td>Unknown</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Academic datasets</td>
+<td>We found none in our searches.</td>
+<td>Unverified</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Data quality warning, with a real example.</strong> In Southwark's budget minutes (21 Feb 2024), the heading says "In favour of the substantive motion (48)", but the list under it has 50 names. Two of those 50 names <em>also</em> appear in another list: one under "Absent" and one under "Abstained". <a href="https://moderngov.southwark.gov.uk/mgAi.aspx?ID=69850" target="_blank" rel="noopener">Southwark item, 21 Feb 2024</a>. A program that reads minutes automatically would copy mistakes like this and could state something false about a real person.</p>
+<hr />
+<h2>(d) What else could fairly be shown for a councillor</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Required by law?</th>
+<th>Machine-readable?</th>
+<th>Fairness problems</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Attendance</strong></td>
+<td>England, Wales and Scotland: names of those present must be recorded (<a href="https://www.legislation.gov.uk/ukpga/1972/70/schedule/12" target="_blank" rel="noopener">LGA 1972 Sch. 12 para 40</a>; <a href="https://www.legislation.gov.uk/ukpga/1973/65/schedule/7" target="_blank" rel="noopener">LG(S)A 1973 Sch. 7 para 6</a>). No law requires attendance <em>statistics</em>.</td>
+<td><strong>Yes, per meeting.</strong> Modern.gov <code>GetMeeting</code> gives each attendee with party, ward and a status such as "Present, as expected", "Apologies", "Absent", "In attendance" or "Not required" (Brighton and Cardiff XML, 24 Sep 2026). There is also an HTML summary page, for example <a href="https://democracy.kent.gov.uk/mgAttendance.aspx?UID=75476" target="_blank" rel="noopener">Kent mgAttendance.aspx</a>, showing "Total expected attendances", "Present as expected", "Apologies received" and a percentage. There is no attendance method in the API.</td>
+<td>A low figure can come from illness, pregnancy, caring duties or bereavement. Apologies and unexplained absence look the same in a percentage. New councillors have few meetings, so one absence changes the figure a lot. Chairs and cabinet members sit on more committees. Kent's page counts only meetings "in their capacity as member of that committee", so going to extra meetings voluntarily does not count. Councils record this differently, so figures from different councils can't fairly be compared.</td>
+</tr>
+<tr>
+<td><strong>Committee membership</strong></td>
+<td>Councils decide who sits on which committee. No publication law was checked.</td>
+<td><strong>Yes.</strong> <code>GetCommitteesByUser</code> and <code>GetMeeting</code> attendees (role, e.g. "Chair", "Committee Member").</td>
+<td>Low risk. The party group usually decides who goes where, so membership is not purely the councillor's choice.</td>
+</tr>
+<tr>
+<td><strong>Register of interests</strong></td>
+<td><strong>England: yes.</strong> The monitoring officer "must establish and maintain a register of interests" and make sure it "is published on the authority's website" (<a href="https://www.legislation.gov.uk/ukpga/2011/20/section/29" target="_blank" rel="noopener">Localism Act 2011, s.29</a>). New members must notify within 28 days (<a href="https://www.legislation.gov.uk/ukpga/2011/20/section/30" target="_blank" rel="noopener">s.30</a>). Details can be withheld where disclosure could lead to "violence or intimidation" (<a href="https://www.legislation.gov.uk/ukpga/2011/20/section/32" target="_blank" rel="noopener">s.32</a>). Home addresses are left off the public register unless the member asks for them to be included (<a href="https://www.legislation.gov.uk/ukpga/2011/20/section/32A" target="_blank" rel="noopener">s.32A</a>). The rules for Wales, Scotland and NI were not checked.</td>
+<td><strong>No.</strong> Modern.gov links to an HTML page per councillor (<code>mgRofI.aspx</code>), and some councils use PDFs or scans. Modern.gov also has a "Declarations at meetings" page (<code>mgListDeclarationsOfInterest.aspx</code>), seen on <a href="https://democracy.brighton-hove.gov.uk/mgUserInfo.aspx?UID=114004" target="_blank" rel="noopener">Brighton</a>.</td>
+<td>Some entries are withheld lawfully, and that must not look like hiding something. Registers can be out of date. Summarising them means choosing what counts as important, which is our judgement, so it is safer to link than to summarise.</td>
+</tr>
+<tr>
+<td><strong>Allowances paid</strong></td>
+<td><strong>England: yes.</strong> Councils must keep a record of each payment with the recipient's name. After each year, they must publish "the total sum paid ... to each recipient" for basic, special responsibility, dependants' carers', and travel and subsistence allowances, plus co-optees' allowance and (since 11 May 2026) the employer pension contributions paid for each recipient (<a href="https://www.legislation.gov.uk/uksi/2003/1021/regulation/15" target="_blank" rel="noopener">SI 2003/1021 reg. 15</a>). <strong>Wales:</strong> a statement of payments to each named member must be published by 30 September, but care costs are published only as a total for all members (<a href="https://www.gov.wales/independent-remuneration-panel-wales-remuneration-guidance-html" target="_blank" rel="noopener">Welsh Government, IRPW remuneration guidance, 28 Feb 2024</a>). The rules for Scotland and NI were not checked.</td>
+<td><strong>Usually PDF or HTML tables.</strong> A few councils may publish CSV (unverified).</td>
+<td>In England, dependants' carers' allowance is published by name, which reveals caring duties. A higher total usually reflects a senior role, not greed. Some councillors turn down allowances.</td>
+</tr>
+<tr>
+<td><strong>Motions proposed and questions asked</strong></td>
+<td>Not required nationally. Some constitutions require it. For example, East Sussex attaches "Questions which have been asked, the names of the questioners and the answers given" to the council minutes (SO 44.6) (<a href="https://democracy.eastsussex.gov.uk/documents/g6100/Public%20reports%20pack%2025th-Mar-2026%20Constitution.pdf?T=10" target="_blank" rel="noopener">East Sussex constitution, 25 Mar 2026</a>).</td>
+<td><strong>No.</strong> Only in minutes text (PDF or HTML). No API method.</td>
+<td>Counting motions or questions rewards quantity, not quality. Cabinet members <em>answer</em> questions rather than ask them. Opposition members have more reason to ask. Any count would compare people in different roles.</td>
+</tr>
+<tr>
+<td><strong>Named votes</strong></td>
+<td>See (a)</td>
+<td>See (c)</td>
+<td>The councillor may simply have been absent. A missing record can mean the council never records names, not that the person didn't vote. Group whipping (party orders on how to vote) is common.</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>What this means for the site</h2>
+<ol>
+<li><strong>The fairest named vote everywhere in England is the budget vote.</strong> Since 25 Feb 2014, every English council must record names on the budget and council tax vote and its amendments. For a sitting English councillor we could show "How they voted on the [year] budget and council tax", with a link to the minutes. This works the same way for every English council, so it doesn't favour anyone. Wales, Scotland and NI have no such guarantee.</li>
+<li><strong>Show other named votes only where the council records them, and say why they are missing.</strong> For example: "This council records names only when six councillors ask" or "This council records names on every vote". A missing record must never read as a bad mark against the person.</li>
+<li><strong>For now, votes would have to be entered by hand, with a source link for every one.</strong> There is no dataset. The web service has no votes. Minutes vary between PDF tables, HTML text and separate documents, and they contain errors (the Southwark example). For the Holborn and St Pancras pilot, Camden blocks automated access, so any Camden record would need manual checking. Scottish councils such as Aberdeen, Highland, Fife and Cardiff in Wales publish names more often, so automation could be tried there later.</li>
+<li><strong>Attendance is available by machine, but how we present it is a judgement for Romily and Barny.</strong> Options include the raw numbers ("expected at X meetings, present at Y, apologies Z") with the date range and a short note on why people miss meetings, a percentage, or not showing attendance at all. Each choice affects how a person comes across. Whichever is chosen should be the same for every candidate.</li>
+<li><strong>Link to the register of interests instead of summarising it.</strong> Explain that some entries are withheld by law for safety.</li>
+<li><strong>Allowances: show the published totals, and think carefully about the carers' allowance line.</strong> Publishing it by name is lawful in England, but it reveals family circumstances. Leaving it out is a judgement call for the team.</li>
+<li><strong>Candidates who are not councillors will have none of this.</strong> The page needs a neutral "No council record, because this candidate has not been a councillor" message so newcomers don't look worse than people already in office.</li>
+</ol>
+<hr />
+<h2>Could not verify</h2>
+<ul>
+<li>Whether the 1993 England "own vote" rule is still fully in force. legislation.gov.uk shows no revocation for England, but notes changes not yet applied to the text.</li>
+<li>The made (final) version and SR number of the Local Government (Standing Orders) Regulations (Northern Ireland) 2015. We read the draft only.</li>
+<li>Whether any old or current national model constitution sets a number of members who can demand a recorded vote.</li>
+<li>Camden's rules on recorded votes (403, blocked). The same goes for Edinburgh's standing orders and Brighton and Hove's procedure rules, and Kent's constitution (403).</li>
+<li>Why Brighton's named vote on school admissions on 27 Feb 2025 happened (on request is likely, but unverified).</li>
+<li>Whether Glasgow still publishes totals only. Our minutes are from 2022, and the May 2026 standing orders talk about a "clear public audit trail".</li>
+<li>Hartlepool's actual practice (its two rules refer to each other). Wealden's request number.</li>
+<li>Whether Aberdeen's 2022 standing orders are still current.</li>
+<li>When OpenlyLocal closed.</li>
+<li>Whether any academic dataset of UK council roll-call votes exists.</li>
+<li>Whether any CMIS council offers a public API.</li>
+<li>Rules on publishing interests and allowances in Scotland and Northern Ireland, and interests in Wales.</li>
+<li>Whether any council publishes allowances as CSV.</li>
+<li>The Open Council Data UK figure of "384 councils", which does not match the official counts above. We did not use it.</li>
+</ul>
+  <p class="small" style="margin-top:3rem"><a href="/round-6/">Back to round six</a></p>
+</main>
+</body>
+</html>

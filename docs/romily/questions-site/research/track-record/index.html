@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Research — track records and local issues</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #000;
+    --paper: #fff;
+    --rule: #000;
+    --muted: #555;
+    --field: #f4f4f4;
+    --measure: 40rem;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 4rem 1.25rem 6rem;
+  }
+  header { margin-bottom: 3.5rem; }
+  h1 {
+    font-size: clamp(2.6rem, 8vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.25rem;
+  }
+  .lede { margin: 0 0 1rem; }
+  .lede + .lede { margin-top: 0; }
+  .small { font-size: 0.95rem; color: var(--muted); }
+  .meta {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+    margin-top: 2rem;
+  }
+  .meta span { white-space: nowrap; }
+
+  section { margin: 3.5rem 0 0; }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0 0 0.25rem;
+  }
+  .why { margin: 0 0 2rem; color: var(--muted); }
+
+  .q { margin: 0 0 2.5rem; }
+  .q label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .q label .n {
+    display: inline-block;
+    width: 2rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .q .hint {
+    margin: 0 0 0.6rem 2rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .q .hint em { font-style: italic; }
+  textarea, input[type=text] {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    font: inherit;
+    color: var(--ink);
+    background: var(--field);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    padding: 0.7rem 0.75rem;
+    resize: vertical;
+    min-height: 6.5rem;
+  }
+  input[type=text] { min-height: 0; }
+  textarea:focus, input:focus, button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .choices { margin: 0 0 0.75rem 2rem; }
+  .choices label {
+    display: block; font-weight: 400; margin: 0.15rem 0;
+  }
+  .choices input { margin-right: 0.5rem; accent-color: #000; }
+
+  .submit {
+    margin-top: 4rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+  button {
+    font: inherit;
+    font-weight: 500;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+  }
+  button.secondary { background: var(--paper); color: var(--ink); margin-left: 0.75rem; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  #status { margin-top: 1rem; min-height: 1.6rem; }
+  .hidden { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    #status { transition: opacity 200ms; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Track records: what the evidence allows.</h1>
+    <p class="lede">Research for round five, questions 12 and 17 to 19. It covers what is actually recorded about politicians' votes and about local issues, where we checked, and what that means for doing it impartially. Nothing here is a decision; the decisions are yours on the round-five page.</p>
+    <p class="lede small">Checked on 24 September 2026. Every source is linked so you can look yourself.</p>
+  </header>
+
+  <section>
+    <h2>1. MPs: the record exists, in full, for free</h2>
+    <p>Parliament publishes every Commons division (a recorded vote) with the name of every MP who voted aye or no, through a public API with no key or sign-up. We tested it: you can ask for one MP's whole voting history, or one vote and everyone who took part. Each entry has the date, the title of what was voted on (for example <em>"Terminally Ill Adults (End of Life) Bill: Second Reading"</em>), and the totals. Source: <a href="https://commonsvotes-api.parliament.uk/">Commons Votes API</a>.</p>
+    <p>Two things it does not give you. It does not say what a vote <em>meant</em>: an "aye" on "Amendment 19" is meaningless without the amendment. And it only covers recorded divisions; a lot of Commons business passes without one.</p>
+    <p><a href="https://www.theyworkforyou.com/api/">TheyWorkForYou</a> (run by the charity mySociety) covers all four UK legislatures, including the Scottish Parliament, the Senedd and the Northern Ireland Assembly. It needs an API key; plans start at £20 a month, with reduced or free access for non-profits. Worth knowing: TheyWorkForYou also publishes its own summaries of how each MP voted on topics like "welfare" or "the environment". Those summaries are mySociety's judgement about which votes belong to which topic, which is exactly the step we are wary of. If we used them we would be adopting someone else's judgement rather than avoiding one.</p>
+  </section>
+
+  <section>
+    <h2>2. Councillors: the record is patchy, and not by their choice</h2>
+    <p>Most councils publish their meetings through a system called Modern.gov, and it has a public data feed. We tested it on Hastings and Brighton &amp; Hove: it gives every upcoming meeting, the agenda items once published, who sits on each committee with their party, and the councillors for each ward. Some councils block automated access (Camden and Westminster refused our requests), so coverage would never be every council.</p>
+    <p>What the feed does not carry is how individual councillors voted. Council votes are usually by show of hands, and names are recorded only when a formal "recorded vote" is requested, which varies from council to council and meeting to meeting. So a councillor's voting record is incomplete through no fault of their own, and comparing it to an MP's complete record would be unfair to one or the other.</p>
+  </section>
+
+  <section>
+    <h2>3. Promises: the hard part is the matching, not the votes</h2>
+    <p>A vote is a fact. A manifesto pledge is a fact. Saying that <em>this</em> vote is the test of <em>that</em> pledge is a judgement, and it is where bias gets in. Three examples of how it goes wrong:</p>
+    <p>A pledge is broad ("we will fix the NHS") and no single vote tests it. An MP votes against their own party's bill because they think it does not go far enough, which a "kept / broken" label would record as breaking the promise. A pledge was made by the party, but the person on your ballot was not an MP at the time and never voted on it at all.</p>
+    <p>The safe versions, in order of how much judgement they need:</p>
+    <p><strong>Record only.</strong> Show the votes with the title, the date and a link to Parliament's own page, and let people read. No pairing with promises. Zero judgement by us; least useful.</p>
+    <p><strong>Strict pairing, no verdict.</strong> Pair a pledge with a vote only when the pledge names the specific bill or measure by name, show both side by side with their sources, and never add "kept" or "broken". Small judgement, and every pairing can be published with its rule.</p>
+    <p><strong>Topic pairing.</strong> Group votes under the site's nine topics and show pledges under the same topics. This is what TheyWorkForYou does, and the grouping is a judgement we would own.</p>
+  </section>
+
+  <section>
+    <h2>4. The fairness problem that exists whatever we choose</h2>
+    <p>Only people who have held office have a record. A first-time candidate or an independent has nothing to show. If the record section is prominent, an incumbent with a full record looks either more accountable or more exposed than a newcomer with an empty one, and that difference is created by the page, not by the candidates. Any design needs to say plainly, in the same space, "has not held this office before", so that an empty section reads as a fact and not as a gap.</p>
+  </section>
+
+  <section>
+    <h2>5. Local issues: what can be shown without us choosing</h2>
+    <p>Three sources exist that need no judgement about which issues "matter":</p>
+    <p><strong>Council meetings and agendas</strong> from the Modern.gov feed above: what the council is about to decide, straight from its own calendar, newest first.</p>
+    <p><strong>Election leaflets.</strong> Democracy Club's <a href="https://electionleaflets.org/">ElectionLeaflets.org</a> has a public API with 23,427 leaflets at the time of checking, each tagged to the candidate, party and exact ballot, with page images. For local elections this is often the only place a candidate says anything about a local issue. We can show the leaflet itself rather than summarising it.</p>
+    <p><strong>Planning applications.</strong> The government's <a href="https://www.planning.data.gov.uk/">planning data platform</a> publishes planning applications for England under the Open Government Licence (100,627 at the time of checking). Not every council contributes yet, and it is England only, so it would be shown where it exists and labelled where it does not.</p>
+    <p>What none of these do is tell you what the candidates think about those issues, except where a leaflet or published statement happens to say. That is where the "we found nothing" wording (question 13) does its work.</p>
+  </section>
+
+  <section>
+    <h2>What this means for your answers</h2>
+    <p>Question 17 is really "how much judgement are we willing to own": none (record only), a little with a published rule (strict pairing), or a topic grouping. Question 18 is about the empty section, which exists in every version. Question 19 is whether to include councillors at all, given the record is incomplete for reasons outside their control. And for question 12, the three local sources above are all "fixed rule" sources; the curated option would sit on top of them, not replace them.</p>
+    <p class="small"><a href="/round-5/">Back to round five</a></p>
+  </section>
+</main>
+</body>
+</html>

@@ -6,6 +6,8 @@ Name and domain are set in `lib/site.ts` (override with `NEXT_PUBLIC_SITE_NAME`,
 
 Owner: Romily. Build: Barny. Licence: AGPL-3.0.
 
+Everything about the project — where things live, infrastructure, the decisions log, open decisions, research and Romily's answers — is in [docs/PROJECT.md](docs/PROJECT.md).
+
 ## Rules built into the code
 
 - No ranking, scoring, matching or recommending. Consequences are shown; the user judges.

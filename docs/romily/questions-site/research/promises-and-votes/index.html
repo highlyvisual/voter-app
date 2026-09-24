@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Research — Promises and votes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #000;
+    --paper: #fff;
+    --rule: #000;
+    --muted: #555;
+    --field: #f4f4f4;
+    --measure: 40rem;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 4rem 1.25rem 6rem;
+  }
+  header { margin-bottom: 3.5rem; }
+  h1 {
+    font-size: clamp(2.6rem, 8vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.25rem;
+  }
+  .lede { margin: 0 0 1rem; }
+  .lede + .lede { margin-top: 0; }
+  .small { font-size: 0.95rem; color: var(--muted); }
+  .meta {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+    margin-top: 2rem;
+  }
+  .meta span { white-space: nowrap; }
+
+  section { margin: 3.5rem 0 0; }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0 0 0.25rem;
+  }
+  .why { margin: 0 0 2rem; color: var(--muted); }
+
+  .q { margin: 0 0 2.5rem; }
+  .q label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .q label .n {
+    display: inline-block;
+    width: 2rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .q .hint {
+    margin: 0 0 0.6rem 2rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .q .hint em { font-style: italic; }
+  textarea, input[type=text] {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    font: inherit;
+    color: var(--ink);
+    background: var(--field);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    padding: 0.7rem 0.75rem;
+    resize: vertical;
+    min-height: 6.5rem;
+  }
+  input[type=text] { min-height: 0; }
+  textarea:focus, input:focus, button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .choices { margin: 0 0 0.75rem 2rem; }
+  .choices label {
+    display: block; font-weight: 400; margin: 0.15rem 0;
+  }
+  .choices input { margin-right: 0.5rem; accent-color: #000; }
+
+  .submit {
+    margin-top: 4rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+  button {
+    font: inherit;
+    font-weight: 500;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+  }
+  button.secondary { background: var(--paper); color: var(--ink); margin-left: 0.75rem; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  #status { margin-top: 1rem; min-height: 1.6rem; }
+  .hidden { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    #status { transition: opacity 200ms; }
+  }
+</style>
+<style>
+  .paper h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); }
+  .paper h2 { margin-top: 3rem; }
+  .paper h3 { font-size: 1.2rem; font-weight: 500; margin: 2rem 0 0.25rem; }
+  .paper a { color: var(--ink); }
+  .paper blockquote { margin: 0 0 1.5rem; padding: 0 0 0 1rem; border-left: 2px solid var(--rule); }
+  .paper hr { border: 0; border-top: 1px solid var(--rule); margin: 3rem 0; }
+  .paper code { font-size: 0.85em; background: var(--field); padding: 0 0.2em; word-break: break-word; }
+  .paper li { margin: 0.2rem 0; }
+  .tablewrap { overflow-x: auto; margin: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .tablewrap table { border-collapse: collapse; font-size: 0.9rem; line-height: 1.45; min-width: 40rem; }
+  .tablewrap th, .tablewrap td { text-align: left; vertical-align: top; padding: 0.5rem 0.6rem 0.5rem 0; border-bottom: 1px solid #ccc; }
+  .tablewrap th { font-weight: 500; border-bottom: 1px solid var(--rule); }
+  .backlink { margin: 0 0 2rem; }
+</style>
+</head>
+<body>
+<main class="paper">
+  <p class="small backlink"><a href="/round-6/">Back to round six</a> · The full research paper. Every source is linked so you can check it yourself.</p>
+<h1>Promises against records: a method that adds no verdict</h1>
+<p><strong>Date:</strong> 24 September 2026
+<strong>Question:</strong> Can we set a mechanical rule for pairing a manifesto pledge with a Commons vote, without saying whether the pledge was "kept"? How often does it work, and how do others do it?</p>
+<p><strong>Summary</strong>
+1. A strict rule works: a pledge is paired with a vote only where Parliament's own wording for that vote names the same measure as the pledge, and that measure is the whole point of the vote. No verdict is needed.
+2. We tested it on 50 pledges from the 2024 manifestos (10 per party, chosen the same mechanical way). Result: 5 clean pairs, 7 ambiguous, 38 never put to a vote that names the measure. Each clean pair came from a vote the pledging party set up: its own bill, amendment or motion, or (in one case) a Lords amendment it called "our amendment".
+3. Full Fact, PolitiFact and the Polimeter all give verdicts (e.g. "Achieved", "Promise Broken"). TheyWorkForYou gives summaries of how MPs voted. All of them say that judgement comes into it. Complaints of bias (Full Fact, PolitiFact) or misrepresentation (TheyWorkForYou) have been made. None of the complaints we found were about a mechanical rule like this one.</p>
+<hr />
+<h2>Part (a): The rule</h2>
+<h3>Step 1: Pick the pledges (the same method for every party)</h3>
+<ul>
+<li>Start at page 1 of the manifesto (leader's foreword and summary pages count). Read in page order. On two-column pages, read down the left column, then the right.</li>
+<li>Take each sentence where the party commits to doing (or not doing) something. It must also name at least one of these:</li>
+<li><strong>L</strong>: a law, a bill, or a specific change to the law (a new right, duty, ban or requirement).</li>
+<li><strong>T</strong>: a tax, benefit, allowance or levy, and which way it will move.</li>
+<li><strong>N</strong>: a number, amount, percentage, date or time limit.</li>
+<li><strong>B</strong>: a new body, scheme, programme, review or post, named with its own title, that will be set up or abolished.</li>
+<li>Take one pledge per sentence: the first part that qualifies. A "paid for by…" clause in the same sentence is not taken. It counts as a separate measure.</li>
+<li>Skip estimates, claims about the party's record, pull-quotes and repeats. Stop at ten.</li>
+</ul>
+<h3>Step 2: Pair a pledge with a vote only if all four tests pass</h3>
+<ol>
+<li><strong>Same measure.</strong> The question MPs voted on names the same measure as the pledge. "The question" means Parliament's own words: the bill title, the clause or amendment text with its explanatory statement, or the motion text. That means the same tax going the same way, the same named body, the same legal change or the same number. We must be able to match words without adding meaning of our own.
+   - <em>1a.</em> If the vote is more specific than the pledge (for example, it sets an income threshold the pledge did not), it passes only if <strong>the pledging party tabled it itself</strong>. The party has then defined its own pledge.</li>
+<li><strong>Whole question.</strong> The measure is the whole of the question, or clearly its main point. For example: second or third reading of a bill whose title is that measure; an amendment, new clause or Lords amendment whose only effect is that measure; a ten-minute-rule motion to bring in a bill on that measure; an opposition motion whose only demand is that measure.</li>
+<li><strong>A real decision on the measure.</strong> It must be a recorded Commons division. Procedural votes are left out: programme, money, allocation-of-time, closure and "sit in private" motions. Reasoned amendments are shown only as context and never as a pair, because they give reasons for refusing a bill, not a measure.</li>
+<li><strong>Label, don't grade.</strong> Show the date, Parliament's title for the vote, the question in Parliament's words, and a plain-English stage label (e.g. "vote on whether a bill could be introduced"; "vote to remove a change made by the Lords"). Then show how MPs voted. Never write "kept/broken" or "voted against their pledge".</li>
+</ol>
+<p><strong>Result for each pledge:</strong> <em>clean pair</em> / <em>ambiguous (type)</em> / <em>no vote</em>.</p>
+<h3>Where human judgement is still needed (it does not go away)</h3>
+<ul>
+<li><strong>Choosing pledges.</strong> We still decide whether a sentence is "concrete". In this test we left out, for example: Labour's "tough spending rules" (the rules are named only later, on p.19); the Liberal Democrats' "reform business rates" and "reverse … cuts to the Army"; the Greens' "guaranteed access to an NHS dentist"; and Reform's "migrants in small boats will be picked up and taken back to France". Two people should code pledges separately, then compare.</li>
+<li><strong>Matching words.</strong> Is an "emergency home insulation programme" the same as an "emergency Home Energy Upgrade programme"? This is a judgement about synonyms.</li>
+<li><strong>Defensive pledges.</strong> A pledge like "resist any attempts to weaken [the Human Rights Act]" names no measure. To pair it we must decide which votes count as "weakening". That is a judgement.</li>
+<li><strong>"Main purpose" of a bundle.</strong> Is a new clause with three duties "about" the one that matches?</li>
+<li><strong>Scope disputes.</strong> Does "will not increase National Insurance" cover employers? (See below.)</li>
+<li><strong>Double negatives.</strong> On a "motion to disagree with Lords amendment X", <strong>Aye means remove X</strong>. This is a labelling risk, not a judgement, but it is easy to get wrong.</li>
+</ul>
+<hr />
+<h2>Part (b): The 50-pledge test</h2>
+<p><strong>Sources for pledges (all party documents):</strong> <a href="https://labour.org.uk/wp-content/uploads/2024/06/Labour-Party-manifesto-2024.pdf" target="_blank" rel="noopener">Labour, <em>Change</em>, June 2024</a> · <a href="https://public.conservatives.com/static/documents/GE2024/Conservative-Manifesto-GE2024.pdf" target="_blank" rel="noopener">Conservative, <em>Manifesto 2024</em>, June 2024</a> · <a href="https://www.libdems.org.uk/fileadmin/groups/2_Federal_Party/Documents/PolicyPapers/Manifesto_2024/For_a_Fair_Deal_-_Liberal_Democrat_Manifesto_2024.pdf" target="_blank" rel="noopener">Liberal Democrats, <em>For a Fair Deal</em>, June 2024</a> · <a href="https://greenparty.org.uk/app/uploads/2024/06/Green-Party-2024-General-Election-Manifesto-Long-version-with-cover.pdf" target="_blank" rel="noopener">Green Party, <em>Real Hope. Real Change.</em> (long version), June 2024</a> · <a href="https://assets.nationbuilder.com/reformuk/pages/253/attachments/original/1718625371/Reform_UK_Our_Contract_with_You.pdf" target="_blank" rel="noopener">Reform UK, <em>Our Contract with You</em>, June 2024</a>. The page numbers are the ones printed in each document. Labour's "first steps" headings are images in the PDF, so we read them from the page image.</p>
+<p><strong>Sources for votes.</strong> We downloaded all 590 Commons divisions from 4 July 2024 to 11 September 2026 from the <a href="https://commonsvotes-api.parliament.uk/data/divisions.json/search?queryParameters.startDate=2024-07-04&amp;queryParameters.take=25" target="_blank" rel="noopener">Commons Votes API</a> (retrieved 24 Sep 2026). Division titles do not say what an amendment does. So we read the amendment text and sponsors from the <a href="https://bills-api.parliament.uk/api/v1/Bills/3929/Stages" target="_blank" rel="noopener">Parliament Bills API</a>, and motion texts from the <a href="https://hansard-api.parliament.uk/search/contributions/Spoken.json?queryParameters.searchTerm=%22beg%20to%20move%22&amp;queryParameters.startDate=2025-05-21&amp;queryParameters.endDate=2025-05-21&amp;queryParameters.house=Commons" target="_blank" rel="noopener">Hansard API</a>. Division links below go to votes.parliament.uk.</p>
+<h3>Headline counts</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Party</th>
+<th>Clean pair</th>
+<th>Ambiguous</th>
+<th>No vote</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Labour</td>
+<td>1</td>
+<td>2</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Conservative</td>
+<td>1</td>
+<td>1</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Liberal Democrat</td>
+<td>2</td>
+<td>3</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Green</td>
+<td>0</td>
+<td>0</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Reform UK</td>
+<td>1</td>
+<td>1</td>
+<td>8</td>
+</tr>
+<tr>
+<td><strong>Total (50)</strong></td>
+<td><strong>5</strong></td>
+<td><strong>7</strong></td>
+<td><strong>38</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h3>Labour</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Pledge (verbatim, party document)</th>
+<th>Source</th>
+<th>Division(s) found</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1</td>
+<td>"Cut NHS waiting times with 40,000 more appointments each week, during evenings and weekends, paid for by cracking down on tax avoidance and non-dom loopholes."</td>
+<td>Labour manifesto p.10</td>
+<td>None names the 40,000 target.</td>
+<td>No vote (output target)</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>"Launch a new Border Security Command with hundreds of new specialist investigators and use counter-terror powers to smash the criminal boat gangs."</td>
+<td>p.10</td>
+<td>Border Security, Asylum and Immigration Bill: Second Reading, 10 Feb 2025, 333–109 (<a href="https://votes.parliament.uk/votes/commons/division/1924" target="_blank" rel="noopener">1924</a>); Third Reading, 12 May 2025, 316–95 (<a href="https://votes.parliament.uk/votes/commons/division/2021" target="_blank" rel="noopener">2021</a>). The Act's Part 1 creates the Border Security Commander. The same Act also repeals the Safety of Rwanda Act and parts of the Illegal Migration Act (<a href="https://www.legislation.gov.uk/ukpga/2025/31/contents" target="_blank" rel="noopener">legislation.gov.uk, 2025 c.31</a>).</td>
+<td>Ambiguous (bundled bill)</td>
+</tr>
+<tr>
+<td>L3</td>
+<td>"Set up Great British Energy a publicly-owned clean power company, to cut bills for good and boost energy security, paid for by a windfall tax on oil and gas giants."</td>
+<td>p.10</td>
+<td>Great British Energy Bill: Second Reading, 5 Sep 2024, 348–95 (<a href="https://votes.parliament.uk/votes/commons/division/1839" target="_blank" rel="noopener">1839</a>); Third Reading, 29 Oct 2024, 361–111 (<a href="https://votes.parliament.uk/votes/commons/division/1853" target="_blank" rel="noopener">1853</a>).</td>
+<td><strong>Clean pair</strong></td>
+</tr>
+<tr>
+<td>L4</td>
+<td>"Recruit 6,500 new teachers in key subjects … paid for by ending tax breaks for private schools."</td>
+<td>p.10</td>
+<td>None on the 6,500. The funding clause has its own votes: Budget Resolution 34, VAT on private school fees, 6 Nov 2024, 383–184 (<a href="https://votes.parliament.uk/votes/commons/division/1860" target="_blank" rel="noopener">1860</a>); Finance Bill Clause 47 stand part, 11 Dec 2024, 338–170 (<a href="https://votes.parliament.uk/votes/commons/division/1890" target="_blank" rel="noopener">1890</a>). Clause 47 removes the VAT exemption (<a href="https://bills-api.parliament.uk/api/v1/Bills/3873/Stages" target="_blank" rel="noopener">Bills API, Amendment 67 explanatory statement</a>). Amendment 67 (Conservative), to leave out Clause 47, was also voted on at report stage, 3 Mar 2025, 167–347 (<a href="https://votes.parliament.uk/votes/commons/division/1937" target="_blank" rel="noopener">1937</a>).</td>
+<td>No vote (the teacher target itself)</td>
+</tr>
+<tr>
+<td>L5</td>
+<td>"Kickstart economic growth to secure the highest sustained growth in the G7 …"</td>
+<td>p.13</td>
+<td>None.</td>
+<td>No vote (outcome target)</td>
+</tr>
+<tr>
+<td>L6</td>
+<td>"… cheaper, zero-carbon electricity by 2030, accelerating to net zero."</td>
+<td>p.13</td>
+<td>None names it. (Related vote: Draft Carbon Budget Order 2026, 24 Jun 2026, 332–94, <a href="https://votes.parliament.uk/votes/commons/division/2392" target="_blank" rel="noopener">2392</a>.)</td>
+<td>No vote (outcome target)</td>
+</tr>
+<tr>
+<td>L7</td>
+<td>"Take back our streets by halving serious violent crime …"</td>
+<td>p.13</td>
+<td>None.</td>
+<td>No vote (outcome target)</td>
+</tr>
+<tr>
+<td>L8</td>
+<td>"Labour will conduct a Strategic Defence Review within our first year in government …"</td>
+<td>p.15</td>
+<td>None (done by the executive).</td>
+<td>No vote (executive action)</td>
+</tr>
+<tr>
+<td>L9</td>
+<td>"Labour will bring in 'Martyn's Law' to strengthen the security of public events and venues."</td>
+<td>p.15</td>
+<td>The Commons Votes data shows no division on second or third reading. Hansard (via the Hansard API) records both as "Question put and agreed to" (14 Oct 2024 and 9 Dec 2024). The only Commons division was a Conservative new clause asking for a review of the regulator, 9 Dec 2024, 89–340 (<a href="https://votes.parliament.uk/votes/commons/division/1884" target="_blank" rel="noopener">1884</a>; <a href="https://bills-api.parliament.uk/api/v1/Bills/3765/Stages" target="_blank" rel="noopener">Bills API</a>).</td>
+<td>No vote (bill passed without a recorded division on it)</td>
+</tr>
+<tr>
+<td>L10</td>
+<td>"This will be funded by ending the wasteful Migration and Economic Development partnership with Rwanda."</td>
+<td>p.17</td>
+<td>No vote names the partnership. The Starmer government said on 6 Jul 2024 it would not go ahead with the scheme. The UK gave Rwanda written notice on 16 Dec 2025, and the treaty's termination took effect on 16 Mar 2026 (<a href="https://fullfact.org/government-tracker/ending-rwanda-agreement/" target="_blank" rel="noopener">Full Fact Government Tracker, updated 18 Jun 2026</a>). The linked Safety of Rwanda Act was repealed by s.40 of the bundled Act above (votes 1924/2021).</td>
+<td>Ambiguous (related instrument, in a bundled bill; mainly executive action)</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Conservative (121 MPs elected; <a href="https://commonslibrary.parliament.uk/research-briefings/cbp-10009/" target="_blank" rel="noopener">Commons Library, CBP-10009</a>)</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Pledge (verbatim, party document)</th>
+<th>Source</th>
+<th>Division(s) found</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C1</td>
+<td>"Cut tax for workers by taking another 2p off employee National Insurance so that we will have halved it from 12% … to 6% by April 2027 …"</td>
+<td>Conservative manifesto p.4</td>
+<td>None.</td>
+<td>No vote</td>
+</tr>
+<tr>
+<td>C2</td>
+<td>"… abolishing the main rate of self-employed National Insurance entirely by the end of the Parliament."</td>
+<td>p.4</td>
+<td>None.</td>
+<td>No vote</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>"Cut tax for pensioners with the new Triple Lock Plus …"</td>
+<td>p.4</td>
+<td>None names it. (Related: Opposition Day on tax, 15 Jul 2025, 165–342, <a href="https://votes.parliament.uk/votes/commons/division/2095" target="_blank" rel="noopener">2095</a>. It "regrets that the Government plans to bring those whose only income is the State Pension into paying Income Tax" (<a href="https://hansard.parliament.uk/Commons/2025-07-15/debates/885057BF-B786-4925-8929-0C6CF30825FA/" target="_blank" rel="noopener">Hansard</a>).)</td>
+<td>No vote</td>
+</tr>
+<tr>
+<td>C4</td>
+<td>"Give working parents 30 hours of free childcare a week from when their child is nine months old …"</td>
+<td>p.4</td>
+<td>None.</td>
+<td>No vote (executive action)</td>
+</tr>
+<tr>
+<td>C5</td>
+<td>"… moving to a household system, so families don't start losing Child Benefit until their combined income reaches £120,000 …"</td>
+<td>p.4</td>
+<td>None.</td>
+<td>No vote</td>
+</tr>
+<tr>
+<td>C6</td>
+<td>"… guaranteeing no new green levies or charges …"</td>
+<td>p.4</td>
+<td>None names it. (Related: an Opposition Day motion on energy calling to remove the carbon price from electricity generation and end Renewables Obligation subsidies. That is about existing levies, not new ones. 12 Nov 2025, 97–336, <a href="https://votes.parliament.uk/votes/commons/division/2174" target="_blank" rel="noopener">2174</a>; Parliament's title for this vote is "original words stand part", i.e. a vote on keeping the motion's wording rather than replacing it.)</td>
+<td>No vote</td>
+</tr>
+<tr>
+<td>C7</td>
+<td>"… unblocking 100,000 homes …"</td>
+<td>p.4</td>
+<td>None.</td>
+<td>No vote (output target)</td>
+</tr>
+<tr>
+<td>C8</td>
+<td>"… introducing mandatory National Service for all school leavers at 18 …"</td>
+<td>p.4</td>
+<td>None.</td>
+<td>No vote</td>
+</tr>
+<tr>
+<td>C9</td>
+<td>"Fund 100,000 high-quality apprenticeships for young people, paid for by curbing the number of poor-quality university degrees …"</td>
+<td>p.4</td>
+<td>Opposition Day: Student loans, 18 Mar 2026, 88–266 (<a href="https://votes.parliament.uk/votes/commons/division/2285" target="_blank" rel="noopener">2285</a>). The motion calls, among other things, to "create more apprenticeships for 18-21 year olds, funded by controlling the number of places on university courses where the benefits are significantly outweighed by the cost" (<a href="https://hansard.parliament.uk/Commons/2026-03-18/debates/CF6F6D31-157D-47B3-93EC-1FB9AE953AB0/" target="_blank" rel="noopener">Hansard</a>).</td>
+<td>Ambiguous (bundled motion; partial match, with no 100,000)</td>
+</tr>
+<tr>
+<td>C10</td>
+<td>"Protect children by requiring schools to ban the use of mobile phones during the school day …"</td>
+<td>p.4</td>
+<td>CWSB motion to disagree with Lords Amendment 106, 9 Mar 2026, 304–177 (<a href="https://votes.parliament.uk/votes/commons/division/2275" target="_blank" rel="noopener">2275</a>). LA106 "mandates schools to prohibit the use and possession of a smartphone during the school day" (Aphra Brandreth, 15 Apr 2026). Laura Trott (Con) called it "our amendment, in Lords amendment 106" on 9 Mar 2026 (<a href="https://hansard.parliament.uk/Commons/2026-03-09/debates/655E6B7C-4642-44D5-ABFE-236ADC69819A/ChildrenSWellbeingAndSchoolsBill" target="_blank" rel="noopener">Hansard</a>). In the Lords, the report-stage amendment "Prohibition of smartphones during the school day" (amendment 215, agreed) was led by Baroness Barran (Con) with three crossbench co-sponsors (<a href="https://bills-api.parliament.uk/api/v1/Bills/3909/Stages" target="_blank" rel="noopener">Bills API</a>). Also: NC36, 17 Mar 2025, 159–317 (<a href="https://votes.parliament.uk/votes/commons/division/1950" target="_blank" rel="noopener">1950</a>); it bundles the phone ban with two other duties. Later: Government amendments (a) to (c) in lieu of Lords Amendment 106, 15 Apr 2026, 248–139 (<a href="https://votes.parliament.uk/votes/commons/division/2323" target="_blank" rel="noopener">2323</a>); these replaced the ban with a different measure (described in debate as a duty to "have regard" to guidance), so they are context, not a pair.</td>
+<td><strong>Clean pair</strong> (on 2275; Aye = remove the ban)</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Liberal Democrat (72 MPs elected; <a href="https://commonslibrary.parliament.uk/research-briefings/cbp-10009/" target="_blank" rel="noopener">Commons Library</a>)</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Pledge (verbatim, party document)</th>
+<th>Source</th>
+<th>Division(s) found</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D1</td>
+<td>"We will put people first, investing in more apprenticeships and new Lifelong Skills Grants."</td>
+<td>LD manifesto p.7</td>
+<td>None.</td>
+<td>No vote (scheme)</td>
+</tr>
+<tr>
+<td>D2</td>
+<td>"Liberal Democrats will give everyone a new right to see a GP within seven days, or 24 hours if it's urgent …"</td>
+<td>p.8</td>
+<td>LD Opposition Day: Access to primary healthcare, 16 Oct 2024, 80–337 (<a href="https://votes.parliament.uk/votes/commons/division/1847" target="_blank" rel="noopener">1847</a>). It calls "to give everyone the right to see a GP within seven days or within 24 hours if they urgently need to", alongside dentist and pharmacy asks (<a href="https://hansard.parliament.uk/Commons/2024-10-16/debates/8AC5EF35-A57E-40A0-AE66-CB374E6AE3E9/" target="_blank" rel="noopener">Hansard</a>).</td>
+<td>Ambiguous (bundled motion)</td>
+</tr>
+<tr>
+<td>D3</td>
+<td>"… free school meals for all children in poverty …"</td>
+<td>p.8</td>
+<td>CWSB Report NC7 (LD: Munira Wilson and others), 18 Mar 2025, 77–313 (<a href="https://votes.parliament.uk/votes/commons/division/1953" target="_blank" rel="noopener">1953</a>). It would give free school meals to "all children whose household income is less than £20,000 per year" (<a href="https://bills-api.parliament.uk/api/v1/Bills/3909/Stages" target="_blank" rel="noopener">Bills API</a>).</td>
+<td><strong>Clean pair</strong> (rule 1a: the party's own amendment)</td>
+</tr>
+<tr>
+<td>D4</td>
+<td>"… reversing the Conservatives' tax cuts for big banks."</td>
+<td>p.8</td>
+<td>None. The LD Finance Bill new clauses that went to a vote asked for reviews, not this change.</td>
+<td>No vote</td>
+</tr>
+<tr>
+<td>D5</td>
+<td>"… a duty to protect the environment, including banning water companies from dumping raw sewage …"</td>
+<td>p.8</td>
+<td>None names it. (Related: LD Opposition Day on sewage, calling on the Government "to take urgent action to end the sewage scandal, including the introduction of a new Blue Flag status for rivers and chalk streams", 23 Apr 2025, 77–302, <a href="https://votes.parliament.uk/votes/commons/division/1998" target="_blank" rel="noopener">1998</a>. The Water (Special Measures) Bill report-stage divisions, 28 Jan 2025 (1919–1921), were on a Water Restoration Fund (NC16), cutting customer bills by the amount of fines (NC19) and a wording change to Clause 12 (Amendment 9), not a ban.)</td>
+<td>No vote</td>
+</tr>
+<tr>
+<td>D6</td>
+<td>"We will cut emissions and bills with an emergency Home Energy Upgrade programme."</td>
+<td>p.9</td>
+<td>GBE Bill Report Amendment 4 (LD), 29 Oct 2024, 96–353 (<a href="https://votes.parliament.uk/votes/commons/division/1850" target="_blank" rel="noopener">1850</a>). It would make "an emergency home insulation programme with targeted support for people on low incomes" one of GBE's objects (<a href="https://bills-api.parliament.uk/api/v1/Bills/3738/Stages" target="_blank" rel="noopener">Bills API</a>).</td>
+<td>Ambiguous (partial match: an object of another body, and a different name)</td>
+</tr>
+<tr>
+<td>D7</td>
+<td>"Liberal Democrats will introduce proportional representation for electing MPs, and local councillors in England …"</td>
+<td>p.9</td>
+<td>Ten-minute-rule motion (Sarah Olney, LD) for leave to bring in a bill "to introduce a system of proportional representation for parliamentary elections and for local government elections in England", 3 Dec 2024, 138–136 (<a href="https://votes.parliament.uk/votes/commons/division/1878" target="_blank" rel="noopener">1878</a>; <a href="https://hansard.parliament.uk/Commons/2024-12-03/debates/115D13D5-D363-4ACC-A7D1-40638A6AC54E/" target="_blank" rel="noopener">Hansard</a>).</td>
+<td><strong>Clean pair</strong> (label: vote on whether the bill could be introduced)</td>
+</tr>
+<tr>
+<td>D8</td>
+<td>"… enshrining the Ministerial Code in law."</td>
+<td>p.10</td>
+<td>None.</td>
+<td>No vote</td>
+</tr>
+<tr>
+<td>D9</td>
+<td>"We will champion the UK's Human Rights Act and resist any attempts to weaken or repeal it."</td>
+<td>p.10</td>
+<td>BSAI Bill NC14 (Con), 12 May 2025, 98–402 (<a href="https://votes.parliament.uk/votes/commons/division/2018" target="_blank" rel="noopener">2018</a>). Its explanatory statement says it "would disapply the Human Rights Act" for borders, asylum and immigration law (<a href="https://bills-api.parliament.uk/api/v1/Bills/3929/Stages" target="_blank" rel="noopener">Bills API</a>).</td>
+<td>Ambiguous (defensive pledge: we would have to judge that this is "weakening")</td>
+</tr>
+<tr>
+<td>D10</td>
+<td>"… tackling rising food prices through a National Food Strategy …"</td>
+<td>p.11</td>
+<td>None.</td>
+<td>No vote (strategy)</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Green (4 MPs elected; <a href="https://commonslibrary.parliament.uk/research-briefings/cbp-10009/" target="_blank" rel="noopener">Commons Library</a>)</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Pledge (verbatim, party document)</th>
+<th>Source</th>
+<th>Division(s) found</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G1</td>
+<td>"We would guarantee rapid access to a GP and same day access in case of urgent need."</td>
+<td>Green manifesto p.2</td>
+<td>None names it. (The LD motion 1847 says "within 24 hours", not same day.)</td>
+<td>No vote</td>
+</tr>
+<tr>
+<td>G2</td>
+<td>"We would invest £20bn in NHS budgets over the life of the parliament for hospital building and repair."</td>
+<td>p.2</td>
+<td>None.</td>
+<td>No vote (spending)</td>
+</tr>
+<tr>
+<td>G3</td>
+<td>"Green MPs will back the NHS Reinstatement Bill …"</td>
+<td>pp.2–3</td>
+<td>None.</td>
+<td>No vote</td>
+</tr>
+<tr>
+<td>G4</td>
+<td>"… additional annual spending reaching £1.5bn by 2030 …" (primary care)</td>
+<td>p.3</td>
+<td>None.</td>
+<td>No vote (spending)</td>
+</tr>
+<tr>
+<td>G5</td>
+<td>"A £2bn capital investment in primary care over the next five years."</td>
+<td>p.3</td>
+<td>None.</td>
+<td>No vote (spending)</td>
+</tr>
+<tr>
+<td>G6</td>
+<td>"Restoring public health budgets to 2015/16 levels with an immediate increase of £1.5bn."</td>
+<td>p.3</td>
+<td>None.</td>
+<td>No vote (spending)</td>
+</tr>
+<tr>
+<td>G7</td>
+<td>"A National Commission to agree an evidenced based approach to reform of the UK's counterproductive drug laws."</td>
+<td>p.3</td>
+<td>None.</td>
+<td>No vote (body)</td>
+</tr>
+<tr>
+<td>G8</td>
+<td>"Additional investment in NHS dentistry, reaching £3bn a year by 2030 …"</td>
+<td>p.3</td>
+<td>None.</td>
+<td>No vote (spending)</td>
+</tr>
+<tr>
+<td>G9</td>
+<td>"We will commit to a National Cancer Control Plan …"</td>
+<td>p.4</td>
+<td>None.</td>
+<td>No vote (strategy)</td>
+</tr>
+<tr>
+<td>G10</td>
+<td>"Meet the existing NHS target of 75% of cases diagnosed at stage 1 or stage 2 by 2028 …"</td>
+<td>p.4</td>
+<td>None.</td>
+<td>No vote (outcome target)</td>
+</tr>
+</tbody>
+</table></div>
+<p><em>Note:</em> reading in page order took all ten Green pledges from the health chapter, because that chapter comes first. A Green pledge further on did get votes: "Elected Greens will back changing the law on assisted dying" (p.4, sentence 11+). The Terminally Ill Adults (End of Life) Bill had its second reading on 29 Nov 2024, 330–275 (<a href="https://votes.parliament.uk/votes/commons/division/1877" target="_blank" rel="noopener">1877</a>). A later bill with the same name was defeated at second reading on 11 Sep 2026, 270–286 (<a href="https://votes.parliament.uk/votes/commons/division/2428" target="_blank" rel="noopener">2428</a>). Green NC34 (free lunches for all primary pupils) also went to a vote, 77–315 (<a href="https://votes.parliament.uk/votes/commons/division/1954" target="_blank" rel="noopener">1954</a>). Neither was in the sample.</p>
+<h3>Reform UK (5 MPs elected; <a href="https://commonslibrary.parliament.uk/research-briefings/cbp-10009/" target="_blank" rel="noopener">Commons Library</a>)</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Pledge (verbatim, party document)</th>
+<th>Source</th>
+<th>Division(s) found</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R1</td>
+<td>"We will freeze immigration and stop the boats."</td>
+<td>Contract, foreword (unnumbered)</td>
+<td>None names a freeze. (Related: Conservative NC18 for a binding cap, 12 May 2025, 94–315, <a href="https://votes.parliament.uk/votes/commons/division/2019" target="_blank" rel="noopener">2019</a>; Conservative Opposition Day on immigration, 21 May 2025, 83–267, <a href="https://votes.parliament.uk/votes/commons/division/2031" target="_blank" rel="noopener">2031</a>. A cap is not a freeze.)</td>
+<td>No vote</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>"… deliver our fully funded plan for zero NHS waiting lists."</td>
+<td>foreword</td>
+<td>None.</td>
+<td>No vote (outcome target)</td>
+</tr>
+<tr>
+<td>R3</td>
+<td>"Illegal migrants who come to the UK will be detained and deported."</td>
+<td>p.2</td>
+<td>None in the Commons Votes data. (Conservative detention amendments were voted on in Public Bill Committee, which is not in that data.)</td>
+<td>No vote</td>
+</tr>
+<tr>
+<td>R4</td>
+<td>"Tax breaks for doctors and nurses to tackle the staffing crisis."</td>
+<td>p.2</td>
+<td>None.</td>
+<td>No vote</td>
+</tr>
+<tr>
+<td>R5</td>
+<td>"Lift the income tax starting threshold to £20k …"</td>
+<td>p.2</td>
+<td>None names £20k. (Related: Finance (No. 2) Bill Amendment 5 (Conservative), which "removes the freeze in income tax thresholds", 11 Mar 2026, 172–283, <a href="https://votes.parliament.uk/votes/commons/division/2279" target="_blank" rel="noopener">2279</a>.)</td>
+<td>No vote</td>
+</tr>
+<tr>
+<td>R6</td>
+<td>"Scrap energy levies and Net Zero to slash energy bills and save each household £500 per year."</td>
+<td>p.2</td>
+<td>Conservative Opposition Day: Energy (remove carbon price from generation; end Renewables Obligation subsidies; also other demands, including scrapping the Energy Profits Levy), 12 Nov 2025, 97–336, on whether the motion's original words should stand (<a href="https://votes.parliament.uk/votes/commons/division/2174" target="_blank" rel="noopener">2174</a>; <a href="https://hansard.parliament.uk/Commons/2025-11-12/debates/405C1215-88FD-4C29-B774-77155B86F954/" target="_blank" rel="noopener">Hansard</a>). No Reform MP is recorded in either lobby.</td>
+<td>Ambiguous (partial match: covers some levies, not Net Zero)</td>
+</tr>
+<tr>
+<td>R7</td>
+<td>"Leave the European Convention on Human Rights."</td>
+<td>p.3</td>
+<td>Ten-minute-rule motion (Nigel Farage, Reform) for leave to bring in a bill "to make provision for the United Kingdom to withdraw from the European Convention on Human Rights", 29 Oct 2025, 96–154 (<a href="https://votes.parliament.uk/votes/commons/division/2159" target="_blank" rel="noopener">2159</a>; <a href="https://hansard.parliament.uk/Commons/2025-10-29/debates/6960AC63-ADF5-4918-AC74-9D37DF5F6D16/" target="_blank" rel="noopener">Hansard</a>).</td>
+<td><strong>Clean pair</strong> (label: vote on whether the bill could be introduced)</td>
+</tr>
+<tr>
+<td>R8</td>
+<td>"Zero illegal immigrants to be resettled in the UK."</td>
+<td>p.3</td>
+<td>None.</td>
+<td>No vote</td>
+</tr>
+<tr>
+<td>R9</td>
+<td>"New Department of Immigration."</td>
+<td>p.3</td>
+<td>None.</td>
+<td>No vote (body)</td>
+</tr>
+<tr>
+<td>R10</td>
+<td>"Those entering from a safe country will also be barred from claiming asylum or citizenship."</td>
+<td>p.3</td>
+<td>None names it. (Related: a Conservative reasoned amendment against the Immigration and Asylum Bill, partly because it "does not end asylum for illegal immigrants", 13 Jul 2026, 97–358 (<a href="https://votes.parliament.uk/votes/commons/division/2405" target="_blank" rel="noopener">2405</a>; <a href="https://hansard.parliament.uk/Commons/2026-07-13/debates/B6090DEC-6655-4D3F-A6CE-6D762597C5F3/" target="_blank" rel="noopener">Hansard</a>).)</td>
+<td>No vote</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Kinds of ambiguity found (in the sample)</h3>
+<ul>
+<li><strong>Bundled bill</strong> (2: L2, L10). One vote covers many measures. Opposing the bill may be about a different part. The Conservatives' reasoned amendment on this bill welcomed "measures to create new immigration criminal offences" but objected that "the Bill abolishes laws passed under the previous Government to ensure removals" (<a href="https://hansard.parliament.uk/Commons/2025-02-10/debates/EC0D77F7-9C12-49E0-ACE8-923FCBA4BF30/" target="_blank" rel="noopener">Hansard, 10 Feb 2025</a>).</li>
+<li><strong>Bundled motion</strong> (2: D2, C9). An opposition motion makes several demands at once.</li>
+<li><strong>Partial match</strong> (3: C9, D6, R6). The vote covers part of the pledge, or uses different words for it.</li>
+<li><strong>Defensive pledge</strong> (1: D9). A promise to "resist" something only pairs if we decide which votes count.</li>
+<li><strong>Related but different instrument</strong> (1: L10). A different legal instrument, and the pledge was mostly carried out by executive action.</li>
+</ul>
+<p><strong>Kinds seen outside the sample (for the site's help page):</strong>
+- <strong>Voting against a bill as "too weak".</strong> The Conservative reasoned amendment on the Immigration and Asylum Bill objected that it "does not ensure all foreign criminals and illegal immigrants will be deported" (link above). At second reading, 1 Conservative voted No and the rest of the party is not recorded in either lobby. 3 Reform MPs voted No (<a href="https://votes.parliament.uk/votes/commons/division/2406" target="_blank" rel="noopener">2406</a>). Caroline Lucas's fracking votes are a similar case in <a href="https://blogs.ucl.ac.uk/constitution-unit/2021/12/20/should-we-be-allowed-to-see-mps-voting-records/" target="_blank" rel="noopener">Worthy &amp; Morgan, UCL Constitution Unit, 20 Dec 2021</a>.
+- <strong>Scope dispute.</strong> Labour pledged it "will not increase National Insurance, the basic, higher, or additional rates of Income Tax, or VAT" (p.21). The Conservative reasoned amendment on the employer NICs bill said the bill "breaks the manifesto commitment" (3 Dec 2024, <a href="https://votes.parliament.uk/votes/commons/division/1879" target="_blank" rel="noopener">1879</a>). The Treasury minister James Murray said the Government had kept its pledge by not increasing "the national insurance that working people pay" (Hansard via <a href="https://hansard-api.parliament.uk/search/contributions/Spoken.json?queryParameters.searchTerm=manifesto&amp;queryParameters.startDate=2024-12-03&amp;queryParameters.endDate=2024-12-03&amp;queryParameters.house=Commons&amp;queryParameters.take=40" target="_blank" rel="noopener">Hansard API</a>). A pairing here would take a side in that dispute.
+- <strong>Amendment vs whole bill.</strong> In 2017 a viral story said MPs had voted that animals cannot feel pain. The vote was on one amendment, and the Government said sentience was already recognised in law (<a href="https://www.buzzfeed.com/jimwaterson/independent-animal-sentience" target="_blank" rel="noopener">BuzzFeed News, Jim Waterson, 25 Nov 2017</a>).
+- <strong>Party splits and free votes.</strong> On the PR motion, Labour MPs voted 59 Aye and 50 No, and Reform MPs 3 Aye and 1 No (<a href="https://votes.parliament.uk/votes/commons/division/1878" target="_blank" rel="noopener">1878</a>). The whipping status is unverified.
+- <strong>Procedural votes.</strong> Examples: allocation of time (<a href="https://votes.parliament.uk/votes/commons/division/2378" target="_blank" rel="noopener">2378</a>), closure (<a href="https://votes.parliament.uk/votes/commons/division/2427" target="_blank" rel="noopener">2427</a>). The rule leaves these out.
+- <strong>Tax-bill limits.</strong> Amendments to a Finance Bill are limited by the Budget (Ways and Means) resolutions (<a href="https://www.hansardsociety.org.uk/publications/guides/what-is-the-finance-bill" target="_blank" rel="noopener">Hansard Society, updated 14 Mar 2023</a>). The opposition Finance Bill new clauses that went to a vote in our data were mostly calls for "reviews" or "assessments" (Bills API, bills <a href="https://bills.parliament.uk/bills/3873" target="_blank" rel="noopener">3873</a> and <a href="https://bills.parliament.uk/bills/4042" target="_blank" rel="noopener">4042</a>).</p>
+<h3>Why the no-vote group is so large (38 pledges)</h3>
+<ul>
+<li><strong>Outcome, spending or recruitment targets</strong> (13): L1, L4, L5, L6, L7, C7, G2, G4, G5, G6, G8, G10, R2. There is no single measure to vote on.</li>
+<li><strong>Executive action</strong> (7: strategy, review, scheme, body): L8, C4, D1, D10, G7, G9, R9.</li>
+<li><strong>Would need a law or tax change, but no division named it</strong> (17): C1, C2, C3, C5, C6, C8, D4, D5, D8, G1, G3, R1, R3, R4, R5, R8, R10. Related votes are cited for 7 of these (C3, C6, D5, G1, R1, R5, R10).</li>
+<li><strong>Named bill passed with no recorded division on it</strong> (1): L9. No vote here does not mean no support.</li>
+</ul>
+<h3>What shaped these results (description, not judgement)</h3>
+<ul>
+<li><strong>Who can get a vote held.</strong> Under Standing Order No. 14 there are 20 opposition days a session: 17 for the leader of the Official Opposition and 3 for the leader of the second-largest opposition party, "who shares the time with smaller parties" (<a href="https://commonslibrary.parliament.uk/research-briefings/sn06315/" target="_blank" rel="noopener">Commons Library, SN06315, 13 Jul 2026</a>). Smaller parties such as the Greens (4 MPs elected in 2024) and Reform (5 MPs elected in 2024) have no days of their own. Their main routes are ten-minute-rule motions and amendments.</li>
+<li><strong>All 5 clean pairs were votes the pledging party set up itself.</strong> These were a government bill (L3), the party's own new clause (D3), its own ten-minute-rule motions (D7, R7), and a Lords amendment that the Conservatives called "our amendment" (C10).</li>
+<li><strong>Page order clusters topics.</strong> For the Greens, all ten pledges came from the health chapter.</li>
+</ul>
+<hr />
+<h2>Part (c): How others handle this, and bias accusations</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Who</th>
+<th>What they do</th>
+<th>Verdicts?</th>
+<th>Bias accusations / response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Full Fact Government Tracker</strong></td>
+<td>Fact checkers "went through [Labour's manifesto] line-by-line to identify everything that appeared to be a measurable pledge". They gave priority to the missions and first steps (<a href="https://fullfact.org/government-tracker/frequently-asked-questions/" target="_blank" rel="noopener">Full Fact FAQ</a>). It has seven ratings, from "Achieved" to "Not kept" plus "Unclear or disputed" and "Wait and see". It says the work "sometimes involves us making a judgement call" (same page). It does not use Commons votes. It covers about 80 of "about 300" pledges, and says "Pledge tracking is an art, not a science" (<a href="https://fullfact.org/politics/tracker-blog-september-2025/" target="_blank" rel="noopener">Full Fact, Alex Brocklehurst, 26 Sep 2025</a>).</td>
+<td>Yes</td>
+<td><a href="https://thecritic.co.uk/how-neutral-is-full-fact/" target="_blank" rel="noopener">The Critic, David Scullion, 15 Feb 2021</a> questioned its funding from Facebook and Google, and staff backgrounds. Full Fact points to "a cross party board of Trustees", staff who "abstain from expressing political opinions in public", and a public list of donations over £5,000 (<a href="https://fullfact.org/about/frequently-asked-questions/" target="_blank" rel="noopener">Full Fact FAQ</a>). It also points to election safeguards (<a href="https://fullfact.org/blog/2019/nov/staying-balanced-protecting-our-impartiality-election/" target="_blank" rel="noopener">Full Fact, Tom Phillips, 15 Nov 2019</a>). We found no complaint aimed at the tracker's ratings.</td>
+</tr>
+<tr>
+<td><strong>Institute for Government</strong></td>
+<td>Its trackers page mentions "a manifesto tracker which measures which election promises have been translated into action" (<a href="https://www.instituteforgovernment.org.uk/our-work/trackers" target="_blank" rel="noopener">IfG Trackers</a>). An earlier analysis found "Of 39 key commitments from the Conservatives' 2017 manifesto … only a third had been implemented, or were on track" (<a href="https://www.instituteforgovernment.org.uk/blog/do-manifestos-matter-anymore" target="_blank" rel="noopener">IfG, Emma Norris, 19 Nov 2019</a>). We could not find a current 2024 pledge tracker page.</td>
+<td>Status categories</td>
+<td>None found about its pledge tracking (see "Could not verify").</td>
+</tr>
+<tr>
+<td><strong>TheyWorkForYou (mySociety)</strong></td>
+<td>Groups divisions into policy lines. It picks votes for "Cohesion (we include votes that are mostly, if not completely, about the specific policy)", uniqueness and noteworthiness. Scores run 0–100, e.g. "consistently voted for". It does "not count absences". It says "Votes are not opinions, but they matter" (<a href="https://www.theyworkforyou.com/voting-information/" target="_blank" rel="noopener">TheyWorkForYou, voting information</a>). Procedural votes are left out, but the handling of ten-minute-rule bills is still undecided (<a href="https://www.mysociety.org/2025/03/13/updating-theyworkforyous-voting-summaries/" target="_blank" rel="noopener">mySociety, Alex Parsons, 13 Mar 2025</a>).</td>
+<td>Summaries of MPs' voting, not verdicts on pledges</td>
+<td>Robert Largan MP and about 50 colleagues asked mySociety to "correct a misrepresentation" of their climate votes. mySociety published its response and treated it like any other MP query (<a href="https://www.mysociety.org/2021/01/21/a-response-to-robert-largan-mp/" target="_blank" rel="noopener">mySociety, Mark Cridge, 21 Jan 2021</a>). Academics note it "contains no data on whipping instructions" and that it oversimplifies (<a href="https://blogs.ucl.ac.uk/constitution-unit/2021/12/20/should-we-be-allowed-to-see-mps-voting-records/" target="_blank" rel="noopener">Worthy &amp; Morgan, 20 Dec 2021</a>).</td>
+</tr>
+<tr>
+<td><strong>Comparative Party Pledges Project</strong> (Thomson, Royed, Naurin et al.)</td>
+<td>Studied "over 20,000 pledges made by parties in 12 countries during 57 election campaigns". A clear majority of governing parties' pledges were at least partly fulfilled, "and in some cases well above 80 percent". The highest rates were in countries where single-party governments are common, a group that includes the UK. No UK-only figure is given on that page (<a href="https://ajps.org/2017/06/07/the-fulfillment-of-parties-election-pledges-a-comparative-study-on-the-impact-of-power-sharing/" target="_blank" rel="noopener">AJPS, 7 Jun 2017</a>).</td>
+<td>Yes (coded fulfilment)</td>
+<td>None found.</td>
+</tr>
+<tr>
+<td><strong>Polimeter (Université Laval)</strong></td>
+<td>A promise "must commit the party to perform an action or reach a specific goal, and the pledge should be worded so as to enable the researcher to objectively assess whether this action or this goal was achieved". Ratings: kept / kept in part or in the works / broken / not yet rated. It uses the comparative pledges group framework (<a href="https://www.poltext.org/en/donnees-et-analyses/les-polimetres/methodology-polimeters" target="_blank" rel="noopener">POLTEXT methodology</a>).</td>
+<td>Yes</td>
+<td>None found.</td>
+</tr>
+<tr>
+<td><strong>PolitiFact (Obameter, Trump-O-Meter, MAGA-Meter)</strong></td>
+<td>The MAGA-Meter tracks 75 promises. Ratings: "Stalled, In the Works, Promise Kept, Promise Broken and Compromise", "based on measurable outcomes, not intentions or efforts" (<a href="https://politifact.com/article/2025/jan/19/politifact-donald-trump-2024-promises-maga-meter/" target="_blank" rel="noopener">PolitiFact, Louis Jacobson, 19 Jan 2025</a>).</td>
+<td>Yes</td>
+<td><a href="https://smartpolitics.lib.umn.edu/2011/02/10/selection-bias-politifact-rate/" target="_blank" rel="noopener">Smart Politics, Eric Ostermeier, 10 Feb 2011</a> found Republicans rated False or Pants on Fire 39% of the time, against 12% for Democrats. He raised selection bias but did not prove it. This was about PolitiFact's fact checks, not its promise meters. Editor Bill Adair replied: "we choose which facts to check based on news judgment" (<a href="http://www.minnpost.com/braublog/2011/02/politifact-responds-u-researchers-anti-gop-bias-claim/" target="_blank" rel="noopener">MinnPost, 15 Feb 2011</a>).</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Common thread.</strong> The complaints we found are about <em>which</em> items were chosen, and about summaries that hide the reasons for a vote. Our rule answers the first by choosing mechanically, the same way for every party. It answers the second by showing Parliament's own wording and never writing a verdict. The work of deciding what counts as a pledge is shared with the Polimeter and the comparative pledges definition.</p>
+<hr />
+<h2>What this means for the site</h2>
+<ul>
+<li><strong>The rule is workable, but most pledges will have no paired vote.</strong> In this test it was 38 of 50. The site needs a neutral line, shown the same way for every party, such as "No Commons vote on this exact measure, July 2024 – Sept 2026". It must not read as a criticism.</li>
+<li><strong>Ambiguous pairs: Romily decides.</strong></li>
+<li>(A) Show clean pairs only. This is the strictest option.</li>
+<li>(B) Also show ambiguous pairs, with a typed label (e.g. "This vote also covered…").</li>
+<li>(C) Show related votes as well. This moves towards TheyWorkForYou-style editorial choice.</li>
+<li>Each step from A to C adds judgement.</li>
+<li><strong>How many votes a party can trigger depends on its seats and on Commons rules</strong>, and that affects how many pairs each party gets. A short explainer should say so, the same way for all parties.</li>
+<li><strong>Plain-English stage labels are essential.</strong> Double negatives ("motion to disagree") and leave motions are easy to misread.</li>
+<li><strong>Data cautions.</strong></li>
+<li>Public Bill Committee votes are not in the Commons Votes API.</li>
+<li>The Bills API "decision" field said "NoDecision" for amendments that did go to a division (e.g. CWSB NC7 = division 1953).</li>
+<li>Name lists often differ slightly from the official counts. For example, division 2406 lists 265 Aye names against an AyeCount of 264, and division 2174 lists 333 No names against a NoCount of 336. Similar gaps of 1–3 appear in 1847, 1878, 1953, 2018 and 2275. The cause is unverified.</li>
+<li>Always show Parliament's own figures, and check name lists against counts.</li>
+<li><strong>Two-person coding.</strong> Pledge selection and pairing should each be done by two people working separately, then compared. That is where the remaining judgement sits.</li>
+<li><strong>Selection method.</strong> Page order is mechanical but clusters topics. If the site's nine topics must each be covered, the alternative mechanical method is "first qualifying pledge per topic". Either way, state the method on the site.</li>
+</ul>
+<h2>Could not verify</h2>
+<ul>
+<li>hansard.parliament.uk pages returned HTTP 403 to our fetch tool. All motion and speech quotes were checked through the public Hansard API instead. The Hansard page links are given for readers.</li>
+<li>Whether any of the listed divisions were free (unwhipped) votes. Party splits are shown from the API, but whip status is unverified.</li>
+<li>Why official counts and name lists differ in several divisions (e.g. 2406: 264 vs 265 Aye names; 2174: 336 vs 333 No names).</li>
+<li>Whether the Commons Votes API list (590 divisions, 4 Jul 2024 – 11 Sep 2026) is complete.</li>
+<li>Public Bill Committee divisions were not checked systematically.</li>
+<li>Any published bias accusation aimed at the Institute for Government's pledge tracking (none found), and the location of a current IfG tracker for the 2024 manifesto.</li>
+<li>A Telegraph/Yahoo article on claims of left-wing bias against fact-checkers (the page returned HTTP 429). Not used.</li>
+<li>The full text of mySociety's 2021 formal response (held in Google Drive documents, not read).</li>
+<li>That Lords amendment 215 at Lords report stage is the same text that became Lords Amendment 106 in the Commons (the titles and subject match; the renumbering was not traced).</li>
+<li>The party labels in the Commons Votes API: we did not confirm whether they show an MP's party at the time of the vote or now. This matters for MPs who changed party.</li>
+<li>Whether the 2026 Immigration and Asylum Bill contains a safe-country asylum bar (relevant to R10). Not checked.</li>
+<li>The exact publication date of each manifesto (given as June 2024).</li>
+<li>Page numbers for Reform's foreword (unnumbered). Other page numbers are the printed ones, checked against the PDFs.</li>
+</ul>
+  <p class="small" style="margin-top:3rem"><a href="/round-6/">Back to round six</a></p>
+</main>
+</body>
+</html>

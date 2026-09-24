@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Research — Local issues</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #000;
+    --paper: #fff;
+    --rule: #000;
+    --muted: #555;
+    --field: #f4f4f4;
+    --measure: 40rem;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 4rem 1.25rem 6rem;
+  }
+  header { margin-bottom: 3.5rem; }
+  h1 {
+    font-size: clamp(2.6rem, 8vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.25rem;
+  }
+  .lede { margin: 0 0 1rem; }
+  .lede + .lede { margin-top: 0; }
+  .small { font-size: 0.95rem; color: var(--muted); }
+  .meta {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+    margin-top: 2rem;
+  }
+  .meta span { white-space: nowrap; }
+
+  section { margin: 3.5rem 0 0; }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0 0 0.25rem;
+  }
+  .why { margin: 0 0 2rem; color: var(--muted); }
+
+  .q { margin: 0 0 2.5rem; }
+  .q label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .q label .n {
+    display: inline-block;
+    width: 2rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .q .hint {
+    margin: 0 0 0.6rem 2rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .q .hint em { font-style: italic; }
+  textarea, input[type=text] {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    font: inherit;
+    color: var(--ink);
+    background: var(--field);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    padding: 0.7rem 0.75rem;
+    resize: vertical;
+    min-height: 6.5rem;
+  }
+  input[type=text] { min-height: 0; }
+  textarea:focus, input:focus, button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .choices { margin: 0 0 0.75rem 2rem; }
+  .choices label {
+    display: block; font-weight: 400; margin: 0.15rem 0;
+  }
+  .choices input { margin-right: 0.5rem; accent-color: #000; }
+
+  .submit {
+    margin-top: 4rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+  button {
+    font: inherit;
+    font-weight: 500;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+  }
+  button.secondary { background: var(--paper); color: var(--ink); margin-left: 0.75rem; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  #status { margin-top: 1rem; min-height: 1.6rem; }
+  .hidden { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    #status { transition: opacity 200ms; }
+  }
+</style>
+<style>
+  .paper h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); }
+  .paper h2 { margin-top: 3rem; }
+  .paper h3 { font-size: 1.2rem; font-weight: 500; margin: 2rem 0 0.25rem; }
+  .paper a { color: var(--ink); }
+  .paper blockquote { margin: 0 0 1.5rem; padding: 0 0 0 1rem; border-left: 2px solid var(--rule); }
+  .paper hr { border: 0; border-top: 1px solid var(--rule); margin: 3rem 0; }
+  .paper code { font-size: 0.85em; background: var(--field); padding: 0 0.2em; word-break: break-word; }
+  .paper li { margin: 0.2rem 0; }
+  .tablewrap { overflow-x: auto; margin: 1rem 0 2rem; border-top: 1px solid var(--rule); }
+  .tablewrap table { border-collapse: collapse; font-size: 0.9rem; line-height: 1.45; min-width: 40rem; }
+  .tablewrap th, .tablewrap td { text-align: left; vertical-align: top; padding: 0.5rem 0.6rem 0.5rem 0; border-bottom: 1px solid #ccc; }
+  .tablewrap th { font-weight: 500; border-bottom: 1px solid var(--rule); }
+  .backlink { margin: 0 0 2rem; }
+</style>
+</head>
+<body>
+<main class="paper">
+  <p class="small backlink"><a href="/round-6/">Back to round six</a> · The full research paper. Every source is linked so you can check it yourself.</p>
+<h1>6. Local issues: which councils we can read, and a mechanical rule</h1>
+<p><strong>Date:</strong> 24 September 2026 (all tests run on this date from our cloud test environment)</p>
+<p><strong>Question:</strong> Can we automatically get local council business for each by-election council, and what exact rule would pick which items to show, so that no person chooses?</p>
+<h2>Summary</h2>
+<ol>
+<li>Five of the eight councils (Brighton and Hove, Cotswold, Milton Keynes, Windsor and Maidenhead, Blackpool) run Modern.gov and their open web service worked today. South Staffordshire runs a different system (CMIS), Stirling posts agendas only as PDFs, and Camden was blocked from our test environment.</li>
+<li>We drafted a rule that code can apply: meetings of Full Council and Cabinet, key decisions, and items that name the voter's ward, within a fixed time window. Procedural items, private items and duplicates are removed, and the rule stops at a fixed number of items. Every step that still needs a human choice is listed, with the name of the person or body who makes that choice.</li>
+<li>We ran the rule on Queen's Park ward (Brighton and Hove). It worked. It also showed real problems. The only item tied to the ward was a pub licence. Party motions appear with the party's own wording as the title. Private "twin" items and monthly budget reports repeat. Section headings show up as if they were items.</li>
+</ol>
+<hr />
+<h2>Part 0: Which by-elections are actually coming up</h2>
+<p>Source: Democracy Club Every Election API, https://elections.democracyclub.org.uk/api/elections/?future=1&amp;limit=200 (HTTP 200, 66 records, tested 24 Sep 2026).</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Council in the brief</th>
+<th>By-election listed by Democracy Club</th>
+<th>Poll date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Brighton and Hove</td>
+<td>Queen's Park (<code>local.brighton-and-hove.queens-park.by.2026-09-24</code>)</td>
+<td>24 Sep 2026 (today)</td>
+</tr>
+<tr>
+<td>Cotswold</td>
+<td>Blockley</td>
+<td>24 Sep 2026 (today)</td>
+</tr>
+<tr>
+<td>Milton Keynes</td>
+<td>New Bradwell</td>
+<td>24 Sep 2026 (today)</td>
+</tr>
+<tr>
+<td>South Staffordshire</td>
+<td>Wombourne North</td>
+<td>24 Sep 2026 (today)</td>
+</tr>
+<tr>
+<td>Windsor and Maidenhead</td>
+<td>Bray</td>
+<td>24 Sep 2026 (today)</td>
+</tr>
+<tr>
+<td>Blackpool</td>
+<td>Claremont</td>
+<td>1 Oct 2026</td>
+</tr>
+<tr>
+<td>Stirling</td>
+<td>Forth and Endrick</td>
+<td>1 Oct 2026</td>
+</tr>
+<tr>
+<td>Camden</td>
+<td><strong>No Camden council by-election listed.</strong> Camden is only relevant because of the UK Parliament by-election in Holborn and St Pancras (<code>parl.holborn-and-st-pancras.by.2026-10-08</code>).</td>
+<td>8 Oct 2026</td>
+</tr>
+</tbody>
+</table></div>
+<p>Five of the brief's by-elections are polling <strong>today</strong>. They will be over before the site goes live.</p>
+<p><strong>Other upcoming by-elections in the same list (not tested in this question):</strong> Northumberland (Hirst; Amble) 1 Oct; Highland (Wick and East Caithness) 1 Oct; North West Leicestershire (Long Whatton &amp; Diseworth) 1 Oct; Aberdeen City (Midstocket/Rosemount) 8 Oct; Lambeth (Myatt's Fields) 8 Oct; Amber Valley (Kilburn, Denby, Holbrook &amp; Horsley) 8 Oct; Newcastle-under-Lyme (Town) 8 Oct; Stroud (Rodborough) 13 Oct; Leicestershire (Shepshed) 15 Oct; Wiltshire (Salisbury Milford) 15 Oct; Mid Devon (Bradninch) 15 Oct; Flintshire (Higher Kinnerton) 15 Oct; Leeds (Calverley &amp; Farsley) 22 Oct; East Hertfordshire (Hertford Kingsmead) 22 Oct; South Kesteven (Grantham St Wulfram's) 22 Oct; Carmarthenshire (Saron) 22 Oct; Halton (Beechwood &amp; Heath) 29 Oct; Nottinghamshire (Southwell) 29 Oct; Bassetlaw (Worksop East) 29 Oct; Newark and Sherwood (Dover Beck) 29 Oct; Argyll and Bute (Mid Argyll) 29 Oct. (Same source.)</p>
+<hr />
+<h2>Part (a): What each council publishes</h2>
+<p>All tests were made with <code>curl --max-time 25</code> and a plain User-Agent. "Blocked" means blocked from our test environment. It does not mean the page is down for everyone.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Council</th>
+<th>Meetings system</th>
+<th>Web service (GetCommittees / GetMeetings)</th>
+<th>Agenda item titles: real example from a recent meeting</th>
+<th>Key decisions / Forward Plan</th>
+<th>Consultations in a structured form</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Brighton and Hove</strong></td>
+<td>Modern.gov, https://democracy.brighton-hove.gov.uk</td>
+<td><strong>Open.</strong> GetCommittees → HTTP 200, 178 committees (20 active). GetMeetings for Council (id 117) and Cabinet (id 1110), 24/03–24/12/2026 → HTTP 200, 6 and 8 meetings. GetAllMeetingsByDate (needs <code>lCommitteeId=0</code> and <code>bIsAscendingDateOrder=true</code>) → HTTP 200, 86 meetings.</td>
+<td>Cabinet, 17 Sep 2026 (GetMeeting <code>lMeetingId=12298</code>, HTTP 200): "Hackney Carriage Fare Review"; "Encampments"; "Seafront Lease: Brighton Wheel Proposal (Exempt Category 3)". Each item has an <code>isrestricted</code> flag.</td>
+<td><strong>Yes, but only on HTML pages.</strong> Forward Plan September 2026 (<code>mgListPlanItems.aspx?PlanId=1133&amp;RP=1130</code>, HTTP 200, 7 items). It has a working ward filter (<code>&amp;WardId=12719</code> for Queen's Park, 5 items). Issue pages show "Decision type: Key" and "Wards affected". The decisions list with <code>K=1</code> (key decisions only) → HTTP 200, 33 key decisions out of 67 in 6 months.</td>
+<td>Citizen Space at https://consultations.brighton-hove.gov.uk (found by web search). <strong>Blocked from our test environment</strong> (proxy returned 502 on connect). WebFetch also failed. Not verified.</td>
+</tr>
+<tr>
+<td><strong>Cotswold</strong></td>
+<td>Modern.gov, https://meetings.cotswold.gov.uk</td>
+<td><strong>Open today</strong> (it timed out in the earlier test). GetCommittees → HTTP 200, 63 committees. GetMeetings for Council (1154) → 5 meetings; for Cabinet (1136) → 7 meetings.</td>
+<td>Cabinet, 10 Sep 2026 (GetMeeting 2615, HTTP 200): "Suitable Alternative Natural Greenspace Spending 2026"; "Establishing a Voluntary Joint Committee - Local Government Reorganisation"; "Private Sector Housing Civil Penalty Policy".</td>
+<td>Decisions list <code>K=1</code> → HTTP 200, 9 key decisions in 6 months (<code>K=0</code> gives 125). Forward plan pages exist (<code>mgPlansHome.aspx</code>, HTTP 200).</td>
+<td>Go Vocal platform at https://your.cotswold.gov.uk. Its public JSON (<code>/web_api/v1/projects?publication_statuses[]=published</code>) → HTTP 200, 29 projects, 5 marked "active", e.g. "Bourton Tourism Levy Consultation 2026/7". Linked from https://www.cotswold.gov.uk/about-the-council/having-your-say/consultations/ (HTTP 200).</td>
+</tr>
+<tr>
+<td><strong>Milton Keynes</strong></td>
+<td>Modern.gov, https://milton-keynes.moderngov.co.uk</td>
+<td><strong>Open.</strong> GetCommittees → HTTP 200, 318 committees. GetMeetings for Council (138) and Cabinet (139) → HTTP 200.</td>
+<td>Cabinet, 8 Sep 2026 (GetMeeting 7812, HTTP 200): "Statement of Community Involvement"; "Medium Term Financial Outlook 2027/28 to 2030/31"; "Updated Strategic Risk Register".</td>
+<td><strong>Blocked from our test environment.</strong> HTML pages (Forward Plan, decisions list, meeting pages) return HTTP 403 with a Cloudflare "Just a moment..." page. The web service still works.</td>
+<td>https://www.milton-keynes.gov.uk/consultations → HTTP 200, a plain HTML list. One open consultation: "Homelessness and Rough Sleeping Strategy Consultation" (7 Sep–26 Oct 2026). Email sign-up only. No RSS or API found.</td>
+</tr>
+<tr>
+<td><strong>South Staffordshire</strong></td>
+<td><strong>CMIS (Civica)</strong>, https://southstaffs.cmis.uk.com, linked from https://www.sstaffs.gov.uk/our-council/council-meetings-and-decision-making (HTTP 200). No Modern.gov. <code>sstaffs.moderngov.co.uk</code> → HTTP 522. So the earlier timeout was probably just the wrong address (our inference).</td>
+<td>No Modern.gov web service. We found no public CMIS API. The meetings page is a JavaScript calendar (HTTP 200). A guessed meeting URL failed ("critical error").</td>
+<td>From the Decisions page (<code>/Decisions.aspx</code>, HTTP 200, 72 decisions): "Crisis Resilience Fund Policy"; "Proposed Community Safety Partnership Plan 2026-2029"; "Application for the grant of a new premises licence for The Bourne Grill, 1 Gravel Hill, Wombourne, WV5 9HA". The page has filters for Ward, Key Decision and Is Exempt.</td>
+<td>The Forward Plans page (HTTP 200) lists editions only up to <strong>February 2025</strong>. It says to use the Decisions page with status "Decision Proposed" instead. Key-decision threshold stated: over £300,000 or a significant effect on two or more wards.</td>
+<td>Go Vocal at https://engage.sstaffs.gov.uk. JSON → HTTP 200, 17 projects, 2 "active", e.g. "Local Plan - Main Modifications consultation". A separate planning-policy portal at https://sstaffs.oc2.uk was <strong>blocked from our test environment</strong> (502).</td>
+</tr>
+<tr>
+<td><strong>Windsor and Maidenhead</strong></td>
+<td>Modern.gov, https://rbwm.moderngov.co.uk</td>
+<td><strong>Open.</strong> GetCommittees → HTTP 200, 266 committees. GetMeetings for Council (134) and Cabinet (132) → HTTP 200. The method list page (<code>mgWebService.asmx</code>) is public here: 21 methods, but <strong>none for forward plans or decisions</strong>.</td>
+<td>Full Council, 22 Sep 2026 (GetMeeting 10271, HTTP 200): "Request for Capital Budget - Forest Bridge School"; "Youth Justice Plan 2026-27"; "Motions on Notice".</td>
+<td><strong>Blocked from our test environment</strong> (HTML pages return HTTP 403, Cloudflare).</td>
+<td>EngagementHQ (Granicus) at https://rbwmtogether.rbwm.gov.uk (HTTP 200, but the page is built by JavaScript, so we could not list projects). <code>/projects.rss</code> → HTTP 302. No feed found. The planning portal https://rbwm.objective.co.uk/portal → HTTP 403.</td>
+</tr>
+<tr>
+<td><strong>Blackpool</strong></td>
+<td>Modern.gov, https://democracy.blackpool.gov.uk</td>
+<td><strong>Open.</strong> GetCommittees → HTTP 200, 83 committees. GetMeetings for Council (134) and Executive (135) → HTTP 200.</td>
+<td>Executive, 14 Sep 2026 (GetMeeting 8511, HTTP 200): "Local Transport Plan Programme 2026/27"; "BLACKPOOL CENTRAL - NEXT STEPS ON PROCUREMENT"; "ASSET DISPOSALS PROGRAMME". Items 9–10 are flagged <code>isrestricted=True</code>, but their titles do not say "exempt".</td>
+<td>Decisions list <code>K=1</code> → HTTP 200, 7 key decisions in 6 months (<code>K=0</code> gives 235).</td>
+<td>https://www.blackpool.gov.uk/Your-Council/Have-your-say/Consultations/Consultations-and-other-engagement.aspx → <strong>HTTP 500</strong> twice by curl. WebFetch got a version that says "There are no current consultations open", but it mentions a consultation that closed in Feb 2024, so it may be stale. No RSS, CSV or platform found.</td>
+</tr>
+<tr>
+<td><strong>Stirling</strong></td>
+<td><strong>Its own website (not Modern.gov or CMIS)</strong> at https://minutes.stirling.gov.uk (HTTP 200). Files sit under <code>/media/</code>, so the site is probably built on a general website system (our inference).</td>
+<td>No web service. An agenda list page exists: <code>/current-committees-and-panels/agendas/</code> (HTTP 200, 2 pages).</td>
+<td><strong>Titles are only inside the PDF.</strong> The HTML page for Finance, Economy and Corporate Support Committee, 10 Sep 2026, has one 198-page PDF (HTTP 200, 5.2 MB). The PDF's own cover page calls the meeting the "Finance, Economy and Culture Committee", so names can differ between the web page and the papers. Titles read with pdftotext: "GENERAL FUND REVENUE BUDGET PROJECTED OUTTURN 2026/27"; "WHISTLEBLOWING POLICY REVIEW"; "ARTIFICIAL INTELLIGENCE POLICY".</td>
+<td>No Forward Plan or key-decision list found. (Key-decision rules come from English regulations. We did not test whether a Scottish equivalent exists: unverified.)</td>
+<td>Go Vocal at https://engage.stirling.gov.uk. JSON → HTTP 200, 87 projects, 48 "active". "Active" is not reliable: the list includes "Staff Travel Survey 2024" and "FAQs". There is a project called "Ward 2 - Forth &amp; Endrick" (status ended). <code>www.stirling.gov.uk</code> pages → HTTP 403; <code>content.stirling.gov.uk</code> → blocked (502).</td>
+</tr>
+<tr>
+<td><strong>Camden</strong></td>
+<td>Modern.gov, https://democracy.camden.gov.uk (from the brief)</td>
+<td><strong>Blocked from our test environment</strong> (HTTP 403, Cloudflare "Just a moment...").</td>
+<td>Not tested: blocked.</td>
+<td>Not tested: blocked.</td>
+<td>Citizen Space at https://consultations.wearecamden.org. <strong>Open JSON API:</strong> <code>/api/2.4/json_search_results?st=open</code> → HTTP 200, 8 "open" items with title, start and end dates, and URL. 6 of the 8 are long-running pages rather than consultations (e.g. "Camden Apprenticeships registration", open 2019–2030). Real ones include "Gambling Policy Consultation" (3 Aug–25 Oct 2026). One earlier call to the HTML finder was cut off (connection reset).</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>What we learned about the Modern.gov web service (tested on Brighton and Hove and Windsor and Maidenhead):</strong>
+- <code>GetMeeting</code> gives each agenda item's number, title, agenda text, <code>isrestricted</code>, linked documents and the committee. It does <strong>not</strong> say whether an item is a key decision, and it does <strong>not</strong> give wards.
+- The public method list (https://rbwm.moderngov.co.uk/mgWebService.asmx, HTTP 200) has 21 methods, including GetAllMeetingsByDate, GetCommittees, GetMeeting, GetMeetings, GetCouncillorsByPostcode and GetCouncillorsByWard. There is <strong>no method for Forward Plans or decisions</strong>. We tried GetForwardPlanItems, GetDecisions, GetIssues and GetWards on Brighton: all said "Web Service method name is not valid".
+- So key decisions and "Wards affected" come only from HTML pages: <code>mgListPlanItems.aspx</code>, <code>mgDelegatedDecisions.aspx?K=1</code>, <code>mgIssueHistoryHome.aspx</code> and <code>ieDecisionDetails.aspx</code>. These pages were readable at Brighton, Cotswold and Blackpool. At Milton Keynes and Windsor and Maidenhead, Cloudflare blocked them from our test environment.
+- Titles come back HTML-encoded twice (e.g. <code>Chair&amp;amp;#39;s Communications</code>). Code must decode them twice.</p>
+<hr />
+<h2>Part (b): Draft mechanical rule (version 0.2)</h2>
+<p><em>This is a draft for Romily to decide on. Every choice in it is marked as a judgement; none is final.</em></p>
+<h3>Inputs</h3>
+<ul>
+<li><strong>The voter's ward and council.</strong> These come from the postcode lookup elsewhere on the site. Postcode-to-ward was not tested in this question.</li>
+<li><strong>Today's date</strong> (T).</li>
+</ul>
+<h3>Step 1: Time window</h3>
+<ul>
+<li><strong>Recently:</strong> meetings or decisions dated from T − 183 days to T − 1.</li>
+<li><strong>Coming up:</strong> meetings or decisions dated from T to T + 92 days.</li>
+<li>For Brighton on 24 Sep 2026: 25 Mar 2026 to 23 Sep 2026, and 24 Sep 2026 to 24 Dec 2026.</li>
+</ul>
+<h3>Step 2: Where items come from (3 streams)</h3>
+<p><strong>Stream A: Full Council and the executive.</strong> Every agenda item at meetings of the council's <strong>core bodies</strong>. A committee is a core body if its title, after normalising (see Step 5), is exactly one of: <code>council</code>, <code>full council</code>, <code>city council</code>, <code>county council</code>, <code>borough council</code>, <code>district council</code>, <code>cabinet</code>, <code>executive</code>. Titles such as "Cabinet sitting as Trustees" (Windsor and Maidenhead) do not match.
+- <em>Committee-system councils</em> (no Cabinet, for example Stirling): the core bodies are Full Council plus a list of main policy committees. We write that list down once for each council and publish it. <strong>Judgement: which committees count. Made by the site team (Romily, Product Lead) once per council.</strong></p>
+<p><strong>Stream B: Key decisions.</strong>
+- <em>Recently:</em> decisions in the council's decisions list with the key-decision flag on (Modern.gov: <code>mgDelegatedDecisions.aspx?...&amp;K=1</code>, or "Is Key decision?: Yes" on <code>ieDecisionDetails.aspx</code>; CMIS: the "Key Decision: Yes" filter).
+- <em>Coming up:</em> items in the <strong>current</strong> Forward Plan whose "Decision type" starts with <code>Key</code> and whose "Decision due" date is in the window. The current Forward Plan is the edition with the latest start date that covers T. We also include any "General Exception" or "Special Urgency" notice published in the window.
+- A key decision counts only if the council itself labels it so. <strong>Judgement: made by council officers, not by us.</strong></p>
+<p><strong>Stream C: Items about the voter's ward (from any committee).</strong>
+- <em>Structured match:</em> the item's "Wards affected" list contains the ward name exactly. "(All Wards)" does <strong>not</strong> count as a ward match. Such an item can still come in through Stream B.
+- <em>Title match:</em> the item's title, after normalising, contains the ward name, after normalising, as whole words.
+- "Wards affected" is filled in by council officers. <strong>Judgement: theirs.</strong></p>
+<h3>Step 3: What to remove (in this order)</h3>
+<ol>
+<li><strong>Section headings:</strong> items numbered <code>0</code> or with an empty title. Brighton uses these for headings such as "Reports for Decision", "Notices of Motion" and "Major Applications".</li>
+<li><strong>Procedural items:</strong> after normalising, the title exactly matches one of:
+   <code>procedural business; apologies; apologies for absence; apologies and substitutions; apologies for absence and substitutions; declarations of interest; declarations of interests; disclosures of interest; minutes; minutes of the previous meeting; minutes of the last meeting; minutes and actions of the previous meeting; part two minutes of the previous meeting; chairs communications; chairs communication; chairs announcements; mayors communications; mayors announcements; leader and portfolio holders announcements; welcome and introductions; welcome introductions and apologies; to appoint a chair for the meeting; election of chair; appointment of chair; appointment of vice chair; call over; callover; call over for reports of committees; public involvement; member involvement; public questions; written questions from members of the public; written questions from councillors; oral questions from councillors; deputations from members of the public; to receive petitions and e petitions; petitions for debate; petition s for debate; issues raised by members; matters referred to the executive; representations from opposition members; items referred for council; reports for decision; reports for information; reports referred for information; for information; urgent business; urgent items; any other business; items for the next meeting; work programme; forward work programme; exclusion of the press and public; exclusion of press and public; part two proceedings; part two; part 2; break; close of meeting; date of next meeting; notices of motion; major applications; minor applications; information items</code>
+   Or the title matches one of these patterns: <code>^\d.*refreshment break$</code>, <code>^residents? questions</code>, <code>^minutes of .*meeting</code>, <code>^co chair election</code>.
+   We built this list from the 639 real Brighton titles in the window. Other councils will need more entries (e.g. Blackpool's "EXCLUSION OF PUBLIC AND PRESS", Milton Keynes's "Councillors' Items"). <strong>Judgement: what counts as "procedural". Site team. Keep the list public and add to it over time.</strong></li>
+<li><strong>Civic housekeeping (proposed):</strong> after normalising, the title starts with <code>appointment of</code>, <code>appointments to</code>, <code>election of the mayor</code>, <code>review of political balance</code>, <code>review of the councils constitution</code>, <code>mayoral report</code>, <code>mayors thanks</code>, <code>declaration of office</code> or <code>council appointments</code>. <strong>Judgement: site team.</strong></li>
+<li><strong>Private (exempt) items:</strong> <code>isrestricted = True</code>, or the title contains <code>(exempt</code>, <code>exempt category</code>, <code>part two</code>, <code>part 2</code> or <code>confidential</code>. See the tweak in Part (c).</li>
+<li><strong>Duplicates:</strong> two items are the same if their titles match after normalising and removing any "(Exempt …)" text. Keep one, in this order of preference: key-decision record, then forward-plan entry, then agenda item. The other meetings go on a line saying "also discussed at …".</li>
+</ol>
+<h3>Step 4: Order and cut-off</h3>
+<ul>
+<li>Two lists: <strong>Coming up</strong> (soonest first) and <strong>Recently</strong> (newest first).</li>
+<li>Ward-matched items (Stream C) go to the top of each list. Everything else is in strict date order. Items at the same meeting follow the agenda order.</li>
+<li><strong>Show at most 8 per list.</strong> Then show "N more items" with a link to the council's own full list, so nothing is hidden by us.</li>
+<li><strong>Judgement: the windows (183 and 92 days), the limit of 8, and putting ward items first. Site team, fixed in advance and published.</strong></li>
+</ul>
+<h3>Step 5: Normalising text (so code can match it)</h3>
+<p>Lower-case. Change <code>&amp;</code> to <code>and</code>. Remove apostrophes (<code>'</code> <code>’</code> <code>‘</code>). Replace every other non-letter or non-digit with a space. Collapse repeated spaces. Decode HTML entities twice first. Example: "Queen's Park" → <code>queens park</code>. "Chair&#39;s Communications" → <code>chairs communications</code>.</p>
+<h3>Step 6: Labels on every item shown (no summaries written by us)</h3>
+<p>The title is quoted as the council wrote it. Each item also shows the body (Council, Cabinet …), the date, the source type ("key decision", "Forward Plan", "agenda item", "motion"), and a link to the council page.</p>
+<h3>Where human judgement remains, and whose it is</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Judgement</th>
+<th>Who makes it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Which items are "key decisions"</td>
+<td>Council officers (under the council's constitution)</td>
+</tr>
+<tr>
+<td>Which wards an item "affects"</td>
+<td>Council officers (the "Wards affected" field)</td>
+</tr>
+<tr>
+<td>Which committees are core in committee-system councils</td>
+<td>Site team, once per council, published</td>
+</tr>
+<tr>
+<td>Procedural and housekeeping lists</td>
+<td>Site team, published, added to over time</td>
+</tr>
+<tr>
+<td>Time windows, the limit of 8, ward-first order</td>
+<td>Site team, fixed before launch</td>
+</tr>
+<tr>
+<td>Whether to show motions, licensing items and private items (see Part c)</td>
+<td>Site team</td>
+</tr>
+<tr>
+<td>Wording of motion titles</td>
+<td>The party group that proposed the motion</td>
+</tr>
+<tr>
+<td>Whether council items belong on a <strong>parliamentary</strong> by-election page (Holborn and St Pancras): an MP does not decide council business</td>
+<td>Site team (Romily). This affects the first live test.</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>Part (c): Running the rule on Queen's Park ward, Brighton and Hove</h2>
+<p><strong>What we pulled (24 Sep 2026):</strong>
+- 86 meetings, 24/03–24/12/2026, via GetAllMeetingsByDate, plus 86 GetMeeting calls. All HTTP 200. <strong>639 agenda items</strong> in total.
+- 67 decisions from <code>mgDelegatedDecisions.aspx</code> (range 24/03–24/09/2026), with each decision's page and linked issue page (all HTTP 200). This gave the key flag and "Wards affected".
+- The Forward Plan September 2026 (PlanId 1133): 7 items with issue pages.</p>
+<p><strong>What the filters removed (version 0.2):</strong> 274 procedural, 46 section headings, 15 civic housekeeping, 20 private, 216 from non-core bodies with no ward match, 32 duplicates merged, 2 repeats of the same monthly report collapsed, 9 outside the window.</p>
+<p><em>Fact-check re-run (24 Sep 2026):</em> 86 meetings and 639 agenda items were confirmed. Re-applying steps 3.1–3.4 independently gave 46 headings (same), 15 housekeeping (same), 283 procedural (not 274) and 22 private (not 20). The small differences probably come from how the code was written. Treat the filter counts as approximate.</p>
+<p><strong>Output: "Coming up" (11 candidates, first 8 shown):</strong>
+1. 1 Oct 2026 · Council · motion · "Dignity and Trauma-Informed Audit of Housing and Homelessness Services" (the motion document names the Green Group)
+2. 1 Oct 2026 · Council · motion · "Disability-Friendly City" (Conservative Group)
+3. 1 Oct 2026 · Council · motion · "Building a Care System That Works" (Labour Group)
+4. 1 Oct 2026 · Council · motion · "Transparency of External Findings" (no document linked yet)
+5. 15 Oct 2026 · Cabinet · Forward Plan key decision · "Streetlighting Contract Extension"
+6. 15 Oct 2026 · Cabinet · Forward Plan key decision · "Flood Risk Strategy"
+7. 15 Oct 2026 · Cabinet · Forward Plan key decision · "Black rock - meanwhile use and long term vision"
+8. 15 Oct 2026 · Cabinet · Forward Plan key decision · "Advertising and Sponsorship"
+…and 3 more (Royal Pavilion Gardens restoration; Brighton Marina to River Adur flood scheme; Targeted Budget Management Month 5).</p>
+<p>The Council meeting on 1 Oct is shown in GetMeetings as "Confirmed; Rescheduled from 24 September 2026". Motion proposers were read from the motion PDFs (e.g. https://democracy.brighton-hove.gov.uk/mgConvert2PDF.aspx?ID=217525, HTTP 200).</p>
+<p><strong>Output: "Recently" (54 candidates, first 8 shown):</strong>
+1. <strong>[Ward]</strong> 5 Jun 2026 · Licensing Panel · "Camelford Arms - Licensing Act 2003 Functions" (Wards affected: Queen's Park)
+2. to 8. 17 Sep 2026 · Cabinet · key decisions: "Raising Professional Standards for Housing Staff &amp; Tenants"; "Housing in Brighton and Hove Annual Report"; "Improving Outcomes in Adult Social Care"; "DFT - Structures Bid - King Arches Phases 6 &amp; 7"; "Hackney Carriage Fare Review"; "Encampments"; "WorkWell Programme"
+…and 46 more.</p>
+<p><strong>Ward matching in practice:</strong> None of the 639 agenda titles contained "Queen's Park". One agenda text did contain "Queens Park" without the apostrophe: the Islingword Local licensing panel (29 Apr 2026) mentions a business called "Queens Park Wines". A normalised text match would count that as a ward match when it is not. (The rule as drafted matches titles only.) Of the 67 decisions, 52 say "(All Wards)", 12 name specific wards and 3 are blank. Only one names Queen's Park: the pub licence above. The Forward Plan's own ward filter (<code>WardId=12719</code>) returns 5 items, but it counts "(All Wards)" items as matches.</p>
+<h3>Odd results and possible tweaks (each tweak is a judgement and an option for Romily, not a decision)</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Odd result (seen in the real data)</th>
+<th>Possible tweak (option)</th>
+<th>Judgement?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Licensing panels.</strong> The only ward-specific item was a single pub's licence. Licensing Panel meetings made up 22 of the 86 Brighton meetings. Titles name only the premises, e.g. "Lebanese Grill - Licensing Panel (Licensing Act 2003 Functions)".</td>
+<td>Option 1: keep them, labelled "Licensing decision about one premises", and do not put them at the top. Option 2: leave licensing committees out of Stream C.</td>
+<td>Yes. Site team.</td>
+</tr>
+<tr>
+<td><strong>Pension fund, trustee, shareholder, religious-education (SACRE) and fire authority bodies.</strong> Brighton has none active. Windsor and Maidenhead has "Berkshire Pension Fund Committee" and "Cabinet sitting as Trustees". Blackpool has "Shareholder Committee" and "SACRE". Milton Keynes lists "BMKFA - Executive Committee" (a fire authority). We saw no museum or twinning committees.</td>
+<td>The exact-title rule for core bodies already leaves these out unless a title names the ward. Keep a published list of committees never shown (<code>pension</code>, <code>trustees</code>, <code>shareholder</code>, <code>sacre</code>, <code>religious education</code>, <code>twinning</code>, <code>museum</code>, <code>appeals</code>, <code>appointments</code>, <code>standards</code>, <code>chief officer</code>).</td>
+<td>Yes. Site team.</td>
+</tr>
+<tr>
+<td><strong>Private (exempt) items.</strong> 27 agenda items in the window are flagged <code>isrestricted</code>; about 20 remain after the procedural and housekeeping steps (some flagged items are things like "Part Two minutes"). Brighton adds a private "twin" with the same title, e.g. "Asset Strategy (Exempt Category 3)". Blackpool flags items as restricted without saying so in the title (e.g. "WINTER GARDENS CONFERENCE CENTRE - CONTRACTOR DISPUTE").</td>
+<td>Drop the private twin when a public item with the same title exists. Where there is no public twin, show the title with the label "Discussed in private; papers not published". Hiding it completely would hide a real decision.</td>
+<td>Yes. Site team.</td>
+</tr>
+<tr>
+<td><strong>Titles that are mainly a reference number.</strong> Planning items look like "BH2025/02723 - The Hippodrome, 51 - 52 Middle Street, Brighton - Full Planning". Housing panels use short codes like "EDB AP Report" and "EIB Report".</td>
+<td>Planning: match the address or postcode to a ward using a planning dataset (planning.data.gov.uk) instead of the title. That is mechanical, but coverage is partial. Short-code titles: leave out titles with fewer than 3 words that are not in the Forward Plan.</td>
+<td>Yes. Site team.</td>
+</tr>
+<tr>
+<td><strong>Duplicates across meetings.</strong> 32 merged: private twins, agenda item plus decision record, and the same item listed twice at one meeting ("Call-in of Update on the Housing Management for the Brickfields Development", twice at People Overview &amp; Scrutiny, 2 Jun 2026). But "Asset Strategy" was decided twice (23 Apr and 16 Jul, different decisions), and merging by title alone joins them.</td>
+<td>Merge only when titles match <strong>and</strong> the dates are within 31 days. Otherwise show both.</td>
+<td>Yes (the 31 days). Site team.</td>
+</tr>
+<tr>
+<td><strong>Repeating reports.</strong> "Targeted Budget Management (TBM) 2026/27 Month 2 (May)", "…Month 4 (July)", "…Provisional Outturn 2025/26".</td>
+<td>Collapse a series (same title once dates, month names and "Month N" are removed) to the newest item, with "earlier versions" linked.</td>
+<td>Yes. Site team.</td>
+</tr>
+<tr>
+<td><strong>Party motions at Full Council.</strong> Titles are the proposing party's own words, e.g. "Resisting Hostile Immigration Policies" (23 Jul) and "Post-Budget Changes to the Toilet Tax" (26 Mar).</td>
+<td>Show <strong>all</strong> motions or <strong>none</strong>. Never pick some. Always label each one with the proposing group, taken mechanically from the motion document ("Proposer:" line and group heading), and later with the result from the minutes. This matters for our neutrality.</td>
+<td>Yes. Site team (Romily).</td>
+</tr>
+<tr>
+<td><strong>Section headings shown as items</strong> ("Reports for Decision", "Notices of Motion", "Major Applications", empty titles), all numbered 0.</td>
+<td>Already handled in version 0.2: remove items numbered 0 or with an empty title.</td>
+<td>Low: it is a mechanical fix.</td>
+</tr>
+<tr>
+<td><strong>Civic housekeeping</strong> at the top of lists (e.g. "Appointment of an Honorary Recorder", "Review of Political Balance October 2026", "Election of the Mayor…").</td>
+<td>Already in version 0.2 as the housekeeping list.</td>
+<td>Yes. Site team.</td>
+</tr>
+<tr>
+<td><strong>An old ward item jumps above newer ones.</strong> A June pub licence is ranked above September Cabinet decisions.</td>
+<td>Put ward items first only if they are in the last 90 days. Otherwise sort them by date with everything else.</td>
+<td>Yes. Site team.</td>
+</tr>
+<tr>
+<td><strong>A date outside the requested range.</strong> The decisions list for 24/03–24/09/2026 also returned a planning decision dated 04/03/2026.</td>
+<td>Always check dates ourselves after fetching.</td>
+<td>No.</td>
+</tr>
+<tr>
+<td><strong>"Open" consultations that are not open.</strong> Camden's API lists "Camden Apprenticeships registration" (2019–2030). Stirling's platform marks "Staff Travel Survey 2024" and "FAQs" as "active".</td>
+<td>Show a consultation only if its end date is on or after today <strong>and</strong> its start date is within the last 12 months.</td>
+<td>Yes (the 12 months). Site team.</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>What this means for the site</h2>
+<ul>
+<li><strong>The rule can run fully automatically where Modern.gov HTML is reachable.</strong> On 24 Sep 2026 that was Brighton and Hove, Cotswold and Blackpool. At Milton Keynes and Windsor and Maidenhead, only agenda items come through: the key-decision and ward fields sit behind a Cloudflare check that blocked us. From there the rule reduces to "Full Council and Cabinet agenda items".</li>
+<li><strong>South Staffordshire (CMIS) and Stirling (PDF agendas) need separate code.</strong> Stirling would need PDF text extraction, which is more fragile.</li>
+<li><strong>Camden, the first live test, was blocked from our test environment.</strong> Its consultations API works. Separately, Romily needs to decide whether council business belongs on a parliamentary by-election page at all.</li>
+<li><strong>The ward link is thin.</strong> At Brighton it produced one item, a pub licence. Most local content arrives as city-wide key decisions. One option is for the page to say that items are "decisions by [council]", not "issues in your street" (a choice for Romily).</li>
+<li><strong>The biggest neutrality risk is Council motions.</strong> They carry party wording. Whatever Romily decides, treating every motion the same way and labelling who proposed each one avoids the site picking between parties' wording.</li>
+<li><strong>Every threshold (183/92 days, 8 items, the procedural list) could be published on the site's method page,</strong> so anyone can check that no person picked the items. Whether and how to do this is for Romily and Barny.</li>
+</ul>
+<h2>Could not verify</h2>
+<ul>
+<li>Brighton and Hove consultations (Citizen Space at consultations.brighton-hove.gov.uk): blocked from our test environment. We do not know whether its API is open.</li>
+<li>Camden democracy site (democracy.camden.gov.uk): blocked (403, Cloudflare). No agenda titles, key decisions or web-service results.</li>
+<li>Milton Keynes and Windsor and Maidenhead Forward Plans and decision pages: blocked (403, Cloudflare). We do not know whether key-decision and ward fields are filled in there.</li>
+<li>Blackpool consultations page: HTTP 500 by curl. The WebFetch copy may be stale. Current consultations unverified.</li>
+<li>Windsor and Maidenhead "RBWM Together" (EngagementHQ): the page is built by JavaScript, so we could not list projects. Any API or feed unverified.</li>
+<li>South Staffordshire meeting-level agendas on CMIS: could not open a single meeting page. Item titles came from the Decisions list instead. Whether CMIS has a public API is unverified.</li>
+<li>South Staffordshire planning portal (sstaffs.oc2.uk) and Stirling's <code>www.stirling.gov.uk</code> and <code>content.stirling.gov.uk</code>: blocked from our test environment.</li>
+<li>Whether Scottish councils (Stirling) have anything like the English Forward Plan or key-decision rules: unverified.</li>
+<li>Why Brighton's Full Council was moved from 24 September to 1 October 2026: the status field says "Rescheduled"; no reason given.</li>
+<li>Postcode-to-ward lookup (e.g. GetCouncillorsByPostcode): not tested in this question.</li>
+<li>The exact filter counts in Part (c): an independent re-run gave 283 procedural and 22 private items, against 274 and 20 in the original run. The other counts (86 meetings, 639 items, 46 headings, 15 housekeeping, 67 decisions, 33 key decisions) matched.</li>
+<li>The rule has been run on one ward only (Queen's Park). It has not been tested on Cotswold or Blackpool data.</li>
+</ul>
+  <p class="small" style="margin-top:3rem"><a href="/round-6/">Back to round six</a></p>
+</main>
+</body>
+</html>
