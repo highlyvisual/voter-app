@@ -4,7 +4,7 @@ import { claimsFor } from "@/components/CandidateCard";
 import BlindRead from "@/components/BlindRead";
 import ScrollHint from "@/components/ScrollHint";
 import ViewMode from "@/components/ViewMode";
-import { img } from "@/lib/site";
+import { topicsForHousehold } from "@/lib/topicOrder";
 import HouseholdForm from "@/components/HouseholdForm";
 import { TOPICS, getBallot, listCandidates, listVerifiedClaims } from "@/lib/data";
 import { claimApplies, householdComplete, householdFromParams, FIELD_KEYS } from "@/lib/household";
@@ -63,7 +63,7 @@ export default async function ComparePage({ params, searchParams }: Props) {
 
       <nav className="topic-tabs" aria-label="Compare one topic at a time">
         <Link prefetch={false} href={`/ballot/${encodeURIComponent(ballotId)}/compare${tabQs("")}`} aria-current={!topicTab ? "page" : undefined}>All topics</Link>
-        {TOPICS.map(([k, l]) => <Link prefetch={false} key={k} href={`/ballot/${encodeURIComponent(ballotId)}/compare${tabQs(k)}`} aria-current={topicTab === k ? "page" : undefined}>{l.split(",")[0].replace(" and cost of living", "")}</Link>)}
+        {topicsForHousehold(household).all.map(({ topic: k, label: l, reason }) => <Link prefetch={false} key={k} href={`/ballot/${encodeURIComponent(ballotId)}/compare${tabQs(k)}`} aria-current={topicTab === k ? "page" : undefined} title={reason ? `First ${reason}` : undefined}>{l.split(",")[0].replace(" and cost of living", "")}</Link>)}
       </nav>
       <p className="meta">No winner, no score, no match. Switch topics and decide for yourself which differences matter.</p>
       <ScrollHint>
@@ -73,7 +73,6 @@ export default async function ComparePage({ params, searchParams }: Props) {
               <th scope="col" className="corner">Topic</th>
               {cols.map((c, i) => (
                 <th scope="col" key={c.id} style={{ borderTop: `4px solid ${c.parties?.colour_hex ?? "var(--rule)"}` }}>
-                  {c.photo_url ? <span className="face" style={{ borderColor: c.parties?.colour_hex ?? "var(--rule)", display: "block" }}><img src={img(c.photo_url)} alt="" loading="lazy" width={44} height={44} /></span> : null}
                   <span className="meta">{candidates.indexOf(c) + 1}</span>
                   <span className="name blindable" data-blind={`Candidate ${candidates.indexOf(c) + 1}`}>{c.name}</span>
                   <span className="party blindable" data-blind="party hidden">{partyLabel(c)}</span>

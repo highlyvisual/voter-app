@@ -1,3 +1,4 @@
+import { topicsForHousehold } from "@/lib/topicOrder";
 import { TOPICS, effectivePartyId, type Candidate, type Claim, type ReceiptRow } from "@/lib/data";
 import { claimApplies, type Household } from "@/lib/household";
 import { conditionText, layerOf, precisionLabel, splitForHousehold, LEGEND } from "@/lib/claims";
@@ -8,7 +9,7 @@ import ExplainThis from "@/components/ExplainThis";
 import ReadAloud from "@/components/ReadAloud";
 import { layerKey } from "@/lib/claims";
 import { ballotLabel, type InvitationStatus, type Leaflet, type PreviousCandidacy } from "@/lib/data";
-import { SITE, img } from "@/lib/site";
+import { img } from "@/lib/site";
 
 const gbp = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", maximumFractionDigits: 0 });
 const SHORT: Record<string, string> = {
@@ -80,8 +81,8 @@ export function claimsFor(candidate: Candidate, claims: Claim[]) {
 }
 
 export default async function CandidateCard({
-  candidate, position, claims, receipts, household, complete, baselineId = "baseline", invitation = null, level = "parliamentary", areaName = "", councilSiteUrl = null, leaflets = [], pollDate = null, showPhotos = SITE.photos === "any", stoodBefore = [],
-}: { candidate: Candidate; position: number; claims: Claim[]; receipts: ReceiptRow[]; household: Household; complete: boolean; baselineId?: string; invitation?: InvitationStatus | null; level?: string; areaName?: string; councilSiteUrl?: string | null; leaflets?: Leaflet[]; pollDate?: string | null; showPhotos?: boolean; stoodBefore?: PreviousCandidacy[] }) {
+  candidate, position, claims, receipts, household, complete, baselineId = "baseline", invitation = null, level = "parliamentary", areaName = "", councilSiteUrl = null, leaflets = [], pollDate = null, stoodBefore = [],
+}: { candidate: Candidate; position: number; claims: Claim[]; receipts: ReceiptRow[]; household: Household; complete: boolean; baselineId?: string; invitation?: InvitationStatus | null; level?: string; areaName?: string; councilSiteUrl?: string | null; leaflets?: Leaflet[]; pollDate?: string | null; stoodBefore?: PreviousCandidacy[] }) {
   const campaignStart = pollDate ? new Date(new Date(pollDate + "T00:00:00Z").getTime() - 60 * 86400000).toISOString().slice(0, 10) : null;
   const current = leaflets.filter((l) => campaignStart && (l.date_uploaded ?? "") >= campaignStart);
   const earlier = leaflets.filter((l) => !(campaignStart && (l.date_uploaded ?? "") >= campaignStart));
@@ -113,11 +114,7 @@ export default async function CandidateCard({
     <details className="candidate" id={`c-${candidate.id}`}>
       <summary aria-label={`${candidate.name}, ${partyLabel}, ${total} ${total === 1 ? "position" : "positions"}`}>
         <div className="who">
-          {showPhotos && candidate.photo_url ? (
-            <img className="avatar photo" src={img(candidate.photo_url)} alt="" loading="lazy" width={52} height={52} style={partyColour ? { boxShadow: `0 0 0 2px ${partyColour}` } : undefined} />
-          ) : (
-            <span className="avatar" aria-hidden style={partyColour ? { boxShadow: `inset 0 0 0 3px ${partyColour}`, background: "#fff", color: "var(--ink)" } : undefined}>{candidate.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("").toUpperCase()}</span>
-          )}
+          <span className="avatar" aria-hidden style={partyColour ? { boxShadow: `inset 0 0 0 3px ${partyColour}`, background: "#fff", color: "var(--ink)" } : undefined}>{candidate.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("").toUpperCase()}</span>
           <div>
             <h3 className="name" data-pos={position}><span className="meta" style={{ marginRight: "0.5rem" }}>{position}</span>{candidate.name}</h3>
             <p className="party">
@@ -193,11 +190,11 @@ export default async function CandidateCard({
           {total === 0 && perTopic.every((t) => t.relevant.length === 0) ? (
             <ActionBlock level={level} areaName={areaName} councilSiteUrl={councilSiteUrl} partySiteUrl={candidate.parties?.official_site_url} />
           ) : (
-            <div className="topics">{TOPICS.map(([key, label]) => {
+            <div className="topics">{topicsForHousehold(household).all.map(({ topic: key, label, reason }) => {
               const t = perTopic.find((x) => x.key === key)!;
               return (
                 <div className="topic" key={key} data-topic={key}>
-                  <h5>{label}</h5>
+                  <h5>{label}{reason ? <span className="meta topic-why"> · first {reason}</span> : null}</h5>
                   {t.relevant.length === 0 ? (
                     <p className="empty">Nothing published on this yet.</p>
                   ) : t.applying.length === 0 ? (

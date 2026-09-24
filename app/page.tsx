@@ -2,13 +2,11 @@ import Link from "next/link";
 import { countClaimsByStatus, countClaimsPerBallot, listArchivedBallots, listBallots, listFaceTiles, publicClient } from "@/lib/data";
 import { findElection } from "./find/actions";
 import BallotsMap from "@/components/BallotsMap";
-import FacesWall from "@/components/FacesWall";
 import CountUp from "@/components/CountUp";
 import Ticker from "@/components/Ticker";
 import YourDemocracy from "@/components/YourDemocracy";
 import TryPostcode from "@/components/TryPostcode";
 import ElectionTimeline from "@/components/ElectionTimeline";
-import { img } from "@/lib/site";
 import PostcodeField from "@/components/PostcodeField";
 
 export const dynamic = "force-dynamic";
@@ -66,7 +64,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
         "We never ask who you support",
       ]} />
 
-      <FacesWall tiles={tiles} />
+      <p className="meta faces-note">{tiles.length} candidates are asking for a vote right now across {ballots.length} elections. Each election below lists them in ballot-paper order; photos appear only on a candidate's own page.</p>
 
       {ballots.length ? (
         <section className="democracy">
@@ -96,7 +94,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
       </ol>
 
       {ballots.length > 3 ? (<>
-        <ElectionTimeline today={new Date().toISOString().slice(0, 10)} ballots={ballots.map((b) => ({ id: b.ballot_paper_id, area: b.area_name, date: b.poll_date, level: b.level, locked: b.candidates_locked, positions: perBallot[b.ballot_paper_id] ?? 0, faces: tiles.filter((t) => t.ballot === b.ballot_paper_id).map((t) => ({ name: t.name, photo: t.photo ? img(t.photo, 80) : null, colour: t.colour })) }))} />
+        <ElectionTimeline today={new Date().toISOString().slice(0, 10)} ballots={ballots.map((b) => ({ id: b.ballot_paper_id, area: b.area_name, date: b.poll_date, level: b.level, locked: b.candidates_locked, positions: perBallot[b.ballot_paper_id] ?? 0, faces: tiles.filter((t) => t.ballot === b.ballot_paper_id).map((t) => ({ name: t.name, photo: null, colour: t.colour })) }))} />
         <h3 style={{ marginTop: "2rem" }}>On the map</h3>
         <BallotsMap ballots={ballots.map((b) => ({ ballot_paper_id: b.ballot_paper_id, area_name: b.area_name, poll_date: b.poll_date, level: b.level, lat: b.area_lat, lng: b.area_lng }))} />
       </>) : null}

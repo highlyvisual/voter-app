@@ -1,3 +1,4 @@
+import { topicsForHousehold } from "@/lib/topicOrder";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -35,6 +36,10 @@ export default async function Stakes({ params, searchParams }: { params: Promise
     { key: "rights", title: "Equality and rights", lead: "Discrimination law, disability rights, sex and gender.", topic: "equality_and_rights" },
   ];
   const label = Object.fromEntries(TOPICS);
+  const order = topicsForHousehold(h);
+  const reason = Object.fromEntries(order.relevant.map((r) => [r.topic, r.reason])) as Record<string, string>;
+  const rank = Object.fromEntries(order.all.map((r, i) => [r.topic, i])) as Record<string, number>;
+  cards.sort((a, b) => rank[a.topic] - rank[b.topic]);
   return (
     <>
       <Suspense fallback={null}><ProfileApply /></Suspense>
@@ -49,6 +54,7 @@ export default async function Stakes({ params, searchParams }: { params: Promise
           return (
             <Link key={c.key} href={`/ballot/${encodeURIComponent(ballotId)}/topic/${c.topic}${qs ? `?${qs}` : ""}`} className={`stake${s.n ? "" : " empty"}`}>
               <span className="stake-title">{c.title}</span>
+              {reason[c.topic] ? <span className="meta stake-why">First {reason[c.topic]}</span> : null}
               <span className="stake-n">{s.n}</span>
               <span className="stake-unit">published {s.n === 1 ? "position" : "positions"}{s.n ? ` from ${s.who} of ${candidates.length} candidates` : ""}</span>
               <span className="stake-lead">{c.lead}</span>
@@ -57,7 +63,7 @@ export default async function Stakes({ params, searchParams }: { params: Promise
           );
         })}
       </div>
-      <p className="meta">The order of these cards is fixed and identical for everyone. {label[""] ?? ""}A count measures how much has been published, not how good or how important anything is.</p>
+      <p className="meta">{order.relevant.length ? "Cards that touch something you told us about your household come first, with the reason; the rest follow in a fixed order. Nothing political changes the order." : "The order of these cards is fixed until you add your household; then the ones that touch it come first, with the reason."} {label[""] ?? ""}A count measures how much has been published, not how good or how important anything is.</p>
       <JourneyNext ballotId={ballotId} current="stakes" qs={qs} />
     </>
   );

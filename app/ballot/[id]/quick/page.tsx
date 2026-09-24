@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { claimsFor } from "@/components/CandidateCard";
 import { TOPICS, getBallot, listCandidates, listVerifiedClaims } from "@/lib/data";
-import { img } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -30,7 +29,7 @@ export default async function Quick({ params }: { params: Promise<{ id: string }
           return (
             <li key={c.id}>
               <Link href={`/ballot/${encodeURIComponent(ballotId)}/candidate/${c.id}`} className="quick-row">
-                {c.photo_url ? <img className="avatar photo" src={img(c.photo_url)} alt="" loading="lazy" width={54} height={54} style={{ borderColor: c.parties?.colour_hex ?? undefined }} /> : <span className="avatar" aria-hidden>{c.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("")}</span>}
+                <span className="avatar" aria-hidden style={{ boxShadow: c.parties?.colour_hex ? `inset 0 0 0 3px ${c.parties.colour_hex}` : undefined }}>{c.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("")}</span>
                 <span>
                   <strong>{i + 1}. {c.name}</strong><br />
                   <span className="meta">{c.party_description_on_ballot && c.party_description_on_ballot !== "[blank]" ? c.party_description_on_ballot : c.party_name_on_ballot}</span><br />

@@ -15,7 +15,7 @@ import PlacePanel from "@/components/PlacePanel";
 import SinceThen from "@/components/SinceThen";
 import Journey from "@/components/Journey";
 import CiteThis from "@/components/CiteThis";
-import { img } from "@/lib/site";
+import { topicsForHousehold } from "@/lib/topicOrder";
 import CountUp from "@/components/CountUp";
 import ProfileApply from "@/components/ProfileApply";
 import FurtherReading from "@/components/FurtherReading";
@@ -31,7 +31,6 @@ import SystemExplainer from "@/components/SystemExplainer";
 import OfficeExplainer from "@/components/OfficeExplainer";
 import { previousResult } from "@/lib/democracyclub";
 import { gridKey, householdComplete, householdFromParams } from "@/lib/household";
-import { SITE } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ id: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
@@ -72,8 +71,8 @@ export default async function BallotPage({ params, searchParams }: Props) {
   const prevLabel = prevId ? (prevId.includes("2024-07-04") ? "general election, 4 July 2024" : `election of ${fmt(prevId.slice(-10))}`) : "";
 
   const covered = candidates.filter((c) => claimsFor(c, claims).length > 0).length;
-  const showPhotos = SITE.photos === "any" ? true : candidates.every((c) => !!c.photo_url);
-  const withPhoto = candidates.filter((c) => !!c.photo_url).length;
+  const topicOrder = topicsForHousehold(household);
+  const qsTopic = new URLSearchParams(Object.entries(sp).filter(([, v]) => typeof v === "string") as [string, string][]).toString();
   const topicCounts: Record<number, Record<string, number>> = Object.fromEntries(candidates.map((c) => [c.id, Object.fromEntries(TOPICS.map(([k]) => [k, claimsFor(c, claims).filter((cl) => cl.topic === k).length]))]));
   void bumpUsage(ballotId);
   const year = ballot.poll_date.slice(0, 4);
@@ -100,14 +99,11 @@ export default async function BallotPage({ params, searchParams }: Props) {
             <div><b><CountUp value={covered} /></b><span>with something published</span></div>
             <div><b><CountUp value={new Set(claims.map((c) => c.sources?.id).filter(Boolean)).size} /></b><span>named sources</span></div>
           </div>
-          <div className="face-strip" aria-label="Candidates in ballot-paper order">
+          <ol className="name-strip" aria-label="Candidates in ballot-paper order">
             {candidates.map((c, i) => (
-              <a key={c.id} href={`#c-${c.id}`} className="face" style={{ borderColor: c.parties?.colour_hex ?? "var(--rule)" }} title={`${i + 1}. ${c.name}, ${c.party_name_on_ballot}`}>
-                {showPhotos && c.photo_url ? <img src={img(c.photo_url, 112)} alt="" loading="lazy" width={52} height={52} /> : <span className="initials">{c.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("")}</span>}
-                <span className="face-label"><strong>{i + 1}. {c.name}</strong><br />{c.party_name_on_ballot}</span>
-              </a>
+              <li key={c.id}><a href={`#c-${c.id}`}><span className="meta">{i + 1}</span> {c.name}<span className="party-dot" aria-hidden style={{ background: c.parties?.colour_hex ?? "var(--rule)" }} /><span className="meta">{c.party_name_on_ballot}</span></a></li>
             ))}
-          </div>
+          </ol>
           {ballot.uncontested ? <div className="notice"><p><strong>Uncontested: elected without a poll.</strong> The number of valid nominations did not exceed the seats, so the candidate{candidates.length > 1 ? "s" : ""} below {candidates.length > 1 ? "are" : "is"} returned without a vote.</p></div> : null}
           {ballot.postponed ? <div className="notice"><p><strong>Postponed.</strong> {ballot.postponed_note ?? "This poll has been postponed; the new date will appear here when the council publishes it."}</p></div> : null}
           {ballot.cancelled && !ballot.uncontested ? <div className="notice"><p><strong>Cancelled.</strong> The council has cancelled this poll.</p></div> : null}
@@ -151,7 +147,17 @@ export default async function BallotPage({ params, searchParams }: Props) {
       {ballot.archived && ownResult ? <LastTime result={ownResult} label={`the result, ${fmt(ballot.poll_date)}`} open /> : null}
 
 
-      <div id="household" className="household-zone" style={{ scrollMarginTop: "6rem" }}><div><HouseholdForm household={household} complete={complete} /><TopicOrder /></div></div>
+      <div id="household" className="household-zone" style={{ scrollMarginTop: "6rem" }}><div><HouseholdForm household={household} complete={complete} />
+        <section className="topic-order" aria-label="Topics in the order shown for this household">
+          {topicOrder.relevant.length ? (<>
+            <p className="meta" style={{ margin: "0 0 0.3rem" }}>Shown first for you</p>
+            <ul className="topic-first">{topicOrder.relevant.map((r) => <li key={r.topic}><Link href={`/ballot/${encodeURIComponent(ballotId)}/topic/${r.topic}${qsTopic ? `?${qsTopic}` : ""}`}>{r.label}</Link> <span className="meta">— {r.reason}</span></li>)}</ul>
+          </>) : null}
+          <p className="meta" style={{ margin: "0.5rem 0 0.3rem" }}>{topicOrder.relevant.length ? "Explore all topics" : "Explore by topic"}</p>
+          <p className="topic-all">{topicOrder.all.map((r, i) => <span key={r.topic}>{i ? " · " : ""}<Link href={`/ballot/${encodeURIComponent(ballotId)}/topic/${r.topic}${qsTopic ? `?${qsTopic}` : ""}`}>{r.label.split(",")[0].replace(" and cost of living", "").replace(" and property", "").replace(" and social care", "").replace(" and universities", "").replace(" and borders", "")}</Link></span>)}</p>
+          <p className="meta" style={{ margin: "0.5rem 0 0" }}>{topicOrder.relevant.length ? "The order changes only with what you told us about your household, never with anything political, and it never changes who is shown or any figure." : "Add your household and the topics that touch it come first, with the reason."}</p>
+        </section>
+        <TopicOrder /></div></div>
 
       {isLocal ? (
         <div className="notice small">
@@ -194,11 +200,11 @@ export default async function BallotPage({ params, searchParams }: Props) {
       </p>
       {candidates.map((c, i) => (
         <Suspense key={c.id} fallback={<details className="candidate"><summary><div className="who"><span className="avatar" aria-hidden /><div><h3 className="name"><span className="meta" style={{ marginRight: "0.5rem" }}>{i + 1}</span>{c.name}</h3><p className="party">{c.party_name_on_ballot}</p></div></div><span className="disclosure">Loading</span></summary></details>}>
-        <CandidateCard candidate={c} position={i + 1} claims={claims} receipts={receipts} household={household} complete={complete} baselineId={baselineId} invitation={invitations.find((v) => v.candidate_id === c.id) ?? null} level={ballot.level} areaName={ballot.area_name} councilSiteUrl={councilSite} leaflets={leaflets.filter((l) => l.candidate_id === c.id)} pollDate={ballot.poll_date} showPhotos={showPhotos} stoodBefore={stood.filter((p) => p.candidate_id === c.id)} />
+        <CandidateCard candidate={c} position={i + 1} claims={claims} receipts={receipts} household={household} complete={complete} baselineId={baselineId} invitation={invitations.find((v) => v.candidate_id === c.id) ?? null} level={ballot.level} areaName={ballot.area_name} councilSiteUrl={councilSite} leaflets={leaflets.filter((l) => l.candidate_id === c.id)} pollDate={ballot.poll_date} stoodBefore={stood.filter((p) => p.candidate_id === c.id)} />
         </Suspense>
       ))}
 
-      <p className="meta">Photos: {SITE.photos === "any" ? `shown where one exists on Democracy Club (${withPhoto} of ${candidates.length} here); initials otherwise. A missing photo says nothing about the candidate.` : "shown only when we have one for every candidate on this ballot; initials otherwise, for everyone."} · <Link href={`/coverage/${encodeURIComponent(ballotId)}`}>How much sourced material we found per party</Link>{isLocal ? <> · <Link href="/about/parties-standing">Why isn't my party standing here?</Link></> : null}</p>
+      <p className="meta">Photos appear only on each candidate's own page, so every candidate looks the same in this list. <Link href={`/coverage/${encodeURIComponent(ballotId)}`}>How much sourced material we found per party</Link>{isLocal ? <> · <Link href="/about/parties-standing">Why isn't my party standing here?</Link></> : null}</p>
       {previous && !ballot.archived ? <LastTime result={previous} label={prevLabel} /> : null}
 
       {loc && !ballot.archived ? (

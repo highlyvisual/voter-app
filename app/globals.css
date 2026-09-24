@@ -1127,3 +1127,18 @@ img.gone { display: none; }
 /* A candidate photo that 404s at the source leaves a broken icon; hide it and show the neutral initials instead. */
 img.gone { display: none !important; }
 .face.gone-parent .initials, .avatar.gone-parent { display: grid; }
+
+/* Round 5 (24 Sept): calmer candidate lists, topics in household order */
+.name-strip { list-style: none; margin: 0.6rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; font-family: var(--sans); font-size: 0.92rem; }
+.name-strip li { margin: 0; }
+.name-strip a { text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 0.35rem; }
+.name-strip a:hover { text-decoration: underline; }
+.name-strip .party-dot { display: inline-block; width: 0.55rem; height: 0.55rem; border-radius: 50%; margin: 0 0.15rem 0 0.35rem; }
+.topic-order { margin: 0.9rem 0 0; padding-top: 0.75rem; border-top: 1px solid var(--rule); }
+.topic-first { list-style: none; margin: 0; padding: 0; }
+.topic-first li { margin: 0.15rem 0; }
+.topic-first a { font-weight: 600; }
+.topic-all { margin: 0; line-height: 1.8; font-family: var(--sans); font-size: 0.92rem; }
+.topic-why { font-weight: 400; font-size: 0.8rem; margin-left: 0.4rem; }
+.stake-why { display: block; font-size: 0.8rem; margin: -0.2rem 0 0.3rem; }
+html.lite .name-strip { display: flex; }
