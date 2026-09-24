@@ -1,0 +1,294 @@
+{
+ "sources": [
+  {
+   "key": "con-plan-2026",
+   "title": "Our Plan for Britain (Stronger Economy / Stronger Country)",
+   "url": "https://www.conservatives.com/our-plan-for-britain",
+   "publisher": "Conservative Party (party site)",
+   "published_on": null,
+   "layer": "manifesto",
+   "notes": "Current party policy page read 2026-09-24; page shows no publication date (footer '(c) 2026 The Conservative Party'; refers to the May 2026 Alternative King's Speech). Party's own publication."
+  },
+  {
+   "key": "con-aks-2026",
+   "title": "Alternative King's Speech (Conservative Party, May 2026)",
+   "url": "https://cdn.prod.website-files.com/6760307b23436bea5cfc749e/6a05bb030474a7de9ec2e011_Alternative%20King%27s%20Speech_WEB.pdf",
+   "publisher": "Conservative Party (party site)",
+   "published_on": null,
+   "layer": "manifesto",
+   "notes": "PDF linked from conservatives.com/our-plan-for-britain, which says the plan was outlined in May 2026; the PDF itself shows no cover date. Quote is a Bill long title; PDF line breaks joined with single spaces."
+  },
+  {
+   "key": "green-manifesto-2024-education",
+   "title": "Real Hope, Real Change - A Fairer, Greener Education System (2024 General Election manifesto)",
+   "url": "https://greenparty.org.uk/about/our-manifesto/a-fairer-greener-education-system/",
+   "publisher": "Green Party of England and Wales (party site)",
+   "published_on": "2024-06-12",
+   "layer": "manifesto",
+   "notes": "2024 manifesto chapter page, still the party's published manifesto on greenparty.org.uk as of 2026-09-24. Date taken from page metadata (dateModified 2024-06-12; published 2024-06-11); no date is displayed in the visible text."
+  },
+  {
+   "key": "green-manifesto-2024-justice",
+   "title": "Real Hope, Real Change - Defending Human Rights, Democracy and Justice (2024 General Election manifesto)",
+   "url": "https://greenparty.org.uk/about/our-manifesto/defending-human-rights-democracy-and-justice/",
+   "publisher": "Green Party of England and Wales (party site)",
+   "published_on": "2024-06-12",
+   "layer": "manifesto",
+   "notes": "2024 manifesto chapter page, still the party's published manifesto on greenparty.org.uk as of 2026-09-24. Date taken from page metadata; no date is displayed in the visible text."
+  }
+ ],
+ "claims": [
+  {
+   "source_key": "con-plan-2026",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP52",
+   "topic": "education_and_universities",
+   "claim_text": "The Conservative Party says it will push for a nationwide ban on smartphones in schools.",
+   "source_quote": "Push for a nationwide ban on smartphones in schools to better protect learning and mental health",
+   "applies_if": {
+    "children": "school_age"
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "con-plan-2026",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP52",
+   "topic": "education_and_universities",
+   "claim_text": "The Conservative Party pledged to scrap real interest rates on Plan 2 student loans so that loan balances can no longer rise faster than inflation.",
+   "source_quote": "Scrap real interest rates on Plan 2 student loans so balances can no longer rise faster than inflation, saving graduates tens of thousands of pounds over the course of their careers",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "con-plan-2026",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP52",
+   "topic": "education_and_universities",
+   "claim_text": "The Conservative Party pledged to create 100,000 more apprenticeships for 18 to 21 year olds by lifting funding caps and supporting employers with up to £5,000 for every British apprentice they hire.",
+   "source_quote": "Create 100,000 more apprenticeships for 18 to 21 year olds by lifting funding caps and supporting employers with up to £5,000 for every British apprentice they hire",
+   "applies_if": {
+    "age_band": "18_24"
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "con-plan-2026",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP52",
+   "topic": "education_and_universities",
+   "claim_text": "The Conservative Party says it would pay for its New Deal for Young People by ending funding for university degrees it describes as wasteful and as not improving job prospects or career earnings.",
+   "source_quote": "We would pay for this by ending funding for wasteful university degrees that trap young people in debt without improving job prospects or career earnings.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "con-plan-2026",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP52",
+   "topic": "education_and_universities",
+   "claim_text": "The Conservative Party pledged to repeal what it calls the \"Education Tax\".",
+   "source_quote": "Repealing the Education Tax supporting parents who invest in their children’s future",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "con-aks-2026",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP52",
+   "topic": "education_and_universities",
+   "claim_text": "The Conservative Party's Alternative King's Speech includes a Restoring School Standards Bill to restore academy freedoms, ban the use of smartphones during the school day and exclude pupils who bring knives into schools.",
+   "source_quote": "A Bill to make provision about academy freedoms, banning the use of smartphones during the school day, and exclude pupils who bring knives into schools, and for connected purposes.",
+   "applies_if": {
+    "children": "school_age"
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "con-plan-2026",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP52",
+   "topic": "equality_and_rights",
+   "claim_text": "The Conservative Party states that the Public Sector Equality Duty should be repealed.",
+   "source_quote": "Following detailed advice by prominent barrister Andrew Dinsmore, the Conservatives have concluded that the Public Sector Equality Duty should be repealed.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "con-plan-2026",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP52",
+   "topic": "equality_and_rights",
+   "claim_text": "The Conservative Party pledged to scrap the recording of Non-Crime Hate Incidents by police.",
+   "source_quote": "Scrap “Non-Crime Hate Incidents” that waste police time and threaten free speech",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "con-plan-2026",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP52",
+   "topic": "equality_and_rights",
+   "claim_text": "The Conservative Party pledged to oppose and scrap plans for digital ID cards.",
+   "source_quote": "Oppose and scrap Labour’s plans for digital ID cards",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "con-plan-2026",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP52",
+   "topic": "equality_and_rights",
+   "claim_text": "The Conservative Party says it has commissioned Lord Young of Acton to examine threats to free speech in everyday life, reporting later in 2026.",
+   "source_quote": "Commission Lord Young of Acton to examine threats to free speech in everyday life, reporting later this year",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "con-plan-2026",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP52",
+   "topic": "equality_and_rights",
+   "claim_text": "The Conservative Party pledged that a Conservative government would ban election materials in foreign languages.",
+   "source_quote": "We have already announced that the next Conservative Government would ban election materials in foreign languages.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "con-plan-2026",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP52",
+   "topic": "healthcare_and_social_care",
+   "claim_text": "The Conservative Party pledged to legislate for minimum service levels in the NHS and to ban doctors from striking.",
+   "source_quote": "The Conservative Party will legislate for minimum service levels and ban doctors from striking to protect patient safety.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "con-plan-2026",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP52",
+   "topic": "defence_foreign_affairs_and_eu",
+   "claim_text": "The Conservative Party pledged to reallocate up to £50 billion of funding currently spent on environmental projects to defence through a Sovereign Defence Fund.",
+   "source_quote": "Prioritise investment in defence by reallocating up to £50 billion of funding currently spent on costly environmental projects through a Sovereign Defence Fund",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "con-plan-2026",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP52",
+   "topic": "defence_foreign_affairs_and_eu",
+   "claim_text": "The Conservative Party pledged a Tax Free Reservists Scheme with the aim of growing the Armed Forces Reserves to 50,000 personnel.",
+   "source_quote": "Introduce a Tax Free Reservists Scheme. To grow Britain's Armed Forces Reserves to 50,000 personnel, strengthening our nation's security while recognising the enormous contribution made by our reservists.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "con-plan-2026",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP52",
+   "topic": "defence_foreign_affairs_and_eu",
+   "claim_text": "The Conservative Party pledged to support service personnel through a new Armed Forces Housing Association.",
+   "source_quote": "Support service personnel through a new Armed Forces Housing Association",
+   "applies_if": {
+    "is_veteran": true
+   },
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "green-manifesto-2024-education",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP63",
+   "topic": "education_and_universities",
+   "claim_text": "The Green Party pledged an increase in school funding of £8bn, including £2bn for a pay uplift for teachers.",
+   "source_quote": "An increase in school funding of £8bn, to include £2bn for a pay uplift for teachers.",
+   "applies_if": {
+    "children": "school_age"
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "green-manifesto-2024-education",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP63",
+   "topic": "education_and_universities",
+   "claim_text": "The Green Party pledged to end high-stakes testing at primary and secondary schools and to abolish OFSTED.",
+   "source_quote": "Ending high-stakes testing at primary and secondary schools and abolishing OFSTED.",
+   "applies_if": {
+    "children": "school_age"
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "green-manifesto-2024-justice",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP63",
+   "topic": "crime_policing_and_justice",
+   "claim_text": "The Green Party pledged a £2.5bn investment to repair and renew the court system.",
+   "source_quote": "Repair and renew our crumbling court system with a £2.5bn investment.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "green-manifesto-2024-justice",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP63",
+   "topic": "crime_policing_and_justice",
+   "claim_text": "The Green Party pledged to scrap the Police, Crime, Sentencing and Courts Act and the Public Order Act.",
+   "source_quote": "Scrap the Police, Crime Sentencing and Courts Act, the Public Order Act and other legislation that erodes the right to protest and free expression.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "green-manifesto-2024-justice",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP63",
+   "topic": "crime_policing_and_justice",
+   "claim_text": "The Green Party pledged to scrap the Prevent programme.",
+   "source_quote": "Scrap the Prevent programme and tackle hate crime, misogyny, Islamophobia and antisemitism. Seek to restore trust and confidence in the police.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+name: Load drafted claims
+# Inserts scripts/claims/*.json into the ledger through the service role, so drafted claims are reviewed in git and the
+# key stays in GitHub. Idempotent: a claim already present (same ballot, party, topic and quotation) is skipped.
+on:
+  workflow_dispatch:
+  push:
+    paths: ["scripts/claims/*.json"]
+jobs:
+  load:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - name: Load claims
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          PYTHONUNBUFFERED: "1"
+        run: python scripts/load_claims.py

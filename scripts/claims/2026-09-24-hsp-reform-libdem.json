@@ -1,0 +1,650 @@
+{
+ "sources": [
+  {
+   "key": "reform-policies",
+   "title": "Our Policies (Reform UK policy page)",
+   "url": "https://www.reformparty.uk/policies",
+   "publisher": "Reform UK (party site)",
+   "published_on": null,
+   "layer": "manifesto",
+   "notes": "No publication date shown on the page. Live page read via WebFetch on 2026-09-24; verbatim text taken from the Internet Archive capture of the same URL dated 2026-09-11 (reformparty.uk blocks direct HTML download with Cloudflare), and the two versions matched section by section."
+  },
+  {
+   "key": "reform-contract-2024",
+   "title": "Our Contract with You (Reform UK 2024 general election manifesto)",
+   "url": "https://assets.nationbuilder.com/reformuk/pages/253/attachments/original/1718625371/Reform_UK_Our_Contract_with_You.pdf",
+   "publisher": "Reform UK (party PDF)",
+   "published_on": null,
+   "layer": "manifesto",
+   "notes": "PDF hosted on the party's own NationBuilder asset store (reformparty.uk itself blocks downloads). Document is marked 'REFORM UK 2024' only; published for the July 2024 general election, exact date not shown. Used only for commitments not restated on the 2026 policy page; where the 2026 page differs (e.g. personal allowance) the 2026 page has been preferred. Two-column PDF; line breaks joined with single spaces."
+  },
+  {
+   "key": "libdem-manifesto-2024",
+   "title": "For a Fair Deal - Liberal Democrat Manifesto 2024",
+   "url": "https://www.libdems.org.uk/manifesto",
+   "publisher": "Liberal Democrats (party site)",
+   "published_on": null,
+   "layer": "manifesto",
+   "notes": "2024 general election manifesto; the page shows the year only, no day/month. Quotes checked against both the HTML page text and the party's PDF (https://www.libdems.org.uk/fileadmin/groups/2_Federal_Party/Documents/PolicyPapers/Manifesto_2024/For_a_Fair_Deal_-_Liberal_Democrat_Manifesto_2024.pdf); PDF line breaks joined with single spaces and bullet glyphs dropped."
+  },
+  {
+   "key": "libdem-income-tax-2026",
+   "title": "Cutting income tax to tackle the cost-of-living crisis",
+   "url": "https://www.libdems.org.uk/news/article/cutting-income-tax-to-tackle-the-cost-of-living-crisis",
+   "publisher": "Liberal Democrats (party site)",
+   "published_on": "2026-09-22",
+   "layer": "manifesto",
+   "notes": "Party news/policy announcement from the September 2026 autumn conference, on the party's own site."
+  }
+ ],
+ "claims": [
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "money_and_cost_of_living",
+   "claim_text": "Reform UK says it would present a Budget within its first 100 days in office raising the tax-free personal allowance to £15,000, effective from the start of the next tax year.",
+   "source_quote": "In the First 100 days of a Reform UK Government, we will release a Budget that increases the tax-free personal allowance to £15,000. That will take effect at the beginning of the next tax year, and it will repair much of the damage done by successive chancellors’ neglect. It will deliver £486 in tax relief to most taxpayers and take 2.9 million taxpayers out of income tax altogether.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "money_and_cost_of_living",
+   "claim_text": "Reform UK says it would introduce a \"Hard Work Bonus\" under which employees earning under £75,000 would pay no tax on overtime worked above a 40-hour week.",
+   "source_quote": "We will also introduce a Hard Work Bonus, meaning employees earning under £75,000 would pay no tax on overtime worked above a 40-hour week.",
+   "applies_if": {
+    "employment": "employed"
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "money_and_cost_of_living",
+   "claim_text": "Reform UK says it would raise the VAT registration threshold to £150,000.",
+   "source_quote": "We will make tax fairer and easier by increasing the VAT threshold to £150,000, introducing a Hard Work Bonus by removing tax on overtime, reversing Rachel Reeves’s Inheritance Tax raid on family farms and small businesses, and introducing ‘delay repay’ for HMRC backlogs, so the Revenue is incentivised to treat taxpayers with respect.",
+   "applies_if": {
+    "employment": "self_employed"
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "housing_and_property",
+   "claim_text": "Reform UK says it plans to build 50,000 new affordable homes a year for British workers, funded without new taxes or government borrowing.",
+   "source_quote": "Our plan to build 50,000 new affordable homes a year for British workers, funded with no new taxes and no government borrowing.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-contract-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "housing_and_property",
+   "claim_text": "Reform UK's 2024 contract states it would make it cheaper and easier for leaseholders to extend leases to 990 years and to buy their freeholds.",
+   "source_quote": "All potential charges for leasehold or freehold residents must be clearly stated and consented to. Enforce Section 106 agreements. Ensure it is cheaper and easier to extend leases to 990 years and buy freeholds.",
+   "applies_if": {
+    "owns": true
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-contract-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "housing_and_property",
+   "claim_text": "Reform UK's 2024 contract states that social housing allocation would prioritise local people and those who have paid into the system, with foreign nationals placed at the back of the queue.",
+   "source_quote": "Reform Social Housing Law Prioritise local people and those who have paid into the system. Foreign nationals must go to the back of the queue. Not the front.",
+   "applies_if": {
+    "tenure": "social_rent"
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "healthcare_and_social_care",
+   "claim_text": "Reform UK states the NHS would remain free at the point of use and funded by general taxation under a Reform UK government.",
+   "source_quote": "Under a Reform UK Government, the NHS will remain free at the point of use and funded by general taxation.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "healthcare_and_social_care",
+   "claim_text": "Reform UK says it would work to redirect NHS funding from back-office functions into frontline services.",
+   "source_quote": "We will improve the NHS by working to redirect funding from back office bloat back into frontline services.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "education_and_universities",
+   "claim_text": "Reform UK says it would introduce a 30% apprenticeship wage credit for small and medium-sized employers, which it states would save over £4,000 a year per apprentice.",
+   "source_quote": "Our plan to revitalise apprenticeships with a 30% wage credit for SMEs, saving over £4,000 a year per apprentice and delivering the skilled workforce Britain needs.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "education_and_universities",
+   "claim_text": "Reform UK says it would reduce the size of the university sector and use the savings to fund apprenticeships.",
+   "source_quote": "Within 100 days of taking power, we will put the Royal Navy in the Channel to stop the boats. We will raise the personal allowance to £15,000. We will cut £250 off your energy bills. And we will cut back the bloated university sector to fund apprenticeships.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-contract-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "education_and_universities",
+   "claim_text": "Reform UK's 2024 contract states it would scrap interest on student loans and extend the loan repayment period to 45 years.",
+   "source_quote": "Scrap Interest on Student Loans Extend loan capital repayment periods to 45 years. Restrict undergraduate numbers well below current levels, too many courses are not good enough and students are being ripped off. Enforce minimum entry standards.",
+   "applies_if": {
+    "student": "university"
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "environment_climate_and_energy",
+   "claim_text": "Reform UK says its energy measures, taken within 100 days of office, would put an extra £250 a year back into household pockets.",
+   "source_quote": "A Reform UK Government would take these measures within 100 days of taking office. Together, these changes would put an extra £250 a year back into your pockets.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "environment_climate_and_energy",
+   "claim_text": "Reform UK says it would remove all government-imposed policy costs from energy bills and shift the cost of renewable subsidies to the Treasury.",
+   "source_quote": "Reform UK will remove all government imposed policy costs from energy bills. We will shift the burden of poorly thought-through renewable subsidies to the Treasury while we pursue bad actors and unwind unfair contracts.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "environment_climate_and_energy",
+   "claim_text": "Reform UK says it would prioritise energy security, expand domestic energy production and scrap policies it says drive bills higher.",
+   "source_quote": "Reform UK will prioritise energy security, expand domestic energy production, and scrap policies that drive bills higher while making Britain more dependent on foreign energy.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "immigration_and_borders",
+   "claim_text": "Reform UK says that under \"Operation Fortress\" the Royal Navy would intercept all migrant boats entering the English Channel and return those on board to France or Belgium under escort.",
+   "source_quote": "Under Reform UK's plan, titled Operation Fortress, the Royal Navy, supported by relevant civilian authorities, would intercept all migrant boats entering the English Channel, securing those on board and safely returning them to France or Belgium under escort.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "immigration_and_borders",
+   "claim_text": "Reform UK says it would run a five-year emergency programme to identify, detain and deport illegal migrants in the UK.",
+   "source_quote": "Reform UK will implement a five-year emergency programme to identify, detain, and deport illegal migrants in the UK.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "immigration_and_borders",
+   "claim_text": "Reform UK says it would abolish Indefinite Leave to Remain, rescind existing awards, and replace it with a 5-year renewable visa with higher salary thresholds, mandatory English fluency and stricter good-character requirements.",
+   "source_quote": "Reform UK will abolish ILR and rescind existing awards. Reform UK will introduce a 5 year renewable visa for migrants with higher salary thresholds, mandatory fluency in English, and stricter good character requirements. There will be no recourse to benefits for foreign nationals.",
+   "applies_if": {
+    "on_visa": true
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "immigration_and_borders",
+   "claim_text": "Reform UK states that those with EU settled status are not in scope of its Indefinite Leave to Remain policy, but that foreign nationals would no longer be eligible for welfare benefits.",
+   "source_quote": "No - those with EU settled status are not in scope of the policy. However, your entitlement to benefits will change under a Reform Government. Foreign nationals will no longer be eligible for welfare benefits.",
+   "applies_if": {
+    "on_visa": true
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "crime_policing_and_justice",
+   "claim_text": "Reform UK says it would not allow early release from prison for serious crimes including murder, serious violent crimes and rape.",
+   "source_quote": "A Reform Government would not allow early release from prison for serious crimes including murder, serious violent crimes and rape.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "crime_policing_and_justice",
+   "claim_text": "Reform UK says it would introduce mandatory life sentences for child rapists as part of tougher sentencing for serious and repeat offenders.",
+   "source_quote": "Reform UK will restore visible policing, much tougher sentencing for serious and repeat offenders - including mandatory life sentences for child rapists, and an uncompromising approach to crime and antisocial behaviour.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "crime_policing_and_justice",
+   "claim_text": "Reform UK says it would deport foreign offenders to their home country or to countries such as El Salvador and Kosovo.",
+   "source_quote": "We will rapidly build prison capacity and deport foreign offenders to their home country or places like El Salvador and Kosovo.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "defence_foreign_affairs_and_eu",
+   "claim_text": "Reform UK says it would commit to spending 3.5% of GDP on defence by 2035.",
+   "source_quote": "We will invest significantly in capability, readiness, and equipment for our forces. We will commit to spending 3.5% of GDP on defence by 2035.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "defence_foreign_affairs_and_eu",
+   "claim_text": "Reform UK says it would withdraw the UK from the European Convention on Human Rights.",
+   "source_quote": "We will leave the European Convention on Human Rights, repeal the Human Rights Act and pass legislation to ensure that anyone who enters the country illegally will be ineligible for asylum.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "defence_foreign_affairs_and_eu",
+   "claim_text": "Reform UK says it would ensure the armed forces are ready to deal with threats posed by Russia and China.",
+   "source_quote": "We will ensure our armed forces are ready to deal with the ever-present threats posed by Russia and China.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-policies",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "equality_and_rights",
+   "claim_text": "Reform UK says it would repeal the Human Rights Act.",
+   "source_quote": "We will leave the European Convention on Human Rights, repeal the Human Rights Act and pass legislation to ensure that anyone who enters the country illegally will be ineligible for asylum.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "reform-contract-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP7931",
+   "topic": "equality_and_rights",
+   "claim_text": "Reform UK's 2024 contract states that primary and secondary schools would have no gender questioning, social transitioning or pronoun swapping, would inform parents of under-16s about their children's life decisions, and must have single-sex facilities.",
+   "source_quote": "Ban Transgender Ideology in Primary and Secondary Schools No gender questioning, social transitioning or pronoun swapping. Inform parents of under 16s about their children’s life decisions. Schools must have single sex facilities.",
+   "applies_if": {
+    "children": "school_age"
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-income-tax-2026",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "money_and_cost_of_living",
+   "claim_text": "The Liberal Democrats say they would raise the tax-free personal allowance and the national insurance threshold to £15,000, which they state would take 2.5 million people out of income tax and give most people a £680 tax cut.",
+   "source_quote": "We'll do it again now, taking 2.5 million people out of paying income tax and giving most people a £680 tax cut, by raising the tax-free personal allowance (and the national insurance threshold) to £15,000.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-income-tax-2026",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "money_and_cost_of_living",
+   "claim_text": "The Liberal Democrats say they would raise the threshold at which the higher 40p income tax rate starts, which they state would take more than 750,000 people out of paying it.",
+   "source_quote": "We’ll also raise the point at which the higher 40p rate of tax kicks in, taking more than 750,000 people out of paying it. Millions of ordinary people – including nurses and teachers – should not be paying a rate designed for stockbrokers and merchant bankers.",
+   "applies_if": {
+    "income_band": [
+     "40k_60k",
+     "60k_100k"
+    ]
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "money_and_cost_of_living",
+   "claim_text": "The Liberal Democrats pledged to protect the state pension triple lock so that pensions rise each year by the highest of inflation, wages or 2.5%.",
+   "source_quote": "Support pensioners by protecting the triple lock so that pensions always rise in line with inflation, wages or 2.5% – whichever is highest.",
+   "applies_if": {
+    "is_pensioner": true
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "money_and_cost_of_living",
+   "claim_text": "The Liberal Democrats pledged to remove the two-child limit and the benefit cap.",
+   "source_quote": "Tackle child poverty by removing the two-child limit and the benefit cap.",
+   "applies_if": {
+    "has_children": true,
+    "on_benefits": true
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "housing_and_property",
+   "claim_text": "The Liberal Democrats pledged to immediately ban no-fault evictions, make three-year tenancies the default and create a national register of licensed landlords.",
+   "source_quote": "Delivering a fair deal for renters by immediately banning no-fault evictions, making three-year tenancies the default, and creating a national register of licensed landlords.",
+   "applies_if": {
+    "tenure": "private_rent"
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "healthcare_and_social_care",
+   "claim_text": "The Liberal Democrats pledged a guarantee that 100% of cancer patients would start treatment within 62 days of urgent referral.",
+   "source_quote": "Boost cancer survival rates and introduce a guarantee for 100% of patients to start treatment for cancer within 62 days from urgent referral.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "healthcare_and_social_care",
+   "claim_text": "The Liberal Democrats pledged to introduce free personal care in England, based on the model introduced in Scotland in 2002, so that provision is based on need rather than ability to pay.",
+   "source_quote": "Introduce free personal care based on the model introduced by the Liberal Democrats in government in Scotland in 2002, so that provision is based on need, not ability to pay.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "education_and_universities",
+   "claim_text": "The Liberal Democrats pledged to create Lifelong Skills Grants giving all adults £5,000 to spend on education and training, with an aim of raising them to £10,000 when public finances allow.",
+   "source_quote": "Create new Lifelong Skills Grants, giving all adults £5,000 to spend on education and training throughout their lives, and aim to increase them to £10,000 in the future when the public finances allow.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "environment_climate_and_energy",
+   "claim_text": "The Liberal Democrats pledged a ten-year home upgrade programme starting with free insulation and heat pumps for people on low incomes, and a requirement that all new homes be zero-carbon.",
+   "source_quote": "Make homes warmer and cheaper to heat with a ten-year emergency upgrade programme, starting with free insulation and heat pumps for those on low incomes, and ensure that all new homes are zero-carbon.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "immigration_and_borders",
+   "claim_text": "The Liberal Democrats pledged a dedicated asylum decision-making unit with a three-month service standard for processing all but the most complex asylum claims, and faster returns of those without a right to stay.",
+   "source_quote": "Tackle the asylum backlog by establishing a dedicated unit to improve the speed and quality of asylum decision-making, introducing a service standard of three months for all but the most complex asylum claims to be processed, and speeding up returns of those without a right to stay.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "immigration_and_borders",
+   "claim_text": "The Liberal Democrats pledged to lift the ban on asylum seekers working once they have waited more than three months for a decision.",
+   "source_quote": "Lift the ban on asylum seekers working if they have been waiting for a decision for more than three months, enabling them to support themselves, integrate in their communities and contribute to the economy.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "immigration_and_borders",
+   "claim_text": "The Liberal Democrats pledged to reverse the increase to the minimum income thresholds for family visas.",
+   "source_quote": "Reverse the Conservatives’ unfair increase to income thresholds for family visas, so that no more families are torn apart.",
+   "applies_if": {
+    "on_visa": true
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "crime_policing_and_justice",
+   "claim_text": "The Liberal Democrats pledged a new statutory guarantee that all burglaries will be attended by the police and properly investigated.",
+   "source_quote": "Creating a new statutory guarantee that all burglaries will be attended by the police and properly investigated.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "crime_policing_and_justice",
+   "claim_text": "The Liberal Democrats pledged a target of halving the time from offence to sentencing for all criminals.",
+   "source_quote": "Setting a clear target of halving the time from offence to sentencing for all criminals, and implementing a properly funded strategy across the criminal justice system to achieve it.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "crime_policing_and_justice",
+   "claim_text": "The Liberal Democrats pledged to scrap Police and Crime Commissioners and replace them with local Police Boards of councillors and local representatives.",
+   "source_quote": "Scrapping Police and Crime Commissioners and replacing them with local Police Boards made up of councillors and representatives from relevant local groups, while investing the savings in frontline policing.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "defence_foreign_affairs_and_eu",
+   "claim_text": "The Liberal Democrats pledged to increase defence spending in every year of the Parliament, with an ambition to spend at least 2.5% of GDP on defence.",
+   "source_quote": "Maintaining the UK’s support for NATO, and accordingly increasing defence spending in every year of the Parliament, with an ambition to spend at least 2.5% of GDP on defence.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "defence_foreign_affairs_and_eu",
+   "claim_text": "The Liberal Democrats pledged to reverse the cut to the Army, with a longer-term ambition of raising regular troop numbers back to over 100,000.",
+   "source_quote": "Reversing the Conservative Government’s cut to the Army, with a longer-term ambition of increasing regular troop numbers back to over 100,000.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "defence_foreign_affairs_and_eu",
+   "claim_text": "The Liberal Democrats say that, as the final stage of their four-stage roadmap on Europe, they would seek to join the EU Single Market, with EU membership as their longer-term objective.",
+   "source_quote": "Finally, once ties of trust and friendship have been renewed, and the damage the Conservatives have caused to trade between the UK and EU has begun to be repaired, we would aim to place the UK-EU relationship on a more formal and stable footing by seeking to join the Single Market. All these measures will help to restore the British economy and the prosperity and opportunities of its citizens, and are also essential steps on the road to EU membership, which remains our longer-term objective.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "equality_and_rights",
+   "claim_text": "The Liberal Democrats pledged to make misogyny a hate crime.",
+   "source_quote": "Make misogyny a hate crime and give police and prosecutors the resources and training they need to prevent and prosecute all hate crimes while supporting survivors.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "equality_and_rights",
+   "claim_text": "The Liberal Democrats pledged to ban all forms of conversion therapies and practices.",
+   "source_quote": "Ban all forms of conversion therapies and practices.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "equality_and_rights",
+   "claim_text": "The Liberal Democrats pledged to reform the gender recognition process by removing the requirement for medical reports, recognising non-binary identities in law and removing the spousal veto.",
+   "source_quote": "Reform the gender recognition process to remove the requirement for medical reports, recognise non-binary identities in law, and remove the spousal veto.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "libdem-manifesto-2024",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP90",
+   "topic": "equality_and_rights",
+   "claim_text": "The Liberal Democrats pledged a new right to flexible working for everyone and a right for every disabled person to work from home unless there are significant business reasons against it.",
+   "source_quote": "Give everyone a new right to flexible working and every disabled person the right to work from home if they want to, unless there are significant business reasons why it is not possible.",
+   "applies_if": {
+    "employment": "employed"
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  }
+ ]
+}

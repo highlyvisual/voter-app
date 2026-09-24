@@ -1,0 +1,781 @@
+{
+ "sources": [
+  {
+   "key": "wpb-manifesto",
+   "title": "Britain Deserves Better – The Workers Party Manifesto",
+   "url": "https://workerspartybritain.org/wp-content/uploads/2024/03/01_Manifesto_FINAL_mar.pdf",
+   "publisher": "Workers Party of Britain (party site)",
+   "published_on": null,
+   "layer": "manifesto",
+   "notes": "PDF linked from https://workerspartybritain.org/election-platform-2024/ and https://www.workerspartygb.org/manifesto (which redirects to a NationBuilder copy of the same file). Title page: 'First published February 2024. Second impression March 2024' (no day given). Still the party's current manifesto as of September 2026."
+  },
+  {
+   "key": "cpa-manifesto",
+   "title": "Christian Peoples Alliance General Election Manifesto (Updated 2026)",
+   "url": "https://cpaparty.net/wp-content/uploads/2026/04/CPA-Manifesto-cover-2026.pdf",
+   "publisher": "Christian Peoples Alliance (party site)",
+   "published_on": null,
+   "layer": "manifesto",
+   "notes": "66-page PDF linked from the cpaparty.net home page; cover says 'General Election Manifesto (Updated 2026)', uploaded April 2026, no day given. The PDF's text layer has a defective font encoding, so every quote was verified against both the decoded text layer and an OCR of the rendered pages."
+  },
+  {
+   "key": "ukip-manifesto",
+   "title": "The UKIP Living Manifesto 2025",
+   "url": "https://irp.cdn-website.com/f6e3b8c6/files/uploaded/2025_Manifesto_-_REV3_MASTER_COPY.pdf",
+   "publisher": "UK Independence Party (party site)",
+   "published_on": null,
+   "layer": "manifesto",
+   "notes": "68-page PDF linked as 'The Living Manifesto' from https://www.ukip.org/the-living-manifesto; the party describes it as 'a living document' that is updated. No publication day given."
+  },
+  {
+   "key": "rejoin-manifesto",
+   "title": "Manifesto 2024 – The Rejoin EU Party",
+   "url": "https://therejoineuparty.com/manifesto-2024/",
+   "publisher": "Rejoin EU Party (party site)",
+   "published_on": null,
+   "layer": "manifesto",
+   "notes": "Party's own site (Electoral Commission registration PP11423; rejoineu.party does not resolve). Web page, undated beyond the '2024' title."
+  },
+  {
+   "key": "rejoin-briefings",
+   "title": "Policy Briefings – The Rejoin EU Party",
+   "url": "https://therejoineuparty.com/policy-briefings/",
+   "publisher": "Rejoin EU Party (party site)",
+   "published_on": null,
+   "layer": "manifesto",
+   "notes": "Party's own policy briefings page (undated; the rights briefing refers to events of 2022). Used only for the equality_and_rights topic, which the 2024 manifesto page does not cover."
+  }
+ ],
+ "claims": [
+  {
+   "source_key": "wpb-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11382",
+   "topic": "money_and_cost_of_living",
+   "claim_text": "Workers Party of Britain pledged a one-off 5% wealth tax on all estates valued at over £10 million.",
+   "source_quote": "We will introduce fair and comprehensive tax reform including our commitment to a one off 5% wealth tax on all estates valued fairly at over £10 million.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "wpb-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11382",
+   "topic": "housing_and_property",
+   "claim_text": "Workers Party of Britain pledged a programme of social housing that would over-ride what it calls unnecessary planning constraints, with compulsory expropriation of unused land banks.",
+   "source_quote": "We will begin a programme of social housing that will over-ride all unnecessary planning constraints. We will be prepared for the compulsory expropriation of all unused land banks and the fast-tracking of permits.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "wpb-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11382",
+   "topic": "healthcare_and_social_care",
+   "claim_text": "Workers Party of Britain pledged to end the Integrated Care Systems structure immediately and fully re-nationalise the NHS.",
+   "source_quote": "We will end this system immediately and fully re-nationalise the NHS.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "wpb-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11382",
+   "topic": "healthcare_and_social_care",
+   "claim_text": "Workers Party of Britain says it will reduce the NHS administrative and management structure, which it states has grown from 4% to 14% of budget over seventeen years.",
+   "source_quote": "We will also initiate a massive reduction in the scale of the administrative and management structure of the NHS which has increased from 4% of budget to 14% of budget over the last seventeen years and is heading higher.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "wpb-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11382",
+   "topic": "education_and_universities",
+   "claim_text": "Workers Party of Britain pledged a guaranteed right to a free-tuition first degree that can be taken at any time in a person's life, with tuition fees abolished.",
+   "source_quote": "First, by guaranteeing a right to a free tuition first degree that could be taken at any time during one’s life so as to end the pressure for young people to take on debt before they have an idea what they want to do with their lives. Tuition fees will be a thing of the past and debt for low income graduates increasingly remitted.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "wpb-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11382",
+   "topic": "education_and_universities",
+   "claim_text": "Workers Party of Britain pledged free breakfast and lunch for all school children during term time without means testing.",
+   "source_quote": "second, we support the provision of free good quality and nutritious breakfast and lunch meals during term time to all children in school without means testing and the introduction of access to low cost but nutritious meals out of term time in targeted deprived areas.",
+   "applies_if": {
+    "has_children": true
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "wpb-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11382",
+   "topic": "environment_climate_and_energy",
+   "claim_text": "Workers Party of Britain pledged to support a referendum on Net Zero as soon as possible.",
+   "source_quote": "We support the call for a Net Zero Referendum as soon as possible to create a national debate on who profits and on what terms.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "wpb-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11382",
+   "topic": "immigration_and_borders",
+   "claim_text": "Workers Party of Britain pledged investment in border security including heightened sea-going and coastal patrols, alongside visa and citizenship arrangements it describes as fair and equitable.",
+   "source_quote": "We will undertake investment in border security, including heightened sea-going and coastal patrols, but also in fair and equitable visa and citizenship arrangements that discourage organised crime and help the most vulnerable to a new life as well as ensuring that migration flows are matched to the ability of local communities to absorb new entrants.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "wpb-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11382",
+   "topic": "immigration_and_borders",
+   "claim_text": "Workers Party of Britain pledged a regular calculation of sustainable migration levels, prioritising entry for people at risk from state terrorism and war and discouraging economic migrants except where there is a demonstrable labour shortage.",
+   "source_quote": "We will make a regular calculation of the sustainable levels of migration with entry directed primarily at the protection of those most placed at harm by the operations of foreign state terrorism and war and discouraging economic migrants except in areas of demonstrable labour shortage.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "wpb-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11382",
+   "topic": "crime_policing_and_justice",
+   "claim_text": "Workers Party of Britain pledged to overhaul what it calls liberal laws that weaken police protection of the vulnerable, increase police capacity in high-crime areas and increase funding for operations against organised crime.",
+   "source_quote": "We will overhaul liberal laws that weaken the ability of the police to protect the most vulnerable while continuing to ensure appropriate civil liberties protections, increase police capacity in high crime areas, increase funding and capacity for operations targeting organised crime (including human trafficking and fraud gangs and witness protection arrangements).",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "wpb-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11382",
+   "topic": "crime_policing_and_justice",
+   "claim_text": "Workers Party of Britain states it will never permit military forces to be used on the streets of Britain.",
+   "source_quote": "Our approach will remain centred absolutely on Peel’s principles of policing as codified by Charles Reith in 1948 and we will never permit military forces to be used on the streets of Britain.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "wpb-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11382",
+   "topic": "equality_and_rights",
+   "claim_text": "Workers Party of Britain pledged to continue to uphold access provisions for disabled people and invest in technology to enhance their capacity.",
+   "source_quote": "We will continue to uphold access provisions for the disabled and invest in technology to enhance their capacity.",
+   "applies_if": {
+    "has_disability": true
+   },
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "wpb-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11382",
+   "topic": "equality_and_rights",
+   "claim_text": "Workers Party of Britain states it is committed to equal participation of men and women in the workplace, but not under exploitative conditions or at the expense of children or family life.",
+   "source_quote": "While the Workers Party of Britain is absolutely committed to equal participation of men and women in the work place, it must not be under exploitative conditions or at the expense of children or family life.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "cpa-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP79",
+   "topic": "housing_and_property",
+   "claim_text": "Christian Peoples Alliance pledged to make second homes a separate planning use class from main residences, with automatic permission to revert a second home to a main residence but not the reverse.",
+   "source_quote": "Second Homes to be a different use class in planning to main residence (to protect rural communities) with automatic planning permission for reversion from Second Home status to Main Residence status, but not the other way round.",
+   "applies_if": {
+    "owns": true
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "cpa-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP79",
+   "topic": "housing_and_property",
+   "claim_text": "Christian Peoples Alliance pledged to remove 'marriage value' from lease extensions and freehold purchases, which it says would cut costs for leaseholders by up to £100,000 in simple cases.",
+   "source_quote": "Remove the concept of ‘marriage value’ from all lease extensions and freehold purchases. In relatively simple cases, of leases of less than 50 years outside of Prime Central London, this will reduce the cost to leaseholders by up to £100,000.",
+   "applies_if": {
+    "owns": true
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "cpa-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP79",
+   "topic": "healthcare_and_social_care",
+   "claim_text": "Christian Peoples Alliance pledged to revert the NHS to the 1990s GP fundholding system.",
+   "source_quote": "To solve the NHS problem we will revert to the 1990s GP fundholding system for the NHS.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "cpa-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP79",
+   "topic": "healthcare_and_social_care",
+   "claim_text": "Christian Peoples Alliance pledged to make gender reassignment treatment or surgery for under-18s illegal and to stop the NHS funding such treatment for adults.",
+   "source_quote": "We will make it strictly illegal to provide or perform any kind of ‘gender reassignment’ treatment or surgery on children under 18 years of age. We will also make it a policy not to fund or make available any kind of ‘gender reassignment’ treatment or surgery on the NHS for adults.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "cpa-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP79",
+   "topic": "education_and_universities",
+   "claim_text": "Christian Peoples Alliance pledged to consult immediately on how to fund universities and maintain student numbers without tuition fees.",
+   "source_quote": "We will immediately consult on how we can increase funding for universities and maintain and increase student numbers without tuition fees.",
+   "applies_if": {
+    "student": "university"
+   },
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "cpa-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP79",
+   "topic": "environment_climate_and_energy",
+   "claim_text": "Christian Peoples Alliance pledged to reinvest in fossil fuels, including North Sea drilling and investment in coal and natural gas, while exploring renewable and alternative energies.",
+   "source_quote": "Ensure energy security by reinvesting in fossil fuels – especially by drilling in the North Sea and investing in coal and natural gas — whilst exploring (with focussed research and investment) those renewable and alternative energies.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "cpa-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP79",
+   "topic": "environment_climate_and_energy",
+   "claim_text": "Christian Peoples Alliance pledged financial incentives for insulating all UK homes to cut heat loss and energy bills.",
+   "source_quote": "Ensure we are continuing to use the most cost-effective method of insulating all UK homes to cut down on heat loss and consequently on energy bills, and to provide financial incentives to achieve this.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "cpa-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP79",
+   "topic": "immigration_and_borders",
+   "claim_text": "Christian Peoples Alliance pledged to leave the European Convention on Human Rights and amend British human rights legislation so it does not prevent the return of illegal immigrants.",
+   "source_quote": "Because of this and because of their ruling on other issues we would leave the ECHR and amend British Human Rights legislation to ensure it doesn’t prevent illegal immigrants from being returned especially those who have committed crimes.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "cpa-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP79",
+   "topic": "immigration_and_borders",
+   "claim_text": "Christian Peoples Alliance pledged to turn small boats carrying illegal migrants back to France or another nearby country where safe, using the Royal Navy as necessary.",
+   "source_quote": "Enhance border and channel crossing patrols, turning boats containing illegal migrants back to France or other near country of origin, as allowed by international maritime law, and where it is safe to do so. We would use the Royal Navy as necessary.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "cpa-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP79",
+   "topic": "crime_policing_and_justice",
+   "claim_text": "Christian Peoples Alliance pledged to abolish the concepts of 'hate crimes' and 'hate incidents'.",
+   "source_quote": "Every real crime has a victim, and we would abolish the concepts of “hate crimes” and “hate incidents”, which are subjectively determined, and which end up favouring certain categories of people over others.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "cpa-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP79",
+   "topic": "crime_policing_and_justice",
+   "claim_text": "Christian Peoples Alliance pledged to scrap the £200 threshold for prosecuting theft and adopt a zero-tolerance policy for all theft.",
+   "source_quote": "We will do away with the £200 limit for theft to be prosecuted which is frankly obscene. We would have a zero tolerance policy for all theft.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "cpa-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP79",
+   "topic": "defence_foreign_affairs_and_eu",
+   "claim_text": "Christian Peoples Alliance pledged to cancel the Trident renewal programme, which it says would save around £50bn, while keeping existing nuclear weapons except by negotiation.",
+   "source_quote": "We would cancel the Trident renewal programme saving around £50bn. We would, however, not dispose of our existing weapons except by negotiation.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "cpa-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP79",
+   "topic": "defence_foreign_affairs_and_eu",
+   "claim_text": "Christian Peoples Alliance pledged to spend defence resources on a missile shield and missile-diversion technology rather than updating Trident or buying nuclear-capable aircraft from the USA.",
+   "source_quote": "Use resources for a missile shield and technology to divert missiles, rather than updating Trident or buying planes that can carry nuclear weapons from the USA.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "cpa-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP79",
+   "topic": "equality_and_rights",
+   "claim_text": "Christian Peoples Alliance pledged to repeal the Gender Recognition Act 2004.",
+   "source_quote": "We will also repeal the Gender Recognition Act 2004 which allows replacement birth certificates that create a legal fiction and undermine the very basis of man-woman marriage.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "cpa-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP79",
+   "topic": "equality_and_rights",
+   "claim_text": "Christian Peoples Alliance says schools and employers must not be able to take action against teachers or individuals who support what it calls real marriage.",
+   "source_quote": "Schools must not be able to take action against teachers who support real marriage, and neither should any employer, public sector or otherwise, be able to take discriminatory action against any individual on this basis.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "ukip-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP85",
+   "topic": "money_and_cost_of_living",
+   "claim_text": "UKIP pledged to abolish inheritance tax.",
+   "source_quote": "To that end we would abolish inheritance tax.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "ukip-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP85",
+   "topic": "money_and_cost_of_living",
+   "claim_text": "UKIP says out-of-work benefit support should be capped at no more than two years in any five-year period and five years in fifteen.",
+   "source_quote": "We take the view that not more than two years’ unemployment support within a five-year period is reasonable and not more than five years support in fifteen.",
+   "applies_if": {
+    "on_benefits": true
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "ukip-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP85",
+   "topic": "housing_and_property",
+   "claim_text": "UKIP states it opposes the ban on no-fault evictions.",
+   "source_quote": "The Party opposes the ban on no fault evictions.",
+   "applies_if": {
+    "rents": true
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "ukip-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP85",
+   "topic": "housing_and_property",
+   "claim_text": "UKIP pledged to drop any requirement on developers to build affordable homes.",
+   "source_quote": "The Party will drop any requirement to build affordable homes.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "ukip-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP85",
+   "topic": "healthcare_and_social_care",
+   "claim_text": "UKIP pledged that foreign nationals will be charged for using the NHS, with non-payment resulting in deportation and seizure of assets.",
+   "source_quote": "Foreigners will be charged for using the NHS. Non-payment results in immediate deportation, with any assets, such as smartphones or laptops, in the UK seized to pay for the treatment.",
+   "applies_if": {
+    "on_visa": true
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "ukip-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP85",
+   "topic": "healthcare_and_social_care",
+   "claim_text": "UKIP pledged a separate emergency mental health department in hospitals for people experiencing mental health emergencies.",
+   "source_quote": "The Party would introduce a new emergency mental health department in hospitals to treat those with mental health emergencies seperately from those involved in accidents or who have a serious illnesss.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "ukip-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP85",
+   "topic": "education_and_universities",
+   "claim_text": "UKIP pledged to let universities set their own tuition fees, regulated by the market.",
+   "source_quote": "The Party will allow universities to set their own fees and allow the market to regulate the amount each university charges.",
+   "applies_if": {
+    "student": "university"
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "ukip-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP85",
+   "topic": "education_and_universities",
+   "claim_text": "UKIP pledged to reverse the removal of charitable status from private schools.",
+   "source_quote": "The Party will reverse the decision to remove charitable status from private schools.",
+   "applies_if": {
+    "has_children": true
+   },
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "ukip-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP85",
+   "topic": "environment_climate_and_energy",
+   "claim_text": "UKIP pledged to repeal the Climate Change Act and withdraw from the Paris Agreement.",
+   "source_quote": "As such, we will repeal the Climate Change Act and withdraw from the Paris Agreement.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "ukip-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP85",
+   "topic": "environment_climate_and_energy",
+   "claim_text": "UKIP pledged to remove the Climate Levy from household fuel bills, which it says would reduce them by one fifth, and to end the £19bn of public spending on climate change and subsidies for renewables.",
+   "source_quote": "The Party will cut the Climate Levy from household fuel bills thereby reducing them by one fifth, and will scrap the £19bn of public expenditure on climate change and remove subsidies from renewable power sources.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "ukip-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP85",
+   "topic": "immigration_and_borders",
+   "claim_text": "UKIP pledged to close the asylum system permanently and treat all irregular entry by sea or air as illegal immigration.",
+   "source_quote": "We will simply close the asylum system permanently. All irregular entry by sea and air, without prior consent, shall be treated in law as illegal immigration, and perpetrators will be viewed as criminals.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "ukip-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP85",
+   "topic": "immigration_and_borders",
+   "claim_text": "UKIP pledged a £500 reward to British citizens for each illegal migrant they correctly identify, paid on arrest.",
+   "source_quote": "In order to assist with ensuring their swift detainment and deportation, the Party would offer a reward of £500 per illegal migrant correctly identified by British citizens, which would be paid upon their arrest and identification.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "ukip-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP85",
+   "topic": "crime_policing_and_justice",
+   "claim_text": "UKIP pledged a referendum on capital punishment.",
+   "source_quote": "The Party will hold a referendum on capital punishment (The Death Penatly).",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "ukip-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP85",
+   "topic": "crime_policing_and_justice",
+   "claim_text": "UKIP pledged a full review of sentencing for sex offenders and increased sentences for rape and other sexual offences.",
+   "source_quote": "The Party will carry out a full review of sentencing of sex offenders and increase sentences for those convicted of rape or other sexual offences.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "ukip-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP85",
+   "topic": "defence_foreign_affairs_and_eu",
+   "claim_text": "UKIP pledged to raise defence spending to 5% of GDP.",
+   "source_quote": "The Party will increase defence spending to 5% of our national GDP, in an effort to increase employment, develop national skills, improve community cohesion and re-industrialise areas across the United Kingdom.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "ukip-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP85",
+   "topic": "defence_foreign_affairs_and_eu",
+   "claim_text": "UKIP pledged to trigger Article 16 to scrap the Northern Ireland Protocol.",
+   "source_quote": "The UK will trigger Article 16 as a means of scrapping the Protocol to reinstate the position of Northern Ireland as a part of the United Kingdom.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "ukip-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP85",
+   "topic": "equality_and_rights",
+   "claim_text": "UKIP pledged to repeal the Gender Recognition Act and end NHS provision of gender reassignment surgery or treatment.",
+   "source_quote": "The Party will repeal the Gender Recognition Act. The NHS will not offer gender reassignment surgery or treatments of any kind.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "ukip-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP85",
+   "topic": "equality_and_rights",
+   "claim_text": "UKIP pledged to repeal the Marriage (Same Sex Couples) Act 2013, with civil partnerships conferring similar administrative rights.",
+   "source_quote": "In recognition of the importance of marriage to society, as the bedrock of family, the Party will repeal the Marriage (Same Sex Couples) Act 2013. Civil partnerships for homosexuals should confer similar rights in terms of power of attorney and administrative affairs, but same-sex partnerships are not equal to marriage for the purposes of biological reproduction.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "rejoin-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11423",
+   "topic": "money_and_cost_of_living",
+   "claim_text": "Rejoin EU pledged to re-join the EU single market and customs union and eventually join the euro when it says economic circumstances make it advantageous.",
+   "source_quote": "Our economic and employment policies focus on re-joining the EU single market and customs union to boost the economy and funding for the NHS and other public services, helping small businesses and consumers by cutting Brexit red tape and trade barriers, and eventually joining the euro when economic circumstances permit it and make it advantageous.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "rejoin-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11423",
+   "topic": "money_and_cost_of_living",
+   "claim_text": "Rejoin EU says EU membership would restore EU consumer protections such as the ban on mobile-phone roaming charges and is likely to remove Brexit-related taxes and costs on items sent between the EU and UK.",
+   "source_quote": "In consumer affairs, EU membership would allow consumers to benefit once again from European legislation protecting consumer rights and providing benefits such as the EU’s ban on mobile-phone roaming charges. It’s also likely to remove Brexit-related taxes and extra costs on items sent between the EU and the UK.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "rejoin-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11423",
+   "topic": "healthcare_and_social_care",
+   "claim_text": "Rejoin EU says restoring EU membership would return the UK to the European Health Insurance Card scheme and the European Medicines Agency.",
+   "source_quote": "Restoring EU membership would allow the UK to participate once again in the European Health Insurance Card (EHIC) scheme, allowing Britons to benefit from healthcare in EU member states on the same terms as the home nationals of those countries and vice versa. Renewed participation in the European Medicines Agency would also likely improve medicine availability by simplifying and speeding up approvals of new drugs.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "rejoin-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11423",
+   "topic": "healthcare_and_social_care",
+   "claim_text": "Rejoin EU says re-joining the EU would raise GDP and tax revenue to fund the NHS and increase staffing through access to skilled EU workers.",
+   "source_quote": "Our party will improve the NHS by re-joining the EU, which is likely to boost the UK’s GDP and tax revenue significantly, thereby increasing the funding available to ensure better treatment, shorter waiting lists, enhanced pandemic preparedness and more staffing via greater access to skilled EU workers.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "rejoin-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11423",
+   "topic": "education_and_universities",
+   "claim_text": "Rejoin EU pledged support for re-joining the Erasmus+ student exchange scheme and increasing European foreign-language courses in the UK school curriculum.",
+   "source_quote": "On education, we support UK government plans to re-join the Erasmus+ student exchange scheme and we would aim to increase the availability and take-up of European foreign-language courses within the UK school curriculum.",
+   "applies_if": {
+    "is_student": true
+   },
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "rejoin-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11423",
+   "topic": "environment_climate_and_energy",
+   "claim_text": "Rejoin EU says its environmental policy is co-ordination with the EU on climate change, pollution and carbon-market alignment.",
+   "source_quote": "Our environmental policies focus on better co-ordination and co-operation via EU membership to tackle climate change, reduce pollution and ensure carbon-market alignment.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "rejoin-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11423",
+   "topic": "immigration_and_borders",
+   "claim_text": "Rejoin EU pledged to restore EU freedom of movement in the UK, which it describes as a labour mobility rather than migration policy.",
+   "source_quote": "On migration, we support the restoration of EU freedom of movement in the UK. In precise terms, FoM is a labour mobility – not migration – policy, since the overwhelming majority of European citizens coming here returned to their home countries after a period.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "rejoin-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11423",
+   "topic": "immigration_and_borders",
+   "claim_text": "Rejoin EU says re-joining would allow UK participation in the EU border agency Frontex and the Dublin agreement on where asylum applications are processed.",
+   "source_quote": "Re-joining would also allow us to participate in EU border agency Frontex and arrangements such as the Dublin agreement, which allows for asylum seekers to have applications dealt with by the EU member state in which they arrived when they first entered the EU.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "rejoin-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11423",
+   "topic": "crime_policing_and_justice",
+   "claim_text": "Rejoin EU says re-joining the EU would return the UK to the European Arrest Warrant extradition mechanism.",
+   "source_quote": "Re-joining the EU would allow the UK to participate once again in the European Arrest Warrant, a fast-track mechanism allowing EU member states to rapidly extradite criminals originating from other countries and repatriate those wanted for committing crimes at home.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "rejoin-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11423",
+   "topic": "crime_policing_and_justice",
+   "claim_text": "Rejoin EU says the UK would regain full membership of Europol and access to its investigative co-operation systems.",
+   "source_quote": "The UK would also regain full membership of Europol and access to systems and investigative co-operation arrangements which it lost when it left the EU.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "rejoin-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11423",
+   "topic": "defence_foreign_affairs_and_eu",
+   "claim_text": "Rejoin EU pledged a return to full EU membership.",
+   "source_quote": "Like most Britons today, the Rejoin EU Party seeks our return to full EU membership for better prosperity, enhanced security and increased personal freedoms.",
+   "applies_if": {},
+   "precision": "measurable",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "rejoin-manifesto",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11423",
+   "topic": "defence_foreign_affairs_and_eu",
+   "claim_text": "Rejoin EU says its defence and security policy is greater European military integration and shared access to EU intelligence and security databases.",
+   "source_quote": "Our defence, security and justice policies emphasise greater European military integration and shared access to EU intelligence and security databases to combat emerging threats.",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  },
+  {
+   "source_key": "rejoin-briefings",
+   "ballot_paper_id": "parl.holborn-and-st-pancras.by.2026-10-08",
+   "dc_person_id": null,
+   "party_ec_id": "PP11423",
+   "topic": "equality_and_rights",
+   "claim_text": "Rejoin EU says that as an EU member state the UK would get the EU treaty guarantees on full employment, combating social exclusion and discrimination, and social justice and protection.",
+   "source_quote": "the guarantees contained in the EU treaties, which stipulate that the core values of the Union include the achievement of ‘full employment and social progress’, combating ‘social exclusion and discrimination’ and promoting ‘social justice and protection’;",
+   "applies_if": {},
+   "precision": "aspiration",
+   "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim)"
+  }
+ ]
+}
