@@ -14,6 +14,7 @@
 | 6 | [06-local-issues-rule.md](06-local-issues-rule.md) | Five of the eight councils run Modern.gov with an open web service. South Staffordshire uses CMIS, Stirling posts PDFs only, and Camden was blocked from our test environment. A code-ready draft rule was run on Queen's Park (Brighton and Hove). The only item tied to that ward was a pub licence. Every judgement the rule still needs is listed. |
 | 7 | [07-running-costs.md](07-running-costs.md) | The site shares a $9/month, 1,000-credit Netlify pot with 27 other sites. It has run out every month since June, and all sites were suspended at 10:08 UTC on 24 Sep (the site was back by 10:22). Each production deploy costs 15 credits. Rough monthly costs for Netlify, Vercel, Cloudflare and Supabase are set out under stated assumptions; no vendor is picked. |
 | 8 | [08-track-record-sources.md](08-track-record-sources.md) | Data sources tested 24 Sep before the brief: Commons Votes API (free, per-MP), TheyWorkForYou (paid key; topic summaries are mySociety's judgement), Modern.gov web service (no individual votes; some councils block), ElectionLeaflets.org API, planning.data.gov.uk (England only). |
+| 9 | [09-sources-behind-lih-and-dashboard.md](09-sources-behind-lih-and-dashboard.md) | Local Intelligence Hub (Climate Coalition, mySociety, Green Alliance) and Open Innovations' Constituency Dashboards are aggregators, not sources. Underneath: around 60 official datasets we don't yet use, nearly all OGL or Open Parliament Licence, all by constituency. Biggest gaps they expose: crime, income and wages, GP access, school attainment and funding, fuel poverty. Campaign polling, TheyWorkForYou stances and movement data are separated out. |
 
 ## Decisions these papers put to Romily or Barny
 
@@ -23,4 +24,5 @@
 - **Romily:** which of the four "no record" layouts to use (file 3).
 - **Romily:** what, if anything, to show for councillors where named votes don't exist (file 4).
 - **Romily:** what "regional" means on the site, level by level (file 5).
+- **Romily and Barny:** whether area statistics belong on the site beyond the current handful, which of the five gaps to fill first, and whether transport becomes a tenth topic (file 9).
 - **Romily:** whether council business should appear on a parliamentary by-election page like Holborn and St Pancras at all, and the thresholds in the local-issues rule (file 6).
