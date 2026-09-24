@@ -60,7 +60,7 @@ export default function Onboarding({ action }: { action: (fd: FormData) => void 
               <legend>{OPTIONAL_FIELDS[k].label}</legend>
               <div className="pills">
                 {OPTIONAL_FIELDS[k].options.map(([code, text]) => (
-                  <button key={code} type="button" className={`pill${vals[k] === code ? " on" : ""}`} onClick={() => setVals((v) => ({ ...v, [k]: v[k] === code ? "" : code }))}>{text}</button>
+                  <button key={code} type="button" aria-pressed={vals[k] === code} className={`pill${vals[k] === code ? " on" : ""}`} onClick={() => setVals((v) => ({ ...v, [k]: v[k] === code ? "" : code }))}>{text}</button>
                 ))}
               </div>
               <p className="meta">{WHY[k]}</p>
@@ -74,7 +74,7 @@ export default function Onboarding({ action }: { action: (fd: FormData) => void 
           <h2>{FIELDS[step as keyof typeof FIELDS].label}</h2>
           <div className="onboard-cards">
             {FIELDS[step as keyof typeof FIELDS].options.map(([code, text]) => (
-              <button key={code} type="button" className={`card-option${vals[step] === code ? " on" : ""}`} onClick={() => { setVals((v) => ({ ...v, [step]: code })); setTimeout(next, 120); }}>{text}</button>
+              <button key={code} type="button" aria-pressed={vals[step] === code} className={`card-option${vals[step] === code ? " on" : ""}`} onClick={() => { setVals((v) => ({ ...v, [step]: code })); setTimeout(next, 120); }}>{text}</button>
             ))}
           </div>
           <p><button type="button" className="link" onClick={() => setWhy((w) => !w)} aria-expanded={why}>Why are we asking this?</button></p>

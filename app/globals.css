@@ -1353,3 +1353,15 @@ main a { overflow-wrap: anywhere; }
 .council-topic { border-top: 1px solid var(--rule); padding-top: 0.6rem; }
 .council-fact { margin: 0.4rem 0 1rem; }
 .council-quote { margin: 0.3rem 0 0.3rem; padding: 0.4rem 0.9rem; border-left: 3px solid var(--ink); font-family: var(--serif); font-size: 1.02rem; }
+
+/* Selected answers must be unmistakable (Romily, 24 Sept: "unclear whether they have been selected"). Unselected: outline only. Selected: filled, with a tick. */
+.pill, .card-option { background: transparent; color: var(--ink); border: 2px solid var(--rule); }
+.pill:hover, .card-option:hover { background: var(--hover); border-color: var(--ink-soft); }
+.pill.on, .card-option.on, .onboard-cards .card-option.on { background: var(--slate); border-color: var(--slate); color: #fff; }
+.pill.on::before, .card-option.on::before { content: "\2713\00a0"; font-weight: 700; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pill, :root:not([data-theme="light"]) .card-option { background: transparent; color: var(--ink); border-color: #7a7a7a; }
+  :root:not([data-theme="light"]) .pill.on, :root:not([data-theme="light"]) .card-option.on, :root:not([data-theme="light"]) .onboard-cards .card-option.on { background: #fff; border-color: #fff; color: #000; }
+}
+:root[data-theme="dark"] .pill, :root[data-theme="dark"] .card-option { background: transparent; color: var(--ink); border-color: #7a7a7a; }
+:root[data-theme="dark"] .pill.on, :root[data-theme="dark"] .card-option.on, :root[data-theme="dark"] .onboard-cards .card-option.on { background: #fff; border-color: #fff; color: #000; }

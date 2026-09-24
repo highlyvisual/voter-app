@@ -19,6 +19,7 @@ export const FIELDS = {
       ["single", "One adult"],
       ["couple", "A couple"],
       ["other", "Other adults sharing"],
+      ["shared", "Housemates, or student halls"],
     ],
   },
   children: {
@@ -33,10 +34,11 @@ export const FIELDS = {
   tenure: {
     label: "Housing",
     options: [
-      ["private_rent", "Rent privately"],
+      ["private_rent", "Rent privately (including a shared student house)"],
       ["social_rent", "Rent from a council or housing association"],
       ["own_mortgage", "Own with a mortgage"],
       ["own_outright", "Own outright"],
+      ["student_halls", "University halls or student accommodation"],
       ["other", "Other (living with family, temporary, none)"],
     ],
   },
@@ -58,6 +60,8 @@ export const FIELDS = {
       ["self_employed", "Self-employed"],
       ["unemployed", "Not working, looking for work"],
       ["retired", "Retired"],
+      ["student", "Full-time student, not working"],
+      ["student_working", "Studying, with a part-time job"],
       ["not_working_other", "Not working for another reason"],
     ],
   },
@@ -121,9 +125,9 @@ export function householdKey(h: Household): string | null {
 function derived(h: Household): Record<string, boolean> {
   return {
     has_children: h.children !== undefined && h.children !== "none",
-    rents: h.tenure === "private_rent" || h.tenure === "social_rent",
+    rents: h.tenure === "private_rent" || h.tenure === "social_rent" || h.tenure === "student_halls",
     owns: h.tenure === "own_mortgage" || h.tenure === "own_outright",
-    is_student: h.student !== undefined && h.student !== "no",
+    is_student: (h.student !== undefined && h.student !== "no") || h.employment === "student" || h.employment === "student_working",
     is_pensioner: h.age_band === "65_plus" || h.employment === "retired",
     has_disability: h.disability === "yes",
     is_carer: h.carer === "yes",
@@ -175,6 +179,11 @@ export function gridKey(h: Household): string | null {
   return GRID_KEYS.map((k) => {
     let v = h[k] as string;
     if (k === "children" && v === "adult_dependant") v = "none";
+    // Student-friendly options (Romily, 24 Sept) fold into the bands the grid was computed for.
+    if (k === "household" && v === "shared") v = "other";
+    if (k === "tenure" && v === "student_halls") v = "other";
+    if (k === "employment" && v === "student") v = "not_working_other";
+    if (k === "employment" && v === "student_working") v = "employed";
     return `${k}=${v}`;
   }).join("|");
 }

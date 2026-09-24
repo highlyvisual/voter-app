@@ -118,6 +118,8 @@ Status key: **Done** · **Done, her way changed later** · **Partly** · **Waiti
 | Empty record section: "either option 2 or 4"; wants to keep as much candidate information as possible; asked how often the incumbent/newcomer case arises; questioned the "research shows" line. | **Done.** Option 4 built and deployed; answered: one of fifteen at this by-election (George Galloway, former MP), the norm at a general election, moot for councils; the research line is weaker than it reads (consumer-choice studies, abstracts only) — noted in paper 03's own text. |
 | Democracy Club's reply forwarded; key link sent. | **Done.** Key created and set; call slot for her to pick; questions list sent. |
 | Look under the two suggested sites for impartial sources. | **Done** — paper 09 with addendum on ward-level availability. |
+| Profile questions need student-friendly answers ("people at university… some of the options aren't applicable for me"), 18:31. | **Done 24 Sep.** Added: housemates or student halls (adults in the household); university halls or student accommodation (housing), with private rent now saying it includes a shared student house; full-time student not working, and studying with a part-time job (work). Each maps onto the band the tax grid was computed for; all count as a student for the applies-to rules. |
+| "When answering these questions it is unclear whether they have been selected or not", 18:33, with a dark-mode screenshot. | **Done 24 Sep.** Unselected pills and cards are outline-only; the chosen one is filled with a tick in both themes; buttons carry aria-pressed. |
 
 ## What is left, and who it waits on
 
