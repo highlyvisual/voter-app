@@ -6,16 +6,18 @@ export const dynamic = "force-dynamic";
 // (a housing site with a dwelling count, a school, an air-quality zone). Each links to its official record and to
 // what candidates on this ballot have published on the topic it belongs to.
 const H = { "User-Agent": "voter-app" };
+// Layer colours are muted and deliberately unlike any UK party's colour (Barny, 24 Sept): no Conservative blue, Labour red,
+// Lib Dem amber, Green lime, Reform cyan, SNP yellow, Plaid teal or UKIP purple, and no two layers share a family.
 type Layer = { dataset: string; label: string; colour: string; topic: string; note: string; mode: "area" | "site" };
 const LAYERS: Layer[] = [
-  { dataset: "brownfield-land", label: "Land identified for homes", colour: "#b3541e", topic: "housing_and_property", note: "On the council's brownfield register: land it considers suitable for housing, with the number of homes it estimates. Not all of it gets built.", mode: "site" },
-  { dataset: "educational-establishment", label: "School or college", colour: "#0087DC", topic: "education_and_universities", note: "From the Department for Education's register.", mode: "site" },
-  { dataset: "air-quality-management-area", label: "Air quality management area", colour: "#6d3177", topic: "environment_climate_and_energy", note: "An area a council has declared because air pollution exceeds national limits.", mode: "area" },
-  { dataset: "ancient-woodland", label: "Ancient woodland", colour: "#02a95b", topic: "environment_climate_and_energy", note: "Woodland continuously present since 1600; strongly protected in planning decisions.", mode: "area" },
-  { dataset: "green-belt", label: "Green belt", colour: "#1f7a3f", topic: "housing_and_property", note: "Land where building is tightly restricted to stop urban sprawl.", mode: "area" },
-  { dataset: "conservation-area", label: "Conservation area", colour: "#8b5e34", topic: "housing_and_property", note: "Extra planning controls on demolition, extensions and trees.", mode: "area" },
-  { dataset: "article-4-direction-area", label: "Article 4 direction", colour: "#b8860b", topic: "housing_and_property", note: "Some permitted development rights are withdrawn here, so works that normally need no permission do need it.", mode: "area" },
-  { dataset: "flood-risk-zone", label: "Flood risk zone", colour: "#1f6feb", topic: "environment_climate_and_energy", note: "Mapped flood risk, used in planning decisions.", mode: "area" },
+  { dataset: "brownfield-land", label: "Land identified for homes", colour: "#7b3f00", topic: "housing_and_property", note: "On the council's brownfield register: land it considers suitable for housing, with the number of homes it estimates. Not all of it gets built.", mode: "site" },
+  { dataset: "educational-establishment", label: "School or college", colour: "#111111", topic: "education_and_universities", note: "From the Department for Education's register.", mode: "site" },
+  { dataset: "air-quality-management-area", label: "Air quality management area", colour: "#757575", topic: "environment_climate_and_energy", note: "An area a council has declared because air pollution exceeds national limits.", mode: "area" },
+  { dataset: "ancient-woodland", label: "Ancient woodland", colour: "#3f5a36", topic: "environment_climate_and_energy", note: "Woodland continuously present since 1600; strongly protected in planning decisions.", mode: "area" },
+  { dataset: "green-belt", label: "Green belt", colour: "#7c7c1e", topic: "housing_and_property", note: "Land where building is tightly restricted to stop urban sprawl.", mode: "area" },
+  { dataset: "conservation-area", label: "Conservation area", colour: "#7d6b91", topic: "housing_and_property", note: "Extra planning controls on demolition, extensions and trees.", mode: "area" },
+  { dataset: "article-4-direction-area", label: "Article 4 direction", colour: "#2f6f6a", topic: "housing_and_property", note: "Some permitted development rights are withdrawn here, so works that normally need no permission do need it.", mode: "area" },
+  { dataset: "flood-risk-zone", label: "Flood risk zone", colour: "#5b7c99", topic: "environment_climate_and_energy", note: "Mapped flood risk, used in planning decisions.", mode: "area" },
 ];
 function bbox(lng: number, lat: number, d = 0.012) {
   return `POLYGON((${lng - d} ${lat - d},${lng + d} ${lat - d},${lng + d} ${lat + d},${lng - d} ${lat + d},${lng - d} ${lat - d}))`;

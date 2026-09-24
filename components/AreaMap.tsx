@@ -69,7 +69,7 @@ export default function AreaMap({ ballotId, areaName, lat, lng, outcode, levelLa
             const ov = await fetch(`/api/overflows?lat=${loc.lat}&lng=${loc.lng}`).then((r) => r.json());
             const list = (ov?.overflows ?? []) as { id: string; company: string; status: number | null; latestStart: number | null; latestEnd: number | null; water: string | null; lat: number; lng: number }[];
             if (list.length) {
-              const OVC = "#7a5230";
+              const OVC = "#d81b60"; // raspberry: distinct from every layer colour and from any party
               const when = (t: number | null) => (t ? new Date(t).toLocaleString("en-GB", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }) : "unknown");
               const g = L.layerGroup(list.map((o) => {
                 const live = o.status === 1;
@@ -105,7 +105,7 @@ export default function AreaMap({ ballotId, areaName, lat, lng, outcode, levelLa
           <button key={l.label} type="button" className={`key-item key-toggle${hidden[l.label] ? " off" : ""}`} aria-pressed={!hidden[l.label]} onClick={() => { const g = groups[l.label]; const off = !hidden[l.label]; if (g && mapRefObj.current) { off ? g.remove() : g.addTo(mapRefObj.current); } setHidden((h) => ({ ...h, [l.label]: off })); }}>
             <span className="key-swatch" style={{ background: l.colour }} aria-hidden /> {l.label} ({l.n})
           </button>
-        ))} Tap any shape or dot for what it is, the official record, and what candidates here have published on it. These are facts about the ground, not anyone's proposals.</p>
+        ))} Tap any shape or dot for what it is, the official record, and what candidates here have published on it. These are facts about the ground, not anyone's proposals. Layer colours are chosen to be unlike any party's.</p>
       ) : null}
       <p className="meta map-note">Boundary: ONS Open Geography Portal (Open Government Licence). Map tiles: OpenStreetMap. {outcode ? "The highlighted circle is the centre of your postcode district, not your address." : ""}</p>
     </div>
