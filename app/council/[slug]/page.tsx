@@ -131,12 +131,16 @@ function Decisions({ rows, councillors, councilName, meetingsUrl }: { rows: Agen
   const recent = meetings.filter((m) => m.date < today).sort((a, b) => b.date.localeCompare(a.date));
   const fmt = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
   const key = (x: string) => x.toLowerCase().replace(/\b(cllrs?|councillors?|dr|mr|mrs|ms|miss)\.?\b/g, "").replace(/[^a-z ]/g, " ").replace(/\s+/g, " ").trim();
+  // A party is shown only when the name points to exactly one serving councillor: same surname, and the same first name or
+  // initial where the agenda gives one. "Councillor Lamb" gets a party only if there is one Lamb on the council.
   const party = (who: string) => {
-    const k = key(who).split(" ");
-    const hit = councillors.find((c) => { const n = key(c.name); return k.length >= 2 && n.includes(k[0]) && n.includes(k[k.length - 1]); });
-    return hit?.party_name ?? null;
+    const k = key(who).split(" ").filter(Boolean);
+    if (!k.length) return null;
+    const last = k[k.length - 1], first = k.length > 1 ? k[0] : null;
+    const hits = councillors.filter((c) => { const n = key(c.name).split(" ").filter(Boolean); return n[n.length - 1] === last && (!first || n[0] === first || (first.length === 1 && n[0]?.startsWith(first))); });
+    return hits.length === 1 ? hits[0].party_name : null;
   };
-  const proposers = (raw: string) => raw.replace(/^(cllrs?|councillors?)\.?\s+/i, "").split(/\s*(?:,|\band\b|&)\s*/).filter(Boolean).map((n) => { const p = party(n); return `Cllr ${n.trim()}${p ? ` (${p})` : ""}`; }).join(" and ");
+  const proposers = (raw: string) => raw.replace(/^(cllrs?|councillors?)\.?\s+/i, "").split(/\s*(?:,|\band\b|&)\s*/).filter(Boolean).map((n) => { if (/^the\b/i.test(n.trim())) return n.trim(); const p = party(n); return `Cllr ${n.trim()}${p ? ` (${p})` : ""}`; }).join(" and ");
   const Meeting = ({ m }: { m: (typeof meetings)[number] }) => (
     <li className="dec-meeting">
       <p className="dec-head"><a href={m.url} rel="noopener"><b>{fmt(m.date)}</b> · {m.body}</a>{m.status && !/^confirmed$/i.test(m.status) ? <span className="meta"> · {m.status.replace(/^Confirmed;?\s*/i, "")}</span> : null}</p>
