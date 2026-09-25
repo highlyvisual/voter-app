@@ -69,6 +69,7 @@ export default async function CandidatePage({ params, searchParams }: { params: 
           <h1 style={{ margin: "0 0 0.3rem" }}>{c.name}</h1>
           <p className="party"><span className="party-pill" style={colour ? { borderColor: colour, background: colour + "33" } : undefined}>{party}</span></p>
           <p className="small" style={{ margin: "0.4rem 0 0" }}>Standing for {ballot.level === "parliamentary" ? "Parliament" : "the council"} in {ballot.area_name}, polling day {new Date(ballot.poll_date + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })}. {stood.filter((s) => s.candidate_id === c.id).length ? `Has stood ${stood.filter((s) => s.candidate_id === c.id).length} time${stood.filter((s) => s.candidate_id === c.id).length === 1 ? "" : "s"} before.` : ""}</p>
+          {c.photo_url ? <p className="meta" style={{ margin: "0.3rem 0 0" }}>Photo: <a href={c.dc_person_url ?? "https://candidates.democracyclub.org.uk/"} rel="noopener">Democracy Club</a>{PHOTO_LICENCE[(c as { photo_copyright?: string | null }).photo_copyright ?? ""] ? `, ${PHOTO_LICENCE[(c as { photo_copyright?: string | null }).photo_copyright ?? ""]}` : ""}.</p> : null}
         </div>
       </div>
 
@@ -121,3 +122,10 @@ export default async function CandidatePage({ params, searchParams }: { params: 
     </>
   );
 }
+
+// Democracy Club records how each photo may be used; shown as a short credit under the photo.
+const PHOTO_LICENCE: Record<string, string> = {
+  "profile-photo": "the candidate's own profile photo",
+  "public-domain": "public domain",
+  "copyright-assigned": "copyright assigned to Democracy Club",
+};

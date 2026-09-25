@@ -1,7 +1,7 @@
 """Nightly leaflet scan: match recent electionleaflets.org uploads to candidates we hold (by Democracy Club person id) and upsert into leaflets.
 Env: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY (or falls back to the publishable key for read-only dry runs)."""
 import json, os, time, urllib.request
-H = {"User-Agent": "voter-app leaflet-scan"}
+H = {"User-Agent": "What's It To Me? (whatsittome.org; hello@whatsittome.org) leaflets"}
 URL = (os.environ.get("SUPABASE_URL") or "https://urufvcutpksjppbjxouc.supabase.co").rstrip("/") + "/rest/v1"
 KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY") or "sb_publishable_DYz0KZAckWIg4Cf_34ACSg_gXJihTW8"
 SH = {"apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json"}

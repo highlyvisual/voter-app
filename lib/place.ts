@@ -1,5 +1,5 @@
 // Place facts from planning.data.gov.uk (Open Government Licence) for a point rounded to ~100 m. Never stored; describes the place, not a household.
-const H = { "User-Agent": "voter-app (github.com/highlyvisual/voter-app)" };
+const H = { "User-Agent": "What's It To Me? (whatsittome.org; hello@whatsittome.org)" };
 export type PlaceFact = { dataset: string; label: string; name: string; url: string; meaning: string };
 const DATASETS: [string, string, string][] = [
   ["conservation-area", "Conservation area", "Extra planning controls on demolition, extensions and trees; check with the council before external works."],

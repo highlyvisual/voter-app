@@ -1,5 +1,5 @@
 // Area statistics from official open data. These describe the constituency or ward, never a household.
-const H = { "User-Agent": "voter-app (github.com/highlyvisual/voter-app)" };
+const H = { "User-Agent": "What's It To Me? (whatsittome.org; hello@whatsittome.org)" };
 
 export type PetitionRow = { id: number; action: string; total: number; local: number; url: string };
 // Most-signed open petitions by people in this constituency, from petition.parliament.uk (signatures_by_constituency).

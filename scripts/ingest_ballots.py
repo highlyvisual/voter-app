@@ -7,7 +7,7 @@ Idempotent (on conflict do nothing / update statements). Run, then execute scrip
 """
 import json, urllib.request, urllib.parse, datetime, time, os, re, sys
 
-H = {"User-Agent": "voter-app (github.com/highlyvisual/voter-app)"}
+H = {"User-Agent": "What's It To Me? (whatsittome.org; hello@whatsittome.org)"}
 TOKEN = os.environ.get("DEMOCRACY_CLUB_TOKEN")
 def get(u, tries=6):
     if TOKEN and "democracyclub.org.uk" in u:

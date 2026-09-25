@@ -20,7 +20,7 @@ async function ballotsForPostcodeDevelopers(postcode: string): Promise<DcBallotS
   try {
     const r = await fetch(`${DEV_BASE}/postcode/${encodeURIComponent(postcode)}/?auth_token=${encodeURIComponent(key)}`, {
       signal: AbortSignal.timeout(6000),
-      headers: { "User-Agent": "voter-app (github.com/highlyvisual/voter-app)" }, next: { revalidate: 3600 },
+      headers: { "User-Agent": "What's It To Me? (whatsittome.org; hello@whatsittome.org)" }, next: { revalidate: 3600 },
     });
     if (!r.ok) return null;
     const j = (await r.json()) as { address_picker?: boolean; dates?: { date: string; ballots: { ballot_paper_id: string; election_name: string; post_name: string; candidates_verified: boolean; cancelled: boolean }[] }[] };
@@ -42,7 +42,7 @@ export async function ballotsForPostcode(postcode: string): Promise<DcBallotSumm
   try {
     const r = await fetch(withToken(`${BASE}/ballots/?for_postcode=${encodeURIComponent(postcode)}&current=1&page_size=50`), {
       signal: AbortSignal.timeout(6000),
-      headers: { "User-Agent": "voter-app (github.com/highlyvisual/voter-app)" }, next: { revalidate: 3600 },
+      headers: { "User-Agent": "What's It To Me? (whatsittome.org; hello@whatsittome.org)" }, next: { revalidate: 3600 },
     });
     if (!r.ok) return null;
     const j = (await r.json()) as { results?: { ballot_paper_id: string; candidates_locked: boolean; election: { election_date: string; name: string }; post: { label: string } }[] };

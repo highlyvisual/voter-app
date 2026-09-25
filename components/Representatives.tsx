@@ -1,7 +1,7 @@
 import { publicClient } from "@/lib/data";
 import { previousResult } from "@/lib/democracyclub";
 // Who represents you now (Romily's brief §22), as distinct from who is standing. Official sources only.
-const H = { "User-Agent": "voter-app (github.com/highlyvisual/voter-app)" };
+const H = { "User-Agent": "What's It To Me? (whatsittome.org; hello@whatsittome.org)" };
 export async function currentMp(constituency: string): Promise<{ name: string | null; party: string | null; id: number | null; vacant: boolean } | null> {
   try {
     const d = await fetch(`https://members-api.parliament.uk/api/Location/Constituency/Search?searchText=${encodeURIComponent(constituency)}&take=3`, { signal: AbortSignal.timeout(5000), headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : null));

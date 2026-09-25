@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>What's It To Me? and Democracy Club — a one-page note</title>
+<link rel="stylesheet" href="brand.css">
+<style>
+@page { size: A4; margin: 0; @bottom-right { content: none; } }
+body { font-size: 9.6pt; line-height: 1.45; }
+.page { width: 210mm; height: 297mm; position: relative; padding: 0; overflow: hidden; }
+.band { height: 5mm; display: flex; } .band span { flex: 1; }
+.head { display: grid; grid-template-columns: 1fr 44mm; gap: 8mm; padding: 9mm 16mm 0 16mm; align-items: start; }
+.head img { width: 44mm; }
+.kicker { font-family: var(--sans); font-size: 7.6pt; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ochre); margin: 0 0 2mm; }
+h1 { font-family: var(--serif); font-weight: 500; font-size: 22pt; line-height: 1.08; letter-spacing: -0.01em; margin: 0 0 3mm; color: var(--ink); }
+h1 em { color: var(--teal); font-weight: 400; }
+.intro { font-size: 10.6pt; color: var(--ink-soft); margin: 0; }
+.body { padding: 5mm 16mm 0 16mm; }
+h3 { font-size: 11.5pt; margin: 4.5mm 0 1.5mm; }
+.cols { gap: 7mm; }
+ul { padding-left: 4.5mm; margin: 0 0 0.4em; } li { margin-bottom: 0.3em; }
+.ask { counter-reset: a; list-style: none; padding: 0; margin: 0; }
+.ask li { counter-increment: a; position: relative; padding: 2.2mm 3mm 2.2mm 10mm; margin-bottom: 2mm; background: var(--sand); border-left: 1mm solid var(--teal); break-inside: avoid; }
+.ask li:nth-child(2) { border-left-color: var(--ochre); } .ask li:nth-child(3) { border-left-color: var(--mauve); } .ask li:nth-child(4) { border-left-color: var(--sage); }
+.ask li::before { content: counter(a); position: absolute; left: 3mm; top: 2.1mm; font-family: var(--sans); font-weight: 600; font-size: 9pt; color: var(--teal); }
+.ask b { font-family: var(--sans); font-size: 8.8pt; }
+.foot { position: absolute; left: 16mm; right: 16mm; bottom: 10mm; border-top: 0.6px solid #d8d2c7; padding-top: 3mm; font-family: var(--sans); font-size: 7.6pt; color: var(--muted); display: flex; justify-content: space-between; gap: 6mm; }
+.foot b { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="band"><span style="background:#2f5251"></span><span style="background:#c98f4e"></span><span style="background:#85555f"></span><span style="background:#b98888"></span><span style="background:#7b877b"></span></div>
+  <div class="head">
+    <div>
+      <p class="kicker">A note for Democracy Club · September 2026</p>
+      <h1>How <em>What&rsquo;s It To Me?</em> uses your data, and four things we&rsquo;d love to ask</h1>
+      <p class="intro">whatsittome.org is a non-partisan site for UK voters. Enter a postcode and it shows everyone on your ballot, in ballot-paper order and on identical pages, with what each has published quoted from its source. It never ranks, scores or recommends. Our first real test is the Holborn and St Pancras by-election on 8 October.</p>
+    </div>
+    <img src="img/lockup-light.png" alt="What's It To Me? Politics, in your context.">
+  </div>
+
+  <div class="body">
+    <div class="cols">
+      <div>
+        <h3>What we use from Democracy Club</h3>
+        <ul>
+          <li><b>Postcode to ballot</b>, through the developers API key you set up for us. If it can&rsquo;t answer, the site falls back to the candidates API.</li>
+          <li><b>Elections and candidates</b>, refreshed every morning from the candidates API: ballots, parties, candidates, statements to voters and photos. It covers every election you list this autumn (26 at the moment).</li>
+          <li><b>Leaflets</b> archived on ElectionLeaflets, shown with the candidate they belong to.</li>
+        </ul>
+        <p class="small">Candidate data is credited to Democracy Club under CC BY 4.0 on the site. Statements appear word for word, labelled as supplied by the candidate to Democracy Club.</p>
+      </div>
+      <div>
+        <h3>How we try to be a good user</h3>
+        <ul>
+          <li>The morning update asks only for what we don&rsquo;t already hold, re-reads everyone once a week, and backs off whenever the API asks it to slow down.</li>
+          <li>Every request names the site and gives our contact address.</li>
+          <li>We already spot things worth fixing, such as candidate statements that seem to refer to an earlier election. We&rsquo;d be glad to send those back to you in whatever form suits.</li>
+        </ul>
+        <h3>Who we are</h3>
+        <p class="small">Romily Johnson (Founder and Product Lead, a student) and Barny Trevelyan-Johnson (Technical Lead). Self-funded. We take no money from any party, candidate or campaign, and neither of us belongs to one.</p>
+      </div>
+    </div>
+
+    <h3>What we&rsquo;d like to ask</h3>
+    <ol class="ask">
+      <li><b>A token for the candidates API.</b> Without one, our morning update takes about 16 minutes at 10 requests a minute. With one it would take a few, and new candidates would appear sooner.</li>
+      <li><b>Polling-day capacity for postcode lookups.</b> The developers key allows 1,000 lookups a day. We don&rsquo;t know yet how many people will use the site on 8 October, and we&rsquo;d rather ask now than fail on the day. What would you suggest?</li>
+      <li><b>Candidate photos.</b> We show a candidate&rsquo;s photo where you have one, credited to Democracy Club with the licence you record. Which of those licences are fine for us to display, and is there a credit wording you&rsquo;d prefer?</li>
+      <li><b>Elections ahead of time.</b> The API lists elections about six weeks ahead. Is there a way to see scheduled elections, such as May 2027, before they are formally called, or should we keep our own list until they appear?</li>
+    </ol>
+    <p class="small" style="margin-top:3mm">Thank you, too, for pointing us to Local Intelligence Hub and the Constituency Dashboards. We have gone through the official datasets behind them, and they are shaping what we add next.</p>
+  </div>
+
+  <div class="foot">
+    <span><b>whatsittome.org</b> · hello@whatsittome.org</span>
+    <span>Romily Johnson, Founder and Product Lead · Barny Trevelyan-Johnson, Technical Lead</span>
+  </div>
+</div>
+</body>
+</html>

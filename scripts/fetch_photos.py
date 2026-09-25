@@ -2,7 +2,7 @@
 Respects the 10-requests-a-minute unauthenticated limit. Nightly it asks only about candidates on current ballots who
 have no photo yet (a photo, once uploaded, rarely changes); FULL=1 or a Monday re-reads everyone on current ballots."""
 import json, os, time, urllib.request
-H = {"User-Agent": "voter-app photos"}; KEY = "sb_publishable_DYz0KZAckWIg4Cf_34ACSg_gXJihTW8"
+H = {"User-Agent": "What's It To Me? (whatsittome.org; hello@whatsittome.org) photos"}; KEY = "sb_publishable_DYz0KZAckWIg4Cf_34ACSg_gXJihTW8"
 import datetime
 FULL = os.environ.get("FULL") == "1" or datetime.date.today().weekday() == 0
 q = "select=id,dc_person_id,name,photo_url,ballots!inner(archived)&ballots.archived=eq.false&withdrawn_at=is.null&order=ballot_paper_id" + ("" if FULL else "&photo_url=is.null")

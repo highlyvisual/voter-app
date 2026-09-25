@@ -1,6 +1,6 @@
 // UK Parliament open data (developer.parliament.uk). Free, no authentication, Open Parliament Licence.
 // Used only for candidates with a stored, exact-matched parliament_member_id; never a live name guess.
-const H = { "User-Agent": "voter-app (github.com/highlyvisual/voter-app)" };
+const H = { "User-Agent": "What's It To Me? (whatsittome.org; hello@whatsittome.org)" };
 
 export type Membership = { house: string; from: string | null; start: string; end: string | null };
 export type PartySplit = { party: string; aye: number; no: number };

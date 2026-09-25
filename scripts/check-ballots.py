@@ -7,7 +7,7 @@ Statement of Persons Nominated (plain text). Writes reports/ballot-checks/<ballo
 Usage: python scripts/check-ballots.py <ballot_paper_id> [sopn.txt]
 """
 import json, sys, os, random, re, datetime, urllib.request, urllib.parse
-H = {"User-Agent": "voter-app check-ballots"}
+H = {"User-Agent": "What's It To Me? (whatsittome.org; hello@whatsittome.org) ballot check"}
 def get(u):
     return json.load(urllib.request.urlopen(urllib.request.Request(u, headers=H), timeout=40))
 KEY = "sb_publishable_DYz0KZAckWIg4Cf_34ACSg_gXJihTW8"; B = "https://urufvcutpksjppbjxouc.supabase.co/rest/v1"

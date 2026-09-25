@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 // Two kinds: areas you are inside (a conservation area, an Article 4 direction) and sites nearby you can tap
 // (a housing site with a dwelling count, a school, an air-quality zone). Each links to its official record and to
 // what candidates on this ballot have published on the topic it belongs to.
-const H = { "User-Agent": "voter-app" };
+const H = { "User-Agent": "What's It To Me? (whatsittome.org; hello@whatsittome.org)" };
 // Layer colours are muted and deliberately unlike any UK party's colour (Barny, 24 Sept): no Conservative blue, Labour red,
 // Lib Dem amber, Green lime, Reform cyan, SNP yellow, Plaid teal or UKIP purple, and no two layers share a family.
 type Layer = { dataset: string; label: string; colour: string; topic: string; note: string; mode: "area" | "site"; more: string; whatItMeans: string };

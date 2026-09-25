@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
   if (!ALLOWED.includes(target.hostname)) return new NextResponse("host not allowed", { status: 403 });
   let r: Response; let body: ArrayBuffer;
   try {
-    r = await fetch(target.toString(), { headers: { "User-Agent": "voter-app image proxy" }, signal: AbortSignal.timeout(8000), next: { revalidate: 604800 } });
+    r = await fetch(target.toString(), { headers: { "User-Agent": "What's It To Me? (whatsittome.org; hello@whatsittome.org) image proxy" }, signal: AbortSignal.timeout(8000), next: { revalidate: 604800 } });
     if (!r.ok) return new NextResponse("upstream", { status: 502 });
     body = await r.arrayBuffer();
   } catch { return new NextResponse("upstream timed out", { status: 504 }); }
