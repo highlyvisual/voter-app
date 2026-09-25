@@ -5,7 +5,9 @@
 <title>What's It To Me? — Technical Bible (Internal edition)</title>
 <link rel="stylesheet" href="brand.css">
 <style>
-@page { @bottom-left { content: "What’s It To Me?  ·  Technical Bible  ·  Internal edition  ·  25 September 2026"; font-family: "Inter", sans-serif; font-size: 7.5pt; color: #6b6f75; } }
+@page { @bottom-left { content: "What’s It To Me?  ·  Technical Bible  ·  Internal edition  ·  v1.1, 25 September 2026"; font-family: "Inter", sans-serif; font-size: 7.5pt; color: #6b6f75; } }
+#s12 h3 { margin-top: 3.2mm; } #s12 pre { margin: 1.5mm 0 2.5mm; padding: 3mm 4mm; } #s12 ol { margin-bottom: 0.4em; }
+#s6 li { margin-bottom: 0.12em; } #s6 .figure { margin-bottom: 4mm; }
 </style>
 </head>
 <body>
@@ -19,7 +21,7 @@
   <h1>How the platform <em>works</em>, and how to keep it working.</h1>
   <p class="sub">For Romily, Barny and anyone who helps after them: what the site is, how its pieces fit, where every fact comes from, the rules the code enforces, and the routines that keep it running.</p>
   <div class="meta">
-    <div><b>Version</b>1.0 · 25 September 2026<br>Repository at commit 619288d</div>
+    <div><b>Version</b>1.1 · 25 September 2026<br>Repository at commit cd01581</div>
     <div><b>Owners</b>Romily Johnson, Founder and Product Lead<br>Barny Trevelyan-Johnson, Technical Lead</div>
     <div><b>Canonical copy</b>docs/PROJECT.md in highlyvisual/voter-app<br>whatsittome.org · hello@whatsittome.org</div>
   </div>
@@ -38,14 +40,14 @@
     <a data-href="#s6"><span class="n">06</span><span class="t">The claims ledger</span><span class="p" data-for="s6">8</span></a>
     <a data-href="#s7"><span class="n">07</span><span class="t">The money layer</span><span class="p" data-for="s7">9</span></a>
     <a data-href="#s8"><span class="n">08</span><span class="t">Councils and wider bodies</span><span class="p" data-for="s8">10</span></a>
-    <a data-href="#s9"><span class="n">09</span><span class="t">Pipelines and automation</span><span class="p" data-for="s9">11</span></a>
-    <a data-href="#s10"><span class="n">10</span><span class="t">Infrastructure, secrets and deploys</span><span class="p" data-for="s10">12</span></a>
-    <a data-href="#s11"><span class="n">11</span><span class="t">Reliability, privacy and accessibility</span><span class="p" data-for="s11">13</span></a>
-    <a data-href="#s12"><span class="n">12</span><span class="t">Runbooks</span><span class="p" data-for="s12">14</span></a>
-    <a data-href="#s13"><span class="n">13</span><span class="t">Known gaps and open decisions</span><span class="p" data-for="s13">15</span></a>
-    <a data-href="#s14"><span class="n">14</span><span class="t">The research library</span><span class="p" data-for="s14">16</span></a>
-    <a data-href="#s15"><span class="n">15</span><span class="t">Brand quick reference</span><span class="p" data-for="s15">17</span></a>
-    <a data-href="#s16"><span class="n">16</span><span class="t">Glossary</span><span class="p" data-for="s16">18</span></a>
+    <a data-href="#s9"><span class="n">09</span><span class="t">Keeping the data current</span><span class="p" data-for="s9">12</span></a>
+    <a data-href="#s10"><span class="n">10</span><span class="t">Infrastructure, secrets and deploys</span><span class="p" data-for="s10">14</span></a>
+    <a data-href="#s11"><span class="n">11</span><span class="t">Reliability, privacy and accessibility</span><span class="p" data-for="s11">15</span></a>
+    <a data-href="#s12"><span class="n">12</span><span class="t">Runbooks</span><span class="p" data-for="s12">16</span></a>
+    <a data-href="#s13"><span class="n">13</span><span class="t">Limitations and decisions</span><span class="p" data-for="s13">17</span></a>
+    <a data-href="#s14"><span class="n">14</span><span class="t">The research library</span><span class="p" data-for="s14">19</span></a>
+    <a data-href="#s15"><span class="n">15</span><span class="t">Brand quick reference</span><span class="p" data-for="s15">20</span></a>
+    <a data-href="#s16"><span class="n">16</span><span class="t">Glossary</span><span class="p" data-for="s16">21</span></a>
   </nav>
   <div class="rule-box ochre" style="margin-top:9mm"><div class="t">How to read the figures</div>
   <p>Every count in this book was read from the live database or the repository on 25 September 2026. Counts will move as elections are added and archived; the method for re-reading each one is given where it appears. Nothing here is a secret: keys and passwords are named, never shown.</p></div>
@@ -59,14 +61,14 @@
   <p>The idea is Romily&rsquo;s: an informed electorate makes better decisions, and the way to inform it is to connect politics to a person&rsquo;s own life without telling them what to think. The site never ranks, scores, matches or recommends. It shows consequences and sources; the voter judges. The test for anything new: could a reader take it as the site preferring one candidate? If so, it is not built.</p>
 
   <div class="stats">
-    <div class="stat"><b>31</b><span>ballots on file that are not archived, polling between 23 September and 29 October 2026</span></div>
-    <div class="stat"><b>138</b><span>candidates standing on those ballots, each with the same page</span></div>
-    <div class="stat"><b>376</b><span>live sourced positions in the ledger (482 rows including superseded ones)</span></div>
-    <div class="stat"><b>91</b><span>sources: party, candidate and official publications, each dated and linked</span></div>
+    <div class="stat"><b>26</b><span>elections still to come, polling between 1 October and 5 November 2026</span></div>
+    <div class="stat"><b>134</b><span>candidates standing on current ballots, each with the same page</span></div>
+    <div class="stat"><b>376</b><span>live sourced positions in the ledger (506 rows including superseded ones)</span></div>
+    <div class="stat"><b>94</b><span>sources: party, candidate and official publications, each dated and linked</span></div>
     <div class="stat"><b>29</b><span>council pages, each with five topics quoted from the council&rsquo;s own papers</span></div>
     <div class="stat"><b>19,273</b><span>serving councillors from 384 councils (Open Council Data)</span></div>
     <div class="stat"><b>40,500</b><span>precomputed tax-and-benefit results (PolicyEngine UK)</span></div>
-    <div class="stat"><b>677</b><span>council agenda items from 14 councils&rsquo; meeting papers</span></div>
+    <div class="stat"><b>10</b><span>automatic jobs, daily or weekly, each logged and shown on /status</span></div>
   </div>
 
   <div class="cols">
@@ -189,17 +191,17 @@
     <!-- GitHub -->
     <rect x="165" y="335" width="190" height="95" rx="6" fill="#eef1ee" stroke="#7b877b" stroke-width="1.2"/>
     <text x="178" y="356" font-size="10.5" font-weight="600" fill="#16202a">GitHub · highlyvisual/voter-app</text>
-    <text x="178" y="373" font-size="8.5" fill="#3f4650">Daily ballot ingest, 05:17 UTC</text>
-    <text x="178" y="387" font-size="8.5" fill="#3f4650">Load drafted claims, on push</text>
-    <text x="178" y="401" font-size="8.5" fill="#3f4650">Council meetings, Mondays 05:40 UTC</text>
-    <text x="178" y="419" font-size="8" fill="#56625a" font-weight="600">Secrets held as repository secrets</text>
+    <text x="178" y="373" font-size="8.5" fill="#3f4650">Daily ingest and feeds, 05:17 UTC</text>
+    <text x="178" y="387" font-size="8.5" fill="#3f4650">Weekly refresh + meetings, Mondays</text>
+    <text x="178" y="401" font-size="8.5" fill="#3f4650">Load drafted claims, on push</text>
+    <text x="178" y="419" font-size="8" fill="#56625a" font-weight="600">Every run logged in job_runs</text>
     <!-- Upstream for jobs -->
     <rect x="395" y="335" width="275" height="95" rx="6" fill="#fff" stroke="#7b877b" stroke-dasharray="4 3"/>
     <text x="408" y="356" font-size="10.5" font-weight="600" fill="#16202a">Sources the jobs read</text>
-    <text x="408" y="373" font-size="8.5" fill="#3f4650">Democracy Club candidates and elections APIs</text>
-    <text x="408" y="387" font-size="8.5" fill="#3f4650">ElectionLeaflets.org</text>
-    <text x="408" y="401" font-size="8.5" fill="#3f4650">Councils&#8217; Modern.gov web services</text>
-    <text x="408" y="415" font-size="8.5" fill="#3f4650">Claims drafted as JSON in the repository</text>
+    <text x="408" y="373" font-size="8.5" fill="#3f4650">Democracy Club · ElectionLeaflets · Modern.gov</text>
+    <text x="408" y="387" font-size="8.5" fill="#3f4650">DfE schools · Gazette · MHCLG planning data</text>
+    <text x="408" y="401" font-size="8.5" fill="#3f4650">Citizen Space · Electoral Commission · GOV.UK</text>
+    <text x="408" y="415" font-size="8.5" fill="#3f4650">Party sites · every quoted source · Internet Archive</text>
     <!-- Mac -->
     <rect x="10" y="335" width="120" height="95" rx="6" fill="#fff" stroke="#b9b2a5"/>
     <text x="22" y="356" font-size="10.5" font-weight="600" fill="#16202a">Mac Studio</text>
@@ -224,7 +226,7 @@
     <text x="78" y="310" font-size="7.5" fill="#3f4650">deploy.sh uploads HEAD to Netlify</text>
     <text x="381" y="250" font-size="7.5" fill="#56625a" transform="rotate(-90 381 250)">service-role writes</text>
   </svg>
-  <div class="caption">Figure 1. The moving parts. Solid arrows run when a page is served or a job runs; dashed arrows are occasional, manual loads.</div>
+  <div class="caption">Figure 1. The moving parts. Solid arrows run when a page is served or a job runs; dashed arrows are occasional, manual loads. Section 9 lists every job.</div>
   </div>
 
 
@@ -286,33 +288,23 @@
 
   <div class="cols dense">
     <div class="card"><h4>Elections</h4>
-      <p class="small"><code>ballots</code> (31 current, 33 in all): one row per ballot paper, keyed by Democracy Club&rsquo;s <code>ballot_paper_id</code>, with level, poll date, area, GSS code, previous contest, cancelled or postponed flags.</p>
+      <p class="small"><code>ballots</code> (31 not archived, 34 in all): one row per ballot paper, keyed by Democracy Club&rsquo;s <code>ballot_paper_id</code>, with level, poll date, area, GSS code, previous contest, cancelled or postponed flags.</p>
       <p class="small"><code>candidates</code> (161): name, party, verbatim statement to voters, photo and its licence, Parliament member id where matched. <code>parties</code> (25): Electoral Commission id, official site, optional colour. <code>election_dates</code>: deadlines and notice links. <code>previous_candidacies</code> (271), <code>ward_history</code> (652), <code>leaflets</code> (28).</p></div>
     <div class="card ochre"><h4>Claims ledger</h4>
-      <p class="small"><code>claims</code> (482 rows, <b>append-only</b>): ballot or party, topic, tier, summary, the quote, <code>applies_if</code>, status, <code>supersedes</code>, <code>drafted_by</code>, precision.</p>
-      <p class="small"><code>sources</code> (91): title, URL, publisher, the source&rsquo;s own date, retrieval date, content hash, layer. <code>change_log</code> (493, <b>append-only</b>). <code>verifications</code> (<b>append-only</b>). View <code>current_claims</code>: the live set (376).</p></div>
+      <p class="small"><code>claims</code> (506 rows, <b>append-only</b>): ballot or party, topic, tier, summary, the quote, <code>applies_if</code>, status, <code>supersedes</code>, <code>drafted_by</code>, precision.</p>
+      <p class="small"><code>sources</code> (94): title, URL, publisher, the source&rsquo;s own date, retrieval date, content hash, layer. <code>change_log</code> (517, <b>append-only</b>). <code>verifications</code> (<b>append-only</b>). View <code>current_claims</code>: the live set (376).</p></div>
     <div class="card mauve"><h4>Money</h4>
       <p class="small"><code>receipt_grid</code> (40,500): one row per household cell per reform set, with the household, results and the PolicyEngine version. <code>party_funding</code>: Electoral Commission donations, summarised per party.</p></div>
     <div class="card sage"><h4>Place and councils</h4>
       <p class="small"><code>councillors</code> (19,273) and <code>council_control</code> from Open Council Data. <code>council_tax_2026</code> (319), <code>deprivation_2025</code> (33,755). <code>council_agenda_items</code> (677). <code>council_pledges</code>.</p></div>
     <div class="card"><h4>Candidates speaking for themselves</h4>
       <p class="small"><code>candidate_invitations</code> (token hash, channel, status) and <code>candidate_submissions</code> (statement, source, check, resulting claim). View <code>invitation_status</code>.</p></div>
+    <div class="card mauve"><h4>Automatic lines, job log and watches</h4>
+      <p class="small"><code>school_changes</code>, <code>council_consultations</code>, <code>gazette_notices</code>, <code>local_plans</code> (replaced wholesale by their jobs). <code>job_runs</code> (every run), <code>source_checks</code> (each re-reading of a source), <code>feed_items</code>, <code>release_watch</code>. Plus <code>candidates.withdrawn_at</code> and <code>sources.archive_url</code>.</p></div>
     <div class="card ochre"><h4>Counts, never people</h4>
       <p class="small"><code>usage_totals</code> (lookups per ballot per day), <code>feedback_totals</code> (daily answer counts), <code>feedback_comments</code> (no identifiers). <code>resources</code>: further-reading links.</p></div>
   </div>
 
-  <h3>Fixed vocabularies</h3>
-  <table class="tight">
-    <thead><tr><th style="width:24%">Enum</th><th>Values</th></tr></thead>
-    <tbody>
-      <tr><td class="k"><code>topic</code></td><td>money_and_cost_of_living · housing_and_property · healthcare_and_social_care · education_and_universities · environment_climate_and_energy · immigration_and_borders · crime_policing_and_justice · defence_foreign_affairs_and_eu · equality_and_rights</td></tr>
-      <tr><td class="k"><code>source_layer</code></td><td>manifesto · enacted_record · candidate_statement · campaign_leaflet · third_party_analysis</td></tr>
-      <tr><td class="k"><code>claim_status</code></td><td>draft · verified · superseded · withdrawn</td></tr>
-      <tr><td class="k"><code>claim_precision</code></td><td>measurable · aspiration (shown as &ldquo;Stated aim, no measurable commitment found&rdquo;)</td></tr>
-      <tr><td class="k"><code>election_level</code></td><td>parliamentary · devolved · mayoral · local · other</td></tr>
-    </tbody>
-  </table>
-  <p class="note">Raw SQL must cast to these types, for example <code>'housing_and_property'::topic</code>, or Postgres refuses the insert. Supabase&rsquo;s SQL runner returns only the last statement&rsquo;s result, so run one statement per query when checking.</p>
 </section>
 
 <!-- ============ 6 ============ -->
@@ -366,6 +358,8 @@
         <li><b>Who</b>: a party (<code>party_ec_id</code>) and/or one ballot and candidate.</li>
         <li><b>Topic</b>: one of nine. One claim per commitment; never bundled.</li>
         <li><b>Conditions</b> in <code>applies_if</code> (for example renters, or students), never in the summary. The household profile is matched against these to put the most relevant first; it never hides anything.</li>
+        <li><b>Re-read every week</b> by the source watch (section 9), with an Internet Archive copy linked as &ldquo;Archived copy&rdquo;. Its first pass re-sourced 24 Liberal Democrat claims to where the words actually are.</li>
+        <li><b>Sources, primary first</b>: the party&rsquo;s or candidate&rsquo;s own publication, the official record, the statute; a press report only as a flagged interim. The source&rsquo;s own date and our retrieval date are both shown.</li>
         <li><b>Precision</b>: the threshold rule. A summary may not say &ldquo;more&rdquo;, &ldquo;cut&rdquo;, &ldquo;boost&rdquo;, &ldquo;invest&rdquo; without the number, date or object from the source. If the source is vague, it is filed as an aspiration and labelled so.</li>
       </ul>
     </div>
@@ -385,8 +379,7 @@
     </div>
   </div>
 
-  <div class="rule-box ochre"><div class="t">Sources: primary first</div>
-  <p>The party&rsquo;s or candidate&rsquo;s own publication, the official record, the statute. A press report is used only as a flagged interim (<code>notes</code> says so) until the primary is found. <code>published_on</code> is the source&rsquo;s own date; <code>retrieved_at</code> is when it was read. Both are shown on the page. On 25 September two Reform UK positions were moved from summaries to the party&rsquo;s own PDFs in exactly this way, as superseding rows.</p></div>
+
 </section>
 
 <!-- ============ 7 ============ -->
@@ -451,11 +444,25 @@
     </div>
   </div>
 
+  <h3>Lines kept current automatically</h3>
+  <p class="small">Beneath the hand-gathered quotations, each topic can carry lines from official registers, marked &ldquo;Updated automatically&rdquo; with their source. They add to the council&rsquo;s own words; they never replace them.</p>
+  <table class="tight">
+    <thead><tr><th style="width:18%">Topic</th><th>Source and cadence</th><th style="width:34%">Coverage and caveats</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Housing</td><td>Local plans, stage, plan period and housing requirement from MHCLG&rsquo;s planning data platform. Weekly.</td><td>England. Some entries are old; each shows when the council last updated it. Withdrawn plans are left out.</td></tr>
+      <tr><td class="k">Transport</td><td>Traffic and highways orders from The Gazette, last four months. Weekly.</td><td>Mainly London boroughs; most other councils publish orders in local newspapers, which have no open feed.</td></tr>
+      <tr><td class="k">Education</td><td>Proposed and recent openings and closures from DfE&rsquo;s Get Information about Schools, with the register&rsquo;s own reason. Daily.</td><td>England only. Most closures are academy conversions, which the reason makes plain.</td></tr>
+      <tr><td class="k">Consultations</td><td>Open consultations from the council&rsquo;s Citizen Space site. Daily.</td><td>Camden, Northumberland and Nottinghamshire today; any council that moves to Citizen Space is picked up automatically.</td></tr>
+      <tr><td class="k">Council tax</td><td>Band D from MHCLG (England).</td><td>Loaded yearly; the release watch flags each new edition. Scotland and Wales not yet loaded.</td></tr>
+    </tbody>
+  </table>
+
   <h3>Meeting papers: which councils can be read</h3>
   <table class="tight">
     <thead><tr><th>State on 25 Sept</th><th>Councils</th></tr></thead>
     <tbody>
-      <tr><td class="k">Loading weekly (14)</td><td>Aberdeen City, Bassetlaw, Blackpool, Cotswold, Lambeth, Leeds, Milton Keynes, Newcastle-under-Lyme, North West Leicestershire, Northumberland, South Kesteven, Stroud, Wiltshire, Windsor and Maidenhead</td></tr>
+      <tr><td class="k">Loading weekly (13)</td><td>Aberdeen City, Bassetlaw, Blackpool, Cotswold, Leeds, Milton Keynes, Newcastle-under-Lyme, North West Leicestershire, Northumberland, South Kesteven, Stroud, Wiltshire, Windsor and Maidenhead</td></tr>
+      <tr><td class="k">Intermittent</td><td>Lambeth: read by some runs and refused by others from GitHub&rsquo;s servers; its last good rows stay until a run succeeds</td></tr>
       <tr><td class="k">Answers, but nothing kept</td><td>Argyll and Bute (Full Council now mapped; still returning no meetings)</td></tr>
       <tr><td class="k">Too slow</td><td>Brighton and Hove, Halton</td></tr>
       <tr><td class="k">Blocks automated readers</td><td>Camden, Carmarthenshire; Stirling disallows in robots.txt, which we respect</td></tr>
@@ -468,33 +475,53 @@
 
 <!-- ============ 9 ============ -->
 <section class="section" id="s9">
-  <div class="section-head" data-title="Pipelines and automation"><div class="num">09 · Keeping it current</div><h2>Pipelines and automation</h2>
-  <p class="lede">Three scheduled or triggered jobs run in GitHub Actions with the service-role key held as a repository secret. Five datasets were loaded once and have a stated refresh cadence.</p></div>
+  <div class="section-head" data-title="Keeping the data current"><div class="num">09 · Keeping it current</div><h2>Keeping the data current</h2>
+  <p class="lede">A machine refreshes anything that comes from an official register or API, and notices anything else changing. It never rewrites a quotation: a claim is only corrected by a person, as a new superseding row. Full detail is in <code>docs/data-freshness.md</code>.</p></div>
 
   <table>
-    <thead><tr><th style="width:22%">Workflow</th><th style="width:22%">When</th><th>What it does</th></tr></thead>
+    <thead><tr><th style="width:21%">Workflow</th><th style="width:18%">When</th><th>Jobs, in order</th></tr></thead>
     <tbody>
-      <tr><td class="k">Daily ballot ingest<br><code>ingest.yml</code></td><td>05:17 UTC daily</td><td><code>scripts/ingest_ballots.py</code>: every current UK ballot from Democracy Club (ballots, parties, candidates with verbatim statements, previous contest, ONS centroid and GSS code), then the leaflet scan. Idempotent. Runs unauthenticated at 10 requests a minute until a candidates-API token exists.</td></tr>
-      <tr><td class="k">Load drafted claims<br><code>load-claims.yml</code></td><td>On push to <code>scripts/claims/*.json</code></td><td><code>scripts/load_claims.py</code>: loads sources and claims through the service role. Idempotent: a claim with the same ballot, party, topic and quote is skipped. Append-only.</td></tr>
-      <tr><td class="k">Council meetings<br><code>council-meetings.yml</code></td><td>Mondays 05:40 UTC, on push of the script, or by hand</td><td><code>scripts/fetch_council_meetings.py --load</code>: Full Council and Cabinet agendas from each council&rsquo;s Modern.gov web service, 183 days back to 92 ahead. Replaces each council&rsquo;s rows wholesale; a council that fails is named in the log and its old rows are kept.</td></tr>
+      <tr><td class="k">Daily ballot ingest<br><code>ingest.yml</code></td><td>05:17 UTC daily, and on push of its scripts</td><td><b>Ballot ingest</b>: asks Democracy Club only for what we do not already hold (everyone again on Mondays); marks candidacies no longer listed as withdrawn, and restores any that reappear; archives ballots the day after polling. Then <b>leaflets</b>, <b>photos</b> (only where missing), <b>schools</b> (DfE register) and <b>consultations</b> (Citizen Space).</td></tr>
+      <tr><td class="k">Council meetings<br><code>council-meetings.yml</code></td><td>Mondays 05:40 UTC</td><td>Full Council and Cabinet agendas and motions from Modern.gov (section 8). Slow councils get two minutes and a retry; hosts that never answer fail after 45 seconds.</td></tr>
+      <tr><td class="k">Weekly refresh<br><code>weekly-refresh.yml</code></td><td>Mondays 06:10 UTC</td><td><b>Gazette notices</b>, <b>local plans</b>, <b>party publications</b> (new items on party sites and GOV.UK, listed for review), <b>release watch</b> (new editions of official datasets), <b>party funding</b> (rebuilt when the Electoral Commission publishes a quarter), <b>source watch</b>, then the <b>weekly review</b> issue.</td></tr>
+      <tr><td class="k">Load drafted claims<br><code>load-claims.yml</code></td><td>On push to <code>scripts/claims/*.json</code></td><td>Loads sources and claims through the service role; idempotent; append-only.</td></tr>
     </tbody>
   </table>
+
+  <div class="cols">
+    <div>
+      <h3>The source watch</h3>
+      <p class="small">For each of the 232 sources the site quotes, it fetches the page, PDF or Word file, checks every quotation is still present word for word (ignoring case, punctuation and line breaks), records a fingerprint of the text, and keeps an Internet Archive copy: a capture from the last six months if the Archive holds one, otherwise a new one (up to 15 a run, 25 seconds apart). PDFs are read with poppler&rsquo;s <code>pdftotext</code>, which keeps words whole. A page with almost no readable text (built by JavaScript, or text inside an image) is reported as &ldquo;check by hand&rdquo;, not as a missing quotation. Each run is capped at about 35 minutes and takes the least recently checked sources first.</p>
+    </div>
+    <div>
+      <h3>How failures reach a person</h3>
+      <ul class="small">
+        <li>Every job writes a row to <code>job_runs</code>; <code>/status</code> shows each job&rsquo;s last run and flags failed or overdue ones.</li>
+        <li>A failed step does not stop the others, but the workflow is marked failed at the end, so GitHub emails the maintainer.</li>
+        <li>Each Monday <code>weekly_review.py</code> opens one GitHub issue, &ldquo;Weekly data review&rdquo; (label <code>data-review</code>), listing: jobs failed or overdue; quotations not found; unreadable sources; council facts older than 90 days; new party and GOV.UK publications; new dataset editions; elections with missing candidates or positions; withdrawals.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Every dataset and how it stays current</h3>
+  <table class="tight">
+    <thead><tr><th style="width:24%">Data</th><th>How it stays current</th><th style="width:30%">Still needs a person</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Elections, candidates, statements</td><td>Daily from Democracy Club; withdrawals and archiving automatic</td><td>Statements that refer to another election</td></tr>
+      <tr><td class="k">MPs, votes, interests, petitions</td><td>Live from UK Parliament APIs on each page view</td><td>&mdash;</td></tr>
+      <tr><td class="k">Party positions (claims)</td><td>Source watch weekly; party publications listed weekly</td><td>Reading new publications; drafting claims; acting on missing quotations</td></tr>
+      <tr><td class="k">Council facts (29 councils)</td><td>Source watch re-reads each fact&rsquo;s link weekly</td><td>Re-checking facts older than 90 days; broken links</td></tr>
+      <tr><td class="k">Schools, consultations, traffic orders, local plans</td><td>Automatic (daily or weekly)</td><td>&mdash;</td></tr>
+      <tr><td class="k">Council meetings and motions</td><td>Weekly from Modern.gov</td><td>Councils that block readers or use other systems</td></tr>
+      <tr><td class="k">Party funding</td><td>Rebuilt when a new quarter is published; one person under two donor records is counted once</td><td>&mdash;</td></tr>
+      <tr><td class="k">Council tax, deprivation, ONS lookups, councillors</td><td>Release watch flags each new edition</td><td>Reloading (yearly or less; file names change each release)</td></tr>
+      <tr><td class="k">Archived copies</td><td>Source watch, weekly</td><td>&mdash;</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Datasets still loaded by hand: <code>councillors</code> and <code>council_control</code> (Open Council Data, after each May), <code>deprivation_2025</code>, <code>ward_history</code>, <code>council_tax_2026</code>. Sources, shapes and licences are in <code>scripts/loaders/README.md</code>; DDL in <code>scripts/sql/migrations/</code>.</p>
 
   <h3>What the meetings reader leaves out</h3>
-  <p class="small">Only mechanical removals, from a public list in the script: section headings; procedural titles (apologies, minutes, declarations of interest, announcements, questions, petitions, appointments, elections of chairs and mayors, forward plans); private items the council withholds; and, following Romily&rsquo;s rule, anything about attendance or allowances. Nothing is ranked, matched to a ward or chosen by us. Motions are found by the word &ldquo;motion&rdquo; in the title or &ldquo;this council notes/believes/resolves&rdquo; in the text; the proposer comes from the title or text (&ldquo;in the name of&rdquo;, &ldquo;proposed by&rdquo;, a group name, or a title that is just a councillor&rsquo;s name).</p>
-
-  <h3>Datasets loaded once</h3>
-  <table class="tight">
-    <thead><tr><th>Table</th><th>Source</th><th>Licence</th><th>Refresh</th></tr></thead>
-    <tbody>
-      <tr><td><code>councillors</code>, <code>council_control</code></td><td>Open Council Data</td><td>Public domain</td><td>After each May election</td></tr>
-      <tr><td><code>deprivation_2025</code></td><td>MHCLG English Indices of Deprivation 2025</td><td>OGL v3</td><td>When a new index is published</td></tr>
-      <tr><td><code>party_funding</code></td><td>Electoral Commission donations register, 1 Jul 2025 – 30 Jun 2026</td><td>Public register</td><td>Quarterly</td></tr>
-      <tr><td><code>ward_history</code></td><td>DCLEAPIL v1.0 (figshare)</td><td>CC BY 4.0 / CC BY-SA 4.0</td><td>Yearly</td></tr>
-      <tr><td><code>council_tax_2026</code></td><td>MHCLG Council Tax levels 2026–27</td><td>OGL v3</td><td>Each April</td></tr>
-    </tbody>
-  </table>
-  <p class="note">Reloads write through the service role in batches of up to 2,000 rows, and never leave an insert policy open to the public afterwards. Sources, shapes and licences are in <code>scripts/loaders/README.md</code>; DDL in <code>scripts/sql/migrations/</code>.</p>
+  <p class="small">Only mechanical removals, from a public list in the script: section headings; procedural titles (apologies, minutes, declarations of interest, announcements, questions, petitions, appointments, elections of chairs and mayors, forward plans); private items the council withholds; and, following Romily&rsquo;s rule, anything about attendance or allowances. Nothing is ranked, matched to a ward or chosen by us. Motions are found by the word &ldquo;motion&rdquo; in the title or &ldquo;this council notes/believes/resolves&rdquo; in the text; the proposer comes from the title or text.</p>
 </section>
 
 <!-- ============ 10 ============ -->
@@ -509,6 +536,7 @@
       <tr><td class="k">Domains</td><td><code>whatsittome.org</code>, registered and with DNS at Vercel. <code>hustings.org</code> and <code>thisshitmatters.org</code> redirect to it with the path kept. Mail to hello@whatsittome.org forwards.</td></tr>
       <tr><td class="k">Database</td><td>Supabase project <code>voter-app</code>, ref <code>urufvcutpksjppbjxouc</code>, London, free tier.</td></tr>
       <tr><td class="k">Repository</td><td><code>github.com/highlyvisual/voter-app</code>, private, AGPL-3.0. Working copy on the Mac Studio at <code>~/code/voter-app</code>; its remote carries a fine-grained token so a build session can push.</td></tr>
+      <tr><td class="k">Scheduled jobs</td><td>GitHub Actions on the private repository: about 900 minutes a month against 2,000 free. The weekly review posts its issue with the workflow&rsquo;s own <code>GITHUB_TOKEN</code>; no extra secret is needed.</td></tr>
       <tr><td class="k">Democracy Club</td><td>Developers API account &ldquo;What&rsquo;s It To Me?&rdquo;, hobbyist plan: one key, 1,000 requests a day. Used for postcode lookup. It is not accepted by the candidates API.</td></tr>
     </tbody>
   </table>
@@ -544,7 +572,8 @@
         <li>Every server-side call to an outside service gives up after 5&ndash;8 seconds, so a slow upstream cannot hold a page past the host&rsquo;s limit and turn it into an error. Each panel already falls back to showing nothing for itself.</li>
         <li>The boundary and image routes answer 504 on a timeout instead of hanging.</li>
         <li>Candidate photos are resized by Netlify&rsquo;s image CDN, so a 56-pixel face costs kilobytes, not a 900 KB original.</li>
-        <li><code>/status</code> shows when each data set was last refreshed, and lists any election the nightly job missed.</li>
+        <li><code>/status</code> shows when each data set was last refreshed, lists any election the nightly job missed, and shows every automatic job with its last run: OK, failed or overdue.</li>
+        <li>A failed scheduled job fails its workflow, so GitHub emails the maintainer the same day.</li>
         <li><code>scripts/check-ballots.py</code> and <code>/about/accuracy</code> test that postcodes resolve to the right ballot (first report: 20 of 20 for Holborn and St Pancras).</li>
       </ul>
     </div>
@@ -572,12 +601,21 @@
   <p class="lede">The routines, in order. Each assumes you are in <code>~/code/voter-app</code> on the Mac with a clean working copy.</p></div>
 
   <h3>Add or correct claims</h3>
-  <pre><span class="c"># 1. Read the primary source; copy the quote exactly.
-# 2. Add a file (never edit a loaded one):</span>
+  <pre><span class="c"># Read the primary source; copy the quote exactly. Add a file (never edit a loaded one):</span>
 scripts/claims/2026-09-25-&lt;what&gt;.json   <span class="c"># { "sources": [...], "claims": [...] }</span>
 <span class="c"># 3. Commit and push. "Load drafted claims" runs and loads it.
 # 4. Check the ledger: current_claims for the ballot, and /ledger.
 # A correction is a new claim with "supersedes": &lt;old id&gt; and the reason.</span></pre>
+
+  <h3>Every Monday: the weekly review (about 30 minutes)</h3>
+  <ol class="small">
+    <li>Open the issue &ldquo;Weekly data review&rdquo;; fix anything under <b>Jobs</b> first.</li>
+    <li><b>Quotations not found</b>: open the source and the archived copy. If the words moved, add a superseding claim pointing at where they now are. If they were removed, withdraw the claim in <code>/review</code> with the reason.</li>
+    <li><b>Could not be read</b>: open each by hand; replace moved links.</li>
+    <li><b>New publications</b>: read each; draft a claim from the exact words where one states a position on a topic. Check Reform UK&rsquo;s site by hand.</li>
+    <li><b>New editions</b>: reload the table named. <b>Facts due</b>: update <code>lib/councils.json</code>.</li>
+    <li>Close the issue with a note of what was done.</li>
+  </ol>
 
   <h3>Add a council page</h3>
   <ol class="small">
@@ -586,8 +624,6 @@ scripts/claims/2026-09-25-&lt;what&gt;.json   <span class="c"># { "sources": [..
     <li>Commit and push (the script change triggers the meetings job), check <code>council_agenda_items</code>, then deploy.</li>
   </ol>
 
-  <h3>Add a ballot by hand</h3>
-  <p class="small">Normally the daily ingest does this. By hand: insert <code>ballots</code> (<code>previous_ballot_paper_id</code> for the last contest, <code>archived = true</code> for past ones), <code>parties</code> and <code>candidates</code> (statement verbatim).</p>
 
   <h3>Before a polling day</h3>
   <ol class="small">
@@ -604,42 +640,58 @@ scripts/deploy.sh "&lt;proxy path from Netlify's deploy tool&gt;"
 <span class="c"># then smoke-test: every /council/[slug], /, /start, the live ballot pages</span></pre>
 
   <h3>Post a question round for Romily</h3>
-  <p class="small">One page per round on romily-app-questions.netlify.app, source in <code>docs/romily/questions-site/</code>. <b>Gotcha:</b> every <code>&lt;form&gt;</code> needs <code>data-netlify="true" netlify-honeypot="bot-field"</code> (HTML saved from the live site loses it), or answers silently stop arriving. Log each answer in <code>docs/romily/feedback-log.md</code>.</p>
+  <p class="small">Source in <code>docs/romily/questions-site/</code>. Every <code>&lt;form&gt;</code> needs <code>data-netlify="true" netlify-honeypot="bot-field"</code> or answers silently stop arriving. Log answers in <code>docs/romily/feedback-log.md</code>.</p>
 
-  <p class="note"><b>Workflow files:</b> write <code>.github/workflows/*</code> on the Mac directly (the build session&rsquo;s file transfer cannot). A push to a watched path starts the job.</p>
 </section>
 
 <!-- ============ 13 ============ -->
 <section class="section" id="s13">
-  <div class="section-head" data-title="Known gaps and open decisions"><div class="num">13 · What is not done</div><h2>Known gaps and open decisions</h2>
-  <p class="lede">Stated plainly, so nobody mistakes an absence for a decision.</p></div>
+  <div class="section-head" data-title="Limitations and decisions"><div class="num">13 · What is not done</div><h2>Limitations and decisions</h2>
+  <p class="lede">Stated plainly, so nobody mistakes an absence for a decision. Figures as at 25 September 2026.</p></div>
 
-  <h3>Waiting on a person</h3>
-  <table>
-    <thead><tr><th style="width:15%">Who</th><th>Decision</th></tr></thead>
+  <h3>Decisions waiting on a person</h3>
+  <table class="tight">
+    <thead><tr><th style="width:13%">Who</th><th>Decision</th></tr></thead>
     <tbody>
       <tr><td><span class="owner b">Barny</span></td><td>The opening line (paper 01). Romily&rsquo;s steer: &ldquo;Politics is personal&rdquo;; the rest of the copy pass follows it.</td></tr>
-      <tr><td><span class="owner b">Barny</span></td><td>The shared Netlify credit pot before 8 October: a separate team or plan, fewer deploys, or another host (paper 07).</td></tr>
-      <tr><td><span class="owner r">Romily</span></td><td>What to rethink in the local-issues rule (round six q12).</td></tr>
-      <tr><td><span class="owner r">Romily</span></td><td>Journey shape: steps or one page opening up. Both are built at <code>/journey</code>.</td></tr>
-      <tr><td><span class="owner r">Romily</span></td><td>Whether area statistics belong, which gap first (crime, income and wages, GP access, schools, fuel poverty), and transport as a tenth topic (paper 09).</td></tr>
-      <tr><td><span class="owner r">Romily</span></td><td>A slot for the Democracy Club call (28 September, 3&ndash;5pm UK, or 7&ndash;9 October).</td></tr>
+      <tr><td><span class="owner b">Barny</span></td><td>Hosting before 8 October: the shared Netlify pot ran out every month since June and suspended the site on 24 September (paper 07). Options: a separate team or plan, fewer deploys, or another host.</td></tr>
+      <tr><td><span class="owner b">Barny</span></td><td>GitHub Actions minutes: the jobs use about 900 minutes a month against 2,000 free for a private repository. Make the repository public (the AGPL already allows it) or pay for GitHub Pro.</td></tr>
+      <tr><td><span class="owner b">Barny</span></td><td>Request a Democracy Club candidates-API token (the daily run takes about 16 minutes without one, a few with one) and ask about request limits for polling day; the developers key allows 1,000 lookups a day.</td></tr>
+      <tr><td><span class="owner b">Barny</span></td><td>Free Internet Archive keys: the anonymous service refuses bursts, so only about 15 new captures a week are possible.</td></tr>
+      <tr><td><span class="owner b">Barny</span></td><td>Ask Open Council Data about its live feed; by-election changes to councillors appear only on its web pages.</td></tr>
+      <tr><td><span class="owner r">Romily</span></td><td>Should new party publications and candidate statements be drafted into claims automatically (quotation checked word for word by code, summary reviewed by a person afterwards), or stay a list for a person to draft from, as now?</td></tr>
+      <tr><td><span class="owner r">Romily</span></td><td>Whether to add official area statistics that can now be automated: council-area emissions (DESNZ), Housing Delivery Test and net additional homes (MHCLG), council housing waiting lists. Neutral, but not the council&rsquo;s own words.</td></tr>
+      <tr><td><span class="owner r">Romily</span></td><td>Automatic Royal Assent tracking of named Bills for promises (paper 10); works only for the governing party.</td></tr>
+      <tr><td><span class="owner r">Romily</span></td><td>What to rethink in the local-issues rule; journey shape (steps or one page); area statistics and which gap first; transport as a tenth topic; the Democracy Club call slot.</td></tr>
     </tbody>
   </table>
 
-  <h3>Known technical gaps</h3>
+  <h3>Limitations of the automatic refresh</h3>
+  <table class="tight">
+    <tbody>
+      <tr><td class="k">Blocked sources</td><td>Reform UK&rsquo;s site (29 claims on three pages), Restore Britain&rsquo;s nine policy pages (16 claims) and the Christian Peoples Alliance manifesto PDF (15 claims) refuse automated readers, as do some pages of Wiltshire, Leicestershire, Windsor and Maidenhead, Bassetlaw and Northumberland. They are listed every week for a manual check, so no party is watched less closely than another.</td></tr>
+      <tr><td class="k">Unreadable pages</td><td>Aberdeen&rsquo;s site is built by JavaScript; the Loony party&rsquo;s by-election manifesto is an image; Amber Valley streams its documents. These are flagged &ldquo;check by hand&rdquo;.</td></tr>
+      <tr><td class="k">Broken links</td><td>Blackpool&rsquo;s environment page and Stirling&rsquo;s housing page now return &ldquo;not found&rdquo;; both facts need re-sourcing.</td></tr>
+      <tr><td class="k">Party publications</td><td>Reform UK&rsquo;s site cannot be watched automatically. Labour is watched through its site&rsquo;s post listing and document sitemap, the Conservatives through their sitemap, the Liberal Democrats, Greens, SNP and Plaid Cymru through news feeds, and government policy through GOV.UK.</td></tr>
+      <tr><td class="k">Traffic orders</td><td>The Gazette carries mainly London boroughs&rsquo; orders; elsewhere councils use local newspapers, which have no open feed.</td></tr>
+      <tr><td class="k">Consultations</td><td>Only councils on Citizen Space (3 of 29 today). EngagementHQ gives no dates; Commonplace blocks readers.</td></tr>
+      <tr><td class="k">Schools</td><td>England only: Wales has no status or dates in its list, and Scotland publishes once a year.</td></tr>
+      <tr><td class="k">Council meetings</td><td>13 councils load; Lambeth intermittently; Brighton and Hove and Halton are too slow; Camden and Carmarthenshire block; Stirling disallows; four hosts do not answer; Argyll and Bute returns no meetings; four councils run other systems.</td></tr>
+      <tr><td class="k">Archiving pace</td><td>About 15 new captures a week until keys are set up; sources already captured by the Archive in the last six months are reused straight away.</td></tr>
+      <tr><td class="k">Weekly review issue</td><td>Built and tested as a dry run; the first real issue is posted on the first scheduled Monday run.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Other known gaps</h3>
   <table class="tight">
     <tbody>
       <tr><td class="k">Money region</td><td>The grid is computed for London only. Extend the key before showing money figures elsewhere.</td></tr>
-      <tr><td class="k">Motion results</td><td>Results are not in the meeting feed in a consistent form; pages link to minutes.</td></tr>
-      <tr><td class="k">Council coverage</td><td>Motions only for councils whose Modern.gov feed answers (14 of 29).</td></tr>
-      <tr><td class="k">Council facts refresh</td><td>Gathered by hand; no refresh routine yet. Leicestershire&rsquo;s quotes were read through a fetcher only and need a check in a browser.</td></tr>
-      <tr><td class="k">Candidates API</td><td>No token yet; the nightly job runs slowly and unauthenticated.</td></tr>
-      <tr><td class="k">Primary sources</td><td>Some Reform UK and Liberal Democrat positions still await primary sources.</td></tr>
-      <tr><td class="k">Photo licences</td><td>Democracy Club photo licences need a human check before any all-or-none photo rule applies.</td></tr>
-      <tr><td class="k">Election notices</td><td>Notice-of-election URLs beyond the statement of persons nominated are not filled for every ballot.</td></tr>
+      <tr><td class="k">Motion results</td><td>Not in the meeting feed in a consistent form; pages link to minutes.</td></tr>
+      <tr><td class="k">Council tax outside England</td><td>Scotland and Wales not yet loaded; both publish machine-readable tables, so this is a build item, not a decision.</td></tr>
+      <tr><td class="k">Photo licences</td><td>Need a human check before any all-or-none photo rule applies.</td></tr>
+      <tr><td class="k">Election notices</td><td>Notice-of-election links are not filled for every ballot (deadlines themselves are computed).</td></tr>
       <tr><td class="k">Welsh</td><td>Needs a translator (<code>docs/welsh.md</code>).</td></tr>
-      <tr><td class="k">Stale statements</td><td>Some candidates&rsquo; statements on Democracy Club refer to other elections; they are shown as supplied.</td></tr>
+      <tr><td class="k">Cold starts</td><td>The Holborn and St Pancras page can take about 10 seconds on its first request after a quiet spell, then about 3.</td></tr>
     </tbody>
   </table>
 </section>
@@ -702,6 +754,18 @@ scripts/deploy.sh "&lt;proxy path from Netlify's deploy tool&gt;"
 <!-- ============ 16 ============ -->
 <section class="section" id="s16">
   <div class="section-head" data-title="Glossary"><div class="num">16 · Words</div><h2>Glossary</h2></div>
+  <h3>Fixed vocabularies in the database</h3>
+  <table class="tight">
+    <thead><tr><th style="width:24%">Enum</th><th>Values</th></tr></thead>
+    <tbody>
+      <tr><td class="k"><code>topic</code></td><td>money_and_cost_of_living · housing_and_property · healthcare_and_social_care · education_and_universities · environment_climate_and_energy · immigration_and_borders · crime_policing_and_justice · defence_foreign_affairs_and_eu · equality_and_rights</td></tr>
+      <tr><td class="k"><code>source_layer</code></td><td>manifesto · enacted_record · candidate_statement · campaign_leaflet · third_party_analysis</td></tr>
+      <tr><td class="k"><code>claim_status</code></td><td>draft · verified · superseded · withdrawn</td></tr>
+      <tr><td class="k"><code>claim_precision</code></td><td>measurable · aspiration (shown as &ldquo;Stated aim, no measurable commitment found&rdquo;)</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Raw SQL must cast to these types, for example <code>'housing_and_property'::topic</code>, or Postgres refuses the insert. Supabase&rsquo;s SQL runner returns only the last statement&rsquo;s result, so run one statement per query when checking.</p>
+  <h3>Terms</h3>
   <table class="tight">
     <tbody>
       <tr><td class="k">applies_if</td><td>A claim&rsquo;s conditions in structured form (for example renters), matched against the household profile to order what is most relevant first. It never hides a claim.</td></tr>

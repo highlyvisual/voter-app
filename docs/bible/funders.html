@@ -44,7 +44,7 @@ h3 { font-size: 13.5pt; margin-top: 6mm; }
   <h1>Impartial by <em>design</em>, sourced by default.</h1>
   <p class="sub">How What&rsquo;s It To Me? shows every voter who is on their ballot and what each candidate has published, without ever telling them what to think, and how anyone can check every word.</p>
   <div class="meta">
-    <div><b>Edition</b>September 2026<br>Figures as at 25 September 2026</div>
+    <div><b>Edition</b>September 2026 (v1.1)<br>Figures as at 25 September 2026</div>
     <div><b>Founders</b>Romily Johnson, Founder and Product Lead<br>Barny Trevelyan-Johnson, Technical Lead</div>
     <div><b>Contact</b>hello@whatsittome.org<br>whatsittome.org</div>
   </div>
@@ -160,6 +160,7 @@ h3 { font-size: 13.5pt; margin-top: 6mm; }
       <ul class="small">
         <li><b>The public ledger</b> lists every live position and every change, with who made it, when and why.</li>
         <li><b>A fingerprint before polling day.</b> The full ledger is published with a SHA-256 checksum and archived, so anyone can confirm later that nothing was altered.</li>
+        <li><b>Every source is re-read every week.</b> Each quotation is checked to still be there word for word, and an independent Internet Archive copy is linked beside it. The first pass led to 24 claims being re-linked to where the words actually are.</li>
         <li><b>Complaints are logged publicly</b>, with their outcome.</li>
         <li><b>Coverage is shown, not hidden.</b> A coverage page counts how much sourced material was found for each party on each topic, and says plainly that it measures what was found, not quality.</li>
       </ul>
@@ -219,7 +220,7 @@ h3 { font-size: 13.5pt; margin-top: 6mm; }
 
   <div class="stats">
     <div class="stat"><b>29</b><span>council pages, each quoting the council&rsquo;s own papers</span></div>
-    <div class="stat"><b>14</b><span>councils whose meeting agendas load automatically every week</span></div>
+    <div class="stat"><b>13</b><span>councils whose meeting agendas load automatically every week</span></div>
     <div class="stat"><b>19,273</b><span>serving councillors from 384 councils</span></div>
     <div class="stat"><b>10</b><span>research papers behind the design decisions</span></div>
   </div>
@@ -243,7 +244,7 @@ h3 { font-size: 13.5pt; margin-top: 6mm; }
   <div class="cols">
     <div>
       <h3>Technology</h3>
-      <p class="small">A server-rendered web application (Next.js) hosted on Netlify, one Postgres database (Supabase, hosted in London), and scheduled jobs in GitHub that refresh elections daily, council meetings weekly, and load newly sourced positions as they are added. Maps use OpenStreetMap. The code is open source under the AGPL-3.0.</p>
+      <p class="small">A server-rendered web application (Next.js) hosted on Netlify, one Postgres database (Supabase, hosted in London), and scheduled jobs in GitHub that refresh elections, schools and consultations daily, and council meetings, planning, party funding and every quoted source weekly. Each run is logged publicly on the site&rsquo;s status page. Where a site blocks automated reading, it is checked by hand, so no party is watched less closely than another. Maps use OpenStreetMap. The code is open source under the AGPL-3.0.</p>
       <h3>Governance</h3>
       <p class="small"><b>Romily Johnson</b>, Founder and Product Lead, owns the project and makes decisions on direction. <b>Barny Trevelyan-Johnson</b>, Technical Lead, builds and runs it. Decisions are recorded with a date and the person who made them. Corrections and withdrawals are made by a named maintainer and logged publicly with the reason.</p>
     </div>
@@ -263,7 +264,6 @@ h3 { font-size: 13.5pt; margin-top: 6mm; }
     <div class="card sage"><h4>Testing and feedback</h4><p class="small">Schools, colleges, libraries and community groups to try the site with first-time voters and tell us where it falls short.</p></div>
   </div>
 
-  <p class="note" style="margin-top:6mm; text-align:center">hello@whatsittome.org · whatsittome.org · Figures as at 25 September 2026</p>
 </section>
 
 </body>
