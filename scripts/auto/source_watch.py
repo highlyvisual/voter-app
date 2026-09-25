@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from common import councils, fetch, job, norm, page_text, patch, quote_found, select, sha, write, now_iso
 
 ARCHIVE_BUDGET = int(os.environ.get("ARCHIVE_BUDGET", "40"))       # Save Page Now takes ~30 s each; keep the run short
-TIME_BUDGET = int(os.environ.get("SOURCE_WATCH_MINUTES", "40")) * 60
+TIME_BUDGET = int(os.environ.get("SOURCE_WATCH_MINUTES", "35")) * 60
 
 
 def archive(url: str):
@@ -23,7 +23,7 @@ def archive(url: str):
     import urllib.request
     req = urllib.request.Request(f"https://web.archive.org/save/{url}", headers={"User-Agent": "What's It To Me? (whatsittome.org) source archiving; hello@whatsittome.org"})
     try:
-        with urllib.request.urlopen(req, timeout=150) as r:
+        with urllib.request.urlopen(req, timeout=90) as r:
             final = r.geturl()
             if "/web/" in final and "/save/" not in final: return final, None
             loc = r.headers.get("Content-Location") or ""
@@ -60,7 +60,7 @@ def main():
             if time.time() - t0 > TIME_BUDGET:
                 print("time budget reached; the rest are checked next week"); break
             try:
-                status, body, hdr = fetch(url, browser=True, timeout=60, tries=2)
+                status, body, hdr = fetch(url, browser=True, timeout=40, tries=1)
             except Exception as ex:
                 status, body, hdr = None, b"", {}
             row = {"url": url, "kind": t["kind"], "ref": t["ref"], "checked_at": stamp, "http_status": status,
@@ -81,7 +81,7 @@ def main():
                 miss = [ref for ref, q in t["quotes"] if not quote_found(q, tn)]
                 row["quotes_found"] = len(t["quotes"]) - len(miss); row["missing_refs"] = miss or None
                 missing += len(miss)
-                if (not prev.get("archived") or row["changed"]) and archived < ARCHIVE_BUDGET and not url.lower().endswith(".pdf#"):
+                if (not prev.get("archived") or row["changed"]) and archived < ARCHIVE_BUDGET and time.time() - t0 < TIME_BUDGET * 0.8:
                     snap, note = archive(url); archived += 1
                     row["archive_url"] = snap; row["note"] = note
                     time.sleep(5)
@@ -92,8 +92,9 @@ def main():
                 row["note"] = "could not be read automatically (blocked, moved or offline)"
             rows.append(row)
             print(status, len(t["quotes"]), row["quotes_found"], url[:100], flush=True)
+            if len(rows) % 20 == 0: write("source_checks", rows[-20:])   # save as we go, so a cut-short run keeps its work
             time.sleep(1)
-        write("source_checks", rows)
+        write("source_checks", rows[len(rows) - len(rows) % 20:])
         # Put the newest archived copy on the source itself, so every card quoting it can link to it.
         held = {s["url"]: s.get("archive_url") for s in select("/sources?select=url,archive_url")}
         for r in rows:

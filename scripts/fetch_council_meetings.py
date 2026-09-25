@@ -89,16 +89,19 @@ def norm(t: str) -> str:
     return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9 ]", " ", t.lower().replace("’", "").replace("'", ""))).strip()
 
 
-def get(url: str, browser: bool = False) -> str:
-    # Some councils' servers are slow (Brighton and Hove, Halton: 30-90 s a call), so wait up to two minutes and try twice.
-    for attempt in range(2):
+SLOW = {"brighton-and-hove", "halton"}   # servers that answer, but take 30-90 s a call
+
+
+def get(url: str, browser: bool = False, slow: bool = False) -> str:
+    # Slow councils get two minutes and a second try; the rest 45 s and one try, so a host that never answers costs little.
+    for attempt in range(2 if slow else 1):
         try:
-            with urllib.request.urlopen(urllib.request.Request(url, headers=BROWSER if browser else UA), timeout=120) as r:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=BROWSER if browser else UA), timeout=120 if slow else 45) as r:
                 return r.read().decode("utf-8", "replace")
         except urllib.error.HTTPError:
             raise
         except Exception:
-            if attempt: raise
+            if attempt or not slow: raise
             time.sleep(10)
 
 
@@ -115,7 +118,7 @@ def text(h: str) -> str:
 def fetch(slug: str, base: str, today: datetime.date):
     ws = f"{base}/mgWebService.asmx"
     b = slug in BROWSER_UA
-    cx = get(f"{ws}/GetCommittees?lDummy=0", b)
+    cx = get(f"{ws}/GetCommittees?lDummy=0", b, slug in SLOW)
     bodies = []
     for c in re.findall(r"<committee>(.*?)</committee>", cx, re.S):
         title = tag(c, "committeetitle")
@@ -127,12 +130,12 @@ def fetch(slug: str, base: str, today: datetime.date):
     frm, to = (today - datetime.timedelta(days=BACK)).strftime("%d/%m/%Y"), (today + datetime.timedelta(days=AHEAD)).strftime("%d/%m/%Y")
     rows = []
     for cid, ctitle, body in bodies:
-        mx = get(f"{ws}/GetMeetings?lCommitteeId={cid}&sFromDate={frm}&sToDate={to}", b)
+        mx = get(f"{ws}/GetMeetings?lCommitteeId={cid}&sFromDate={frm}&sToDate={to}", b, slug in SLOW)
         for m in re.findall(r"<meeting>(.*?)</meeting>", mx, re.S):
             mid, mdate, status = tag(m, "meetingid"), tag(m, "meetingdate"), tag(m, "meetingstatus")
             d = datetime.datetime.strptime(mdate, "%d/%m/%Y").date().isoformat()
             url = f"{base}/ieListDocuments.aspx?CId={cid}&MId={mid}"
-            gx = get(f"{ws}/GetMeeting?lMeetingId={mid}", b)
+            gx = get(f"{ws}/GetMeeting?lMeetingId={mid}", b, slug in SLOW)
             items = re.findall(r"<agendaitem>(.*?)</agendaitem>", gx, re.S)
             published = tag(gx, "agendapublished") == "True"
             kept = 0
