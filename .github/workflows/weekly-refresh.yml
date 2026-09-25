@@ -1,0 +1,68 @@
+name: Weekly refresh
+# Mondays: the slower-moving sources, the source watch, and the weekly review issue.
+#   gazette.py          traffic and highways orders from The Gazette
+#   planning.py         local plans and housing requirements (planning.data.gov.uk)
+#   party_feeds.py      new publications on party websites and GOV.UK (listed for review, never auto-published)
+#   release_watch.py    new editions of official datasets (council tax, deprivation, ONS lookups, emissions)
+#   party_funding.py    Electoral Commission donations, rebuilt when a new quarter is published
+#   source_watch.py     re-reads every quoted source, checks each quotation is still there, archives a copy
+#   weekly_review.py    one GitHub issue listing everything that needs a person
+# Council meetings run in their own workflow (council-meetings.yml, Mondays 05:40 UTC).
+on:
+  schedule:
+    - cron: "10 6 * * 1"   # Mondays 06:10 UTC
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["scripts/auto/**", "!scripts/auto/schools.py", "!scripts/auto/consultations.py", ".github/workflows/weekly-refresh.yml"]
+permissions:
+  contents: read
+  issues: write
+concurrency: { group: weekly-refresh, cancel-in-progress: false }
+jobs:
+  weekly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - run: pip install --quiet pdfminer.six
+      - name: Gazette notices
+        id: gazette
+        continue-on-error: true
+        run: python scripts/auto/gazette.py
+      - name: Local plans
+        id: planning
+        continue-on-error: true
+        run: python scripts/auto/planning.py
+      - name: Party publications
+        id: feeds
+        continue-on-error: true
+        run: python scripts/auto/party_feeds.py
+      - name: New editions of official datasets
+        id: releases
+        continue-on-error: true
+        run: python scripts/auto/release_watch.py
+      - name: Party funding
+        id: funding
+        continue-on-error: true
+        env:
+          FUNDING_FORCE: ${{ github.event_name == 'push' && '1' || '' }}
+        run: python scripts/auto/party_funding.py
+      - name: Source watch (quotations still present; archive copies)
+        id: sources
+        continue-on-error: true
+        run: python scripts/auto/source_watch.py
+      - name: Weekly review issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          POST_ISSUE: ${{ github.event_name != 'push' && '1' || '' }}
+        run: python scripts/auto/weekly_review.py
+      - name: Fail the run if any step failed (GitHub then emails the maintainer)
+        if: steps.gazette.outcome == 'failure' || steps.planning.outcome == 'failure' || steps.feeds.outcome == 'failure' || steps.releases.outcome == 'failure' || steps.funding.outcome == 'failure' || steps.sources.outcome == 'failure'
+        run: exit 1

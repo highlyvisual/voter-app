@@ -1,32 +1,61 @@
 name: Daily ballot ingest
-# Pulls every current UK ballot from Democracy Club and upserts it. Needs two repository secrets:
-#   SUPABASE_SERVICE_ROLE_KEY  (from Supabase → Project settings → API)
-#   SUPABASE_URL               (https://urufvcutpksjppbjxouc.supabase.co)
+# Every morning: elections and candidates from Democracy Club (only what we do not already hold; everyone again on
+# Mondays), withdrawals and archiving, leaflets, photos, then the daily council-page feeds (DfE schools register,
+# council consultations). Each step records its run in job_runs (see /status). A failed step does not stop the others,
+# but the run is marked failed at the end so GitHub emails the maintainer.
+# Needs repository secrets SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY; DEMOCRACY_CLUB_TOKEN is optional.
 on:
   schedule:
     - cron: "17 5 * * *"   # 05:17 UTC daily
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["scripts/ingest_ballots.py", "scripts/load_ingest.py", "scripts/auto/schools.py", "scripts/auto/consultations.py", ".github/workflows/ingest.yml"]
 permissions:
   contents: write   # lets the last step commit the daily check reports back to the repo
+concurrency: { group: daily-ingest, cancel-in-progress: false }
 jobs:
   ingest:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      DEMOCRACY_CLUB_TOKEN: ${{ secrets.DEMOCRACY_CLUB_TOKEN }}   # optional: lifts the 10-requests-a-minute limit
+      PYTHONUNBUFFERED: "1"
     steps:
-      - uses: actions/checkout@v5      # v4 ran on Node 20, which GitHub is retiring
-      - uses: actions/setup-python@v6  # same reason
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with: { python-version: "3.12" }
-      - name: Ingest
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-          DEMOCRACY_CLUB_TOKEN: ${{ secrets.DEMOCRACY_CLUB_TOKEN }}   # optional: lifts the 10-requests-a-minute limit
-          PYTHONUNBUFFERED: "1"                                      # show progress in the log as it happens
+      - name: Elections and candidates
+        id: ingest
+        continue-on-error: true
+        # Load whatever was fetched even if one ballot failed, then report the failure.
         run: |
-          python scripts/ingest_ballots.py
-          python scripts/load_ingest.py
-          python scripts/scan_leaflets.py
-          python scripts/fetch_photos.py && python scripts/load_photos.py
+          python scripts/ingest_ballots.py; rc=$?
+          python scripts/load_ingest.py && exit $rc
+      - name: Leaflets
+        id: leaflets
+        continue-on-error: true
+        run: python scripts/scan_leaflets.py
+      - name: Photos
+        id: photos
+        continue-on-error: true
+        run: python scripts/fetch_photos.py && python scripts/load_photos.py
+      - name: Schools (DfE register)
+        id: schools
+        continue-on-error: true
+        run: python scripts/auto/schools.py
+      - name: Council consultations
+        id: consultations
+        continue-on-error: true
+        run: python scripts/auto/consultations.py
       - name: Commit refreshed check reports
         run: |
           git config user.name "ingest-bot"; git config user.email "ingest-bot@users.noreply.github.com"
           git add reports || true; git commit -m "Daily ingest $(date -u +%F)" || echo "nothing to commit"; git push || true
+      - name: Fail the run if any step failed (GitHub then emails the maintainer)
+        if: steps.ingest.outcome == 'failure' || steps.leaflets.outcome == 'failure' || steps.photos.outcome == 'failure' || steps.schools.outcome == 'failure' || steps.consultations.outcome == 'failure'
+        run: |
+          echo "ingest=${{ steps.ingest.outcome }} leaflets=${{ steps.leaflets.outcome }} photos=${{ steps.photos.outcome }} schools=${{ steps.schools.outcome }} consultations=${{ steps.consultations.outcome }}"
+          exit 1

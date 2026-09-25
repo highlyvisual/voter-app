@@ -40,7 +40,7 @@ export async function GET(req: NextRequest) {
   if (ballot) {
     const [{ data: cl }, { data: cands }] = await Promise.all([
       publicClient().from("current_claims").select("topic, candidate_id, party_ec_id").eq("ballot_paper_id", ballot).eq("status", "verified"),
-      publicClient().from("candidates").select("id, party_ec_id").eq("ballot_paper_id", ballot),
+      publicClient().from("candidates").select("id, party_ec_id").eq("ballot_paper_id", ballot).is("withdrawn_at", null),
     ]);
     const byTopic = new Map<string, Set<number>>();
     for (const c of cl ?? []) for (const cand of cands ?? []) if (c.candidate_id === cand.id || (c.candidate_id === null && c.party_ec_id && c.party_ec_id === cand.party_ec_id)) { const s2 = byTopic.get(c.topic) ?? new Set(); s2.add(cand.id); byTopic.set(c.topic, s2); }

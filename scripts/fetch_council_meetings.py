@@ -11,7 +11,7 @@ Usage:
   python scripts/fetch_council_meetings.py              # writes scripts/sql/council_meetings.json
   SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... python scripts/fetch_council_meetings.py --load
 """
-import datetime, html, json, os, re, sys, urllib.error, urllib.parse, urllib.request
+import datetime, html, json, os, re, sys, time, urllib.error, urllib.parse, urllib.request
 
 COUNCILS = {  # slug (lib/councils.json) -> Modern.gov base URL
     "lambeth": "https://moderngov.lambeth.gov.uk",
@@ -90,8 +90,16 @@ def norm(t: str) -> str:
 
 
 def get(url: str, browser: bool = False) -> str:
-    with urllib.request.urlopen(urllib.request.Request(url, headers=BROWSER if browser else UA), timeout=60) as r:
-        return r.read().decode("utf-8", "replace")
+    # Some councils' servers are slow (Brighton and Hove, Halton: 30-90 s a call), so wait up to two minutes and try twice.
+    for attempt in range(2):
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=BROWSER if browser else UA), timeout=120) as r:
+                return r.read().decode("utf-8", "replace")
+        except urllib.error.HTTPError:
+            raise
+        except Exception:
+            if attempt: raise
+            time.sleep(10)
 
 
 def tag(x: str, name: str) -> str:
@@ -185,3 +193,7 @@ if __name__ == "__main__":
     print(f"wrote {len(all_rows)} rows to {out}; failed: {', '.join(failed) or 'none'}")
     if "--load" in sys.argv:
         load(all_rows, ok); print("loaded")
+        url = os.environ["SUPABASE_URL"].rstrip("/") + "/rest/v1/job_runs"; key = os.environ["SUPABASE_SERVICE_ROLE_KEY"]
+        note = f"{len(ok)} councils read, {len(all_rows)} rows; not read: {', '.join(failed) or 'none'}"
+        urllib.request.urlopen(urllib.request.Request(url, data=json.dumps([{"job": "council meetings", "started_at": now, "ok": bool(ok), "rows": len(all_rows), "note": note}]).encode(),
+                                                      method="POST", headers={"apikey": key, "Authorization": "Bearer " + key, "Content-Type": "application/json", "Prefer": "return=minimal"}), timeout=60)

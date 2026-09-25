@@ -11,7 +11,7 @@ export default async function Positions() {
   const [live, archived] = await Promise.all([listBallots(), listArchivedBallots()]);
   const ballots = [...live, ...archived];
   const { data } = await publicClient().from("current_claims").select("*, sources(title, url, publisher, published_on, layer)").eq("status", "verified").order("ballot_paper_id").order("candidate_id", { nullsFirst: true }).order("topic");
-  const { data: cands } = await publicClient().from("candidates").select("id, name, party_name_on_ballot, ballot_paper_id, surname_sort");
+  const { data: cands } = await publicClient().from("candidates").select("id, name, party_name_on_ballot, ballot_paper_id, surname_sort").is("withdrawn_at", null);
   const byId = new Map((cands ?? []).map((c) => [c.id, c]));
   const areaOf = new Map(ballots.map((b) => [b.ballot_paper_id, b.area_name]));
   const topicLabel = Object.fromEntries(TOPICS);

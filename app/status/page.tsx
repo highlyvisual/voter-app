@@ -1,11 +1,29 @@
 import Link from "next/link";
 import { ago, freshness, stamp } from "@/lib/freshness";
+import { publicClient } from "@/lib/data";
+
+// Every automatic job, what it keeps current, and how stale it may get before it counts as overdue (hours).
+const JOBS: { job: string; what: string; when: string; max: number }[] = [
+  { job: "ballot ingest", what: "Elections, candidates, statements, withdrawals; archives past elections", when: "Daily 05:17 UTC", max: 30 },
+  { job: "schools (GIAS)", what: "Proposed and recent school openings and closures in England (DfE register)", when: "Daily", max: 30 },
+  { job: "consultations", what: "Open consultations from councils that use Citizen Space", when: "Daily", max: 30 },
+  { job: "council meetings", what: "Full Council and Cabinet agendas and motions (Modern.gov)", when: "Mondays", max: 8 * 24 },
+  { job: "gazette notices", what: "Traffic and highways orders published in The Gazette", when: "Mondays", max: 8 * 24 },
+  { job: "local plans (planning.data.gov.uk)", what: "Each council's local plans and housing requirement (MHCLG)", when: "Mondays", max: 8 * 24 },
+  { job: "party funding (Electoral Commission)", what: "Party donations, latest four published quarters", when: "Mondays; rebuilt when a quarter is published", max: 8 * 24 },
+  { job: "source watch", what: "Re-reads every quoted source, checks each quotation is still there, archives a copy", when: "Mondays", max: 8 * 24 },
+  { job: "party publications", what: "New publications from party websites and GOV.UK, for review", when: "Mondays", max: 8 * 24 },
+  { job: "release watch", what: "New editions of official datasets (council tax, deprivation, ONS lookups, emissions)", when: "Mondays", max: 8 * 24 },
+];
 
 export const metadata = { title: "Is this up to date?", description: "When the election data on this site was last refreshed, and whether the nightly update is working." };
 export const dynamic = "force-dynamic";
 
 export default async function Status() {
   const f = await freshness();
+  const { data: runRows } = await publicClient().from("job_runs").select("job, finished_at, ok, rows, note").order("finished_at", { ascending: false }).limit(400);
+  const lastRun = new Map<string, { finished_at: string; ok: boolean; rows: number | null; note: string | null }>();
+  for (const r of runRows ?? []) if (!lastRun.has(r.job)) lastRun.set(r.job, r);
   const hours = f.ballots ? (Date.now() - new Date(f.ballots).getTime()) / 3600000 : Infinity;
   const state = hours < 36 ? "ok" : hours < 72 ? "warn" : "bad";
   const headline = state === "ok" ? "Up to date" : state === "warn" ? "Slightly behind" : "Out of date";
@@ -44,6 +62,26 @@ export default async function Status() {
         </tbody>
       </table>
 
+      <h2>Every automatic job</h2>
+      <p>Everything below runs by itself on a schedule and records each run here. A job that fails or misses its slot is flagged, and a weekly review lists anything a person needs to look at.</p>
+      <table className="plain status-table">
+        <thead><tr><th>Job</th><th>Last run</th><th>Result</th></tr></thead>
+        <tbody>
+          {JOBS.map((j) => {
+            const r = lastRun.get(j.job);
+            const age = r ? (Date.now() - new Date(r.finished_at).getTime()) / 3600000 : Infinity;
+            const result = !r ? "Not run yet" : !r.ok ? "Failed" : age > j.max ? "Overdue" : "OK";
+            return (
+              <tr key={j.job}>
+                <th scope="row">{j.what}<span className="meta" style={{ display: "block", fontWeight: 400 }}>{j.when}{r?.note ? ` · ${r.note.slice(0, 180)}` : ""}</span></th>
+                <td style={{ whiteSpace: "nowrap" }}>{r ? ago(r.finished_at, f.now) : "never"}</td>
+                <td style={{ whiteSpace: "nowrap" }}><b>{result}</b></td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+
       <h2>Every election we are showing</h2>
       <p>{f.liveBallots} election{f.liveBallots === 1 ? "" : "s"} currently listed. {f.stale.length === 0
         ? "All of them were refreshed in the last day and a half."
@@ -55,7 +93,7 @@ export default async function Status() {
       ) : null}
 
       <h2>How the update works</h2>
-      <p>Every morning at 05:17 UTC an automated job asks Democracy Club for every election now open, writes what it finds here, and records the time against each one. It also looks for new campaign leaflets and candidate photos. If a single election cannot be fetched, the job stops with an error rather than quietly dropping it, and that election would appear in the list above.</p>
+      <p>Every morning at 05:17 UTC an automated job asks Democracy Club for every election now open, writes what it finds here, and records the time against each one. It also looks for new campaign leaflets and candidate photos, marks candidates who have withdrawn, and moves elections off the current lists the day after polling. If a single election cannot be fetched, the job still loads the rest but records a failure rather than quietly dropping it, and that election appears in the list above.</p>
       <p className="meta">Times are shown in UTC, which is the same as UK time in winter and one hour behind British Summer Time. Sourced positions are added by people, not by the nightly job, so that row moves less often and a gap there is normal. The code that does all this is <a href="https://github.com/highlyvisual/voter-app">open source</a>, and every change to a published claim is listed in <Link href="/ledger">the public ledger</Link>.</p>
     </>
   );

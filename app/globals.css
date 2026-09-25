@@ -1370,3 +1370,11 @@ main a { overflow-wrap: anywhere; }
 .dec-head { margin: 0 0 0.25rem; font-family: var(--sans); }
 .dec-items { margin: 0; padding-left: 1.1rem; font-size: 0.95rem; }
 .dec-items li { margin: 0.2rem 0; }
+
+/* Council pages: lines kept current automatically from official registers (25 Sept 2026) */
+.auto-block { margin: 0.9rem 0 0.4rem; padding: 0.7rem 0.9rem; border-left: 2px solid var(--rule); background: var(--sand); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.auto-title { font-family: var(--sans); font-size: 0.9rem; font-weight: 600; margin: 0 0 0.35rem; }
+.auto-tag { font-weight: 500; font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--rule); border-radius: 999px; padding: 0.05rem 0.45rem; margin-left: 0.35rem; white-space: nowrap; }
+.auto-list { margin: 0.2rem 0 0.4rem; padding-left: 1.1rem; font-size: 0.95rem; }
+.auto-list li { margin-bottom: 0.3rem; }
+.auto-block .meta { margin: 0.3rem 0 0; }

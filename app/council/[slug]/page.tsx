@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { publicClient } from "@/lib/data";
@@ -24,20 +25,31 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
   const stripped = c.name.replace(/\s+(Borough|District|City|County|Council)(?=\s|$)/g, "").trim();
   // Exact names only: a prefix match would give Aberdeen City the councillors of Aberdeenshire.
   const names = [...new Set([c.name, stripped])];
-  const [{ data: cllrs }, { data: control }, { data: ctax }, { data: ballotRows }, { data: agenda }] = await Promise.all([
+  const gss = c.gss ?? "__none__";
+  const since = new Date(Date.now() - 120 * 86400000).toISOString().slice(0, 10);
+  const [{ data: cllrs }, { data: control }, { data: ctax }, { data: ballotRows }, { data: agenda }, { data: plans }, { data: notices }, { data: schools }, { data: consults }] = await Promise.all([
     db.from("councillors").select("name, party_name, ward, next_election").in("council", names).order("ward").order("name"),
     db.from("council_control").select("*").in("authority", names).eq("year", 2026).limit(1).maybeSingle(),
     db.from("council_tax_2026").select("*").in("authority", names).limit(1).maybeSingle(),
     db.from("ballots").select("ballot_paper_id, area_name, poll_date").ilike("area_name", `${stripped}%`).eq("archived", false).order("poll_date"),
     db.from("council_agenda_items").select("*").eq("council_slug", c.slug).order("meeting_date").order("item_id"),
+    db.from("local_plans").select("*").eq("council_slug", c.slug).order("period_end", { ascending: false, nullsFirst: false }),
+    db.from("gazette_notices").select("*").eq("council_slug", c.slug).gte("published", since).order("published", { ascending: false }),
+    db.from("school_changes").select("*").or(`district_gss.eq.${gss},la_gss.eq.${gss}`).order("name"),
+    db.from("council_consultations").select("*").eq("council_slug", c.slug).order("closes"),
   ]);
+  const fmt = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+  const auto: Record<string, ReactNode> = {
+    housing: <PlanLines rows={(plans ?? []) as PlanRow[]} fmt={fmt} />,
+    transport: <GazetteLines rows={(notices ?? []) as NoticeRow[]} fmt={fmt} />,
+    education: <SchoolLines rows={(schools ?? []) as SchoolRow[]} fmt={fmt} county={c.gss?.startsWith("E10") ?? false} />,
+  };
   const ballots = (ballotRows ?? []).filter((b) => councilSlugFor(b.area_name) === c.slug);
   const councillors = (cllrs ?? []) as { name: string; party_name: string | null; ward: string; next_election: string | null }[];
   const nextElection = councillors.map((x) => x.next_election).filter(Boolean).sort()[0] ?? null;
   const byParty = new Map<string, number>();
   for (const x of councillors) byParty.set(x.party_name ?? "Not recorded", (byParty.get(x.party_name ?? "Not recorded") ?? 0) + 1);
   const parties = [...byParty.entries()].sort((a, b) => b[1] - a[1]);
-  const fmt = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
   const gbp = (n: number) => "£" + Number(n).toLocaleString("en-GB", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const factsFor = (t: string): CouncilFact[] => c.facts.filter((f) => f.topic === t);
   const links: [string, string | null][] = [["Council plan", c.links.plan], ["Budget", c.links.budget], ["Meeting papers", c.links.meetings], ["Councillors", c.links.councillors], ["Register of interests", c.links.interests], ["Consultations", c.links.consultations]];
@@ -50,6 +62,16 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
       <p className="meta">Read on {fmt(c.checked)}. Councils publish at different rates and in different places, so &ldquo;nothing found&rdquo; means nothing found, not nothing happening.</p>
 
       <p className="council-links">{links.filter(([, u]) => u).map(([l, u], i) => <span key={l}>{i ? " · " : ""}<a href={u!} rel="noopener">{l}</a></span>)}</p>
+
+      {(consults ?? []).length ? (
+        <section className="council-topic">
+          <h2>Open consultations</h2>
+          <ul className="auto-list">
+            {(consults ?? []).map((x: { url: string; title: string; closes: string }) => <li key={x.url}><a href={x.url} rel="noopener">{x.title}</a> <span className="meta">closes {fmt(x.closes)}</span></li>)}
+          </ul>
+          <p className="meta">Listed automatically from the council&rsquo;s own consultation site, refreshed daily. Standing surveys open for more than a year are left out.</p>
+        </section>
+      ) : null}
 
       {TOPIC_ORDER.map((t) => {
         const fs = factsFor(t);
@@ -70,6 +92,7 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
             )) : (
               <p className="empty">{empty?.summary || `Nothing on ${TOPIC_LABEL[t].toLowerCase()} was found on the council's website.`}{empty?.url ? <> <a href={empty.url} rel="noopener" className="meta">Where we looked</a></> : null}</p>
             )}
+            {auto[t] ?? null}
           </section>
         );
       })}
@@ -169,5 +192,85 @@ function Decisions({ rows, councillors, councilName, meetingsUrl }: { rows: Agen
       </>) : null}
       <p className="meta">From the council&rsquo;s own <a href={meetingsUrl} rel="noopener">meeting papers</a> (Modern.gov){retrieved ? `, read ${new Date(retrieved).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}` : ""}. Refreshed weekly. Results of motions are in each meeting&rsquo;s minutes, linked from the date.</p>
     </section>
+  );
+}
+
+// ---- Lines kept current automatically from official registers (scripts/auto/*, refreshed daily or weekly) ----
+type PlanRow = { entity: number; name: string | null; process: string | null; adopted_date: string | null; period_start: string | null; period_end: string | null; required_housing: number | null; documentation_url: string | null; entry_date: string | null };
+type NoticeRow = { notice_id: string; notice_type: string | null; title: string | null; published: string | null; url: string };
+type SchoolRow = { urn: number; name: string; status: string; phase: string | null; type: string | null; reason_opened: string | null; reason_closed: string | null; open_date: string | null; close_date: string | null; gias_url: string; la_name: string | null };
+type Fmt = (d: string) => string;
+
+function AutoBlock({ title, source, children }: { title: string; source: ReactNode; children: ReactNode }) {
+  return (
+    <div className="auto-block">
+      <p className="auto-title">{title} <span className="auto-tag">Updated automatically</span></p>
+      {children}
+      <p className="meta">{source}</p>
+    </div>
+  );
+}
+
+function PlanLines({ rows, fmt }: { rows: PlanRow[]; fmt: Fmt }) {
+  const live = rows.filter((r) => r.process !== "withdrawn");
+  if (!live.length) return null;
+  const yr = (d: string | null) => (d ? d.slice(0, 4) : null);
+  return (
+    <AutoBlock title="Local plans on the national planning register" source={<>MHCLG planning data platform (planning.data.gov.uk), as supplied by the council; Open Government Licence. Stages are as recorded there, and some entries are old: each shows when the council last updated it.</>}>
+      <ul className="auto-list">
+        {live.slice(0, 5).map((r) => (
+          <li key={r.entity}>
+            {r.documentation_url ? <a href={r.documentation_url} rel="noopener">{r.name}</a> : r.name}
+            {r.process ? ` — ${r.process}` : ""}{r.adopted_date ? `, adopted ${fmt(r.adopted_date)}` : ""}
+            {yr(r.period_start) || yr(r.period_end) ? `, plan period ${yr(r.period_start) ?? "?"}–${yr(r.period_end) ?? "?"}` : ""}
+            {r.required_housing ? <>, housing requirement <b>{r.required_housing.toLocaleString("en-GB")}</b> homes</> : ""}
+            {r.entry_date ? <span className="meta"> (entry updated {fmt(r.entry_date)})</span> : null}
+          </li>
+        ))}
+      </ul>
+    </AutoBlock>
+  );
+}
+
+function GazetteLines({ rows, fmt }: { rows: NoticeRow[]; fmt: Fmt }) {
+  if (!rows.length) return null;
+  const clip = (t: string | null) => (t && t.length > 170 ? t.slice(0, 167).trimEnd() + "…" : t ?? "Notice");
+  const item = (r: NoticeRow) => <li key={r.notice_id}><a href={r.url} rel="noopener">{clip(r.title)}</a> <span className="meta">{r.notice_type}{r.published ? `, ${fmt(r.published)}` : ""}</span></li>;
+  return (
+    <AutoBlock title="Traffic and highways orders published in The Gazette (last four months)" source={<>The Gazette, the official public record (Open Government Licence). Titles are the orders&rsquo; own names. Councils outside London usually publish these in local newspapers instead, so an empty list here does not mean no orders were made.</>}>
+      <ul className="auto-list">{rows.slice(0, 5).map(item)}</ul>
+      {rows.length > 5 ? <details className="more"><summary className="meta">{rows.length - 5} more</summary><ul className="auto-list">{rows.slice(5).map(item)}</ul></details> : null}
+    </AutoBlock>
+  );
+}
+
+function SchoolLines({ rows, fmt, county }: { rows: SchoolRow[]; fmt: Fmt; county: boolean }) {
+  if (!rows.length) return null;
+  const proposed = rows.filter((r) => r.status === "Proposed to open" || r.status === "Open, but proposed to close");
+  const opened = rows.filter((r) => r.status === "Open");
+  const closed = rows.filter((r) => r.status === "Closed");
+  const why = (r: SchoolRow) => (r.status === "Proposed to open" || r.status === "Open" ? r.reason_opened : r.reason_closed);
+  const tally = (xs: SchoolRow[]) => {
+    const m = new Map<string, number>();
+    for (const x of xs) m.set(why(x) ?? "reason not recorded", (m.get(why(x) ?? "reason not recorded") ?? 0) + 1);
+    return [...m.entries()].sort((a, b) => b[1] - a[1]).map(([k, n]) => `${n} ${k.toLowerCase()}`).join(", ");
+  };
+  const line = (r: SchoolRow) => (
+    <li key={`${r.urn}-${r.status}`}><a href={r.gias_url} rel="noopener">{r.name}</a>{r.phase ? ` (${r.phase.toLowerCase()})` : ""} — {r.status.toLowerCase()}
+      {why(r) ? `; reason recorded: ${why(r)!.toLowerCase()}` : ""}
+      {r.status === "Open, but proposed to close" && r.close_date ? `; proposed date ${fmt(r.close_date)}` : ""}{r.status === "Proposed to open" && r.open_date ? `; proposed date ${fmt(r.open_date)}` : ""}
+      {r.status === "Closed" && r.close_date ? `, ${fmt(r.close_date)}` : ""}{r.status === "Open" && r.open_date ? `, ${fmt(r.open_date)}` : ""}
+    </li>
+  );
+  return (
+    <AutoBlock title={county ? "Changes to schools recorded by the Department for Education" : "Changes to schools in this area recorded by the Department for Education"} source={<>Get Information about Schools, DfE&rsquo;s register of every school in England, refreshed daily (Open Government Licence). The register&rsquo;s own reason is shown: most closures and openings are a school becoming an academy, which changes who runs it, not whether it is there.</>}>
+      {proposed.length ? <ul className="auto-list">{proposed.map(line)}</ul> : <p className="small">No school here is currently recorded as proposed to open or close.</p>}
+      {opened.length || closed.length ? (
+        <details className="more">
+          <summary className="meta">In the last twelve months: {opened.length} opened{opened.length ? ` (${tally(opened)})` : ""}, {closed.length} closed{closed.length ? ` (${tally(closed)})` : ""}</summary>
+          <ul className="auto-list">{[...closed, ...opened].map(line)}</ul>
+        </details>
+      ) : null}
+    </AutoBlock>
   );
 }

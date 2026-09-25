@@ -133,6 +133,7 @@ export async function listCandidates(ballotId: string): Promise<Candidate[]> {
     .from("candidates")
     .select("*, parties(name, official_site_url, colour_hex, parent_party_ec_id, emblem_url, emblem_description)")
     .eq("ballot_paper_id", ballotId)
+    .is("withdrawn_at", null) // set by the nightly ingest when Democracy Club no longer lists the candidacy
     .order("surname_sort");
   if (error) throw error;
   return (data ?? []) as Candidate[];
@@ -279,7 +280,7 @@ export function ballotLabel(id: string): string {
 }
 
 export async function listFaceTiles(): Promise<{ id: number; name: string; party: string; colour: string | null; photo: string | null; ballot: string; area: string }[]> {
-  const { data, error } = await publicClient().from("candidates").select("id, name, party_name_on_ballot, photo_url, ballot_paper_id, surname_sort, parties(colour_hex), ballots!inner(area_name, poll_date, archived)").eq("ballots.archived", false).gte("ballots.poll_date", new Date().toISOString().slice(0, 10)).order("surname_sort");
+  const { data, error } = await publicClient().from("candidates").select("id, name, party_name_on_ballot, photo_url, ballot_paper_id, surname_sort, parties(colour_hex), ballots!inner(area_name, poll_date, archived)").eq("ballots.archived", false).is("withdrawn_at", null).gte("ballots.poll_date", new Date().toISOString().slice(0, 10)).order("surname_sort");
   if (error) throw error;
   type Row = { id: number; name: string; party_name_on_ballot: string; photo_url: string | null; ballot_paper_id: string; parties: { colour_hex: string | null } | null; ballots: { area_name: string; poll_date: string } };
   return ((data ?? []) as unknown as Row[]).sort((a, b) => a.ballots.poll_date.localeCompare(b.ballots.poll_date) || a.ballot_paper_id.localeCompare(b.ballot_paper_id)).map((r) => ({ id: r.id, name: r.name, party: r.party_name_on_ballot, colour: r.parties?.colour_hex ?? null, photo: r.photo_url, ballot: r.ballot_paper_id, area: r.ballots.area_name }));
