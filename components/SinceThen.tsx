@@ -11,7 +11,7 @@ export default async function SinceThen({ archiveId, winnerParty }: { archiveId:
   if (!ids.length) return null;
   const { data: party } = await db.from("parties").select("ec_id, name").ilike("name", `%${winnerParty.split(" ")[0]}%`).limit(1).maybeSingle();
   if (!party) return null;
-  const { data } = await db.from("current_claims").select("*, sources(id, title, url, publisher, published_on, retrieved_at, layer)").in("ballot_paper_id", ids).eq("party_ec_id", party.ec_id).eq("status", "verified").is("candidate_id", null);
+  const { data } = await db.from("current_claims").select("*, sources(id, title, url, publisher, published_on, retrieved_at, layer, archive_url)").in("ballot_paper_id", ids).eq("party_ec_id", party.ec_id).eq("status", "verified").is("candidate_id", null);
   const enacted = ((data ?? []) as Claim[]).filter((c) => layerKey(c) === "enacted_record");
   if (!enacted.length) return null;
   return (

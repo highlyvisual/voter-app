@@ -35,7 +35,7 @@ function ClaimView({ c }: { c: Claim }) {
       <p className="layer-label view-summary">What that means</p>
       <p className="summary view-summary">{c.claim_text}</p>
       <ExplainThis text={`${c.source_quote} ${c.claim_text}`} />
-      <p className="meta" style={{ margin: "0.2rem 0 0" }}>{cond ? `${cond}. ` : ""}{s ? `Retrieved ${s.retrieved_at.slice(0, 10)}.` : ""}{c.party_ec_id === "PP53" && c.candidate_id === null && level === "Manifesto" ? <> Delivery tracked independently by <a href="https://fullfact.org/government-tracker/" rel="noopener">Full Fact's Government Tracker</a> (states: Achieved · On track · Signs of progress · Wait and see · Unclear).</> : null}</p>
+      <p className="meta" style={{ margin: "0.2rem 0 0" }}>{cond ? `${cond}. ` : ""}{s ? `Retrieved ${s.retrieved_at.slice(0, 10)}.` : ""}{s?.archive_url ? <> <a href={s.archive_url} rel="noopener">Archived copy</a>.</> : null}{c.party_ec_id === "PP53" && c.candidate_id === null && level === "Manifesto" ? <> Delivery tracked independently by <a href="https://fullfact.org/government-tracker/" rel="noopener">Full Fact's Government Tracker</a> (states: Achieved · On track · Signs of progress · Wait and see · Unclear).</> : null}</p>
     </div>
   );
 }

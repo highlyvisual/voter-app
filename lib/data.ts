@@ -92,7 +92,7 @@ export type Claim = {
   drafted_by: string;
   created_at: string;
   precision?: "measurable" | "aspiration";
-  sources?: { id: number; title: string; url: string; publisher: string; published_on: string | null; retrieved_at: string; layer?: string | null } | null;
+  sources?: { id: number; title: string; url: string; publisher: string; published_on: string | null; retrieved_at: string; layer?: string | null; archive_url?: string | null } | null;
 };
 
 export type ReceiptRow = {
@@ -143,7 +143,7 @@ export async function listCandidates(ballotId: string): Promise<Candidate[]> {
 export async function listVerifiedClaims(ballotId: string): Promise<Claim[]> {
   const { data, error } = await publicClient()
     .from("current_claims")
-    .select("*, sources(id, title, url, publisher, published_on, retrieved_at, layer)")
+    .select("*, sources(id, title, url, publisher, published_on, retrieved_at, layer, archive_url)")
     .eq("ballot_paper_id", ballotId)
     .eq("status", "verified")
     .order("created_at");

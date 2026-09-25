@@ -12,7 +12,7 @@ It never edits a claim. What it finds goes into source_checks and the weekly rev
 """
 import datetime, os, sys, time, urllib.parse
 sys.path.insert(0, os.path.dirname(__file__))
-from common import councils, fetch, job, norm, page_text, quote_found, select, sha, write, now_iso
+from common import councils, fetch, job, norm, page_text, patch, quote_found, select, sha, write, now_iso
 
 ARCHIVE_BUDGET = int(os.environ.get("ARCHIVE_BUDGET", "40"))       # Save Page Now takes ~30 s each; keep the run short
 TIME_BUDGET = int(os.environ.get("SOURCE_WATCH_MINUTES", "40")) * 60
@@ -94,6 +94,11 @@ def main():
             print(status, len(t["quotes"]), row["quotes_found"], url[:100], flush=True)
             time.sleep(1)
         write("source_checks", rows)
+        # Put the newest archived copy on the source itself, so every card quoting it can link to it.
+        held = {s["url"]: s.get("archive_url") for s in select("/sources?select=url,archive_url")}
+        for r in rows:
+            if r["kind"] == "claim_source" and r.get("archive_url") and held.get(r["url"]) != r["archive_url"]:
+                patch("sources", "url=eq." + urllib.parse.quote(r["url"], safe=""), {"archive_url": r["archive_url"], "archived_at": stamp})
         st["rows"] = len(rows)
         st["note"] = f"{len(targets)} sources; {unreachable} unreadable; {missing} quotations not found; {archived} archived this run"
 

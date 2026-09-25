@@ -12,7 +12,7 @@ export default async function Party({ params }: { params: Promise<{ ec: string }
   const db = publicClient();
   const { data: party } = await db.from("parties").select("*").eq("ec_id", ecId).maybeSingle();
   if (!party) notFound();
-  const { data } = await db.from("current_claims").select("*, sources(title, url, publisher, published_on, retrieved_at, layer)").eq("party_ec_id", ecId).eq("status", "verified").is("candidate_id", null);
+  const { data } = await db.from("current_claims").select("*, sources(title, url, publisher, published_on, retrieved_at, layer, archive_url)").eq("party_ec_id", ecId).eq("status", "verified").is("candidate_id", null);
   const claims = (data ?? []) as Claim[];
   const seen = new Map<string, Claim>();
   for (const c of claims) { const k = `${c.topic}|${c.source_quote}`; if (!seen.has(k)) seen.set(k, c); }

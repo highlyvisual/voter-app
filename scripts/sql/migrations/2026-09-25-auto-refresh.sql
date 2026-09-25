@@ -46,3 +46,6 @@ do $$ declare t text; begin
     execute format('create policy "public read" on %I for select to anon, authenticated using (true)', t);
   end loop;
 end $$;
+
+-- Archived copies on the source itself, so candidate cards can link to them.
+alter table sources add column if not exists archive_url text, add column if not exists archived_at timestamptz;
