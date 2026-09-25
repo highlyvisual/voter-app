@@ -20,7 +20,7 @@ export default async function Place({ searchParams }: { searchParams: Promise<Re
   let area: { constituency: string | null; gss: string | null; district: string | null; country: string | null } = { constituency: null, gss: null, district: null, country: null };
   if (loc) {
     try {
-      const r = await fetch(`https://api.postcodes.io/postcodes?lon=${loc.lng}&lat=${loc.lat}&limit=1&radius=600`, { next: { revalidate: 604800 } }).then((x) => x.json());
+      const r = await fetch(`https://api.postcodes.io/postcodes?lon=${loc.lng}&lat=${loc.lat}&limit=1&radius=600`, { signal: AbortSignal.timeout(5000), next: { revalidate: 604800 } }).then((x) => x.json());
       const p = r?.result?.[0];
       if (p) area = { constituency: p.parliamentary_constituency, gss: p.codes?.parliamentary_constituency ?? null, district: p.admin_district, country: p.country };
     } catch { /* optional */ }

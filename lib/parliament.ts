@@ -11,9 +11,9 @@ export type ParliamentRecord = { memberId: number; name: string; party: string |
 export async function parliamentRecord(memberId: number, take = 8): Promise<ParliamentRecord | null> {
   try {
     const [m, bio, votes] = await Promise.all([
-      fetch(`https://members-api.parliament.uk/api/Members/${memberId}`, { headers: H, next: { revalidate: 604800 } }).then((r) => (r.ok ? r.json() : null)),
-      fetch(`https://members-api.parliament.uk/api/Members/${memberId}/Biography`, { headers: H, next: { revalidate: 604800 } }).then((r) => (r.ok ? r.json() : null)),
-      fetch(`https://commonsvotes-api.parliament.uk/data/divisions.json/membervoting?queryParameters.memberId=${memberId}&queryParameters.take=${take}`, { headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : [])),
+      fetch(`https://members-api.parliament.uk/api/Members/${memberId}`, { signal: AbortSignal.timeout(6000), headers: H, next: { revalidate: 604800 } }).then((r) => (r.ok ? r.json() : null)),
+      fetch(`https://members-api.parliament.uk/api/Members/${memberId}/Biography`, { signal: AbortSignal.timeout(6000), headers: H, next: { revalidate: 604800 } }).then((r) => (r.ok ? r.json() : null)),
+      fetch(`https://commonsvotes-api.parliament.uk/data/divisions.json/membervoting?queryParameters.memberId=${memberId}&queryParameters.take=${take}`, { signal: AbortSignal.timeout(6000), headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : [])),
     ]);
     if (!m) return null;
     const v = m.value ?? m;
@@ -27,7 +27,7 @@ export async function parliamentRecord(memberId: number, take = 8): Promise<Parl
     const spoken = new Map<string, { DebateSection: string; DebateSectionExtId: string; ContributionTextFull: string }[]>();
     await Promise.all(days.map(async (d) => {
       try {
-        const h = await fetch(`https://hansard-api.parliament.uk/search/contributions/Spoken.json?queryParameters.memberId=${memberId}&queryParameters.startDate=${d}&queryParameters.endDate=${d}&queryParameters.take=20&queryParameters.house=Commons`, { headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : null));
+        const h = await fetch(`https://hansard-api.parliament.uk/search/contributions/Spoken.json?queryParameters.memberId=${memberId}&queryParameters.startDate=${d}&queryParameters.endDate=${d}&queryParameters.take=20&queryParameters.house=Commons`, { signal: AbortSignal.timeout(6000), headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : null));
         spoken.set(d, h?.Results ?? []);
       } catch { spoken.set(d, []); }
     }));
@@ -79,7 +79,7 @@ export function topicOf(title: string): string | null {
 // register for twelve months after they expire, so a recent former MP may still have some.
 export async function interestsFor(memberId: number, take = 12): Promise<{ items: Interest[]; total: number } | null> {
   try {
-    const j = await fetch(`https://interests-api.parliament.uk/api/v1/Interests?MemberId=${memberId}&Take=${take}&SortOrder=PublishingDateDescending`, { headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : null));
+    const j = await fetch(`https://interests-api.parliament.uk/api/v1/Interests?MemberId=${memberId}&Take=${take}&SortOrder=PublishingDateDescending`, { signal: AbortSignal.timeout(6000), headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : null));
     if (!j) return null;
     return { total: j.totalResults ?? 0, items: (j.items ?? []).map((i: { summary: string; registrationDate: string; category?: { name: string } }) => ({ category: i.category?.name ?? "", summary: i.summary, registered: i.registrationDate })) };
   } catch { return null; }
@@ -90,7 +90,7 @@ export async function interestsFor(memberId: number, take = 12): Promise<{ items
 export async function withPartySplits(memberId: number, divisions: Division[]): Promise<Division[]> {
   return Promise.all(divisions.map(async (d) => {
     try {
-      const j = await fetch(`https://commonsvotes-api.parliament.uk/data/division/${d.id}.json`, { headers: H, next: { revalidate: 604800 } }).then((r) => (r.ok ? r.json() : null));
+      const j = await fetch(`https://commonsvotes-api.parliament.uk/data/division/${d.id}.json`, { signal: AbortSignal.timeout(6000), headers: H, next: { revalidate: 604800 } }).then((r) => (r.ok ? r.json() : null));
       if (!j) return d;
       type M = { MemberId: number; Party: string };
       const tally = new Map<string, PartySplit>();

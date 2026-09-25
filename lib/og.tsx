@@ -9,6 +9,6 @@ const FONTS: [string, string, number, "normal" | "italic"][] = [
   ["Inter", "https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuGKYMZg.ttf", 600, "normal"],
 ];
 export async function ogFonts() {
-  return Promise.all(FONTS.map(async ([name, url, weight, style]) => ({ name, data: await fetch(url).then((r) => r.arrayBuffer()), weight: weight as 400 | 500 | 600, style })));
+  return Promise.all(FONTS.map(async ([name, url, weight, style]) => ({ name, data: await fetch(url, { signal: AbortSignal.timeout(8000) }).then((r) => r.arrayBuffer()), weight: weight as 400 | 500 | 600, style })));
 }
 export const INK = "#16191d", SLATE = "#3d4c5e", PAPER = "#f7f5f0", RULE = "#dcd8cf", SOFT = "#5b6470";

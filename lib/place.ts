@@ -13,7 +13,7 @@ export async function placeFacts(lat: number, lng: number): Promise<PlaceFact[]>
   const out: PlaceFact[] = [];
   await Promise.all(DATASETS.map(async ([ds, label, meaning]) => {
     try {
-      const d = await fetch(`https://www.planning.data.gov.uk/entity.json?longitude=${lng}&latitude=${lat}&dataset=${ds}&limit=5`, { headers: H, next: { revalidate: 604800 } }).then((r) => (r.ok ? r.json() : null));
+      const d = await fetch(`https://www.planning.data.gov.uk/entity.json?longitude=${lng}&latitude=${lat}&dataset=${ds}&limit=5`, { signal: AbortSignal.timeout(5000), headers: H, next: { revalidate: 604800 } }).then((r) => (r.ok ? r.json() : null));
       for (const e of (d?.entities ?? []) as { entity: number; name?: string; reference?: string }[]) {
         out.push({ dataset: ds, label, name: e.name || e.reference || label, url: `https://www.planning.data.gov.uk/entity/${e.entity}`, meaning });
       }

@@ -19,6 +19,7 @@ async function ballotsForPostcodeDevelopers(postcode: string): Promise<DcBallotS
   if (!key) return null;
   try {
     const r = await fetch(`${DEV_BASE}/postcode/${encodeURIComponent(postcode)}/?auth_token=${encodeURIComponent(key)}`, {
+      signal: AbortSignal.timeout(6000),
       headers: { "User-Agent": "voter-app (github.com/highlyvisual/voter-app)" }, next: { revalidate: 3600 },
     });
     if (!r.ok) return null;
@@ -40,6 +41,7 @@ export async function ballotsForPostcode(postcode: string): Promise<DcBallotSumm
   if (dev) return dev;
   try {
     const r = await fetch(withToken(`${BASE}/ballots/?for_postcode=${encodeURIComponent(postcode)}&current=1&page_size=50`), {
+      signal: AbortSignal.timeout(6000),
       headers: { "User-Agent": "voter-app (github.com/highlyvisual/voter-app)" }, next: { revalidate: 3600 },
     });
     if (!r.ok) return null;
@@ -60,7 +62,7 @@ export type PreviousResult = {
 // The most recent result for the same post, for a factual "last time here" panel. No commentary is derived from it.
 export async function previousResult(ballotPaperId: string): Promise<PreviousResult | null> {
   try {
-    const r = await fetch(withToken(`${BASE}/results/${encodeURIComponent(ballotPaperId)}/`), { next: { revalidate: 604800 } });
+    const r = await fetch(withToken(`${BASE}/results/${encodeURIComponent(ballotPaperId)}/`), { signal: AbortSignal.timeout(6000), next: { revalidate: 604800 } });
     if (!r.ok) return null;
     const j = (await r.json()) as {
       source: string | null; turnout_percentage: number | null; total_electorate: number | null;

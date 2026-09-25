@@ -6,7 +6,7 @@ export default async function NextElections({ lat, lng }: { lat: number | null; 
   let district: string | null = null, county: string | null = null;
   if (lat !== null && lng !== null) {
     try {
-      const r = await fetch(`https://api.postcodes.io/postcodes?lon=${lng}&lat=${lat}&limit=1&radius=600`, { next: { revalidate: 604800 } }).then((x) => x.json());
+      const r = await fetch(`https://api.postcodes.io/postcodes?lon=${lng}&lat=${lat}&limit=1&radius=600`, { signal: AbortSignal.timeout(5000), next: { revalidate: 604800 } }).then((x) => x.json());
       district = r?.result?.[0]?.admin_district ?? null; county = r?.result?.[0]?.admin_county ?? null;
     } catch { /* optional */ }
   }
@@ -20,7 +20,7 @@ export default async function NextElections({ lat, lng }: { lat: number | null; 
   let country: string | null = null;
   if (lat !== null && lng !== null) {
     try {
-      const r = await fetch(`https://api.postcodes.io/postcodes?lon=${lng}&lat=${lat}&limit=1&radius=600`, { next: { revalidate: 604800 } }).then((x) => x.json());
+      const r = await fetch(`https://api.postcodes.io/postcodes?lon=${lng}&lat=${lat}&limit=1&radius=600`, { signal: AbortSignal.timeout(5000), next: { revalidate: 604800 } }).then((x) => x.json());
       country = r?.result?.[0]?.country ?? null;
     } catch { /* optional */ }
   }

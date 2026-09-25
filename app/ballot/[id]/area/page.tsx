@@ -22,7 +22,7 @@ export default async function Area({ params, searchParams }: { params: Promise<{
   // The council whose area this ballot sits in: named in the ballot for council elections; found from the area point for a parliamentary one.
   let councilName: string | null = ballot.level === "local" ? ballot.area_name.split(":")[0] : null;
   if (!councilName && ballot.area_lat && ballot.area_lng) {
-    try { councilName = (await fetch(`https://api.postcodes.io/postcodes?lon=${ballot.area_lng}&lat=${ballot.area_lat}&limit=1&radius=1000`, { next: { revalidate: 604800 } }).then((r) => r.json()))?.result?.[0]?.admin_district ?? null; } catch { councilName = null; }
+    try { councilName = (await fetch(`https://api.postcodes.io/postcodes?lon=${ballot.area_lng}&lat=${ballot.area_lat}&limit=1&radius=1000`, { signal: AbortSignal.timeout(5000), next: { revalidate: 604800 } }).then((r) => r.json()))?.result?.[0]?.admin_district ?? null; } catch { councilName = null; }
   }
   const councilSlug = councilSlugFor(councilName);
   return (

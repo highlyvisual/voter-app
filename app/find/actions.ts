@@ -23,7 +23,7 @@ export async function findElection(formData: FormData) {
   // postcodes.io for a rounded location (about 100 m) for the place panel; Romily's decision, 19 Sept 2026. Never stored.
   let pio: { latitude: number; longitude: number; parliamentary_constituency?: string } | null = null;
   try {
-    const r = await fetch(`https://api.postcodes.io/postcodes/${encodeURIComponent(raw)}`, { next: { revalidate: 86400 } });
+    const r = await fetch(`https://api.postcodes.io/postcodes/${encodeURIComponent(raw)}`, { signal: AbortSignal.timeout(6000), next: { revalidate: 86400 } });
     if (r.ok) pio = ((await r.json()) as { result?: { latitude: number; longitude: number; parliamentary_constituency?: string } }).result ?? null;
   } catch { pio = null; }
 

@@ -5,10 +5,10 @@ export type PetitionRow = { id: number; action: string; total: number; local: nu
 // Most-signed open petitions by people in this constituency, from petition.parliament.uk (signatures_by_constituency).
 export async function topPetitionsFor(constituencyName: string, sample = 25): Promise<{ rows: PetitionRow[]; asOf: string } | null> {
   try {
-    const list = await fetch("https://petition.parliament.uk/petitions.json?state=open", { headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : null));
+    const list = await fetch("https://petition.parliament.uk/petitions.json?state=open", { signal: AbortSignal.timeout(5000), headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : null));
     if (!list) return null;
     const ids = (list.data as { id: number }[]).slice(0, sample).map((p) => p.id);
-    const details = await Promise.all(ids.map((id) => fetch(`https://petition.parliament.uk/petitions/${id}.json`, { headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : null)).catch(() => null)));
+    const details = await Promise.all(ids.map((id) => fetch(`https://petition.parliament.uk/petitions/${id}.json`, { signal: AbortSignal.timeout(5000), headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : null)).catch(() => null)));
     const rows: PetitionRow[] = [];
     for (const d of details) {
       const a = d?.data?.attributes; if (!a) continue;
@@ -24,10 +24,10 @@ export type CrimeSummary = { month: string; total: number; categories: { categor
 // Recorded street-level crime within about a mile of a point, for the latest available month, from data.police.uk (OGL).
 export async function crimeNear(lat: number, lng: number): Promise<CrimeSummary | null> {
   try {
-    const avail = await fetch("https://data.police.uk/api/crimes-street-dates", { headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : null));
+    const avail = await fetch("https://data.police.uk/api/crimes-street-dates", { signal: AbortSignal.timeout(5000), headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : null));
     const month: string | undefined = avail?.[0]?.date;
     if (!month) return null;
-    const data = await fetch(`https://data.police.uk/api/crimes-street/all-crime?lat=${lat}&lng=${lng}&date=${month}`, { headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : null));
+    const data = await fetch(`https://data.police.uk/api/crimes-street/all-crime?lat=${lat}&lng=${lng}&date=${month}`, { signal: AbortSignal.timeout(5000), headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : null));
     if (!Array.isArray(data)) return null;
     const counts = new Map<string, number>();
     for (const c of data as { category: string }[]) counts.set(c.category, (counts.get(c.category) ?? 0) + 1);
@@ -49,7 +49,7 @@ export async function hpiFor(region: string): Promise<Hpi | null> {
     const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - back, 1));
     const m = d.toISOString().slice(0, 7);
     try {
-      const r = await fetch(`https://landregistry.data.gov.uk/data/ukhpi/region/${region}/month/${m}.json`, { headers: H, next: { revalidate: 604800 } });
+      const r = await fetch(`https://landregistry.data.gov.uk/data/ukhpi/region/${region}/month/${m}.json`, { signal: AbortSignal.timeout(5000), headers: H, next: { revalidate: 604800 } });
       if (!r.ok) continue;
       const j = await r.json(); const t = j?.result?.primaryTopic;
       if (t?.averagePrice) return { region, month: m, averagePrice: t.averagePrice, annualChange: t.percentageAnnualChange ?? null, flat: t.averagePriceFlatMaisonette ?? null, detached: t.averagePriceDetached ?? null };
@@ -68,7 +68,7 @@ export async function claimantFor(gss: string): Promise<Claimant | null> {
     // Nomis type 172; about 110 KB, cached a day) and pick this one out.
     const isConstituency = /^(E14|W07|S14|N05)/.test(gss);
     const url = `https://www.nomisweb.co.uk/api/v01/dataset/NM_162_1.data.csv?geography=${isConstituency ? "TYPE172" : gss},${nation[0]}&date=latest&gender=0&age=0&measure=1,2&measures=20100&select=date_name,geography_code,measure_name,obs_value`;
-    const txt = await fetch(url, { headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.text() : ""));
+    const txt = await fetch(url, { signal: AbortSignal.timeout(5000), headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.text() : ""));
     const rows = txt.trim().split("\n").slice(1).map((l) => l.split(",").map((x) => x.replace(/^"|"$/g, "")));
     const get = (code: string, measure: string) => rows.find((r) => r[1] === code && r[2].startsWith(measure));
     const c = get(gss, "Claimant count"), r = get(gss, "Claimants as a proportion"), n = get(nation[0], "Claimants as a proportion");
@@ -80,7 +80,7 @@ export async function claimantFor(gss: string): Promise<Claimant | null> {
 export type Deprivation = { lsoa: string; name: string; imd: number; income: number; employment: number; education: number; health: number; crime: number; housing: number; living: number };
 export async function deprivationAt(lat: number, lng: number): Promise<Deprivation | null> {
   try {
-    const pc = await fetch(`https://api.postcodes.io/postcodes?lon=${lng}&lat=${lat}&limit=1&radius=300`, { next: { revalidate: 604800 } }).then((r) => r.json());
+    const pc = await fetch(`https://api.postcodes.io/postcodes?lon=${lng}&lat=${lat}&limit=1&radius=300`, { signal: AbortSignal.timeout(5000), next: { revalidate: 604800 } }).then((r) => r.json());
     const code: string | undefined = pc?.result?.[0]?.codes?.lsoa21 ?? pc?.result?.[0]?.codes?.lsoa;
     if (!code || !code.startsWith("E01")) return null;
     const { publicClient } = await import("@/lib/data");

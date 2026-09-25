@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
   await Promise.all(LAYERS.map(async (l) => {
     try {
       const url = `https://www.planning.data.gov.uk/entity.geojson?dataset=${l.dataset}&geometry=${encodeURIComponent(bbox(lng, lat))}&geometry_relation=intersects&limit=${l.mode === "site" ? 60 : 12}`;
-      const r = await fetch(url, { headers: H, next: { revalidate: 604800 } });
+      const r = await fetch(url, { signal: AbortSignal.timeout(6000), headers: H, next: { revalidate: 604800 } });
       if (!r.ok) return;
       const gj = await r.json();
       if (gj?.features?.length) out.push({ ...l, geojson: gj, count: gj.features.length });

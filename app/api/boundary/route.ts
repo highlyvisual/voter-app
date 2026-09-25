@@ -13,8 +13,11 @@ export async function GET(req: NextRequest) {
   // Prefer the official code: ward names repeat across the country.
   const where = b.area_gss ? `${code}='${b.area_gss}'` : `${field}='${name.replace(/'/g, "''")}'`;
   const url = `${BASE}/${svc}/FeatureServer/0/query?where=${encodeURIComponent(where)}&outFields=${field}&outSR=4326&f=geojson`;
-  const r = await fetch(url, { next: { revalidate: 604800 } });
-  if (!r.ok) return NextResponse.json({ error: "boundary unavailable" }, { status: 502 });
-  const gj = await r.json();
+  let gj: unknown;
+  try {
+    const r = await fetch(url, { signal: AbortSignal.timeout(8000), next: { revalidate: 604800 } });
+    if (!r.ok) return NextResponse.json({ error: "boundary unavailable" }, { status: 502 });
+    gj = await r.json();
+  } catch { return NextResponse.json({ error: "boundary timed out" }, { status: 504 }); }
   return NextResponse.json(gj, { headers: { "Cache-Control": "public, max-age=604800, stale-while-revalidate=86400", "Netlify-Vary": "query" } });
 }

@@ -4,7 +4,7 @@ import { previousResult } from "@/lib/democracyclub";
 const H = { "User-Agent": "voter-app (github.com/highlyvisual/voter-app)" };
 export async function currentMp(constituency: string): Promise<{ name: string | null; party: string | null; id: number | null; vacant: boolean } | null> {
   try {
-    const d = await fetch(`https://members-api.parliament.uk/api/Location/Constituency/Search?searchText=${encodeURIComponent(constituency)}&take=3`, { headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : null));
+    const d = await fetch(`https://members-api.parliament.uk/api/Location/Constituency/Search?searchText=${encodeURIComponent(constituency)}&take=3`, { signal: AbortSignal.timeout(5000), headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : null));
     const c = (d?.items ?? []).map((i: { value: unknown }) => i.value).find((v: { name: string }) => v.name.toLowerCase() === constituency.toLowerCase());
     if (!c) return null;
     const m = c.currentRepresentation?.member?.value;

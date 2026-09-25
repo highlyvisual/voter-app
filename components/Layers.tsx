@@ -18,7 +18,7 @@ async function cllrs(council: string | null, ward: string | null) {
 }
 export default async function Layers({ lat, lng, electionCouncil }: { lat: number; lng: number; electionCouncil: string | null }) {
   let pc: Pc | null = null;
-  try { pc = (await fetch(`https://api.postcodes.io/postcodes?lon=${lng}&lat=${lat}&limit=1&radius=500`, { next: { revalidate: 604800 } }).then((r) => r.json()))?.result?.[0] ?? null; } catch { pc = null; }
+  try { pc = (await fetch(`https://api.postcodes.io/postcodes?lon=${lng}&lat=${lat}&limit=1&radius=500`, { signal: AbortSignal.timeout(5000), next: { revalidate: 604800 } }).then((r) => r.json()))?.result?.[0] ?? null; } catch { pc = null; }
   if (!pc) return null;
   const twoTier = Boolean(pc.admin_county);
   const lad = pc.codes?.admin_district ?? null;
