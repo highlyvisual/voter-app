@@ -38,7 +38,7 @@ Every job records each run in `job_runs`. `/status` shows the latest run of each
 | Deprivation | MHCLG indices of deprivation | Release watch flags a new edition | Reload (every few years) |
 | Wider bodies (combined authorities, fire, NHS boards) | ONS lookups | Release watch flags a new edition | Regenerate `lib/widerBodies.json` |
 | Ward history | DCLEAPIL (figshare) | Yearly | Reload |
-| Archived copies of sources | Internet Archive | Source watch saves a copy of each source the first time it sees it, and again when its text changes (up to 40 a week) | — |
+| Archived copies of sources | Internet Archive | Source watch reuses a recent capture where one exists, otherwise saves one (up to 15 new captures a week). The copy is linked beside each quoted position ("Archived copy"). | — |
 
 ## What the source watch does
 
@@ -47,7 +47,7 @@ For each of the roughly 230 sources the site quotes (party and candidate publica
 1. fetches the page or PDF;
 2. checks each quotation taken from it is still present word for word, ignoring case, punctuation and line breaks;
 3. records a fingerprint (SHA-256) of the readable text, so a change of wording shows up even when the quotations survive;
-4. saves an archived copy through the Internet Archive the first time a source is seen, and again when it changes.
+4. records an Internet Archive copy: a capture the Archive already holds from the last six months if there is one, otherwise a new capture. It makes new captures the first time a source is seen and again when its text changes, up to 15 a run, 25 seconds apart, because the anonymous service refuses bursts. Free Internet Archive keys would allow more.
 
 Spreadsheets are fingerprinted but their quotations are not checked. Sites that block automated readers are listed for a manual check. Results are stored in `source_checks`.
 
@@ -78,4 +78,3 @@ Spreadsheets are fingerprinted but their quotations are not checked. Sites that 
 - **Build next, no decision needed:**
   - loaders for council tax in Scotland and Wales, so their council pages get the Band D line automatically;
   - a check of Scotland's school list each January;
-  - an "archived copy" link beside each quoted source on candidate cards, now that copies are being saved.
