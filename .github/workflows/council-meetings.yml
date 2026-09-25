@@ -1,0 +1,22 @@
+name: Council meetings
+# Full Council and Cabinet agenda items from each council's Modern.gov web service into council_agenda_items.
+# Weekly, on demand, and whenever the fetcher changes. Councils that block or time out are named in the log.
+on:
+  schedule:
+    - cron: "40 5 * * 1"   # Mondays 05:40 UTC, after the daily ingest
+  workflow_dispatch:
+  push:
+    paths: ["scripts/fetch_council_meetings.py"]
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - name: Fetch and load
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          PYTHONUNBUFFERED: "1"
+        run: python scripts/fetch_council_meetings.py --load

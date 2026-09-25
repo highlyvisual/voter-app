@@ -22,11 +22,12 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
   if (!c) notFound();
   const db = publicClient();
   const stripped = c.name.replace(/\s+(Borough|District|City|County|Council)(?=\s|$)/g, "").trim();
-  const [{ data: cllrs }, { data: control }, { data: ctax }, { data: ballots }] = await Promise.all([
+  const [{ data: cllrs }, { data: control }, { data: ctax }, { data: ballots }, { data: agenda }] = await Promise.all([
     db.from("councillors").select("name, party_name, ward, next_election").ilike("council", `${stripped}%`).order("ward").order("name"),
     db.from("council_control").select("*").ilike("authority", `${stripped}%`).eq("year", 2026).limit(1).maybeSingle(),
     db.from("council_tax_2026").select("*").ilike("authority", `${stripped}%`).limit(1).maybeSingle(),
     db.from("ballots").select("ballot_paper_id, area_name, poll_date").ilike("area_name", `${stripped}%`).eq("archived", false).order("poll_date"),
+    db.from("council_agenda_items").select("*").eq("council_slug", c.slug).order("meeting_date").order("item_id"),
   ]);
   const councillors = (cllrs ?? []) as { name: string; party_name: string | null; ward: string; next_election: string | null }[];
   const nextElection = councillors.map((x) => x.next_election).filter(Boolean).sort()[0] ?? null;
@@ -70,6 +71,8 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
         );
       })}
 
+      <Decisions rows={(agenda ?? []) as AgendaRow[]} councillors={councillors} councilName={c.name} meetingsUrl={c.links.meetings ?? c.site} />
+
       <section className="council-topic">
         <h2>Who runs the council</h2>
         {control ? (
@@ -90,7 +93,7 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
           {c.links.interests ? <>Each councillor&rsquo;s <a href={c.links.interests} rel="noopener">register of interests</a> is on the council&rsquo;s own site, linked rather than summarised, because summarising means choosing. </> : <>The council&rsquo;s register of interests could not be located; the <a href={c.links.councillors ?? c.site} rel="noopener">councillors page</a> is the place to look. </>}
           Councillors from Open Council Data as recorded after the May 2026 elections; a by-election since then may have changed one seat. Attendance and allowances are not shown.
         </p>
-        <p className="meta">Council motions, labelled by the group that proposed them and with the result, are not yet collected for this council; the <a href={c.links.meetings ?? c.site} rel="noopener">meeting papers</a> hold them.</p>
+        {(agenda ?? []).length ? null : <p className="meta">This council&rsquo;s meeting papers could not be read automatically (the site blocks or did not answer), so decisions and motions are not listed here; the <a href={c.links.meetings ?? c.site} rel="noopener">meeting papers</a> hold them.</p>}
       </section>
 
       <CiteThis title={`${c.name}: what's happening where you live`} />
@@ -107,4 +110,57 @@ function describeControl(m: string | null): string {
   const minority = /min$/i.test(m.trim());
   if (parts.length === 1) return minority ? `${parts[0]}, as a minority administration` : `${parts[0]}, with a majority`;
   return `a coalition or arrangement of ${parts.slice(0, -1).join(", ")} and ${parts.at(-1)}`;
+}
+
+type AgendaRow = { body: string; meeting_id: number; meeting_date: string; meeting_status: string | null; item_id: number; item_number: string | null; title: string; kind: string; proposer: string | null; url: string; retrieved_at: string };
+
+// Romily, round six (q13): every Full Council motion shown, labelled with who proposed it. The proposer is taken from the
+// council's own agenda text; a councillor's party comes from Open Council Data. Where the agenda does not name the
+// proposer, the line says so and links the papers. Nothing is ranked, selected or matched to a ward (her q12 asked for the
+// ward rule to be rethought).
+function Decisions({ rows, councillors, councilName, meetingsUrl }: { rows: AgendaRow[]; councillors: { name: string; party_name: string | null }[]; councilName: string; meetingsUrl: string }) {
+  if (!rows.length) return null;
+  const today = new Date().toISOString().slice(0, 10);
+  const byMeeting = new Map<number, AgendaRow[]>();
+  for (const r of rows) byMeeting.set(r.meeting_id, [...(byMeeting.get(r.meeting_id) ?? []), r]);
+  const meetings = [...byMeeting.values()].map((rs) => ({ date: rs[0].meeting_date, body: rs[0].body, status: rs[0].meeting_status, url: rs[0].url, items: rs.filter((r) => r.kind !== "placeholder") }));
+  const upcoming = meetings.filter((m) => m.date >= today).sort((a, b) => a.date.localeCompare(b.date));
+  const recent = meetings.filter((m) => m.date < today).sort((a, b) => b.date.localeCompare(a.date));
+  const fmt = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+  const key = (x: string) => x.toLowerCase().replace(/\b(cllrs?|councillors?|dr|mr|mrs|ms|miss)\.?\b/g, "").replace(/[^a-z ]/g, " ").replace(/\s+/g, " ").trim();
+  const party = (who: string) => {
+    const k = key(who).split(" ");
+    const hit = councillors.find((c) => { const n = key(c.name); return k.length >= 2 && n.includes(k[0]) && n.includes(k[k.length - 1]); });
+    return hit?.party_name ?? null;
+  };
+  const proposers = (raw: string) => raw.replace(/^(cllrs?|councillors?)\.?\s+/i, "").split(/\s*(?:,|\band\b|&)\s*/).filter(Boolean).map((n) => { const p = party(n); return `Cllr ${n.trim()}${p ? ` (${p})` : ""}`; }).join(" and ");
+  const Meeting = ({ m }: { m: (typeof meetings)[number] }) => (
+    <li className="dec-meeting">
+      <p className="dec-head"><a href={m.url} rel="noopener"><b>{fmt(m.date)}</b> · {m.body}</a>{m.status && !/^confirmed$/i.test(m.status) ? <span className="meta"> · {m.status.replace(/^Confirmed;?\s*/i, "")}</span> : null}</p>
+      {m.items.length ? (
+        <ul className="dec-items">
+          {m.items.map((it) => (
+            <li key={it.item_id}>
+              {it.kind === "motion" ? <span className="chip none">Motion</span> : null} {it.title}
+              {it.kind === "motion" ? <span className="meta"> — {it.proposer ? `from ${proposers(it.proposer)}` : "proposer named in the council's papers"}</span> : null}
+            </li>
+          ))}
+        </ul>
+      ) : <p className="meta">Agenda not yet published.</p>}
+    </li>
+  );
+  const retrieved = rows.reduce((a, r) => (r.retrieved_at > a ? r.retrieved_at : a), "");
+  return (
+    <section className="council-topic" aria-labelledby="decisions-heading">
+      <h2 id="decisions-heading">What {councilName} is deciding</h2>
+      <p className="meta">Every item on the agendas of Full Council and the Cabinet, as the council titled it, from about six months back to three months ahead. Left out: section headings, procedural items (apologies, minutes, declarations of interest, announcements, questions, appointments) and private items the council itself withholds. Motions are shown with whoever the council&rsquo;s agenda says proposed them; a councillor&rsquo;s party is from Open Council Data.</p>
+      {upcoming.length ? (<><h3>Coming up</h3><ul className="dec-list">{upcoming.slice(0, 4).map((m) => <Meeting key={m.url} m={m} />)}</ul></>) : null}
+      {recent.length ? (<>
+        <h3>Recently</h3>
+        <ul className="dec-list">{recent.slice(0, 3).map((m) => <Meeting key={m.url} m={m} />)}</ul>
+        {recent.length > 3 ? <details className="more"><summary className="meta">{recent.length - 3} earlier meetings</summary><ul className="dec-list">{recent.slice(3).map((m) => <Meeting key={m.url} m={m} />)}</ul></details> : null}
+      </>) : null}
+      <p className="meta">From the council&rsquo;s own <a href={meetingsUrl} rel="noopener">meeting papers</a> (Modern.gov){retrieved ? `, read ${new Date(retrieved).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}` : ""}. Refreshed weekly. Results of motions are in each meeting&rsquo;s minutes, linked from the date.</p>
+    </section>
+  );
 }

@@ -1365,3 +1365,8 @@ main a { overflow-wrap: anywhere; }
 }
 :root[data-theme="dark"] .pill, :root[data-theme="dark"] .card-option { background: transparent; color: var(--ink); border-color: #7a7a7a; }
 :root[data-theme="dark"] .pill.on, :root[data-theme="dark"] .card-option.on, :root[data-theme="dark"] .onboard-cards .card-option.on { background: #fff; border-color: #fff; color: #000; }
+.dec-list { list-style: none; padding: 0; margin: 0.4rem 0 1rem; }
+.dec-meeting { border-top: 1px solid var(--rule); padding: 0.55rem 0 0.4rem; }
+.dec-head { margin: 0 0 0.25rem; font-family: var(--sans); }
+.dec-items { margin: 0; padding-left: 1.1rem; font-size: 0.95rem; }
+.dec-items li { margin: 0.2rem 0; }
