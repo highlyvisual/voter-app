@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>What's It To Me? — Technical Bible (Internal edition)</title>
+<link rel="stylesheet" href="brand.css">
+<style>
+@page { @bottom-left { content: "What’s It To Me?  ·  Technical Bible  ·  Internal edition  ·  25 September 2026"; font-family: "Inter", sans-serif; font-size: 7.5pt; color: #6b6f75; } }
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<section class="cover">
+  <div class="band"><span style="background:#2f5251"></span><span style="background:#c98f4e"></span><span style="background:#85555f"></span><span style="background:#b98888"></span><span style="background:#7b877b"></span></div>
+  <img class="lockup" src="img/lockup-light.png" alt="What's It To Me? Politics, in your context.">
+  <img class="ghost" src="img/mark-light.png" alt="">
+  <div class="edition">Technical Bible · Internal edition</div>
+  <h1>How the platform <em>works</em>, and how to keep it working.</h1>
+  <p class="sub">For Romily, Barny and anyone who helps after them: what the site is, how its pieces fit, where every fact comes from, the rules the code enforces, and the routines that keep it running.</p>
+  <div class="meta">
+    <div><b>Version</b>1.0 · 25 September 2026<br>Repository at commit 619288d</div>
+    <div><b>Owners</b>Romily Johnson, Founder and Product Lead<br>Barny Trevelyan-Johnson, Technical Lead</div>
+    <div><b>Canonical copy</b>docs/PROJECT.md in highlyvisual/voter-app<br>whatsittome.org · hello@whatsittome.org</div>
+  </div>
+</section>
+
+<!-- ============ CONTENTS ============ -->
+<section class="section" id="contents">
+  <div class="section-head"><div class="num">Contents</div><h2>What is in this book</h2>
+  <p class="lede">Read sections 1 and 2 first: they hold the purpose and the rules, and every other section follows from them. The runbooks in section 12 are written to be followed step by step.</p></div>
+  <nav class="toc">
+    <a data-href="#s1"><span class="n">01</span><span class="t">The platform on one page</span><span class="p" data-for="s1">3</span></a>
+    <a data-href="#s2"><span class="n">02</span><span class="t">The rules the code enforces</span><span class="p" data-for="s2">4</span></a>
+    <a data-href="#s3"><span class="n">03</span><span class="t">How it fits together</span><span class="p" data-for="s3">5</span></a>
+    <a data-href="#s4"><span class="n">04</span><span class="t">A visit, from postcode to ballot</span><span class="p" data-for="s4">6</span></a>
+    <a data-href="#s5"><span class="n">05</span><span class="t">The data model</span><span class="p" data-for="s5">7</span></a>
+    <a data-href="#s6"><span class="n">06</span><span class="t">The claims ledger</span><span class="p" data-for="s6">8</span></a>
+    <a data-href="#s7"><span class="n">07</span><span class="t">The money layer</span><span class="p" data-for="s7">9</span></a>
+    <a data-href="#s8"><span class="n">08</span><span class="t">Councils and wider bodies</span><span class="p" data-for="s8">10</span></a>
+    <a data-href="#s9"><span class="n">09</span><span class="t">Pipelines and automation</span><span class="p" data-for="s9">11</span></a>
+    <a data-href="#s10"><span class="n">10</span><span class="t">Infrastructure, secrets and deploys</span><span class="p" data-for="s10">12</span></a>
+    <a data-href="#s11"><span class="n">11</span><span class="t">Reliability, privacy and accessibility</span><span class="p" data-for="s11">13</span></a>
+    <a data-href="#s12"><span class="n">12</span><span class="t">Runbooks</span><span class="p" data-for="s12">14</span></a>
+    <a data-href="#s13"><span class="n">13</span><span class="t">Known gaps and open decisions</span><span class="p" data-for="s13">15</span></a>
+    <a data-href="#s14"><span class="n">14</span><span class="t">The research library</span><span class="p" data-for="s14">16</span></a>
+    <a data-href="#s15"><span class="n">15</span><span class="t">Brand quick reference</span><span class="p" data-for="s15">17</span></a>
+    <a data-href="#s16"><span class="n">16</span><span class="t">Glossary</span><span class="p" data-for="s16">18</span></a>
+  </nav>
+  <div class="rule-box ochre" style="margin-top:9mm"><div class="t">How to read the figures</div>
+  <p>Every count in this book was read from the live database or the repository on 25 September 2026. Counts will move as elections are added and archived; the method for re-reading each one is given where it appears. Nothing here is a secret: keys and passwords are named, never shown.</p></div>
+</section>
+
+<!-- ============ 1 ============ -->
+<section class="section" id="s1">
+  <div class="section-head" data-title="The platform on one page"><div class="num">01 · Overview</div><h2>The platform on one page</h2>
+  <p class="lede">What&rsquo;s It To Me? is a non-partisan UK voter-information site. You give it a postcode and a few facts about your household, in bands. It shows every candidate on your ballot, in ballot-paper order and on identical pages, and quotes what each has published, with the source. Where the numbers allow, it also shows what each one winning would change for a household like yours.</p></div>
+
+  <p>The idea is Romily&rsquo;s: an informed electorate makes better decisions, and the way to inform it is to connect politics to a person&rsquo;s own life without telling them what to think. The site never ranks, scores, matches or recommends. It shows consequences and sources; the voter judges. The test for anything new: could a reader take it as the site preferring one candidate? If so, it is not built.</p>
+
+  <div class="stats">
+    <div class="stat"><b>31</b><span>ballots on file that are not archived, polling between 23 September and 29 October 2026</span></div>
+    <div class="stat"><b>138</b><span>candidates standing on those ballots, each with the same page</span></div>
+    <div class="stat"><b>376</b><span>live sourced positions in the ledger (482 rows including superseded ones)</span></div>
+    <div class="stat"><b>91</b><span>sources: party, candidate and official publications, each dated and linked</span></div>
+    <div class="stat"><b>29</b><span>council pages, each with five topics quoted from the council&rsquo;s own papers</span></div>
+    <div class="stat"><b>19,273</b><span>serving councillors from 384 councils (Open Council Data)</span></div>
+    <div class="stat"><b>40,500</b><span>precomputed tax-and-benefit results (PolicyEngine UK)</span></div>
+    <div class="stat"><b>677</b><span>council agenda items from 14 councils&rsquo; meeting papers</span></div>
+  </div>
+
+  <div class="cols">
+    <div>
+      <h3>Who does what</h3>
+      <p><b>Romily Johnson</b>, Founder and Product Lead, owns the project. Questions of direction go to her, through numbered question rounds on the questions site; every answer she has given is logged with its status in <code>docs/romily/feedback-log.md</code>.</p>
+      <p><b>Barny Trevelyan-Johnson</b>, Technical Lead, builds and deploys, and holds every secret. Neither is a member of, works for, or is paid by any party or campaign. The project is self-funded and not-for-profit.</p>
+    </div>
+    <div>
+      <h3>Where it stands</h3>
+      <p>The first live test is the <b>Holborn and St Pancras by-election on 8 October 2026</b>: 15 candidates, 268 sourced positions attached to the ballot. The May 2027 local elections follow. Romily plans to send the site round for feedback after the weekend of 26&ndash;27 September, then open a social media account the weekend after.</p>
+      <p>The code is AGPL-3.0; the text, claims and ledger are CC BY-SA 4.0. The repository is private for now.</p>
+    </div>
+  </div>
+
+  <div class="rule-box mauve"><div class="t">Where AI is and is not used</div>
+  <p>AI helps draft the short summaries and helps research sources; every such row records it in <code>drafted_by</code>, and every quotation is checked word for word against the source before it is loaded. No AI runs when a visitor uses the site: every page is built from the ledger and official data.</p></div>
+
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="section" id="s2">
+  <div class="section-head" data-title="The rules the code enforces"><div class="num">02 · Non-negotiables</div><h2>The rules the code enforces</h2>
+  <p class="lede">These came from Romily at the start (impartial, every fact attributed, no way to manipulate figures, no grounds to say the system prefers anyone) and were turned into constraints the code checks, not just intentions.</p></div>
+
+  <div class="cols">
+    <div>
+      <h3>How candidates are shown</h3>
+      <ul>
+        <li>Every candidate gets the <b>identical template</b>, in <b>ballot-paper order</b> (alphabetical by surname). No other ordering exists anywhere.</li>
+        <li><b>No ranking, scoring, matching or recommending.</b> Consequences are shown; the reader judges.</li>
+        <li>Colour is neutral. A party&rsquo;s own colour appears only on that party&rsquo;s own panel, and only if set in <code>parties.colour_hex</code>. Money figures never carry good/bad colours.</li>
+        <li>Photos appear only on a candidate&rsquo;s own page; everywhere else it is name and party (Romily, round five).</li>
+        <li>Where a candidate has no record in office, the same neutral line is shown for everyone: &ldquo;Has not held this office before, so there is no voting record to show.&rdquo; Party positions are the layer every candidate has; a personal record is extra.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>How facts are held</h3>
+      <ul>
+        <li>Every claim is a <b>verbatim quotation</b> from a named, dated, linked source. A short summary sits beneath it as a reading aid; the quotation is the record.</li>
+        <li>Claims live in an <b>append-only ledger</b>. Rows are superseded, never edited or deleted; a Postgres trigger refuses updates and deletes.</li>
+        <li>Corrections and withdrawals go through <code>/review</code> by a named maintainer and are logged publicly with the reason.</li>
+        <li>Publication rests on the source, not on a reviewer (Romily, 18 September 2026).</li>
+        <li>Households are described in bands only. Nothing a visitor enters is stored; the full postcode never leaves the lookup.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>The never-build list</h3>
+  <p class="small">From <code>docs/never-build.md</code>. Any change touching these is refused at review.</p>
+  <table class="tight">
+    <tbody>
+      <tr><td class="k">Scores</td><td>Match percentages, &ldquo;agreement&rdquo; scores, or any per-candidate number a reader could read as better or worse.</td></tr>
+      <tr><td class="k">Favourites</td><td>Hearts, ticks, saved shortlists, or graphs of them.</td></tr>
+      <tr><td class="k">Ordering</td><td>Drag-to-rank, sort-by-anything-computed, or any ordering other than the ballot paper&rsquo;s.</td></tr>
+      <tr><td class="k">Endorsements</td><td>&ldquo;Recommended for you&rdquo;, &ldquo;people like you chose&rdquo;.</td></tr>
+      <tr><td class="k">Ideology</td><td>Opinion maps, ideology radars, left/right axes, party self-classification questionnaires.</td></tr>
+      <tr><td class="k">Weighting</td><td>Colour intensity, badge size or placement that varies with a computed quality; incumbency, coverage volume, poll standing or past result used as a weight.</td></tr>
+      <tr><td class="k">AI at runtime</td><td>Any LLM call in a user-facing path, and any LLM call anywhere whose sources are outside the claims ledger.</td></tr>
+      <tr><td class="k">Tracking</td><td>Storing anything a user entered beyond anonymous daily counts.</td></tr>
+      <tr><td class="k">Valence</td><td>Green/red (or any valence colour) on money figures.</td></tr>
+    </tbody>
+  </table>
+
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="section" id="s3">
+  <div class="section-head" data-title="How it fits together"><div class="num">03 · Architecture</div><h2>How it fits together</h2>
+  <p class="lede">A server-rendered Next.js site on Netlify reads from one Supabase database and calls a handful of public APIs live. Three GitHub workflows keep the database current. Tax-and-benefit results are computed offline and loaded as a table.</p></div>
+
+  <div class="figure">
+  <svg viewBox="0 0 680 440" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+    <defs>
+      <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#3f4650"/></marker>
+    </defs>
+    <!-- PolicyEngine -->
+    <rect x="10" y="20" width="135" height="84" rx="6" fill="#f6f3ee" stroke="#b9b2a5"/>
+    <text x="22" y="42" font-size="10.5" font-weight="600" fill="#16202a">PolicyEngine UK</text>
+    <text x="22" y="58" font-size="8.5" fill="#3f4650">compute_grid.py, run offline</text>
+    <text x="22" y="72" font-size="8.5" fill="#3f4650">version 2.98.0</text>
+    <text x="22" y="86" font-size="8.5" fill="#3f4650">8,100 households × 5 sets</text>
+    <!-- Visitor -->
+    <rect x="10" y="170" width="120" height="100" rx="6" fill="#fff" stroke="#16202a" stroke-width="1.2"/>
+    <text x="22" y="192" font-size="10.5" font-weight="600" fill="#16202a">Visitor</text>
+    <text x="22" y="208" font-size="8.5" fill="#3f4650">Phone or browser</text>
+    <text x="22" y="226" font-size="8.5" fill="#3f4650">Postcode (sent once,</text>
+    <text x="22" y="238" font-size="8.5" fill="#3f4650">by POST) and household</text>
+    <text x="22" y="250" font-size="8.5" fill="#3f4650">bands kept in the browser</text>
+    <!-- Netlify -->
+    <rect x="165" y="130" width="190" height="170" rx="6" fill="#2f5251"/>
+    <text x="178" y="152" font-size="10.5" font-weight="600" fill="#fff">Netlify · whatsittome.org</text>
+    <text x="178" y="170" font-size="8.5" fill="#dfe9e6">Next.js 16.3 App Router, React 19</text>
+    <text x="178" y="186" font-size="8.5" fill="#dfe9e6">Server-rendered pages</text>
+    <text x="178" y="200" font-size="8.5" fill="#dfe9e6">Server action for postcode lookup</text>
+    <text x="178" y="214" font-size="8.5" fill="#dfe9e6">API routes: boundary, img, data,</text>
+    <text x="178" y="226" font-size="8.5" fill="#dfe9e6">place-layers, overflows</text>
+    <text x="178" y="242" font-size="8.5" fill="#dfe9e6">Image CDN for candidate photos</text>
+    <text x="178" y="258" font-size="8.5" fill="#dfe9e6">Leaflet maps, OpenStreetMap tiles</text>
+    <text x="178" y="282" font-size="8" fill="#c98f4e" font-weight="600">Site: voter-app-uk</text>
+    <!-- Supabase -->
+    <rect x="395" y="20" width="275" height="120" rx="6" fill="#fbf4ea" stroke="#c98f4e" stroke-width="1.2"/>
+    <text x="408" y="42" font-size="10.5" font-weight="600" fill="#16202a">Supabase · Postgres + PostGIS</text>
+    <text x="408" y="58" font-size="8.5" fill="#3f4650">Project voter-app, London (eu-west-2)</text>
+    <text x="408" y="76" font-size="8.5" fill="#3f4650">Claims ledger (append-only) and sources</text>
+    <text x="408" y="90" font-size="8.5" fill="#3f4650">Ballots, candidates, parties, election dates</text>
+    <text x="408" y="104" font-size="8.5" fill="#3f4650">Receipt grid · councils, councillors, agendas</text>
+    <text x="408" y="118" font-size="8.5" fill="#3f4650">Row-level security on every table;</text>
+    <text x="408" y="130" font-size="8.5" fill="#3f4650">public reads, service-role writes</text>
+    <!-- Live APIs -->
+    <rect x="395" y="165" width="275" height="135" rx="6" fill="#f7eff1" stroke="#85555f" stroke-width="1.2"/>
+    <text x="408" y="186" font-size="10.5" font-weight="600" fill="#16202a">Public APIs, called live</text>
+    <text x="408" y="200" font-size="8" fill="#85555f" font-weight="600">each gives up after 5–8 seconds</text>
+    <text x="408" y="218" font-size="8.5" fill="#3f4650">postcodes.io · Democracy Club developers API</text>
+    <text x="408" y="232" font-size="8.5" fill="#3f4650">UK Parliament: Members, Commons Votes,</text>
+    <text x="408" y="244" font-size="8.5" fill="#3f4650">Hansard, Register of Interests, Petitions</text>
+    <text x="408" y="258" font-size="8.5" fill="#3f4650">police.uk · HM Land Registry house prices</text>
+    <text x="408" y="272" font-size="8.5" fill="#3f4650">planning.data.gov.uk · ONS boundaries</text>
+    <text x="408" y="286" font-size="8.5" fill="#3f4650">(ArcGIS services)</text>
+    <!-- GitHub -->
+    <rect x="165" y="335" width="190" height="95" rx="6" fill="#eef1ee" stroke="#7b877b" stroke-width="1.2"/>
+    <text x="178" y="356" font-size="10.5" font-weight="600" fill="#16202a">GitHub · highlyvisual/voter-app</text>
+    <text x="178" y="373" font-size="8.5" fill="#3f4650">Daily ballot ingest, 05:17 UTC</text>
+    <text x="178" y="387" font-size="8.5" fill="#3f4650">Load drafted claims, on push</text>
+    <text x="178" y="401" font-size="8.5" fill="#3f4650">Council meetings, Mondays 05:40 UTC</text>
+    <text x="178" y="419" font-size="8" fill="#56625a" font-weight="600">Secrets held as repository secrets</text>
+    <!-- Upstream for jobs -->
+    <rect x="395" y="335" width="275" height="95" rx="6" fill="#fff" stroke="#7b877b" stroke-dasharray="4 3"/>
+    <text x="408" y="356" font-size="10.5" font-weight="600" fill="#16202a">Sources the jobs read</text>
+    <text x="408" y="373" font-size="8.5" fill="#3f4650">Democracy Club candidates and elections APIs</text>
+    <text x="408" y="387" font-size="8.5" fill="#3f4650">ElectionLeaflets.org</text>
+    <text x="408" y="401" font-size="8.5" fill="#3f4650">Councils&#8217; Modern.gov web services</text>
+    <text x="408" y="415" font-size="8.5" fill="#3f4650">Claims drafted as JSON in the repository</text>
+    <!-- Mac -->
+    <rect x="10" y="335" width="120" height="95" rx="6" fill="#fff" stroke="#b9b2a5"/>
+    <text x="22" y="356" font-size="10.5" font-weight="600" fill="#16202a">Mac Studio</text>
+    <text x="22" y="373" font-size="8.5" fill="#3f4650">~/code/voter-app</text>
+    <text x="22" y="387" font-size="8.5" fill="#3f4650">commit, push, then</text>
+    <text x="22" y="401" font-size="8.5" fill="#3f4650">scripts/deploy.sh</text>
+    <text x="22" y="415" font-size="8.5" fill="#3f4650">(committed HEAD only)</text>
+
+    <!-- arrows -->
+    <line x1="130" y1="220" x2="163" y2="220" stroke="#3f4650" stroke-width="1.2" marker-end="url(#ah)" marker-start="url(#ah)"/>
+    <line x1="355" y1="165" x2="393" y2="100" stroke="#3f4650" stroke-width="1.2" marker-end="url(#ah)"/>
+    <text x="358" y="122" font-size="7.5" fill="#3f4650">reads</text>
+    <line x1="355" y1="232" x2="393" y2="232" stroke="#3f4650" stroke-width="1.2" marker-end="url(#ah)"/>
+    <path d="M145 45 L 393 45" stroke="#3f4650" stroke-width="1.2" fill="none" stroke-dasharray="4 3" marker-end="url(#ah)"/>
+    <text x="220" y="39" font-size="7.5" fill="#3f4650">grid loaded as receipt_grid</text>
+    <path d="M355 350 L 377 350 L 377 128 L 393 128" stroke="#7b877b" stroke-width="1.2" fill="none" marker-end="url(#ah)"/>
+    <text x="300" y="325" font-size="7.5" fill="#56625a"></text>
+    <line x1="393" y1="382" x2="357" y2="382" stroke="#7b877b" stroke-width="1.2" marker-end="url(#ah)"/>
+    <line x1="130" y1="382" x2="163" y2="382" stroke="#3f4650" stroke-width="1.2" marker-end="url(#ah)"/>
+    <text x="134" y="376" font-size="7.5" fill="#3f4650">push</text>
+    <path d="M70 335 L 70 315 L 240 315 L 240 302" stroke="#3f4650" stroke-width="1.2" fill="none" marker-end="url(#ah)"/>
+    <text x="78" y="310" font-size="7.5" fill="#3f4650">deploy.sh uploads HEAD to Netlify</text>
+    <text x="381" y="250" font-size="7.5" fill="#56625a" transform="rotate(-90 381 250)">service-role writes</text>
+  </svg>
+  <div class="caption">Figure 1. The moving parts. Solid arrows run when a page is served or a job runs; dashed arrows are occasional, manual loads.</div>
+  </div>
+
+
+  <h3>Where the code lives</h3>
+  <table>
+    <thead><tr><th>Folder</th><th>What is in it</th></tr></thead>
+    <tbody>
+      <tr><td class="k"><code>app/</code></td><td>Every page and API route (App Router). Next.js 16.3, React 19, TypeScript. Pages are server components; interactive pieces are client components.</td></tr>
+      <tr><td class="k"><code>components/</code></td><td>About sixty components: candidate cards, maps, the onboarding flow, representatives and wider bodies, deadlines, the feedback widget, display settings.</td></tr>
+      <tr><td class="k"><code>lib/</code></td><td>Data access and outside calls: <code>data.ts</code> (Supabase client), <code>democracyclub.ts</code>, <code>parliament.ts</code>, <code>area.ts</code>, <code>place.ts</code>, <code>household.ts</code> (bands and grid keys), <code>councils.json</code> and <code>widerBodies.json</code>, <code>site.ts</code> (name, URL, photo mode).</td></tr>
+      <tr><td class="k"><code>scripts/</code></td><td>Ingest, claim loading, council meetings, the grid, deploy. <code>scripts/claims/*.json</code> holds drafted claims; <code>scripts/sql/migrations/</code> holds table DDL.</td></tr>
+      <tr><td class="k"><code>docs/</code></td><td>The handbook (<code>PROJECT.md</code>), never-build list, claims style guide, research papers, Romily&rsquo;s rounds and feedback log.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="section" id="s4">
+  <div class="section-head" data-title="A visit, from postcode to ballot"><div class="num">04 · The journey</div><h2>A visit, from postcode to ballot</h2>
+  <p class="lede">What happens, in order, when someone uses the site, and which page or file does each step.</p></div>
+
+  <ol>
+    <li><b>Postcode.</b> The form posts to the server action in <code>app/find/actions.ts</code>, so the postcode never appears in a URL, log or redirect. It checks the format, asks Democracy Club&rsquo;s developers API which ballots cover it (falling back to the candidates API, then to postcodes.io&rsquo;s constituency), and asks postcodes.io for a rounded location. Only the outward code (for example <code>NW1</code>) travels on, to draw an approximate circle on the map. The full postcode is then discarded.</li>
+    <li><b>Profile.</b> <code>/start</code> asks which elections you can vote in, then household facts in bands: adults, children, housing, work, income band, age band. Student answers were added on 24 September at Romily&rsquo;s request. Answers stay in the browser.</li>
+    <li><b>Ballot.</b> <code>/ballot/[id]</code> shows every candidate in ballot-paper order, with topics ordered by the profile and the reason shown, then &ldquo;Explore all topics&rdquo;. Each card carries the same sections, including &ldquo;Stood before&rdquo; and &ldquo;Record in office&rdquo;.</li>
+    <li><b>Depth.</b> From there: each candidate&rsquo;s own page, a topic across all candidates, a compare grid, the office being elected, the area around the postcode, and a printable notes sheet.</li>
+    <li><b>Practical.</b> Deadlines, where to vote and accepted ID, from <code>election_dates</code> and the Electoral Commission. Then two feedback questions, kept only as daily totals.</li>
+    
+  </ol>
+
+  <h3>Route map</h3>
+  <table class="tight">
+    <thead><tr><th style="width:36%">Route</th><th>What it shows</th></tr></thead>
+    <tbody>
+      <tr><td><code>/</code>, <code>/start</code>, <code>/profile</code></td><td>Home; build and edit the household profile.</td></tr>
+      <tr><td><code>/place</code></td><td>For postcodes with no election: when you next vote, who represents you at every level, the map, area statistics.</td></tr>
+      <tr><td><code>/ballot/[id]</code></td><td>The ballot page: every candidate, identical template.</td></tr>
+      <tr><td><code>…/candidate/[cid]</code></td><td>One candidate: statement, positions, record, photo.</td></tr>
+      <tr><td><code>…/topic/[topic]</code>, <code>…/compare</code></td><td>One topic across all candidates; candidates across, nine topics down.</td></tr>
+      <tr><td><code>…/stakes</code>, <code>…/quick</code></td><td>What the election could change for you; a two-minute guide.</td></tr>
+      <tr><td><code>…/office</code>, <code>…/area</code></td><td>What this office controls; the official record for the ground around the postcode.</td></tr>
+      <tr><td><code>…/notes</code>, <code>…/embed</code></td><td>Printable notes sheet (browser only); embeddable candidate list.</td></tr>
+      <tr><td><code>/council/[slug]</code></td><td>A council&rsquo;s five topics, what it is deciding, who runs it.</td></tr>
+      <tr><td><code>/parties</code>, <code>/parties/[ec]</code>, <code>/positions</code></td><td>Every party standing; every position on file.</td></tr>
+      <tr><td><code>/coverage/[id]</code></td><td>How much sourced material exists per party and topic. It measures what we found, not quality.</td></tr>
+      <tr><td><code>/ledger</code>, <code>/ledger/snapshot</code></td><td>Every live claim and every change; the full ledger with a SHA-256.</td></tr>
+      <tr><td><code>/status</code>, <code>/data</code>, <code>/feed.xml</code></td><td>Data freshness; open data endpoints; an RSS feed of the elections covered.</td></tr>
+      <tr><td><code>/about/*</code>, <code>/who-we-are</code>, <code>/how-to-vote</code>, <code>/learn</code>, <code>/share</code></td><td>Accuracy, data use, impact, moderation; the founders; how voting works; explainers; share and embed.</td></tr>
+      <tr><td><code>/review</code>, <code>/candidates/submit</code></td><td>Maintainers&rsquo; correction console (named passcodes); candidate statement portal (invitation token).</td></tr>
+      <tr><td><code>/journey/steps</code>, <code>/journey/flow</code></td><td>Two journey prototypes awaiting Romily&rsquo;s choice. Unlinked and not indexed.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="section" id="s5">
+  <div class="section-head" data-title="The data model"><div class="num">05 · Database</div><h2>The data model</h2>
+  <p class="lede">One Postgres database, grouped here by job. Tables marked append-only have triggers that refuse updates and deletes. Every table has row-level security switched on (the only exception is PostGIS&rsquo;s own <code>spatial_ref_sys</code>).</p></div>
+
+  <div class="cols dense">
+    <div class="card"><h4>Elections</h4>
+      <p class="small"><code>ballots</code> (31 current, 33 in all): one row per ballot paper, keyed by Democracy Club&rsquo;s <code>ballot_paper_id</code>, with level, poll date, area, GSS code, previous contest, cancelled or postponed flags.</p>
+      <p class="small"><code>candidates</code> (161): name, party, verbatim statement to voters, photo and its licence, Parliament member id where matched. <code>parties</code> (25): Electoral Commission id, official site, optional colour. <code>election_dates</code>: deadlines and notice links. <code>previous_candidacies</code> (271), <code>ward_history</code> (652), <code>leaflets</code> (28).</p></div>
+    <div class="card ochre"><h4>Claims ledger</h4>
+      <p class="small"><code>claims</code> (482 rows, <b>append-only</b>): ballot or party, topic, tier, summary, the quote, <code>applies_if</code>, status, <code>supersedes</code>, <code>drafted_by</code>, precision.</p>
+      <p class="small"><code>sources</code> (91): title, URL, publisher, the source&rsquo;s own date, retrieval date, content hash, layer. <code>change_log</code> (493, <b>append-only</b>). <code>verifications</code> (<b>append-only</b>). View <code>current_claims</code>: the live set (376).</p></div>
+    <div class="card mauve"><h4>Money</h4>
+      <p class="small"><code>receipt_grid</code> (40,500): one row per household cell per reform set, with the household, results and the PolicyEngine version. <code>party_funding</code>: Electoral Commission donations, summarised per party.</p></div>
+    <div class="card sage"><h4>Place and councils</h4>
+      <p class="small"><code>councillors</code> (19,273) and <code>council_control</code> from Open Council Data. <code>council_tax_2026</code> (319), <code>deprivation_2025</code> (33,755). <code>council_agenda_items</code> (677). <code>council_pledges</code>.</p></div>
+    <div class="card"><h4>Candidates speaking for themselves</h4>
+      <p class="small"><code>candidate_invitations</code> (token hash, channel, status) and <code>candidate_submissions</code> (statement, source, check, resulting claim). View <code>invitation_status</code>.</p></div>
+    <div class="card ochre"><h4>Counts, never people</h4>
+      <p class="small"><code>usage_totals</code> (lookups per ballot per day), <code>feedback_totals</code> (daily answer counts), <code>feedback_comments</code> (no identifiers). <code>resources</code>: further-reading links.</p></div>
+  </div>
+
+  <h3>Fixed vocabularies</h3>
+  <table class="tight">
+    <thead><tr><th style="width:24%">Enum</th><th>Values</th></tr></thead>
+    <tbody>
+      <tr><td class="k"><code>topic</code></td><td>money_and_cost_of_living · housing_and_property · healthcare_and_social_care · education_and_universities · environment_climate_and_energy · immigration_and_borders · crime_policing_and_justice · defence_foreign_affairs_and_eu · equality_and_rights</td></tr>
+      <tr><td class="k"><code>source_layer</code></td><td>manifesto · enacted_record · candidate_statement · campaign_leaflet · third_party_analysis</td></tr>
+      <tr><td class="k"><code>claim_status</code></td><td>draft · verified · superseded · withdrawn</td></tr>
+      <tr><td class="k"><code>claim_precision</code></td><td>measurable · aspiration (shown as &ldquo;Stated aim, no measurable commitment found&rdquo;)</td></tr>
+      <tr><td class="k"><code>election_level</code></td><td>parliamentary · devolved · mayoral · local · other</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Raw SQL must cast to these types, for example <code>'housing_and_property'::topic</code>, or Postgres refuses the insert. Supabase&rsquo;s SQL runner returns only the last statement&rsquo;s result, so run one statement per query when checking.</p>
+</section>
+
+<!-- ============ 6 ============ -->
+<section class="section" id="s6">
+  <div class="section-head" data-title="The claims ledger"><div class="num">06 · The heart of it</div><h2>The claims ledger</h2>
+  <p class="lede">Everything the site says about a party or candidate is a row in one ledger. Rows are never changed, only superseded, and every change is public. That is what lets the site say &ldquo;no way for figures to be manipulated&rdquo; and mean it.</p></div>
+
+  <div class="figure">
+  <svg viewBox="0 0 680 230" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+    <defs><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#3f4650"/></marker></defs>
+    <g font-size="8.4" fill="#3f4650">
+      <rect x="5" y="20" width="118" height="92" rx="6" fill="#f6f3ee" stroke="#b9b2a5"/>
+      <text x="15" y="40" font-size="10" font-weight="600" fill="#16202a">1 · Read</text>
+      <text x="15" y="56">The party&#8217;s or</text><text x="15" y="68">candidate&#8217;s own</text><text x="15" y="80">publication. Quote</text><text x="15" y="92">copied word for word.</text>
+      <rect x="140" y="20" width="118" height="92" rx="6" fill="#f6f3ee" stroke="#b9b2a5"/>
+      <text x="150" y="40" font-size="10" font-weight="600" fill="#16202a">2 · Draft</text>
+      <text x="150" y="56">scripts/claims/</text><text x="150" y="68">*.json in git: source,</text><text x="150" y="80">quote, summary, topic,</text><text x="150" y="92">applies_if, precision.</text>
+      <rect x="275" y="20" width="118" height="92" rx="6" fill="#eef1ee" stroke="#7b877b"/>
+      <text x="285" y="40" font-size="10" font-weight="600" fill="#16202a">3 · Load</text>
+      <text x="285" y="56">Push triggers the</text><text x="285" y="68">Load drafted claims</text><text x="285" y="80">workflow. Idempotent;</text><text x="285" y="92">service role.</text>
+      <rect x="410" y="20" width="118" height="92" rx="6" fill="#fbf4ea" stroke="#c98f4e"/>
+      <text x="420" y="40" font-size="10" font-weight="600" fill="#16202a">4 · Ledger</text>
+      <text x="420" y="56">claims + sources.</text><text x="420" y="68">Trigger refuses any</text><text x="420" y="80">update or delete.</text><text x="420" y="92">change_log records all.</text>
+      <rect x="545" y="20" width="130" height="92" rx="6" fill="#2f5251"/>
+      <text x="555" y="40" font-size="10" font-weight="600" fill="#fff">5 · Publish</text>
+      <text x="555" y="56" fill="#dfe9e6">current_claims view</text><text x="555" y="68" fill="#dfe9e6">feeds every page;</text><text x="555" y="80" fill="#dfe9e6">/ledger shows every</text><text x="555" y="92" fill="#dfe9e6">claim and change.</text>
+      <line x1="123" y1="66" x2="138" y2="66" stroke="#3f4650" stroke-width="1.2" marker-end="url(#a2)"/>
+      <line x1="258" y1="66" x2="273" y2="66" stroke="#3f4650" stroke-width="1.2" marker-end="url(#a2)"/>
+      <line x1="393" y1="66" x2="408" y2="66" stroke="#3f4650" stroke-width="1.2" marker-end="url(#a2)"/>
+      <line x1="528" y1="66" x2="543" y2="66" stroke="#3f4650" stroke-width="1.2" marker-end="url(#a2)"/>
+      <rect x="140" y="140" width="388" height="72" rx="6" fill="#f7eff1" stroke="#85555f"/>
+      <text x="152" y="160" font-size="10" font-weight="600" fill="#16202a">Correcting or withdrawing: never an edit</text>
+      <text x="152" y="177">Insert a new row with supersedes = the old id (or status withdrawn), with the reason.</text>
+      <text x="152" y="191">The old row stays, marked superseded; change_log records who, when and why.</text>
+      <text x="152" y="205">Maintainers do this in /review; batch corrections go through the JSON route.</text>
+      <path d="M469 112 L469 138" stroke="#85555f" stroke-width="1.2" marker-end="url(#a2)"/>
+      <rect x="545" y="140" width="130" height="72" rx="6" fill="#fff" stroke="#2f5251"/>
+      <text x="555" y="160" font-size="10" font-weight="600" fill="#16202a">Before polling day</text>
+      <text x="555" y="177">/ledger/snapshot gives</text><text x="555" y="191">the full ledger + SHA-256;</text><text x="555" y="205">commit it to snapshots/.</text>
+    </g>
+  </svg>
+  <div class="caption">Figure 2. A claim&rsquo;s life. Nothing reaches a page except through the ledger.</div>
+  </div>
+
+  <div class="cols">
+    <div>
+      <h3>What a claim holds</h3>
+      <ul class="small">
+        <li><b>The quotation</b> (<code>source_quote</code>): verbatim, the record.</li>
+        <li><b>The summary</b> (<code>claim_text</code>): neutral verbs (&ldquo;says&rdquo;, &ldquo;pledged&rdquo;, &ldquo;states&rdquo;), never &ldquo;admits&rdquo;, &ldquo;boasts&rdquo;, &ldquo;fails to&rdquo;.</li>
+        <li><b>Who</b>: a party (<code>party_ec_id</code>) and/or one ballot and candidate.</li>
+        <li><b>Topic</b>: one of nine. One claim per commitment; never bundled.</li>
+        <li><b>Conditions</b> in <code>applies_if</code> (for example renters, or students), never in the summary. The household profile is matched against these to put the most relevant first; it never hides anything.</li>
+        <li><b>Precision</b>: the threshold rule. A summary may not say &ldquo;more&rdquo;, &ldquo;cut&rdquo;, &ldquo;boost&rdquo;, &ldquo;invest&rdquo; without the number, date or object from the source. If the source is vague, it is filed as an aspiration and labelled so.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Where the 376 live claims come from</h3>
+      <table class="tight">
+        <thead><tr><th>Layer</th><th style="text-align:right">Claims</th></tr></thead>
+        <tbody>
+          <tr><td>Manifesto (party publications)</td><td style="text-align:right">293</td></tr>
+          <tr><td>Candidate statement</td><td style="text-align:right">73</td></tr>
+          <tr><td>Enacted record</td><td style="text-align:right">9</td></tr>
+          <tr><td>Third-party analysis</td><td style="text-align:right">1</td></tr>
+          <tr><td>Campaign leaflet</td><td style="text-align:right">0</td></tr>
+        </tbody>
+      </table>
+      <p class="small">By topic, the spread runs from 35 (immigration and borders) to 54 (money and cost of living). The layer chips are grey, identical in weight and imply no order. Where they appear, the legend says: candidate statements and leaflets are published as written; we check they are real, not that they are true.</p>
+    </div>
+  </div>
+
+  <div class="rule-box ochre"><div class="t">Sources: primary first</div>
+  <p>The party&rsquo;s or candidate&rsquo;s own publication, the official record, the statute. A press report is used only as a flagged interim (<code>notes</code> says so) until the primary is found. <code>published_on</code> is the source&rsquo;s own date; <code>retrieved_at</code> is when it was read. Both are shown on the page. On 25 September two Reform UK positions were moved from summaries to the party&rsquo;s own PDFs in exactly this way, as superseding rows.</p></div>
+</section>
+
+<!-- ============ 7 ============ -->
+<section class="section" id="s7">
+  <div class="section-head" data-title="The money layer"><div class="num">07 · What it means for you</div><h2>The money layer</h2>
+  <p class="lede">Where a party&rsquo;s tax or benefit promise is specific enough to model, the site shows what it would change for a household like the visitor&rsquo;s. The sums are done once, offline, by PolicyEngine UK, and stored as a table the pages look up. Nothing is calculated live.</p></div>
+
+  <div class="stats three">
+    <div class="stat"><b>8,100</b><span>household cells: 6 age × 6 income × 3 household × 3 children × 5 housing × 5 work bands</span></div>
+    <div class="stat"><b>5</b><span>reform sets: 2026 baseline, 2024 baseline, and three party policies</span></div>
+    <div class="stat"><b>2.98.0</b><span>PolicyEngine UK version, stored with every row; computed 18 September 2026</span></div>
+  </div>
+
+  <table class="tight">
+    <thead><tr><th>Reform set</th><th>What it models</th></tr></thead>
+    <tbody>
+      <tr><td><code>baseline</code></td><td>Current law, 2026.</td></tr>
+      <tr><td><code>baseline-2024</code></td><td>Law as it stood for the 2024 comparison.</td></tr>
+      <tr><td><code>PP52-2024-employee-ni-6pct</code></td><td>Conservative 2024: employee National Insurance at 6%.</td></tr>
+      <tr><td><code>PP63-2024-ni-upper-earnings-limit</code></td><td>Green 2024: change to the National Insurance upper earnings limit.</td></tr>
+      <tr><td><code>PP7931-2026-09-personal-allowance-15000</code></td><td>Reform UK, September 2026: personal allowance of £15,000.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>The assumptions, stated on every calculation</h3>
+  <ul class="small">
+    <li>Income at the band midpoint (over £100k uses £130,000), split 60/40 between adults in a couple. Employed means employment income; self-employed, self-employment income; retired, private pension income.</li>
+    <li>Representative ages per band: 17, 21, 30, 42, 57, 70. Children: one child aged 3 (under 5) or 10 (school age).</li>
+    <li>Rent: private £15,600 a year for a single adult without children, £21,600 otherwise; social £9,000; owners £0 (mortgage interest not modelled).</li>
+    <li>The household is assumed to claim Universal Credit and Child Benefit if entitled. Student status has no modelled effect; &ldquo;other&rdquo; households are modelled as one adult.</li>
+    <li><b>Region is London</b>, because the first covered ballot is in London. This must be extended before money figures are shown for ballots elsewhere.</li>
+  </ul>
+
+  <div class="rule-box"><div class="t">How a household finds its row</div>
+  <p><code>lib/household.ts</code> folds the fuller set of profile answers into the grid&rsquo;s bands (<code>gridKey</code>). The newer answers map onto existing bands: housemates or halls count as &ldquo;other&rdquo; households, university halls as &ldquo;other&rdquo; housing, a full-time student as &ldquo;not working&rdquo;, and studying with a part-time job as &ldquo;employed&rdquo;. Unit tests cover the matcher and the key (<code>npm test</code>, 22 passing).</p></div>
+
+  <p>To recompute the baseline: <code>python scripts/compute_grid.py</code> writes batches to <code>scripts/sql/</code>; for a past year, <code>GRID_YEAR=2024</code> writes <code>scripts/sql-2024/</code>. Party policies are defined in <code>scripts/reform_sets.py</code> and computed by <code>scripts/compute_reform_sets.py</code>. Recompute whenever PolicyEngine changes version or a reform set is added, and record the checksum.</p>
+</section>
+
+<!-- ============ 8 ============ -->
+<section class="section" id="s8">
+  <div class="section-head" data-title="Councils and wider bodies"><div class="num">08 · Where you live</div><h2>Councils and wider bodies</h2>
+  <p class="lede">Romily&rsquo;s round-six idea: make councils a major data set, under &ldquo;What&rsquo;s happening where you live&rdquo;. A council gets its own page, separate from any parliamentary ballot, and every layer of government between council and Westminster is shown as a layer, elected bodies first.</p></div>
+
+  <h3>The council page, <code>/council/[slug]</code></h3>
+  <ol class="small">
+    <li><b>Five topics</b> in fixed order (housing, transport, council tax, environment, education), each quoted from the council&rsquo;s own publication with link and date. &ldquo;Nothing found&rdquo; is said plainly and means nothing found, not nothing happening. District councils say schools belong to the county; counties say housing numbers belong to the districts. Drafts, estimates and government minimums are labelled as such.</li>
+    <li><b>What the council is deciding</b>: every Full Council and Cabinet agenda item from about six months back to three ahead, as the council titled it. Motions are labelled with whoever the agenda names as proposer. A party is added only when the name matches exactly one serving councillor.</li>
+    <li><b>Who runs the council</b>: control and seats by party, next scheduled election, every councillor by ward, and a link to the register of interests (linked, never summarised). No attendance and no allowances, anywhere.</li>
+  </ol>
+
+  <div class="cols">
+    <div>
+      <h4>Where the facts live</h4>
+      <p class="small">Council facts are in <code>lib/councils.json</code>, in git rather than the ledger, so every change is a reviewable diff. 29 councils as of 25 September, gathered by hand from each council&rsquo;s site. Council tax Band D comes from MHCLG; control and councillors from Open Council Data.</p>
+      <h4>Matching names</h4>
+      <p class="small">Council names are matched exactly after stripping &ldquo;Borough&rdquo;, &ldquo;District&rdquo;, &ldquo;City&rdquo;, &ldquo;County&rdquo;, &ldquo;Council&rdquo;. A prefix match was removed on 25 September because it gave Aberdeen City the councillors of Aberdeenshire.</p>
+    </div>
+    <div>
+      <h4>Wider bodies</h4>
+      <p class="small"><code>lib/widerBodies.json</code> holds ONS lookups: council to combined authority (106 councils, with mayor flags), the GLA (33 boroughs), and council to fire authority (318). Elected layers (GLA, mayoral combined authorities, Senedd, Scottish Parliament, NI Assembly) join the representatives list. Unelected bodies (NHS integrated care boards, fire and rescue authorities, mayor-less combined authorities, national parks) sit behind &ldquo;Who else runs things here&rdquo;, tagged &ldquo;Not elected&rdquo;.</p>
+    </div>
+  </div>
+
+  <h3>Meeting papers: which councils can be read</h3>
+  <table class="tight">
+    <thead><tr><th>State on 25 Sept</th><th>Councils</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Loading weekly (14)</td><td>Aberdeen City, Bassetlaw, Blackpool, Cotswold, Lambeth, Leeds, Milton Keynes, Newcastle-under-Lyme, North West Leicestershire, Northumberland, South Kesteven, Stroud, Wiltshire, Windsor and Maidenhead</td></tr>
+      <tr><td class="k">Answers, but nothing kept</td><td>Argyll and Bute (Full Council now mapped; still returning no meetings)</td></tr>
+      <tr><td class="k">Too slow</td><td>Brighton and Hove, Halton</td></tr>
+      <tr><td class="k">Blocks automated readers</td><td>Camden, Carmarthenshire; Stirling disallows in robots.txt, which we respect</td></tr>
+      <tr><td class="k">Did not answer</td><td>Flintshire, Mid Devon, East Hertfordshire, Newark and Sherwood</td></tr>
+      <tr><td class="k">Other systems</td><td>Highland and Amber Valley (own systems), Nottinghamshire and South Staffordshire (CMIS)</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Leeds only answers a full browser User-Agent, so the reader sends one for Leeds alone (<code>BROWSER_UA</code>). Every other council is read with a named User-Agent that gives our contact address.</p>
+</section>
+
+<!-- ============ 9 ============ -->
+<section class="section" id="s9">
+  <div class="section-head" data-title="Pipelines and automation"><div class="num">09 · Keeping it current</div><h2>Pipelines and automation</h2>
+  <p class="lede">Three scheduled or triggered jobs run in GitHub Actions with the service-role key held as a repository secret. Five datasets were loaded once and have a stated refresh cadence.</p></div>
+
+  <table>
+    <thead><tr><th style="width:22%">Workflow</th><th style="width:22%">When</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Daily ballot ingest<br><code>ingest.yml</code></td><td>05:17 UTC daily</td><td><code>scripts/ingest_ballots.py</code>: every current UK ballot from Democracy Club (ballots, parties, candidates with verbatim statements, previous contest, ONS centroid and GSS code), then the leaflet scan. Idempotent. Runs unauthenticated at 10 requests a minute until a candidates-API token exists.</td></tr>
+      <tr><td class="k">Load drafted claims<br><code>load-claims.yml</code></td><td>On push to <code>scripts/claims/*.json</code></td><td><code>scripts/load_claims.py</code>: loads sources and claims through the service role. Idempotent: a claim with the same ballot, party, topic and quote is skipped. Append-only.</td></tr>
+      <tr><td class="k">Council meetings<br><code>council-meetings.yml</code></td><td>Mondays 05:40 UTC, on push of the script, or by hand</td><td><code>scripts/fetch_council_meetings.py --load</code>: Full Council and Cabinet agendas from each council&rsquo;s Modern.gov web service, 183 days back to 92 ahead. Replaces each council&rsquo;s rows wholesale; a council that fails is named in the log and its old rows are kept.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>What the meetings reader leaves out</h3>
+  <p class="small">Only mechanical removals, from a public list in the script: section headings; procedural titles (apologies, minutes, declarations of interest, announcements, questions, petitions, appointments, elections of chairs and mayors, forward plans); private items the council withholds; and, following Romily&rsquo;s rule, anything about attendance or allowances. Nothing is ranked, matched to a ward or chosen by us. Motions are found by the word &ldquo;motion&rdquo; in the title or &ldquo;this council notes/believes/resolves&rdquo; in the text; the proposer comes from the title or text (&ldquo;in the name of&rdquo;, &ldquo;proposed by&rdquo;, a group name, or a title that is just a councillor&rsquo;s name).</p>
+
+  <h3>Datasets loaded once</h3>
+  <table class="tight">
+    <thead><tr><th>Table</th><th>Source</th><th>Licence</th><th>Refresh</th></tr></thead>
+    <tbody>
+      <tr><td><code>councillors</code>, <code>council_control</code></td><td>Open Council Data</td><td>Public domain</td><td>After each May election</td></tr>
+      <tr><td><code>deprivation_2025</code></td><td>MHCLG English Indices of Deprivation 2025</td><td>OGL v3</td><td>When a new index is published</td></tr>
+      <tr><td><code>party_funding</code></td><td>Electoral Commission donations register, 1 Jul 2025 – 30 Jun 2026</td><td>Public register</td><td>Quarterly</td></tr>
+      <tr><td><code>ward_history</code></td><td>DCLEAPIL v1.0 (figshare)</td><td>CC BY 4.0 / CC BY-SA 4.0</td><td>Yearly</td></tr>
+      <tr><td><code>council_tax_2026</code></td><td>MHCLG Council Tax levels 2026–27</td><td>OGL v3</td><td>Each April</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Reloads write through the service role in batches of up to 2,000 rows, and never leave an insert policy open to the public afterwards. Sources, shapes and licences are in <code>scripts/loaders/README.md</code>; DDL in <code>scripts/sql/migrations/</code>.</p>
+</section>
+
+<!-- ============ 10 ============ -->
+<section class="section" id="s10">
+  <div class="section-head" data-title="Infrastructure, secrets and deploys"><div class="num">10 · Operations</div><h2>Infrastructure, secrets and deploys</h2>
+  <p class="lede">What runs where, who holds the keys, and the one deploy route that is allowed.</p></div>
+
+  <table>
+    <thead><tr><th style="width:20%">Piece</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Hosting</td><td>Netlify site <code>voter-app-uk</code>. It shares a $9-a-month, 1,000-credit pot with 27 other sites; the pot has run out every month since June, and all sites were suspended for about fourteen minutes on 24 September. Each production deploy costs 15 credits (research paper 07).</td></tr>
+      <tr><td class="k">Domains</td><td><code>whatsittome.org</code>, registered and with DNS at Vercel. <code>hustings.org</code> and <code>thisshitmatters.org</code> redirect to it with the path kept. Mail to hello@whatsittome.org forwards.</td></tr>
+      <tr><td class="k">Database</td><td>Supabase project <code>voter-app</code>, ref <code>urufvcutpksjppbjxouc</code>, London, free tier.</td></tr>
+      <tr><td class="k">Repository</td><td><code>github.com/highlyvisual/voter-app</code>, private, AGPL-3.0. Working copy on the Mac Studio at <code>~/code/voter-app</code>; its remote carries a fine-grained token so a build session can push.</td></tr>
+      <tr><td class="k">Democracy Club</td><td>Developers API account &ldquo;What&rsquo;s It To Me?&rdquo;, hobbyist plan: one key, 1,000 requests a day. Used for postcode lookup. It is not accepted by the candidates API.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Secrets and settings (names only)</h3>
+  <table class="tight">
+    <thead><tr><th>Name</th><th>Where it is set</th><th>What it is for</th></tr></thead>
+    <tbody>
+      <tr><td><code>SUPABASE_SERVICE_ROLE_KEY</code></td><td>Netlify; GitHub secret</td><td>Writes. Never in the browser.</td></tr>
+      <tr><td><code>SUPABASE_URL</code></td><td>GitHub secret</td><td>Jobs&rsquo; database address.</td></tr>
+      <tr><td><code>REVIEWERS</code></td><td>Netlify</td><td>Named passcodes for <code>/review</code> (<code>Name:passcode,…</code>).</td></tr>
+      <tr><td><code>DEMOCRACY_CLUB_DEVELOPERS_KEY</code></td><td>Netlify</td><td>Postcode lookup.</td></tr>
+      <tr><td><code>DEMOCRACY_CLUB_TOKEN</code></td><td>GitHub secret (not yet issued)</td><td>Candidates API for the nightly job.</td></tr>
+      <tr><td><code>NEXT_PUBLIC_SITE_NAME</code>, <code>…_URL</code>, <code>…_TAGLINE</code>, <code>…_PHOTOS_MODE</code></td><td>Netlify (optional)</td><td>Overrides for <code>lib/site.ts</code>.</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Barny alone holds the service-role key, the reviewers&rsquo; passcodes, the Democracy Club key, the GitHub token, and the Netlify and Vercel accounts.</p>
+
+  <div class="rule-box mauve"><div class="t">The one deploy route</div>
+  <p>Commit, push, then run <code>scripts/deploy.sh "&lt;proxy path&gt;"</code> on the Mac. The script refuses to run with uncommitted changes, exports <code>HEAD</code> with <code>git archive</code>, and leaves out snapshots, SQL grids, claim drafts and docs, so the upload is about 3.5 MB instead of 59 MB. The proxy path comes from Netlify&rsquo;s deploy tool and is short-lived.</p>
+  <p><b>Why:</b> on 24 September a deploy from the working copy overwrote a day&rsquo;s uncommitted work. It was recovered from Netlify&rsquo;s deploy source. Deploys come from committed code only, every time, and because each costs credits, not casually.</p></div>
+</section>
+
+<!-- ============ 11 ============ -->
+<section class="section" id="s11">
+  <div class="section-head" data-title="Reliability, privacy and accessibility"><div class="num">11 · Quality</div><h2>Reliability, privacy and accessibility</h2>
+  <p class="lede">The site has to work on polling day, on a cheap phone, for someone who has never used it, without learning anything about them.</p></div>
+
+  <div class="cols">
+    <div>
+      <h3>Reliability</h3>
+      <ul class="small">
+        <li>Every server-side call to an outside service gives up after 5&ndash;8 seconds, so a slow upstream cannot hold a page past the host&rsquo;s limit and turn it into an error. Each panel already falls back to showing nothing for itself.</li>
+        <li>The boundary and image routes answer 504 on a timeout instead of hanging.</li>
+        <li>Candidate photos are resized by Netlify&rsquo;s image CDN, so a 56-pixel face costs kilobytes, not a 900 KB original.</li>
+        <li><code>/status</code> shows when each data set was last refreshed, and lists any election the nightly job missed.</li>
+        <li><code>scripts/check-ballots.py</code> and <code>/about/accuracy</code> test that postcodes resolve to the right ballot (first report: 20 of 20 for Holborn and St Pancras).</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Privacy</h3>
+      <ul class="small">
+        <li>The postcode is sent once, by POST, used to find the ballot and discarded; only the outward code goes further.</li>
+        <li>Household answers are bands and stay in the browser. Display settings, notes and topic order use browser storage only.</li>
+        <li>What is logged: anonymous daily page counts per election and aggregate bot traffic. No IP addresses, no tracking cookies, no per-visitor records.</li>
+        <li>Forms that take input (household form, submission portal, maintenance console) are excluded from crawlers in <code>robots.txt</code>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Accessibility</h3>
+  <p class="small">Light and dark themes, text size, a high-contrast mode, a light mode for slow connections, read-aloud and a plain-English toggle. Selected answers carry <code>aria-pressed</code> and are filled with a tick in both themes. A forced-colours rule keeps borders in Windows high-contrast. Every layout was checked for sideways scrolling at 320 pixels, at 320 pixels with 150% text, and at 1920 pixels. Pages are checked with axe (scripts in <code>scripts/a11y/</code>); the most recent smoke run, across 32 pages, found no violations.</p>
+
+  <h3>Colour, as a rule</h3>
+  <p class="small">The interface is warm neutrals with one accent, a signature magenta (<code>#D6006F</code>) chosen because no UK party uses it; it marks interface, never identity. Map legend colours must be clearly different from each other and clearly not party colours, and each legend item explains what it means.</p>
+</section>
+
+<!-- ============ 12 ============ -->
+<section class="section" id="s12">
+  <div class="section-head" data-title="Runbooks"><div class="num">12 · How to</div><h2>Runbooks</h2>
+  <p class="lede">The routines, in order. Each assumes you are in <code>~/code/voter-app</code> on the Mac with a clean working copy.</p></div>
+
+  <h3>Add or correct claims</h3>
+  <pre><span class="c"># 1. Read the primary source; copy the quote exactly.
+# 2. Add a file (never edit a loaded one):</span>
+scripts/claims/2026-09-25-&lt;what&gt;.json   <span class="c"># { "sources": [...], "claims": [...] }</span>
+<span class="c"># 3. Commit and push. "Load drafted claims" runs and loads it.
+# 4. Check the ledger: current_claims for the ballot, and /ledger.
+# A correction is a new claim with "supersedes": &lt;old id&gt; and the reason.</span></pre>
+
+  <h3>Add a council page</h3>
+  <ol class="small">
+    <li>Add an entry to <code>lib/councils.json</code>: slug, name, GSS code, site, system, the six links (plan, budget, meetings, councillors, interests, consultations), and five facts with summary, verbatim quote, URL, publisher, date and a note. Keep &ldquo;nothing found&rdquo; entries, with where you looked.</li>
+    <li>If the council runs Modern.gov and <code>…/mgWebService.asmx/GetCommittees?lDummy=0</code> answers, add it to <code>COUNCILS</code> in <code>scripts/fetch_council_meetings.py</code>. If its Full Council is listed under the council&rsquo;s own name, add it to <code>EXTRA_BODIES</code>.</li>
+    <li>Commit and push (the script change triggers the meetings job), check <code>council_agenda_items</code>, then deploy.</li>
+  </ol>
+
+  <h3>Add a ballot by hand</h3>
+  <p class="small">Normally the daily ingest does this. By hand: insert <code>ballots</code> (<code>previous_ballot_paper_id</code> for the last contest, <code>archived = true</code> for past ones), <code>parties</code> and <code>candidates</code> (statement verbatim).</p>
+
+  <h3>Before a polling day</h3>
+  <ol class="small">
+    <li>Check deadlines on the ballot page against Democracy Club&rsquo;s timetable and the working-day rules.</li>
+    <li>Run the ballot accuracy check and read <code>/status</code>.</li>
+    <li>Download <code>/ledger/snapshot</code> and commit it to <code>snapshots/</code> with its SHA-256.</li>
+    <li>Freeze deploys unless something is broken.</li>
+  </ol>
+
+  <h3>Deploy</h3>
+  <pre>git status                 <span class="c"># must be clean</span>
+git push
+scripts/deploy.sh "&lt;proxy path from Netlify's deploy tool&gt;"
+<span class="c"># then smoke-test: every /council/[slug], /, /start, the live ballot pages</span></pre>
+
+  <h3>Post a question round for Romily</h3>
+  <p class="small">One page per round on romily-app-questions.netlify.app, source in <code>docs/romily/questions-site/</code>. <b>Gotcha:</b> every <code>&lt;form&gt;</code> needs <code>data-netlify="true" netlify-honeypot="bot-field"</code> (HTML saved from the live site loses it), or answers silently stop arriving. Log each answer in <code>docs/romily/feedback-log.md</code>.</p>
+
+  <p class="note"><b>Workflow files:</b> write <code>.github/workflows/*</code> on the Mac directly (the build session&rsquo;s file transfer cannot). A push to a watched path starts the job.</p>
+</section>
+
+<!-- ============ 13 ============ -->
+<section class="section" id="s13">
+  <div class="section-head" data-title="Known gaps and open decisions"><div class="num">13 · What is not done</div><h2>Known gaps and open decisions</h2>
+  <p class="lede">Stated plainly, so nobody mistakes an absence for a decision.</p></div>
+
+  <h3>Waiting on a person</h3>
+  <table>
+    <thead><tr><th style="width:15%">Who</th><th>Decision</th></tr></thead>
+    <tbody>
+      <tr><td><span class="owner b">Barny</span></td><td>The opening line (paper 01). Romily&rsquo;s steer: &ldquo;Politics is personal&rdquo;; the rest of the copy pass follows it.</td></tr>
+      <tr><td><span class="owner b">Barny</span></td><td>The shared Netlify credit pot before 8 October: a separate team or plan, fewer deploys, or another host (paper 07).</td></tr>
+      <tr><td><span class="owner r">Romily</span></td><td>What to rethink in the local-issues rule (round six q12).</td></tr>
+      <tr><td><span class="owner r">Romily</span></td><td>Journey shape: steps or one page opening up. Both are built at <code>/journey</code>.</td></tr>
+      <tr><td><span class="owner r">Romily</span></td><td>Whether area statistics belong, which gap first (crime, income and wages, GP access, schools, fuel poverty), and transport as a tenth topic (paper 09).</td></tr>
+      <tr><td><span class="owner r">Romily</span></td><td>A slot for the Democracy Club call (28 September, 3&ndash;5pm UK, or 7&ndash;9 October).</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Known technical gaps</h3>
+  <table class="tight">
+    <tbody>
+      <tr><td class="k">Money region</td><td>The grid is computed for London only. Extend the key before showing money figures elsewhere.</td></tr>
+      <tr><td class="k">Motion results</td><td>Results are not in the meeting feed in a consistent form; pages link to minutes.</td></tr>
+      <tr><td class="k">Council coverage</td><td>Motions only for councils whose Modern.gov feed answers (14 of 29).</td></tr>
+      <tr><td class="k">Council facts refresh</td><td>Gathered by hand; no refresh routine yet. Leicestershire&rsquo;s quotes were read through a fetcher only and need a check in a browser.</td></tr>
+      <tr><td class="k">Candidates API</td><td>No token yet; the nightly job runs slowly and unauthenticated.</td></tr>
+      <tr><td class="k">Primary sources</td><td>Some Reform UK and Liberal Democrat positions still await primary sources.</td></tr>
+      <tr><td class="k">Photo licences</td><td>Democracy Club photo licences need a human check before any all-or-none photo rule applies.</td></tr>
+      <tr><td class="k">Election notices</td><td>Notice-of-election URLs beyond the statement of persons nominated are not filled for every ballot.</td></tr>
+      <tr><td class="k">Welsh</td><td>Needs a translator (<code>docs/welsh.md</code>).</td></tr>
+      <tr><td class="k">Stale statements</td><td>Some candidates&rsquo; statements on Democracy Club refer to other elections; they are shown as supplied.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 14 ============ -->
+<section class="section" id="s14">
+  <div class="section-head" data-title="The research library"><div class="num">14 · Why things are as they are</div><h2>The research library</h2>
+  <p class="lede">Ten papers in <code>docs/research/</code>, each fact-checked by a second pass that re-opened the sources. None ranks a candidate or party, and none picks an option for Romily or Barny.</p></div>
+  <table>
+    <thead><tr><th style="width:6%">#</th><th style="width:28%">Paper</th><th>What it found</th></tr></thead>
+    <tbody>
+      <tr><td>01</td><td class="k">Opening line</td><td>Neutral tools open with a plain task; small wording changes rarely change behaviour. Four lines compared, none picked.</td></tr>
+      <tr><td>02</td><td class="k">Promises against records</td><td>Of 50 pledges from the 2024 manifestos: 5 clean pledge-vote pairs, 7 ambiguous, 38 never voted on.</td></tr>
+      <tr><td>03</td><td class="k">The empty record section</td><td>Three patterns in use elsewhere; four layouts set out. Romily chose option 4.</td></tr>
+      <tr><td>04</td><td class="k">Councillors</td><td>English councils must record names on budget and council tax votes (since 2014); otherwise no dataset of council votes exists.</td></tr>
+      <tr><td>05</td><td class="k">The regional level</td><td>No single regional level; what sits between council and Westminster varies by postcode. The site needs its own tables.</td></tr>
+      <tr><td>06</td><td class="k">Local-issues rule</td><td>Most councils tested run Modern.gov with an open web service; a draft rule tried on one ward.</td></tr>
+      <tr><td>07</td><td class="k">Running costs</td><td>The shared Netlify pot runs out monthly; costs set out for four hosts under stated assumptions.</td></tr>
+      <tr><td>08</td><td class="k">Track-record sources</td><td>Commons Votes API, TheyWorkForYou, Modern.gov, ElectionLeaflets, planning.data.gov.uk tested.</td></tr>
+      <tr><td>09</td><td class="k">Sources behind two dashboards</td><td>Local Intelligence Hub and the Constituency Dashboards aggregate about 60 official datasets we don&rsquo;t yet use, mostly OGL, all by constituency.</td></tr>
+      <tr><td>10</td><td class="k">Promises, every method</td><td>Only Bill Royal Assent dates and numbered money pledges stay pure fact: 18 of 25 Labour 2024 commitments checked have Royal Assent, 3 are in progress, 4 have no Bill.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 15 ============ -->
+<section class="section" id="s15">
+  <div class="section-head" data-title="Brand quick reference"><div class="num">15 · Identity</div><h2>Brand quick reference</h2>
+  <p class="lede">The emblem is profiles and a question mark; the home lockup reads &ldquo;Politics, in your context.&rdquo; It is not to be regressed to earlier marks (Barny, 24 September).</p></div>
+
+  <div class="cols" style="align-items:center">
+    <div style="background:#f6f3ee; padding:8mm; text-align:center"><img src="img/lockup-light.png" style="width:62mm" alt=""></div>
+    <div style="background:#0f1418; padding:8mm; text-align:center"><img src="img/lockup-dark.png" style="width:62mm" alt=""></div>
+  </div>
+  <p class="note" style="margin-top:2mm">Files in <code>public/brand/</code>: <code>lockup</code>, <code>logo</code>, <code>mark</code> and <code>word</code>, each in light and dark.</p>
+
+  <h3>Colour</h3>
+  <div class="swatches">
+    <div class="sw"><i style="background:#2f5251"></i><b>Teal</b>#2F5251 · emblem</div>
+    <div class="sw"><i style="background:#c98f4e"></i><b>Ochre</b>#C98F4E · emblem</div>
+    <div class="sw"><i style="background:#85555f"></i><b>Mauve</b>#85555F · emblem</div>
+    <div class="sw"><i style="background:#7b877b"></i><b>Sage</b>#7B877B · emblem</div>
+    <div class="sw"><i style="background:#3d4c5e"></i><b>Slate</b>#3D4C5E · headings accent</div>
+    <div class="sw"><i style="background:#D6006F"></i><b>Magenta</b>#D6006F · interface only</div>
+    <div class="sw"><i style="background:#f2f0eb; outline:0.6px solid #ddd"></i><b>Sand</b>#F2F0EB · panels</div>
+    <div class="sw"><i style="background:#000"></i><b>Ink</b>#000000 · text on site</div>
+  </div>
+  <p class="small">On the site, magenta marks interface, never identity, and party colours appear only on a party&rsquo;s own panel. The emblem colours are for brand material like this book, not for anything that sits next to a candidate.</p>
+
+  <h3>Type</h3>
+  <div class="cols">
+    <div><p style="font-family:Newsreader; font-size:22pt; line-height:1.1; margin:0 0 2mm; font-weight:500">Newsreader</p><p class="small">Headings and reading text. Weights 400&ndash;600, with italic for emphasis in headlines.</p></div>
+    <div><p style="font-family:Inter; font-size:20pt; line-height:1.15; margin:0 0 2mm; font-weight:600">Inter</p><p class="small">Interface, labels, tables, metadata. Weights 400&ndash;600.</p></div>
+  </div>
+
+  <h3>Voice</h3>
+  <p class="small">Romily&rsquo;s brief: human, emotional yet factual, never sounding like AI, and always impartial. Plain words; neutral verbs about politicians; say what was checked when something is absent. The site is about the reader&rsquo;s own life, so it speaks to &ldquo;you&rdquo;.</p>
+</section>
+
+<!-- ============ 16 ============ -->
+<section class="section" id="s16">
+  <div class="section-head" data-title="Glossary"><div class="num">16 · Words</div><h2>Glossary</h2></div>
+  <table class="tight">
+    <tbody>
+      <tr><td class="k">applies_if</td><td>A claim&rsquo;s conditions in structured form (for example renters), matched against the household profile to order what is most relevant first. It never hides a claim.</td></tr>
+      <tr><td class="k">ballot_paper_id</td><td>Democracy Club&rsquo;s id for one ballot paper, for example <code>parl.holborn-and-st-pancras.by.2026-10-08</code>.</td></tr>
+      <tr><td class="k">CMIS</td><td>A council meetings system with no open web service like Modern.gov&rsquo;s.</td></tr>
+      <tr><td class="k">current_claims</td><td>The view of live claims: not superseded, not withdrawn.</td></tr>
+      <tr><td class="k">EC id</td><td>Electoral Commission party registration number, for example PP52.</td></tr>
+      <tr><td class="k">GSS code</td><td>The ONS code for an area (E09000007 is Camden).</td></tr>
+      <tr><td class="k">Layer</td><td>The kind of source a claim comes from: manifesto, enacted record, candidate statement, campaign leaflet, third-party analysis.</td></tr>
+      <tr><td class="k">Modern.gov</td><td>The meetings system most councils use; many expose a public web service (<code>mgWebService.asmx</code>).</td></tr>
+      <tr><td class="k">OGL</td><td>Open Government Licence, under which most official statistics are published.</td></tr>
+      <tr><td class="k">PolicyEngine UK</td><td>An open-source tax-and-benefit model of the UK, used offline to compute the receipt grid.</td></tr>
+      <tr><td class="k">Precision</td><td>Measurable (a number, date or object) or aspiration (&ldquo;Stated aim, no measurable commitment found&rdquo;).</td></tr>
+      <tr><td class="k">Receipt grid</td><td>The table of precomputed tax-and-benefit results per household cell and reform set.</td></tr>
+      <tr><td class="k">Service role</td><td>The Supabase key that can write. Held only in Netlify, GitHub secrets and by Barny.</td></tr>
+      <tr><td class="k">SoPN</td><td>Statement of Persons Nominated: the official list of candidates on a ballot.</td></tr>
+      <tr><td class="k">Supersedes</td><td>How a claim is corrected: a new row points at the old one, which stays in the ledger.</td></tr>
+      <tr><td class="k">Voter Authority Certificate</td><td>Free photo ID for voting, for people without other accepted ID.</td></tr>
+    </tbody>
+  </table>
+  <div class="endmark"><img src="img/mark-light.png" alt=""><p class="note">Source and PDF in docs/bible/ in the repository. Update this book when PROJECT.md changes.</p></div>
+</section>
+
+</body>
+</html>

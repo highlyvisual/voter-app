@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>What's It To Me? — How the platform works (Funders and partners edition)</title>
+<link rel="stylesheet" href="brand.css">
+<style>
+@page { @bottom-left { content: "What’s It To Me?  ·  How the platform works  ·  Funders and partners edition  ·  September 2026"; font-family: "Inter", sans-serif; font-size: 7.5pt; color: #6b6f75; } }
+.journey { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; margin: 4mm 0 5mm; }
+.journey .step { background: var(--sand); padding: 4mm; border-top: 1mm solid var(--teal); break-inside: avoid; }
+.journey .step:nth-child(2) { border-top-color: var(--ochre); } .journey .step:nth-child(3) { border-top-color: var(--mauve); } .journey .step:nth-child(4) { border-top-color: var(--sage); }
+.journey .step .n { font-family: var(--sans); font-size: 7.5pt; font-weight: 600; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; }
+.journey .step b { display: block; font-size: 12pt; font-weight: 600; margin: 1mm 0 1.5mm; }
+.journey .step p { font-size: 8.8pt; line-height: 1.42; margin: 0; }
+.never { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2.5mm; margin: 3mm 0 5mm; }
+.never div { font-family: var(--sans); font-size: 8pt; line-height: 1.35; padding: 2.5mm 3mm; border: 0.6px solid var(--rule); border-left: 1mm solid var(--mauve); background: #fff; break-inside: avoid; }
+.help { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+body { font-size: 11pt; line-height: 1.52; }
+.small { font-size: 10pt; }
+table { font-size: 8.7pt; }
+tbody td { padding-top: 1.8mm; padding-bottom: 1.8mm; }
+.stat b { font-size: 25pt; } .stat span { font-size: 8pt; } .stat { padding: 5mm 4.5mm 4mm; }
+.section-head h2 { font-size: 28pt; } .section-head .lede { font-size: 12.5pt; } .section-head { margin-bottom: 7mm; }
+h3 { font-size: 13.5pt; margin-top: 6mm; }
+.journey .step p { font-size: 9.6pt; } .journey .step { padding: 5mm 4.5mm; min-height: 62mm; } .journey .step b { font-size: 13pt; }
+.never div { font-size: 8.8pt; padding: 3.5mm; }
+.card p { font-size: 10pt; }
+.quote { font-size: 15pt; }
+.rule-box p { font-size: 10.5pt; }
+#f4 table.tight tbody td { padding-top: 1mm; padding-bottom: 1mm; } #f4 table.tight { font-size: 8.3pt; }
+#f4 .small, #f4 ul.small { font-size: 9.5pt; }
+#f4 h3 { margin-top: 4mm; }
+#f7 .card { margin-bottom: 0; } #f7 .card p { font-size: 9.5pt; }
+
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <div class="band"><span style="background:#2f5251"></span><span style="background:#c98f4e"></span><span style="background:#85555f"></span><span style="background:#b98888"></span><span style="background:#7b877b"></span></div>
+  <img class="lockup" src="img/lockup-light.png" alt="What's It To Me? Politics, in your context.">
+  <img class="ghost" src="img/mark-light.png" alt="">
+  <div class="edition">Funders and partners edition</div>
+  <h1>Impartial by <em>design</em>, sourced by default.</h1>
+  <p class="sub">How What&rsquo;s It To Me? shows every voter who is on their ballot and what each candidate has published, without ever telling them what to think, and how anyone can check every word.</p>
+  <div class="meta">
+    <div><b>Edition</b>September 2026<br>Figures as at 25 September 2026</div>
+    <div><b>Founders</b>Romily Johnson, Founder and Product Lead<br>Barny Trevelyan-Johnson, Technical Lead</div>
+    <div><b>Contact</b>hello@whatsittome.org<br>whatsittome.org</div>
+  </div>
+</section>
+
+<!-- 1 -->
+<section class="section" id="f1">
+  <div class="section-head"><div class="num">01 · Why it exists</div><h2>The question people actually ask</h2>
+  <p class="lede">Not who is winning, but what would this mean for me, for my household, for my street. Most political coverage answers a different question.</p></div>
+
+  <div class="cols">
+    <div>
+      <p>What&rsquo;s It To Me? began as an idea of Romily Johnson&rsquo;s, a student: an informed electorate makes better decisions, and the way to inform it is to connect politics to a person&rsquo;s own life without telling them how to vote.</p>
+      <p>Manifestos are written for everyone, and so for no one in particular. Campaigns talk in national averages. The gap between that and an ordinary life is where many people give up. The site closes the gap with a postcode and a few optional facts about a household.</p>
+      <p>It is a non-partisan, not-for-profit UK voter-information site. It takes no advertising and no money from any party, candidate or campaign, and neither founder is a member of, works for, or is paid by any party or campaign.</p>
+    </div>
+    <div>
+      <div class="quote">&ldquo;So the name is the question, asked plainly.&rdquo;<cite>whatsittome.org, &ldquo;Who we are&rdquo;</cite></div>
+      <div class="rule-box"><div class="t">What it will never do</div>
+      <p>Rank, score, match or recommend. The site shows who is standing, what each has published, and where it touches the reader&rsquo;s life. The judgement stays with the voter.</p></div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>25</b><span>elections still to come this autumn, all on file</span></div>
+    <div class="stat"><b>109</b><span>candidates standing in them, each shown on an identical page</span></div>
+    <div class="stat"><b>376</b><span>published positions, each quoted from its source</span></div>
+    <div class="stat"><b>91</b><span>named, dated, linked sources</span></div>
+  </div>
+  <p class="note">Counts read from the live database on 25 September 2026. They change as elections are added and archived.</p>
+</section>
+
+<!-- 2 -->
+<section class="section" id="f2">
+  <div class="section-head"><div class="num">02 · The experience</div><h2>What a voter sees</h2>
+  <p class="lede">Four steps from a postcode to an informed choice, on a phone, in a few minutes.</p></div>
+
+  <div class="journey">
+    <div class="step"><div class="n">Step 1</div><b>Your ballot</b><p>Enter a postcode. The site finds every election you can vote in. The full postcode is used once and discarded.</p></div>
+    <div class="step"><div class="n">Step 2</div><b>Your household</b><p>Optional questions in broad bands (housing, work, children, income range), including answers that fit students. They stay on the device.</p></div>
+    <div class="step"><div class="n">Step 3</div><b>Every candidate</b><p>Everyone standing, in ballot-paper order, on the same page layout, with what each has published on nine topics.</p></div>
+    <div class="step"><div class="n">Step 4</div><b>What it means</b><p>Topics that touch your household come first, with the reason shown. Where the numbers allow, what a tax or benefit change would mean for a household like yours.</p></div>
+  </div>
+
+  <div class="cols">
+    <div>
+      <h3>Nine topics</h3>
+      <p class="small">Money and cost of living · housing · health and social care · education · environment and energy · immigration and borders · crime, policing and justice · defence, foreign affairs and the EU · equality and rights.</p>
+      <h3>Beyond the ballot</h3>
+      <p class="small">For every postcode, even without an election: when you next vote, who represents you at every level (council, mayor, devolved parliament, Westminster), and which unelected bodies also run things locally. For 29 councils, a page on what the council has published on housing, transport, council tax, the environment and schools, and what it is deciding at its meetings.</p>
+    </div>
+    <div>
+      <h3>Practical help to vote</h3>
+      <p class="small">Registration, postal and proxy deadlines, the free Voter Authority Certificate, accepted photo ID, and where to vote. A printable notes sheet to take to the polling station.</p>
+      <h3>Built for everyone</h3>
+      <p class="small">Light and dark themes, adjustable text size, high contrast, a plain-English mode, read-aloud, and a light version for slow connections. Pages are checked at phone width, with enlarged text, and with an automated accessibility checker.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="section" id="f3">
+  <div class="section-head"><div class="num">03 · Safeguards</div><h2>Neutral by design, not by promise</h2>
+  <p class="lede">Romily&rsquo;s founding requirements were that the site be completely impartial, attribute every fact to its source, leave no way for figures to be manipulated, and give no grounds to say it prefers any candidate. Each became a rule the software enforces.</p></div>
+
+  <table>
+    <thead><tr><th style="width:30%">Safeguard</th><th>How it works</th></tr></thead>
+    <tbody>
+      <tr><td class="k">One template for everyone</td><td>Every candidate gets the same page, the same sections in the same place, in ballot-paper order. There is no other ordering anywhere on the site.</td></tr>
+      <tr><td class="k">No record is not a mark against</td><td>A newcomer without a voting record gets the same neutral line as anyone else: &ldquo;Has not held this office before, so there is no voting record to show.&rdquo; Party positions are the layer everyone has.</td></tr>
+      <tr><td class="k">Quotation, not interpretation</td><td>Every position is the source&rsquo;s own words, with publisher, date and link. A short plain-English summary sits underneath as a reading aid, using neutral verbs (&ldquo;says&rdquo;, &ldquo;pledged&rdquo;).</td></tr>
+      <tr><td class="k">Vague promises are labelled</td><td>If a pledge has no number, date or concrete object, it is shown as &ldquo;Stated aim, no measurable commitment found&rdquo;, the same way for every party.</td></tr>
+      <tr><td class="k">Neutral colour</td><td>The interface is neutral. A party&rsquo;s colour appears only on its own panel. Money figures never use green or red.</td></tr>
+      <tr><td class="k">No AI at the point of use</td><td>No AI system runs when a visitor uses the site. AI helps draft summaries behind the scenes; every quotation is checked word for word against its source before publication, and the record shows what was drafted with AI help.</td></tr>
+      <tr><td class="k">Nothing ever silently changes</td><td>Positions are held in an append-only ledger. A correction is a new entry that points at the old one; nothing is edited or deleted, and the database refuses any attempt.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>The never-build list</h3>
+  <p class="small">Features that would turn information into advice. They are refused however useful they might look.</p>
+  <div class="never">
+    <div>Match percentages or &ldquo;agreement&rdquo; scores</div>
+    <div>Favourites, hearts or saved shortlists</div>
+    <div>Sorting by anything but the ballot paper</div>
+    <div>&ldquo;Recommended for you&rdquo; or &ldquo;people like you chose&rdquo;</div>
+    <div>Left/right axes or ideology quizzes</div>
+    <div>Weighting by incumbency, polls or past results</div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="section" id="f4">
+  <div class="section-head"><div class="num">04 · Provenance</div><h2>Where every fact comes from</h2>
+  <p class="lede">The primary source first: the party&rsquo;s or candidate&rsquo;s own publication, the official record, the statute. Press reports are used only as a flagged stopgap until the primary is found.</p></div>
+
+  <div class="cols">
+    <div>
+      <h3>376 positions, by source</h3>
+      <table class="tight">
+        <thead><tr><th>Source layer</th><th style="text-align:right">Positions</th></tr></thead>
+        <tbody>
+          <tr><td>Party publications and manifestos</td><td style="text-align:right">293</td></tr>
+          <tr><td>Candidates&rsquo; own statements</td><td style="text-align:right">73</td></tr>
+          <tr><td>Enacted record</td><td style="text-align:right">9</td></tr>
+          <tr><td>Independent analysis</td><td style="text-align:right">1</td></tr>
+        </tbody>
+      </table>
+      <p class="small">Each kind carries a grey label of identical weight. Where candidate statements or leaflets appear, the page says: we check they are real, not that they are true.</p>
+      <p class="small">The site&rsquo;s own text, claims and ledger are published under CC BY-SA 4.0; the code is open source under the AGPL-3.0.</p>
+    </div>
+    <div>
+      <h3>Anyone can check the record</h3>
+      <ul class="small">
+        <li><b>The public ledger</b> lists every live position and every change, with who made it, when and why.</li>
+        <li><b>A fingerprint before polling day.</b> The full ledger is published with a SHA-256 checksum and archived, so anyone can confirm later that nothing was altered.</li>
+        <li><b>Complaints are logged publicly</b>, with their outcome.</li>
+        <li><b>Coverage is shown, not hidden.</b> A coverage page counts how much sourced material was found for each party on each topic, and says plainly that it measures what was found, not quality.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Open data the site is built on</h3>
+  <table class="tight">
+    <thead><tr><th style="width:33%">Source</th><th>Used for</th><th style="width:21%">Terms</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Democracy Club</td><td>Elections, candidates and their statements</td><td>CC BY 4.0</td></tr>
+      <tr><td class="k">UK Parliament</td><td>MPs, Commons votes, Hansard, registers of interests, petitions</td><td>Open Parliament Licence</td></tr>
+      <tr><td class="k">ONS, MHCLG, Land Registry, police.uk, planning.data.gov.uk</td><td>Boundaries, deprivation, council tax, house prices, crime, planning</td><td>Open Government Licence</td></tr>
+      <tr><td class="k">Electoral Commission</td><td>Party registrations and donations</td><td>Public register</td></tr>
+      <tr><td class="k">Open Council Data</td><td>Councillors and council control</td><td>Public domain</td></tr>
+      <tr><td class="k">Councils&rsquo; own papers</td><td>Council plans, budgets, decisions, motions</td><td>Quoted and linked</td></tr>
+      <tr><td class="k">PolicyEngine UK</td><td>Tax-and-benefit calculations</td><td>Open source</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 5 -->
+<section class="section" id="f5">
+  <div class="section-head"><div class="num">05 · The money question</div><h2>What it could mean for a household</h2>
+  <p class="lede">Where a party&rsquo;s tax or benefit promise is specific enough to model, the site shows what it would change for a household like the reader&rsquo;s, with every assumption stated.</p></div>
+
+  <div class="stats three">
+    <div class="stat"><b>8,100</b><span>household types, from combinations of age, income, household, children, housing and work</span></div>
+    <div class="stat"><b>40,500</b><span>results computed in advance with PolicyEngine UK, an open-source model of the UK tax and benefit system</span></div>
+    <div class="stat"><b>0</b><span>calculations done live: every figure is a stored, reproducible result</span></div>
+  </div>
+
+  <div class="cols">
+    <div>
+      <p>Computing everything in advance means every figure can be checked and reproduced, and the model version is stored with each result. The assumptions (band midpoints, representative ages and rents, who claims which benefits) are listed next to every calculation.</p>
+      <p>Only promises with a concrete number are modelled. Three party policies are modelled so far, alongside current law.</p>
+    </div>
+    <div class="rule-box ochre"><div class="t">Stated limits</div>
+    <p>The model currently uses London assumptions, because the first election covered is in London; it will be extended before money figures are shown elsewhere. Student finance sits outside the tax-and-benefit model and is not included.</p></div>
+  </div>
+
+  <h3>Privacy, in one paragraph</h3>
+  <p>The postcode is sent once, used to find the ballot and discarded; only the first half travels further, to place an approximate circle on a map. Household answers are broad bands and stay on the visitor&rsquo;s device. The site keeps anonymous daily page counts per election and nothing else: no IP addresses, no tracking cookies, no per-visitor records.</p>
+</section>
+
+<!-- 6 -->
+<section class="section" id="f6">
+  <div class="section-head"><div class="num">06 · Status</div><h2>Where it stands</h2>
+  <p class="lede">The site is live at whatsittome.org. Its first real test is a parliamentary by-election in central London.</p></div>
+
+  <div class="cols">
+    <div class="card"><h4>First live test: 8 October 2026</h4>
+      <p>The <b>Holborn and St Pancras by-election</b>. 15 candidates, each on the same page, with 268 sourced positions attached to the ballot. Every candidate&rsquo;s party has sourced positions on file except two, the Communist League and one candidate whose websites have no text that can be quoted; the coverage page shows this openly.</p></div>
+    <div class="card ochre"><h4>This autumn&rsquo;s council by-elections</h4>
+      <p>24 council by-elections still to come across England, Scotland and Wales, polling between 1 and 29 October, each with its candidates and their statements, and the council&rsquo;s own page where one exists.</p></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>29</b><span>council pages, each quoting the council&rsquo;s own papers</span></div>
+    <div class="stat"><b>14</b><span>councils whose meeting agendas load automatically every week</span></div>
+    <div class="stat"><b>19,273</b><span>serving councillors from 384 councils</span></div>
+    <div class="stat"><b>10</b><span>research papers behind the design decisions</span></div>
+  </div>
+
+  <h3>What comes next</h3>
+  <table class="tight">
+    <tbody>
+      <tr><td class="k">Late September</td><td>The site goes round for feedback; a social media account follows.</td></tr>
+      <tr><td class="k">8 October 2026</td><td>Holborn and St Pancras by-election: the first live test.</td></tr>
+      <tr><td class="k">May 2027</td><td>The local elections, the first large-scale use.</td></tr>
+      <tr><td class="k">Planned</td><td>iOS and Google Play apps; a Welsh-language version; candidates submitting their own sourced statements through an invitation portal (already built); council motion results alongside the motions.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 7 -->
+<section class="section" id="f7">
+  <div class="section-head"><div class="num">07 · Foundations</div><h2>Technology, governance and cost</h2>
+  <p class="lede">Deliberately simple, open and cheap to run, so that the site can outlast any one election.</p></div>
+
+  <div class="cols">
+    <div>
+      <h3>Technology</h3>
+      <p class="small">A server-rendered web application (Next.js) hosted on Netlify, one Postgres database (Supabase, hosted in London), and scheduled jobs in GitHub that refresh elections daily, council meetings weekly, and load newly sourced positions as they are added. Maps use OpenStreetMap. The code is open source under the AGPL-3.0.</p>
+      <h3>Governance</h3>
+      <p class="small"><b>Romily Johnson</b>, Founder and Product Lead, owns the project and makes decisions on direction. <b>Barny Trevelyan-Johnson</b>, Technical Lead, builds and runs it. Decisions are recorded with a date and the person who made them. Corrections and withdrawals are made by a named maintainer and logged publicly with the reason.</p>
+    </div>
+    <div>
+      <h3>Running costs</h3>
+      <p class="small">The site is self-funded. It currently runs on a shared hosting plan ($9 a month, shared with other sites) and a free database tier. The shared hosting allowance has run out every month since June, and briefly took the site offline on 24 September. Dedicated hosting before polling days is the most immediate practical need.</p>
+      <h3>Independence</h3>
+      <p class="small">The site takes no advertising and no money from any party, candidate or campaign. Its rules on what is shown are written into the software and published, so they do not depend on who pays for it.</p>
+    </div>
+  </div>
+
+  <h3>Where partners could help</h3>
+  <div class="help">
+    <div class="card"><h4>Hosting and running costs</h4><p class="small">Dedicated hosting with headroom for polling-day traffic, so the site cannot be suspended by other sites&rsquo; usage.</p></div>
+    <div class="card ochre"><h4>Data partners</h4><p class="small">Democracy Club, which already supplies candidate data: a candidates-API token, higher request limits for polling day, and clarity on candidate photo licences.</p></div>
+    <div class="card mauve"><h4>Welsh translation</h4><p class="small">A translator for a full Welsh-language version before Welsh elections.</p></div>
+    <div class="card sage"><h4>Testing and feedback</h4><p class="small">Schools, colleges, libraries and community groups to try the site with first-time voters and tell us where it falls short.</p></div>
+  </div>
+
+  <p class="note" style="margin-top:6mm; text-align:center">hello@whatsittome.org · whatsittome.org · Figures as at 25 September 2026</p>
+</section>
+
+</body>
+</html>

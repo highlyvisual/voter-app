@@ -22,6 +22,7 @@ A non-partisan UK voter-information site. Someone enters a postcode and a few ho
 |---|---|
 | Rules the code enforces, stack, how to run, add a ballot, ingest | [README.md](../README.md) |
 | Build log, newest at the bottom | [CHANGELOG.md](../CHANGELOG.md) |
+| Technical bible: internal edition and funders-and-partners edition (branded PDFs, with HTML source) | [docs/bible/](bible/) |
 | Things we will refuse to build | [docs/never-build.md](never-build.md) |
 | How to write a claim | [docs/claims-style-guide.md](claims-style-guide.md) |
 | Parity audit, partners, Welsh handover | [docs/parity-audit.md](parity-audit.md), [docs/partners.md](partners.md), [docs/welsh.md](welsh.md) |
