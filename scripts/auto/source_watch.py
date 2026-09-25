@@ -14,8 +14,24 @@ import datetime, os, sys, time, urllib.parse
 sys.path.insert(0, os.path.dirname(__file__))
 from common import councils, fetch, job, norm, page_text, patch, quote_found, select, sha, write, now_iso
 
-ARCHIVE_BUDGET = int(os.environ.get("ARCHIVE_BUDGET", "40"))       # Save Page Now takes ~30 s each; keep the run short
+ARCHIVE_BUDGET = int(os.environ.get("ARCHIVE_BUDGET", "15"))       # new captures a run; anonymous Save Page Now refuses bursts
+ARCHIVE_GAP = 25                                                    # seconds between captures
 TIME_BUDGET = int(os.environ.get("SOURCE_WATCH_MINUTES", "35")) * 60
+
+
+def existing_snapshot(url: str, max_days: int = 180):
+    """A capture the Internet Archive already holds from the last six months, if any (no new capture needed)."""
+    try:
+        st, body, _ = fetch(f"https://archive.org/wayback/available?url={urllib.parse.quote(url, safe='')}", timeout=30, tries=2)
+        import json
+        snap = (json.loads(body).get("archived_snapshots") or {}).get("closest") or {}
+        if snap.get("available") and str(snap.get("status", "200")).startswith("2"):
+            when = datetime.datetime.strptime(snap["timestamp"][:8], "%Y%m%d").date()
+            if (datetime.date.today() - when).days <= max_days:
+                return snap["url"].replace("http://", "https://")
+    except Exception:
+        pass
+    return None
 
 
 def archive(url: str):
@@ -81,10 +97,12 @@ def main():
                 miss = [ref for ref, q in t["quotes"] if not quote_found(q, tn)]
                 row["quotes_found"] = len(t["quotes"]) - len(miss); row["missing_refs"] = miss or None
                 missing += len(miss)
-                if (not prev.get("archived") or row["changed"]) and archived < ARCHIVE_BUDGET and time.time() - t0 < TIME_BUDGET * 0.8:
+                if not prev.get("archived") and not row["changed"]:
+                    row["archive_url"] = existing_snapshot(url)   # most sources are already captured; reuse a recent copy
+                if not row["archive_url"] and (not prev.get("archived") or row["changed"]) and archived < ARCHIVE_BUDGET and time.time() - t0 < TIME_BUDGET * 0.8:
                     snap, note = archive(url); archived += 1
                     row["archive_url"] = snap; row["note"] = note
-                    time.sleep(5)
+                    time.sleep(ARCHIVE_GAP)
                 elif prev.get("archived"):
                     row["archive_url"] = prev["archived"]
             else:
