@@ -34,7 +34,7 @@ Every job records each run in `job_runs`. `/status` shows the latest run of each
 | Council meetings and motions | Councils' Modern.gov web services | Weekly, automatic (14 councils) | Councils that block readers or run other systems |
 | Council tax (England) | MHCLG, annual | **Release watch** flags the new edition each spring | Reloading (once a year; the file name changes each year) |
 | Councillors and council control | Open Council Data | Release watch flags a new file | Reload after each May; by-election changes are only on its web pages (ask the owner about their live feed) |
-| Party funding | Electoral Commission register | Weekly check; rebuilt automatically when a new quarter is published. Donors are now grouped by the Commission's donor ID. | — |
+| Party funding | Electoral Commission register | Weekly check; rebuilt automatically when a new quarter is published. Individual donors are grouped by name with titles removed, because the register sometimes holds one person under two records; organisations are grouped by donor ID. | — |
 | Deprivation | MHCLG indices of deprivation | Release watch flags a new edition | Reload (every few years) |
 | Wider bodies (combined authorities, fire, NHS boards) | ONS lookups | Release watch flags a new edition | Regenerate `lib/widerBodies.json` |
 | Ward history | DCLEAPIL (figshare) | Yearly | Reload |

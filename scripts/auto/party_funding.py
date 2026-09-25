@@ -3,9 +3,11 @@
 Source: the Commission's public search (CSV export of accepted donations to political parties, post-poll reports).
 Totals are split into public funds (Short money, Cranborne money, policy development grants and similar) and all other
 donations, as the register records them. Top donors are grouped by the Commission's own donor id, so one donor entered
-with and without a title is counted once. Rebuilt only when a new quarter has been published.
+with and without a title is counted once
+(the register sometimes gives one person two donor records, e.g. "Christopher Harborne" and "Mr Christopher Harborne",
+so individuals are grouped by name with honorifics removed; companies and other bodies by their donor id). Rebuilt only when a new quarter has been published.
 """
-import collections, csv, datetime, io, os, sys
+import collections, csv, datetime, io, os, re, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from common import fetch, job, remove, select, write, now_iso
 
@@ -18,6 +20,16 @@ def quarter_bounds(name: str):
     start = datetime.date(y, 3 * (q - 1) + 1, 1)
     end = (datetime.date(y + (q == 4), (3 * q) % 12 + 1, 1) - datetime.timedelta(days=1))
     return start, end
+
+
+TITLES = re.compile(r"^(?:(?:mr|mrs|ms|miss|mx|dr|sir|dame|lord|lady|baroness|baron|the rt hon|rt hon|hon|prof|professor|rev|cllr)\.?\s+)+", re.I)
+
+
+def donor_key(r: dict) -> str:
+    name = " ".join((r.get("DonorName") or "").split())
+    if r.get("DonorStatus") == "Individual":
+        return "person:" + TITLES.sub("", name).lower()
+    return "id:" + (r.get("DonorId") or name.lower())
 
 
 def money(v: str) -> float:
@@ -47,14 +59,14 @@ def main():
                 p["ut"] += v; p["uc"] += 1
             else:
                 p["pt"] += v; p["pc"] += 1
-                d = p["donors"][r.get("DonorId") or r.get("DonorName", "").strip()]
+                d = p["donors"][donor_key(r)]
                 d["total"] += v; d["names"][" ".join(r.get("DonorName", "").split())] += 1; d["kind"] = r.get("DonorStatus")
         stamp, out = now_iso(), []
         for ec, p in by.items():
             top = sorted(p["donors"].values(), key=lambda d: -d["total"])[:5]
             out.append({"ec_id": ec, "entity_name": p["name"], "period_start": start.isoformat(), "period_end": end.isoformat(),
                         "private_total": round(p["pt"], 2), "private_count": p["pc"], "public_total": round(p["ut"], 2), "public_count": p["uc"],
-                        "top_donors": [{"kind": d["kind"], "name": d["names"].most_common(1)[0][0], "total": round(d["total"], 2)} for d in top],
+                        "top_donors": [{"kind": d["kind"], "name": TITLES.sub("", d["names"].most_common(1)[0][0]) if d["kind"] == "Individual" else d["names"].most_common(1)[0][0], "total": round(d["total"], 2)} for d in top],
                         "retrieved_at": stamp})
         if len(out) < 10: raise RuntimeError(f"only {len(out)} parties: refusing to replace the table")
         remove("party_funding", "ec_id=neq.__none__")
