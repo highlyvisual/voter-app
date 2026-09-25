@@ -12,7 +12,7 @@ Every job records each run in `job_runs`. `/status` shows the latest run of each
 | Mondays, 05:40 UTC | `council-meetings.yml` | council meetings (Modern.gov agendas and motions) |
 | Mondays, 06:10 UTC | `weekly-refresh.yml` | Gazette notices · local plans · party publications · new editions of datasets · party funding · source watch · weekly review |
 
-**Minutes budget.** In September the daily ingest alone was using about 50 minutes a run: it re-read every candidate from Democracy Club each night, at 10 requests a minute. It now reads only what it doesn't already hold, re-reading everyone on Mondays. The estimated total across all jobs is about 600 minutes a month, within the 2,000 free minutes a private repository gets. Making the repository public, which the AGPL licence already allows, would remove the limit.
+**Minutes budget.** In September the daily ingest alone was using 35 to 60 minutes a run: it re-read every candidate from Democracy Club each night, at 10 requests a minute. It now reads only what it doesn't already hold, re-reading everyone on Mondays. Its first run under the new code took about 16 minutes, still limited by the 10-a-minute cap, and a candidates-API token would cut that to a few minutes. The estimated total across all jobs is about 900 minutes a month, within the 2,000 free minutes a private repository gets. Making the repository public, which the AGPL licence already allows, would remove the limit.
 
 ## Every dataset
 
