@@ -156,7 +156,7 @@ function Decisions({ rows, councillors, councilName, meetingsUrl }: { rows: Agen
   return (
     <section className="council-topic" aria-labelledby="decisions-heading">
       <h2 id="decisions-heading">What {councilName} is deciding</h2>
-      <p className="meta">Every item on the agendas of Full Council and the Cabinet, as the council titled it, from about six months back to three months ahead. Left out: section headings, procedural items (apologies, minutes, declarations of interest, announcements, questions, appointments) and private items the council itself withholds. Motions are shown with whoever the council&rsquo;s agenda says proposed them; a councillor&rsquo;s party is from Open Council Data.</p>
+      <p className="meta">Every item on the agendas of Full Council and the Cabinet, as the council titled it, from about six months back to three months ahead. Left out: section headings, procedural items (apologies, minutes, declarations of interest, announcements, questions, appointments), anything about councillors&rsquo; attendance or allowances (which this site does not show), and private items the council itself withholds. Motions are shown with whoever the council&rsquo;s agenda says proposed them; a councillor&rsquo;s party is from Open Council Data.</p>
       {upcoming.length ? (<><h3>Coming up</h3><ul className="dec-list">{upcoming.slice(0, 4).map((m) => <Meeting key={m.url} m={m} />)}</ul></>) : null}
       {recent.length ? (<>
         <h3>Recently</h3>

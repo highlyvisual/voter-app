@@ -41,6 +41,8 @@ COUNCILS = {  # slug (lib/councils.json) -> Modern.gov base URL
 }
 # Councils whose servers turn away a named reader: for these alone we send an ordinary browser User-Agent.
 BROWSER_UA = {"leeds"}
+# Councils whose Full Council meeting is listed under the council's own name rather than "Council".
+EXTRA_BODIES = {"argyll-and-bute": {"argyll and bute council": "Full Council"}}
 BODIES = {"council": "Full Council", "full council": "Full Council", "council meeting": "Full Council", "meeting of the council": "Full Council",
           "cabinet": "Cabinet", "executive": "Cabinet", "the executive": "Cabinet"}
 BACK, AHEAD = 183, 92
@@ -60,12 +62,24 @@ next meeting; notices of motion; notice of motions; notice of motion; motions; m
 announcements; leader and cabinet announcements; leaders announcements; cabinet announcements; mayors announcements and communications;
 declarations of pecuniary interest; declarations of pecuniary interests; declaration of pecuniary interests; declaration of pecuniary interest;
 public participation; public participation and questions from members; councillors questions; councillor questions; questions from councillors;
-council minutes; cabinet minutes; election of mayor; election of deputy mayor; appointment of deputy mayor""".replace("\n", " ").split("; "))
+council minutes; cabinet minutes; election of mayor; election of deputy mayor; appointment of deputy mayor;
+public open forum; public question and answer session; question and answer session; public question time; questions by the public; questions by members;
+questions from members of the council; members open questions; open questions from councillors; executive questions; referrals; references from other bodies;
+chairmans announcements; members; officers; declarations; reporting minutes; communications; leaders and portfolio holders announcements;
+disclosure of exempt information; matters exempt from publication; council business planner; no urgent business; no exempt business; receipt of petitions;
+petitions and deputations; reports; reports from cabinet and committees""".replace("\n", " ").split("; "))
 PROCEDURAL = {p.strip() for p in PROCEDURAL if p.strip()}
 PATTERNS = [r"^\d.*refreshment break$", r"^residents? questions", r"^minutes of .*meeting", r"^co chair election", r"^procedural motion",
             r"^report of mayoral activities", r"^mayoral report", r"^review of allocation of seats", r"^review of political balance",
-            r"exclusion of (the )?(press and )?public", r"^notices? of motions?$", r"^public representations$", r"^appointments?( of committees)?$"]
+            r"exclusion of (the )?(press and )?public", r"^notices? of motions?$", r"^public representations$", r"^appointments?( of committees)?$",
+            r"^declarations? of", r"^disclosures? of", r"^suspension of (council )?procedure rules", r"^report s of the cabinet member",
+            r"^any other business", r"^outstanding minutes", r"forward plan$", r"^communications", r"^vote of thanks", r"^report on appointments$",
+            r"^election of (a |the )?(lord )?(mayor|deputy mayor|vice chair|chair)", r"^appointment of (a )?(vice )?chair", r"^calendar of meetings",
+            r"^council meeting dates",
+            # Romily, round six q8 and q9: no attendance and no allowances, anywhere on the site.
+            r"attendance", r"allowances", r"remuneration panel"]
 PROPOSER = re.compile(r"\b(?:from|by|in the names? of|proposed by)\s+((?:Cllrs?|Councillors?)\.?\s+[^.;:()]+)", re.I)
+NAMED = re.compile(r"^\s*((?:Cllrs?|Councillors?)\.?\s+[A-Z][\w'’-]*(?:\s+[A-Z][\w'’-]*){0,3})\s*$")  # a motion titled with its proposer alone
 GROUP = re.compile(r"\b(Green|Labour|Conservative|Liberal Democrats?|Lib Dem|Reform UK|Independent|Plaid Cymru|SNP)\s+(?:Party\s+)?Group\b", re.I)
 UA = {"User-Agent": "What's It To Me? (whatsittome.org) council meetings reader; hello@whatsittome.org"}
 BROWSER = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"}
@@ -99,8 +113,9 @@ def fetch(slug: str, base: str, today: datetime.date):
         title = tag(c, "committeetitle")
         if tag(c, "committeeexpired") == "True" or tag(c, "committeedeleted") == "True":
             continue
-        if norm(title) in BODIES:
-            bodies.append((tag(c, "committeeid"), title, BODIES[norm(title)]))
+        known = {**BODIES, **EXTRA_BODIES.get(slug, {})}
+        if norm(title) in known:
+            bodies.append((tag(c, "committeeid"), title, known[norm(title)]))
     frm, to = (today - datetime.timedelta(days=BACK)).strftime("%d/%m/%Y"), (today + datetime.timedelta(days=AHEAD)).strftime("%d/%m/%Y")
     rows = []
     for cid, ctitle, body in bodies:
@@ -125,10 +140,10 @@ def fetch(slug: str, base: str, today: datetime.date):
                     continue
                 body_text = text(tag(it, "agendatext"))
                 is_motion = bool(re.search(r"\bmotion\b", title, re.I)) or bool(re.search(r"^\s*(this council|council) (notes|believes|resolves)", body_text, re.I))
-                g = (GROUP.search(title + " " + body_text) or PROPOSER.search(body_text)) if is_motion else None
+                g = (GROUP.search(title + " " + body_text) or PROPOSER.search(title) or PROPOSER.search(body_text) or NAMED.match(title)) if is_motion else None
                 rows.append({"council_slug": slug, "body": body, "committee_title": ctitle, "meeting_id": int(mid), "meeting_date": d,
                              "meeting_status": status, "item_id": int(tag(it, "agendaitemid")), "item_number": number, "title": title,
-                             "kind": "motion" if is_motion else "item", "proposer": ((g.group(1) if g.re is PROPOSER else g.group(0)).strip() if g else None), "url": url})
+                             "kind": "motion" if is_motion else "item", "proposer": ((g.group(1) if g.re in (PROPOSER, NAMED) else g.group(0)).strip() if g else None), "url": url})
                 kept += 1
             if not items or not published:
                 rows.append({"council_slug": slug, "body": body, "committee_title": ctitle, "meeting_id": int(mid), "meeting_date": d,
