@@ -27,3 +27,7 @@
 - **Romily:** what "regional" means on the site, level by level (file 5).
 - **Romily and Barny:** whether area statistics belong on the site beyond the current handful, which of the five gaps to fill first, and whether transport becomes a tenth topic (file 9).
 - **Romily:** whether council business should appear on a parliamentary by-election page like Holborn and St Pancras at all, and the thresholds in the local-issues rule (file 6).
+
+## Deep dive, 25 September 2026
+
+A full review of the platform against sixty voter-information tools worldwide and the research evidence, with a 117-item improvements list: [docs/bible/platform-review-2026-09.pdf](../bible/platform-review-2026-09.pdf). The eight underlying reports and the verification pass are in [deep-dive-2026-09/](deep-dive-2026-09/).

@@ -23,6 +23,7 @@ A non-partisan UK voter-information site. Someone enters a postcode and a few ho
 | Rules the code enforces, stack, how to run, add a ballot, ingest | [README.md](../README.md) |
 | Build log, newest at the bottom | [CHANGELOG.md](../CHANGELOG.md) |
 | Technical bible: internal edition and funders-and-partners edition (branded PDFs, with HTML source) | [docs/bible/](bible/) |
+| Platform review, September 2026: strengths, weaknesses, sixty tools worldwide, the evidence and the law, and a 117-item improvements list | [docs/bible/platform-review-2026-09.pdf](bible/platform-review-2026-09.pdf); the eight underlying reports in [docs/research/deep-dive-2026-09/](research/deep-dive-2026-09/) |
 | How every dataset stays current: schedules, jobs, what still needs a person, options considered | [docs/data-freshness.md](data-freshness.md) |
 | Things we will refuse to build | [docs/never-build.md](never-build.md) |
 | How to write a claim | [docs/claims-style-guide.md](claims-style-guide.md) |

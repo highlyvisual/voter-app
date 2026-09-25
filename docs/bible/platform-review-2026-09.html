@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>What's It To Me? — Platform review, September 2026</title>
+<link rel="stylesheet" href="brand.css">
+<style>
+@page { @bottom-left { content: "What’s It To Me?  ·  Platform review  ·  Where we stand and what the world can teach us  ·  September 2026"; font-family: "Inter", sans-serif; font-size: 7.5pt; color: #6b6f75; } }
+.toc { columns: 1; }
+.toc .t { font-size: 10.5pt; }
+table.list { font-size: 7.6pt; }
+table.list td.n { font-family: var(--sans); font-weight: 600; color: var(--ochre); white-space: nowrap; width: 8mm; }
+table.list td.e, table.list td.w { white-space: nowrap; width: 10mm; text-align: center; }
+table.list th.e, table.list th.w { text-align: center; }
+.tag { display: inline-block; white-space: nowrap; font-family: var(--sans); font-size: 6.6pt; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.3mm 1.4mm; border-radius: 1mm; color: #fff; background: var(--teal); }
+.tag.r { background: var(--mauve); } .tag.b { background: var(--slate); } .tag.x { background: var(--sage); }
+.verdict { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin: 3mm 0 5mm; }
+.verdict .card { margin-bottom: 0; }
+.verdict .card p { font-size: 9pt; line-height: 1.42; }
+.rank { counter-reset: r; list-style: none; padding: 0; margin: 0 0 4mm; }
+.rank li { counter-increment: r; position: relative; padding: 1.8mm 0 1.8mm 9mm; border-bottom: 0.6px solid var(--rule); font-size: 9.2pt; line-height: 1.42; break-inside: avoid; }
+.rank li::before { content: counter(r); position: absolute; left: 0; top: 1.6mm; font-family: var(--sans); font-weight: 600; font-size: 8pt; color: var(--ochre); width: 7mm; }
+.rank li b { font-weight: 600; }
+.grade { font-family: var(--sans); font-size: 6.8pt; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.3mm 1.5mm; border-radius: 1mm; margin-left: 1.5mm; }
+.grade.s { background: #e4ede9; color: #2f5251; } .grade.a { background: #f4e6d3; color: #9a6a33; } .grade.w { background: #f3e3e6; color: #85555f; }
+h3 .grade { vertical-align: middle; }
+.family { border-left: 1mm solid var(--teal); padding: 1mm 0 1mm 4mm; margin: 3mm 0 4mm; break-inside: avoid; }
+.family:nth-of-type(2n) { border-left-color: var(--ochre); } .family:nth-of-type(3n) { border-left-color: var(--mauve); } .family:nth-of-type(4n) { border-left-color: var(--sage); }
+.family h4 { margin-top: 0; color: var(--teal-deep); font-size: 9pt; letter-spacing: 0.04em; }
+.family p { font-size: 9.2pt; margin-bottom: 0.4em; }
+.family p:last-child { margin-bottom: 0; }
+.kv td:first-child { font-weight: 600; white-space: nowrap; }
+.sources p { font-family: var(--sans); font-size: 7.3pt; line-height: 1.4; color: var(--ink-soft); margin-bottom: 0.5em; hyphens: none; word-break: break-word; }
+#s1 .verdict .card p { font-size: 8.5pt; line-height: 1.38; }
+#s1 .rank li { padding: 1.2mm 0 1.2mm 9mm; font-size: 8.8pt; line-height: 1.38; }
+#s1 .stats { margin: 2mm 0 3mm; }
+#s1 .rule-box { margin: 2mm 0 3mm; break-inside: auto; padding: 3mm 4.5mm; }
+#s1 .rank { break-inside: auto; } #s1 .rank li { break-inside: auto; }
+#s1 .section-head { margin-bottom: 3.5mm; }
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <div class="band"><span style="background:#2f5251"></span><span style="background:#c98f4e"></span><span style="background:#85555f"></span><span style="background:#b98888"></span><span style="background:#7b877b"></span></div>
+  <img class="lockup" src="img/lockup-light.png" alt="What's It To Me? Politics, in your context.">
+  <img class="ghost" src="img/mark-light.png" alt="">
+  <div class="edition">Platform review · September 2026</div>
+  <h1>Where we stand, and what the <em>world</em> can teach us.</h1>
+  <p class="sub">A full check of whatsittome.org thirteen days before its first live election, set against sixty voter-information tools in thirty countries and the research on what such tools actually do. It ends with a list of improvements, ranked and owned.</p>
+  <div class="meta">
+    <div><b>Edition</b>25 September 2026 (v1.0)<br>Everything measured that day</div>
+    <div><b>For</b>Romily Johnson, Founder and Product Lead<br>Barny Trevelyan-Johnson, Technical Lead</div>
+    <div><b>Status</b>Internal. Not for circulation<br>hello@whatsittome.org</div>
+  </div>
+</section>
+
+<!-- ============ CONTENTS ============ -->
+<section class="section" id="contents">
+  <div class="section-head"><div class="num">Contents</div><h2>What is in this review</h2>
+  <p class="lede">Section 1 is the verdict. Sections 3 to 5 are about our own site. Sections 6 to 9 are about everyone else's and the evidence. Section 10 is the list. If you read one thing, read section 10.</p></div>
+  <nav class="toc">
+    <a data-href="#s1"><span class="n">01</span><span class="t">The verdict on one page</span><span class="p" data-for="s1">3</span></a>
+    <a data-href="#s2"><span class="n">02</span><span class="t">How this review was done</span><span class="p" data-for="s2">4</span></a>
+    <a data-href="#s3"><span class="n">03</span><span class="t">What the site does well</span><span class="p" data-for="s3">6</span></a>
+    <a data-href="#s4"><span class="n">04</span><span class="t">Weaknesses: the voter's experience</span><span class="p" data-for="s4">8</span></a>
+    <a data-href="#s5"><span class="n">05</span><span class="t">Weaknesses: under the bonnet</span><span class="p" data-for="s5">11</span></a>
+    <a data-href="#s6"><span class="n">06</span><span class="t">The world's voter tools, in seven families</span><span class="p" data-for="s6">13</span></a>
+    <a data-href="#s7"><span class="n">07</span><span class="t">Getting candidates to take part: what the numbers say</span><span class="p" data-for="s7">18</span></a>
+    <a data-href="#s8"><span class="n">08</span><span class="t">The money layer: what the costing bodies teach</span><span class="p" data-for="s8">20</span></a>
+    <a data-href="#s9"><span class="n">09</span><span class="t">The evidence, and the law</span><span class="p" data-for="s9">22</span></a>
+    <a data-href="#s10"><span class="n">10</span><span class="t">The improvements list</span><span class="p" data-for="s10">25</span></a>
+    <a data-href="#s11"><span class="n">11</span><span class="t">What nobody else does, and what everybody else does</span><span class="p" data-for="s11">33</span></a>
+    <a data-href="#s12"><span class="n">12</span><span class="t">What could not be verified, and the sources</span><span class="p" data-for="s12">34</span></a>
+  </nav>
+  <div class="rule-box ochre" style="margin-top:8mm"><div class="t">How to read the figures</div>
+  <p>Every measurement of our own site was taken on 25 September 2026 from a cloud test environment, and every figure about another tool was read from that tool's own pages or a named study on the same day; the address is given wherever a figure appears in the underlying reports. Where something could not be confirmed it is marked unverified, here and in section 12. Nothing was filled in from memory.</p></div>
+</section>
+
+<!-- ============ 1 ============ -->
+<section class="section" id="s1">
+  <div class="section-head"><div class="num">01 · Verdict</div><h2>The verdict on one page</h2>
+  <p class="lede">The site's foundations are unusually sound. Its problems are almost all at the surface, and most can be fixed in days. The bigger question the rest of the world raises is not whether the design is right, but whether it can be kept running.</p></div>
+
+  <div class="verdict">
+    <div class="card"><h4>Strong</h4>
+      <p>The rules are real and visible: identical pages in ballot order, a verbatim quotation beside every summary, a source and date on every claim, an append-only ledger, and an honest list of what the site cannot tell you. Accessibility is clean (100 out of 100 on every page tested, no horizontal scroll on any phone width). No cookies, no trackers. Zero broken internal links across 400 pages. Voting mechanics match gov.uk on every point checked. The freshness reporting on /status is better than any comparable site we found.</p></div>
+    <div class="card mauve"><h4>Weak</h4>
+      <p>Several things the site says about itself are not yet true: that answers are never sent to us (they travel in the page address), that every candidate is invited (none has been), that seats held and votes are shown (they are not), that figures are computed from pledges (two pledges, for one election). After the postcode, a voter lands on a page of crime and house-price statistics rather than the ballot. Big per-topic numbers read as scores, and an independent's page is a column of zeros. Every page is hidden from search engines. Nothing is cached, so every visit renders from scratch.</p></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>37</b><span>page types audited on desktop and phone, with an automated accessibility checker on each</span></div>
+    <div class="stat"><b>1,142</b><span>external links checked; 13 confirmed dead, 184 blocked to our test machine and still to be re-checked</span></div>
+    <div class="stat"><b>60+</b><span>voter-information tools examined across the UK, Europe, North America, Australasia, Asia, Africa and Latin America</span></div>
+    <div class="stat"><b>117</b><span>improvements in section 10, each with its reason, its effort and who decides</span></div>
+  </div>
+
+<div class="rule-box"><div class="t">The lesson from everyone else</div>
+  <p>Tools that match or rank voters to parties get attacked on the matching step, every time, in every country, and there is no neutral version of it. Tools that only publish what is on the record (Policy.nz in New Zealand, MyNeta in India, NRK's Partiguiden in Norway) reach a sixth of voters and survive lawsuits. The ones that die, die of hand-built content and five-yearly funding, not of bad design. Our design is in the second family; our risk is the third.</p></div>
+
+  <h3>Five things before 8 October</h3>
+  <ol class="rank">
+    <li><b>Make every claim the site makes about itself true, or change the wording.</b> The site asks to be judged on accuracy; a journalist will start with the About page. Section 4 lists eleven such claims.</li>
+    <li><b>Land people on the ballot.</b> Postcode in, candidates out, with the election named and dated at the top. Everything else becomes a card beneath it.</li>
+    <li><b>Stop the numbers reading as scores.</b> Replace the large per-topic counts with a plain list of the topics a candidate has published on, and put counts inside the open card in small type.</li>
+    <li><b>Tell the unregistered voter what has happened.</b> Registration closed on 22 September. The only signal is a line through the date.</li>
+    <li><b>Flip the launch switches together.</b> Indexing, caching, security headers and the internal pages that are currently public (one is headed "For Romily … tell Dad").</li>
+  </ol>
+
+  
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="section" id="s2">
+  <div class="section-head"><div class="num">02 · Method</div><h2>How this review was done</h2>
+  <p class="lede">Eight separate investigations ran in parallel on 25 September 2026, each writing a full report with its sources. This document is drawn from those eight, after checking their most serious findings a second time by hand.</p></div>
+
+  <table>
+    <thead><tr><th style="width:26%">Investigation</th><th>What it did</th><th style="width:22%">Written up in</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Technical audit</td><td>Timed seven pages cold and warm; ran Lighthouse on eight; ran the axe accessibility checker on all 37 page types at desktop and phone width, plus 320px and 200% zoom; submitted the postcode form with good, bad, empty, long, Scottish, Welsh and Northern Irish inputs; crawled 400 internal pages; checked 1,142 external links twice; read every security header, cache header, meta tag and the sitemap and feed.</td><td><code>audit-technical.md</code></td></tr>
+      <tr><td class="k">Content and journey</td><td>Walked the site as a voter three times (a Holborn postcode, a no-election postcode, a Lambeth council by-election), read all fifteen Holborn candidate pages with every collapsed card opened, read every About page, sampled 40 summaries across 14 parties for even-handedness, and checked every voting-mechanics claim against gov.uk, Parliament's API and Camden's official notice.</td><td><code>audit-content.md</code></td></tr>
+      <tr><td class="k">UK and Ireland</td><td>Democracy Club, TheyWorkForYou, Vote for Policies, Full Fact, the IFS, the Electoral Commissions, WhichCandidate.ie and a dozen smaller tools: about 85 page reads.</td><td><code>research-uk-ireland.md</code></td></tr>
+      <tr><td class="k">Europe</td><td>26 tools in 14 countries, including the two court cases (Cologne 2019, Brussels 2024) and the Finnish press-council ruling (2026): about 60 primary-source reads.</td><td><code>research-europe.md</code></td></tr>
+      <tr><td class="k">North America</td><td>Ballotpedia, VOTE411, BallotReady, Voter's Edge, Vote Smart, OpenSecrets, Vote Compass, the California and Oregon official voter pamphlets and their statutes: about 90 reads.</td><td><code>research-north-america.md</code></td></tr>
+      <tr><td class="k">Rest of the world</td><td>32 tools in Australia, New Zealand, India, Japan, Korea, Taiwan, the Philippines, Indonesia, South Africa, Kenya, Nigeria, Brazil, Mexico, Chile and Argentina: about 75 reads.</td><td><code>research-rest-of-world.md</code></td></tr>
+      <tr><td class="k">Personal-impact tools</td><td>The Dutch CPB and its own evaluations, the Australian and Canadian budget offices, Ireland's costing facility, the IFS, HM Treasury, the OBR, PolicyEngine's methods and funders, and the academic work on pocketbook voting.</td><td><code>research-personal-impact.md</code></td></tr>
+      <tr><td class="k">The evidence and the law</td><td>87 numbered sources: the meta-analysis of voting-advice effects, the field experiments, the bias literature, trust research, response-rate data, and the statutes on imprints, campaigning, defamation, online safety, data protection and accessibility, read directly.</td><td><code>research-evidence.md</code></td></tr>
+    </tbody>
+  </table>
+
+  <h3>What was checked a second time</h3>
+  <p class="small">Every headline figure in sections 6 to 9 was re-read from its source before being used here (Democracy Club's 53.6% and 25%, Ballotpedia's 19.2%, the League of Women Voters' 61%, smartvote's 83%, Policy.nz's one in six, Vote Smart's fall from 72% to 20%, the Cologne settlement, the CPB's wording, Vote for Policies' closing statement, the Electoral Commission's 49%, the meta-analysis figures). Every serious finding about our own site was re-tested against the live database or the live page. Two of the investigators' findings did not survive that check and are left out: the complaints link on the About page does work (the anchor exists), and the money layer is not entirely absent (see section 8). One finding was made more precise: the ledger duplicates are real, and their originals were already duplicates.</p>
+
+  <h3>Caveats</h3>
+  <p class="small">All traffic from the test environment passed through an outbound proxy that adds roughly 0.2 seconds to every timing and occasionally injected its own errors; affected runs were repeated. Twenty-nine hosts, including Parliament's votes site, Camden Council and several party sites, block requests from data-centre addresses; their 184 links are unverified until checked from an ordinary UK connection. The BBC, Le Monde, several Dutch and Finnish newspapers and a few academic publishers were unreachable; anything that rests on them is marked unverified in section 12. Each investigator's search allowance ran out before the end; the second half of each report relies on direct reads of known addresses.</p>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="section" id="s3">
+  <div class="section-head"><div class="num">03 · Strengths</div><h2>What the site does well</h2>
+  <p class="lede">It is worth being precise about the strengths, because the improvements list should not accidentally undo any of them. Most of what follows is rare among the sixty tools examined; some of it is unique.</p></div>
+
+  <h3>The promise, kept on every page</h3>
+  <p>The first screen of the home page says what the site is, what it will never do, and how it handles a postcode, all before the fold on a phone. The footer of every page repeats that the site does not recommend, rank or score. All fifteen Holborn and St Pancras candidates have structurally identical pages: the same sections in the same order, the same "Nothing published that we could source on … That means nothing found, not nothing to say" wording wherever a topic is empty, and every summary sits beside its exact quotation with a toggle between the two. The "Hide names and parties while I read" control on the comparison page is a feature Policy.nz also offers; we already have it.</p>
+
+  <h3>Even-handed language</h3>
+  <p>Of 260 unique claims on the Holborn pages, every one uses the same label set in the same order (position, meaning, who it applies to, source). Where a party's own words carry a loaded term ("wasteful", "liberal laws", "anti-British", "real marriage", "unfair targeting"), the summary distances it with "what it calls" or "it describes as", and it does so for parties of the left and the right alike. No summary on any page ranks, scores or recommends in words.</p>
+
+  <h3>Honesty about limits</h3>
+  <p>The About page carries an eight-point "What this site can't tell you" list, a public change log with reasons, an accuracy report that says "skipped" when a check was skipped, and an impact page that reports zeros. Nothing of that kind exists on Democracy Club, Ballotpedia (whose corrections log is private) or any voting-advice tool we found. Full Fact's public corrections page is the nearest UK precedent, and ours is append-only where theirs is edited.</p>
+
+  <h3>Accurate mechanics</h3>
+  <p>Polling hours, the photo-ID list and the proxy and postal deadlines all match gov.uk; the registration and Voter Authority Certificate deadlines were verified by calculation because the Electoral Commission's pages refuse automated requests. The eligibility checker runs in the browser. The no-election page names the next date, says why it might move, shows who represents the reader now and nudges them to register. The office explainer ("What this office decides / What it does not") includes a line most sites would not dare: that candidates often campaign on things their office cannot change, and that this is not dishonest in itself.</p>
+
+  <h3>Technically clean where it matters most</h3>
+  <table class="tight">
+    <thead><tr><th style="width:34%">Measure</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Accessibility</td><td>Lighthouse 100/100 on all eight pages tested; axe clean on 35 of 37 page types; skip link, one main landmark, one h1 per page, labelled controls everywhere, visible 3px focus rings, no image without alt text, contrast passes on every first-party element, reduced motion honoured, a Display menu for text size, contrast and theme.</td></tr>
+      <tr><td class="k">Phones</td><td>No horizontal scroll on any page at 375px, 320px or 200% zoom. Layout shift under 0.06 on every page but one.</td></tr>
+      <tr><td class="k">Links and errors</td><td>398 internal pages returned 200; 0 returned 4xx or 5xx. Every unknown ballot, candidate, topic, council or party gives a friendly 404 with the full site chrome. No stack traces, paths or environment details leak from any route or API.</td></tr>
+      <tr><td class="k">Privacy</td><td>No cookies set anywhere. No analytics or advertising trackers; the only beacon is Netlify's Core Web Vitals collector. The full postcode is never persisted; the address keeps only the outward code.</td></tr>
+      <tr><td class="k">Works without JavaScript</td><td>Every content page renders completely with scripts off (the home page 8,088 characters of text, the ballot 16,193, the comparison 73,711).</td></tr>
+      <tr><td class="k">Freshness</td><td>"Election data last refreshed N hours ago" in every footer; /status lists all ten automatic jobs with last run and result; every quotation carries a "Read on" date; the API carries generated-at; the RSS feed's date matches the refresh.</td></tr>
+      <tr><td class="k">Open data</td><td>The API returns licensed, attributed JSON with one-hour caching; the whole ledger is downloadable with a hash; the code is public under AGPL.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="rule-box"><div class="t">Things to protect</div>
+  <p>Ballot-paper order with no other ordering anywhere. Verbatim quotation beside every summary. The identical empty-state line. The ledger. The refusal to add favourites, hearts, shortlists, match percentages or a "print your picks" button: VOTE411's selection-and-print feature and Policy.nz's favourites heart both edge towards the site holding a voting plan, and Policy.nz has had to add a caveat about its heart to its own About page.</p></div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="section" id="s4">
+  <div class="section-head"><div class="num">04 · Weaknesses</div><h2>Weaknesses: the voter's experience</h2>
+  <p class="lede">Ranked by how much they would cost the site with a first-time voter or a hostile reader on 8 October. Each carries a grade: <span class="grade w">weak</span> must be fixed, <span class="grade a">adequate</span> should be, <span class="grade s">strong</span> is here for completeness.</p></div>
+
+  <h3>1. The site's claims about itself <span class="grade w">weak</span></h3>
+  <p>A site whose whole case is accuracy cannot afford to be inaccurate about itself. Eleven statements on the live site were checked and found untrue, not yet true, or contradicted elsewhere on the site:</p>
+  <table class="tight">
+    <thead><tr><th style="width:44%">What the site says</th><th>What is true</th></tr></thead>
+    <tbody>
+      <tr><td>"Nothing you enter is sent to us" and "It is never sent to us" (/start); "no per-visitor records of any kind" (/about/data-use)</td><td>Every profile answer, plus the outward postcode, is put into the page address as a query string and requested from the site's own server, whose host logs it. Anyone who copies the link shares their household with it.</td></tr>
+      <tr><td>"Two kinds of statement, both labelled … Computed" (home, /about)</td><td>Every live claim in the database is "documented"; no claim anywhere is labelled Computed. Two pledges are modelled in the money grid (section 8); they appear as bars on the ballot page only when the profile is complete.</td></tr>
+      <tr><td>"we send [an invitation] to every nominated candidate for whom we can find a contact address" (/candidates/submit)</td><td>No candidate has been invited; the invitations table is empty; no page records an invitation. Every Holborn card says "Not yet invited to submit a statement: we have no contact address", although Democracy Club holds an email for 9 of the 15.</td></tr>
+      <tr><td>"we show seats held and how they voted" (/about); leaflets are fetched (/status)</td><td>No candidate page has a voting-record section, including a former MP's (George Galloway's page shows "Has stood 11 times before" beside a list of three candidacies). No candidate page shows leaflets.</td></tr>
+      <tr><td>"housing sites, schools, protected areas, air quality" (the area page's introduction)</td><td>The page shows no schools and no air-quality section.</td></tr>
+      <tr><td>"Skip anything" (/start)</td><td>Step 1, the postcode, cannot be skipped; Next is disabled until one is typed.</td></tr>
+      <tr><td>"we sample twenty postcodes … and compare our candidate list against the official Statement of Persons Nominated" (/about/accuracy)</td><td>The published report says "No SoPN text supplied; candidate comparison skipped", under a bare heading with no body. (We did the comparison by hand: the 15 names and descriptions match Camden's notice.)</td></tr>
+      <tr><td>"Seven quick questions" (home); "0 of 7 chosen" (ballot); "Eight questions" (/about); "Step 1 of 9" (/start)</td><td>Pick one.</td></tr>
+      <tr><td>"26 elections" (home, job log); "31 elections currently listed" (/status); "375 positions across 29 elections" (/positions)</td><td>Three counts for one thing.</td></tr>
+      <tr><td>"Labour Party 52 published positions" (/parties)</td><td>Labour's own page says 30.</td></tr>
+      <tr><td>Photo credits in three different forms</td><td>"Photo: Democracy Club." / "…the candidate's own profile photo." / "…public domain." with no explanation of why they differ.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>2. Where the postcode lands <span class="grade w">weak</span></h3>
+  <p>Typing a Holborn postcode and pressing "Find my election" lands on step 1 of a four-step trail: a map, who represents the area now, the planning record, five Parliament petitions, the claimant count, seven deprivation deciles for "Camden 029C", house prices and recorded crime within a mile. The words "by-election", "8 October" and "candidates" do not appear until the links at the bottom, where "Skip to the candidates" is a small grey footnote. A voter who typed a postcode to find out who is on the ballot has to scroll past crime statistics to discover there is a ballot. The ballot page itself is good; it is two clicks too far away, and the page in front of it promises schools and air quality it does not show.</p>
+
+  <h3>3. Numbers that read as scores <span class="grade w">weak</span></h3>
+  <p>Each candidate page shows nine collapsed topic cards, each with a large numeral. Tom Darwood, the independent, has nine large zeros; Reform UK's candidate has 4, 8, 2, 5, 3 and so on; the ballot-paper cards say "36 in total" against "0 in total". The caption explains that a count measures how much has been published, not how good it is, but the numeral is the most prominent element on the page and a reader who never opens a card sees only that. It is a league table by another name, and it rewards parties with long policy websites and punishes independents and small parties. The evidence in section 9 says volume becomes a proxy for seriousness the moment candidates are seen side by side, whether or not the site intends it.</p>
+
+  <h3>4. The deadline that has passed <span class="grade w">weak</span></h3>
+  <p>Registration for 8 October closed on 22 September and postal-vote applications on 23 September. On the ballot page both dates carry a strikethrough and nothing else: no "closed", no "what now". A nineteen-year-old who finds the site this week needs one sentence: registration for this election has closed; if you were not registered by 22 September you cannot vote on 8 October, but register now and you will be on the roll for May 2027; you can still apply for a proxy vote until 5pm on 30 September. The /how-to-vote page's deadline section is 26 identical lines saying "the key dates are at the top of that page", which tells the reader nothing.</p>
+
+  <h3>5. Council by-elections <span class="grade w">weak</span></h3>
+  <p>The Lambeth Myatt's Fields ballot page says, correctly, that a councillor's win does not change national tax, benefits or NHS policy and that only positions published for this council election are shown. It then offers the same nine national topics, including "Immigration and borders" and "Defence, foreign affairs and the EU", and six of the seven candidate pages are nine empty national-topic cards each saying "Nothing published that we could source". For most council by-elections the site currently delivers names and parties wrapped in 54 empty boxes. Twenty-five of the 26 elections listed this autumn are council elections, and May 2027 will be almost entirely council elections.</p>
+
+  <h3>6. The money layer's promise <span class="grade w">weak</span></h3>
+  <p>The home page promises "what it could mean for a home like yours" and the About page describes a computed layer built "from a party's published pledges". What exists is a baseline under current law for the reader's household (well caveated, with assumptions listed) and, on the ballot page only, when the profile is complete, modelled bars for two pledges: Reform UK's £15,000 personal allowance (worth £392 a year to the test household) and the Green Party's removal of the National Insurance upper earnings limit (no change for that household). The Liberal Democrats pledge the same £15,000 allowance in a live claim on the same ballot and it is not modelled, which is precisely the asymmetry a rival would point at. Separately, the baseline's five lines do not add up to its total: £32,500 less £1,472 tax less £589 National Insurance plus £9,620 Universal Credit plus £1,407 Child Benefit is £41,466, and the page shows £44,838. PolicyEngine's net income adds every benefit it models and subtracts every tax and pension contribution; the page lists four of those lines and does not say what else is in the total.</p>
+
+  <h3>7. Words that lean without meaning to <span class="grade a">adequate</span></h3>
+  <p>The attribution verb follows the source type: parties whose source is a document called a manifesto or contract are "pledged"; Reform UK, whose source is a policy web page, is never "pledged" and always "says it would" (0 of 35 claims against, for example, Labour's 18 and the Liberal Democrats' 25). A reader can take "pledged" as firmer. The hedge "without giving figures" appears only on the two smallest parties' claims (6 of their 12) and on no large party's figure-free pledge. Both patterns are defensible on the facts and neither rule is stated anywhere. Only Labour carries a "Public record" layer of enacted policy, written in the past tense ("froze", "removed"), which the About page explains but the card does not.</p>
+
+  <h3>8. Small inconsistencies an activist would count <span class="grade a">adequate</span></h3>
+  <p>Every "own words" claim appears twice on a candidate page, the second time under a "Your area" heading that for one candidate contains a line about Ukraine. Ben Walker's ballot description ("UKIP - NO to Illegal Immigration") is entered as a claim and counted under Immigration; no other candidate's description is. Two Liberal Democrat claims are in the ledger twice (rows 493 and 496, 494 and 495, word for word, superseding originals that were themselves duplicates), so that candidate's count is two too high. Party names appear as the registered name at the top of the ballot page and as the ballot description on the cards, with no label saying which is which. "Has stood N times before" is present for thirteen candidates and simply absent for two; there is no "Standing for the first time".</p>
+
+  <h3>9. One list of topics, seven spellings <span class="grade a">adequate</span></h3>
+  <p>The nine topics appear as "Healthcare and social care", "Health", "YOUR HEALTH AND CARE" and "healthcare and social care" on different pages; "Environment, climate and energy", "Environment", "Climate" and "CLIMATE, ENERGY AND THE LOCAL ENVIRONMENT"; and in the ledger as "environment climate &amp; energy" without its comma. The site name appears as "What's It To Me?", "What's It To Me" and "What's it to me?". Dates appear as "Thursday, 8 October 2026", "Thursday 8 October", "8 October 2026", "2026-10-08", "Tue 22 Sept" and "Sep". Most pages' browser titles are just "What's It To Me?" with no page name, including every candidate's page.</p>
+
+  <h3>10. Internal material on public pages <span class="grade w">weak</span></h3>
+  <p>/journey is a public page headed "For Romily · not linked from the site" that ends "or tell Dad". The Camden council page contains "Read via WebFetch; camden.gov.uk returns 403 to direct requests" inside a sourced section. The public ledger names the actor of 35 entries as "maintainer (Barny's build session)" and shows raw JSON in its "Applies if" column. /positions lists archived elections by internal identifier. The maintainer sign-in is on the public origin with a single passcode field.</p>
+
+  <h3>11. Trust plumbing <span class="grade a">adequate</span></h3>
+  <p>Who runs the site, how it is funded, how to complain and the data licence are all present and one tap from every ballot page, which is better than most. Gaps: there is no page called Privacy (the address returns 404); no accessibility statement; /feedback returns 404 though robots.txt mentions it; the status page says 46 of 233 sources could not be re-read automatically, but the ballot pages do not mark which claims those are.</p>
+
+  <h3>12. Smaller things seen on the way <span class="grade a">adequate</span></h3>
+  <p class="small">The profile's introductory paragraph repeats in full on all nine steps, pushing each question below the fold on a phone. On a 390px phone the ballot number "12" wraps and reads as "1 / 2". The floating "?" help button covers the "Or build your profile first" link on the home page, the "Add your profile" link on candidate pages and cells in the ledger. On the comparison page at phone width a summary and its quotation run together with no space ("…2031.Asking everyone…"). The comparison page reaches about 57,000 pixels tall with only an h1 to navigate by. A topic page and a candidate page returned a 502 or "upstream request failed" on first load and worked on retry. The Monster Raving Loony Party's own spellings ("Manicfesto", "footware") are correctly preserved but a reader may take them for ours.</p>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="section" id="s5">
+  <div class="section-head"><div class="num">05 · Weaknesses</div><h2>Weaknesses: under the bonnet</h2>
+  <p class="lede">The technical picture is the reverse of the content picture: the hard things are done well and a handful of switches were never flipped. All of these are Barny's, and most are an afternoon each.</p></div>
+
+  <h3>1. Every page is hidden from search engines <span class="grade w">weak</span></h3>
+  <p>The site's root layout sets <code>robots: index false, follow false</code>, so every page, the home page included, carries "noindex, nofollow", while robots.txt allows everything and publishes a 91-address sitemap. Lighthouse's SEO score is 66 on every page for that single reason. If this is a deliberate soft-launch setting, fine; but the sitemap and the robots file then contradict it, and the switch needs a date. If it is accidental, the site is invisible for its first live election. A candidate's page also has the browser title "What's It To Me?" and the ballot's share image rather than its own, and no page has a canonical address or any structured data.</p>
+
+  <h3>2. Nothing is cached <span class="grade w">weak</span></h3>
+  <p>Every HTML response is <code>private, no-store</code>, so no page is ever served from Netlify's edge or the browser's back-forward cache, and every visit to the 1.2 MB Holborn ballot page is a fresh origin render (59% of that page is the React payload repeating the rendered content as JSON). Warm time to first byte on the ballot was 1.3 to 1.5 seconds and 2.0 seconds cold; the home page's largest paint on simulated mobile was 4.7 seconds. The nav and footer links also fire eight to fourteen uncacheable prefetches on every page load. Content changes at most daily; a five-minute public cache with stale-while-revalidate, purged by the refresh jobs, would remove almost every origin render and keep the footer's "last refreshed" honest.</p>
+
+  <h3>3. No security headers beyond HSTS <span class="grade w">weak</span></h3>
+  <p>No Content-Security-Policy, no X-Frame-Options, no Referrer-Policy, no Permissions-Policy on any route; HSTS without includeSubDomains. Any site can frame the main ballot page, which asks people to type postcodes and household details. Fonts come from Google (every visitor's IP goes to Google before the page renders, on a privacy-led site) and Leaflet comes from cdnjs with no integrity hash. The response header advertises the framework version. The embed route needs to be frameable; nothing else does.</p>
+
+  <h3>4. Weight on the critical path <span class="grade a">adequate</span></h3>
+  <p>Both the light and dark brand lockups (244 and 240 KiB) and both marks (47 and 49 KiB) are preloaded on every page although only one theme shows; the home page's largest paint is a 633×514 PNG shown at 330×268. A 92 KiB 512-pixel favicon loads on every page. The Google Fonts stylesheet blocks rendering for about 0.8 seconds on mobile. Brand images are revalidated on every visit rather than cached.</p>
+
+  <h3>5. Accessibility defects, few but real <span class="grade a">adequate</span></h3>
+  <p>The two ledger tables scroll sideways on phones and cannot be reached or scrolled from the keyboard (axe rates this serious, and the ledger is the accountability page). The fifteen candidate summaries on the ballot page carry an aria-label that does not begin with the visible name, which breaks voice control. The postcode error is announced but not tied to the field and focus is not returned to it. The home page runs a 38-second marquee with no pause control. The comparison and positions pages have only an h1. The embed page has no heading at all.</p>
+
+  <h3>6. Dead and unverifiable source links <span class="grade a">adequate</span></h3>
+  <p>Thirteen external source links are confirmed dead (Blackpool three, Stroud, East Hertfordshire, Windsor and Maidenhead, Bassetlaw, South Kesteven, Stirling, Bournemouth Christchurch and Poole, Newcastle-under-Lyme, a candidate's own site returning 503, a local news site whose origin is down); two are plain http. None of them has an archived copy to fall back on. A further 184 links on 29 hosts returned 403 to the test machine, almost certainly bot protection rather than dead pages, and need re-checking from a UK connection. Thirteen dead out of roughly 950 verifiable is 1.4%, respectable for a site quoting council PDFs, but each one undermines "every claim links to its source".</p>
+
+  <h3>7. Wrong error for a real-looking postcode <span class="grade a">adequate</span></h3>
+  <p>A well-formed postcode that does not exist ("EH1 1AA") produces "We couldn't look up that postcode just now. Please try again in a minute", which blames a temporary fault and invites a pointless retry. Every other bad input degrades gracefully. The 404 for an unknown ballot is rendered client-side and is blank without JavaScript, unlike every real page.</p>
+
+  <h3>8. Odds and ends <span class="grade s">strong</span></h3>
+  <p class="small">The RSS feed is valid but lacks a language, a build date, a self link and item descriptions, and every item shares one date. There is no favicon.ico (legacy clients request it) and no web manifest, so no "add to home screen" name or colour. The print stylesheet exists but prints the ballot with one of 120 collapsed cards open. Dark mode works but the browser chrome does not follow because there is no color-scheme meta. The Camden council page shows a layout shift of 0.165 when its consultations load. The /api/place-layers route returns empty layers for every input and appears to be a stub. The home page's timeline initials render at 10.4px, the smallest text on the site.</p>
+
+  <div class="rule-box ochre"><div class="t">In one paragraph</div>
+  <p>Search indexing, edge caching, four security headers, self-hosted fonts, single-theme image loading and a smaller favicon are six configuration changes that would take one working day together and would improve the site's speed, privacy and discoverability more than any feature. They are items 33 to 38 in section 10.</p></div>
+</section>
+
+<!-- ============ 6 ============ -->
+<section class="section" id="s6">
+  <div class="section-head"><div class="num">06 · The field</div><h2>The world's voter tools, in seven families</h2>
+  <p class="lede">Sixty tools were examined. They sort into seven kinds, and each kind fails in its own characteristic way. We belong to the third family and borrow from the first, fourth and sixth. Figures were re-read from their sources on 25 September 2026; the full tool-by-tool notes, with addresses, are in the five research reports.</p></div>
+
+  <div class="family">
+    <h4>1 · List-makers: who is standing, where to vote</h4>
+    <p><b>Who does it best.</b> Democracy Club's elections database, behind WhoCanIVoteFor and its partners, handled 20 million postcode searches between April and July 2024 and 10.6 million in spring 2026; half arrive through the Electoral Commission, the BBC and other partners, and 78 councils embedded its widget in 2026. Its best design detail is a one-line provenance sentence under every candidate statement saying who added it and when. Several countries make the list-maker the state: Japan's election gazette, Taiwan's household bulletin (with audio for blind voters), Korea's mailed booklet of five years of tax, assets and criminal records, Mexico's INE portal, and the California and Oregon voter pamphlets, which guarantee every candidate the same typeface, the same length and ballot order (Oregon: 325 words, four required fields certified as true, a felony for lying in them).</p>
+    <p><b>What goes wrong.</b> Depth. Democracy Club's own feedback names empty candidate pages as its top complaint ("If candidates can't be bothered to advertise themselves then I can't be bothered to vote"), statements were held for 53.6% of candidates at the 2024 general election but only 25% at the 2025 locals, and in 2023 it admitted it could not tell when a stored statement had gone stale. The official pamphlets are fair in format but not in access: California statewide candidates must pay and accept spending limits; Oregon charges $600 to $3,500 or 200 to 500 signatures.</p>
+    <p><b>To borrow.</b> The provenance line. The "every election this person has stood in" table. Equal format as a written rule (Elections ACT publishes ours almost verbatim: same font, same size, order by lot, every candidate listed whether or not they sent a statement). The Electoral Commission's polling-station lookup, which every list-maker offers and we do not.</p>
+  </div>
+
+  <div class="family">
+    <h4>2 · Matchers: answer questions, get a percentage</h4>
+    <p><b>Who does it best.</b> Germany's Wahl-O-Mat was used 26 million times at the 2025 federal election; its 38 statements are chosen by a workshop of 20 to 25 first-time voters and answered by the parties themselves, and its "Begründungen" view shows each party's own justification side by side. The Netherlands' StemWijzer passed 8 million completions in 2025; Switzerland's smartvote had profiles for 83% of 5,925 National Council candidates in 2023; Sweden's SVT ran 312 local and national compasses in 2026 with 3.7 million completions; Finland's Yle had answers from about 90% of candidates in 2019 and over 14,000 in 2025.</p>
+    <p><b>What goes wrong.</b> The matching step, always. A Belgian study simulated 500,000 random subsets of statements and found the advised party swung by tens of points; a Dutch study found most StemWijzer users would have received different advice under another matching model. Every fairness complaint found against Vote Compass (Canada 2011: critics said answering "neutral" throughout produced a Liberal result), iSideWith (one-sided question blurbs, unexplained score drift), the Japanese newspaper matchers (the same voter gets different "closest parties" from different papers because five-point scales are treated as distances) and Kieskompas (its second axis is nearly redundant) attacks that step. Courts have intervened three times over who was in and who was out: Cologne in May 2019 shut the Wahl-O-Mat down for capping comparisons at eight parties (settled in three days with "all parties, one button"), and Brussels in May 2024 ordered VRT to tell every user that the party Voor U was missing from its Stemtest, on pain of €2,500 a day. Finland's press council reprimanded Yle in February 2026 for launching on a provisional candidate list without saying so. France's Elyze collected birth date, postcode and voting intention from a million people in a fortnight, had a hidden tie-break favouring one candidate and a writable database, and deleted its users' personal data under regulator scrutiny.</p>
+    <p><b>To borrow.</b> Nothing from the matching. The youth editorial workshop as a way to choose what to ask. The Begründungen page (each party's own words, side by side, no score). Party review of positions before publication (NRK, Vote Compass, Vote for Policies). Written inclusion rules published before launch. SVT's start-page list of who declined. DR's promise that debugging logs are deleted after three days. Frozen answers with a stated correction route (smartvote).</p>
+  </div>
+
+  <div class="family">
+    <h4>3 · Encyclopaedias: what each side has published, no quiz, no score</h4>
+    <p><b>Who does it best.</b> New Zealand's Policy.nz: over 500,000 people, roughly one in six voters, used it before each of the 2020 and 2023 general elections. It collects party announcements, rewrites each as one plain, consistent sentence, links to the source, lets readers hide or show party names, and says on its About page, in those words, "Are you telling me how to vote?" and answers no. Norway's NRK Partiguiden is "a kind of encyclopaedia": one issue, one question, two to four answer options with the parties sorted across them, sources at the foot, parties allowed to read and correct before publication, and a written note wherever NRK overruled a party. Ballotpedia covers every federal and state race and many local ones, orders candidates by a fixed published rule, and settles disputes by stacking a dated candidate note above the original, never deleting.</p>
+    <p><b>What goes wrong.</b> Sustainability and paraphrase. Policy.nz depends on a paid 13-person editorial team and re-fundraising every cycle (it crowdfunded NZ$10,444 to finish 2023); its summaries are paraphrases with the source a click away, so a party can dispute the wording; and its small "favourites" feature carries its own caveat. The UK's Vote for Policies, a blind manifesto matcher with 4 million uses over five elections and the cheapest impartiality mechanism found anywhere (summaries sent to the parties for verification before publication), closed in May 2025 because "we still don't have the technology needed to automate policy tracking so it can be run sustainably" and "current funding of non-partisan services is a fraction of what's needed". Guides.vote in the US adds a one-word verdict ("Mixed", "Mostly yes") above each sourced answer and covers only candidates polling 15% or more.</p>
+    <p><b>To borrow.</b> The "Are you telling me how to vote?" section. The plain one-line headline as a scannable label above the verbatim quote, visibly ours. Partiguiden's one-issue-one-question layout for the topic pages. Ballotpedia's dispute rules and [bracket] convention for editorial changes. The parity rule: if any candidate in a race gets only a quotation, every staff-written entry in that race is reduced to a quotation too. What to avoid: the verdict word, the polling threshold, and the hand-built content that killed Vote for Policies.</p>
+  </div>
+
+  <div class="family">
+    <h4>4 · Record sites: what they did, not what they say</h4>
+    <p><b>Who does it best.</b> India's MyNeta has published every candidate's sworn affidavit (criminal cases, assets, liabilities, education, tax returns) for over twenty years, labels every field "self-declared", says in writing that the original beats the copy, and adds a "Data Readability Report" when the scan was poor. Germany's Abgeordnetenwatch shows a blunt counter on every politician's page ("0 / 438 questions answered" for the Chancellor), leaves unanswered questions visible, and answered 75% of 14,122 questions to MPs in its 2026 count. DeinWal (two volunteers) and Czechia's KohoVolit match voters to real roll-call votes rather than promises.</p>
+    <p><b>What goes wrong.</b> Summaries. TheyWorkForYou is twenty years old and still adding caveats: 30 Conservative MPs complained in 2019 and 50 in 2021 that its one-line voting summaries misrepresented them; a vote against a bill thought too weak reads as a vote against its aim; screenshots travel without context. Its Australian sibling They Vote For You wrote "consistently voted against creating a federal Anti-Corruption Commission" about a senator who voted for the bill but against crossbench amendments, drew legal threats from two MPs, and conceded it records "formal votes only". Kenya's Mzalendo scorecard changed MPs' behaviour and is read elsewhere as "sensationalism". MyNeta's sortable "most criminal cases" table is, in practice, a ranking. VoteWatch Europe, fourteen years of MEP records, closed in 2022 and now lives in two people's inboxes.</p>
+    <p><b>To borrow.</b> "Self-declared" and "who is responsible for this claim" labels on every quote. The readability flag. The re-contest comparison (what did they say last time?). Abgeordnetenwatch's visible non-response count, which is accountability for responsiveness without any policy score. The rule that follows from TheyWorkForYou and They Vote For You: never write "voted against X"; show the division's name, date, the question put and the vote, and let the reader summarise. An exit plan for the archive.</p>
+  </div>
+
+  <div class="family">
+    <h4>5 · Candidate questionnaires: ask them all the same thing</h4>
+    <p>This family decides Romily's round-seven question and has its own section (7). In short: Ballotpedia's free, national, thirty-minute survey reaches 19.2% of candidates after seven years; the League of Women Voters' 750-character questionnaire, chased by post, email, text and phone by a known local body, reaches 61 to 66%; Vote Smart's fixed yes/no test, which labels refusers as having failed, fell from 72% in 1996 to 20% in 2016 as both US parties trained candidates not to answer (a Florida House Democratic leader: it "sets them up for a hit piece"); Mexico's INE, hosting the form itself as the electoral authority, reached 93.6%.</p>
+  </div>
+
+  <div class="family">
+    <h4>6 · Costing bodies and household calculators: what it means in money</h4>
+    <p>This is the family our money layer belongs to and it has section 8. The Dutch CPB costs every willing party's manifesto before each election and prints "Keuzes in Kaart is not a voting guide" on page 2; the Australian and Canadian budget offices attach a reliability or uncertainty sentence to every estimate; the IFS's assumptions box ("what is in, what is out, the price year, no take-up modelled, who funded it") is the UK template; PolicyEngine, our engine, is open source, used inside No 10, static by default, and publishes the list of measures it cannot model.</p>
+  </div>
+
+  <div class="family">
+    <h4>7 · Fact-checkers and promise trackers</h4>
+    <p><b>Who does it best.</b> Full Fact: funders listed with amounts (£3.05 million income in 2025, Meta the largest), a written impartiality method, a public corrections page, and the wording "We've asked X about this and will update this article if we hear back". Its Government Tracker quotes each pledge with a manifesto page number and dates every update. Chile's Del Dicho al Hecho turns programmes into a tracked record after the election.</p>
+    <p><b>What goes wrong.</b> Verdicts. Even Full Fact's seven-way scale needs an "Unclear or disputed" bucket, tracks 94 of about 300 pledges, and its own blog admits the first set of pledges followed Labour's own priorities and that "pledge tracking is an art, not a science". Brazil's Ranking dos Políticos scores legislators out of ten, says "We are not neutral" in the small print, and was presented by broadcasters as neutral technology. We do not give verdicts and should not start.</p>
+    <p><b>To borrow.</b> The funding page to the pound. "We asked, and will update." The dated method-change log (mySociety publishes a post every time it adds a policy to TheyWorkForYou's summaries, with the reason). An after-election "what happened" page that appends dated records to the winner's quotes, with no compliance percentage.</p>
+  </div>
+
+  <h3>Twenty-four tools at a glance</h3>
+  <table class="tight">
+    <thead><tr><th>Tool</th><th>Where</th><th>Positions come from</th><th>Ranks?</th><th>Reach or take-up (year)</th><th>Notable trouble</th></tr></thead>
+    <tbody>
+      <tr><td class="k">WhoCanIVoteFor</td><td>UK</td><td>Candidates and volunteers, sourced edits</td><td>No</td><td>10.6m searches (2026); statements 53.6% GE 2024, 25% locals 2025</td><td>Empty pages the top complaint; stale statements undetectable</td></tr>
+      <tr><td class="k">TheyWorkForYou</td><td>UK</td><td>Divisions; editorial policy groupings</td><td>Scored phrases</td><td>1 in 5 adults have used it (mySociety claim)</td><td>30 and 50 MPs complained of misrepresentation</td></tr>
+      <tr><td class="k">Vote for Policies</td><td>UK (closed 2025)</td><td>Manifestos, blind, party-verified</td><td>By user choice</td><td>4m uses; 1.1m in 2019</td><td>Hand-built; unsustainable funding</td></tr>
+      <tr><td class="k">Full Fact tracker</td><td>UK</td><td>Manifesto pledges vs outcomes</td><td>Verdicts</td><td>94 pledges tracked</td><td>Admitted selection bias</td></tr>
+      <tr><td class="k">WhichCandidate.ie</td><td>Ireland</td><td>Candidates answer the voter's questionnaire</td><td>Yes</td><td>36% of 48,000 users changed preference (2024)</td><td>Non-respondents excluded entirely</td></tr>
+      <tr><td class="k">Wahl-O-Mat</td><td>Germany</td><td>Party self-placement; youth-written theses</td><td>Yes</td><td>26.0m uses (2025)</td><td>Court, 2019 (8-party cap); 2021 (independent excluded)</td></tr>
+      <tr><td class="k">Abgeordnetenwatch</td><td>Germany</td><td>Public Q&amp;A; votes; side jobs</td><td>Responsiveness only</td><td>75% of 14,122 questions answered (2026)</td><td>Leaders answer nothing</td></tr>
+      <tr><td class="k">StemWijzer</td><td>Netherlands</td><td>Party self-placement</td><td>Yes</td><td>8m+ completions (2025)</td><td>2010 row over unchecked self-placement</td></tr>
+      <tr><td class="k">CPB Keuzes in Kaart</td><td>Netherlands</td><td>Party submissions, costed</td><td>No</td><td>10 parties (2025); PVV and SP refused</td><td>Submissions differed from manifestos by billions</td></tr>
+      <tr><td class="k">smartvote</td><td>Switzerland</td><td>Candidate questionnaire, frozen on confirmation</td><td>Yes</td><td>83% of 5,925 candidates (2023)</td><td>Parties and candidates pay to take part</td></tr>
+      <tr><td class="k">Yle vaalikone</td><td>Finland</td><td>Candidate questionnaire, local questions per municipality</td><td>Yes</td><td>~90% of candidates (2019); 14,000+ (2025)</td><td>Press council reprimand 2026: launched on provisional list</td></tr>
+      <tr><td class="k">SVT Valkompass</td><td>Sweden</td><td>Party and candidate self-placement, moderated</td><td>Yes</td><td>3.7m completions; 2,792 candidates; 97% of local parties (2026)</td><td>None found</td></tr>
+      <tr><td class="k">NRK Partiguiden</td><td>Norway</td><td>Programmes and votes, parties read before publication</td><td>No</td><td>Not published</td><td>Anonymous rival site built by a candidate</td></tr>
+      <tr><td class="k">VRT Stemtest</td><td>Belgium</td><td>Party self-placement, academically weighted</td><td>Yes</td><td>6m+ uses (2024)</td><td>Court order to disclose an excluded party</td></tr>
+      <tr><td class="k">Elyze</td><td>France</td><td>Candidate proposals, anonymised</td><td>Top three</td><td>1m in two weeks (2022)</td><td>Regulator; data deleted; hidden tie-break</td></tr>
+      <tr><td class="k">Ballotpedia</td><td>US</td><td>Candidate survey; staff key messages</td><td>No; fixed order</td><td>19.2% survey response (2024)</td><td>Donors undisclosed; corrections log private</td></tr>
+      <tr><td class="k">VOTE411</td><td>US</td><td>Identical questionnaire, verbatim, 750 characters</td><td>No</td><td>9.19m users (2024); 61–66% response where published</td><td>Quality varies by local League</td></tr>
+      <tr><td class="k">Vote Smart</td><td>US</td><td>Fixed-position test; inferred if refused</td><td>Matching tool</td><td>72% → 48% → 20% (1996–2016)</td><td>"Sets them up for a hit piece"</td></tr>
+      <tr><td class="k">Voter's Edge CA</td><td>US (closed 2024)</td><td>Candidate priorities, donors, endorsements</td><td>No</td><td>~2m Californians (2018)</td><td>Ended when the platform partnership ended</td></tr>
+      <tr><td class="k">Policy.nz</td><td>New Zealand</td><td>Party documents, paraphrased, linked</td><td>No</td><td>500,000+, one in six voters (2020, 2023)</td><td>Paid team; re-fundraised each cycle</td></tr>
+      <tr><td class="k">They Vote For You</td><td>Australia</td><td>Divisions with editor-written policy titles</td><td>Bands</td><td>Not published</td><td>Mislabel, legal threats, "formal votes only"</td></tr>
+      <tr><td class="k">MyNeta</td><td>India</td><td>Sworn affidavits, "self-declared"</td><td>Sortable tables</td><td>Every candidate since 2002</td><td>Sortable "most cases" list is a ranking</td></tr>
+      <tr><td class="k">INE Conóceles</td><td>Mexico</td><td>Candidate-entered career and proposals</td><td>No</td><td>93.6% of judicial candidates (2025)</td><td>Institute disclaims content</td></tr>
+      <tr><td class="k">Ranking dos Políticos</td><td>Brazil</td><td>Council-chosen votes, weighted</td><td>Score out of 10</td><td>Broadcast widely (2018)</td><td>"We are not neutral" in the small print</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Figures re-read from each tool's own pages or the named study on 25 September 2026. "Not published" means the operator gives no figure; "unverified" items are in section 12.</p>
+</section>
+
+<!-- ============ 7 ============ -->
+<section class="section" id="s7">
+  <div class="section-head"><div class="num">07 · Candidates</div><h2>Getting candidates to take part: what the numbers say</h2>
+  <p class="lede">Romily's round-seven decision is whether candidates should be able to send us anything, and the worry behind it is that only one party's people will reply and the site will look biased through no fault of ours. The published numbers answer both parts.</p></div>
+
+  <h3>How many reply</h3>
+  <table>
+    <thead><tr><th>Tool</th><th>What it asks for</th><th>How it asks</th><th>Take-up</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Mexico INE Conóceles</td><td>Career and proposals</td><td>Hosted by the electoral authority itself</td><td>93.6% (judicial candidates, 2025)</td></tr>
+      <tr><td class="k">Yle vaalikone</td><td>25 to 30 statements</td><td>Public broadcaster; every candidate expects to appear; open-list voting rewards a profile</td><td>About 90% (2019)</td></tr>
+      <tr><td class="k">smartvote</td><td>45 to 75 questions</td><td>Parties register whole slates; candidates pay; 22 years of continuity</td><td>83% of 5,925 (2023)</td></tr>
+      <tr><td class="k">smartvote ACT (university-run)</td><td>32 questions</td><td>Run by a university team</td><td>74% (101 of 137, 2020)</td></tr>
+      <tr><td class="k">Abgeordnetenwatch check</td><td>18 theses</td><td>Every candidate gets a profile whether or not they answer; reminders by email</td><td>64 to 69% of 2,500+ within days (2025)</td></tr>
+      <tr><td class="k">VOTE411 (League of Women Voters)</td><td>Identical short questions, 750 characters each</td><td>Postcard, then email, text, Facebook and phone, "sometimes multiple times", from a known local body</td><td>61% (Nebraska 2024), 66% (North Carolina 2022)</td></tr>
+      <tr><td class="k">Democracy Club statement to voters</td><td>A free-text statement</td><td>Candidates or their teams edit their own page; volunteers add from published material</td><td>53.6% (general election 2024); 25% (locals 2025)</td></tr>
+      <tr><td class="k">Ballotpedia Candidate Connection</td><td>A 30-minute survey, photo-ID verified</td><td>National, free, no personal chasing</td><td>19.2% (2024); 6.9% (2018); about 1.6% of ultra-local candidates</td></tr>
+      <tr><td class="k">Vote Smart Political Courage Test</td><td>Fixed yes/no positions on a long issue list</td><td>Refusers labelled as failing; positions then inferred from records</td><td>72% (1996), 48% (2008), 20% (2016)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>What the pattern means</h3>
+  <p>Three things decide take-up, and none of them is the size of the site. First, whether taking part is expected: where a profile is the normal thing for a serious candidate to have (Switzerland, Finland, Sweden), most do it; where it is a novelty, one in five does. Second, how much is asked: a short, identical form that asks only for what the candidate has already said in public gets three times the response of a long survey that asks them to take new positions, and asking candidates to commit to yes/no answers that can become attack-ad material is what collapsed Vote Smart. Third, whether a person chases: the League's 61% against Ballotpedia's 19% is the chasing.</p>
+  <p>Romily's worry is well founded and the data show which way it cuts. Response is not random by party: the big parties control their candidates' messages centrally (Vote Smart's founder said both US parties train their candidates not to answer), while small parties and independents welcome any free, equal platform. So the likely pattern is not "one big party replies and the rest don't" but "small parties and independents reply and the big parties don't", which makes the big parties' cards thinner. That is still a visible imbalance.</p>
+
+  <h3>The rules every mature guide shares</h3>
+  <p class="small">The same questions for every candidate in a race. A hard length cap (VOTE411 750 characters; California 250 words; Oregon 325). Verbatim publication with no editing for meaning; site edits marked in [brackets]. One content rule, taken from California statute: the statement is about the candidate's own background and intentions and "shall not in any way make reference to other candidates". Identity verified, truth not, and a line saying so. A neutral present-tense label for silence ("The candidate has not yet responded"), never "declined" or "failed". A fixed deadline, then late answers accepted with a visible date. Disputes settled by stacking a dated note above the original, never by deleting. And, in the German and Swedish tools, a public count of who has responded, which is accountability for responsiveness without any policy score.</p>
+
+  <h3>What transfers to a two-person site with no broadcaster</h3>
+  <ol class="rank">
+    <li><b>Profile by default.</b> Build every candidate's page from Democracy Club, leaflets and public records before asking for anything (we already do). The candidate's choice is then between a page made of their published words and the same page with their confirmation on it. This is Abgeordnetenwatch's lever and it costs nothing.</li>
+    <li><b>Ask only for what is already public.</b> Corrections and confirmation of quotes, not new positions. This avoids the Vote Smart trap entirely.</li>
+    <li><b>Send everything automatically and on the same day.</b> Democracy Club holds an email address for 9 of the 15 Holborn candidates. The morning update can create each link and send each email the day a candidate appears, and one reminder three days later. Sending needs no person; reading replies does.</li>
+    <li><b>Make silence a fact, identically for all.</b> "Invited 28 Sep. No reply yet." on every card, or on none. Never a blank that looks like the site's failure.</li>
+    <li><b>Keep any reply out of the comparison.</b> A confirmation or correction changes the quoted record; a statement, if allowed, sits in a labelled box under the card and never counts anywhere candidates are compared.</li>
+    <li><b>Bulk routes for May 2027.</b> The election agent named on each Statement of Persons Nominated and the local party officers are how SVT reached 97% of 2,167 local parties and smartvote registers whole slates.</li>
+    <li><b>Publish take-up by party after each election.</b> It is the only pressure a small site can apply, and it is a fact, not a score.</li>
+  </ol>
+
+  <div class="rule-box"><div class="t">Or do nothing, honestly</div>
+  <p>If Romily chooses option A or B on the round-seven page, the site must stop saying it invites candidates, and Democracy Club's own statement route becomes the single path. Both are clean outcomes. What is not clean is the present state: a promise on the submissions page and a "not yet invited" line on every card, with nothing behind either.</p></div>
+</section>
+
+<!-- ============ 8 ============ -->
+<section class="section" id="s8">
+  <div class="section-head"><div class="num">08 · Money</div><h2>The money layer: what the costing bodies teach</h2>
+  <p class="lede">"What would this mean for a household like mine" is the idea the site is named for, and no UK institution does it for candidates. The bodies that do it for parties abroad have written down, in their own evaluations, exactly how it goes wrong.</p></div>
+
+  <h3>Where ours stands</h3>
+  <p>The grid holds a baseline under 2026 law and under 2024 law for every household band, computed with PolicyEngine UK 2.98.0, with assumptions listed under each figure (band midpoint, 60/40 split for couples, one representative age per band, a representative rent, benefits claimed where entitled). That is the right foundation. Three things are wrong with the layer as shown today. It models two pledges (Reform UK's £15,000 personal allowance; the Green Party's National Insurance upper-limit removal) in one election, and shows them only on the ballot page and only when the profile is complete. It models one party's £15,000 allowance and not another's identical pledge on the same ballot. And the baseline's five lines do not sum to the total shown, because PolicyEngine's net income includes every benefit and every tax it models and the page lists four of them.</p>
+
+  <h3>Five rules from the Dutch CPB</h3>
+  <p>The Centraal Planbureau has costed manifestos since 1986. Ten parties took part in 2025; the PVV and the SP refused. The SP has called the models "neoliberal", and Pieter Omtzigt, whose party did take part in 2025, once called them a "pseudo-reality". The CPB's own evaluation of that edition, published in April 2026, and its 2018 note on presentation give five rules that transfer directly:</p>
+  <ol class="rank">
+    <li><b>Say what the number is.</b> A median, over a stated period, under a static definition, against a stated baseline. The CPB warned in 2018 "against steering on precise 'median' outcomes, given the uncertainty".</li>
+    <li><b>Direction before precision.</b> Its 2026 evaluation records the view that "it is about the direction, not precise figures". Show "about £30 a month more" before £392.</li>
+    <li><b>Show the spread, not one figure.</b> Box plots by income group; an explicit note that a positive median does not mean every household gains. Dutch economists add that standard household types hide renters against owners, which our tenure band already captures.</li>
+    <li><b>Say what usually matters more.</b> The CPB's explainer states that changes in a person's own life (a new job, a move, a birth) usually outweigh policy. Nibud, the household budget institute, puts it as "Perhaps you get no pay rise at all, or much less, or only next year".</li>
+    <li><b>Print "not a voting guide" on the page itself.</b> Page 2 of every edition. Not a footnote.</li>
+  </ol>
+
+  <h3>What the budget offices and calculators add</h3>
+  <p class="small">Australia's Parliamentary Budget Office attaches "a statement about the factors affecting the reliability of the costing estimates" to every costing and rounds to signal precision; Canada's requires "a qualitative statement identifying the sources of uncertainty" and refuses to cost whole platforms or economy-wide effects. The IFS's 2024 calculator states what is in ("three more years of threshold freezes"), what is out (take-up, behaviour, fuel duty), the price year and the funder. The US KFF calculator asks and answers its own question: "Does the calculator provide definitive results for what I will pay? No." The Tax Foundation writes "To be determined" where a plan is unspecified and "should not be used for tax preparation". GOV.UK's benefits page lists who its calculators will be wrong for ("a prisoner, a student, not a British or Irish citizen…"). PolicyEngine itself says "simulations default to static behavior" and publishes the list of measures its UK model cannot express (inheritance tax, ISAs, vehicle duty, prescription charges, fire precepts, all business measures). HM Treasury's transparency record on PolicyEngine found its income-tax results "less promising" in evaluation.</p>
+
+  <h3>The criticisms to pre-empt</h3>
+  <table class="tight">
+    <thead><tr><th style="width:38%">The attack</th><th>The answer already available</th></tr></thead>
+    <tbody>
+      <tr><td>"You present contestable assumptions as objective truth" (the IEA's 2014 case against the OBR costing manifestos)</td><td>The assumptions box is on the page; add the static-model sentence and a "cannot model" count per candidate.</td></tr>
+      <tr><td>"The model is ideological; our ideas always come out badly" (the Dutch SP, and Pieter Omtzigt in 2023)</td><td>The engine is open source, behaviour is off, everything modelled is quoted from a dated public source, and the ledger records each choice.</td></tr>
+      <tr><td>"Comparison is unfair when some candidates have no costable pledges" (the CPB evaluation's "imperfect comparison")</td><td>The identical page, with "no modellable money pledge found" shown as a state, not a zero. The current two-of-fifteen coverage fails this test.</td></tr>
+      <tr><td>"£312 better off is false precision; nobody is the median"</td><td>Round to the nearest £10 a month; direction first; spread shown.</td></tr>
+      <tr><td>"Telling voters what they gain corrodes civic reasoning"</td><td>The evidence (section 9) says personal stakes do move votes when clear and prospective, and that information changes beliefs far more than preferences. Show the whole-country and other-household effects beside "a household like yours", never rank, and say so on /about/impact.</td></tr>
+      <tr><td>"A pledge is not a law"</td><td>Label every figure "if enacted as described", and show two years (first year and end of parliament).</td></tr>
+      <tr><td>"Who funds your engine?"</td><td>PolicyEngine's funders are public (Arnold Ventures, Nuffield, the US National Science Foundation, a fund that promotes universal basic income, others). Link the list from /about/data-use before anyone else does.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="rule-box ochre"><div class="t">The non-money layer, when it comes</div>
+  <p>Nobody anywhere converts a pledge into "your waiting time" or "your child's class size" per household, and the CPB dropped its education and housing effects in 2021 because the error risk was too high, with about 125 staff (housing came back in 2025 only as a qualitative arrow). HM Treasury's "benefits in kind" method (allocate public spending by measured use, exclude public goods) is the only established way to put a figure on services. A future layer should start from things already measured locally (school funding per pupil, trust waiting times, council-tax band bills) and describe direction and mechanism, never invent a number.</p></div>
+</section>
+
+<!-- ============ 9 ============ -->
+<section class="section" id="s9">
+  <div class="section-head"><div class="num">09 · Evidence and law</div><h2>The evidence, and the law</h2>
+  <p class="lede">What is known about tools like ours, with the confidence each finding deserves, and the statutes that touch the site, read directly rather than summarised from guidance.</p></div>
+
+  <h3>What these tools actually do</h3>
+  <p>The best evidence is a meta-analysis of 22 studies with 73,673 participants in nine countries: across all studies, using a voting-advice tool went with higher reported turnout (odds ratio 1.87) and more vote switching (1.44), but when only randomised experiments are counted both effects shrink to something not distinguishable from zero. The people who use such tools were already going to vote. The individual experiments agree: a German field experiment with web tracking (979 people) found no causal effect on turnout or switching but a three-point gain in correctly knowing where parties stand; a 2025 study of 6,501 people across three countries found no turnout effect; a 2025 chatbot study of about 2,900 young unaffiliated Americans found a 13-point knowledge gain on the issues the user cared about and weak or no change in party preference; six coordinated field experiments in five countries (24,007 people) giving voters factual performance information found effects on vote choice of well under one point. One Italian experiment (77,386 voters) found that information about an incumbent's competence, delivered by phone, moved his vote share by roughly three to four points, mailed information alone did nothing, and information about ideology did nothing.</p>
+  <p><b>What follows.</b> Measure and claim knowledge, not turnout. Expect the largest effect among the young, the less engaged and weak partisans, which is who the site is for. Give what candidates have done the same weight as what they say, because records move people and words mostly do not. Do not expect, or try to engineer, conversion: a voter who leaves better informed and unchanged is the success case.</p>
+
+  <h3>Where bias gets in</h3>
+  <p>Not through an algorithm, since we have none, but through the same doors: which topics get a page (the Belgian statement-selection study), how a topic is headed (headers shifted the least sophisticated users' answers by up to half a standard deviation in a live Dutch tool of 27,404 people), and order (being listed first is worth 1.3 to 1.5 points of vote share across 29,076 randomised Californian local contests, and more where information is thin). The Cologne court's 2019 ruling made equal treatment of small parties a legal expectation once a tool is popular. The hostile-media effect means partisans on both sides will judge balanced material as biased against them; what the trust research supports is not neutrality of method but neutrality made visible: sources beside every claim, a "how we check" page, and a one-line statement of who runs and funds the site, which people look at for about four seconds and then trust. Money is the one dimension of British politics the public rates as opaque: 14% think party finance is transparent.</p>
+
+  <h3>Empty records</h3>
+  <p>Readers do not notice what is missing; they judge confidently on whatever is present (omission neglect). Side by side, the amount of material becomes a proxy for seriousness (evaluability). If a site says plainly that a record is empty, readers discount that candidate. And where records are empty, ballot order and party label do the work. Together these predict that thin records silently disadvantage independents, and that our large numerals make it worse. The design answers that stay inside the rules: state absence explicitly and identically, with the date checked and the sources searched; show the party's position as a labelled fallback, because party is the cue voters actually use; never show counts; keep every card the same size; and offer every candidate the same route to fill the gap.</p>
+
+  <h3>Personalisation</h3>
+  <p>Registry-matched Swedish data show that personal finances move votes about as much as the national economy once measurement error is removed; British panel data show people respond far more to changes in their own finances that are clearly the government's doing than to changes that are not; Swedish parents of young children shifted their votes on promised child-benefit changes, not delivered ones. The household grid is on exactly that ground. Whether foregrounding self-interest makes people reason more selfishly rests on one 66-person study from 1991 and is contested; the wider literature finds that information changes beliefs far more than preferences and that fairness dominates self-interest in tax attitudes. Phrase it as "a household like yours", show the area and national figures beside it, and expect it to inform rather than convert.</p>
+
+  <h3>Demand</h3>
+  <p>After the May 2025 English local elections, 49% of voters in electing areas agreed they had enough information about candidates to make an informed choice (YouGov for the Electoral Commission, 2,781 adults). UK trust in news is 30% and falling (Reuters Institute 2026); 52% of Britons disagree that online political information is trustworthy (Electoral Commission 2026); across the 48 countries in the 2026 Digital News Report, 52% of 18 to 24-year-olds get their news mainly from social and video networks. Votes at 16 is not yet law: the Representation of the People Bill passed the Commons on 2 September 2026 and awaits its Lords committee stage, with no commencement date, so 8 October and May 2027 run on the current franchise.</p>
+
+  <h3>The law, read from the statutes</h3>
+  <table class="tight">
+    <thead><tr><th style="width:24%">Question</th><th>Rule</th><th style="width:30%">Where we stand</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Do we need a digital imprint?</td><td>Elections Act 2022 Part 6, ss.39–48 (in force 1 Nov 2023): unpaid material needs one only from parties, recognised third parties, candidates, office-holders and referendum or recall campaigners; paid adverts need one from anyone if their sole or primary purpose is influencing support. Section 47(3) exempts websites whose primary purpose is journalism.</td><td>Not required today. The Representation of the People Bill (clause 72 in the Lords print) would extend it to organisations that are third-party campaigners, but keeps the purpose test. Add a voluntary "Published by …" line anyway; it is the trust signal in the paragraph above.</td></tr>
+      <tr><td class="k">Are we a non-party campaigner?</td><td>Only if spending "can reasonably be regarded as intended to promote or procure the electoral success" of parties or candidates; the Commission says a campaign with no call to action is unlikely to meet the test. Thresholds £700, £10,000, £20,000; 365-day regulated period before a general election.</td><td>Not met while there is no call to action and every candidate is treated identically. Keep a dated one-page self-assessment. Avoid joint work with campaigning bodies.</td></tr>
+      <tr><td class="k">Defamation and false statements</td><td>Defamation Act 2013 (serious harm; truth, honest opinion, public interest, website-operator defences). Representation of the People Act 1983 s.106: publishing a false statement about a candidate's personal character or conduct to affect the result is an illegal practice; the High Court can grant an injunction on prima facie falsity.</td><td>The exposure is repetition: quoting candidate A's claim about candidate B is our publication of it. Quote candidates on policy and on themselves; never on rivals' character or conduct; keep a notice-and-takedown address with a response time.</td></tr>
+      <tr><td class="k">Copyright in quotations</td><td>Copyright, Designs and Patents Act 1988 s.30(1ZA): quotation is permitted if fair, no more than needed, and acknowledged.</td><td>Sentence-length verbatim quotes with a named source are inside the exception. Link to leaflet images; do not copy them.</td></tr>
+      <tr><td class="k">Online Safety Act 2023</td><td>A service is user-to-user if content generated by one user may be encountered by another (s.3). Schedule 1 exempts services where users can only comment on provider content.</td><td>The feedback form is out of scope. A candidate-submission page that publishes statements as sent is an open question. Treat submissions as editorial intake, never auto-publish, add no comments, and keep a written illegal-content risk assessment and a complaints route regardless.</td></tr>
+      <tr><td class="k">Browser storage and cookies</td><td>PECR reg. 6 covers any storage on the user's device, including localStorage. The Data (Use and Access) Act 2025 (in force 5 Feb 2026) permits storage without consent where strictly necessary for what the user asked, expressly including "maintaining a record of selections made on a website", and permits first-party statistics with a clear notice and a one-click objection.</td><td>No consent banner is needed for the profile; a clear explanation is. Do not log the postcode beside an IP address. Never record which candidate pages a user viewed against any identifier: that is data revealing political opinions. Any analytics must be first-party, statistics-only, with an opt-out.</td></tr>
+      <tr><td class="k">Accessibility</td><td>Equality Act 2010 s.29: a service-provider must make reasonable adjustments, and the duty is anticipatory. The 2018 public-sector accessibility regulations bind public bodies only.</td><td>WCAG 2.2 AA is not mandatory for us but is the standard a court would treat as reasonable. Publish an accessibility statement.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 10 ============ -->
+<section class="section" id="s10">
+  <div class="section-head"><div class="num">10 · The list</div><h2>The improvements list</h2>
+  <p class="lede">Everything this review recommends, in nine groups by when it matters. Effort: <b>S</b> under half a day, <b>M</b> a day or two, <b>L</b> a week or more. Decides: <span class="tag b">B</span> Barny, <span class="tag r">R</span> Romily, <span class="tag x">Both</span>. Nothing here ranks, scores, matches or recommends, and nothing needs a person in the loop at the point of use.</p></div>
+
+  <h3>A · Before 8 October: make the site true</h3>
+  <table class="list">
+    <thead><tr><th>#</th><th>Improvement</th><th>Why, and where it comes from</th><th class="e">Effort</th><th class="w">Decides</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1</td><td>Carry profile answers in the address fragment or in browser storage only, never in the query string; then keep "never sent to us".</td><td>Section 4.1. The page address is requested from the host and logged; a copied link carries the household. Also the PECR and GDPR notes in section 9.</td><td class="e">M</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">2</td><td>Reword the home page and /about so they describe the money layer as it is ("where you stand under current law; candidate-by-candidate figures where a pledge can be modelled"), or ship enough modelled pledges to justify the present wording.</td><td>Section 4.1 and section 8. Two pledges in one election do not support "computed from a party's published pledges".</td><td class="e">S</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">3</td><td>Either invite every candidate (per round seven) or remove "we send to every nominated candidate" and the "Not yet invited" card line.</td><td>Section 4.1, section 7. The present state is a promise with nothing behind it.</td><td class="e">S</td><td class="w"><span class="tag r">R</span></td></tr>
+      <tr><td class="n">4</td><td>Remove "we show seats held and how they voted" from /about until a voting-record section exists; same for leaflets on /status.</td><td>Section 4.1. No page has either.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">5</td><td>Take "schools, protected areas, air quality" out of the area page's introduction, or add those sections.</td><td>Section 4.2.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">6</td><td>Let step 1 of the profile be skipped ("Just describe a household"), or drop "Skip anything".</td><td>Section 4.1.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">7</td><td>Run the Statement of Persons Nominated comparison the accuracy page promises, and remove the empty heading from the published report.</td><td>Section 4.1. The names match Camden's notice; the site should be the one saying so.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">8</td><td>One number of household questions, used everywhere (seven, plus optional extras).</td><td>Section 4.1.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">9</td><td>Reconcile the election count (26 v 31 v 29) and the party position counts (Labour 52 v 30) by computing each from one query.</td><td>Section 4.1.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">10</td><td>Explain the photo credit forms in one place, or use one form ("Photo: Democracy Club, [licence]").</td><td>Section 4.1; the Democracy Club brief already asks which licences are fine.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">11</td><td>Add the missing line to the baseline so its figures sum, or state in one sentence what else PolicyEngine counts in net income.</td><td>Section 4.6. £3,372 unexplained for the test household.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">12</td><td>Model the Liberal Democrats' £15,000 personal allowance pledge as Reform UK's is, or show neither.</td><td>Section 4.6. The same pledge, on the same ballot, modelled for one party.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>B · Before 8 October: the voter's path</h3>
+  <table class="list">
+    <thead><tr><th>#</th><th>Improvement</th><th>Why, and where it comes from</th><th class="e">Effort</th><th class="w">Decides</th></tr></thead>
+    <tbody>
+      <tr><td class="n">13</td><td>Land on the ballot page after a postcode, with the election's name and date as the headline; offer "Your area", "What you're voting for" and "What's at stake" as three cards beneath the candidate list.</td><td>Section 4.2. Romily's round-five answer put the profile first but did not ask for statistics before candidates; check with her.</td><td class="e">M</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">14</td><td>Make "Skip to the candidates" a full-width button at the top of any page that precedes the ballot.</td><td>Section 4.2.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">15</td><td>Replace the large per-topic numerals on candidate pages, and "N in total" on the ballot cards, with a list of the topics the candidate has published on; put counts in small type inside the open card.</td><td>Section 4.3 and the evaluability evidence in section 9. The two-minute guide already uses the list form.</td><td class="e">M</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">16</td><td>Replace strikethrough on passed deadlines with words ("closed 22 Sept") and one "what now" sentence for the unregistered; print real dates in the /how-to-vote list.</td><td>Section 4.4.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">17</td><td>For council ballots, show council-relevant headings drawn from the council page (council tax, housing, planning, transport, environment, schools), hide national topics with no content, and say once at the top when nothing is published, with the date last looked.</td><td>Section 4.5. Six of seven Lambeth candidate pages are 54 empty boxes.</td><td class="e">M</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">18</td><td>Show each "own words" claim once; rename or drop the "Your area" heading.</td><td>Section 4.8.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">19</td><td>Stop counting a ballot-paper description as a position (currently one candidate's only).</td><td>Section 4.8.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">20</td><td>Supersede the duplicate Liberal Democrat ledger rows (493/496, 494/495) with a logged correction.</td><td>Section 4.8; confirmed against the database.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">21</td><td>Label which party name is which: "registered name" at the top, "as on the ballot paper" on the cards.</td><td>Section 4.8.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">22</td><td>Add "Standing for the first time" where "Has stood N times before" is absent; reconcile Galloway's "11 times" with the three candidacies listed.</td><td>Section 4.8. Parity of the header line.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">23</td><td>One canonical list of the nine topics (short and long names) in one file, used on every page and in the ledger.</td><td>Section 4.9. Seven spellings today.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">24</td><td>One site-name string; one voter-facing date format ("Thursday 8 October 2026"), ISO only in source lines.</td><td>Section 4.9.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">25</td><td>State the verb rule on /about ("pledged" means the words come from a document the party calls its manifesto or contract; "says it would" means any other publication) or use one verb; apply "without giving figures" by a written rule to every party, or not at all.</td><td>Section 4.7. Reform UK 0 of 35 "pledged"; hedge only on the two smallest parties.</td><td class="e">S</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">26</td><td>Label Labour's record layer on the card as "Government record (Labour is in government)", and plan the equivalent for any party running a council in a council election.</td><td>Section 4.7 and section 9 ("records move people").</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">27</td><td>Remove /journey from the public site (or password it); strip "Read via WebFetch" notes from council pages; replace "maintainer (Barny's build session)" with a neutral actor label; render the ledger's "Applies if" column in words; show archived elections by name on /positions.</td><td>Section 4.10.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">28</td><td>Add a Privacy page (what is stored in the browser, what the host logs, that lookups are not retained, how to delete the profile) and link it from the footer; make /feedback either exist or vanish from robots.txt.</td><td>Section 4.11, section 9.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">29</td><td>Mark on the ballot page any claim whose source could not be re-read on the last check ("source could not be re-read automatically on [date]; archived copy").</td><td>Section 4.11. 46 of 233 sources today.</td><td class="e">M</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">30</td><td>Show the profile's introduction once, not on all nine steps; put each question above the fold.</td><td>Section 4.12.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">31</td><td>Fix the small layout faults: the "12" that wraps to "1 / 2"; the floating "?" that covers links (dock it below 480px); the missing separator between summary and quotation on the comparison page; one candidate per line on the desktop ballot list.</td><td>Sections 4.12 and 5.5.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">32</td><td>Add "[sic]" or the existing note beside preserved third-party spellings ("Manicfesto", "footware").</td><td>Section 4.12.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>C · Before 8 October: the switches</h3>
+  <table class="list">
+    <thead><tr><th>#</th><th>Improvement</th><th>Why, and where it comes from</th><th class="e">Effort</th><th class="w">Decides</th></tr></thead>
+    <tbody>
+      <tr><td class="n">33</td><td>Decide the launch date and on that day remove "noindex, nofollow" sitewide, keeping it on /review, /profile, /notes, /journey and /candidates/submit; until then, take the sitemap and the robots "Allow" out of contradiction.</td><td>Section 5.1.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">34</td><td>Cache HTML at the edge: public, s-maxage 300, stale-while-revalidate 3600, tagged and purged by the refresh jobs; keep "private" only on pages that read browser state.</td><td>Section 5.2.</td><td class="e">M</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">35</td><td>Stop the nav and footer prefetches (prefetch false) or make their responses cacheable.</td><td>Section 5.2. Eight to fourteen origin renders per page view.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">36</td><td>Add Content-Security-Policy with frame-ancestors 'none' (frame-ancestors * on the embed route only), X-Frame-Options, Referrer-Policy strict-origin-when-cross-origin, Permissions-Policy, HSTS with includeSubDomains, and turn off the framework header.</td><td>Section 5.3.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">37</td><td>Self-host the two fonts as subsetted woff2 and Leaflet from the package, so the policy can be strict and no visitor's IP goes to Google or Cloudflare.</td><td>Sections 5.3 and 5.4. About 0.8 seconds off mobile render.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">38</td><td>Replace the brand PNGs with SVG (or 2× WebP at displayed size), load one theme's image only, serve a 32/48px favicon, and long-cache /brand with hashed names.</td><td>Section 5.4. About 590 KiB off the home page.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">39</td><td>Make the ledger tables reachable from the keyboard (or stack them below 600px); start each candidate summary's aria-label with the visible name; tie the postcode error to the field with aria-describedby and aria-invalid and move focus to it; give the marquee a pause control or make it static; add h2s to /positions and the comparison page; give the embed page a heading.</td><td>Section 5.5.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">40</td><td>Fix or replace the thirteen dead source links and upgrade the two plain-http ones; make every source line fall back automatically to the archived copy when the live link fails.</td><td>Section 5.6.</td><td class="e">M</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">41</td><td>Re-check the 184 links on 29 bot-protected hosts from an ordinary UK connection (the Mac at home will do), and add a weekly link check to the source watch using a browser user-agent.</td><td>Section 5.6.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">42</td><td>Distinguish "postcode not found" from a lookup failure in the error message; render the unknown-ballot 404 on the server.</td><td>Section 5.7.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">43</td><td>Give every route its own title and description ("Sagal Abdi-Wali (Labour) · Holborn and St Pancras by-election, 8 October 2026"), a canonical address, and a candidate's own share image.</td><td>Section 5.1.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">44</td><td>Extend the sitemap to candidate, topic, party, positions, learn, ledger, status and coverage pages, with lastmod from the refresh job; drop or mark past elections.</td><td>Section 5.1. 134 candidate pages missing today.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">45</td><td>Add structured data: Organization and WebSite on the home page, Event on ballots, Person with affiliation on candidates, BreadcrumbList on sub-pages.</td><td>Section 5.1.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">46</td><td>Add favicon.ico, a web manifest with a theme colour, a color-scheme meta, and language, build date, self link and item descriptions to the RSS feed.</td><td>Section 5.8.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">47</td><td>Open every collapsed card in the print stylesheet, so the ballot prints whole.</td><td>Section 5.8.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">48</td><td>Rate-limit the maintainer sign-in, or move it off the public origin.</td><td>Section 5.8.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">49</td><td>Remove or finish /api/place-layers, which returns empty layers for every input.</td><td>Section 5.7.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>D · Before 8 October: polling day</h3>
+  <table class="list">
+    <thead><tr><th>#</th><th>Improvement</th><th>Why, and where it comes from</th><th class="e">Effort</th><th class="w">Decides</th></tr></thead>
+    <tbody>
+      <tr><td class="n">50</td><td>A postcode fallback: if Democracy Club's lookup fails or the 1,000-a-day key is exhausted, resolve the postcode with postcodes.io to constituency and ward and match against the ballots we already hold.</td><td>Democracy Club's key allows 1,000 lookups a day; the brief to Peter asks for more, but the site should not depend on the answer.</td><td class="e">M</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">51</td><td>A rehearsal on a phone: boundary postcodes, all fifteen candidate pages, cold-start timing after an idle hour, a small load test, and a run of the accessibility checker after the changes above.</td><td>Section 5.2 cold starts; the two 502s seen during the audit.</td><td class="e">M</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">52</td><td>Snapshot every ballot and candidate page to the Internet Archive on the eve of the poll and link the snapshots from the ledger.</td><td>Argentina's yoquierosaber.org is now gambling spam; Vote Pilipinas carries junk listings. The record should not depend on us.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">53</td><td>Hold upstream changes to existing candidate records (a changed statement or photo from Democracy Club) in a review queue during the regulated period rather than auto-publishing, while still auto-publishing new candidates and withdrawals.</td><td>Section 9: politicians' offices edit Wikipedia; Democracy Club cannot verify that an edit is from the candidate.</td><td class="e">M</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">54</td><td>Put a voluntary imprint-style line in the footer: "Published by What's It To Me?, [contact address]".</td><td>Section 9: not legally required; the Bill may change that; it is the trust signal people look at for four seconds.</td><td class="e">S</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">55</td><td>Write and date a one-page purpose-test self-assessment (no call to action; identical treatment) before the regulated period, and keep it in the repository.</td><td>Section 9, non-party campaigner rules.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">56</td><td>Publish a notice-and-takedown address with a stated response time, and a written illegal-content risk assessment for any submission route.</td><td>Section 9, Defamation Act s.5 and the Online Safety Act.</td><td class="e">S</td><td class="w"><span class="tag x">Both</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>E · Before public launch: earn the trust</h3>
+  <table class="list">
+    <thead><tr><th>#</th><th>Improvement</th><th>Why, and where it comes from</th><th class="e">Effort</th><th class="w">Decides</th></tr></thead>
+    <tbody>
+      <tr><td class="n">57</td><td>A "who is responsible for this claim" label on every quote: candidate statement, party document, official record, third-party report; and "self-declared" on anything the candidate wrote about themselves.</td><td>MyNeta labels every field "self-declared"; Mexico's INE says "the political actors are responsible for the content"; Democracy Club's provenance line.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">58</td><td>An identical empty-state line everywhere: "No published position found on [topic]. Last checked [date]. Sources searched: [list]." with the party's position as an explicitly labelled fallback beneath.</td><td>Section 9, omission neglect and the party cue; Romily's round-six choice (option 4 of paper 03) already points here.</td><td class="e">M</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">59</td><td>A "Last checked" date on every candidate page, as party pages already have.</td><td>Full Fact dates every pledge page; Democracy Club's stale-statement problem.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">60</td><td>An "Are you telling me how to vote?" section on /about in those words, with the one-sentence reason and the two studies that show why matching is never neutral.</td><td>Policy.nz's About page; section 9 (Louwerse and Rosema; Walgrave and others).</td><td class="e">S</td><td class="w"><span class="tag r">R</span></td></tr>
+      <tr><td class="n">61</td><td>Publish the rule for choosing the nine topics, and the date the list was fixed.</td><td>Section 9: topic selection is our version of statement selection, the largest known source of bias in such tools. Full Fact's tracker admits its first pledge set followed the government's priorities.</td><td class="e">S</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">62</td><td>A "how we check" page in plain words: how a quote enters the ledger, how it is re-read weekly, how a correction works, and that identity is verified but truth is not for anything a candidate supplies.</td><td>Section 9: transparency boxes raise credibility across ideologies (Curry and Stroud); Ballotpedia's "does not fact-check responses".</td><td class="e">S</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">63</td><td>A funding line to the pound on /about and /who-we-are ("self-funded; £X spent to date; no other money"), kept current.</td><td>Full Fact lists funders with amounts; Ballotpedia's hidden donors are the story its critics tell; 14% of Britons think political money is transparent.</td><td class="e">S</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">64</td><td>An accessibility statement.</td><td>Section 9, Equality Act; the Commission's disabled-voter research values predictable layout, which the template rule gives.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">65</td><td>Disclose Netlify's Core Web Vitals beacon on /about/data-use, or turn it off; if any analytics are ever added, first-party, statistics-only, with a one-click opt-out and no banner.</td><td>Section 5.3 and section 9 (PECR Schedule A1).</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">66</td><td>A dated method-change log: one short entry whenever the topic list, a summary rule, the grid or a source rule changes.</td><td>mySociety posts a dated note with reasons every time it changes TheyWorkForYou's summaries.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">67</td><td>A per-candidate "what we could not find" box: statement, website, leaflets, record, each present or absent with the date checked.</td><td>Korea and India show voters years of records; the UK shows almost nothing; an honest list beats a blank.</td><td class="e">M</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">68</td><td>Leaflets on candidate pages (already ingested), linked to ElectionLeaflets rather than copied.</td><td>63% of 2024 voters got candidate information from leaflets (Democracy Club); the site promises them.</td><td class="e">M</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">69</td><td>A Commons voting-record section for any candidate who has been an MP: division name, date, the question put, and the vote, one row each, never a phrase like "voted against X".</td><td>TheyWorkForYou's 80 complaining MPs and They Vote For You's legal threats; section 9, records move people.</td><td class="e">L</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">70</td><td>Polling-station lookup on the ballot page, from the Electoral Commission or Democracy Club data.</td><td>The one thing every list-maker offers and we do not; WhereDoIVote's satisfaction beats WhoCanIVoteFor's every year.</td><td class="e">M</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">71</td><td>Candidate contact details where Democracy Club holds them, and a "write to this candidate" link.</td><td>WhoCanIVoteFor and WriteToThem; a voter who wants to ask a question should not have to leave.</td><td class="e">S</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">72</td><td>A hustings list per ballot, from council and local-press pages, with a form to add one.</td><td>105 users asked Democracy Club for hustings in 2024; electionhustings.uk shows a volunteer can cover a borough.</td><td class="e">M</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">73</td><td>An embeddable single-candidate card and a vertical, one-screen-per-candidate view sized for phones and short video.</td><td>across 48 countries, 52% of 18 to 24-year-olds get news mainly from social and video networks; the BBC's embed produced 400,000 searches in two weeks in 2023.</td><td class="e">M</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">74</td><td>Pitch the existing embed widget to local papers and councils, with a one-page note like the Democracy Club brief.</td><td>78 councils used Democracy Club's widget in 2026; placement, not content, drove the BBC's numbers.</td><td class="e">S</td><td class="w"><span class="tag r">R</span></td></tr>
+      <tr><td class="n">75</td><td>A two-question, anonymous, in-browser measure of what users learned ("Do you know where the candidates stand on the issue you care most about?" before and after), reported on /about/impact.</td><td>Section 9: knowledge is the outcome the evidence supports; turnout is not.</td><td class="e">M</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">76</td><td>Publish post-election figures on /about/impact: usage, satisfaction, sources re-read, corrections made, and candidate take-up by party.</td><td>Democracy Club and Full Fact publish theirs after every election; ours reports zeros and testing traffic.</td><td class="e">S</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">77</td><td>Cite Elections ACT's candidate-statement rules and Taiwan's g0v charter on /about as precedents for equal treatment and "no value judgements, no rankings".</td><td>Section 6, family 1 and family 4.</td><td class="e">S</td><td class="w"><span class="tag r">R</span></td></tr>
+      <tr><td class="n">78</td><td>Say on the ballot page whose order it is: "in the order on the ballot paper, which is alphabetical by surname".</td><td>Section 9, ballot-order effects; Ballotpedia's warning line in reverse.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">79</td><td>Where a candidate is on the ballot but missing from any page (a late addition, a withdrawal not yet processed), say so on that page.</td><td>The Brussels court ordered VRT to do exactly this, on pain of €2,500 a day.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">80</td><td>A dated "provisional until the Statement of Persons Nominated is published" notice on any ballot page shown before nominations close, and a ledger entry when the list became official.</td><td>Finland's press council reprimanded Yle in 2026 for launching on a provisional list without saying so.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">81</td><td>Show the party-funding panel with the OpenSecrets-style caveat: "money given to the party nationally, not to this candidate; local candidate spending is reported separately after the election".</td><td>OpenSecrets states on its methodology pages what a number is not.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">82</td><td>Quote candidates on policy and on themselves only; where a quote about a rival is unavoidable for a policy point, quote both sides with equal prominence and the source for each.</td><td>Section 9, the repetition rule and RPA 1983 s.106. Two Holborn statements already contain claims about rivals.</td><td class="e">S</td><td class="w"><span class="tag x">Both</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>F · If candidates are invited (round seven, options C or D)</h3>
+  <table class="list">
+    <thead><tr><th>#</th><th>Improvement</th><th>Why, and where it comes from</th><th class="e">Effort</th><th class="w">Decides</th></tr></thead>
+    <tbody>
+      <tr><td class="n">83</td><td>Automatic invitations from the morning update: create the link, send the email to the Democracy Club address the day a candidate appears, one reminder three days later, everything logged.</td><td>Section 7. Sending is automatic; reading is not.</td><td class="e">M</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">84</td><td>Ask only for confirmation or correction of what we already quote, with a one-click "confirm" and a "not yet confirmed by the candidate" flag on the page until then.</td><td>Poland's Latarnik labels unconfirmed positions "unofficial"; NRK says in writing when it overruled a party; asking for new positions is what broke Vote Smart.</td><td class="e">M</td><td class="w"><span class="tag r">R</span></td></tr>
+      <tr><td class="n">85</td><td>If statements are allowed: one identical short form, about 750 characters, verbatim, shown in a labelled box under the card and never counted in any comparison.</td><td>VOTE411's format; Ballotpedia's parity rule.</td><td class="e">M</td><td class="w"><span class="tag r">R</span></td></tr>
+      <tr><td class="n">86</td><td>Oregon's four required fields at the top of any statement (occupation, occupational background, education, prior governmental experience), labelled as supplied by the candidate.</td><td>The closest thing to a neutral template for a candidate statement.</td><td class="e">S</td><td class="w"><span class="tag r">R</span></td></tr>
+      <tr><td class="n">87</td><td>One content rule, from California statute: about yourself, not about other candidates.</td><td>It removes the need to judge what counts as an attack.</td><td class="e">S</td><td class="w"><span class="tag r">R</span></td></tr>
+      <tr><td class="n">88</td><td>Ballotpedia's dispute rules verbatim: no removal, no overwriting; a dated note above the original; site edits in [brackets]; third-party challenges need a source; factual errors in our own text corrected within 24 hours and logged.</td><td>Section 6, family 3.</td><td class="e">S</td><td class="w"><span class="tag r">R</span></td></tr>
+      <tr><td class="n">89</td><td>Links bound to one candidate and confirmed by email code, not forwardable; identity verified, truth not, and a sentence saying so.</td><td>A Texas League lost answers when candidates forwarded links to each other.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">90</td><td>The same neutral silence label on every card ("Invited [date]. No reply yet."), and a public count on the ballot page ("6 of 15 have confirmed their positions").</td><td>Abgeordnetenwatch's counter; SVT's start-page list of who declined.</td><td class="e">S</td><td class="w"><span class="tag r">R</span></td></tr>
+      <tr><td class="n">91</td><td>A published timetable per election: quote cut-off, invitations sent, correction deadline, go-live.</td><td>Build a Ballot publishes one; Vote Compass invites party review before publication.</td><td class="e">S</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">92</td><td>A "help us ask" page giving voters a one-line message to send their own candidates.</td><td>VOTE411's candidate-contact page. Costs nothing.</td><td class="e">S</td><td class="w"><span class="tag r">R</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>G · The money layer</h3>
+  <table class="list">
+    <thead><tr><th>#</th><th>Improvement</th><th>Why, and where it comes from</th><th class="e">Effort</th><th class="w">Decides</th></tr></thead>
+    <tbody>
+      <tr><td class="n">93</td><td>"Estimate" in the heading; the law year and model version dated; the model and its owner named, with a link to PolicyEngine's funders and HM Treasury's transparency record.</td><td>Section 8: KFF, Tax Foundation, the IFS box.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">94</td><td>Direction and size class before the figure ("about £30 a month more"), rounded to £10 a month; spread shown for the band, not one number.</td><td>The CPB: "direction, not precise figures"; Australia's rounding rule.</td><td class="e">M</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">95</td><td>A one-line reliability note on every modelled figure, and "static: assumes nobody changes their behaviour".</td><td>Australia's and Canada's budget offices; PolicyEngine's own default.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">96</td><td>A "cannot be modelled" count per candidate ("3 of this candidate's 9 money pledges cannot be modelled"), listing which, drawn from PolicyEngine's published gap list.</td><td>Section 8; the identical-page rule applied to the money layer.</td><td class="e">M</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">97</td><td>The KFF question and answer on the page: "Does this tell you what you will pay? No."; who the figures will be wrong for (students, care-home residents, mixed-status households); why your own result will differ (a pay rise, a move, a birth usually matter more than policy).</td><td>KFF; GOV.UK's benefits page; Nibud; the CPB explainer.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">98</td><td>"Not a voting guide" on the money page itself, and "if enacted as described" on every figure, with the first year and the end of the parliament side by side.</td><td>The CPB prints it on page 2; costs hidden beyond the horizon were its evaluation's warning.</td><td class="e">S</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">99</td><td>Show the whole-country effect and the effect on two other household types beside "a household like yours".</td><td>Section 9: personal stakes move votes; the sociotropic view should be one glance away.</td><td class="e">M</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">100</td><td>Model every modellable money pledge on a ballot or none: a written rule for what counts, applied to every party.</td><td>Section 4.6; the CPB's "imperfect comparison".</td><td class="e">L</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">101</td><td>Show modelled figures on the candidate page as well as the ballot page, in the same place for everyone, with "no modellable money pledge found" as the empty state.</td><td>Section 4.6.</td><td class="e">M</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">102</td><td>Write the research on personalised information into /about/impact (what it does, what is contested), and invite challenge.</td><td>Section 9.</td><td class="e">S</td><td class="w"><span class="tag r">R</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>H · Before May 2027: scale</h3>
+  <table class="list">
+    <thead><tr><th>#</th><th>Improvement</th><th>Why, and where it comes from</th><th class="e">Effort</th><th class="w">Decides</th></tr></thead>
+    <tbody>
+      <tr><td class="n">103</td><td>A council-election template: council-level positions from local manifestos and candidate statements, the council page's decisions and consultations, and multi-member ward layout.</td><td>Section 4.5. Democracy Club collected 148 local manifestos in 2026; 25 of our 26 autumn elections are council elections.</td><td class="e">L</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">104</td><td>A practice ballot for multi-member wards with fictional names and a "check my ballot paper" button.</td><td>Australia's AEC simulator; WhichCandidate's mock ballot; the ballot-order research says local wards are where voters most need it.</td><td class="e">M</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">105</td><td>Election agents and local party officers as the bulk route for confirmation in May 2027.</td><td>SVT reached 97% of 2,167 local parties by email; smartvote registers whole slates.</td><td class="e">M</td><td class="w"><span class="tag r">R</span></td></tr>
+      <tr><td class="n">106</td><td>Settle hosting and the shared Netlify credit pot, the Actions minutes and the Democracy Club token before the regulated period.</td><td>Paper 07 and the bible's section 13; Voter's Edge died of a platform dependency.</td><td class="e">M</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">107</td><td>Local-authority and constituency PolicyEngine microdata, as Nuffield's grant to PolicyEngine delivers it, so that council-level figures become possible.</td><td>Section 8: the IFS could only model council tax to region; PolicyEngine's local datasets are funded and in progress.</td><td class="e">L</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">108</td><td>A non-money layer from things already measured locally (school funding per pupil, trust waiting times, council-tax band bills), describing direction and mechanism, never a computed number.</td><td>Section 8, the CPB dropped these effects as too error-prone; HM Treasury's benefits-in-kind method.</td><td class="e">L</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">109</td><td>Northern Ireland and Scotland for 2027: STV ballots, NI parties, NI benefit rules in the grid, and Welsh-language pages (the handover note exists).</td><td>Vote for Policies excluded NI and called its devolved comparison "sub-optimal"; no NI candidate tool exists; Democracy Club is mapping NI polling places for 2027.</td><td class="e">L</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">110</td><td>Keep the hand-done share of every election small enough for two people and measure it: minutes per candidate.</td><td>Vote for Policies closed because it "still [didn't] have the technology needed to automate policy tracking"; the Sozial-O-Mat could not be built in time for a snap election.</td><td class="e">M</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">111</td><td>A teacher mode: no postcode needed, the national parties page, a printable pack, and the identical-template rule stated as the guarantee of impartiality under the Department for Education's guidance.</td><td>Austria's wahlkabine reached 25,000 pupils through 1,000 downloads; teachers are the source 14 to 15-year-olds trust most and feel unable to use.</td><td class="e">M</td><td class="w"><span class="tag r">R</span></td></tr>
+      <tr><td class="n">112</td><td>Plan for 16 and 17-year-old voters and 14-year-old "attainers" once the Representation of the People Bill commences.</td><td>Section 9.</td><td class="e">S</td><td class="w"><span class="tag r">R</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>I · Later, and ideas nobody in the UK has tried</h3>
+  <table class="list">
+    <thead><tr><th>#</th><th>Improvement</th><th>Why, and where it comes from</th><th class="e">Effort</th><th class="w">Decides</th></tr></thead>
+    <tbody>
+      <tr><td class="n">113</td><td>A returning-candidate comparison: what they published last time beside what they publish now, dated, without comment.</td><td>MyNeta's re-contest view; the ledger already holds dated quotes.</td><td class="e">M</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">114</td><td>An after-election page for each winner: the quotes they stood on, with dated records (votes, council decisions, Hansard) appended as they happen, and no compliance percentage.</td><td>Chile's Del Dicho al Hecho; Kenya's promise tracker; the ledger makes it straightforward.</td><td class="e">L</td><td class="w"><span class="tag x">Both</span></td></tr>
+      <tr><td class="n">115</td><td>An audio reading of each ballot page, in ballot order.</td><td>Taiwan's election commission records audio bulletins for blind voters; no UK site offers it.</td><td class="e">M</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">116</td><td>A spreadsheet export of every quote and source per election, published when nominations close.</td><td>Taiwan's The Reporter released all 2018 platforms as an open spreadsheet; Yle publishes candidate answers as open data.</td><td class="e">S</td><td class="w"><span class="tag b">B</span></td></tr>
+      <tr><td class="n">117</td><td>An exit plan written down: the data licence, where the archive lives, who holds it, and a domain registration years long.</td><td>VoteWatch Europe's fourteen years of records now live in two inboxes; Sunlight's surviving tools were the ones with a new home.</td><td class="e">S</td><td class="w"><span class="tag x">Both</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="rule-box"><div class="t">What not to build, confirmed abroad</div>
+  <p>Match percentages, traffic-light colours, one-word verdicts, sortable league tables, activity counts, "print your picks", favourites, a two-axis map, endorsement filters, a fee or polling threshold for appearing, a "courage" label for silence, and anything that infers a position a candidate has not published. Each of these has a named casualty in section 6.</p></div>
+</section>
+
+<!-- ============ 11 ============ -->
+<section class="section" id="s11">
+  <div class="section-head"><div class="num">11 · Position</div><h2>What nobody else does, and what everybody else does</h2>
+  <p class="lede">Measured against sixty tools, this is where the site stands. The first list is the reason to keep going; the second is the cheapest way to look like a grown-up site.</p></div>
+
+  <div class="cols">
+    <div>
+      <h3>Nobody else found does this</h3>
+      <ul class="small">
+        <li>Shows every ballot candidate on an identical page with every position quoted word for word from a named, dated, linked source. Democracy Club shows statements the candidates wrote; TheyWorkForYou shows votes for sitting MPs only; Policy.nz paraphrases; the matchers show positions someone asserted.</li>
+        <li>Links a per-candidate ballot to a household-level tax and benefit model. The IFS works at party level for three parties; PolicyEngine is a calculator with no ballot; the CPB costs parties, not candidates, and only those that opt in.</li>
+        <li>Keeps an append-only public ledger of every claim, with a hash. Full Fact's corrections log is edited and covers corrections only; Ballotpedia's is private.</li>
+        <li>Puts council meeting agendas, planning applications, school changes and consultations on the same page as the ballot.</li>
+        <li>Refuses on principle to rank, score, match or predict, and says why. Democracy Club does not rank but does not say why; every quiz ranks; Electoral Calculus predicts.</li>
+        <li>Reports its own freshness job by job, and its own accuracy checks including the ones it skipped.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Everybody else does this, and we do not</h3>
+      <ul class="small">
+        <li>Polling-station lookup (Electoral Commission, Democracy Club, VOTE411, the official pamphlets).</li>
+        <li>Candidate contact details on the page and a write-to-them route (WhoCanIVoteFor, WriteToThem, Abgeordnetenwatch).</li>
+        <li>Named funders with amounts, or a plain statement that there are none (Full Fact, Policy.nz, PolicyEngine).</li>
+        <li>Published usage and satisfaction figures after every election (Democracy Club, SVT, Full Fact).</li>
+        <li>A partner widget actually adopted by councils and newspapers (Democracy Club: 78 councils). Ours exists; take-up is what is missing.</li>
+        <li>Leaflets beside the candidate (WhoCanIVoteFor to ElectionLeaflets).</li>
+        <li>Being indexed by search engines.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="rule-box ochre" style="margin-top:6mm"><div class="t">The one sentence</div>
+  <p>The field splits into list-makers that are trusted but shallow, matchers that are engaging but opaque and mostly dead or hobbyist in the UK, and analysts that are rigorous but stop at the party or the sitting MP. What's It To Me? sits in the empty space between them. The risks are the ones that killed Vote for Policies (hand curation that does not scale) and that dog TheyWorkForYou (context stripped by sharers). The defences are already in the design: automation, quotes with sources, the ledger, and the refusal to rank. What remains is to make the surface as true as the foundations.</p></div>
+</section>
+
+<!-- ============ 12 ============ -->
+<section class="section" id="s12">
+  <div class="section-head"><div class="num">12 · Verification</div><h2>What could not be verified, and the sources</h2>
+  <p class="lede">Nothing in this review was filled in from memory. Where a source could not be read on 25 September 2026 the claim is listed here rather than used, and the eight underlying reports carry an address for every figure they contain.</p></div>
+
+  <h3>Unverified, and left out or marked</h3>
+  <p class="small">The BBC's own election pages and any "what the manifestos mean for you" calculator (BBC blocked; described only through Democracy Club's partner statistics). The Guardian, FT, Telegraph, Sky and This is Money manifesto and Budget calculators (not reachable). RTÉ's involvement in Smartvote.ie. WhichCandidate.ie's and Policy.nz's candidate response rates (not published). Ballotpedia's donor percentages (Form 990 not checked; the 65–70% figure is a critic's estimate). Mainichi's and NHK's candidate response rates (blocked or gated). The text of the Lausanne Declaration on voting-advice applications (read through a secondary source). VoteWatch Europe's reason for closing (not stated by the organisation). The Korean electoral commission's candidate portal contents. Any Australian Vote Compass controversy in 2013. The Lambeth May 2026 margin of 88 votes and the "216 councils" figure on the no-election page (not re-checked). The two Electoral Commission deadline rules (registration 12 working days; Voter Authority Certificate 6 working days) were verified by calculation against the statutory timetable, because the Commission's pages refused automated requests; every other voting-mechanics claim was re-read on gov.uk. 184 external links on 29 bot-protected hosts (Parliament's votes site, Camden, Leicestershire, Wiltshire, Leeds, Restore Britain, Reform UK, the Commons Library, the Electoral Commission and others) returned 403 to the test machine and are unverified until checked from a UK connection; every link to web.archive.org (70) was unreachable and is unverified.</p>
+
+  <h3>The eight reports this review is drawn from</h3>
+  <p class="small">All are in the repository at <code>docs/research/deep-dive-2026-09/</code>, each with its full source list, its OBSERVED and JUDGED labels, and its own unverified list: <code>audit-technical.md</code> (with 191 screenshots, Lighthouse and axe output and the crawl data), <code>audit-content.md</code> (with 111 screenshots and the extracted claims), <code>research-uk-ireland.md</code>, <code>research-europe.md</code>, <code>research-north-america.md</code>, <code>research-rest-of-world.md</code>, <code>research-personal-impact.md</code> and <code>research-evidence.md</code> (87 numbered sources).</p>
+
+  <h3>Primary sources re-read for the headline figures</h3>
+  <div class="sources">
+    <p>Democracy Club, "2024 local and general elections" (statements 53.6%; 20 million searches) — democracyclub.org.uk/report_2024/ · "2025 local elections" (statements 25% of 8,600+ candidates) — democracyclub.org.uk/report_2025/ · "Collecting candidate statements is hard, let's collect emails instead", 24 Jan 2024 — democracyclub.org.uk/blog/2024/01/24/</p>
+    <p>Ballotpedia News, "6,541 candidates responded to Ballotpedia's Candidate Connection survey in 2024" (19.2% of 28,246), 16 Jan 2025 — news.ballotpedia.org/2025/01/16/ · Ballotpedia, "Our approach to Candidate Connection survey edit and removal requests" — ballotpedia.org</p>
+    <p>League of Women Voters of Nebraska, "VOTE411 can be used for general election" (189 contacted, 115 responded, 61%) — lwvnebraska.org · LWV North Carolina, "VOTE411 and Voter Services" (66%) — my.lwv.org/north-carolina-state</p>
+    <p>Vote Smart, English Wikipedia (72%, 48%, 20%; "It sets them up for a hit piece", citing the Wall Street Journal and Washington Monthly) — en.wikipedia.org/wiki/Vote_Smart · Vote Smart, "Political Courage Test" — justfacts.votesmart.org</p>
+    <p>smartvote, 2023 federal elections page (83% of 5,925; about 2.3 million recommendations) — smartvote.ch/de/election_groups/527 · smartvote candidate terms 2025 (PDF) — blog.smartvote.ch</p>
+    <p>Scoop, "Policy.nz returns for the 2026 election", 25 Sep 2026 (over 500,000, one in six, 2020 and 2023) — scoop.co.nz · Policy.nz, "About" — policy.nz/about</p>
+    <p>bpb, "Wahl-O-Mat zur Europawahl wieder online", May 2019 (settlement: all parties, one button) — bpb.de/die-bpb/presse/pressemitteilungen/291808/ · bpb, Wahl-O-Mat pages (26.0 million uses, 2025) — bpb.de/themen/wahl-o-mat/ · Bruzz, "Els Ampe wint rechtszaak tegen VRT", 28 May 2024 — bruzz.be · Yle, JSN decision, Feb 2026 — yle.fi/a/74-20210094</p>
+    <p>CPB, press release "CPB presents its calculations…", 10 Oct 2025 ("not an online voting advice tool"; ten parties) — cpb.nl · CPB, "Evaluatie Keuzes in Kaart 2027-2030", Apr 2026 (PDF) — cpb.nl · CPB, "Toelichting aanpassingen presentatie koopkrachtramingen", 16 Aug 2018 — cpb.nl · Nibud, "Over koopkrachtplaatjes" — nibud.nl</p>
+    <p>Vote for Policies, "Farewell to Vote for Policies – and thank you", 12 May 2025 — voteforpolicies.org.uk · Full Fact, "Funding" and "Corrections" — fullfact.org/about/</p>
+    <p>Electoral Commission, "Strong confidence in running of elections, but appetite for more voter information", 9 Jul 2025 (49%; YouGov, 2,781 adults, 2–16 May 2025) — electoralcommission.org.uk · Electoral Commission, "Public attitudes to elections and democracy: 2026 findings" — electoralcommission.org.uk · Reuters Institute, Digital News Report 2026, United Kingdom — reutersinstitute.politics.ox.ac.uk</p>
+    <p>Munzert and Ramirez-Ruiz, "Meta-Analysis of the Effects of Voting Advice Applications", Political Communication 38(6), 2021 (22 studies, 73,673 participants; OR 1.87 and 1.44; experimental estimates not significant) — working paper at simonmunzert.com · Kendall, Nannicini and Trebbi, American Economic Review 105(1), 2015 · Dunning et al., Science Advances 5(7), 2019 · Walgrave, Nuytemans and Pepermans, West European Politics 32(6), 2009 · Louwerse and Rosema, Acta Politica 49(3), 2014 · Healy, Persson and Snowberg, American Political Science Review 111(4), 2017 · Freeder, de Benedictis-Kessner and Bernhard, Political Behavior, 2026 (preprint)</p>
+    <p>Elections Act 2022, Part 6 · Representation of the People Bill, HL Bill 47 and explanatory notes, Sep 2026 · Electoral Commission, Code of Practice for non-party campaigners · Defamation Act 2013 · Representation of the People Act 1983 s.106 · Copyright, Designs and Patents Act 1988 s.30(1ZA) · Online Safety Act 2023 s.3 and Sch. 1 · Data (Use and Access) Act 2025 s.112 and Sch. 12 · Equality Act 2010 s.29 — all at legislation.gov.uk and bills.parliament.uk</p>
+    <p>PolicyEngine UK, "Behavioural responses", "Supporters", "Privacy", and the scorecard gap list (GitHub issue 136, 24 Sep 2026) — policyengine.org and github.com/PolicyEngine · HM Treasury, algorithmic transparency record for PolicyEngine, 17 Dec 2024 — gov.uk · policyengine-uk source, household_net_income (adds market income and benefits; subtracts tax and pension contributions) — github.com/PolicyEngine/policyengine-uk</p>
+    <p>Our own site: whatsittome.org, every page listed in section 2, read on 25 September 2026; the Supabase database (claims, current_claims, receipt_grid, candidate_invitations, sources) queried the same day; Camden Council, Statement of Persons Nominated and Notice of Poll; UK Parliament Members API, constituency 4105; Democracy Club candidates API, ballot parl.holborn-and-st-pancras.by.2026-10-08; gov.uk "How to vote" pages.</p>
+  </div>
+
+  <div class="endmark"><img src="img/mark-light.png" alt=""></div>
+</section>
+
+</body>
+</html>
