@@ -95,8 +95,13 @@ def main():
                 prev = last.get(url, {})
                 row["changed"] = bool(prev.get("sha256") and prev["sha256"] != digest)
                 miss = [ref for ref, q in t["quotes"] if not quote_found(q, tn)]
-                row["quotes_found"] = len(t["quotes"]) - len(miss); row["missing_refs"] = miss or None
-                missing += len(miss)
+                if miss and len(miss) == len(t["quotes"]) and len(tn) < 2500:
+                    # Almost no readable text: a page built by JavaScript, or text inside an image. Not evidence of a change.
+                    row["note"] = "page text not readable automatically (built by script or held in an image); check by hand"
+                    unreachable += 1
+                else:
+                    row["quotes_found"] = len(t["quotes"]) - len(miss); row["missing_refs"] = miss or None
+                    missing += len(miss)
                 if not prev.get("archived") and not row["changed"]:
                     row["archive_url"] = existing_snapshot(url)   # most sources are already captured; reuse a recent copy
                 if not row["archive_url"] and (not prev.get("archived") or row["changed"]) and archived < ARCHIVE_BUDGET and time.time() - t0 < TIME_BUDGET * 0.8:

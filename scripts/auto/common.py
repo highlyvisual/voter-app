@@ -117,12 +117,28 @@ def councils() -> list:
 def page_text(body: bytes, content_type: str = "") -> str:
     """Readable text from HTML or PDF, for checking that a quotation is still present."""
     if body[:5] == b"%PDF-" or "pdf" in content_type.lower():
+        # Poppler's pdftotext keeps words whole where pdfminer splits them ("technol ogy"); use it when installed.
+        try:
+            import subprocess, tempfile
+            with tempfile.NamedTemporaryFile(suffix=".pdf") as f:
+                f.write(body); f.flush()
+                out = subprocess.run(["pdftotext", f.name, "-"], capture_output=True, text=True, timeout=120)
+                if out.returncode == 0 and out.stdout.strip(): return out.stdout
+        except Exception:
+            pass
         try:
             import io
             from pdfminer.high_level import extract_text
             return extract_text(io.BytesIO(body))
         except Exception as ex:
             return f"__pdf_unreadable__ {ex}"
+    if body[:2] == b"PK" and ("word" in content_type.lower() or "officedocument" in content_type.lower() or b"word/document.xml" in body[:4000]):
+        try:  # Word document: the text lives in word/document.xml
+            import io, zipfile
+            xml = zipfile.ZipFile(io.BytesIO(body)).read("word/document.xml").decode("utf-8", "replace")
+            return html.unescape(re.sub(r"<[^>]+>", " ", xml.replace("</w:p>", "\n")))
+        except Exception as ex:
+            return f"__docx_unreadable__ {ex}"
     t = body.decode("utf-8", "replace")
     t = re.sub(r"(?is)<(script|style|noscript|svg)[^>]*>.*?</\1>", " ", t)
     t = re.sub(r"(?s)<[^>]+>", " ", t)
@@ -142,6 +158,8 @@ def quote_found(quote: str, text_norm: str) -> bool:
     q = norm(quote)
     if not q: return True
     if q in text_norm: return True
+    # Text extraction sometimes breaks words ("technol ogy") or joins them; compare with every space removed.
+    if len(q) > 25 and q.replace(" ", "") in text_norm.replace(" ", ""): return True
     # Long quotations split across PDF lines or page furniture: accept if every 8-word window is present.
     words = q.split()
     if len(words) < 12: return False
