@@ -22,7 +22,25 @@ COUNCILS = {  # slug (lib/councils.json) -> Modern.gov base URL
     "blackpool": "https://democracy.blackpool.gov.uk",
     "wiltshire": "https://cms.wiltshire.gov.uk",
     "camden": "https://democracy.camden.gov.uk",  # blocks automated access (403) as of 24 Sept 2026; kept so it is tried
+    # Added 25 Sept 2026 (council pages round two). Bases as each council links them from its own website.
+    "northumberland": "https://northumberland.moderngov.co.uk",
+    "stroud": "https://stroud.moderngov.co.uk",
+    "north-west-leicestershire": "https://minutes-1.nwleics.gov.uk",
+    "newcastle-under-lyme": "https://moderngov.newcastle-staffs.gov.uk",
+    "south-kesteven": "https://moderngov.southkesteven.gov.uk",
+    "argyll-and-bute": "https://www.argyll-bute.gov.uk/moderngov",
+    "bassetlaw": "https://bassetlaw.moderngov.co.uk",
+    "halton": "https://councillors.halton.gov.uk",  # slow (30-40 s a call)
+    "aberdeen-city": "https://aberdeen.moderngov.co.uk",
+    "leeds": "https://democracy.leeds.gov.uk",  # refuses anything but a full browser User-Agent (see BROWSER_UA)
+    "flintshire": "https://committeemeetings.flintshire.gov.uk",  # unreachable from the research machine; kept so it is tried
+    "mid-devon": "https://democracy.middevon.gov.uk",  # as above
+    "east-hertfordshire": "https://democracy.eastherts.gov.uk",  # as above
+    "newark-and-sherwood": "https://democracy.newark-sherwooddc.gov.uk",  # as above
+    "carmarthenshire": "https://democracy.carmarthenshire.gov.wales",  # 403 to automated access; kept so it is tried
 }
+# Councils whose servers turn away a named reader: for these alone we send an ordinary browser User-Agent.
+BROWSER_UA = {"leeds"}
 BODIES = {"council": "Full Council", "full council": "Full Council", "council meeting": "Full Council", "meeting of the council": "Full Council",
           "cabinet": "Cabinet", "executive": "Cabinet", "the executive": "Cabinet"}
 BACK, AHEAD = 183, 92
@@ -50,14 +68,15 @@ PATTERNS = [r"^\d.*refreshment break$", r"^residents? questions", r"^minutes of 
 PROPOSER = re.compile(r"\b(?:from|by|in the names? of|proposed by)\s+((?:Cllrs?|Councillors?)\.?\s+[^.;:()]+)", re.I)
 GROUP = re.compile(r"\b(Green|Labour|Conservative|Liberal Democrats?|Lib Dem|Reform UK|Independent|Plaid Cymru|SNP)\s+(?:Party\s+)?Group\b", re.I)
 UA = {"User-Agent": "What's It To Me? (whatsittome.org) council meetings reader; hello@whatsittome.org"}
+BROWSER = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"}
 
 
 def norm(t: str) -> str:
     return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9 ]", " ", t.lower().replace("’", "").replace("'", ""))).strip()
 
 
-def get(url: str) -> str:
-    with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=30) as r:
+def get(url: str, browser: bool = False) -> str:
+    with urllib.request.urlopen(urllib.request.Request(url, headers=BROWSER if browser else UA), timeout=60) as r:
         return r.read().decode("utf-8", "replace")
 
 
@@ -73,7 +92,8 @@ def text(h: str) -> str:
 
 def fetch(slug: str, base: str, today: datetime.date):
     ws = f"{base}/mgWebService.asmx"
-    cx = get(f"{ws}/GetCommittees?lDummy=0")
+    b = slug in BROWSER_UA
+    cx = get(f"{ws}/GetCommittees?lDummy=0", b)
     bodies = []
     for c in re.findall(r"<committee>(.*?)</committee>", cx, re.S):
         title = tag(c, "committeetitle")
@@ -84,12 +104,12 @@ def fetch(slug: str, base: str, today: datetime.date):
     frm, to = (today - datetime.timedelta(days=BACK)).strftime("%d/%m/%Y"), (today + datetime.timedelta(days=AHEAD)).strftime("%d/%m/%Y")
     rows = []
     for cid, ctitle, body in bodies:
-        mx = get(f"{ws}/GetMeetings?lCommitteeId={cid}&sFromDate={frm}&sToDate={to}")
+        mx = get(f"{ws}/GetMeetings?lCommitteeId={cid}&sFromDate={frm}&sToDate={to}", b)
         for m in re.findall(r"<meeting>(.*?)</meeting>", mx, re.S):
             mid, mdate, status = tag(m, "meetingid"), tag(m, "meetingdate"), tag(m, "meetingstatus")
             d = datetime.datetime.strptime(mdate, "%d/%m/%Y").date().isoformat()
             url = f"{base}/ieListDocuments.aspx?CId={cid}&MId={mid}"
-            gx = get(f"{ws}/GetMeeting?lMeetingId={mid}")
+            gx = get(f"{ws}/GetMeeting?lMeetingId={mid}", b)
             items = re.findall(r"<agendaitem>(.*?)</agendaitem>", gx, re.S)
             published = tag(gx, "agendapublished") == "True"
             kept = 0

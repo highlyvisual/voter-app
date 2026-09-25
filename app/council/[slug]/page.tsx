@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { publicClient } from "@/lib/data";
-import { councilBySlug, TOPIC_ORDER, type CouncilFact } from "@/lib/councils";
+import { councilBySlug, councilSlugFor, TOPIC_ORDER, type CouncilFact } from "@/lib/councils";
 import CiteThis from "@/components/CiteThis";
 
 // Romily, round six (24 Sept): "Lets focus on Councils as the major data set - What's happening where you live",
@@ -22,13 +22,16 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
   if (!c) notFound();
   const db = publicClient();
   const stripped = c.name.replace(/\s+(Borough|District|City|County|Council)(?=\s|$)/g, "").trim();
-  const [{ data: cllrs }, { data: control }, { data: ctax }, { data: ballots }, { data: agenda }] = await Promise.all([
-    db.from("councillors").select("name, party_name, ward, next_election").ilike("council", `${stripped}%`).order("ward").order("name"),
-    db.from("council_control").select("*").ilike("authority", `${stripped}%`).eq("year", 2026).limit(1).maybeSingle(),
-    db.from("council_tax_2026").select("*").ilike("authority", `${stripped}%`).limit(1).maybeSingle(),
+  // Exact names only: a prefix match would give Aberdeen City the councillors of Aberdeenshire.
+  const names = [...new Set([c.name, stripped])];
+  const [{ data: cllrs }, { data: control }, { data: ctax }, { data: ballotRows }, { data: agenda }] = await Promise.all([
+    db.from("councillors").select("name, party_name, ward, next_election").in("council", names).order("ward").order("name"),
+    db.from("council_control").select("*").in("authority", names).eq("year", 2026).limit(1).maybeSingle(),
+    db.from("council_tax_2026").select("*").in("authority", names).limit(1).maybeSingle(),
     db.from("ballots").select("ballot_paper_id, area_name, poll_date").ilike("area_name", `${stripped}%`).eq("archived", false).order("poll_date"),
     db.from("council_agenda_items").select("*").eq("council_slug", c.slug).order("meeting_date").order("item_id"),
   ]);
+  const ballots = (ballotRows ?? []).filter((b) => councilSlugFor(b.area_name) === c.slug);
   const councillors = (cllrs ?? []) as { name: string; party_name: string | null; ward: string; next_election: string | null }[];
   const nextElection = councillors.map((x) => x.next_election).filter(Boolean).sort()[0] ?? null;
   const byParty = new Map<string, number>();

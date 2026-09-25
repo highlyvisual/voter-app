@@ -1,6 +1,390 @@
 {
- "generated": "2026-09-24",
+ "generated": "2026-09-25",
  "councils": [
+  {
+   "slug": "aberdeen-city",
+   "name": "Aberdeen City",
+   "gss": "S12000033",
+   "site": "https://www.aberdeencity.gov.uk/",
+   "system": "moderngov",
+   "links": {
+    "plan": "https://www.aberdeencity.gov.uk/Council-Services/council-and-democracy/aberdeen-city-council-performance/information/plans-and-performance",
+    "budget": "https://www.aberdeencity.gov.uk/Council-Services/council-and-democracy/committee-meetings/information/budget-papers",
+    "meetings": "https://www.aberdeencity.gov.uk/Council-Services/council-and-democracy/committee-meetings",
+    "councillors": "https://www.aberdeencity.gov.uk/Council-Services/council-and-democracy/councillors",
+    "interests": "https://aberdeen.moderngov.co.uk/mgMemberIndex.aspx?bcr=1",
+    "consultations": "https://www.aberdeencity.gov.uk/Council-Services/have-your-say/consultation-hub"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "Aberdeen's Local Development Plan 2023 records a 10-year minimum all-tenure housing land requirement of 7,000 units for the city (set by National Planning Framework 4).",
+     "quote": "It sets out a 10 year Minimum All-Tenure Housing Land Requirement of 7,000 units at Annex E.",
+     "url": "https://sites.aberdeencity.gov.uk/sites/default/files/2024-08/Aberdeen%20Local%20Development%20Plan%202023%20written%20statementweb.pdf",
+     "publisher": "Aberdeen City Council",
+     "published_on": "2023-06-19",
+     "note": "Preceding sentence: 'From February 2023, the National Planning Framework forms part of the statutory development plan.' So the 7,000 figure is NPF4's, cited in the LDP. Plan adopted 19 June 2023 (date used). Next LDP expected 2029; revised Evidence Report approved 19 August 2026."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "Aberdeen City Council's 2026-27 budget raised Council Tax by 6.8% (Band D £1,748).",
+     "quote": "Council Tax will rise by 6.8%.",
+     "url": "https://www.aberdeencity.gov.uk/news/major-investments-in-aberdeen-as-council-sets-budget",
+     "publisher": "Aberdeen City Council",
+     "published_on": "2026-03-04",
+     "note": "Band D from the council's 'How your Council Tax is spent' information: 'Our band D tax for 2026-27- £1748' (https://www.aberdeencity.gov.uk/Council-Services/council-tax/council-tax-bands-and-billing/information/how-your-council-tax-is-spent). The site is a JavaScript app; text was read from the site's own content API (api.aberdeencity.gov.uk) that renders these pages."
+    },
+    {
+     "topic": "environment",
+     "summary": "Aberdeen's Net Zero Routemap sets a pathway for the city to reach net zero emissions by 2045.",
+     "quote": "The Net Zero Aberdeen Routemap and six enabling strategies on key themes (Mobility, Buildings and Heat, Circular Economy, Energy Supply, Natural Environment and Empowerment) were approved in 2022, setting a pathway towards the city of Aberdeen achieving net zero emissions by 2045.",
+     "url": "https://www.aberdeencity.gov.uk/Council-Services/environment/climate-change",
+     "publisher": "Aberdeen City Council",
+     "published_on": null,
+     "note": "Source text has a narrow no-break space between 'net zero' and 'emissions'. Same page: 'The draft Council Climate and Nature Plan 2026–2030 was approved in June 2026'. No page date shown."
+    },
+    {
+     "topic": "transport",
+     "summary": "Aberdeen's Net Zero, Environment and Transport Committee agreed a joint approach to the Wellington Road Junction Improvement Scheme and the Aberdeen South Harbour Link Road, with further engagement.",
+     "quote": "The Council has agreed a joined up approach to taking forward the Wellington Road Junction Improvement Scheme and the ongoing development of the Aberdeen South Harbour Link Road project",
+     "url": "https://www.aberdeencity.gov.uk/news/way-forward-agreed-for-major-city-road-projects",
+     "publisher": "Aberdeen City Council",
+     "published_on": "2026-09-11",
+     "note": "Quote is the opening of the first sentence (the sentence continues). Article says further engagement will 'address 35 points raised during consultation' and a review returns to committee in February. Also on 25 March 2026 the committee decided not to extend Sunday parking charge hours (https://www.aberdeencity.gov.uk/news/sunday-parking-hours-to-stay-the-same)."
+    },
+    {
+     "topic": "education",
+     "summary": "Aberdeen City Council approved a £27.164m programme of repairs and upgrades covering dozens of school buildings over three years.",
+     "quote": "Dozens of school buildings in Aberdeen are to get upgrades and improvement works.",
+     "url": "https://www.aberdeencity.gov.uk/news/improvements-to-school-buildings",
+     "publisher": "Aberdeen City Council",
+     "published_on": "2026-08-05",
+     "note": "Approved at Finance and Resources Committee. The school consultations page states 'There are currently no active school consultations.' (https://www.aberdeencity.gov.uk/Council-Services/education-childcare-and-young-people/school-consultations)."
+    }
+   ],
+   "notes": "www.aberdeencity.gov.uk is a JavaScript single-page app: curl/WebFetch get an empty shell. Content was read from the council's own CMS API (https://api.aberdeencity.gov.uk/api/cms/v3.0/services-list?slug=/<slug> and /news-list?url=/news/<slug>, needs Origin/Referer headers) - the same data the public pages render. Modern.gov: council pages link to https://aberdeen.moderngov.co.uk; its GetCommittees returned HTTP 200 but <committeescount>0 (empty list). committees.aberdeencity.gov.uk failed the TLS handshake via the proxy (could not access). Register of interests is per councillor on Modern.gov as a PDF (e.g. https://aberdeen.moderngov.co.uk/mgConvert2PDF.aspx?ID=550&T=6, confirmed via WebFetch). Consultation hub links to https://aberdeencouncilconsultations.commonplace.is/. Plan page lists Council Delivery Plan 2026/27.",
+   "checked": "2026-09-25"
+  },
+  {
+   "slug": "amber-valley",
+   "name": "Amber Valley",
+   "gss": "E07000032",
+   "site": "https://www.ambervalley.gov.uk/",
+   "system": "other",
+   "links": {
+    "plan": "https://www.ambervalley.gov.uk/council/strategies-and-policies/priorities-plan/",
+    "budget": "https://www.ambervalley.gov.uk/council/committees-and-meetings/committee-documents/?MeetingRef=2433",
+    "meetings": "https://www.ambervalley.gov.uk/council/committees-and-meetings/",
+    "councillors": "https://www.ambervalley.gov.uk/councillors-and-elections/borough-councillors/",
+    "interests": "https://www.ambervalley.gov.uk/councillors-and-elections/borough-councillors/",
+    "consultations": "https://www.ambervalley.gov.uk/council/consultation/"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "Amber Valley's adopted Local Plan provides for at least 7,656 new homes between 2024 and 2040, against a housing requirement of 6,944.",
+     "quote": "The plan makes provision for a minimum of 7,656 additional homes in sustainable locations between 2024 and 2040. This meets a housing requirement of 6,944 homes",
+     "url": "https://www.ambervalley.gov.uk/media/1930/amber-valley-borough-local-plan-2022-2040.pdf",
+     "publisher": "Amber Valley Borough Council",
+     "published_on": "2026-03-02",
+     "note": "Amber Valley Borough Local Plan 2022-2040, adopted 2 March 2026 (https://www.ambervalley.gov.uk/planning/planning-policy/adopted-local-plan-2022-2040/). Quote stops mid-sentence (continues ', provides homes to maximise affordable housing delivery...'). Para 5.2.10: requirement of 434 dwellings per annum."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "Amber Valley Borough Council approved a 2.99% rise in its council tax for 2026-27 (Band D £203.77, excluding parish precepts).",
+     "quote": "That an increase in Council Tax of 2.99% per annum on a Band D property be approved;",
+     "url": "https://www.ambervalley.gov.uk/council/committees-and-meetings/committee-documents/?MeetingRef=2433",
+     "publisher": "Amber Valley Borough Council",
+     "published_on": "2026-03-02",
+     "note": "From the draft minutes of Full Council, 2 March 2026 (docId 22553, streamed via the council's document system; the PDF has no stable GET URL, so the link is the meeting's document list). Minutes also state Band D 'is to be set at £203.77; an increase of £5.92 (2.99%) over the corresponding figure for 2025/26'. Minutes were to be confirmed on 25 March 2026."
+    },
+    {
+     "topic": "environment",
+     "summary": "Amber Valley Borough Council has committed to becoming a carbon neutral council by 2030.",
+     "quote": "While local authorities are not legally required to set a carbon target, Amber Valley Borough Council declared a Climate Emergency in July 2019 and has committed to becoming a carbon neutral council by 2030.",
+     "url": "https://www.ambervalley.gov.uk/environment/climate-change-and-nature/the-council-s-impact-and-actions/",
+     "publisher": "Amber Valley Borough Council",
+     "published_on": "2026-09-17",
+     "note": "Date from page metadata (Date 17/09/2026). Same page: the council 'formally declared a nature emergency in September 2026'."
+    },
+    {
+     "topic": "transport",
+     "summary": "Amber Valley's Cabinet decided on 8 April 2026 not to increase car parking charges.",
+     "quote": "Plans to review charges were included in the Council’s Cabinet Forward Plan, but following consideration by Cabinet on 8 April, a decision was made not to increase car parking charges.",
+     "url": "https://www.ambervalley.gov.uk/council/news/council-freezes-car-parking-charges-across-amber-valley/",
+     "publisher": "Amber Valley Borough Council",
+     "published_on": "2026-04-09",
+     "note": "No visible date on page; date from page metadata (09/04/2026). Highways are run by Derbyshire County Council."
+    },
+    {
+     "topic": "education",
+     "summary": "Education (schools) is not a district council function; in this area schools are run by Derbyshire County Council.",
+     "quote": "",
+     "url": "https://www.ambervalley.gov.uk/",
+     "publisher": "Amber Valley Borough Council",
+     "published_on": null,
+     "note": "District council - does not run schools."
+    }
+   ],
+   "notes": "Meetings use the council's own document system (not Modern.gov/CMIS): pages under /council/committees-and-meetings/ backed by https://info.ambervalley.gov.uk/WebServices/AVBCFeeds/DemocracyJSON.asmx (GetCommittees via POST publicOnly=true; GetMeetingsByCommitteeRef?committeeRef=CNL; GetCommitteeDocs POST meetingRef; documents streamed by POST). Full Council 2 March 2026 = meetingRef 2433. Declarations of interest are shown per councillor on the borough councillors page. The council's budget consultation page (https://www.ambervalley.gov.uk/council-tax/budget-consultation/) shows Cabinet's February recommendation of 2.99%. No council budget news item for 2026/27 found (the 2025/26 equivalent exists).",
+   "checked": "2026-09-25"
+  },
+  {
+   "slug": "argyll-and-bute",
+   "name": "Argyll and Bute",
+   "gss": "S12000035",
+   "site": "https://www.argyll-bute.gov.uk/",
+   "system": "moderngov",
+   "links": {
+    "plan": "https://www.argyll-bute.gov.uk/sites/default/files/2025-11/CORPORATE%20PLAN%202025%20%202027.pdf",
+    "budget": "https://www.argyll-bute.gov.uk/moderngov/ieListDocuments.aspx?CId=257&MId=16737",
+    "meetings": "https://www.argyll-bute.gov.uk/moderngov/uuCoverPage.aspx?bcr=1",
+    "councillors": "https://www.argyll-bute.gov.uk/my-council/councillors-directory",
+    "interests": "https://www.argyll-bute.gov.uk/my-council/councillors-directory",
+    "consultations": "https://www.argyll-bute.gov.uk/my-community/community-planning/consultations"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "Argyll and Bute's Local Development Plan 2 sets a Local Housing Land Requirement of up to 3,000 homes over 10 years.",
+     "quote": "The National Planning Framework 4 (as adopted in February 2023) establishes a 10 year minimum all-tenure housing land requirement of 2,150 and the council has translated that to a Local Housing Land Requirement of up to 3,000 homes.",
+     "url": "https://www.argyll-bute.gov.uk/sites/default/files/2025-10/Argyll%20and%20Bute%20LDP%202%20February%202024.pdf",
+     "publisher": "Argyll and Bute Council",
+     "published_on": "2024-02-28",
+     "note": "LDP2 adopted 28 February 2024 (per https://www.argyll-bute.gov.uk/planning-and-building/planning-policy/local-development-plan-2). Table 6 is titled 'Argyll and Bute Local Housing Land Requirement 2020-2029'. The plan excludes the Loch Lomond and Trossachs National Park area."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "The council approved a 2026-27 Band D council tax of £1,783.33, a 9.7% increase.",
+     "quote": "Council Tax to be paid in respect of a chargeable dwelling in Band D of £1,783.33 representing a 9.7% increase.",
+     "url": "https://www.argyll-bute.gov.uk/moderngov/documents/g16733/Public%20minutes%20Wednesday%2025-Feb-2026%2010.30%20Argyll%20and%20Bute%20Council.pdf?T=11",
+     "publisher": "Argyll and Bute Council",
+     "published_on": "2026-02-25",
+     "note": "Quote is from the Administration Budget Motion (Appendix 1 to the minute); minutes record 'The Motion was carried by 21 votes to 11, with 2 no votes'. Council tax page https://www.argyll-bute.gov.uk/council-tax-and-benefits/council-tax/your-council-tax-bill-explained shows Band D 1783.33 (2026/27) vs 1625.64 (2025/26), 9.70%. Excludes Scottish Water charges."
+    },
+    {
+     "topic": "environment",
+     "summary": "Argyll and Bute Council aims to become a net zero carbon emissions organisation by 2045.",
+     "quote": "We are investing more than £1.2 million in action to save energy and deliver progress in becoming a net zero carbon emissions organisation by 2045.",
+     "url": "https://www.argyll-bute.gov.uk/environment/climate-change",
+     "publisher": "Argyll and Bute Council",
+     "published_on": null,
+     "note": "Page also links the Decarbonisation Plan 2022 and updates approved Dec 2022 to Aug 2024."
+    },
+    {
+     "topic": "transport",
+     "summary": "The council held pre-application consultation events on 8 and 9 September 2026 on ferry works at Gigha and Tayinloan for a new hybrid ferry.",
+     "quote": "Argyll and Bute Council, through Tetra Tech, plan to submit Marine Licence applications for dredging and construction works at Gigha and Tayinloan.",
+     "url": "https://www.argyll-bute.gov.uk/my-community/community-planning/consultations/consultation/gigha-and-tayinloan-ferry-infrastructure",
+     "publisher": "Argyll and Bute Council",
+     "published_on": "2026-08-24",
+     "note": "Page heading 'Update 24 August 2026'. Consultation events 8 and 9 September 2026 (now past as of 2026-09-25); online survey for queries linked from the page."
+    },
+    {
+     "topic": "education",
+     "summary": "The council is consulting on a proposal to relocate the Tobermory 2-18 Campus on Mull.",
+     "quote": "Argyll and Bute Council is seeking views on a Proposal to relocate the Tobermory 2-18 Campus.",
+     "url": "https://www.argyll-bute.gov.uk/my-community/community-planning/consultations/consultation/tobermory-2-18-campus-consultation",
+     "publisher": "Argyll and Bute Council",
+     "published_on": null,
+     "note": "Same page: 'The consultation exercise commenced on 24th August 2026 and will close on 2nd October 2026.' Agreed by Community Services Committee on 4 June 2026; statutory consultation under the Schools (Consultation) (Scotland) Act 2010."
+    }
+   ],
+   "notes": "Modern.gov hosted under the main domain at /moderngov; GetCommittees returned 200 with 151 committees. Registers of interests appear on each councillor's page in the council's own councillors directory (www.argyll-bute.gov.uk/my-council/councillors-directory/...). The term 'Local Development Plan' (Scottish system) is used rather than Local Plan.",
+   "checked": "2026-09-25"
+  },
+  {
+   "slug": "bassetlaw",
+   "name": "Bassetlaw",
+   "gss": "E07000171",
+   "site": "https://www.bassetlaw.gov.uk/",
+   "system": "moderngov",
+   "links": {
+    "plan": "https://www.bassetlaw.gov.uk/about-us/bassetlaw-vision-2040-council-plan-actions/",
+    "budget": "https://bassetlaw.moderngov.co.uk/ieListDocuments.aspx?CId=151&MId=1079",
+    "meetings": "https://bassetlaw.moderngov.co.uk/ieDocHome.aspx?bcr=1",
+    "councillors": "https://bassetlaw.moderngov.co.uk/mgMemberIndex.aspx?bcr=1",
+    "interests": "https://bassetlaw.moderngov.co.uk/mgMemberIndex.aspx?bcr=1",
+    "consultations": "https://www.bassetlaw.gov.uk/about-us/consultations-and-engagement/"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "The Bassetlaw Local Plan sets a minimum housing requirement of 9,720 homes from 2020 to 2038.",
+     "quote": "Using the full objectively assessed need of 540 new homes per year, the total housing requirement is a minimum of 9,720 dwellings for the 18 years from 2020-2038.",
+     "url": "https://www.bassetlaw.gov.uk/media/gn1kjm1b/adopted-bassetlaw-local-plan-2020-2038.pdf",
+     "publisher": "Bassetlaw District Council",
+     "published_on": "2024-05-29",
+     "note": "Para 5.1.29; the preceding sentence reads 'Figure 6 shows that the Plan provides housing land for 11,195 dwellings over the plan period.' Adoption date from https://www.bassetlaw.gov.uk/planning-and-building-control/planning-policy/bassetlaw-local-plan-2020-2038/bassetlaw-local-plan-2020-2038/ ('The Bassetlaw Local Plan was adopted by the Council on 29 May 2024.'). A Local Plan Review 2026 page exists (notice of intention to commence, call for sites)."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "Bassetlaw's 2026-27 Band D council tax (district share) rose 2.99%, from £205.90 to £212.05.",
+     "quote": "That if the formal Council Tax Resolution at Appendix A is approved, the total Band D Council Tax will be as follows: 2025/26 2026/27 Increase £ £ Bassetlaw District Council 205.90 212.05 2.99%",
+     "url": "https://bassetlaw.moderngov.co.uk/mgAi.aspx?ID=12308",
+     "publisher": "Bassetlaw District Council",
+     "published_on": "2026-02-26",
+     "note": "Council (Annual Budget Meeting) 26 Feb 2026, item 'Council Tax Resolution and Budget Headlines 2026-27 (Key Decision No.1154)', resolution 3. Quote includes a flattened table row as extracted. Text read via the council's modern.gov web service (GetMeeting?lMeetingId=1079) because the HTML pages and PDFs on bassetlaw.moderngov.co.uk returned a Cloudflare challenge (HTTP 403) to non-browser requests. The council-tax page https://www.bassetlaw.gov.uk/council-tax/your-council-tax-explained/ (last updated 2026-04-21) lists Bassetlaw District Council Band D equivalent 212.05."
+    },
+    {
+     "topic": "environment",
+     "summary": "Bassetlaw councillors committed to net zero council operations by 2030 (and net zero area-wide emissions by 2045).",
+     "quote": "Councillors at Bassetlaw District Council have unanimously committed to reducing council operations to Net Zero by 2030, following a motion to Council on Thursday 21st September 2023.",
+     "url": "https://www.bassetlaw.gov.uk/climate-change/what-is-the-council-doing-about-climate-change/",
+     "publisher": "Bassetlaw District Council",
+     "published_on": "2024-11-14",
+     "note": "published_on is the page's 'Last Updated' date. Same page lists 'To meet Net Zero areawide emissions by 2045'."
+    },
+    {
+     "topic": "transport",
+     "summary": "Bassetlaw introduced pay and display parking at Prospect Precinct in June 2026 as part of a district-wide parking strategy, then amended the conditions.",
+     "quote": "At the beginning of June, Bassetlaw District Council introduced pay and display parking at Prospect, as part of a district-wide parking strategy, which included an hour of free parking.",
+     "url": "https://www.bassetlaw.gov.uk/media-centre/news/news-archive/news-july-2026/extended-parking-options-at-prospect-precinct/",
+     "publisher": "Bassetlaw District Council",
+     "published_on": "2026-07-02",
+     "note": "published_on is the page's 'Last Updated' date. Earlier proposal: https://www.bassetlaw.gov.uk/media-centre/news/news-archive/news-january-2026/proposed-changes-to-council-car-parking-published/ ('The changes include introducing a standardised tariff across all council owned car parks in the district, a 20% discount when paying digitally, and 1-hour free parking at Queens Street in Worksop and West Street in Retford.'). Highways and buses are Nottinghamshire County Council functions."
+    },
+    {
+     "topic": "education",
+     "summary": "Not applicable: district councils do not run schools; schools here are the responsibility of the county council. (Nottinghamshire County Council).",
+     "quote": "",
+     "url": "",
+     "publisher": "Bassetlaw District Council",
+     "published_on": null,
+     "note": null
+    }
+   ],
+   "notes": "Modern.gov at bassetlaw.moderngov.co.uk: GetCommittees web service returned 200 (19 committees) and GetMeeting worked, but HTML pages and document downloads (ieListDocuments, mgConvert2PDF) returned HTTP 403 Cloudflare challenges to curl, so links are given as published by the council but could not be opened here. The council labels its members index 'Members register of interest' (interests per councillor).",
+   "checked": "2026-09-25"
+  },
+  {
+   "slug": "blackpool",
+   "name": "Blackpool",
+   "gss": "E06000009",
+   "site": "https://www.blackpool.gov.uk/",
+   "system": "moderngov",
+   "links": {
+    "plan": "https://www.blackpool.gov.uk/Your-Council/Creating-a-better-Blackpool/Blackpool-Council-plan/Blackpool-Council-plan.aspx",
+    "budget": "https://www.blackpool.gov.uk/Your-Council/Transparency-and-open-data/Budget,-spending-and-procurement/Council-Tax-Further-information-for-recipients-of-Council-Tax-demands.aspx",
+    "meetings": "https://democracy.blackpool.gov.uk/mgListCommittees.aspx",
+    "councillors": "https://democracy.blackpool.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "interests": "https://democracy.blackpool.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "consultations": "https://www.blackpool.gov.uk/Your-Council/Have-your-say/Consultations/Consultations-and-other-engagement.aspx"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "Blackpool's Core Strategy provides for 4,200 new homes between 2012 and 2027.",
+     "quote": "Provision will be made for the delivery of 4,200 new homes in Blackpool between 2012 and 2027",
+     "url": "https://www.blackpool.gov.uk/Residents/Planning-environment-and-community/Planning/Planning-policy/Deliverable-five-year-housing-land-supply-statement-2025-to-2030.aspx",
+     "publisher": "Blackpool Council",
+     "published_on": "2026-01-03",
+     "note": "Page 'Deliverable five-year housing land supply statement 2025 to 2030', last modified 3 January 2026, quoting Core Strategy Policy CS2. Read via WebFetch."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "Blackpool Council's element of council tax rose by 4.99% for 2026/27, £101.01 at Band D.",
+     "quote": "The increase in the Blackpool Council tax element for 2026/27 (£101.01 at Band D) is based on 4.99% of the 2025/26 Blackpool Council tax element (£2,025.08 at Band D).",
+     "url": "https://www.blackpool.gov.uk/Your-Council/Transparency-and-open-data/Budget,-spending-and-procurement/Council-Tax-Further-information-for-recipients-of-Council-Tax-demands.aspx",
+     "publisher": "Blackpool Council",
+     "published_on": "2026-08-17",
+     "note": "Page last modified 17 August 2026. Verified via direct fetch. Budget set at Council 24 February 2026 (council news)."
+    },
+    {
+     "topic": "environment",
+     "summary": "Blackpool Council's goal is to reach net zero by 2030.",
+     "quote": "Our goal is for the council to reach net zero by 2030—well ahead of the UK's national target of 2050.",
+     "url": "https://www.blackpool.gov.uk/Residents/Planning-environment-and-community/Climate-emergency/Net-Zero-council-2030.aspx",
+     "publisher": "Blackpool Council",
+     "published_on": null,
+     "note": null
+    },
+    {
+     "topic": "transport",
+     "summary": "Blackpool's transport policy page says consultation on the Lancashire Combined County Authority Local Transport Plan Implementation Plan ran to 30 June 2026.",
+     "quote": "At the time of writing, consultation upon the new LCCA Local Transport Plan Implementation Plan is underway. Comments on the Plan can be received up to 30th June 2026.",
+     "url": "https://www.blackpool.gov.uk/Residents/Parking-roads-and-transport/Transport/Transport-policy.aspx",
+     "publisher": "Blackpool Council",
+     "published_on": "2026-04-30",
+     "note": "Page last modified 30 April 2026. The consultation is the Combined County Authority's, reported on the council's site. Council consultations page states there are no current consultations open."
+    },
+    {
+     "topic": "education",
+     "summary": "No current proposal to change local schools was found on Blackpool Council's website.",
+     "quote": "",
+     "url": "https://www.blackpool.gov.uk/Business/Working-with-the-council/Education-and-schools/School-organisation-and-place-planning/Statutory-duties.aspx",
+     "publisher": "Blackpool Council",
+     "published_on": null,
+     "note": null
+    }
+   ],
+   "notes": "Modern.gov (democracy.blackpool.gov.uk) disallowed by robots.txt for WebFetch but returns HTTP 200 to curl. Main site readable via WebFetch; some URLs 404/500. Register of interests is per-councillor on Modern.gov (a compiled register PDF exists at https://democracy.blackpool.gov.uk/mgConvert2PDF.aspx?ID=348&T=6).",
+   "checked": "2026-09-24"
+  },
+  {
+   "slug": "brighton-and-hove",
+   "name": "Brighton and Hove",
+   "gss": "E06000043",
+   "site": "https://www.brighton-hove.gov.uk/",
+   "system": "moderngov",
+   "links": {
+    "plan": "https://www.brighton-hove.gov.uk/brighton-hove-city-council-plan-2023-2027-refresh-2025",
+    "budget": "https://democracy.brighton-hove.gov.uk/ieDecisionDetails.aspx?Id=7577",
+    "meetings": "https://democracy.brighton-hove.gov.uk/mgListCommittees.aspx",
+    "councillors": "https://democracy.brighton-hove.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "interests": "https://democracy.brighton-hove.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "consultations": "https://yourvoice.brighton-hove.gov.uk/"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "Brighton & Hove's City Plan Part One provides for a minimum of 13,200 new homes over 2010-2030.",
+     "quote": "It sets provision for a minimum of 13,200 new homes to be built over the period 2010-2030.",
+     "url": "https://www.brighton-hove.gov.uk/brighton-hove-housing-delivery-action-plan-2019",
+     "publisher": "Brighton & Hove City Council",
+     "published_on": null,
+     "note": "From 'Brighton & Hove Housing Delivery Action Plan 2019', section 4. City Plan Part One adopted 24 March 2016. A new City Plan 2041 is in preparation (publication stage spring/summer 2026 per council timetable) but no housing figure was found on its pages."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "Cabinet on 12 February 2026 recommended a 2.99% general council tax increase plus a 2.00% adult social care precept for 2026/27.",
+     "quote": "A general Council Tax increase of 2.99%; ii) An Adult Social Care Precept increase of 2.00%;",
+     "url": "https://democracy.brighton-hove.gov.uk/ieDecisionDetails.aspx?Id=7577",
+     "publisher": "Brighton & Hove City Council",
+     "published_on": "2026-02-12",
+     "note": "Decision 'General Fund Revenue Budget, Capital & Treasury Management Strategy 2026-27', decided at Cabinet 12/02/2026 as a recommendation to Council. Council's page 'How much Council Tax is 2026 to 2027' gives Band D total £2,579.44. MHCLG Table 10: Band D excl. parish 2,180.42."
+    },
+    {
+     "topic": "environment",
+     "summary": "The council has set a target for the whole city to be carbon neutral by 2030.",
+     "quote": "The council has set an ambitious target for the whole city to be carbon neutral by 2030.",
+     "url": "https://democracy.brighton-hove.gov.uk/documents/s193552/Carbon%20Neutral%202030%20Programme%20-%20Annual%20Report%202022-23%20APX.%20n%201.html?CT=2",
+     "publisher": "Brighton & Hove City Council",
+     "published_on": null,
+     "note": "From 'Carbon Neutral 2030 Programme - Annual Report 2022-23' (committee appendix). The council's main net-zero page did not state a year in readable text."
+    },
+    {
+     "topic": "transport",
+     "summary": "Cabinet on 12 February 2026 was asked to agree the £8.801m 2026/27 Local Transport Grant capital budget allocation.",
+     "quote": "Cabinet agrees the £8.801m 2026/27 Local Transport Grant capital budget is allocated as set out in Table 2.",
+     "url": "https://democracy.brighton-hove.gov.uk/documents/s212823/Transport%20Capital%20and%20Maintenance%20Programme%202026-27.html?CT=2",
+     "publisher": "Brighton & Hove City Council",
+     "published_on": "2026-02-12",
+     "note": "Report 'Transport Capital and Maintenance Programme 2026-27' to Cabinet, 12 February 2026. Council news (2026) also refers to an A259 Hove to Brighton active travel scheme consultation, but that page returned 403."
+    },
+    {
+     "topic": "education",
+     "summary": "The council proposes to consolidate Hove Park School onto its Nevill Campus site from September 2028.",
+     "quote": "The council, with the support of the school, is proposing to consolidate all operations onto the Nevill Campus site from September 2028, releasing Valley Campus for disposal.",
+     "url": "https://www.brighton-hove.gov.uk/news/2026/statutory-notice-proposed-consolidation-hove-park-school-0",
+     "publisher": "Brighton & Hove City Council",
+     "published_on": null,
+     "note": "Council news item 'Statutory notice on the proposed consolidation of Hove Park School' (2026; day not shown). A separate 'Full statutory proposal for the closure of Middle Street Primary School' page exists but could not be read (403/redirect loop)."
+    }
+   ],
+   "notes": "Modern.gov (democracy.brighton-hove.gov.uk) readable. Main site brighton-hove.gov.uk is behind Imperva/Incapsula: intermittent 403 and redirect-loop errors; several pages (A259 consultation news, Middle Street closure proposal, AMR 2024/25, Hove Park decision) could not be read. consultations.brighton-hove.gov.uk shows stale (2020-21) items; yourvoice.brighton-hove.gov.uk (EngagementHQ) is JS-rendered.",
+   "checked": "2026-09-24"
+  },
   {
    "slug": "camden",
    "name": "Camden",
@@ -75,132 +459,68 @@
    "checked": "2026-09-24"
   },
   {
-   "slug": "lambeth",
-   "name": "Lambeth",
-   "gss": "E09000022",
-   "site": "https://www.lambeth.gov.uk/",
+   "slug": "carmarthenshire",
+   "name": "Carmarthenshire",
+   "gss": "W06000010",
+   "site": "https://www.carmarthenshire.gov.wales/",
    "system": "moderngov",
    "links": {
-    "plan": "https://www.lambeth.gov.uk/better-fairer-lambeth/projects/lambeth-2030-our-future-our-lambeth",
-    "budget": "https://www.lambeth.gov.uk/sites/default/files/2026-03/How%20Lambeth%20Council%27s%20Money%20will%20be%20Spent%202026-27.pdf",
-    "meetings": "https://moderngov.lambeth.gov.uk/mgListCommittees.aspx",
-    "councillors": "https://moderngov.lambeth.gov.uk/mgMemberIndex.aspx?bcr=1",
-    "interests": "https://moderngov.lambeth.gov.uk/mgMemberIndex.aspx?bcr=1",
-    "consultations": "https://haveyoursay.lambeth.gov.uk/"
+    "plan": "https://www.carmarthenshire.gov.wales/council-democracy/strategies-plans-and-policies/corporate-strategy-2022-2027/",
+    "budget": "https://www.carmarthenshire.gov.wales/council-democracy/the-council-budget/",
+    "meetings": "https://democracy.carmarthenshire.gov.wales/ieDocHome.aspx?bcr=1",
+    "councillors": "https://democracy.carmarthenshire.gov.wales/mgMemberIndex.aspx?bcr=1",
+    "interests": "https://democracy.carmarthenshire.gov.wales/mgMemberIndex.aspx?bcr=1",
+    "consultations": "https://www.carmarthenshire.gov.wales/council-democracy/have-your-say/"
    },
    "facts": [
     {
      "topic": "housing",
-     "summary": "Lambeth's housing target is 13,350 net additional dwellings over 2019/20 to 2028/29, or 1,335 a year.",
-     "quote": "13,350 net additional dwellings over the 10-year period from 2019/20 to 2028/29. The annual monitoring target is therefore 1,335 net additional dwellings per year.",
-     "url": "https://www.lambeth.gov.uk/sites/default/files/2025-09/lambeth_housing_development_pipeline_report_2023_24.pdf",
-     "publisher": "Lambeth Council",
+     "summary": "Carmarthenshire's Revised Local Development Plan 2018–2033, still at examination, identifies a housing requirement of 8,822 homes.",
+     "quote": "new homes to meet the identified housing requirement of 8,822.",
+     "url": "https://www.carmarthenshire.gov.wales/media/5lkoinnj/complete-composite-rldp-110526.pdf",
+     "publisher": "Carmarthenshire County Council",
      "published_on": null,
-     "note": "Lambeth Housing Development Pipeline Report 2023/24 (published to site September 2025); the row is labelled 'London Plan housing delivery targets'. Verified with pdftotext. A new Lambeth Local Plan is at scoping stage: https://www.lambeth.gov.uk/planning-building-control/planning-policy-guidance/lambeth-local-plan"
+     "note": "Strategic Policy SP1: Strategic Growth in the composite Revised LDP incorporating Matters Arising Changes (May 2026). The composite shows the new-homes provision figure as a tracked change ('9,704 9,814'), so only the requirement figure is quoted. The Plan is NOT yet adopted: the MACs page (updated 14/08/2026) says the Inspectors' report is anticipated in 'late summer / early autumn'. Verified with curl + pdftotext."
     },
     {
      "topic": "council_tax",
-     "summary": "Lambeth's Leader's letter for 2026-27 says the council is increasing council tax by 2.99% plus the 2% adult social care increase.",
-     "quote": "we are increasing Council Tax by 2.99%. This is alongside the 2% increase recommended by government to fund adult social care, and means an increase of around £1.40 per week on the average Band D property.",
-     "url": "https://www.lambeth.gov.uk/sites/default/files/2026-03/Letter%20from%20the%20Leader%20about%20Council%20tax%202026-27.pdf",
-     "publisher": "Lambeth Council",
-     "published_on": null,
-     "note": "Letter titled 'Your Council Tax' from Cllr Claire Holland, filed 2026-03. Verified with pdftotext. 'How Lambeth Council's money will be spent 2026-27' gives 'Lambeth Band D Council Tax £1,463.57 £1,536.60' (2025/26, 2026/27)."
+     "summary": "The council's Band D Council Tax for 2026/27 is £1,830.97, an increase of 4.90%.",
+     "quote": "For the Council Taxpayer, the Band D tax levied by the County Council will be £1,830.97 for 2026/27, which represents an increase in Council Tax of 4.90%.",
+     "url": "https://www.carmarthenshire.gov.wales/council-services/council-tax/council-tax-notice-202627/",
+     "publisher": "Carmarthenshire County Council",
+     "published_on": "2026-03-12",
+     "note": "Page 'updated on: 12/03/2026'. Council newsroom item 'Council approves 2026-27 budget' (https://newsroom.carmarthenshire.gov.wales/2026/2/council-approves-2026-27-budget/, February 2026) says: 'Carmarthenshire County Council has approved its revenue budget for 2026-27, which includes a council tax increase of 4.9% and spending reductions of £8.7m.' Verified with curl."
     },
     {
      "topic": "environment",
-     "summary": "Lambeth's Climate Action Plan sets out a vision for the borough to become net zero compatible and climate resilient by 2030.",
-     "quote": "Lambeth’s Climate Action Plan ( CAP ) sets out a vision and 20 goals for our borough to become net zero compatible and climate resilient by  2030 .",
-     "url": "https://www.lambeth.gov.uk/environmental-services/climate-change-sustainability/council-commitments/lambeths-climate-action-plan",
-     "publisher": "Lambeth Council",
-     "published_on": null,
-     "note": "Verified via direct fetch; spacing around '2030' is as rendered in page text."
+     "summary": "The council is working towards becoming a net zero carbon local authority by 2030.",
+     "quote": "We are taking a pragmatic approach towards becoming a net zero carbon local authority by 2030, initially focusing on our measurable carbon footprint.",
+     "url": "https://www.carmarthenshire.gov.wales/council-services/climate-action-sir-gar/climate-change/",
+     "publisher": "Carmarthenshire County Council",
+     "published_on": "2026-03-10",
+     "note": "Page updated on: 10/03/2026. Verified with curl."
     },
     {
      "topic": "transport",
-     "summary": "Lambeth installed a new traffic filter on Palace Road at Leigham Vale in the Streatham Hill Low Traffic Neighbourhood in February 2026.",
-     "quote": "The works to implement this new traffic filter will begin on Monday 2 February 2026 until Monday 16 February 2026.",
-     "url": "https://www.lambeth.gov.uk/streets-roads-transport/low-traffic-neighbourhoods-0/streatham-hill-low-traffic-neighbourhood",
-     "publisher": "Lambeth Council",
+     "summary": "The council is consulting on its Active Travel Network Map of walking, wheeling and cycling routes until 26 October 2026.",
+     "quote": "The map sets out the existing walking, wheeling, and cycling routes across the county, alongside proposed improvements, suggestions, and future routes that the Council will be seeking to develop and implement over the next 15 years.",
+     "url": "https://www.carmarthenshire.gov.wales/council-democracy/have-your-say/carmarthenshire-active-travel-consultation/",
+     "publisher": "Carmarthenshire County Council",
      "published_on": null,
-     "note": "Read via WebFetch. Lambeth's consultation platform (haveyoursay.lambeth.gov.uk) is JavaScript-rendered and could not be read."
+     "note": "Consultation period shown: 03/08/2026 ~ 09:00 - 26/10/2026 ~ 17:00."
     },
     {
      "topic": "education",
-     "summary": "No current proposal to change local schools was found on Lambeth's website; the most recent primary places consultation closed in August 2024.",
-     "quote": "",
-     "url": "https://www.lambeth.gov.uk/consultations/have-your-say-primary-school-places",
-     "publisher": "Lambeth Council",
-     "published_on": "2024-05-16",
-     "note": "Closed consultation 16 May–18 August 2024 on closures/amalgamations (Fenstanton, Holy Trinity, Christ Church SW9, Glenbrook, St John's Angell Town). Nothing newer located."
+     "summary": "The council is consulting on moving Ysgol Llandybie to a Primarily Welsh (Category 3) pathway for all pupils, phased in from Nursery in September 2027.",
+     "quote": "The Council is proposing to make a regulated alteration to the Welsh language provision at Ysgol Llandybie. The proposal is as follows: Amend the whole school’s language provision so that all pupils follow a Primarily Welsh (Category 3) pathway.",
+     "url": "https://www.carmarthenshire.gov.wales/media/oruhbzu4/ysgol-llandybie-consultation-document-en-10.pdf",
+     "publisher": "Carmarthenshire County Council",
+     "published_on": null,
+     "note": "Consultation 07/09/2026 to 20/10/2026 (page: https://www.carmarthenshire.gov.wales/council-democracy/have-your-say/proposal-to-amend-the-welsh-language-provision-at-ysgol-llandybie/). Parallel proposals for Ysgol Bro Banw, Ysgol Griffith Jones and Ysgol Llangynnwr. Document also says 'No decision has been taken at this stage.'"
     }
    ],
-   "notes": "Modern.gov (moderngov.lambeth.gov.uk) is disallowed by robots.txt for WebFetch but returns HTTP 200 to curl. Have Your Say Lambeth (EngagementHQ) is JS-rendered: no consultation text readable. Register of interests is per-councillor on Modern.gov.",
-   "checked": "2026-09-24"
-  },
-  {
-   "slug": "brighton-and-hove",
-   "name": "Brighton and Hove",
-   "gss": "E06000043",
-   "site": "https://www.brighton-hove.gov.uk/",
-   "system": "moderngov",
-   "links": {
-    "plan": "https://www.brighton-hove.gov.uk/brighton-hove-city-council-plan-2023-2027-refresh-2025",
-    "budget": "https://democracy.brighton-hove.gov.uk/ieDecisionDetails.aspx?Id=7577",
-    "meetings": "https://democracy.brighton-hove.gov.uk/mgListCommittees.aspx",
-    "councillors": "https://democracy.brighton-hove.gov.uk/mgMemberIndex.aspx?bcr=1",
-    "interests": "https://democracy.brighton-hove.gov.uk/mgMemberIndex.aspx?bcr=1",
-    "consultations": "https://yourvoice.brighton-hove.gov.uk/"
-   },
-   "facts": [
-    {
-     "topic": "housing",
-     "summary": "Brighton & Hove's City Plan Part One provides for a minimum of 13,200 new homes over 2010-2030.",
-     "quote": "It sets provision for a minimum of 13,200 new homes to be built over the period 2010-2030.",
-     "url": "https://www.brighton-hove.gov.uk/brighton-hove-housing-delivery-action-plan-2019",
-     "publisher": "Brighton & Hove City Council",
-     "published_on": null,
-     "note": "From 'Brighton & Hove Housing Delivery Action Plan 2019', section 4. City Plan Part One adopted 24 March 2016. A new City Plan 2041 is in preparation (publication stage spring/summer 2026 per council timetable) but no housing figure was found on its pages."
-    },
-    {
-     "topic": "council_tax",
-     "summary": "Cabinet on 12 February 2026 recommended a 2.99% general council tax increase plus a 2.00% adult social care precept for 2026/27.",
-     "quote": "A general Council Tax increase of 2.99%; ii) An Adult Social Care Precept increase of 2.00%;",
-     "url": "https://democracy.brighton-hove.gov.uk/ieDecisionDetails.aspx?Id=7577",
-     "publisher": "Brighton & Hove City Council",
-     "published_on": "2026-02-12",
-     "note": "Decision 'General Fund Revenue Budget, Capital & Treasury Management Strategy 2026-27', decided at Cabinet 12/02/2026 as a recommendation to Council. Council's page 'How much Council Tax is 2026 to 2027' gives Band D total £2,579.44. MHCLG Table 10: Band D excl. parish 2,180.42."
-    },
-    {
-     "topic": "environment",
-     "summary": "The council has set a target for the whole city to be carbon neutral by 2030.",
-     "quote": "The council has set an ambitious target for the whole city to be carbon neutral by 2030.",
-     "url": "https://democracy.brighton-hove.gov.uk/documents/s193552/Carbon%20Neutral%202030%20Programme%20-%20Annual%20Report%202022-23%20APX.%20n%201.html?CT=2",
-     "publisher": "Brighton & Hove City Council",
-     "published_on": null,
-     "note": "From 'Carbon Neutral 2030 Programme - Annual Report 2022-23' (committee appendix). The council's main net-zero page did not state a year in readable text."
-    },
-    {
-     "topic": "transport",
-     "summary": "Cabinet on 12 February 2026 was asked to agree the £8.801m 2026/27 Local Transport Grant capital budget allocation.",
-     "quote": "Cabinet agrees the £8.801m 2026/27 Local Transport Grant capital budget is allocated as set out in Table 2.",
-     "url": "https://democracy.brighton-hove.gov.uk/documents/s212823/Transport%20Capital%20and%20Maintenance%20Programme%202026-27.html?CT=2",
-     "publisher": "Brighton & Hove City Council",
-     "published_on": "2026-02-12",
-     "note": "Report 'Transport Capital and Maintenance Programme 2026-27' to Cabinet, 12 February 2026. Council news (2026) also refers to an A259 Hove to Brighton active travel scheme consultation, but that page returned 403."
-    },
-    {
-     "topic": "education",
-     "summary": "The council proposes to consolidate Hove Park School onto its Nevill Campus site from September 2028.",
-     "quote": "The council, with the support of the school, is proposing to consolidate all operations onto the Nevill Campus site from September 2028, releasing Valley Campus for disposal.",
-     "url": "https://www.brighton-hove.gov.uk/news/2026/statutory-notice-proposed-consolidation-hove-park-school-0",
-     "publisher": "Brighton & Hove City Council",
-     "published_on": null,
-     "note": "Council news item 'Statutory notice on the proposed consolidation of Hove Park School' (2026; day not shown). A separate 'Full statutory proposal for the closure of Middle Street Primary School' page exists but could not be read (403/redirect loop)."
-    }
-   ],
-   "notes": "Modern.gov (democracy.brighton-hove.gov.uk) readable. Main site brighton-hove.gov.uk is behind Imperva/Incapsula: intermittent 403 and redirect-loop errors; several pages (A259 consultation news, Middle Street closure proposal, AMR 2024/25, Hove Park decision) could not be read. consultations.brighton-hove.gov.uk shows stale (2020-21) items; yourvoice.brighton-hove.gov.uk (EngagementHQ) is JS-rendered.",
-   "checked": "2026-09-24"
+   "notes": "Modern.gov web service at democracy.carmarthenshire.gov.wales returned HTTP 403 (Azure Front Door WAF page 'The request is blocked.'), and so did mgListCommittees.aspx and mgMemberIndex, so this is a block of this client and not proof the service is disabled. Councillor and interests pages are on Modern.gov (link from council site) but could not be viewed. The council budget page body is mostly images/accordions; the 2026/27 figure came from the Council Tax notice page. Budget Digest 2026/27 PDF: https://www.carmarthenshire.gov.wales/media/bx0bgbnv/budget-digest-2026-27.pdf (not read).",
+   "checked": "2026-09-25"
   },
   {
    "slug": "cotswold",
@@ -267,6 +587,518 @@
    "checked": "2026-09-24"
   },
   {
+   "slug": "east-hertfordshire",
+   "name": "East Hertfordshire",
+   "gss": "E07000242",
+   "site": "https://www.eastherts.gov.uk/",
+   "system": "moderngov",
+   "links": {
+    "plan": "https://www.eastherts.gov.uk/about-east-herts-0/vision-and-corporate-priorities",
+    "budget": "https://www.eastherts.gov.uk/latest-news/2026/east-herts-council-budget-approved",
+    "meetings": "https://democracy.eastherts.gov.uk/uuCoverPage.aspx?bcr=1",
+    "councillors": "https://democracy.eastherts.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "interests": "https://democracy.eastherts.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "consultations": "https://yourvoice.eastherts.gov.uk/"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "East Herts' adopted District Plan (2011–2033) provides for a minimum of 18,458 new homes.",
+     "quote": "(a) Provide for a minimum of 18,458 new homes in the District up to 2033.",
+     "url": "https://www.eastherts.gov.uk/sites/default/files/documents/District_Plan_05_-_C_3_-_THE_DEVELOPMENT_STRATEGY_DPS_POLICIES.pdf",
+     "publisher": "East Herts District Council",
+     "published_on": null,
+     "note": "Policy DPS1 Housing, Employment and Retail Growth ('In the period 2011 to 2033 the Council will:'). District Plan adopted 23 October 2018 (https://www.eastherts.gov.uk/planning-and-building/planning-policy/east-herts-district-plan-2018). Verified with curl + pdftotext (served from cdn-eastherts.onwebcurl.com)."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "East Herts Council approved a 2.99% council tax increase for 2026/27; its Band D charge is £207.03 a year.",
+     "quote": "To help meet the rising cost of providing services, councillors agreed a council tax increase of 2.99%. This is below inflation and will see the average Band D household pay an extra £5.99 a year, bringing the total yearly cost for East Herts Council services to £207.03.",
+     "url": "https://www.eastherts.gov.uk/latest-news/2026/east-herts-council-budget-approved",
+     "publisher": "East Herts District Council",
+     "published_on": "2026-03-05",
+     "note": "Published 5th March 2026, about Full Council on 4 March 2026. District share only. Verified with curl."
+    },
+    {
+     "topic": "environment",
+     "summary": "In 2023 the council committed to cutting its own carbon footprint to an absolute minimum by 2027 and setting out a pathway to offset what remains.",
+     "quote": "The new motion now commits the council to reducing its own carbon footprint to an absolute minimum by 2027 whilst at the same time identifying a pathway to offset its residual carbon.",
+     "url": "https://www.eastherts.gov.uk/latest-news/2023/east-herts-council-strengthens-climate-change-commitment",
+     "publisher": "East Herts District Council",
+     "published_on": "2023-07-27",
+     "note": "Same article: 'Councillors previously made a climate declaration in 2019, committing the council to becoming a carbon neutral organisation by 2030.' Declaration text at https://www.eastherts.gov.uk/about-east-herts-0/vision-and-corporate-priorities/our-declaration-climate-change says the commitment was brought forward 'from 2030 to March 2027'."
+    },
+    {
+     "topic": "transport",
+     "summary": "The council's Executive approved changes to car park hours, tariffs and maximum stays, which took effect from 6 April 2026.",
+     "quote": "From 6 April 2026, changes will be introduced to operational hours, tariffs, and maximum stay periods across East Herts Council-managed car parks.",
+     "url": "https://www.eastherts.gov.uk/latest-news/2026/parking-changes-coming-east-herts-car-parks",
+     "publisher": "East Herts District Council",
+     "published_on": "2026-01-14",
+     "note": "Executive decision on Tuesday 13 January 2026, after consultation in October 2025. Verified with curl."
+    },
+    {
+     "topic": "education",
+     "summary": "East Herts is a district council and does not run schools; school changes are a matter for Hertfordshire County Council.",
+     "quote": "",
+     "url": "https://www.eastherts.gov.uk/",
+     "publisher": "East Herts District Council",
+     "published_on": null,
+     "note": null
+    }
+   ],
+   "notes": "democracy.eastherts.gov.uk (Modern.gov, confirmed by search results) could not be reached from this environment (proxy CONNECT 502; WebFetch DNS failure), so GetCommittees status is unknown. Corporate Plan: page says 'At its meeting on 28th February 2024, Council approved a new Corporate Plan and set of priorities until 2027.' Consultations are on 'Your Voice' (EngagementHQ, JavaScript-rendered; list not readable). Known project pages include https://yourvoice.eastherts.gov.uk/gladstone (Gladstone Road, Ware resident permit parking informal consultation), not read. Full budget papers: https://democracy.eastherts.gov.uk/documents/s72085/Budget 2026-2031 Medium Term Financial Plan 2026-2031.pdf (not accessible).",
+   "checked": "2026-09-25"
+  },
+  {
+   "slug": "flintshire",
+   "name": "Flintshire",
+   "gss": "W06000005",
+   "site": "https://www.flintshire.gov.uk/",
+   "system": "moderngov",
+   "links": {
+    "plan": "https://www.flintshire.gov.uk/en/Resident/Council-and-Democracy/Performance-and-Risk/Council-Plan.aspx",
+    "budget": "https://www.flintshire.gov.uk/en/Resident/Council-and-Democracy/Budget-2026-27/The-budget-and-local-services-2026-27.aspx",
+    "meetings": "https://www.flintshire.gov.uk/en/Resident/Council-and-Democracy/Agendas-Reports-Minutes-Live-Streaming-and-other-Council-and-Democracy-Information.aspx",
+    "councillors": "https://committeemeetings.flintshire.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "interests": "https://committeemeetings.flintshire.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "consultations": "https://www.flintshire.gov.uk/en/Resident/Consultation-and-Engagement/Open/Home.aspx"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "Flintshire's adopted Local Development Plan (2015–2030) provides for 7,870 new homes against a housing requirement of 6,950.",
+     "quote": "7,870 new homes to meet a housing requirement of 6,950 of which 2,265 will be affordable.",
+     "url": "https://www.flintshire.gov.uk/en/PDFFiles/Planning/Examination-Library-Documents/FINAL-LDP-Written-Statement-English.pdf",
+     "publisher": "Flintshire County Council",
+     "published_on": null,
+     "note": "Policy STR1: Strategic Growth, adopted LDP Written Statement. Full policy lead-in: 'In order to meet Flintshire’s economic ambition between 2015 and 2030, the Plan will make provision for:' (item iii). LDP page states it was adopted on 24/01/23. Verified with curl + pdftotext."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "The council set a Council Tax increase of 5.46% for 2026/27.",
+     "quote": "For 2026/27 the Council set a Council Tax increase of 5.46%",
+     "url": "https://www.flintshire.gov.uk/en/Resident/Council-and-Democracy/Budget-2026-27/The-budget-and-local-services-2026-27.aspx",
+     "publisher": "Flintshire County Council",
+     "published_on": "2026-02-24",
+     "note": "Page 'Last updated: 24 February 2026'. Next line on page: '4.98% to pay for Council services, and an additional 0.48% to cover the increased costs of our contributions to North Wales Fire and Rescue Authority.' Verified with curl."
+    },
+    {
+     "topic": "environment",
+     "summary": "The council's Climate Change Strategy 2025–2030 sets out a path to a net zero carbon Council by 2030.",
+     "quote": "This strategy and action plan sets out our journey towards a net zero carbon Council by 2030; it’s a live document that will evolve as our wider understanding of how we can combat the impacts of climate change evolve.",
+     "url": "https://www.flintshire.gov.uk/en/PDFFiles/Climate-Change/Climate-Change-Strategy-2025-2030.pdf",
+     "publisher": "Flintshire County Council",
+     "published_on": null,
+     "note": "Linked from https://www.flintshire.gov.uk/en/Resident/Climate-Change/Background.aspx"
+    },
+    {
+     "topic": "transport",
+     "summary": "The council is consulting on an update to the Flintshire Active Travel Network Map (walking, wheeling and cycling routes) until 2 November 2026.",
+     "quote": "The comments and suggestions have been reviewed and maps have prepared for 12 week statutory consultation. This will run from 10th August 2026 to 2nd November 2026. The revised map will be submitted to Welsh Government in December 2026.",
+     "url": "https://www.flintshire.gov.uk/en/Resident/Consultation-and-Engagement/Open/Flintshire-Active-Travel-Network-Map-Update.aspx",
+     "publisher": "Flintshire County Council",
+     "published_on": null,
+     "note": "Page shows 'Opened: 10/08/2026' and 'Closes: 02/11/2026'."
+    },
+    {
+     "topic": "education",
+     "summary": "The council is considering a proposal to close Saltney Ferry C.P. and Saltney Wood Memorial C.P. schools and open a new community primary school; the statutory consultation closed on 29 July 2026.",
+     "quote": "Flintshire County Council is considering a proposal to close Saltney Ferry C.P. School and Saltney Wood Memorial C.P. School and establish a new maintained community primary school.",
+     "url": "https://www.flintshire.gov.uk/en/Resident/Schools/School-Modernisation-Related/Proposal-To-Reorganise-Saltney-Ferry-C.P-And-Saltney-Wood-Memorial-C.P.aspx",
+     "publisher": "Flintshire County Council",
+     "published_on": null,
+     "note": "Same page: 'The statutory consultation on this proposal ran from 16 June 2026 to 29 July 2026 and is now closed.' Other live proposals are listed at the School Modernisation page (Catholic education reorganisation, Drury Primary enlargement)."
+    }
+   ],
+   "notes": "Modern.gov host committeemeetings.flintshire.gov.uk could not be reached from this research environment (TCP reset / proxy 502 on every attempt; WebFetch: robots.txt connect timeout), so GetCommittees status is unknown, not a failure of the service. www.flintshire.gov.uk 'My Councillor' page redirects to committeemeetings.flintshire.gov.uk/mgMemberIndex.aspx?bcr=1; interests are presumably per-councillor on Modern.gov but that could not be viewed. Council Plan 2025-30 PDF: https://www.flintshire.gov.uk/en/PDFFiles/Council-Democracy/Council-Plan-and-Well-Being-Objectives/Council-Plan-2025-30.pdf. Council Tax booklet 2026-27: https://www.flintshire.gov.uk/en/PDFFiles/Council-Democracy/Budget-2026-27/Council-Tax-Booklet-2026-27.pdf (not read).",
+   "checked": "2026-09-25"
+  },
+  {
+   "slug": "halton",
+   "name": "Halton",
+   "gss": "E06000006",
+   "site": "https://www.halton.gov.uk/",
+   "system": "moderngov",
+   "links": {
+    "plan": "https://www.halton.gov.uk/council-elections-mayor/policies-plans/corporate-strategy-plan",
+    "budget": "https://councillors.halton.gov.uk/ieListDocuments.aspx?CId=316&MId=9192",
+    "meetings": "https://www.halton.gov.uk/council-elections-mayor/committees-meetings-and-agendas",
+    "councillors": "https://councillors.halton.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "interests": "https://councillors.halton.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "consultations": "https://www3.halton.gov.uk/Pages/councildemocracy/Consultations.aspx"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "Halton's Delivery and Allocations Local Plan provides for at least 8,050 new homes between 2014 and 2037.",
+     "quote": "During the period 2014 to 2037 provision will be made for the development of at least 8,050 (net) additional dwellings",
+     "url": "https://www.halton.gov.uk/sites/default/files/2026-07/DALP%20Adopted.pdf",
+     "publisher": "Halton Borough Council",
+     "published_on": "2022-03-02",
+     "note": "Policy continues: 'At an average of 350 dwellings (net) each year.' Cover states 'Adopted : 2nd March 2022'. The planning policy page says Halton is preparing to review its Local Plan; a 'New Local Plan Timetable' went to Executive Board on 18 June 2026."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "Council set Halton's 2026-27 Band D council tax at £1,938.81, a 4.99% increase.",
+     "quote": "adopt the resolution set out in Appendix A, which includes setting the budget at £224.237m, the Council Tax requirement of £71.959m (before Parish, Police, Fire and LCR Combined Authority precepts) and the Band D Council Tax for Halton of £1,938.81;",
+     "url": "https://councillors.halton.gov.uk/documents/g9224/Printed%20minutes%2004th-Mar-2026%2018.30%20Council.pdf?T=1",
+     "publisher": "Halton Borough Council",
+     "published_on": "2026-03-04",
+     "note": "Council 4 March 2026, minute COU69 (RESOLVED). The 4.99% figure is from the Executive Board budget report (https://councillors.halton.gov.uk/documents/s81876/Exec%20Board%202026-27%20-%20Budget%20Report%20v11.pdf), para 3.10.5: 'This is an increase of 4.99% (£92.15 per annum or £1.77 per week) over the current year.' Para 3.10.4 records that Halton applied to MHCLG for a 7.99% increase and that 'On 9th February 2026, Government confirmed that they would not grant any additional council tax flexibility to Halton for 2026/27.'"
+    },
+    {
+     "topic": "environment",
+     "summary": "Halton Borough Council has a net zero carbon target of 2040 for its own operations.",
+     "quote": "Becoming climate friendly will mean Halton achieving its net zero carbon target of 2040, 10 years ahead of the current Government target year of 2050.",
+     "url": "https://www.halton.gov.uk/planning-housing-your-environment/climate-change-strategy",
+     "publisher": "Halton Borough Council",
+     "published_on": null,
+     "note": "Page states the council declared a climate emergency on 16 October 2019 and that by 2040 'Halton Borough Council’s own operations will aim to be' climate friendly, ready and just."
+    },
+    {
+     "topic": "transport",
+     "summary": "Halton's Executive Board agreed to accept Liverpool City Region transport funding, including Active Travel Fund grants, in January 2026.",
+     "quote": "The Board considered a report of the Executive Director - Environment and Regeneration, that sought approval to accept capital funding from the Liverpool City Region Combined Authority (LCRCA) in compliance with Standing Orders.",
+     "url": "https://councillors.halton.gov.uk/mgAi.aspx?ID=63294",
+     "publisher": "Halton Borough Council",
+     "published_on": "2026-01-15",
+     "note": "Executive Board 15 Jan 2026, item 87 'Additional Highway Grant allocations'. Same minute: 'Halton had now received: · a grant of £190,000 as part of the Active Travel Fund 5;' and '£564,556.12 had been allocated for Pre-Development Work of the Transport Pipeline projects'. No transport consultation found on the council's consultations page (which says consultations are promoted via relevant pages and the newsroom)."
+    },
+    {
+     "topic": "education",
+     "summary": "Halton's Executive Board agreed to open consultation on closing, federating or merging several Runcorn primary schools because of surplus places.",
+     "quote": "RESOLVED: That the Board supports the strategic approach and proposal to: 1) proceed with opening an initial public consultation on the closure, federation or merger, including through academisation, of The Holy Spirit Catholic Primary School, St Edwards Catholic Primary School, Woodside Primary School and Brookvale Primary School;",
+     "url": "https://councillors.halton.gov.uk/documents/s82840/EB%20Draft%20Minutes%20180626.pdf",
+     "publisher": "Halton Borough Council",
+     "published_on": "2026-06-18",
+     "note": "Executive Board 18 June 2026, minute EXB5 'Surplus Primary School Places - Key Decision' (draft minutes published in the 9 July 2026 agenda pack). The resolution also covers Weston Point Community Primary, Westfield Primary, Bridgewater Park Primary and Palacefields Primary Academy. Report: consultation July-September 2026, with 'a further report to the Council in Autumn 2026'."
+    }
+   ],
+   "notes": "Halton is moving from www3.halton.gov.uk to www.halton.gov.uk; some old pages now say 'It has moved to'. Modern.gov at councillors.halton.gov.uk (also linked as moderngov.halton.gov.uk); GetCommittees returned 200 (52 committees). The server was slow (40+ second page loads; some GetMeeting calls timed out). Registers of interests are per councillor (mgRofI.aspx). Consultations page has no list of open consultations.",
+   "checked": "2026-09-25"
+  },
+  {
+   "slug": "highland",
+   "name": "Highland",
+   "gss": "S12000017",
+   "site": "https://www.highland.gov.uk/",
+   "system": "other",
+   "links": {
+    "plan": "https://www.highland.gov.uk/policies-strategy/programme",
+    "budget": "https://www.highland.gov.uk/budgets-finance/budget",
+    "meetings": "https://www.highland.gov.uk/meetings",
+    "councillors": "https://www.highland.gov.uk/councillors",
+    "interests": "https://www.highland.gov.uk/councillors",
+    "consultations": "https://www.highland.gov.uk/consultations-complaints-compliments/consultations"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "Highland Council says it anticipates 24,000 new houses will be required in Highland over ten years.",
+     "quote": "It is anticipated that 24,000 new houses will be required in Highland in the next ten years.",
+     "url": "https://www.highland.gov.uk/news/article/16128/addressing_the_housing_challenge",
+     "publisher": "The Highland Council",
+     "published_on": "2024-06-27",
+     "note": "Not a Local Development Plan target: this is the council's 'Highland Housing Challenge' figure (based on an updated Housing Need and Demand Assessment). Highland has no single current council-wide LDP housing target; the new Highland Local Development Plan is at 'Call for Ideas' stage (extended to 20 November 2026, per council news 15 Sep 2026: https://www.highland.gov.uk/news/article/17473/help-shape-highland-s-future-call-for-ideas-extended-until-november). Area plans (IMFLDP2, CaSPlan, WestPlan) carry their own housing land requirements."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "Highland Council agreed a 7% Council Tax increase for 2026-27 (Band D council tax £1,633.99).",
+     "quote": "A 7% increase in Council Tax – 5% to support the delivery of core services like education, roads, housing and social care, and 2% of ring-fenced funding for The Highland Investment Plan, the Council’s £2.1 billion, 20-year programme of capital investment in schools, infrastructure, and community facilities.",
+     "url": "https://www.highland.gov.uk/news/article/17152/council-agrees-2026-27-budget-including-12-million-of-new-investments",
+     "publisher": "The Highland Council",
+     "published_on": "2026-03-05",
+     "note": "Band D figure from the council's charges page (https://www.highland.gov.uk/council-tax/council-tax-scottish-water-charges/2): 'Council Tax: £1,633.99' under Band D, 2026 to 2027. Budget papers: https://www.highland.gov.uk/meetings/meeting/5315/highland-council (5 March 2026)."
+    },
+    {
+     "topic": "environment",
+     "summary": "Highland Council's Net Zero Strategy includes a route map to net zero by 2045, with interim cuts of at least 75% by 2030 and 90% by 2040.",
+     "quote": "Our strategy includes a route map to Net Zero by 2045.",
+     "url": "https://www.highland.gov.uk/climate-change-net-zero/climate-change/2",
+     "publisher": "The Highland Council",
+     "published_on": "2026-03-19",
+     "note": "Same page lists the interim targets: 'reduce emissions by at least: 75% by 2030 90% by 2040'. Date is the page's 'Page last modified'."
+    },
+    {
+     "topic": "transport",
+     "summary": "Highland Council has proposed a draft traffic order adding waiting and loading restrictions in Fort William and Mallaig.",
+     "quote": "The proposed Order will introduce new waiting and loading restrictions in Fort William and Mallaig.",
+     "url": "https://www.highland.gov.uk/parking-permits/parking-consultations",
+     "publisher": "The Highland Council",
+     "published_on": "2026-09-24",
+     "note": "Variation Fifteen Order 2026 (Draft); documents available for inspection 28 August to 18 September 2026. The same page also records an off-street parking order made on 18 September 2026 (in force 5 October 2026). Date is the page's 'Page last modified'."
+    },
+    {
+     "topic": "education",
+     "summary": "Highland Council is consulting on a proposal to discontinue education at Knockbreck Primary School, Isle of Skye (consultation 2 September to 30 October 2026).",
+     "quote": "We are seeking the views of local communities on a proposal to discontinue education at Knockbreck Primary School, Isle of Skye, and reassign the school catchment area to Dunvegan Primary School.",
+     "url": "https://www.highland.gov.uk/consultations-complaints-compliments/school-consultations-closure-proposals",
+     "publisher": "The Highland Council",
+     "published_on": "2026-09-16",
+     "note": "Other current school consultations on the same page: relocation of Thurso High School, Pennyland Primary School and Miller Academy Primary School; relocation of Plockton Primary School (19 August to 9 October 2026)."
+    }
+   ],
+   "notes": "Meetings run on the council's own Jadu CMS (highland.gov.uk/meetings), not Modern.gov or CMIS; webcasts on highland.public-i.tv. Register of interests is published per councillor on each councillor's page (e.g. https://www.highland.gov.uk/councillors/1/sarah-atkin has a 'Register of interests' section). Plan link is 'Our Future Highland 2022-2027' programme; a Delivery Plan page also exists at https://www.highland.gov.uk/policies-strategy/delivery-plan. From June 2026 online consultations use https://engage.highland.gov.uk/en-GB/.",
+   "checked": "2026-09-25"
+  },
+  {
+   "slug": "lambeth",
+   "name": "Lambeth",
+   "gss": "E09000022",
+   "site": "https://www.lambeth.gov.uk/",
+   "system": "moderngov",
+   "links": {
+    "plan": "https://www.lambeth.gov.uk/better-fairer-lambeth/projects/lambeth-2030-our-future-our-lambeth",
+    "budget": "https://www.lambeth.gov.uk/sites/default/files/2026-03/How%20Lambeth%20Council%27s%20Money%20will%20be%20Spent%202026-27.pdf",
+    "meetings": "https://moderngov.lambeth.gov.uk/mgListCommittees.aspx",
+    "councillors": "https://moderngov.lambeth.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "interests": "https://moderngov.lambeth.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "consultations": "https://haveyoursay.lambeth.gov.uk/"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "Lambeth's housing target is 13,350 net additional dwellings over 2019/20 to 2028/29, or 1,335 a year.",
+     "quote": "13,350 net additional dwellings over the 10-year period from 2019/20 to 2028/29. The annual monitoring target is therefore 1,335 net additional dwellings per year.",
+     "url": "https://www.lambeth.gov.uk/sites/default/files/2025-09/lambeth_housing_development_pipeline_report_2023_24.pdf",
+     "publisher": "Lambeth Council",
+     "published_on": null,
+     "note": "Lambeth Housing Development Pipeline Report 2023/24 (published to site September 2025); the row is labelled 'London Plan housing delivery targets'. Verified with pdftotext. A new Lambeth Local Plan is at scoping stage: https://www.lambeth.gov.uk/planning-building-control/planning-policy-guidance/lambeth-local-plan"
+    },
+    {
+     "topic": "council_tax",
+     "summary": "Lambeth's Leader's letter for 2026-27 says the council is increasing council tax by 2.99% plus the 2% adult social care increase.",
+     "quote": "we are increasing Council Tax by 2.99%. This is alongside the 2% increase recommended by government to fund adult social care, and means an increase of around £1.40 per week on the average Band D property.",
+     "url": "https://www.lambeth.gov.uk/sites/default/files/2026-03/Letter%20from%20the%20Leader%20about%20Council%20tax%202026-27.pdf",
+     "publisher": "Lambeth Council",
+     "published_on": null,
+     "note": "Letter titled 'Your Council Tax' from Cllr Claire Holland, filed 2026-03. Verified with pdftotext. 'How Lambeth Council's money will be spent 2026-27' gives 'Lambeth Band D Council Tax £1,463.57 £1,536.60' (2025/26, 2026/27)."
+    },
+    {
+     "topic": "environment",
+     "summary": "Lambeth's Climate Action Plan sets out a vision for the borough to become net zero compatible and climate resilient by 2030.",
+     "quote": "Lambeth’s Climate Action Plan ( CAP ) sets out a vision and 20 goals for our borough to become net zero compatible and climate resilient by  2030 .",
+     "url": "https://www.lambeth.gov.uk/environmental-services/climate-change-sustainability/council-commitments/lambeths-climate-action-plan",
+     "publisher": "Lambeth Council",
+     "published_on": null,
+     "note": "Verified via direct fetch; spacing around '2030' is as rendered in page text."
+    },
+    {
+     "topic": "transport",
+     "summary": "Lambeth installed a new traffic filter on Palace Road at Leigham Vale in the Streatham Hill Low Traffic Neighbourhood in February 2026.",
+     "quote": "The works to implement this new traffic filter will begin on Monday 2 February 2026 until Monday 16 February 2026.",
+     "url": "https://www.lambeth.gov.uk/streets-roads-transport/low-traffic-neighbourhoods-0/streatham-hill-low-traffic-neighbourhood",
+     "publisher": "Lambeth Council",
+     "published_on": null,
+     "note": "Read via WebFetch. Lambeth's consultation platform (haveyoursay.lambeth.gov.uk) is JavaScript-rendered and could not be read."
+    },
+    {
+     "topic": "education",
+     "summary": "No current proposal to change local schools was found on Lambeth's website; the most recent primary places consultation closed in August 2024.",
+     "quote": "",
+     "url": "https://www.lambeth.gov.uk/consultations/have-your-say-primary-school-places",
+     "publisher": "Lambeth Council",
+     "published_on": "2024-05-16",
+     "note": "Closed consultation 16 May–18 August 2024 on closures/amalgamations (Fenstanton, Holy Trinity, Christ Church SW9, Glenbrook, St John's Angell Town). Nothing newer located."
+    }
+   ],
+   "notes": "Modern.gov (moderngov.lambeth.gov.uk) is disallowed by robots.txt for WebFetch but returns HTTP 200 to curl. Have Your Say Lambeth (EngagementHQ) is JS-rendered: no consultation text readable. Register of interests is per-councillor on Modern.gov.",
+   "checked": "2026-09-24"
+  },
+  {
+   "slug": "leeds",
+   "name": "Leeds",
+   "gss": "E08000035",
+   "site": "https://www.leeds.gov.uk/",
+   "system": "moderngov",
+   "links": {
+    "plan": "https://leedsambitions.co.uk/our-leeds-ambitions-full",
+    "budget": "https://democracy.leeds.gov.uk/documents/s279465/Minutes+25022026+Council2.pdf",
+    "meetings": "https://democracy.leeds.gov.uk/",
+    "councillors": "https://democracy.leeds.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "interests": "https://democracy.leeds.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "consultations": "https://www.leeds.gov.uk/consultations-and-feedback"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "Leeds' adopted Core Strategy (as reviewed in 2019) plans for 51,952 net new homes between 2017 and 2033, a target of 3,247 a year.",
+     "quote": "The provision of 51,952 (net) new dwellings will be accommodated between 2017 and 2033, with a target that 3,247 dwellings per year should be delivered.",
+     "url": "https://www.leeds.gov.uk/Local%20Plans/Adopted%20Core%20Strategy/CSSR%20Polices%20Adoption%20Sept%202019%20Final.pdf",
+     "publisher": "Leeds City Council",
+     "published_on": null,
+     "note": "Spatial Policy 6, Core Strategy Selective Review policies as adopted September 2019. Verified with curl + pdftotext."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "Full Council approved the 2026/27 budget on 25 February 2026: the Leeds element of council tax rises by 2.99% plus a 2% adult social care precept (4.99% in total).",
+     "quote": "This means that the Leeds element of council tax for 2026/27 will increase by 2.99% plus the Adult Social Care precept of 2.00% compared with 2025/26.",
+     "url": "https://democracy.leeds.gov.uk/documents/s279465/Minutes+25022026+Council2.pdf",
+     "publisher": "Leeds City Council",
+     "published_on": "2026-02-25",
+     "note": "From the RESOLVED text of minute 85, Full Council minutes 25 February 2026 (budget motion: YES 56, NO 0 recorded). Band D £2,271.51 shown at https://www.leeds.gov.uk/council-tax/bands-and-charges (2026/27; includes other precepts). Verified with curl + pdftotext."
+    },
+    {
+     "topic": "environment",
+     "summary": "The council says it is committed to making Leeds carbon neutral by 2030.",
+     "quote": "We are committed to making Leeds carbon neutral by 2030.",
+     "url": "https://www.leeds.gov.uk/plans-and-strategies/climate-change",
+     "publisher": "Leeds City Council",
+     "published_on": null,
+     "note": "No page date shown. Verified with curl."
+    },
+    {
+     "topic": "transport",
+     "summary": "The final phase of £10.4 million A660 highways works (Hyde Park Corner to Spenceley Street) started on 22 June 2026 and runs until spring 2027.",
+     "quote": "Leeds City Council, alongside partners the West Yorkshire Combined Authority, will start to undertake the remaining phase of the £10.4million major works on the A660 from today, 22 June until spring 2027.",
+     "url": "https://news.leeds.gov.uk/news/final-phase-of-highways-works-underway-on-popular-route-from-headingley-to-leeds-city-centre",
+     "publisher": "Leeds City Council",
+     "published_on": "2026-06-22",
+     "note": "Includes Cliff Road becoming one-way southbound and turning bans at Rampart Road and Clarendon Road. Council transport consultations are hosted on https://leedstransport.commonplace.is (third-party platform, not read)."
+    },
+    {
+     "topic": "education",
+     "summary": "The governing bodies of Yeadon Westfield Infant and Junior Schools proposed joining them into one primary school from 1 September 2026. The council's page does not say whether its Executive Board approved it.",
+     "quote": "This proposed alteration is part of a joint proposal from the governing bodies of Yeadon Westfield Infant and Junior Schools to amalgamate the two schools into Yeadon Westfield Primary School (3-11 years) from 1 September 2026.",
+     "url": "https://www.leeds.gov.uk/schools-and-education/planning-school-places/yeadon-westfield-infant-school",
+     "publisher": "Leeds City Council",
+     "published_on": null,
+     "note": "Listed under 'Have your say on current proposals' at https://www.leeds.gov.uk/schools-and-education/planning-school-places. The proposed date (1 September 2026) has passed and the page does not say whether it was approved; check before publishing. The same page also lists a Rothwell Victoria Junior School proposal dated September 2025."
+    }
+   ],
+   "notes": "Modern.gov GetCommittees at https://democracy.leeds.gov.uk returned HTTP 200 with XML (<committeescount> 147) when a browser User-Agent was sent. With a short 'Mozilla/5.0' or curl User-Agent it returned 403 (nginx), so the site filters by User-Agent. Leeds' 'Our financial plans' page still links the 2025-26 report; the 2026/27 decision is taken from the Full Council minutes. City plan is 'Leeds Ambitions' (leedsambitions.co.uk, linked from leeds.gov.uk/plans-and-strategies; not read).",
+   "checked": "2026-09-25"
+  },
+  {
+   "slug": "leicestershire",
+   "name": "Leicestershire",
+   "gss": "E10000018",
+   "site": "https://www.leicestershire.gov.uk/",
+   "system": "moderngov",
+   "links": {
+    "plan": "https://www.leicestershire.gov.uk/about-the-council/council-plans/the-strategic-plan",
+    "budget": "https://www.leicestershire.gov.uk/about-the-council/council-spending/our-budget-2026-30",
+    "meetings": "https://democracy.leics.gov.uk/",
+    "councillors": "https://www.leicestershire.gov.uk/about-the-council/how-the-council-works/councillors-and-conduct/find-your-county-councillor",
+    "interests": "https://www.leicestershire.gov.uk/about-the-council/how-the-council-works/councillors-and-conduct/councillors-register-of-interests",
+    "consultations": "https://www.leicestershire.gov.uk/have-your-say/current-consultations"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "Leicestershire County Council does not set a Local Plan housing target; housing numbers are set in the Local Plans of the district/borough councils within the county.",
+     "quote": "",
+     "url": "https://www.leicestershire.gov.uk/",
+     "publisher": "Leicestershire County Council",
+     "published_on": null,
+     "note": "County councils in two-tier areas are not the local planning authority for housing allocations (they prepare Minerals and Waste Local Plans). Use the relevant district's Local Plan instead."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "Leicestershire County Council approved a 2.99% Council Tax rise for 2026/27 on 18 February 2026.",
+     "quote": "The plan sets out a 2.99 Council Tax rise, an extra £127m investment in services, particularly social care, £48m of savings and £55m more to cover price and pay rises and was approved today (Wednesday) by Leicestershire County Council.",
+     "url": "https://www.leicestershire.gov.uk/news/budget-limits-tax-rise-amid-soaring-costs",
+     "publisher": "Leicestershire County Council",
+     "published_on": "2026-02-18",
+     "note": "Read via WebFetch only (www.leicestershire.gov.uk returns Akamai 403 'Access Denied' to curl, so curl re-verification was impossible). WebFetch returned the words '2.99 Council Tax rise' without a % sign on two separate reads; the article also says 'The levy adds 97p to a weekly Band D bill from April' and 'The Government sets a cap on the level of Council Tax increase which for 2026/27 was 4.99%'. Recommend a manual check before publishing. The page prints the figure without a % sign; it is quoted as printed."
+    },
+    {
+     "topic": "environment",
+     "summary": "In February 2023 the council set net zero target dates of 2035 for its own operations and 2050 for the county.",
+     "quote": "In February 2023, the Council approved revisions to its net zero targets, extending the net zero target date for Council operations to 2035 and the county wide net zero target date to 2050.",
+     "url": "https://www.leicestershire.gov.uk/environment-and-planning/net-zero/net-zero-council-action-plan-and-reports",
+     "publisher": "Leicestershire County Council",
+     "published_on": null,
+     "note": "Read via WebFetch only (curl blocked by Akamai 403); manual check recommended."
+    },
+    {
+     "topic": "transport",
+     "summary": "The council consulted on a draft Enabling Travel Choices Strategy (22 April to 10 July 2026).",
+     "quote": "A consultation on a new strategy setting out how travel choices could be improved across Leicestershire is still open for views.",
+     "url": "https://www.leicestershire.gov.uk/news/still-time-to-shape-transport-in-leicestershire",
+     "publisher": "Leicestershire County Council",
+     "published_on": "2026-06-23",
+     "note": "Read via WebFetch only. Consultation dates '22 April to 10 July 2026' from https://www.leicestershire.gov.uk/have-your-say/you-said-we-did/engagement-2026. The consultation has now closed."
+    },
+    {
+     "topic": "education",
+     "summary": "The council has sought proposals to run a new primary school to serve Garendon Park, Loughborough (and another for Broadnook, Charnwood); the closing date was 31 July 2026.",
+     "quote": "Proposal to establish a new primary school to serve Garendon Park, Loughborough",
+     "url": "https://www.leicestershire.gov.uk/education-and-children/schools-colleges-and-academies/school-organisation/school-place-planning",
+     "publisher": "Leicestershire County Council",
+     "published_on": null,
+     "note": "Link text on the page under 'Proposals for new schools', followed by '(Closing date: 12pm on Friday 31 July 2026)'. Read via WebFetch only."
+    }
+   ],
+   "notes": "www.leicestershire.gov.uk blocks curl (Akamai 403), so all Leicestershire quotes came from WebFetch and could not be re-verified character-for-character. The old Modern.gov host politics.leics.gov.uk now serves a static 'website has moved' page (HTTP 200 on every path, including mgWebService.asmx, but not XML) pointing to HTTPS://DEMOCRACY.LEICS.GOV.UK. democracy.leics.gov.uk could not be reached from this environment (TCP reset; WebFetch connect timeout), so its web service status is unknown. Current Strategic Plan is 'Strategic Plan 2024-2026' (PDF https://www.leicestershire.gov.uk/sites/default/files/2025-01/LCC-Strategic-Plan.pdf); an engagement on 'Big priorities for Leicestershire' for the next 4 years is listed as current. Budget page 'Our budget 2026-30' is the consultation page (it describes a proposed 2.99% rise).",
+   "checked": "2026-09-25"
+  },
+  {
+   "slug": "mid-devon",
+   "name": "Mid Devon",
+   "gss": "E07000042",
+   "site": "https://www.middevon.gov.uk/",
+   "system": "moderngov",
+   "links": {
+    "plan": "https://www.middevon.gov.uk/media/356280/corporate-plan-2024-2028_-final.pdf",
+    "budget": "https://www.middevon.gov.uk/residents/council-tax/council-tax-bandings-and-how-your-tax-is-spent/charges-for-202627/",
+    "meetings": "https://www.middevon.gov.uk/your-council/councillors-democracy/meetings-agendas-and-minutes/",
+    "councillors": "https://democracy.middevon.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "interests": "https://democracy.middevon.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "consultations": "https://www.middevon.gov.uk/your-council/consultation-involvement/current-consultations/"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "Mid Devon's adopted Local Plan (2013–2033) provides for a minimum of 7,860 homes, about 393 a year.",
+     "quote": "The diverse housing needs of Mid Devon will be met through the provision of a minimum of 7,860 dwellings between 1st April 2013 and 31st March 2033. In line with the predicted continuing need for new housing the expected annual rate of new housing development will be 393 dwellings per annum;",
+     "url": "https://www.middevon.gov.uk/media/350631/local-plan-review-final-adopted-version_accessible.pdf",
+     "publisher": "Mid Devon District Council",
+     "published_on": null,
+     "note": "Mid Devon Local Plan Review, adopted 29 July 2020 (per https://www.middevon.gov.uk/residents/planning-policy/). Policy S2 wording: 'a minimum of 7,860 dwellings and 147,000 square metres of commercial floorspace'. A new Local Plan is being prepared. Verified with curl + pdftotext."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "Mid Devon District Council increased its share of Council Tax by 2.99% for 2026/27; its Band D charge is £246.29.",
+     "quote": "Although Mid Devon District Council have increased our share of Council Tax by 2.99% for 2026/27, our overall proportion has decreased from 9.5% in 2025/26 to 9.3% for 2026/27; due to larger rises in other authorities. A Band D property will be required to pay £246.29.",
+     "url": "https://www.middevon.gov.uk/residents/council-tax/council-tax-bandings-and-how-your-tax-is-spent/charges-for-202627/",
+     "publisher": "Mid Devon District Council",
+     "published_on": null,
+     "note": "District share only; the same page gives an average total Band D of £2,656.41 including Devon County Council, police, fire and parish precepts. Verified with curl."
+    },
+    {
+     "topic": "environment",
+     "summary": "In 2019 the council agreed to aim for Mid Devon to become carbon neutral by 2030.",
+     "quote": "Members have agreed to work to the Devon-wide target of 2050, but will aim for Mid Devon to become carbon neutral by a more ambitious date of 2030.",
+     "url": "https://www.middevon.gov.uk/mid-devon-commits-to-climate-change-target/",
+     "publisher": "Mid Devon District Council",
+     "published_on": "2019-06-27",
+     "note": "News item 'Posted On: 27-06-2019'. A Climate Strategy Action Plan decision exists on Modern.gov (https://democracy.middevon.gov.uk/ieDecisionDetails.aspx?ID=1227) but could not be accessed."
+    },
+    {
+     "topic": "transport",
+     "summary": "Construction of the Cullompton Town Centre Relief Road is due to start in spring 2026, with the road due to be completed in March 2028.",
+     "quote": "Main Cullompton Town Centre Relief Road construction work is due to start in Spring 2026 with the road completed in March 2028.",
+     "url": "https://letstalk.middevon.gov.uk/cullompton-relief-road",
+     "publisher": "Mid Devon District Council",
+     "published_on": "2026-09-08",
+     "note": "Page on the council's 'Let's Talk Mid Devon' engagement hub (linked from the council's Current consultations page); 'Page last updated: 08 Sep 2026'. This is a project page, not an open consultation. Devon County Council is the highway authority."
+    },
+    {
+     "topic": "education",
+     "summary": "Mid Devon is a district council and does not run schools; school changes are a matter for Devon County Council.",
+     "quote": "",
+     "url": "https://www.middevon.gov.uk/",
+     "publisher": "Mid Devon District Council",
+     "published_on": null,
+     "note": null
+    }
+   ],
+   "notes": "democracy.middevon.gov.uk (Modern.gov) could not be reached from this environment (TCP reset on every attempt; WebFetch robots.txt timeout), so GetCommittees status is unknown. The council's 'Meetings, agendas and minutes' page redirects to https://democracy.middevon.gov.uk/uuCoverPage.aspx?bcr=1 and the 'District councillors' page redirects to https://democracy.middevon.gov.uk/mgMemberIndex.aspx?bcr=1; interests are presumably per-councillor there but could not be viewed. Current consultations page points to https://letstalk.middevon.gov.uk/ (JavaScript site; listing not readable with curl). Culm Garden Village design principles consultation was announced 18/09/2026 on the council news page (planning, not transport).",
+   "checked": "2026-09-25"
+  },
+  {
    "slug": "milton-keynes",
    "name": "Milton Keynes",
    "gss": "E06000042",
@@ -331,6 +1163,390 @@
    "checked": "2026-09-24"
   },
   {
+   "slug": "newark-and-sherwood",
+   "name": "Newark and Sherwood",
+   "gss": "E07000175",
+   "site": "https://www.newark-sherwooddc.gov.uk/",
+   "system": "moderngov",
+   "links": {
+    "plan": "https://www.newark-sherwooddc.gov.uk/council-elections/strategies-policies-plans/community-plan-2023-2027",
+    "budget": "https://www.newark-sherwooddc.gov.uk/council-elections/data-finance-performance/council-finances/council-budgets",
+    "meetings": "https://democracy.newark-sherwooddc.gov.uk/ieDocHome.aspx?bcr=1",
+    "councillors": "https://democracy.newark-sherwooddc.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "interests": "https://democracy.newark-sherwooddc.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "consultations": "https://www.newark-sherwooddc.gov.uk/consultations"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "Newark and Sherwood's Amended Core Strategy plans for at least 9,080 homes over the 2013-2033 plan period.",
+     "quote": "In seeking to meet the District’s Objectively Assessed Housing Need (OAN), the District Council must plan for a minimum of 9,080 dwellings over the Plan period.",
+     "url": "https://www.newark-sherwooddc.gov.uk/sites/default/files/2026-01/amended-core-strategy-DPD.pdf",
+     "publisher": "Newark and Sherwood District Council",
+     "published_on": null,
+     "note": "Para 4.17. The same document states 'the plan period is now from 2013 to 2033'. The council page says 'It was adopted in March 2019.' A new Local Plan is in preparation (https://www.newark-sherwooddc.gov.uk/planning-building-control/planning/planning-policy-guidance/new-local-plan)."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "Newark and Sherwood District Council froze its share of council tax for 2026-27 (Band D £198.60).",
+     "quote": "At Newark and Sherwood District Council we have frozen our charges",
+     "url": "https://www.newark-sherwooddc.gov.uk/council-tax/what-your-council-tax-used",
+     "publisher": "Newark and Sherwood District Council",
+     "published_on": null,
+     "note": "Page refers to the 2026/27 financial year. Budget Book 2026-27 (https://www.newark-sherwooddc.gov.uk/sites/default/files/2026-05/05.03.26%20-%20Budget%20Book%202026-27.pdf), Cabinet report of 24 Feb 2026, para 3.23: 'The proposal within this paper is a Council Tax freeze for the 2026/27 financial year. This would therefore mean a charge of £198.60 for a Band D property.' The Full Council minutes could not be accessed (democracy site unreachable from this environment)."
+    },
+    {
+     "topic": "environment",
+     "summary": "Newark and Sherwood District Council has a target of becoming a carbon neutral organisation by 2035.",
+     "quote": "Newark and Sherwood District Council has set a target of becoming a carbon neutral organisation by 2035.",
+     "url": "https://www.newark-sherwooddc.gov.uk/sites/default/files/2026-05/Newark-and-Sherwood-District-Council---Climate-Emergency-Strategy-2020-v7.pdf",
+     "publisher": "Newark and Sherwood District Council",
+     "published_on": null,
+     "note": "Climate Emergency Strategy 2020. A council news item of 16 Sep 2026 (https://www.newark-sherwooddc.gov.uk/news/2026/another-major-milestone-road-net-zero-2035) refers to the council's target 'of becoming Net Zero by 2035' and reports a 12% fall in corporate emissions in 2025/26."
+    },
+    {
+     "topic": "transport",
+     "summary": "A Nottinghamshire County Council-led feasibility study has started on ways to stop drivers illegally using Cartergate in Newark town centre as a shortcut.",
+     "quote": "Newark and Sherwood District Council has welcomed the launch of a feasibility study to explore ways of stopping drivers from illegally using Cartergate as a shortcut through Newark town centre.",
+     "url": "https://www.newark-sherwooddc.gov.uk/news/2026/council-welcomes-study-action-stop-illegal-traffic-using-cartergate-newark-shortcut",
+     "publisher": "Newark and Sherwood District Council",
+     "published_on": "2026-09-14",
+     "note": "Same article: 'The feasibility study, led by Nottinghamshire County Council, will assess several options, including changing the direction of traffic flow and installing different bollards to help prevent unauthorised vehicle access.' The council's consultations page showed 'There are no open consultations at the moment.' on 2026-09-25."
+    },
+    {
+     "topic": "education",
+     "summary": "Not applicable: district councils do not run schools; schools here are the responsibility of the county council. (Nottinghamshire County Council).",
+     "quote": "",
+     "url": "",
+     "publisher": "Newark and Sherwood District Council",
+     "published_on": null,
+     "note": null
+    }
+   ],
+   "notes": "Meetings site democracy.newark-sherwooddc.gov.uk is Modern.gov (mg*/ie* URLs linked from the council site), but it could not be accessed from this environment: every request (including mgWebService.asmx/GetCommittees) failed with 'connection reset'; WebFetch also failed (robots.txt ConnectTimeout). So moderngov_ws_status is null, and the councillors/interests links are as published by the council but unverified here. No open consultations on 2026-09-25.",
+   "checked": "2026-09-25"
+  },
+  {
+   "slug": "newcastle-under-lyme",
+   "name": "Newcastle-under-Lyme",
+   "gss": "E07000195",
+   "site": "https://www.newcastle-staffs.gov.uk/",
+   "system": "moderngov",
+   "links": {
+    "plan": "https://www.newcastle-staffs.gov.uk/directory-record/95598/council-plan-2022-to-2026",
+    "budget": "https://moderngov.newcastle-staffs.gov.uk/ieListDocuments.aspx?CId=152&MId=3871",
+    "meetings": "https://moderngov.newcastle-staffs.gov.uk/ieDocHome.aspx?bcr=1",
+    "councillors": "https://moderngov.newcastle-staffs.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "interests": "https://moderngov.newcastle-staffs.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "consultations": "https://www.newcastle-staffs.gov.uk/public-consultations"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "Newcastle-under-Lyme's Local Plan, adopted 8 July 2026, plans for at least 8,000 homes over 2020-2040 (400 a year).",
+     "quote": "A minimum of 8,000 dwellings will be delivered in the Borough over the Plan period 2020 – 2040 which equates to 400 dwellings per annum.",
+     "url": "https://www.newcastle-staffs.gov.uk/downloads/file/3987/final-local-plan",
+     "publisher": "Newcastle-under-Lyme Borough Council",
+     "published_on": "2026-07-08",
+     "note": "Policy PSD1: Overall Development Strategy. Adoption date from https://www.newcastle-staffs.gov.uk/planning-policy/newcastle-lyme-local-plan-2020-2040 ('adopted at Full Council on 8 July 2026')."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "Newcastle-under-Lyme Borough Council set its 2026-27 Band D council tax at £227.48, a 1.99% increase.",
+     "quote": "That the Band D Council Tax for 2026/27 be set at £227.48 (a 1.99% increase).",
+     "url": "https://moderngov.newcastle-staffs.gov.uk/documents/s46172/Revenue%20and%20Capital%20Budgets%20and%20Strategies%202026-27%20FEBRUARY%202026%20-%20Council.pdf",
+     "publisher": "Newcastle-under-Lyme Borough Council",
+     "published_on": "2026-02-11",
+     "note": "Recommendation (c) in Appendix 1 of the report to Council, 11 February 2026. Minutes (https://moderngov.newcastle-staffs.gov.uk/mgAi.aspx?ID=28848): 'Resolved: That recommendations (a) to (o) as set out in Appendix 1 to this report, be approved.' Council Tax page also says 'The increase of 1.99 per cent is less than the rate of inflation.' (https://www.newcastle-staffs.gov.uk/council-tax/council-tax-summary/2)."
+    },
+    {
+     "topic": "environment",
+     "summary": "Newcastle-under-Lyme Borough Council has ended its former commitment to be carbon neutral by 2030 and has no current council net-zero target.",
+     "quote": "And Council Leader Jonathan Gullis has also announced that the Sustainable Environment Strategy, which commits the authority to be carbon neutral by 2030, has been ended with immediate effect.",
+     "url": "https://www.newcastle-staffs.gov.uk/news/article/525/council-to-scrap-climate-emergency-declaration",
+     "publisher": "Newcastle-under-Lyme Borough Council",
+     "published_on": "2026-05-26",
+     "note": "Full Council 8 July 2026 carried a motion rescinding the 2019 Climate Emergency Declaration; minutes: 'A vote was then taken on the original Motion and was carried.' (https://moderngov.newcastle-staffs.gov.uk/mgAi.aspx?ID=29190). Later council news (5 Aug 2026) reports the net zero target cancelled: https://www.newcastle-staffs.gov.uk/news/article/561/taxpayer-savings-grow-after-council-cancels-carbon-net-zero-target. The quoted press releases contain political statements by the Leader; only the factual sentence is quoted."
+    },
+    {
+     "topic": "transport",
+     "summary": "Newcastle-under-Lyme Borough Council is freezing town centre car park charges for 12 months in 2026/27.",
+     "quote": "Town centre car park charges are to be frozen for 12 months.",
+     "url": "https://www.newcastle-staffs.gov.uk/news/article/489/car-park-charges-frozen-for-a-year",
+     "publisher": "Newcastle-under-Lyme Borough Council",
+     "published_on": "2026-02-04",
+     "note": "Article says the council 'is proposing' the freeze; budget adopted 11 Feb 2026 and minutes record 'Car park charges on surface level car parks would be frozen'. Also current: Air Quality Action Plan consultation (2026-2030) for Newcastle town centre, published 2 Sep 2026, covering congestion and traffic flow (https://www.newcastle-staffs.gov.uk/news/article/575/cleaner-air-consultation-under-way). Highways are run by Staffordshire County Council."
+    },
+    {
+     "topic": "education",
+     "summary": "Education (schools) is not a district council function; in this area schools are run by Staffordshire County Council.",
+     "quote": "",
+     "url": "https://www.newcastle-staffs.gov.uk/",
+     "publisher": "Newcastle-under-Lyme Borough Council",
+     "published_on": null,
+     "note": "District council - does not run schools."
+    }
+   ],
+   "notes": "Modern.gov at https://moderngov.newcastle-staffs.gov.uk: GetCommittees HTTP 200 (85 committees); HTML pages readable by curl. Register of interests per councillor (e.g. mgRofI.aspx?UID=1158). Council plan link is 'Council plan 2022 to 2026' (a new administration took control in May 2026; no newer plan found). Budget link is Council 11 Feb 2026 (item 'Revenue and Capital Strategies 2026/27').",
+   "checked": "2026-09-25"
+  },
+  {
+   "slug": "north-west-leicestershire",
+   "name": "North West Leicestershire",
+   "gss": "E07000134",
+   "site": "https://www.nwleics.gov.uk/",
+   "system": "moderngov",
+   "links": {
+    "plan": "https://www.nwleics.gov.uk/files/documents/council_delivery_plan_2021_2022/Council%20Delivery%20Plan%202023%20-%202028.pdf",
+    "budget": "https://minutes-1.nwleics.gov.uk/ieListDocuments.aspx?CId=129&MId=2736",
+    "meetings": "https://minutes-1.nwleics.gov.uk/ieDocHome.aspx?bcr=1",
+    "councillors": "https://minutes-1.nwleics.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "interests": "https://minutes-1.nwleics.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "consultations": "https://www.nwleics.gov.uk/pages/local_plan_review_progress_so_far"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "North West Leicestershire's draft Local Plan (not yet adopted) sets a housing requirement of 690 homes a year, 12,420 over 2024-2042.",
+     "quote": "The housing requirement for North West Leicestershire is 690 dwellings each year, and 12,420 dwellings over the plan period of 2024-2042, as set out in the Statement of Common Ground for the Leicester and Leicestershire Housing Market Area (December 2025).",
+     "url": "https://www.nwleics.gov.uk/files/documents/north_west_leicestershire_proposed_submission_draft_local_plan_july_20261/260715%20Proposed%20Submission%20Local%20Plan%20for%20Website%20with%20PlaceMaker%20link.pdf",
+     "publisher": "North West Leicestershire District Council",
+     "published_on": "2026-07-15",
+     "note": "Policy S1 of the Proposed Submission Draft (Regulation 19) Local Plan 2024-2042 - not yet adopted. Regulation 19 consultation ran to 5pm Friday 11 September 2026 (council news 22 July 2026). Date inferred from the file name '260715'."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "North West Leicestershire District Council increased its part of council tax by 2.7% for 2026-27.",
+     "quote": "North West Leicestershire district council has increased it's part of your council tax by 2.7%,",
+     "url": "https://www.nwleics.gov.uk/pages/council_tax_charges_2017_18",
+     "publisher": "North West Leicestershire District Council",
+     "published_on": "2026-07-14",
+     "note": "Page title is 'Council Tax Charges 2026-2027' (URL slug is historic). Date is the page's 'Last updated'. Budget set at Council, 19 February 2026."
+    },
+    {
+     "topic": "environment",
+     "summary": "North West Leicestershire District Council targets a net zero carbon council by 2030 and a net zero carbon district by 2050.",
+     "quote": "Our targets are to achieve a Net Zero Carbon Council by 2030 and a Net Zero Carbon District by 2050.",
+     "url": "https://www.nwleics.gov.uk/pages/climate_change",
+     "publisher": "North West Leicestershire District Council",
+     "published_on": "2026-08-06",
+     "note": "Date is the page's 'Last updated'."
+    },
+    {
+     "topic": "transport",
+     "summary": "North West Leicestershire District Council has made a parking order giving up to two hours' free parking at four car parks, in force from 6 July 2026.",
+     "quote": "Add the following, Free parking for up to two hours in the following car parks:-",
+     "url": "https://www.nwleics.gov.uk/files/documents/notice_of_making_20261/Notice%20of%20Making%20July%202026%20v.1.docx",
+     "publisher": "North West Leicestershire District Council",
+     "published_on": "2026-06-23",
+     "note": "Notice of Making, Off-Street Parking Places Order 2021 (Amendment No. 4) Order 2026. Car parks listed: Money Hill (Ashby de la Zouch), Margaret Street, James Street and London Road (Coalville). Also adds free parking for EVs actively charging. 'The variation to the Order will come into effect on 6 July 2026'. Listed on https://www.nwleics.gov.uk/pages/car_parking_places_orders. Highways are run by Leicestershire County Council."
+    },
+    {
+     "topic": "education",
+     "summary": "Education (schools) is not a district council function; in this area schools are run by Leicestershire County Council.",
+     "quote": "",
+     "url": "https://www.nwleics.gov.uk/",
+     "publisher": "North West Leicestershire District Council",
+     "published_on": null,
+     "note": "District council - does not run schools."
+    }
+   ],
+   "notes": "Modern.gov is served at both https://minutes-1.nwleics.gov.uk (linked from the council site) and https://nwleics.moderngov.co.uk; GetCommittees returned HTTP 200 (87 committees) on both. HTML pages on nwleics.moderngov.co.uk returned 403 to curl; minutes-1 worked (slow, one timeout). Register of interests is per councillor via Modern.gov member pages (e.g. mgRofI.aspx?UID=1391). The council's /pages/consultations and /pages/current_consultations pages return HTTP 410 ('no longer available'); no general consultations page found, so the consultations link is the Local Plan consultation page. The 'Budgets and financial strategies' page (https://www.nwleics.gov.uk/pages/council_budgets) has not been updated since May 2025, so the budget link is the 19 Feb 2026 Council meeting (item '2026/27 General Fund Budget and Council Tax'). Council Delivery Plan 2023-2028 linked from https://www.nwleics.gov.uk/pages/performance.",
+   "checked": "2026-09-25"
+  },
+  {
+   "slug": "northumberland",
+   "name": "Northumberland",
+   "gss": "E06000057",
+   "site": "https://www.northumberland.gov.uk/",
+   "system": "moderngov",
+   "links": {
+    "plan": "https://www.northumberland.gov.uk/about-council/policy-priorities/corporate-plan",
+    "budget": "https://northumberland.moderngov.co.uk/ieListDocuments.aspx?CId=346&MId=3636",
+    "meetings": "https://northumberland.moderngov.co.uk/ieDocHome.aspx?bcr=1",
+    "councillors": "https://northumberland.moderngov.co.uk/mgMemberIndex.aspx?bcr=1",
+    "interests": "https://northumberland.moderngov.co.uk/mgMemberIndex.aspx?bcr=1",
+    "consultations": "https://haveyoursay.northumberland.gov.uk/"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "Northumberland's Local Plan (Policy HOU 2) requires at least 17,700 new homes from 2016 to 2036 (about 885 a year).",
+     "quote": "Policy HOU 2 identifies a requirement for a minimum of 17,700 net additional dwellings from 2016 to 2036 (an average of 885 dwellings per annum).",
+     "url": "https://www.northumberland.gov.uk/NorthumberlandCountyCouncil/media/Planning-and-Building/planning%20policy/Studies%20and%20Evidence%20Reports/Housing%20Studies/NorthumberlandHousingDeliveryAndSupplySummaryMay-2025.pdf",
+     "publisher": "Northumberland County Council",
+     "published_on": null,
+     "note": "Housing Delivery and Supply Summary dated May 2025 (no exact day). Same document: 12,416 delivered to date, residual requirement 5,284. The council says it is 'starting work on a new Local Plan' (https://www.northumberland.gov.uk/planning-and-building/planning/planning-policy-and-local-plan)."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "Northumberland's council tax report to County Council on 18 February 2026 set a 4.99% increase for 2026-27 (including 2% adult social care precept); Band D £2,279.33 excluding police and parish.",
+     "quote": "the Council Tax for 2026-27, excluding the Police Precept, will be increased by 4.99% (including the Adult Social Care Precept of 2.00%), equating to a charge per Band D household of £2,279.33 (excluding Special Expenses).",
+     "url": "https://northumberland.moderngov.co.uk/documents/s29531/07.6%20Council%20tax.pdf",
+     "publisher": "Northumberland County Council",
+     "published_on": "2026-02-18",
+     "note": "Read via WebFetch only (paragraph 4.1(c)); curl re-verification blocked by a Cloudflare challenge (HTTP 403) on northumberland.moderngov.co.uk. Cross-check from the council's own charges page (https://www.northumberland.gov.uk/council-tax/council-tax-charges): Band D Northumberland County Council 1,890.37 + Adult Social Care Precept 388.96 = 2,279.33, and 'For 2026-2027, we have applied a 2% increase' (adult social care). The quote is from the report's recommendation text."
+    },
+    {
+     "topic": "environment",
+     "summary": "Northumberland County Council aims to make the county carbon neutral by 2030 and reach net zero for all greenhouse gases by 2040.",
+     "quote": "We've declared a ‘climate emergency’ - committing to halve our carbon footprint by 2025 and work with government to make the county carbon neutral by 2030, and net zero for all greenhouse gas emissions by 2040.",
+     "url": "https://www.northumberland.gov.uk/climate-change/climate-change",
+     "publisher": "Northumberland County Council",
+     "published_on": "2026-05-08",
+     "note": "Date is the page's 'Last updated on 08/05/2026'."
+    },
+    {
+     "topic": "transport",
+     "summary": "Northumberland County Council consulted on the A193 Seafront Active Travel Scheme between Kingsway and Old Hartley (12-29 May 2026).",
+     "quote": "The A193 Seafront Active Travel scheme will bring improvements to existing infrastructure and new infrastructure established between Kingsway to Old Hartley.",
+     "url": "https://haveyoursay.northumberland.gov.uk/transport/a193-seafront-active-travel-scheme-may-2026/",
+     "publisher": "Northumberland County Council",
+     "published_on": "2026-05-12",
+     "note": "Consultation opened 12 May 2026, closed 29 May 2026. Scheme includes 'Reducing speed limits' and 'Improving bus stop facilities'. No transport consultation was open on Have Your Say at time of reading (4 open: gambling policy, social care charges, council tax support, priorities)."
+    },
+    {
+     "topic": "education",
+     "summary": "Northumberland's Cabinet approved making permanent the Specialist Support Bases at Cambois, Newsham and Seaton Sluice schools, from 13 July 2026.",
+     "quote": "On Tuesday 7 July 2026 the Council’s Cabinet met to consider the proposal to formalise (make permanent) Specialist Support Bases at Cambois, Newsham and Seaton Sluice.",
+     "url": "https://www.northumberland.gov.uk/education-skills/schools/school-consultations",
+     "publisher": "Northumberland County Council",
+     "published_on": "2026-07-09",
+     "note": "Same page: 'Cabinet approved the implementation of the proposals (subject to call-in) from 13 July 2026.' Date is the page's 'Last updated on 09/07/2026'."
+    }
+   ],
+   "notes": "Modern.gov web service GetCommittees returned HTTP 200 (66 committees) via curl; HTML pages and documents on northumberland.moderngov.co.uk return a Cloudflare 403 challenge to curl but were readable via WebFetch. Council site uses nland.cc short links for meetings/councillors. Register of interests is per councillor on Modern.gov (e.g. https://northumberland.moderngov.co.uk/mgRofI.aspx?UID=3419&FID=-1&HPID=6287767, confirmed via WebFetch). Budget link is County Council 18 Feb 2026 (items 7.1-7.6 incl. 'Council Tax 2026-27'). Council budget requirement 2026-27 £462.43 million per the council tax charges page.",
+   "checked": "2026-09-25"
+  },
+  {
+   "slug": "nottinghamshire",
+   "name": "Nottinghamshire",
+   "gss": "E10000024",
+   "site": "https://www.nottinghamshire.gov.uk/",
+   "system": "cmis",
+   "links": {
+    "plan": "https://www.nottinghamshire.gov.uk/council-and-democracy/plans-policies-assessments/council-plans-policies/council-plan",
+    "budget": "https://www.nottinghamshire.gov.uk/dms/Meetings/tabid/70/ctl/ViewMeetingPublic/mid/397/Meeting/6105/Committee/538/SelectedTab/Documents/Default.aspx",
+    "meetings": "https://www.nottinghamshire.gov.uk/council-and-democracy/meetings-and-committees",
+    "councillors": "https://www.nottinghamshire.gov.uk/council-and-democracy/councillors/contact-a-councillor",
+    "interests": "https://www.nottinghamshire.gov.uk/council-and-democracy/councillors/allowances-expenses-conduct",
+    "consultations": "https://consult.nottinghamshire.gov.uk/"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "Not applicable: in two-tier areas the Local Plan housing target is set by the district council, not the county council. In Nottinghamshire these are set by the seven district and borough councils.",
+     "quote": "",
+     "url": "",
+     "publisher": "Nottinghamshire County Council",
+     "published_on": null,
+     "note": "The county council prepares the Minerals and Waste Local Plans, which do not set housing numbers."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "Nottinghamshire County Council raised its share of council tax by 3.99% for 2026-27, to £1,970.13 at Band D.",
+     "quote": "That the County Council element of the Council Tax be increased by 3.99% in 2026/27. That the overall Band D tax rate be set at £1,970.13 with the various bands of property as set out in paragraph 110 in appendix 2 of the report.",
+     "url": "https://www.nottinghamshire.gov.uk/DMS/Document.ashx?czJKcaeAi5tUFL1DTL2UE4zNRBcoShgo=Q06R%2fTpPu7GYUmZv1WET3gGepswukFsRVocV6e3vnEZW20twZNPlGw%3d%3d&rUzwRPf%2bZ3zd4E7Ikn8Lyw%3d%3d=pwRE6AGJFLDNlh225F5QMaQWCtPHwdhUfCZ%2fLUQzgA2uL5jNRG4jdQ%3d%3d&mCTIbCubSFfXsDGW9IXnlg%3d%3d=hFflUdN3100%3d&kCx1AnS9%2fpWZQ40DXFvdEw%3d%3d=hFflUdN3100%3d&uJovDxwdjMPoYv%2bAJvYtyA%3d%3d=ctNJFf55vVA%3d&FgPlIEJYlotS%2bYGoBi5olA%3d%3d=NHdURQburHA%3d&d9Qjj0ag1Pd993jsyOJqFvmyB7X0CSQK=ctNJFf55vVA%3d&WGewmoAfeNR9xqBux0r1Q8Za60lavYmz=ctNJFf55vVA%3d&WGewmoAfeNQ16B2MHuCpMRKZMwaG1PaO=ctNJFf55vVA%3d",
+     "publisher": "Nottinghamshire County Council",
+     "published_on": "2026-02-26",
+     "note": "Minutes of Full Council 26 Feb 2026 (published in the 19 March 2026 meeting papers), RESOLVED 2026/002 item 4; a Conservative Group amendment was declared lost. The council's own Council Tax page (https://www.nottinghamshire.gov.uk/council-and-democracy/finance-and-budget/council-funding-spending/council-tax) still showed 2025/26 figures on 2026-09-25."
+    },
+    {
+     "topic": "environment",
+     "summary": "The county council's Carbon Reduction Plan 2022-2032 states a commitment to carbon neutral council activities by 2030 and a net zero Nottinghamshire by 2050.",
+     "quote": "It has subsequently declared a climate emergency and committed to becoming carbon neutral for its activities by 2030 and achieving a net zero Nottinghamshire by 2050, in line with the national target.",
+     "url": "https://www.nottinghamshire.gov.uk/media/5080777/carbonreductionplan20222032.pdf",
+     "publisher": "Nottinghamshire County Council",
+     "published_on": null,
+     "note": "Carbon Reduction Plan 2022-2032 (PDF metadata 2023-02-06), linked from https://www.nottinghamshire.gov.uk/planning-and-environment/environmental-sustainability/our-policies-plans-and-reporting as of 2026-09-25. The Greenhouse Gas Emissions Report 2024-25 (report produced May 2026) reports a 42% reduction since 2019-20 and does not restate a carbon-neutral target year in its text."
+    },
+    {
+     "topic": "transport",
+     "summary": "The county council has introduced a 7.5 tonne environmental weight limit in the Blidworth, Rainworth and Ravenshead area, replacing an 18 tonne limit.",
+     "quote": "Nottinghamshire County Council has introduced a 7.5 tonne environmental weight limit to replace the 18 tonne weight limit in the Blidworth area, to reduce the impact of large vehicles in the area.",
+     "url": "https://consult.nottinghamshire.gov.uk/traffic-regulation-orders/tro-3401-sealed-order-blidworth-7-5t-ewl/",
+     "publisher": "Nottinghamshire County Council",
+     "published_on": "2026-08-27",
+     "note": "TRO 3401, sealed 17 August 2026, in force 27 August 2026; notice open 27 Aug to 8 Oct 2026. Other open transport notices on the hub on 2026-09-25: TRO 1278 Devonshire Street, Worksop (closes 5 Oct 2026) and Gilt Hill, Kimberley bus stop clearway relocation (closes 13 Oct 2026). Hub also lists 'Budget Survey 2026' (closes 30 Oct 2026)."
+    },
+    {
+     "topic": "education",
+     "summary": "The county council agreed to close Dean Hole Church of England Primary School in Caunton, near Newark, from 31 August 2026.",
+     "quote": "Nottinghamshire County Council has agreed the closure of Dean Hole Church of England Primary School, in Caunton, Newark, from 31 August 2026, following a formal consultation.",
+     "url": "https://newsroom.nottinghamshire.gov.uk/news/closure-of-dean-hole-church-of-england-primary-school-confirmed/",
+     "publisher": "Nottinghamshire County Council",
+     "published_on": "2026-03-06",
+     "note": "This is a decided change, not an open proposal (Cabinet 5 March 2026). Statutory notice: https://www.nottinghamshire.gov.uk/education/public-notices/public-notices-relating-to-schools. Another current schools item: council newsroom 2 June 2026 on a £12.7 million replacement building for Albany Junior School, Stapleford (subject to planning approval, completion expected summer 2027)."
+    }
+   ],
+   "notes": "Meetings run on CMIS (a 'Democratic Management System' at https://www.nottinghamshire.gov.uk/dms/, CMIS/DotNetNuke URLs with tokenised Document.ashx links). No Modern.gov web service. Councillors' declarations of interest are on each member's CMIS page; the interests link is the council page explaining this. Consultations are on a Citizen Space hub (consult.nottinghamshire.gov.uk); plain curl to that host sometimes reset but succeeded on retry.",
+   "checked": "2026-09-25"
+  },
+  {
+   "slug": "south-kesteven",
+   "name": "South Kesteven",
+   "gss": "E07000141",
+   "site": "https://www.southkesteven.gov.uk/",
+   "system": "moderngov",
+   "links": {
+    "plan": "https://www.southkesteven.gov.uk/corporateplan",
+    "budget": "https://moderngov.southkesteven.gov.uk/ieListDocuments.aspx?CId=261&MId=4696",
+    "meetings": "https://moderngov.southkesteven.gov.uk/ieDocHome.aspx?bcr=1",
+    "councillors": "https://moderngov.southkesteven.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "interests": "https://moderngov.southkesteven.gov.uk/mgMemberIndex.aspx?bcr=1",
+    "consultations": "https://www.southkesteven.gov.uk/consultations"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "The adopted South Kesteven Local Plan plans for 16,125 new homes between 2011 and 2036.",
+     "quote": "This provides a minimum requirement for the new Local Plan to allocate sufficient land to enable an average of 650 homes per annum, uplifted from 625 from 2016, to be built over the period 2011-36. This equates to 16,125 new homes in the plan period.",
+     "url": "https://www.southkesteven.gov.uk/sites/default/files/2023-08/Local_Plan_2011-2036_%28Final_inc_covers%29%20%281%29.pdf",
+     "publisher": "South Kesteven District Council",
+     "published_on": null,
+     "note": "Adopted Local Plan 2011-2036 (PDF metadata creation date 2020-01-21). The council's Local Plan Review page states: 'On 21st July 2026 South Kesteven District Council resolved to cease production of the Local Plan Review.' and 'It also resolved to transition to the new Local Plan-making system.' (https://www.southkesteven.gov.uk/localplanreview)"
+    },
+    {
+     "topic": "council_tax",
+     "summary": "Full Council set South Kesteven's 2026-27 Band D council tax, including special expenses, at £195.03.",
+     "quote": "Set a Council Tax level of £195.03 including Special Expenses for 2026/27 (Band D property).",
+     "url": "https://moderngov.southkesteven.gov.uk/documents/g4728/Printed%20minutes%2026th-Feb-2026%2014.00%20Council.pdf?T=1",
+     "publisher": "South Kesteven District Council",
+     "published_on": "2026-02-26",
+     "note": "Full Council minutes 26 Feb 2026, item 114. Same minutes: 'There was a proposed Council Tax increase of £5.66 per year on a Band D property.' An amendment to set the increase at 1.99% was recorded as LOST. The 2026-27 council tax booklet (https://www.southkesteven.gov.uk/sites/default/files/2026-03/Council%20Tax%20Booklet%20SKDC%202026-27.pdf) states: 'The council has taken the decision to increase its portion of the Council Tax including special expenses by £5.66.'"
+    },
+    {
+     "topic": "environment",
+     "summary": "South Kesteven District Council plans to cut carbon emissions from its own operations by at least 30% by 2030.",
+     "quote": "We plan to reduce our carbon emissions from Council operations by at least 30% by 2030.",
+     "url": "https://www.southkesteven.gov.uk/climatenews/our-action-council/our-progress",
+     "publisher": "South Kesteven District Council",
+     "published_on": null,
+     "note": "The same page states the council declared a climate emergency in September 2019 (Climate Action Strategy page) and refers to becoming 'net-zero carbon as soon as viable before 2050'."
+    },
+    {
+     "topic": "transport",
+     "summary": "South Kesteven changed charges in its own car parks from January 2025, after a consultation in November 2024.",
+     "quote": "The changes to car parking tariffs, the first increase in more than three years, have been made following a consultation period in November, where interested parties were invited to comment.",
+     "url": "https://www.southkesteven.gov.uk/news/2025/changes-charges-council-car-parks",
+     "publisher": "South Kesteven District Council",
+     "published_on": "2025-01-14",
+     "note": "Most recent transport-related decision found on the council's own site; roads, buses and on-street parking are Lincolnshire County Council functions (the same article says 'Street parking and permits are operated by Lincolnshire County Council.'). The current consultations page listed only a Council Tax Support Scheme consultation on 2026-09-25."
+    },
+    {
+     "topic": "education",
+     "summary": "Not applicable: district councils do not run schools; schools here are the responsibility of the county council. (Lincolnshire County Council).",
+     "quote": "",
+     "url": "",
+     "publisher": "South Kesteven District Council",
+     "published_on": null,
+     "note": null
+    }
+   ],
+   "notes": "Modern.gov at moderngov.southkesteven.gov.uk; GetCommittees returned 200 with 68 committees. Registers of interests are per councillor (mgRofI.aspx link on each member page). No standalone budget page found on www; budget papers are on the 26 Feb 2026 Council meeting page. Local Plan Review ceased 21 July 2026; adopted 2011-2036 plan remains the development plan.",
+   "checked": "2026-09-25"
+  },
+  {
    "slug": "south-staffordshire",
    "name": "South Staffordshire",
    "gss": "E07000196",
@@ -392,134 +1608,6 @@
     }
    ],
    "notes": "Meetings on CMIS (southstaffs.cmis.uk.com), not Modern.gov; the CMIS meetings page loaded but gave little text. No separate register of interests page found (CMIS councillor pages). Council's 2026/27 budget/council tax report not located on the site; corporate finance page lists only Treasury Management and Capital Strategy 2026/27 documents.",
-   "checked": "2026-09-24"
-  },
-  {
-   "slug": "windsor-and-maidenhead",
-   "name": "Windsor and Maidenhead",
-   "gss": "E06000040",
-   "site": "https://www.rbwm.gov.uk/",
-   "system": "moderngov",
-   "links": {
-    "plan": "https://www.rbwm.gov.uk/council-and-democracy/strategies-and-policies/council-plan",
-    "budget": "https://www.rbwm.gov.uk/sites/default/files/2026-03/council_tax_leaflet_2026-2027.pdf",
-    "meetings": "https://rbwm.moderngov.co.uk/mgListCommittees.aspx",
-    "councillors": "https://rbwm.moderngov.co.uk/mgMemberIndex.aspx?bcr=1",
-    "interests": "https://rbwm.moderngov.co.uk/mgMemberIndex.aspx?bcr=1",
-    "consultations": "https://rbwmtogether.rbwm.gov.uk/"
-   },
-   "facts": [
-    {
-     "topic": "housing",
-     "summary": "The adopted Borough Local Plan 2013–2033 makes provision for at least 14,240 homes.",
-     "quote": "The plan makes provision to deliver at least 14,240 homes to meet projected housing need, as required by Government, aiming to provide for the right amount of high-quality new housing in the right places, including affordable housing, family housing and accessible housing for those with limited mobility.",
-     "url": "https://www.rbwm.gov.uk/news/full-council-votes-adopt-borough-local-plan-supporting-sustainable-development-until-2033",
-     "publisher": "Royal Borough of Windsor and Maidenhead",
-     "published_on": null,
-     "note": "Council news item on adoption; plan adopted 8 February 2022 (https://www.rbwm.gov.uk/home/planning-and-building-control/planning-policy/development-plan/adopted-local-plan)."
-    },
-    {
-     "topic": "council_tax",
-     "summary": "The Royal Borough set a Band D council tax of £1,504.41 for 2026/27, using government permission to raise council tax by 7.49%.",
-     "quote": "The Royal Borough has set a Band D equivalent council tax (including Adult Social Care precept) at £1,504.41 for the year ending 31 March 2027.",
-     "url": "https://www.rbwm.gov.uk/sites/default/files/2026-03/council_tax_leaflet_2026-2027.pdf",
-     "publisher": "Royal Borough of Windsor and Maidenhead",
-     "published_on": null,
-     "note": "'Your guide to council tax 2026/27'. Verified with pdftotext. Council news 4 March 2026: 'will utilise the permission granted by the government to raise borough council tax by 7.49% from April 2026' (https://www.rbwm.gov.uk/news/2026/royal-borough-sets-balanced-budget-202627)."
-    },
-    {
-     "topic": "environment",
-     "summary": "The Environment and Climate Strategy sets a borough net-zero carbon emissions target of 2050.",
-     "quote": "The Environment and Climate Strategy sets out the Council's vision and actions to achieve the Borough's net-zero carbon emissions target by 2050",
-     "url": "https://www.rbwm.gov.uk/home/environment-and-waste/energy-and-sustainability/environment-and-climate-strategy",
-     "publisher": "Royal Borough of Windsor and Maidenhead",
-     "published_on": null,
-     "note": "Page updated February 2026 per WebFetch. A new 'Environment and Climate Strategy 2026-2035' is on RBWM Together (not readable)."
-    },
-    {
-     "topic": "transport",
-     "summary": "A Local Transport Delivery Plan setting out transport and highway investment to March 2030 went to Cabinet on 16 July 2026.",
-     "quote": "The Local Transport Delivery Plan outlines proposals for transport and highway investment across the Royal Borough through to March 2030.",
-     "url": "https://www.rbwm.gov.uk/news/2026/royal-borough-approve-transport-plan-2026-30",
-     "publisher": "Royal Borough of Windsor and Maidenhead",
-     "published_on": "2026-07-16",
-     "note": null
-    },
-    {
-     "topic": "education",
-     "summary": "The council approved closure of the Resourced Provision at Riverside Primary School and Nursery by the end of summer 2026.",
-     "quote": "It is proposed that the Resourced Provision at Riverside Primary School and Nursery, which is specifically for Speech Language and Communication Needs (SLCN) will be closed by the end of Summer 2026.",
-     "url": "https://rbwmtogether.rbwm.gov.uk/consultation-on-resourced-provision-at-riverside-primary-school-and-nursery",
-     "publisher": "Royal Borough of Windsor and Maidenhead",
-     "published_on": null,
-     "note": "Consultation closed 8 April 2026; page states final decision made 14 July 2026. The council's 'Planned changes to schools' page lists only 2022–2024 items."
-    }
-   ],
-   "notes": "Modern.gov (rbwm.moderngov.co.uk) readable. RBWM Together (EngagementHQ) hub pages are JS-rendered; individual project pages were readable via WebFetch. consult.rbwm.gov.uk (planning portal) returned 403. rbwm.gov.uk (non-www) news URL blocked by robots; www version readable.",
-   "checked": "2026-09-24"
-  },
-  {
-   "slug": "blackpool",
-   "name": "Blackpool",
-   "gss": "E06000009",
-   "site": "https://www.blackpool.gov.uk/",
-   "system": "moderngov",
-   "links": {
-    "plan": "https://www.blackpool.gov.uk/Your-Council/Creating-a-better-Blackpool/Blackpool-Council-plan/Blackpool-Council-plan.aspx",
-    "budget": "https://www.blackpool.gov.uk/Your-Council/Transparency-and-open-data/Budget,-spending-and-procurement/Council-Tax-Further-information-for-recipients-of-Council-Tax-demands.aspx",
-    "meetings": "https://democracy.blackpool.gov.uk/mgListCommittees.aspx",
-    "councillors": "https://democracy.blackpool.gov.uk/mgMemberIndex.aspx?bcr=1",
-    "interests": "https://democracy.blackpool.gov.uk/mgMemberIndex.aspx?bcr=1",
-    "consultations": "https://www.blackpool.gov.uk/Your-Council/Have-your-say/Consultations/Consultations-and-other-engagement.aspx"
-   },
-   "facts": [
-    {
-     "topic": "housing",
-     "summary": "Blackpool's Core Strategy provides for 4,200 new homes between 2012 and 2027.",
-     "quote": "Provision will be made for the delivery of 4,200 new homes in Blackpool between 2012 and 2027",
-     "url": "https://www.blackpool.gov.uk/Residents/Planning-environment-and-community/Planning/Planning-policy/Deliverable-five-year-housing-land-supply-statement-2025-to-2030.aspx",
-     "publisher": "Blackpool Council",
-     "published_on": "2026-01-03",
-     "note": "Page 'Deliverable five-year housing land supply statement 2025 to 2030', last modified 3 January 2026, quoting Core Strategy Policy CS2. Read via WebFetch."
-    },
-    {
-     "topic": "council_tax",
-     "summary": "Blackpool Council's element of council tax rose by 4.99% for 2026/27, £101.01 at Band D.",
-     "quote": "The increase in the Blackpool Council tax element for 2026/27 (£101.01 at Band D) is based on 4.99% of the 2025/26 Blackpool Council tax element (£2,025.08 at Band D).",
-     "url": "https://www.blackpool.gov.uk/Your-Council/Transparency-and-open-data/Budget,-spending-and-procurement/Council-Tax-Further-information-for-recipients-of-Council-Tax-demands.aspx",
-     "publisher": "Blackpool Council",
-     "published_on": "2026-08-17",
-     "note": "Page last modified 17 August 2026. Verified via direct fetch. Budget set at Council 24 February 2026 (council news)."
-    },
-    {
-     "topic": "environment",
-     "summary": "Blackpool Council's goal is to reach net zero by 2030.",
-     "quote": "Our goal is for the council to reach net zero by 2030—well ahead of the UK's national target of 2050.",
-     "url": "https://www.blackpool.gov.uk/Residents/Planning-environment-and-community/Climate-emergency/Net-Zero-council-2030.aspx",
-     "publisher": "Blackpool Council",
-     "published_on": null,
-     "note": null
-    },
-    {
-     "topic": "transport",
-     "summary": "Blackpool's transport policy page says consultation on the Lancashire Combined County Authority Local Transport Plan Implementation Plan ran to 30 June 2026.",
-     "quote": "At the time of writing, consultation upon the new LCCA Local Transport Plan Implementation Plan is underway. Comments on the Plan can be received up to 30th June 2026.",
-     "url": "https://www.blackpool.gov.uk/Residents/Parking-roads-and-transport/Transport/Transport-policy.aspx",
-     "publisher": "Blackpool Council",
-     "published_on": "2026-04-30",
-     "note": "Page last modified 30 April 2026. The consultation is the Combined County Authority's, reported on the council's site. Council consultations page states there are no current consultations open."
-    },
-    {
-     "topic": "education",
-     "summary": "No current proposal to change local schools was found on Blackpool Council's website.",
-     "quote": "",
-     "url": "https://www.blackpool.gov.uk/Business/Working-with-the-council/Education-and-schools/School-organisation-and-place-planning/Statutory-duties.aspx",
-     "publisher": "Blackpool Council",
-     "published_on": null,
-     "note": null
-    }
-   ],
-   "notes": "Modern.gov (democracy.blackpool.gov.uk) disallowed by robots.txt for WebFetch but returns HTTP 200 to curl. Main site readable via WebFetch; some URLs 404/500. Register of interests is per-councillor on Modern.gov (a compiled register PDF exists at https://democracy.blackpool.gov.uk/mgConvert2PDF.aspx?ID=348&T=6).",
    "checked": "2026-09-24"
   },
   {
@@ -587,6 +1675,70 @@
    "checked": "2026-09-24"
   },
   {
+   "slug": "stroud",
+   "name": "Stroud",
+   "gss": "E07000082",
+   "site": "https://www.stroud.gov.uk/",
+   "system": "moderngov",
+   "links": {
+    "plan": "https://www.stroud.gov.uk/council-and-democracy/corporate-plans-and-policies/council-plan/",
+    "budget": "https://stroud.moderngov.co.uk/ieListDocuments.aspx?CId=143&MId=1570",
+    "meetings": "https://stroud.moderngov.co.uk/ieDocHome.aspx?Categories=",
+    "councillors": "https://stroud.moderngov.co.uk/mgMemberIndex.aspx?bcr=1",
+    "interests": "https://stroud.moderngov.co.uk/mgMemberIndex.aspx?bcr=1",
+    "consultations": "https://www.stroud.gov.uk/council-and-democracy/about-the-council/have-your-say/consultations/"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "Stroud District Council says it is required by the Government to plan for at least 846 new homes a year; its new Local Plan is at an early scoping stage.",
+     "quote": "We are also required by the Government to plan for at least 846 new homes per year, which presents real challenges for the District.",
+     "url": "https://www.stroud.gov.uk/planning-and-building-control/planning-strategy/new-local-plan-2026/",
+     "publisher": "Stroud District Council",
+     "published_on": null,
+     "note": "Not a plan target: the government's minimum figure cited on the New Local Plan 2026 page. Early (scoping) consultation ran 29 June to 9 August 2026 and has closed; page says 'No decisions have been made at this stage.' No page date shown."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "Stroud District Council's 2026-27 council tax is £250.35 at Band D, a 2.99% increase.",
+     "quote": "This year, the council tax you pay for services provided by Stroud District Council is £250.35 for a band D property, which is an increase of 2.99% per cent or around 14p per week.",
+     "url": "https://www.stroud.gov.uk/media/y2eltlwp/sdc-council-tax-financial-information-2026-27.pdf",
+     "publisher": "Stroud District Council",
+     "published_on": null,
+     "note": "'SDC Council Tax Financial information 2026/27' leaflet, linked from https://www.stroud.gov.uk/council-tax/billing-information/. Council set the budget on 19 Feb 2026 (item CL.065, confirmed via WebFetch of the Modern.gov agenda)."
+    },
+    {
+     "topic": "environment",
+     "summary": "Stroud District Council aims to cut its own direct emissions to net zero by 2030 and all its emissions (scope 3) by 2050 or sooner.",
+     "quote": "SDC will reduce its Scope 1 and Scope 2 emissions to net zero by 2030 and will reduce its Scope 3 emissions to net zero by 2050 or sooner if possible.",
+     "url": "https://www.stroud.gov.uk/environment/building-a-sustainable-future-together/stroud-district-councils-climate-and-nature-strategy/",
+     "publisher": "Stroud District Council",
+     "published_on": null,
+     "note": "Ambition 1 of the Climate and Nature Strategy. Ambition 2: 'SDC will enable and encourage the district to achieve net zero emissions by 2050 or sooner if possible.' No page date shown."
+    },
+    {
+     "topic": "transport",
+     "summary": "Stroud District Council is funding 50 more bike racks across the district through its Walking and Cycling Fund.",
+     "quote": "Stroud District Council is funding the installation of 50 additional bike racks across the district as part of its ongoing commitment to walking, cycling and sustainable transport.",
+     "url": "https://www.stroud.gov.uk/news/stroud-district-council-funds-50-more-bike-stands-to-support-walking-and-cycling-across-the-district/",
+     "publisher": "Stroud District Council",
+     "published_on": "2026-05-06",
+     "note": "No open transport consultation found; most recent parking consultations listed on the consultations page are from 2025 (Marybrook Street Car Park, Cheapside Parking Order). Highways are run by Gloucestershire County Council."
+    },
+    {
+     "topic": "education",
+     "summary": "Education (schools) is not a district council function; in this area schools are run by Gloucestershire County Council.",
+     "quote": "",
+     "url": "https://www.stroud.gov.uk/",
+     "publisher": "Stroud District Council",
+     "published_on": null,
+     "note": "District council - does not run schools."
+    }
+   ],
+   "notes": "Modern.gov at https://stroud.moderngov.co.uk: GetCommittees HTTP 200 (22 committees) via curl; HTML pages/documents return a Cloudflare 403 challenge to curl but were readable via WebFetch. Register of interests per councillor (e.g. https://stroud.moderngov.co.uk/mgRofI.aspx?UID=2438&FID=-1&HPID=3914632, confirmed via WebFetch). Budget link is Council 19 Feb 2026 (CL.065 General Fund Budget 2026/27). The consultations page lists closed consultations only at time of reading.",
+   "checked": "2026-09-25"
+  },
+  {
    "slug": "wiltshire",
    "name": "Wiltshire",
    "gss": "E06000054",
@@ -648,6 +1800,70 @@
     }
    ],
    "notes": "Modern.gov (cms.wiltshire.gov.uk) disallowed by robots.txt for WebFetch but returns HTTP 200 to curl. wiltshire.gov.uk returns 403 to curl; WebFetch works but was rate-limited (429) near the end. Business Plan 2022-2032 page located only via news article/PDF on Modern.gov (https://cms.wiltshire.gov.uk/documents/s198921/...).",
+   "checked": "2026-09-24"
+  },
+  {
+   "slug": "windsor-and-maidenhead",
+   "name": "Windsor and Maidenhead",
+   "gss": "E06000040",
+   "site": "https://www.rbwm.gov.uk/",
+   "system": "moderngov",
+   "links": {
+    "plan": "https://www.rbwm.gov.uk/council-and-democracy/strategies-and-policies/council-plan",
+    "budget": "https://www.rbwm.gov.uk/sites/default/files/2026-03/council_tax_leaflet_2026-2027.pdf",
+    "meetings": "https://rbwm.moderngov.co.uk/mgListCommittees.aspx",
+    "councillors": "https://rbwm.moderngov.co.uk/mgMemberIndex.aspx?bcr=1",
+    "interests": "https://rbwm.moderngov.co.uk/mgMemberIndex.aspx?bcr=1",
+    "consultations": "https://rbwmtogether.rbwm.gov.uk/"
+   },
+   "facts": [
+    {
+     "topic": "housing",
+     "summary": "The adopted Borough Local Plan 2013–2033 makes provision for at least 14,240 homes.",
+     "quote": "The plan makes provision to deliver at least 14,240 homes to meet projected housing need, as required by Government, aiming to provide for the right amount of high-quality new housing in the right places, including affordable housing, family housing and accessible housing for those with limited mobility.",
+     "url": "https://www.rbwm.gov.uk/news/full-council-votes-adopt-borough-local-plan-supporting-sustainable-development-until-2033",
+     "publisher": "Royal Borough of Windsor and Maidenhead",
+     "published_on": null,
+     "note": "Council news item on adoption; plan adopted 8 February 2022 (https://www.rbwm.gov.uk/home/planning-and-building-control/planning-policy/development-plan/adopted-local-plan)."
+    },
+    {
+     "topic": "council_tax",
+     "summary": "The Royal Borough set a Band D council tax of £1,504.41 for 2026/27, using government permission to raise council tax by 7.49%.",
+     "quote": "The Royal Borough has set a Band D equivalent council tax (including Adult Social Care precept) at £1,504.41 for the year ending 31 March 2027.",
+     "url": "https://www.rbwm.gov.uk/sites/default/files/2026-03/council_tax_leaflet_2026-2027.pdf",
+     "publisher": "Royal Borough of Windsor and Maidenhead",
+     "published_on": null,
+     "note": "'Your guide to council tax 2026/27'. Verified with pdftotext. Council news 4 March 2026: 'will utilise the permission granted by the government to raise borough council tax by 7.49% from April 2026' (https://www.rbwm.gov.uk/news/2026/royal-borough-sets-balanced-budget-202627)."
+    },
+    {
+     "topic": "environment",
+     "summary": "The Environment and Climate Strategy sets a borough net-zero carbon emissions target of 2050.",
+     "quote": "The Environment and Climate Strategy sets out the Council's vision and actions to achieve the Borough's net-zero carbon emissions target by 2050",
+     "url": "https://www.rbwm.gov.uk/home/environment-and-waste/energy-and-sustainability/environment-and-climate-strategy",
+     "publisher": "Royal Borough of Windsor and Maidenhead",
+     "published_on": null,
+     "note": "Page updated February 2026 per WebFetch. A new 'Environment and Climate Strategy 2026-2035' is on RBWM Together (not readable)."
+    },
+    {
+     "topic": "transport",
+     "summary": "A Local Transport Delivery Plan setting out transport and highway investment to March 2030 went to Cabinet on 16 July 2026.",
+     "quote": "The Local Transport Delivery Plan outlines proposals for transport and highway investment across the Royal Borough through to March 2030.",
+     "url": "https://www.rbwm.gov.uk/news/2026/royal-borough-approve-transport-plan-2026-30",
+     "publisher": "Royal Borough of Windsor and Maidenhead",
+     "published_on": "2026-07-16",
+     "note": null
+    },
+    {
+     "topic": "education",
+     "summary": "The council approved closure of the Resourced Provision at Riverside Primary School and Nursery by the end of summer 2026.",
+     "quote": "It is proposed that the Resourced Provision at Riverside Primary School and Nursery, which is specifically for Speech Language and Communication Needs (SLCN) will be closed by the end of Summer 2026.",
+     "url": "https://rbwmtogether.rbwm.gov.uk/consultation-on-resourced-provision-at-riverside-primary-school-and-nursery",
+     "publisher": "Royal Borough of Windsor and Maidenhead",
+     "published_on": null,
+     "note": "Consultation closed 8 April 2026; page states final decision made 14 July 2026. The council's 'Planned changes to schools' page lists only 2022–2024 items."
+    }
+   ],
+   "notes": "Modern.gov (rbwm.moderngov.co.uk) readable. RBWM Together (EngagementHQ) hub pages are JS-rendered; individual project pages were readable via WebFetch. consult.rbwm.gov.uk (planning portal) returned 403. rbwm.gov.uk (non-www) news URL blocked by robots; www version readable.",
    "checked": "2026-09-24"
   }
  ]

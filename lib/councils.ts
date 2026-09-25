@@ -11,6 +11,6 @@ export function councilBySlug(slug: string): Council | null { return COUNCILS.fi
 export function councilSlugFor(name: string | null | undefined): string | null {
   if (!name) return null;
   const n = norm(name.split(":")[0]);
-  return COUNCILS.find((c) => norm(c.name) === n || n.startsWith(norm(c.name)))?.slug ?? null;
+  return COUNCILS.find((c) => norm(c.name) === n)?.slug ?? null; // exact: "Aberdeenshire" must not match "Aberdeen City"
 }
 export function listCouncils(): Council[] { return COUNCILS; }
