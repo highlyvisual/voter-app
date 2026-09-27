@@ -47,7 +47,7 @@ export default function Onboarding({ action }: { action: (fd: FormData) => void 
         <div className="onboard-step" key={i}>
           {/* Not "where do you live?": Romily (round 5, q4) asked that the first step not be framed that way. */}
           <h2>Which elections can you vote in?</h2>
-          <p className="lede">A postcode finds them. It is never sent to us or kept on our side, and you can look at any election, not only your own.</p>
+          <p className="lede">A postcode finds them. We use it once to look them up and don't keep it, and you can look at any election, not only your own.</p>
           <input className="big-input" type="text" inputMode="text" autoCapitalize="characters" autoComplete="postal-code" value={pc} onChange={(e) => setPc(e.target.value)} placeholder="e.g. WC1H 9JE" aria-label="Your postcode" />
           <div className="onboard-actions"><button type="button" onClick={next} disabled={pc.trim().length < 5}>Next</button></div>
         </div>
@@ -66,7 +66,7 @@ export default function Onboarding({ action }: { action: (fd: FormData) => void 
               <p className="meta">{WHY[k]}</p>
             </fieldset>
           ))}
-          <label className="keep"><input type="checkbox" checked={keep} onChange={(e) => setKeep(e.target.checked)} /> Keep this as my profile on this device, so I don't have to answer again. <span className="meta">Stored only in this browser — never sent to us. You can edit or delete it at any time.</span></label>
+          <label className="keep"><input type="checkbox" checked={keep} onChange={(e) => setKeep(e.target.checked)} /> Keep this as my profile on this device, so I don't have to answer again. <span className="meta">Saved only in this browser. You can edit or delete it at any time.</span></label>
           <div className="onboard-actions"><button type="submit">See my election</button><button type="button" className="secondary" onClick={back}>Back</button></div>
         </div>
       ) : (

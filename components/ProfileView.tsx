@@ -79,7 +79,7 @@ export default function ProfileView({ findAction }: { findAction: (fd: FormData)
         </form> : null}
         <button type="button" className="secondary" onClick={() => { if (confirm("Delete your profile from this device?")) { clearProfile(); setP(null); } }}>Delete my profile</button>
       </div>
-      <p className="meta">Your profile is stored only in this browser. It is never sent to us, and deleting it here removes it completely. We never ask who you support or how you voted.</p>
+      <p className="meta">Your saved profile lives only in this browser, and deleting it here removes it completely. When you look at a ballot, your answers travel in the page address so the page can use them; we don't store them. We never ask who you support or how you voted.</p>
     </>
   );
 }

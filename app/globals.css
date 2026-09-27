@@ -1378,3 +1378,14 @@ main a { overflow-wrap: anywhere; }
 .auto-list { margin: 0.2rem 0 0.4rem; padding-left: 1.1rem; font-size: 0.95rem; }
 .auto-list li { margin-bottom: 0.3rem; }
 .auto-block .meta { margin: 0.3rem 0 0; }
+
+/* Round eight (27 Sep): My profile stands out in the header; the Display control is quieter. */
+.nav-profile { font-family: var(--sans); font-size: 0.9rem; font-weight: 600; text-decoration: none; color: var(--ink); border: 2px solid var(--ink); border-radius: 999px; padding: 0.3rem 0.85rem; white-space: nowrap; }
+.nav-profile:hover, .nav-profile:focus-visible { background: var(--ink); color: var(--paper); }
+.nav-profile[aria-current="page"] { background: var(--ink); color: var(--paper); }
+.settings-toggle { background: transparent; border: 1px solid transparent; color: var(--ink-soft); font-family: var(--sans); font-size: 0.78rem; font-weight: 600; min-height: 32px; min-width: 32px; padding: 0.2rem 0.45rem; border-radius: 6px; box-shadow: none; }
+.settings-toggle:hover, .settings-toggle[aria-expanded="true"] { border-color: var(--rule); color: var(--ink); background: transparent; }
+.site-header .settings > .settings-toggle { min-height: 32px; padding: 0.2rem 0.45rem; }
+.dates .closed { color: var(--ink-soft); }
+.dates .closed a { text-decoration: line-through; }
+.dates .what-now { flex-basis: 100%; }

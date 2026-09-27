@@ -37,11 +37,22 @@ export default function Deadlines({ pollDate, noticeUrl, gss, level }: { pollDat
       {items.map((i) => {
         const past = i.when.toISOString().slice(0, 10) < today;
         return (
-          <span key={i.label} className={past ? "past" : undefined}>
-            <a href={i.href} rel="noopener">{i.label}</a> by {short(i.when)}{i.time ? ` ${i.time}` : ""}
-          </span>
+          past ? (
+            <span key={i.label} className="closed">
+              <a href={i.href} rel="noopener">{i.label}</a> closed {short(i.when)}{i.time ? ` ${i.time}` : ""}
+            </span>
+          ) : (
+            <span key={i.label}>
+              <a href={i.href} rel="noopener">{i.label}</a> by {short(i.when)}{i.time ? ` ${i.time}` : ""}
+            </span>
+          )
         );
       })}
+      {items[0].when.toISOString().slice(0, 10) < today && pollDays >= 0 ? (
+        <span className="what-now">
+          Registration for this election has closed. If you weren&rsquo;t registered by {short(items[0].when)}, you can&rsquo;t vote in it, but <a href="https://www.gov.uk/register-to-vote" rel="noopener">registering now</a> takes about five minutes and puts you on the roll for the next one.
+        </span>
+      ) : null}
       <span>Polls 7am to 10pm{idRequired ? " · photo ID needed" : " · no photo ID needed at this election"}</span>
       <details>
         <summary>about these dates</summary>

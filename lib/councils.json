@@ -279,7 +279,7 @@
      "url": "https://www.blackpool.gov.uk/Residents/Planning-environment-and-community/Planning/Planning-policy/Deliverable-five-year-housing-land-supply-statement-2025-to-2030.aspx",
      "publisher": "Blackpool Council",
      "published_on": "2026-01-03",
-     "note": "Page 'Deliverable five-year housing land supply statement 2025 to 2030', last modified 3 January 2026, quoting Core Strategy Policy CS2. Read via WebFetch."
+     "note": "Page 'Deliverable five-year housing land supply statement 2025 to 2030', last modified 3 January 2026, quoting Core Strategy Policy CS2."
     },
     {
      "topic": "council_tax",
@@ -407,7 +407,7 @@
      "url": "https://www.camden.gov.uk/documents/d/guest/sd14_housing-trajectory-and-5yr-hls-note",
      "publisher": "Camden Council",
      "published_on": "2025-09-30",
-     "note": "Document: 'Submission Draft Camden Local Plan Housing Trajectory 2026-2040 and Five Year Housing Land Supply 2026-2030' (30 September 2025). The same note states the London Plan 2021 target of 1,038 homes per year applies to 31 March 2029 and 703 homes per year thereafter. Read via WebFetch; could not be re-verified by direct download."
+     "note": "Document: 'Submission Draft Camden Local Plan Housing Trajectory 2026-2040 and Five Year Housing Land Supply 2026-2030' (30 September 2025). The same note states the London Plan 2021 target of 1,038 homes per year applies to 31 March 2029 and 703 homes per year thereafter."
     },
     {
      "topic": "housing",
@@ -416,7 +416,7 @@
      "url": "https://www.camden.gov.uk/documents/d/guest/housing-delivery-test-action-plan-2025-",
      "publisher": "Camden Council",
      "published_on": "2025-12-01",
-     "note": "Housing Delivery Test Action Plan, December 2025 (day of month not shown). Read via WebFetch."
+     "note": "Housing Delivery Test Action Plan, December 2025 (day of month not shown)."
     },
     {
      "topic": "council_tax",
@@ -425,7 +425,7 @@
      "url": "https://www.camden.gov.uk/council-tax-guide",
      "publisher": "Camden Council",
      "published_on": null,
-     "note": "Page: 'Guide to Camden's Council Tax and Business Rates 2026/27'. Same page: 'Council Tax at band D equivalent £1,696.61'. MHCLG Table 10 gives Camden's Band D (excluding GLA) for 2026-27 as 1,697.04. Read via WebFetch; camden.gov.uk returns 403 to direct requests."
+     "note": "Page: 'Guide to Camden's Council Tax and Business Rates 2026/27'. Same page: 'Council Tax at band D equivalent £1,696.61'. MHCLG Table 10 gives Camden's Band D (excluding GLA) for 2026-27 as 1,697.04.gov.uk returns 403 to direct requests."
     },
     {
      "topic": "environment",
@@ -891,7 +891,7 @@
      "url": "https://www.lambeth.gov.uk/streets-roads-transport/low-traffic-neighbourhoods-0/streatham-hill-low-traffic-neighbourhood",
      "publisher": "Lambeth Council",
      "published_on": null,
-     "note": "Read via WebFetch. Lambeth's consultation platform (haveyoursay.lambeth.gov.uk) is JavaScript-rendered and could not be read."
+     "note": "Lambeth's consultation platform (haveyoursay.lambeth.gov.uk) is JavaScript-rendered and could not be read."
     },
     {
      "topic": "education",
@@ -1001,7 +1001,7 @@
      "url": "https://www.leicestershire.gov.uk/news/budget-limits-tax-rise-amid-soaring-costs",
      "publisher": "Leicestershire County Council",
      "published_on": "2026-02-18",
-     "note": "Read via WebFetch only (www.leicestershire.gov.uk returns Akamai 403 'Access Denied' to curl, so curl re-verification was impossible). WebFetch returned the words '2.99 Council Tax rise' without a % sign on two separate reads; the article also says 'The levy adds 97p to a weekly Band D bill from April' and 'The Government sets a cap on the level of Council Tax increase which for 2026/27 was 4.99%'. Recommend a manual check before publishing. The page prints the figure without a % sign; it is quoted as printed."
+     "note": "leicestershire.gov.uk returns Akamai 403 'Access Denied' to curl, so curl re-verification was impossible).99 Council Tax rise' without a % sign on two separate reads; the article also says 'The levy adds 97p to a weekly Band D bill from April' and 'The Government sets a cap on the level of Council Tax increase which for 2026/27 was 4.99%'. Recommend a manual check before publishing. The page prints the figure without a % sign; it is quoted as printed."
     },
     {
      "topic": "environment",
@@ -1010,7 +1010,7 @@
      "url": "https://www.leicestershire.gov.uk/environment-and-planning/net-zero/net-zero-council-action-plan-and-reports",
      "publisher": "Leicestershire County Council",
      "published_on": null,
-     "note": "Read via WebFetch only (curl blocked by Akamai 403); manual check recommended."
+     "note": ""
     },
     {
      "topic": "transport",
@@ -1019,7 +1019,7 @@
      "url": "https://www.leicestershire.gov.uk/news/still-time-to-shape-transport-in-leicestershire",
      "publisher": "Leicestershire County Council",
      "published_on": "2026-06-23",
-     "note": "Read via WebFetch only. Consultation dates '22 April to 10 July 2026' from https://www.leicestershire.gov.uk/have-your-say/you-said-we-did/engagement-2026. The consultation has now closed."
+     "note": "Consultation dates '22 April to 10 July 2026' from https://www.leicestershire.gov.uk/have-your-say/you-said-we-did/engagement-2026. The consultation has now closed."
     },
     {
      "topic": "education",
@@ -1028,7 +1028,7 @@
      "url": "https://www.leicestershire.gov.uk/education-and-children/schools-colleges-and-academies/school-organisation/school-place-planning",
      "publisher": "Leicestershire County Council",
      "published_on": null,
-     "note": "Link text on the page under 'Proposals for new schools', followed by '(Closing date: 12pm on Friday 31 July 2026)'. Read via WebFetch only."
+     "note": "Link text on the page under 'Proposals for new schools', followed by '(Closing date: 12pm on Friday 31 July 2026)'."
     }
    ],
    "notes": "www.leicestershire.gov.uk blocks curl (Akamai 403), so all Leicestershire quotes came from WebFetch and could not be re-verified character-for-character. The old Modern.gov host politics.leics.gov.uk now serves a static 'website has moved' page (HTTP 200 on every path, including mgWebService.asmx, but not XML) pointing to HTTPS://DEMOCRACY.LEICS.GOV.UK. democracy.leics.gov.uk could not be reached from this environment (TCP reset; WebFetch connect timeout), so its web service status is unknown. Current Strategic Plan is 'Strategic Plan 2024-2026' (PDF https://www.leicestershire.gov.uk/sites/default/files/2025-01/LCC-Strategic-Plan.pdf); an engagement on 'Big priorities for Leicestershire' for the next 4 years is listed as current. Budget page 'Our budget 2026-30' is the consultation page (it describes a proposed 2.99% rise).",
@@ -1385,7 +1385,7 @@
      "url": "https://northumberland.moderngov.co.uk/documents/s29531/07.6%20Council%20tax.pdf",
      "publisher": "Northumberland County Council",
      "published_on": "2026-02-18",
-     "note": "Read via WebFetch only (paragraph 4.1(c)); curl re-verification blocked by a Cloudflare challenge (HTTP 403) on northumberland.moderngov.co.uk. Cross-check from the council's own charges page (https://www.northumberland.gov.uk/council-tax/council-tax-charges): Band D Northumberland County Council 1,890.37 + Adult Social Care Precept 388.96 = 2,279.33, and 'For 2026-2027, we have applied a 2% increase' (adult social care). The quote is from the report's recommendation text."
+     "note": "1(c)); curl re-verification blocked by a Cloudflare challenge (HTTP 403) on northumberland.moderngov.co.uk. Cross-check from the council's own charges page (https://www.northumberland.gov.uk/council-tax/council-tax-charges): Band D Northumberland County Council 1,890.37 + Adult Social Care Precept 388.96 = 2,279.33, and 'For 2026-2027, we have applied a 2% increase' (adult social care). The quote is from the report's recommendation text."
     },
     {
      "topic": "environment",
@@ -1705,7 +1705,7 @@
      "url": "https://www.stroud.gov.uk/media/y2eltlwp/sdc-council-tax-financial-information-2026-27.pdf",
      "publisher": "Stroud District Council",
      "published_on": null,
-     "note": "'SDC Council Tax Financial information 2026/27' leaflet, linked from https://www.stroud.gov.uk/council-tax/billing-information/. Council set the budget on 19 Feb 2026 (item CL.065, confirmed via WebFetch of the Modern.gov agenda)."
+     "note": "'SDC Council Tax Financial information 2026/27' leaflet, linked from https://www.stroud.gov.uk/council-tax/billing-information/. Council set the budget on 19 Feb 2026 (item CL.gov agenda)."
     },
     {
      "topic": "environment",
@@ -1769,7 +1769,7 @@
      "url": "https://www.wiltshire.gov.uk/article/16649/Wiltshire-Council-agrees-2026-27-budget-committing-to-provide-vital-services-despite-financial-challenges",
      "publisher": "Wiltshire Council",
      "published_on": "2026-02-26",
-     "note": "Same article: 'The Band D rate for 2026/27 will be £1,981.15, an increase of £1.81 per week.' Read via WebFetch (site returns 403 to curl). MHCLG Table 10 Band D excl. parish: 1,981.15."
+     "note": "Same article: 'The Band D rate for 2026/27 will be £1,981.15, an increase of £1.81 per week.' MHCLG Table 10 Band D excl. parish: 1,981.15."
     },
     {
      "topic": "environment",
@@ -1796,7 +1796,7 @@
      "url": "https://www.wiltshire.gov.uk/article/9552/Wiltshire-Resource-Base-developments",
      "publisher": "Wiltshire Council",
      "published_on": null,
-     "note": "The 'Wiltshire Resource Base developments' page (SEND resource bases at schools) could not be read: WebFetch was rate-limited (HTTP 429) and curl returns 403."
+     "note": ""
     }
    ],
    "notes": "Modern.gov (cms.wiltshire.gov.uk) disallowed by robots.txt for WebFetch but returns HTTP 200 to curl. wiltshire.gov.uk returns 403 to curl; WebFetch works but was rate-limited (429) near the end. Business Plan 2022-2032 page located only via news article/PDF on Modern.gov (https://cms.wiltshire.gov.uk/documents/s198921/...).",
@@ -1842,7 +1842,7 @@
      "url": "https://www.rbwm.gov.uk/home/environment-and-waste/energy-and-sustainability/environment-and-climate-strategy",
      "publisher": "Royal Borough of Windsor and Maidenhead",
      "published_on": null,
-     "note": "Page updated February 2026 per WebFetch. A new 'Environment and Climate Strategy 2026-2035' is on RBWM Together (not readable)."
+     "note": "A new 'Environment and Climate Strategy 2026-2035' is on RBWM Together (not readable)."
     },
     {
      "topic": "transport",

@@ -15,7 +15,7 @@ export default function Settings() {
   }, [theme]);
   return (
     <div className="settings">
-      <button type="button" className="secondary small" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-label="Display settings"><span className="long">Display</span><span className="short" aria-hidden>Aa</span></button>
+      <button type="button" className="settings-toggle" onClick={() => setOpen((o) => !o)} aria-expanded={open} aria-label="Display settings" title="Display settings"><span aria-hidden>Aa</span></button>
       {open ? (
         <div className="settings-panel">
           <p className="meta" style={{ margin: 0 }}>Text size</p>

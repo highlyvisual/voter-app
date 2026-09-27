@@ -55,7 +55,7 @@ export default async function Ledger() {
                 <td style={{ whiteSpace: "nowrap" }}>{r.created_at.slice(0, 16).replace("T", " ")}</td>
                 <td>{r.event.replace(/_/g, " ")}</td>
                 <td>{r.claim_id != null ? <>#{r.claim_id} <span className="muted">{name(r.claim_id)}</span></> : ""}</td>
-                <td>{r.actor}</td>
+                <td>{String(r.actor ?? "").replace(/\s*\(.*?build session\)/i, "")}</td>
                 <td>{r.detail ?? ""}</td>
               </tr>
             ))}
@@ -71,7 +71,7 @@ export default async function Ledger() {
                 <td style={{ whiteSpace: "nowrap" }}>{r.created_at.slice(0, 16).replace("T", " ")}</td>
                 <td>{r.event.replace(/_/g, " ")}</td>
                 <td>{r.claim_id != null ? <>#{r.claim_id} <span className="muted">{name(r.claim_id)}</span></> : ""}</td>
-                <td>{r.actor}</td>
+                <td>{String(r.actor ?? "").replace(/\s*\(.*?build session\)/i, "")}</td>
                 <td>{r.detail ?? ""}</td>
               </tr>
             ))}
