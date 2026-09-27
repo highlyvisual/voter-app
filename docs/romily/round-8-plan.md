@@ -142,3 +142,16 @@ These are what a Holborn voter will actually touch, so they come first:
 - **Claude (build sessions):**
   - everything else, in this order;
   - a "what changed" note to Romily each week.
+
+## Progress, 27 September (evening)
+
+Built and live, **waiting for Romily to tick** (the rule: only she marks anything done):
+
+- Stage 0: "My profile" button, smaller "Aa", passed deadlines say "closed", /journey and internal notes gone, privacy wording true.
+- Stage 1, item 5: the home page leads with "Start with you"; the quick postcode lookup is folded underneath.
+- Stage 1, item 6: every claim in three layers on Positions, the candidate page and the ballot cards. The per-topic numbers stay until q9.
+- Stage 1, item 9 (Barny's switches): edge caching, security headers, self-hosted fonts and map library, postcode fallback by ward and division, eve-of-poll archive copies. Search indexing stays off until Barny sets the date (ALLOW_INDEXING).
+- Stage 2, item 11: the decision-chain data for any postcode, with no page yet (q16).
+- The review's "make the site true" list: see PROJECT.md, 27 Sep.
+
+Still blocked on her answers: palette (q10–12), the copy pass (q13–14), the council agenda rule (q15), how unelected bodies are shown (q16), replacing the per-topic numbers (q9), where the profile lands (q6).
