@@ -68,7 +68,7 @@ These are what a Holborn voter will actually touch, so they come first:
    - self-hosted fonts;
    - the postcode fallback for polling day;
    - a rehearsal on a phone.
-10. **Round seven:** publish her questions page on candidate invitations, and act on her answer.
+10. **Round seven: settled on WhatsApp, 27 Sep.** No candidate invitations for now. The site's promise to invite has been removed, so round seven's page won't be published.
 
 ### Stage 2: October to November ("What is actually happening around me, and where do I fit?")
 

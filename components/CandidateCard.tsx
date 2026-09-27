@@ -87,11 +87,6 @@ export default async function CandidateCard({
   const current = leaflets.filter((l) => campaignStart && (l.date_uploaded ?? "") >= campaignStart);
   const earlier = leaflets.filter((l) => !(campaignStart && (l.date_uploaded ?? "") >= campaignStart));
   const fmtD = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
-  const invLine = !invitation || invitation.submission_status === "not_invited"
-    ? "Not yet invited to submit a statement: we have no contact address. If you are this candidate, use the link below."
-    : invitation.submission_status === "invited" ? `Invited to submit a statement on ${fmtD(invitation.invited_at)}. No response yet.`
-    : invitation.submission_status === "received" ? `Statement received ${invitation.responded_at ? fmtD(invitation.responded_at) : ""}, being checked.`
-    : `Statement published${invitation.responded_at ? ` (received ${fmtD(invitation.responded_at)})` : ""}.`;
   const hhQs = new URLSearchParams(Object.entries(household).filter(([k, v]) => k !== "postcode" && typeof v === "string") as [string, string][]).toString();
   const record = candidate.parliament_member_id ? await parliamentRecord(candidate.parliament_member_id) : null;
   if (record && candidate.parliament_member_id) {
@@ -198,7 +193,7 @@ export default async function CandidateCard({
 
         <section className="slot">
           <h4>Where this information comes from</h4>
-          <p className="small" style={{ margin: 0 }}>Positions are quoted from the candidate's or party's own published material and official records, each with its source. Candidates and their agents can also submit sourced statements, published as written once we confirm they appear at the cited address. <span className="meta">{invLine}</span> <a href="/candidates/submit">Submit a statement</a>.</p>
+          <p className="small" style={{ margin: 0 }}>Positions are quoted from the candidate's or party's own published material and official records, each with its source. Where a candidate has given Democracy Club a statement to voters, it is shown word for word. If you are this candidate and something here is wrong, <a href="mailto:hello@whatsittome.org?subject=Correction">email us</a> and we will check it against the source.</p>
         </section>
 
         <section className="slot">

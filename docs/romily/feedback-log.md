@@ -157,3 +157,9 @@ New rule from this round: an item is **Done** only when Romily has seen it on th
 | 16 | Keep pushing "start from what I want to understand". | **Done so far** — principle recorded. | — |
 | 17 | Protect the impartiality structure while becoming more colourful and human. | **Principle recorded.** | — |
 | 18 | Roadmap to an app: website → strong mobile → app → App Store / Google Play. | **Written** (round-8-plan.md, Stage 5). | 5 |
+
+## WhatsApp, 27 September — candidate invitations
+
+| She said | Status |
+|---|---|
+| Inviting every candidate "wasn't the plan": it was one of the options and she didn't choose it; "slightly subjective". Agreed with Barny that automatic emailing and publishing "could get messy", a step for if the site becomes popular and there is funding for staff. | **Built 27 Sep, waiting for Romily.** Every "we invite candidates" line is gone: the candidate cards, the submission page, the action box and the moderation page now say we don't collect statements from candidates, and that a candidate who spots an error can email us and the correction is logged. Round seven's questions page is not needed and won't be published. |
