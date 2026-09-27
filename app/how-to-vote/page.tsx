@@ -53,8 +53,8 @@ export default async function HowToVote() {
       <h2>3. Three ways to vote</h2>
       <ul>
         <li><strong>In person</strong> at your polling station, 7am to 10pm on polling day. It is printed on your poll card, or <a href="https://wheredoivote.co.uk/" rel="noopener">find it by postcode</a> (Democracy Club). You need <a href="https://www.gov.uk/how-to-vote/photo-id-youll-need" rel="noopener">accepted photo ID</a>; a passport, driving licence or older person's bus pass all count. No ID? Apply for a free <a href="https://www.gov.uk/apply-for-photo-id-voter-authority-certificate" rel="noopener">Voter Authority Certificate</a>.</li>
-        <li><strong>By post</strong>: <a href="https://www.gov.uk/apply-postal-vote" rel="noopener">apply online</a>. Your ballot is posted to you; return it before polling day or hand it in at a polling station.</li>
-        <li><strong>By proxy</strong>: someone you trust votes on your behalf, in the way you tell them. Useful if you are away, ill, or find polling stations hard to reach. <a href="https://www.gov.uk/apply-proxy-vote" rel="noopener">Apply online</a>. This is the option people know least about; it is entirely normal and secure.</li>
+        <li><strong>By post</strong>: <a href="https://www.gov.uk/apply-postal-vote" rel="noopener">apply for a postal vote online</a>. Your ballot is posted to you; return it before polling day or hand it in at a polling station.</li>
+        <li><strong>By proxy</strong>: someone you trust votes on your behalf, in the way you tell them. Useful if you are away, ill, or find polling stations hard to reach. <a href="https://www.gov.uk/apply-proxy-vote" rel="noopener">Apply for a proxy vote online</a>. This is the option people know least about; it is entirely normal and secure.</li>
       </ul>
 
       <div className="keypoint"><strong>You can bring someone with you.</strong> Every polling station must offer large-print ballot papers, a tactile voting device and a seat, and staff will help you mark your paper if you ask. You never have to explain why.</div>

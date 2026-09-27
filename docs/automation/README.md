@@ -14,6 +14,6 @@ This folder holds the build briefs, one per phase. The short version of the plan
 5. **Positions reader and money-modelling job**, from the party-publications feed.
 6. **Own postcode lookups** from the ONS Postcode Directory (quarterly), replacing postcodes.io at runtime.
 
-Nothing new goes live before 8 October 2026. The AI step starts as a queue that a scheduled Cowork task can fill
+The AI step starts as a queue that a scheduled Cowork task can fill
 (no API spend); the GitHub job always does the word-for-word check and the publishing. It can switch to the
 Claude API later by replacing only the reader.

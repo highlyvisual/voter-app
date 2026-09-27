@@ -45,7 +45,7 @@ them, the exact sentence from the minutes, and a link. Never guess.
 - Dry run locally (no service key) against 3 councils with published minutes; print a table of item → outcome →
   sentence → method. Check 20 of them by hand against the PDFs and put the result in the PR description.
 - `npx tsc --noEmit` and `npx next build` pass.
-- Work on branch `automation/phase-1`; open a PR. No deploy before 8 October 2026.
+- Work on branch `automation/phase-1`; open a PR.
 
 ## Out of scope for phase 1
 Named votes by councillor (Romily: councillors appear only via their register of interests). Councils not on

@@ -127,12 +127,10 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
           <p className="meta" style={{ margin: "0 0 0.6rem" }}>Three very different households, one election ({example.area_name}, {longDate(example.poll_date)}). Open one to see what each candidate has published that touches that household.</p>
           <ul className="example-cards">
             {EXAMPLES.map((e) => (
-              <li key={e.title}>
-                <Link prefetch={false} className="example-card" href={`/ballot/${encodeURIComponent(example.ballot_paper_id)}?${e.query}`}>
-                  <span className="ex-title">{e.title}</span>
-                  <span className="ex-facts">{e.facts}</span>
-                  <span className="ex-go">See what applies <span aria-hidden>→</span></span>
-                </Link>
+              <li key={e.title} className="example-card">
+                <Link prefetch={false} className="ex-title card-link" href={`/ballot/${encodeURIComponent(example.ballot_paper_id)}?${e.query}`}>{e.title}</Link>
+                <span className="ex-facts">{e.facts}</span>
+                <span className="ex-go" aria-hidden>See what applies →</span>
               </li>
             ))}
           </ul>
@@ -141,9 +139,9 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
       ) : null}
 
       <ol className="steps">
-        <li><a href="#elections" className="step-link"><strong>Open a ballot</strong><span>Every candidate, from the official nomination list, in the order they appear on the paper.</span><span className="step-go">Choose an election <span aria-hidden>→</span></span></a></li>
-        <li><Link prefetch={false} href="/start" className="step-link"><strong>Describe a household</strong><span>Seven quick questions. Yours, a friend's, a neighbour's, someone unlike you. We don't store your answers.</span><span className="step-go">Start with you <span aria-hidden>→</span></span></Link></li>
-        <li>{example ? <Link prefetch={false} href={`/ballot/${encodeURIComponent(example.ballot_paper_id)}?${EXAMPLES[0].query}`} className="step-link"><strong>See what applies</strong><span>What each candidate has said on nine topics, what it would mean for that household in pounds where it can be calculated, and where every word came from.</span><span className="step-go">See an example <span aria-hidden>→</span></span></Link> : <div className="step-link"><strong>See what applies</strong><span>What each candidate has said on nine topics, what it would mean for that household in pounds where it can be calculated, and where every word came from.</span></div>}</li>
+        <li><strong>Open a ballot</strong><span>Every candidate, from the official nomination list, in the order they appear on the paper.</span><a href="#elections" className="step-go card-link">Choose an election <span aria-hidden>→</span></a></li>
+        <li><strong>Describe a household</strong><span>Seven quick questions. Yours, a friend's, a neighbour's, someone unlike you. We don't store your answers.</span><Link prefetch={false} href="/start" className="step-go card-link">Start with you <span aria-hidden>→</span></Link></li>
+        <li><strong>See what applies</strong><span>What each candidate has said on nine topics, what it would mean for that household in pounds where it can be calculated, and where every word came from.</span>{example ? <Link prefetch={false} href={`/ballot/${encodeURIComponent(example.ballot_paper_id)}?${EXAMPLES[0].query}`} className="step-go card-link">See an example <span aria-hidden>→</span></Link> : null}</li>
       </ol>
 
       {ballots.length > 3 ? (<>

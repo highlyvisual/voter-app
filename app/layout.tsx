@@ -62,8 +62,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </p>
           <p>
             Candidate and election data from <a href="https://democracyclub.org.uk/">Democracy Club</a> (CC BY 4.0). Tax and benefit calculations use the open-source{" "}
-            <a href="https://policyengine.org/uk">PolicyEngine UK</a> model. Code is open source under AGPL-3.0 at{" "}
-            <a href={SITE.repo}>{SITE.repo.replace("https://", "")}</a>. {SITE.name}, {SITE.url.replace("https://", "")}.
+            <a href="https://policyengine.org/uk">PolicyEngine UK</a> model. Code is open source under AGPL-3.0:{" "}
+            <a href={SITE.repo}>our source code on GitHub</a>. {SITE.name}, {SITE.url.replace("https://", "")}.
           </p>
           <Suspense fallback={null}><FreshnessLine /></Suspense>
           <p className="foot-brand"><img className="brand-light" src="/brand/mark-light.webp" alt="" width={30} height={27} loading="lazy" /><img className="brand-dark" src="/brand/mark-dark.webp" loading="lazy" alt="" width={30} height={27} /><span><strong>What&rsquo;s It To Me?</strong> Politics, in your context.</span></p>
