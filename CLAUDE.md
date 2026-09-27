@@ -29,4 +29,5 @@ without the service key (see `scripts/auto/common.py`): use that for local testi
   branch and open a PR unless told to push to main. Deploys to Netlify cost shared credits: batch them.
 
 ## Current work
-The automation plan: `docs/automation/README.md`. Start with the phase it names as next.
+The automation plan: `docs/automation/README.md`. Next: `docs/automation/open-data-mysociety.md` (start with its
+section 0, the git pull on `automation/phase-1`).
