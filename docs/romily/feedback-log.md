@@ -139,7 +139,7 @@ New rule from this round: an item is **Done** only when Romily has seen it on th
 
 | # | She said | Status | Stage |
 |---|---|---|---|
-| 1 | Home page should lead with creating your profile, postcode inside it; "My Profile" visually distinct in the navigation. | **Not done.** Round five's "profile as step one" was built on /start only; the home page still leads with "Find my election". | 0 (nav), 1 (home) |
+| 1 | Home page should lead with creating your profile, postcode inside it; "My Profile" visually distinct in the navigation. | **Nav part built 27 Sep, waiting for Romily:** "My profile" is an outlined button in the header on every page, phone and desktop. **Home page not done:** round five's "profile as step one" was built on /start only; the home page still leads with "Find my election". | 0 (nav), 1 (home) |
 | 2 | Revisit the palette: no cream at the top, less beige, more contrast and personality, not generic AI pastel, still no party-associated colours. | **Not done.** Three directions to show her on real pages. | 1 |
 | 3 | Whole site more human: page by page, "would an actual person naturally say this?"; shorter sentences, fewer repeated explanatory blocks, a clear voice. | **Partly** (round six: four blocks). Now a full pass, voter path first, each page read aloud and edited by Romily or Barny. | 1 |
 | 4 | Positions far too wordy: What they say → What this could mean for you → See evidence. "Simple first. Evidence one click away." | **Not done.** | 1 |
@@ -150,7 +150,7 @@ New rule from this round: an item is **Done** only when Romily has seen it on th
 | 9 | Elections coming up: more visual (timeline, calendar, map, countdown, election-type icons, level of government). | **Not done.** | 3 |
 | 10 | "What's coming up?" tool: properly interactive, "What can I vote in next?". | **Not done.** Built together with 9. | 3 |
 | 11 | Visual learning in Learn (bill to law, who controls what, FPTP mock election, PR, what happens when you vote, council tax breakdown, MP/councillor/mayor controls, tap definitions, how Parliament works). | **Not done.** | 3 |
-| 12 | Display/accessibility icon a bit smaller. | **Not done.** | 0 |
+| 12 | Display/accessibility icon a bit smaller. | **Built 27 Sep, waiting for Romily:** now a small, quiet "Aa" in the header. | 0 |
 | 13 | Welsh interface and Learn, investigate Gaelic; properly reviewed, not machine translation; never translate a candidate's words. | **Partly** (docs/welsh.md handover; no translator). String extraction happens during the copy pass. | 4 |
 | 14 | Less on the main election/candidate experience; progressive disclosure; think of someone who doesn't like politics. | **Not done.** With 4. | 1 |
 | 15 | Keep personalised ordering; personalisation explains relevance, not what should matter. | **Done** — principle recorded in the plan. | — |
