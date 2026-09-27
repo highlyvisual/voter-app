@@ -8,6 +8,7 @@ const JOBS: { job: string; what: string; when: string; max: number }[] = [
   { job: "schools (GIAS)", what: "Proposed and recent school openings and closures in England (DfE register)", when: "Daily", max: 30 },
   { job: "consultations", what: "Open consultations from councils that use Citizen Space", when: "Daily", max: 30 },
   { job: "council meetings", what: "Full Council and Cabinet agendas and motions (Modern.gov)", when: "Mondays", max: 8 * 24 },
+  { job: "motion outcomes", what: "The result of each agenda item, read from the published minutes in the council's own words", when: "Mondays", max: 8 * 24 },
   { job: "gazette notices", what: "Traffic and highways orders published in The Gazette", when: "Mondays", max: 8 * 24 },
   { job: "local plans (planning.data.gov.uk)", what: "Each council's local plans and housing requirement (MHCLG)", when: "Mondays", max: 8 * 24 },
   { job: "party funding (Electoral Commission)", what: "Party donations, latest four published quarters", when: "Mondays; rebuilt when a quarter is published", max: 8 * 24 },

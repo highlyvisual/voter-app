@@ -33,7 +33,7 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
   const names = [...new Set([c.name, stripped])];
   const gss = c.gss ?? "__none__";
   const since = new Date(Date.now() - 120 * 86400000).toISOString().slice(0, 10);
-  const [{ data: cllrs }, { data: control }, { data: ctax }, { data: ballotRows }, { data: agenda }, { data: plans }, { data: notices }, { data: schools }, { data: consults }] = await Promise.all([
+  const [{ data: cllrs }, { data: control }, { data: ctax }, { data: ballotRows }, { data: agenda }, { data: plans }, { data: notices }, { data: schools }, { data: consults }, { data: outcomes }, { data: queued }] = await Promise.all([
     db.from("councillors").select("name, party_name, ward, next_election").in("council", names).order("ward").order("name"),
     db.from("council_control").select("*").in("authority", names).eq("year", 2026).limit(1).maybeSingle(),
     db.from("council_tax_2026").select("*").in("authority", names).limit(1).maybeSingle(),
@@ -43,6 +43,8 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
     db.from("gazette_notices").select("*").eq("council_slug", c.slug).gte("published", since).order("published", { ascending: false }),
     db.from("school_changes").select("*").or(`district_gss.eq.${gss},la_gss.eq.${gss}`).order("name"),
     db.from("council_consultations").select("*").eq("council_slug", c.slug).order("closes"),
+    db.from("council_item_outcomes").select("meeting_id, item_id, outcome, votes_for, votes_against, abstentions, sentence, minutes_url, method").eq("council_slug", c.slug),
+    db.from("outcome_queue").select("meeting_id, item_id, status, minutes_url").eq("council_slug", c.slug),
   ]);
   const fmt = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
   const auto: Record<string, ReactNode> = {
@@ -103,7 +105,7 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
         );
       })}
 
-      <Decisions rows={(agenda ?? []) as AgendaRow[]} councillors={councillors} councilName={c.name} meetingsUrl={c.links.meetings ?? c.site} />
+      <Decisions rows={(agenda ?? []) as AgendaRow[]} outcomes={(outcomes ?? []) as OutcomeRow[]} queued={(queued ?? []) as QueueRow[]} councillors={councillors} councilName={c.name} meetingsUrl={c.links.meetings ?? c.site} />
 
       <section className="council-topic">
         <h2>Who runs the council</h2>
@@ -145,14 +147,36 @@ function describeControl(m: string | null): string {
 }
 
 type AgendaRow = { body: string; meeting_id: number; meeting_date: string; meeting_status: string | null; item_id: number; item_number: string | null; title: string; kind: string; proposer: string | null; url: string; retrieved_at: string };
+// Phase 1 of the automation plan (docs/automation/phase-1-motion-results.md): what the minutes say happened to each item,
+// read by scripts/auto/motion_outcomes.py from fixed forms of words only, with the exact sentence. Items the fixed words
+// could not settle wait in outcome_queue; a rejected one is one the word-for-word check refused.
+type OutcomeRow = { meeting_id: number; item_id: number; outcome: string; votes_for: number | null; votes_against: number | null; abstentions: number | null; sentence: string; minutes_url: string; method: string };
+type QueueRow = { meeting_id: number; item_id: number; status: string; minutes_url: string };
 
 // Romily, round six (q13): every Full Council motion shown, labelled with who proposed it. The proposer is taken from the
 // council's own agenda text; a councillor's party comes from Open Council Data. Where the agenda does not name the
 // proposer, the line says so and links the papers. Nothing is ranked, selected or matched to a ward (her q12 asked for the
 // ward rule to be rethought).
-function Decisions({ rows, councillors, councilName, meetingsUrl }: { rows: AgendaRow[]; councillors: { name: string; party_name: string | null }[]; councilName: string; meetingsUrl: string }) {
+function Decisions({ rows, outcomes, queued, councillors, councilName, meetingsUrl }: { rows: AgendaRow[]; outcomes: OutcomeRow[]; queued: QueueRow[]; councillors: { name: string; party_name: string | null }[]; councilName: string; meetingsUrl: string }) {
   if (!rows.length) return null;
   const today = new Date().toISOString().slice(0, 10);
+  const outcomeOf = new Map(outcomes.map((o) => [`${o.meeting_id}:${o.item_id}`, o]));
+  const queueOf = new Map(queued.map((q) => [`${q.meeting_id}:${q.item_id}`, q]));
+  const fmtLong = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+  // The same three lines for every council: the result in the minutes' own words, or that the minutes are not out yet, or
+  // that the result could not be read. Nothing is paraphrased.
+  const Result = ({ it }: { it: AgendaRow }) => {
+    if (it.meeting_date >= today) return null;
+    const o = outcomeOf.get(`${it.meeting_id}:${it.item_id}`);
+    const q = queueOf.get(`${it.meeting_id}:${it.item_id}`);
+    if (o) {
+      const votes = o.votes_for !== null && o.votes_against !== null ? ` (${o.votes_for} for, ${o.votes_against} against${o.abstentions !== null ? `, ${o.abstentions} abstained` : ""})` : "";
+      return <span className="dec-result"><b>Result: {o.outcome}</b>, {fmtLong(it.meeting_date)}{votes}. &ldquo;{o.sentence}&rdquo; <a href={L(o.minutes_url)} rel="noopener">Minutes</a></span>;
+    }
+    if (q?.status === "rejected") return <span className="dec-result meta">We couldn&rsquo;t read the result from the minutes. <a href={L(q.minutes_url)} rel="noopener">Minutes</a></span>;
+    if (q) return <span className="dec-result meta">Minutes published; result not yet read. <a href={L(q.minutes_url)} rel="noopener">Minutes</a></span>;
+    return <span className="dec-result meta">Minutes not yet published.</span>;
+  };
   const byMeeting = new Map<number, AgendaRow[]>();
   for (const r of rows) byMeeting.set(r.meeting_id, [...(byMeeting.get(r.meeting_id) ?? []), r]);
   const meetings = [...byMeeting.values()].map((rs) => ({ date: rs[0].meeting_date, body: rs[0].body, status: rs[0].meeting_status, url: rs[0].url, items: rs.filter((r) => r.kind !== "placeholder") }));
@@ -179,6 +203,7 @@ function Decisions({ rows, councillors, councilName, meetingsUrl }: { rows: Agen
             <li key={it.item_id}>
               {it.kind === "motion" ? <span className="chip none">Motion</span> : null} {it.title}
               {it.kind === "motion" ? <span className="meta"> — {it.proposer ? `from ${proposers(it.proposer)}` : "proposer named in the council's papers"}</span> : null}
+              <Result it={it} />
             </li>
           ))}
         </ul>
@@ -196,7 +221,7 @@ function Decisions({ rows, councillors, councilName, meetingsUrl }: { rows: Agen
         <ul className="dec-list">{recent.slice(0, 3).map((m) => <Meeting key={m.url} m={m} />)}</ul>
         {recent.length > 3 ? <details className="more"><summary className="meta">{recent.length - 3} earlier meetings</summary><ul className="dec-list">{recent.slice(3).map((m) => <Meeting key={m.url} m={m} />)}</ul></details> : null}
       </>) : null}
-      <p className="meta">From the council&rsquo;s own <a href={L(meetingsUrl)} rel="noopener">meeting papers</a> (Modern.gov){retrieved ? `, read ${new Date(retrieved).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}` : ""}. Refreshed weekly. Results of motions are in each meeting&rsquo;s minutes, linked from the date.</p>
+      <p className="meta">From the council&rsquo;s own <a href={L(meetingsUrl)} rel="noopener">meeting papers</a> (Modern.gov){retrieved ? `, read ${new Date(retrieved).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}` : ""}. Refreshed weekly. Once a meeting&rsquo;s minutes are published, each item shows the result in the minutes&rsquo; own words (carried, lost, withdrawn, deferred, noted or agreed), the recorded vote where the minutes give one, and a link to the minutes; where those words are not found, the page says so rather than guessing.</p>
     </section>
   );
 }

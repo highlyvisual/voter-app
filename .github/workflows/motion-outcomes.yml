@@ -1,0 +1,30 @@
+name: Motion outcomes
+# The result of each Full Council and Cabinet item, read from the published minutes into council_item_outcomes
+# (scripts/auto/motion_outcomes.py): fixed forms of words only, no AI. Items the fixed words cannot settle wait in
+# outcome_queue; --verify publishes answered queue rows only after the word-for-word check.
+# Mondays after the council meetings job (05:40 UTC), on demand, and whenever the reader changes.
+on:
+  schedule:
+    - cron: "20 6 * * 1"   # Mondays 06:20 UTC
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["scripts/auto/motion_outcomes.py", ".github/workflows/motion-outcomes.yml"]
+concurrency: { group: motion-outcomes, cancel-in-progress: false }
+jobs:
+  outcomes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - run: pip install --quiet pdfminer.six && (sudo apt-get install -y -qq poppler-utils > /dev/null || true)   # pdftotext, for councils that publish only the PDF
+      - name: Publish answered queue rows that pass the word-for-word check
+        run: python scripts/auto/motion_outcomes.py --verify
+      - name: Read newly published minutes
+        run: python scripts/auto/motion_outcomes.py

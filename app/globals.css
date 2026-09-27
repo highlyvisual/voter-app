@@ -1370,6 +1370,7 @@ main a { overflow-wrap: anywhere; }
 .dec-head { margin: 0 0 0.25rem; font-family: var(--sans); }
 .dec-items { margin: 0; padding-left: 1.1rem; font-size: 0.95rem; }
 .dec-items li { margin: 0.2rem 0; }
+.dec-result { display: block; font-size: 0.9rem; margin: 0.1rem 0 0.35rem; }
 
 /* Council pages: lines kept current automatically from official registers (25 Sept 2026) */
 .auto-block { margin: 0.9rem 0 0.4rem; padding: 0.7rem 0.9rem; border-left: 2px solid var(--rule); background: var(--sand); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
