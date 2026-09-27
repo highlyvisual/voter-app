@@ -1435,3 +1435,40 @@ details.evidence blockquote.quote { margin-top: 0.1rem; }
   .hdyk-panel { right: 0; }
 }
 details.evidence blockquote.quote { border-left: 2px solid var(--rule-strong); padding-left: 0.6rem; font-style: italic; }
+
+/* "Try it as someone else" (Romily, 27 Sept): three very different households, each an obvious link. */
+.examples { margin: 1.6rem 0 0; }
+.examples-title { border-top: 0; padding-top: 0; margin: 0 0 0.2rem; font-size: 1.35rem; }
+.example-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 0.8rem; }
+.example-card { display: flex; flex-direction: column; gap: 0.35rem; height: 100%; padding: 0.95rem 1.05rem; border: 1px solid var(--rule); border-radius: 10px; background: var(--panel); color: var(--ink); text-decoration: none !important; box-shadow: var(--shadow); transition: border-color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease), box-shadow var(--t-fast) var(--ease); }
+.example-card:hover, .example-card:focus-visible { border-color: var(--slate, var(--ink)); transform: translateY(-2px); box-shadow: var(--shadow-lift); }
+.ex-title { font-family: var(--display); font-size: 1.15rem; font-weight: 500; line-height: 1.25; }
+.ex-facts { font-family: var(--sans); font-size: 0.85rem; color: var(--ink-soft); line-height: 1.4; flex: 1; }
+.ex-go, .step-go { font-family: var(--sans); font-size: 0.88rem; font-weight: 600; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; margin-top: 0.3rem; }
+.example-card:hover .ex-go, .step-link:hover .step-go { text-decoration-thickness: 2px; }
+
+/* The three steps are routes in, not decoration. */
+.steps li { padding: 0; }
+.step-link { display: flex; flex-direction: column; gap: 0.2rem; height: 100%; padding: 1rem 1.1rem; color: var(--ink); text-decoration: none !important; }
+.step-link span:not(.step-go) { color: var(--ink-soft); }
+.steps li:has(a.step-link):hover { transform: translateY(-2px); }
+.steps li::before { color: var(--paper); margin: 1rem 0 0 1.1rem; }
+
+/* Dark mode: only the main call to action is bright. Secondary buttons, the election picker and the step cards sit
+   in the page instead of glowing white (Romily, 27 Sept). */
+:root[data-theme="dark"] .try-panel, :root[data-theme="dark"] .example-card { background: #111114; border-color: #2a2a2a; }
+:root[data-theme="dark"] .try-row { background: transparent; color: var(--ink); }
+:root[data-theme="dark"] .try-row:hover { background: #1c1c21; color: var(--ink); }
+:root[data-theme="dark"] .button.secondary, :root[data-theme="dark"] button.secondary { background: transparent; color: var(--ink); border: 1px solid #4a4a4f; }
+:root[data-theme="dark"] .range-ticks button { background: none; color: var(--ink-soft); }
+:root[data-theme="dark"] .range-ticks button.on { color: var(--ink); }
+:root[data-theme="dark"] .steps li { border: 1px solid #2a2a2a; background: #111114; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .try-panel, :root:not([data-theme="light"]) .example-card { background: #111114; border-color: #2a2a2a; }
+  :root:not([data-theme="light"]) .try-row { background: transparent; color: var(--ink); }
+  :root:not([data-theme="light"]) .try-row:hover { background: #1c1c21; color: var(--ink); }
+  :root:not([data-theme="light"]) .button.secondary, :root:not([data-theme="light"]) button.secondary { background: transparent; color: var(--ink); border: 1px solid #4a4a4f; }
+  :root:not([data-theme="light"]) .range-ticks button { background: none; color: var(--ink-soft); }
+  :root:not([data-theme="light"]) .range-ticks button.on { color: var(--ink); }
+  :root:not([data-theme="light"]) .steps li { border: 1px solid #2a2a2a; background: #111114; }
+}

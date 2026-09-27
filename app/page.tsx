@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { longDate } from "@/lib/dates";
 import { countClaimsByStatus, countClaimsPerBallot, listArchivedBallots, listBallots, listFaceTiles, publicClient } from "@/lib/data";
 import { findElection } from "./find/actions";
 import BallotsMap from "@/components/BallotsMap";
@@ -12,6 +13,17 @@ import PostcodeField from "@/components/PostcodeField";
 export const dynamic = "force-dynamic";
 const fmt = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 
+// "Try it" households (Romily, 27 Sept): deliberately unlike one another in age, household, housing, money, work and
+// travel, so that as many people as possible see someone like them. Every value is one of the profile's own bands.
+const EXAMPLES = [
+  { title: "A student sharing a rented house", facts: "18 to 24 · university · part-time job · under £15,000 · no car",
+    query: "age_band=18_24&household=shared&children=none&tenure=private_rent&income_band=under_15k&employment=student_working&student=university&drives=no" },
+  { title: "A young family renting from the council", facts: "25 to 34 · a couple with a child under 5 · £15,000 to £25,000 · claims Universal Credit",
+    query: "age_band=25_34&household=couple&children=under_5&tenure=social_rent&income_band=15k_25k&employment=employed&student=no&benefits=yes" },
+  { title: "A retired homeowner living alone", facts: "65 or over · owns outright · pension income £25,000 to £40,000 · drives",
+    query: "age_band=65_plus&household=single&children=none&tenure=own_outright&income_band=25k_40k&employment=retired&student=no&drives=yes" },
+];
+
 export const metadata = { title: { absolute: "What’s It To Me? · Who is on your ballot, and what could it mean for you?" } };
 
 export default async function Home({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
@@ -20,6 +32,8 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
   const weekAgo = new Date(Date.now() - 7 * 86400000).toISOString();
   const [ballots, archived, counts, srcRes, perBallot, tiles, recent] = await Promise.all([listBallots(), listArchivedBallots(), countClaimsByStatus(), publicClient().from("sources").select("id"), countClaimsPerBallot(), listFaceTiles(), publicClient().from("current_claims").select("id, created_at").eq("status", "verified").gte("created_at", weekAgo)]);
   const live = counts.verified ?? 0; const sources = srcRes.data?.length ?? 0;
+  // The worked examples use the upcoming election with the most sourced positions, so there is something to see.
+  const example = [...ballots].sort((a, b) => (perBallot[b.ballot_paper_id] ?? 0) - (perBallot[a.ballot_paper_id] ?? 0))[0] ?? null;
   return (
     <>
       <YourDemocracy />
@@ -107,19 +121,29 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
         </section>
       ) : null}
 
-      {ballots.length ? (
-        <div className="example-links">
-          <span className="meta" style={{ alignSelf: "center" }}>Try it:</span>
-          <Link className="button secondary" href={`/ballot/${encodeURIComponent(ballots[0].ballot_paper_id)}?age_band=25_34&household=couple&children=school_age&tenure=private_rent&income_band=25k_40k&employment=employed&student=no`}>A renting couple with a child on £25–40k</Link>
-          <Link className="button secondary" href={`/ballot/${encodeURIComponent(ballots[0].ballot_paper_id)}/compare`}>All candidates side by side</Link>
-          <Link className="button secondary" href={`/ballot/${encodeURIComponent(ballots[0].ballot_paper_id)}/topic/housing_and_property`}>Everyone on housing</Link>
-        </div>
+      {example ? (
+        <section className="examples" aria-labelledby="examples-h">
+          <h2 id="examples-h" className="examples-title">Try it as someone else</h2>
+          <p className="meta" style={{ margin: "0 0 0.6rem" }}>Three very different households, one election ({example.area_name}, {longDate(example.poll_date)}). Open one to see what each candidate has published that touches that household.</p>
+          <ul className="example-cards">
+            {EXAMPLES.map((e) => (
+              <li key={e.title}>
+                <Link prefetch={false} className="example-card" href={`/ballot/${encodeURIComponent(example.ballot_paper_id)}?${e.query}`}>
+                  <span className="ex-title">{e.title}</span>
+                  <span className="ex-facts">{e.facts}</span>
+                  <span className="ex-go">See what applies <span aria-hidden>→</span></span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="meta" style={{ margin: "0.6rem 0 0" }}>Or skip the household: <Link prefetch={false} href={`/ballot/${encodeURIComponent(example.ballot_paper_id)}/compare`}>all candidates side by side</Link> · <Link prefetch={false} href={`/ballot/${encodeURIComponent(example.ballot_paper_id)}/topic/housing_and_property`}>everyone on housing</Link></p>
+        </section>
       ) : null}
 
       <ol className="steps">
-        <li><strong>Open a ballot</strong>Every candidate, from the official nomination list, in the order they appear on the paper.</li>
-        <li><strong>Describe a household</strong>Seven quick questions. Yours, a friend's, a neighbour's, someone unlike you. We don't store your answers.</li>
-        <li><strong>See what applies</strong>What each candidate has said on nine topics, what it would mean for that household in pounds where it can be calculated, and where every word came from.</li>
+        <li><a href="#elections" className="step-link"><strong>Open a ballot</strong><span>Every candidate, from the official nomination list, in the order they appear on the paper.</span><span className="step-go">Choose an election <span aria-hidden>→</span></span></a></li>
+        <li><Link prefetch={false} href="/start" className="step-link"><strong>Describe a household</strong><span>Seven quick questions. Yours, a friend's, a neighbour's, someone unlike you. We don't store your answers.</span><span className="step-go">Start with you <span aria-hidden>→</span></span></Link></li>
+        <li>{example ? <Link prefetch={false} href={`/ballot/${encodeURIComponent(example.ballot_paper_id)}?${EXAMPLES[0].query}`} className="step-link"><strong>See what applies</strong><span>What each candidate has said on nine topics, what it would mean for that household in pounds where it can be calculated, and where every word came from.</span><span className="step-go">See an example <span aria-hidden>→</span></span></Link> : <div className="step-link"><strong>See what applies</strong><span>What each candidate has said on nine topics, what it would mean for that household in pounds where it can be calculated, and where every word came from.</span></div>}</li>
       </ol>
 
       {ballots.length > 3 ? (<>
