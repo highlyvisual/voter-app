@@ -190,3 +190,19 @@ section and say so in the PR.
 - **Council climate scorecards.** They score councils.
 - **EveryPolitician.** Not updated since 2019.
 - **Composite UK deprivation index.** Older editions and modelled scores (see section 3).
+
+## Addendum, later on 27 Sept: better sources found in the wider search
+
+See `docs/research/11-data-sources.md`. Two change section 1 and 2 of this brief:
+- **GOV.UK's local-authority API** gives each council's official home page, its tier and its parent council, maintained
+  by GOV.UK: `https://www.gov.uk/api/local-authority/{slug}` (e.g. `dartford` returns Dartford Borough Council,
+  `homepage_url`, `tier: district`, parent Kent County Council). The slug is the register's `gov-uk-slug` column.
+  Prefer it over WhatDoTheyKnow's `home-page` where both exist; keep WhatDoTheyKnow for the publication scheme and
+  disclosure log.
+- **GOV.UK's Local Links Manager export** is a daily CSV of every council's service pages (bin collections, council
+  tax, register to vote, report a pothole, libraries and so on): 45,276 rows for 385 councils, keyed by GSS code.
+  `https://local-links-manager.publishing.service.gov.uk/data/links_to_services_provided_by_local_authorities.csv`.
+  Load it with the register and show a "Do it online" list on every council page. Never use its `?postcode=` form.
+- The ONS Code History Database and Register of Geographic Codes (June 2026, Open Geography Portal) is the authority
+  for councils created or abolished since May 2025.
+
