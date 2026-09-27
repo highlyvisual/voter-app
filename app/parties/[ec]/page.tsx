@@ -5,12 +5,14 @@ import PartyFunding from "@/components/PartyFunding";
 import { TOPICS, publicClient, type Claim } from "@/lib/data";
 import { layerOf } from "@/lib/claims";
 import { img } from "@/lib/site";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbs, graph, webPage } from "@/lib/schema";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ ec: string }> }) {
   const { ec } = await params;
   const { data } = await publicClient().from("parties").select("name").eq("ec_id", decodeURIComponent(ec)).maybeSingle();
-  return { title: data?.name ? `${data.name}: published positions` : "Party" };
+  return data?.name ? { title: `${data.name}: published positions`, description: `What ${data.name} has published, by topic, quoted exactly with the date it was published and the date we checked. No rankings, no recommendations.`, alternates: { canonical: `/parties/${encodeURIComponent(decodeURIComponent(ec))}` } } : { title: "Party" };
 }
 
 export default async function Party({ params }: { params: Promise<{ ec: string }> }) {
@@ -25,6 +27,10 @@ export default async function Party({ params }: { params: Promise<{ ec: string }
   const unique = [...seen.values()];
   return (
     <>
+      <JsonLd data={graph(
+        webPage(`/parties/${encodeURIComponent(ecId)}`, `${party.name}: published positions`, undefined, { about: { "@type": "Organization", name: party.name, identifier: ecId, ...(party.official_site_url ? { url: party.official_site_url } : {}) } }),
+        breadcrumbs([["Parties", "/parties"], [party.name, `/parties/${encodeURIComponent(ecId)}`]]),
+      )} />
       <p className="eyebrow"><Link href="/parties">All parties</Link></p>
       <h1 style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap" }}>
         {party.emblem_url ? <img src={img(party.emblem_url)} alt="" style={{ height: "2.2rem", width: "auto", background: "#fff" }} /> : null}

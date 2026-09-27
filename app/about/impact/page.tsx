@@ -1,6 +1,6 @@
 import { publicClient } from "@/lib/data";
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Impact" };
+export const metadata = { title: "Impact", description: "Everything we measure about how the site is used, published: two questions asked on every ballot page and anonymous daily counts.", alternates: { canonical: "/about/impact" } };
 export default async function Impact() {
   const { data } = await publicClient().from("feedback_totals").select("*").order("day", { ascending: false });
   const rows = data ?? [];

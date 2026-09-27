@@ -2,7 +2,7 @@ import { TOPICS, countClaimsByStatus, listAllClaimMeta, listChangeLog, listClaim
 import { conditionText } from "@/lib/claims";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Public ledger" };
+export const metadata = { title: "Public ledger", description: "Every claim on the site, its source and every change, in an append-only public record that cannot be edited or deleted.", alternates: { canonical: "/ledger" } };
 const TOPIC_NAME = new Map<string, string>(TOPICS.map(([k, v]) => [k, v]));
 const topic = (t: string) => TOPIC_NAME.get(t) ?? t.replace(/_/g, " ");
 

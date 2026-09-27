@@ -1,5 +1,5 @@
 import Link from "next/link";
-export const metadata = { title: "How this works", description: "The rules this site follows, built into its code: every candidate the same page, every claim quoted from its source, never a recommendation." };
+export const metadata = { title: "How this works", description: "The rules this site follows, built into its code: every candidate the same page, every claim quoted from its source, never a recommendation.", alternates: { canonical: "/about" } };
 
 export default function About() {
   return (

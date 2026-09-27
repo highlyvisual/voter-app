@@ -1,5 +1,5 @@
 import Link from "next/link";
-export const metadata = { title: "Why isn't my party standing here?" };
+export const metadata = { title: "Why isn't my party standing here?", description: "Parties do not stand in every seat. How nominations work, and how to find out whether a party is standing near you.", alternates: { canonical: "/about/parties-standing" } };
 export default function PartiesStanding() {
   return (
     <>

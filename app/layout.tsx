@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
+import "./enhance.css";
+import JsonLd from "@/components/JsonLd";
+import { siteGraph } from "@/lib/schema";
 import { SITE } from "@/lib/site";
 import Settings from "@/components/Settings";
 import MobileNav from "@/components/MobileNav";
@@ -29,11 +32,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en-GB">
       <head>
-        <link rel="stylesheet" href="/fonts/fonts.css" />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@graph": [
-          { "@type": "Organization", "@id": `${SITE.url}/#org`, name: "What's It To Me?", url: SITE.url, email: "hello@whatsittome.org", founder: [{ "@type": "Person", name: "Romily Johnson" }, { "@type": "Person", name: "Barny Trevelyan-Johnson" }], description: "An independent, non-partisan UK voter-information project. It never recommends, ranks or scores any candidate or party." },
-          { "@type": "WebSite", "@id": `${SITE.url}/#site`, name: "What's It To Me?", url: SITE.url, inLanguage: "en-GB", publisher: { "@id": `${SITE.url}/#org` } },
-        ] }) }} />
+        <link rel="stylesheet" href="/fonts/fonts-v2.css" />
+        <JsonLd data={siteGraph()} />
       </head>
       <body>
         <script dangerouslySetInnerHTML={{ __html: "try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);var s=localStorage.getItem('textsize');if(s)document.documentElement.style.fontSize=s+'%';if(localStorage.getItem('contrast')==='high')document.documentElement.classList.add('high-contrast');if(localStorage.getItem('lite')==='1')document.documentElement.classList.add('lite')}catch(e){}" }} />
@@ -67,7 +67,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </p>
           <Suspense fallback={null}><FreshnessLine /></Suspense>
           <p className="foot-brand"><img className="brand-light" src="/brand/mark-light.webp" alt="" width={30} height={27} loading="lazy" /><img className="brand-dark" src="/brand/mark-dark.webp" loading="lazy" alt="" width={30} height={27} /><span><strong>What&rsquo;s It To Me?</strong> Politics, in your context.</span></p>
-          <p><Link href="/who-we-are" prefetch={false}>Who we are</Link> · contact, corrections and complaints: <a href="mailto:hello@whatsittome.org">hello@whatsittome.org</a> · <Link href="/about#contact">How we handle complaints</Link> · <Link href="/about/data-use" prefetch={false}>Privacy</Link> · <Link href="/accessibility" prefetch={false}>Accessibility</Link>.</p>
+          <nav className="foot-nav" aria-label="About this site">
+            <ul>
+              <li><Link href="/who-we-are" prefetch={false}>Who we are</Link></li>
+              <li><Link href="/contact" prefetch={false}>Contact and corrections</Link></li>
+              <li><Link href="/about" prefetch={false}>How this works</Link></li>
+              <li><Link href="/about/accuracy" prefetch={false}>How we check</Link></li>
+              <li><Link href="/ledger" prefetch={false}>Public ledger</Link></li>
+              <li><Link href="/data" prefetch={false}>Open data</Link></li>
+              <li><Link href="/about/data-use" prefetch={false}>Privacy</Link></li>
+              <li><Link href="/accessibility" prefetch={false}>Accessibility</Link></li>
+              <li><Link href="/status" prefetch={false}>Is this up to date?</Link></li>
+            </ul>
+          </nav>
+          <p className="small">Contact, corrections and complaints: <a href="mailto:hello@whatsittome.org">hello@whatsittome.org</a>. <Link href="/about#contact">How we handle complaints</Link>.</p>
         </footer>
         <PrintOpen />
         <SwRegister />

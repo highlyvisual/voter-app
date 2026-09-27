@@ -18,7 +18,7 @@ const JOBS: { job: string; what: string; when: string; max: number }[] = [
   { job: "link check", what: "Checks every outbound link; a dead one is shown as its archived copy", when: "Sundays", max: 8 * 24 },
 ];
 
-export const metadata = { title: "Is this up to date?", description: "When the election data on this site was last refreshed, and whether the nightly update is working." };
+export const metadata = { title: "Is this up to date?", description: "When the election data on this site was last refreshed, and whether the nightly update is working.", alternates: { canonical: "/status" } };
 export const dynamic = "force-dynamic";
 
 export default async function Status() {

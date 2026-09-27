@@ -9,6 +9,8 @@ import { notFound } from "next/navigation";
 import { publicClient } from "@/lib/data";
 import { councilBySlug, councilSlugFor, TOPIC_ORDER, type CouncilFact } from "@/lib/councils";
 import CiteThis from "@/components/CiteThis";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbs, graph, webPage } from "@/lib/schema";
 
 // Romily, round six (24 Sept): "Lets focus on Councils as the major data set - What's happening where you live",
 // five lines (housing, transport, council tax, environment, education) with sources, then introduce the councillors
@@ -20,7 +22,7 @@ const TOPIC_LABEL: Record<string, string> = { housing: "Housing", transport: "Tr
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const c = councilBySlug((await params).slug);
-  return c ? { title: `${c.name}: what's happening where you live`, description: `What ${c.name} council has published on housing, transport, council tax, the environment and schools, with sources.` } : {};
+  return c ? { title: `${c.name}: what's happening where you live`, description: `What ${c.name} council has published on housing, transport, council tax, the environment and schools, with sources.`, alternates: { canonical: `/council/${c.slug}` } } : {};
 }
 
 export default async function CouncilPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -62,6 +64,10 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
 
   return (
     <>
+      <JsonLd data={graph(
+        webPage(`/council/${c.slug}`, `${c.name}: what's happening where you live`, undefined, { about: { "@type": "GovernmentOrganization", name: c.name, url: c.site, ...(c.gss ? { identifier: c.gss } : {}), areaServed: { "@type": "AdministrativeArea", name: c.name } } }),
+        breadcrumbs([[c.name, `/council/${c.slug}`]]),
+      )} />
       <p className="eyebrow">Your council</p>
       <h1>{c.name}: what&rsquo;s happening where you live</h1>
       <p className="lede">What the council itself has published on the five things it most shapes for a household: homes, getting about, the bill, the local environment and schools. Each line is quoted from the council&rsquo;s own document, with the link. This page says what was decided or proposed; it never says whether it was right.</p>

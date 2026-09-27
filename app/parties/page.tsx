@@ -2,7 +2,7 @@ import Link from "next/link";
 import { publicClient } from "@/lib/data";
 import { img } from "@/lib/site";
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Explore the parties" };
+export const metadata = { title: "Explore the parties", description: "What each UK party has published, by topic, quoted exactly with the date it was published and the date we checked. Listed alphabetically.", alternates: { canonical: "/parties" } };
 
 // Parties as their own exploration mode: what each currently says, whenever you visit, not only during an election.
 export default async function Parties() {

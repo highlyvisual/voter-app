@@ -1,16 +1,19 @@
 import Link from "next/link";
 import { longDate } from "@/lib/dates";
 import { countClaimsByStatus, countClaimsPerBallot, listArchivedBallots, listBallots, listFaceTiles, publicClient } from "@/lib/data";
-import { findElection } from "./find/actions";
 import BallotsMap from "@/components/BallotsMap";
 import CountUp from "@/components/CountUp";
 import Ticker from "@/components/Ticker";
 import YourDemocracy from "@/components/YourDemocracy";
 import TryPostcode from "@/components/TryPostcode";
 import ElectionTimeline from "@/components/ElectionTimeline";
-import PostcodeField from "@/components/PostcodeField";
+import HomeLookup, { LookupView } from "@/components/HomeLookup";
+import JsonLd from "@/components/JsonLd";
+import { graph, webPage } from "@/lib/schema";
+import { Suspense } from "react";
 
-export const dynamic = "force-dynamic";
+// Cached and rebuilt every five minutes: the home page is the same for everyone, so it can be served straight from the edge.
+export const revalidate = 300;
 const fmt = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 
 // "Try it" households (Barny, 27 Sept): deliberately unlike one another in age, household, housing, money, work and
@@ -24,11 +27,14 @@ const EXAMPLES = [
     query: "age_band=65_plus&household=single&children=none&tenure=own_outright&income_band=25k_40k&employment=retired&student=no&drives=yes" },
 ];
 
-export const metadata = { title: { absolute: "What’s It To Me? · Who is on your ballot, and what could it mean for you?" } };
+// Under 60 characters so search results show it whole (Nova audit, 27 Sept).
+export const metadata = {
+  title: { absolute: "What’s It To Me? · Who’s on your ballot and what it means" },
+  description: "See every candidate on your UK ballot in ballot-paper order, what each has actually published, and what it could mean for you. Impartial and sourced.",
+  alternates: { canonical: "/" },
+};
 
-export default async function Home({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
-  const sp = await searchParams;
-  const error = typeof sp.error === "string" ? sp.error : null;
+export default async function Home() {
   const weekAgo = new Date(Date.now() - 7 * 86400000).toISOString();
   const [ballots, archived, counts, srcRes, perBallot, tiles, recent] = await Promise.all([listBallots(), listArchivedBallots(), countClaimsByStatus(), publicClient().from("sources").select("id"), countClaimsPerBallot(), listFaceTiles(), publicClient().from("current_claims").select("id, created_at").eq("status", "verified").gte("created_at", weekAgo)]);
   const live = counts.verified ?? 0; const sources = srcRes.data?.length ?? 0;
@@ -36,10 +42,12 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
   const example = [...ballots].sort((a, b) => (perBallot[b.ballot_paper_id] ?? 0) - (perBallot[a.ballot_paper_id] ?? 0))[0] ?? null;
   return (
     <>
+      <JsonLd data={graph(webPage("/", "What’s It To Me? · Who’s on your ballot and what it means", "See every candidate on your UK ballot in ballot-paper order, what each has actually published, and what it could mean for you. Impartial and sourced.", { "@type": ["WebPage", "CollectionPage"], about: { "@type": "Thing", name: "UK elections and the candidates standing in them" }, mainEntity: { "@type": "ItemList", name: "Elections covered", numberOfItems: ballots.length, itemListElement: ballots.map((b, i) => ({ "@type": "ListItem", position: i + 1, name: `${b.area_name}, ${longDate(b.poll_date)}`, url: `https://whatsittome.org/ballot/${encodeURIComponent(b.ballot_paper_id)}` })) } }))} />
       <YourDemocracy />
       <div className="home-lockup">
-        <img className="brand-light" src="/brand/lockup-light.webp" fetchPriority="high" alt="What&rsquo;s It To Me? Politics, in your context." width={633} height={514} />
-        <img className="brand-dark" src="/brand/lockup-dark.webp" loading="lazy" alt="What&rsquo;s It To Me? Politics, in your context." width={633} height={515} />
+        {/* AVIF first (about half the bytes of the WebP), WebP for older browsers (Nova audit: the largest thing on a phone's first screen). */}
+        <picture className="brand-light"><source srcSet="/brand/lockup-light.avif" type="image/avif" /><img src="/brand/lockup-light.webp" fetchPriority="high" alt="What&rsquo;s It To Me? Politics, in your context." width={633} height={514} /></picture>
+        <picture className="brand-dark"><source srcSet="/brand/lockup-dark.avif" type="image/avif" /><img src="/brand/lockup-dark.webp" loading="lazy" alt="What&rsquo;s It To Me? Politics, in your context." width={633} height={515} /></picture>
       </div>
       <section className="hero-ballot hero-grid">
         <div className="hero-main">
@@ -52,18 +60,13 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
           <Link href="/start" className="button big">Start with you &rarr;</Link>
           <p className="meta">A few quick questions, starting with your postcode, so what you read is about a household like yours. Skip any after the first. We don&rsquo;t store your answers.</p>
         </div>
-        <details className="quick-lookup" open={!!error}>
-          <summary>In a hurry? Just look up a postcode</summary>
-          <form action={findElection} className="find-big" aria-label="Find your election">
-            <label htmlFor="postcode">Your postcode</label>
-            <div className="row">
-              <PostcodeField errorId={error ? "pc-error" : undefined} />
-              <button type="submit">Find my election</button>
-            </div>
-            <p className="meta">Used once to find the elections at that address, via Democracy Club. Never kept by us.</p>
-            {error ? <p className="notice small" id="pc-error" role="alert" style={{ marginTop: "0.6rem" }}>{error}</p> : null}
-          </form>
-        </details>
+        <Suspense fallback={<LookupView error={null} />}><HomeLookup /></Suspense>
+        <ul className="trust-strip" aria-label="Why you can rely on what you read here">
+          <li><Link href="/about"><b>Never tells you how to vote.</b> No rankings, scores or quiz matches.</Link></li>
+          <li><Link href="/ledger"><b>Every claim sourced.</b> Exact words, dated, in a public ledger.</Link></li>
+          <li><Link href="/who-we-are#interests"><b>Independent.</b> No ads and no money from any party.</Link></li>
+          <li><Link href="/accessibility"><b>Built for everyone.</b> Tested against WCAG 2.2 AA.</Link></li>
+        </ul>
         <p className="hero-rules">We will never tell you who to vote for, and we never score anyone. Every candidate gets the same page, in the order they appear on the ballot paper, and every statement links to where they said it. The judgement stays with you.</p>
         </div>
         <TryPostcode today={new Date().toISOString().slice(0, 10)} />

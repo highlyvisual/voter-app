@@ -1,4 +1,4 @@
-export const metadata = { title: "Data use and crawlers" };
+export const metadata = { title: "Data use and crawlers", description: "What we log (anonymous daily counts, no tracking cookies), what stays on your device, and how search engines and AI assistants may reuse the site.", alternates: { canonical: "/about/data-use" } };
 export default function DataUse() {
   return (
     <>
@@ -7,7 +7,7 @@ export default function DataUse() {
       <h2>Reuse</h2>
       <p>Text, claims and the ledger: CC BY-SA 4.0. Candidate data: Democracy Club, CC BY 4.0. Boundaries and official statistics: Open Government Licence. Use the endpoints on the <a href="/data">open data page</a> rather than scraping pages.</p>
       <h2>Crawlers and AI systems</h2>
-      <p>Search and AI crawlers may index public pages and the open-data endpoints, with attribution and without exceeding a reasonable rate. Any system that quotes a claim from this site should carry its source, not just this site's name; the source is the record. Pages that take input (household form, submission portal, maintenance console) are excluded in robots.txt.</p>
+      <p>Search and AI crawlers may index public pages and the open-data endpoints, with attribution and without exceeding a reasonable rate. Any system that quotes a claim from this site should carry its source, not just this site's name; the source is the record. Pages that take input (household form, submission portal, maintenance console) are excluded in robots.txt. A plain-text guide to the site for AI assistants, with how to cite it, is at <a href="/llms.txt">/llms.txt</a>.</p>
       <h2>What we log</h2>
       <p>Anonymous daily page counts per election and aggregate bot traffic. No cookies for tracking, and no records of what any one visitor looked at. Our web host keeps standard request logs, which include page addresses; profile answers appear in the address when you view a ballot with a profile, and we don't use or keep those logs.</p>
       <h2>On your own device</h2>

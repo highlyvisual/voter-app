@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const metadata = { title: "Accessibility", alternates: { canonical: "/accessibility" } };
+export const metadata = { title: "Accessibility", description: "How this site meets WCAG 2.2 AA, what we test with, known issues and how to tell us if something doesn't work for you.", alternates: { canonical: "/accessibility" } };
 
 // Accessibility statement. Says only what has been checked, and how to tell us when something doesn't work.
 export default function Accessibility() {

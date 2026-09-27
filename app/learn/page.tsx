@@ -1,5 +1,7 @@
 import Link from "next/link";
-export const metadata = { title: "Learn" };
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbs, faqPage, graph } from "@/lib/schema";
+export const metadata = { title: "Learn", description: "Plain thirty-second answers: what an MP and a councillor do, first past the post, manifestos, by-elections, voter ID and more.", alternates: { canonical: "/learn" } };
 // Thirty-second answers to the questions people are too embarrassed to ask. Neutral, sourced where a source exists.
 const Q: [string, string][] = [
   ["What does an MP actually do?", "An MP represents one constituency in the House of Commons. They vote on national laws and budgets, can question ministers, sit on committees that examine policy, and take up constituents' problems with government bodies. They do not run local services, and they cannot overturn a council's planning decision."],
@@ -17,6 +19,7 @@ const Q: [string, string][] = [
 export default function Learn() {
   return (
     <>
+      <JsonLd data={graph(faqPage("/learn", "The questions nobody wants to ask out loud", Q), breadcrumbs([["Learn", "/learn"]]))} />
       <p className="eyebrow">Thirty seconds each</p>
       <h1>The questions nobody wants to ask out loud</h1>
       <p className="lede">Plain answers, no politics. If a term on this site is unfamiliar, look for the "Explain this" link beneath any quotation.</p>
