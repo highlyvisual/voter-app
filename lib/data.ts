@@ -20,6 +20,8 @@ export const TOPICS = [
   ["equality_and_rights", "Equality and rights"],
 ] as const;
 export type Topic = (typeof TOPICS)[number][0];
+// The one set of short topic names, used wherever space is tight (chips, cards). Full names are in TOPICS.
+export const TOPIC_SHORT: Record<string, string> = { money_and_cost_of_living: "Money", housing_and_property: "Housing", healthcare_and_social_care: "Health and care", education_and_universities: "Education", environment_climate_and_energy: "Environment", immigration_and_borders: "Immigration", crime_policing_and_justice: "Crime and policing", defence_foreign_affairs_and_eu: "Defence and the EU", equality_and_rights: "Equality and rights" };
 
 export type Ballot = {
   ballot_paper_id: string;
@@ -284,4 +286,12 @@ export async function listFaceTiles(): Promise<{ id: number; name: string; party
   if (error) throw error;
   type Row = { id: number; name: string; party_name_on_ballot: string; photo_url: string | null; ballot_paper_id: string; parties: { colour_hex: string | null } | null; ballots: { area_name: string; poll_date: string } };
   return ((data ?? []) as unknown as Row[]).sort((a, b) => a.ballots.poll_date.localeCompare(b.ballots.poll_date) || a.ballot_paper_id.localeCompare(b.ballot_paper_id)).map((r) => ({ id: r.id, name: r.name, party: r.party_name_on_ballot, colour: r.parties?.colour_hex ?? null, photo: r.photo_url, ballot: r.ballot_paper_id, area: r.ballots.area_name }));
+}
+
+export type PageSnapshot = { ballot_paper_id: string; page_url: string; archive_url: string | null; taken_at: string };
+// Eve-of-poll copies of every ballot, comparison and candidate page, kept by the Internet Archive (scripts/auto/poll_eve_snapshots.py).
+export async function listPageSnapshots(): Promise<PageSnapshot[]> {
+  const { data, error } = await publicClient().from("page_snapshots").select("ballot_paper_id, page_url, archive_url, taken_at").not("archive_url", "is", null).order("taken_at", { ascending: false }).limit(2000);
+  if (error) return [];
+  return (data ?? []) as PageSnapshot[];
 }

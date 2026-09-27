@@ -1,3 +1,4 @@
+import { ballotPageTitle } from "@/lib/meta";
 import { notFound } from "next/navigation";
 import Journey, { JourneyNext } from "@/components/Journey";
 import OfficeExplainer from "@/components/OfficeExplainer";
@@ -7,6 +8,8 @@ import CouncilTax from "@/components/CouncilTax";
 import { Suspense } from "react";
 import { getBallot, listCandidates } from "@/lib/data";
 export const dynamic = "force-dynamic";
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) { return ballotPageTitle((await params).id, "What you're voting for", "/office"); }
+
 export default async function Office({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const { id } = await params; const sp = await searchParams; const ballotId = decodeURIComponent(id);
   const ballot = await getBallot(ballotId); if (!ballot) notFound();

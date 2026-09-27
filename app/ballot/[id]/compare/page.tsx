@@ -1,3 +1,4 @@
+import { ballotPageTitle } from "@/lib/meta";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { claimsFor } from "@/components/CandidateCard";
@@ -13,6 +14,8 @@ import { layerOf, splitForHousehold, LEGEND } from "@/lib/claims";
 export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ id: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
 const SHORT_LAYER: Record<string, string> = { "Candidate's own statement": "Own words", "In government (enacted or announced)": "In government", "Party announcement": "Announcement", "Party position": "Party", "Party manifesto": "Manifesto" };
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) { return ballotPageTitle((await params).id, "Compare the candidates", "/compare"); }
 
 export default async function ComparePage({ params, searchParams }: Props) {
   const { id } = await params;
@@ -68,6 +71,7 @@ export default async function ComparePage({ params, searchParams }: Props) {
       <p className="meta">No winner, no score, no match. Switch topics and decide for yourself which differences matter.</p>
       <ScrollHint>
         <table className="compare">
+          <caption className="sr-only">Published positions: one row per topic, one column per candidate in ballot-paper order. Each topic heading links to that topic on its own page.</caption>
           <thead>
             <tr>
               <th scope="col" className="corner">Topic</th>
@@ -83,7 +87,7 @@ export default async function ComparePage({ params, searchParams }: Props) {
           <tbody>
             {rowsToShow.map(([key, label]) => (
               <tr key={key}>
-                <th scope="row"><Link href={`/ballot/${encodeURIComponent(ballotId)}/topic/${key}${hhQs ? `?${hhQs}` : ""}`}>{label}</Link></th>
+                <th scope="row" id={`row-${key}`}><Link href={`/ballot/${encodeURIComponent(ballotId)}/topic/${key}${hhQs ? `?${hhQs}` : ""}`}>{label}</Link></th>
                 {cols.map((c) => {
                   const mine = claimsFor(c, claims).filter((cl) => cl.topic === key);
                   const { shown, hidden } = splitForHousehold(mine, household, complete, claimApplies);
@@ -96,7 +100,7 @@ export default async function ComparePage({ params, searchParams }: Props) {
                           {shown.slice(0, 3).map((cl) => (
                             <li key={cl.id}>
                               <details className="cell">
-                                <summary><span className="meta layer">{SHORT_LAYER[layerOf(cl)] ?? layerOf(cl)}</span>{" "}<span className="view-summary">{cl.claim_text.replace(/\s*\((relevant to|enacted policy)[^)]*\)/gi, "").trim()}</span><span className="view-verbatim">{cl.source_quote}</span></summary>
+                                <summary><span className="meta layer">{SHORT_LAYER[layerOf(cl)] ?? layerOf(cl)}</span>{" "}<span className="view-summary">{cl.claim_text.replace(/\s*\((relevant to|enacted policy)[^)]*\)/gi, "").trim()}</span>{" "}<span className="view-verbatim">{cl.source_quote}</span></summary>
                                 <blockquote className="quote view-summary">{cl.source_quote}</blockquote>
                                 {cl.sources ? <p className="meta">{cl.sources.publisher}{cl.sources.published_on ? `, ${cl.sources.published_on}` : ""} · <a href={cl.sources.url} rel="noopener">{cl.sources.title}</a></p> : null}
                               </details>

@@ -32,7 +32,7 @@ export default async function Review({ searchParams }: { searchParams: Promise<R
         <form action={signIn} className="household" style={{ maxWidth: "24rem" }}>
           <label htmlFor="passcode"><span>Passcode</span></label>
           <input id="passcode" name="passcode" type="password" autoComplete="current-password" required style={{ marginTop: "0.4rem" }} />
-          {sp.error ? <p className="small" role="alert">That passcode isn't recognised.</p> : null}
+          {sp.error === "wait" ? <p className="small" role="alert">Too many attempts. Please wait 15 minutes and try again.</p> : sp.error ? <p className="small" role="alert">That passcode isn't recognised.</p> : null}
           <button type="submit" style={{ marginTop: "0.8rem" }}>Sign in</button>
         </form>
         <p className="small muted">Claims publish on the strength of their source. This console is for corrections, withdrawals and logging complaints; every action is written to the <Link href="/ledger">public ledger</Link> with the maintainer's name.</p>

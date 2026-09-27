@@ -1,0 +1,25 @@
+name: Eve-of-poll snapshots
+# The evening before each polling day, ask the Internet Archive to keep a copy of every ballot, comparison and
+# candidate page for that poll (scripts/auto/poll_eve_snapshots.py). Runs twice in the evening; the second run
+# picks up any pages the first could not capture. Does nothing on days before which there is no poll.
+on:
+  schedule:
+    - cron: "5 17 * * *"   # 17:05 UTC
+    - cron: "35 19 * * *"  # 19:35 UTC
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency: { group: poll-eve, cancel-in-progress: false }
+jobs:
+  snapshots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - run: python scripts/auto/poll_eve_snapshots.py

@@ -13,7 +13,7 @@ function workingDaysBefore(poll: string, n: number, nation: string): Date {
   while (c < n) { d.setUTCDate(d.getUTCDate() - 1); if (isWorkingDay(d, nation)) c++; }
   return d;
 }
-const short = (d: Date) => d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
+const short = (d: Date) => d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "long", timeZone: "UTC" });
 
 export default function Deadlines({ pollDate, noticeUrl, gss, level }: { pollDate: string; noticeUrl: string | null; gss?: string | null; level?: string }) {
   const today = new Date().toISOString().slice(0, 10);

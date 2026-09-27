@@ -1,3 +1,4 @@
+import { ballotPageTitle } from "@/lib/meta";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { claimsFor } from "@/components/CandidateCard";
@@ -7,6 +8,8 @@ const SHORT: Record<string, string> = { money_and_cost_of_living: "Money", housi
 export const dynamic = "force-dynamic";
 
 // WP-A2: how much sourced material exists per party and topic. Plain counts, identically computed, no colour scale, zeros shown as 0.
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) { const { id } = await params; return { ...(await ballotPageTitle(id, "How much we found")), alternates: { canonical: `/coverage/${id}` } }; }
+
 export default async function Coverage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const ballotId = decodeURIComponent(id);

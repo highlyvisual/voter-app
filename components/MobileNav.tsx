@@ -15,15 +15,15 @@ export default function MobileNav({ children }: { children: React.ReactNode }) {
   }, [open]);
   return (
     <div className="nav-wrap" ref={ref}>
-      <nav className="nav-inline" aria-label="Main">{LINKS.map(([h, l]) => <Link key={h} href={h}>{l}</Link>)}</nav>
-      <Link href="/profile" className="nav-profile">My profile</Link>
+      <nav className="nav-inline" aria-label="Main">{LINKS.map(([h, l]) => <Link key={h} href={h} prefetch={false}>{l}</Link>)}</nav>
+      <Link href="/profile" prefetch={false} className="nav-profile">My profile</Link>
       <button type="button" className="nav-toggle secondary" aria-label="Menu" aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen((o) => !o)}>
         <span aria-hidden>{open ? "✕" : "☰"}</span><span className="nav-toggle-word"> Menu</span>
       </button>
       {children}
       {open ? (
         <nav id="mobile-menu" className="nav-sheet" aria-label="Main">
-          {LINKS.map(([h, l]) => <Link key={h} href={h} onClick={() => setOpen(false)}>{l}</Link>)}
+          {LINKS.map(([h, l]) => <Link key={h} href={h} prefetch={false} onClick={() => setOpen(false)}>{l}</Link>)}
         </nav>
       ) : null}
     </div>

@@ -13,7 +13,8 @@ export async function freshness(): Promise<Freshness> {
   const db = publicClient();
   const cutoff = new Date(Date.now() - 36 * 3600 * 1000).toISOString();
   const [b, c, l, cl, lg] = await Promise.all([
-    db.from("ballots").select("ballot_paper_id, area_name, retrieved_at").eq("archived", false),
+    // Same definition as the home page: not archived and polling day not yet passed.
+    db.from("ballots").select("ballot_paper_id, area_name, retrieved_at").eq("archived", false).gte("poll_date", new Date().toISOString().slice(0, 10)),
     db.from("candidates").select("retrieved_at").order("retrieved_at", { ascending: false }).limit(1),
     db.from("leaflets").select("retrieved_at").order("retrieved_at", { ascending: false }).limit(1),
     db.from("claims").select("created_at").order("created_at", { ascending: false }).limit(1),

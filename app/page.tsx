@@ -12,6 +12,8 @@ import PostcodeField from "@/components/PostcodeField";
 export const dynamic = "force-dynamic";
 const fmt = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 
+export const metadata = { title: { absolute: "What’s It To Me? · Who is on your ballot, and what could it mean for you?" } };
+
 export default async function Home({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const sp = await searchParams;
   const error = typeof sp.error === "string" ? sp.error : null;
@@ -22,8 +24,8 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
     <>
       <YourDemocracy />
       <div className="home-lockup">
-        <img className="brand-light" src="/brand/lockup-light.png" alt="What&rsquo;s It To Me? Politics, in your context." width={633} height={514} />
-        <img className="brand-dark" src="/brand/lockup-dark.png" alt="What&rsquo;s It To Me? Politics, in your context." width={633} height={515} />
+        <img className="brand-light" src="/brand/lockup-light.webp" fetchPriority="high" alt="What&rsquo;s It To Me? Politics, in your context." width={633} height={514} />
+        <img className="brand-dark" src="/brand/lockup-dark.webp" loading="lazy" alt="What&rsquo;s It To Me? Politics, in your context." width={633} height={515} />
       </div>
       <section className="hero-ballot hero-grid">
         <div className="hero-main">
@@ -31,15 +33,23 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
         <h1>Politics affects your life. Understanding it <em>shouldn&rsquo;t be difficult.</em></h1>
         <p className="lede" style={{ maxWidth: "44rem" }}>Someone is asking for your vote. Here is who they are, what they have actually put in writing, and what it could mean for a home like yours.</p>
         
-        <form action={findElection} className="find-big" aria-label="Find your election">
-          <label htmlFor="postcode">Your postcode</label>
-          <div className="row">
-            <PostcodeField />
-            <button type="submit">Find my election</button>
-          </div>
-          <p className="meta">Used once to find the elections at that address, via Democracy Club. Never kept by us. <Link href="/start" className="quiet-link">Or build your profile first →</Link></p>
-          {error ? <p className="notice small" role="alert" style={{ marginTop: "0.6rem" }}>{error}</p> : null}
-        </form>
+        {/* Romily, round eight (1): lead with the person; the postcode is the profile's first step. */}
+        <div className="start-cta">
+          <Link href="/start" className="button big">Start with you &rarr;</Link>
+          <p className="meta">A few quick questions, starting with your postcode, so what you read is about a household like yours. Skip any after the first. We don&rsquo;t store your answers.</p>
+        </div>
+        <details className="quick-lookup" open={!!error}>
+          <summary>In a hurry? Just look up a postcode</summary>
+          <form action={findElection} className="find-big" aria-label="Find your election">
+            <label htmlFor="postcode">Your postcode</label>
+            <div className="row">
+              <PostcodeField errorId={error ? "pc-error" : undefined} />
+              <button type="submit">Find my election</button>
+            </div>
+            <p className="meta">Used once to find the elections at that address, via Democracy Club. Never kept by us.</p>
+            {error ? <p className="notice small" id="pc-error" role="alert" style={{ marginTop: "0.6rem" }}>{error}</p> : null}
+          </form>
+        </details>
         <p className="hero-rules">We will never tell you who to vote for, and we never score anyone. Every candidate gets the same page, in the order they appear on the ballot paper, and every statement links to where they said it. The judgement stays with you.</p>
         </div>
         <TryPostcode today={new Date().toISOString().slice(0, 10)} />
@@ -108,7 +118,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
 
       <ol className="steps">
         <li><strong>Open a ballot</strong>Every candidate, from the official nomination list, in the order they appear on the paper.</li>
-        <li><strong>Describe a household</strong>Seven quick questions. Yours, a friend's, a neighbour's, someone unlike you. Nothing leaves your device.</li>
+        <li><strong>Describe a household</strong>Seven quick questions. Yours, a friend's, a neighbour's, someone unlike you. We don't store your answers.</li>
         <li><strong>See what applies</strong>What each candidate has said on nine topics, what it would mean for that household in pounds where it can be calculated, and where every word came from.</li>
       </ol>
 

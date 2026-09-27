@@ -1,0 +1,22 @@
+name: Link check
+# Weekly check of every outbound link (scripts/auto/link_check.py). Dead links are shown as their archived copy.
+on:
+  schedule:
+    - cron: "41 3 * * 0"   # Sundays 03:41 UTC
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency: { group: link-check, cancel-in-progress: false }
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - run: python scripts/auto/link_check.py

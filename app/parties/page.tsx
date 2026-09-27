@@ -9,10 +9,17 @@ export default async function Parties() {
   const db = publicClient();
   const [{ data: parties }, { data: claims }] = await Promise.all([
     db.from("parties").select("ec_id, name, colour_hex, emblem_url, official_site_url"),
-    db.from("current_claims").select("party_ec_id, topic").eq("status", "verified").is("candidate_id", null),
+    db.from("current_claims").select("party_ec_id, topic, source_quote").eq("status", "verified").is("candidate_id", null),
   ]);
   const counts = new Map<string, number>();
-  for (const c of claims ?? []) if (c.party_ec_id) counts.set(c.party_ec_id, (counts.get(c.party_ec_id) ?? 0) + 1);
+  // The same party position is recorded once per election it applies to; count it once, as the party's own page does.
+  const seen = new Set<string>();
+  for (const c of claims ?? []) {
+    if (!c.party_ec_id) continue;
+    const k = `${c.party_ec_id}|${c.topic}|${c.source_quote}`;
+    if (seen.has(k)) continue; seen.add(k);
+    counts.set(c.party_ec_id, (counts.get(c.party_ec_id) ?? 0) + 1);
+  }
   const rows = (parties ?? []).filter((p) => counts.get(p.ec_id)).sort((a, b) => a.name.localeCompare(b.name));
   return (
     <>

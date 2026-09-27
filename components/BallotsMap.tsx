@@ -1,4 +1,5 @@
 "use client";
+import { shortMonth } from "@/lib/dates";
 import { useEffect, useRef, useState } from "react";
 declare global { interface Window { L?: any } }
 type B = { ballot_paper_id: string; area_name: string; poll_date: string; level: string; lat: number | null; lng: number | null };
@@ -9,8 +10,8 @@ export default function BallotsMap({ ballots }: { ballots: B[] }) {
   const [err, setErr] = useState(false);
   useEffect(() => {
     let map: any; let cancelled = false;
-    const css = document.createElement("link"); css.rel = "stylesheet"; css.href = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"; document.head.appendChild(css);
-    const s = document.createElement("script"); s.src = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js";
+    const css = document.createElement("link"); css.rel = "stylesheet"; css.href = "/vendor/leaflet-1.9.4/leaflet.css"; document.head.appendChild(css);
+    const s = document.createElement("script"); s.src = "/vendor/leaflet-1.9.4/leaflet.js";
     s.onload = () => {
       if (cancelled || !ref.current || !window.L) return;
       const L = window.L;
@@ -21,7 +22,7 @@ export default function BallotsMap({ ballots }: { ballots: B[] }) {
       for (const b of ballots) {
         if (b.lat == null || b.lng == null) continue;
         pts.push([b.lat, b.lng]);
-        const d = new Date(b.poll_date + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" });
+        const d = (() => { const x = new Date(b.poll_date + "T00:00:00Z"); return `${x.getUTCDate()} ${shortMonth(x)}`; })();
         L.circleMarker([b.lat, b.lng], { radius: b.level === "parliamentary" ? 10 : 7, color: "#23262d", weight: 2, fillColor: b.level === "parliamentary" ? "#23262d" : "#ffffff", fillOpacity: 0.9 })
           .addTo(map)
           .bindPopup(`<strong>${b.area_name}</strong><br>${b.level === "parliamentary" ? "UK Parliament" : "Council"} by-election, ${d}<br><a href="/ballot/${encodeURIComponent(b.ballot_paper_id)}">Open</a>`);

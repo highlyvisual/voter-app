@@ -1,3 +1,6 @@
+import ExtLink from "@/components/ExtLink";
+import { fixLink, linkFixes } from "@/lib/links";
+import { longDate } from "@/lib/dates";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import CandidateCard, { claimsFor } from "@/components/CandidateCard";
@@ -39,7 +42,7 @@ const fmt = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB"
 export async function generateMetadata({ params }: Props) {
   const { id } = await params;
   const b = await getBallot(decodeURIComponent(id));
-  return { title: b ? `${b.area_name}, ${fmt(b.poll_date)}` : "Ballot" };
+  return { title: b ? `${b.area_name}, ${fmt(b.poll_date)}` : "Ballot", alternates: b ? { canonical: `/ballot/${encodeURIComponent(b.ballot_paper_id)}` } : undefined };
 }
 
 export default async function BallotPage({ params, searchParams }: Props) {
@@ -62,6 +65,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
   const generalResources = await listResources("all").then((r) => r.filter((x) => x.topic === "all"));
   const council = ballot.level === "local" ? ballot.area_name.split(":")[0].trim() : null;
   const [invitations, electionDates, leaflets, pledges, stood] = await Promise.all([listInvitationStatus(ballotId), getElectionDates(ballotId), listLeaflets(ballotId), council ? listCouncilPledges(council) : Promise.resolve([]), listPreviousCandidacies(ballotId)]);
+  const fx = await linkFixes();
   const councilSite = ballot.official_sopn_url ? (() => { try { return new URL(ballot.official_sopn_url!).origin; } catch { return null; } })() : null;
   const [candidates, claims, receipts, previous, ownResult] = await Promise.all([
     listCandidates(ballotId), listVerifiedClaims(ballotId), key ? getReceipts(key) : Promise.resolve([]),
@@ -101,7 +105,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
           </div>
           <ol className="name-strip" aria-label="Candidates in ballot-paper order">
             {candidates.map((c, i) => (
-              <li key={c.id}><a href={`#c-${c.id}`}><span className="meta">{i + 1}</span> {c.name}<span className="party-dot" aria-hidden style={{ background: c.parties?.colour_hex ?? "var(--rule)" }} /><span className="meta">{c.party_name_on_ballot}</span></a></li>
+              <li key={c.id}><a href={`#c-${c.id}`}><span className="meta">{i + 1}</span> {c.name}<span className="party-dot" aria-hidden style={{ background: c.parties?.colour_hex ?? "var(--rule)" }} /><span className="meta">{c.party_description_on_ballot && c.party_description_on_ballot !== "[blank]" ? c.party_description_on_ballot : c.party_name_on_ballot}</span></a></li>
             ))}
           </ol>
           {ballot.uncontested ? <div className="notice"><p><strong>Uncontested: elected without a poll.</strong> The number of valid nominations did not exceed the seats, so the candidate{candidates.length > 1 ? "s" : ""} below {candidates.length > 1 ? "are" : "is"} returned without a vote.</p></div> : null}
@@ -128,7 +132,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
             {ballot.level === "parliamentary" ? <p className="meta">Every constituency in England was redrawn for the July 2024 general election under the 2023 Boundary Review; results before 2024 refer to the old boundaries. The map shows the current boundary.</p> : null}
             <p className="meta">
               Nominations {ballot.candidates_locked ? "closed and confirmed" : "not yet confirmed"}.
-              {ballot.official_sopn_url ? <> <a href={ballot.official_sopn_url} rel="noopener">Official list</a>.</> : null} Candidate data: <a href="https://democracyclub.org.uk/" rel="noopener">Democracy Club</a>.
+              {ballot.official_sopn_url ? <> <a href={fixLink(fx, ballot.official_sopn_url)?.href ?? ballot.official_sopn_url} rel="noopener">Official list</a>.</> : null} Candidate data: <a href="https://democracyclub.org.uk/" rel="noopener">Democracy Club</a>.
             </p>
             {!ballot.archived ? (
               <p className="meta">
@@ -233,7 +237,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
               .sort((a, b) => a.publisher.localeCompare(b.publisher) || (b.published_on ?? "").localeCompare(a.published_on ?? ""))
               .map((src) => (
                 <li key={src.id}>
-                  <a href={src.url} rel="noopener">{src.title}</a> — {src.publisher}{src.published_on ? `, ${src.published_on}` : ", undated"}. Retrieved {src.retrieved_at.slice(0, 10)}. {claims.filter((c) => c.sources?.id === src.id).length} {claims.filter((c) => c.sources?.id === src.id).length === 1 ? "quotation" : "quotations"}.
+                  <ExtLink href={src.url}>{src.title}</ExtLink> — {src.publisher}{src.published_on ? `, ${longDate(src.published_on)}` : ", undated"}. Retrieved {longDate(src.retrieved_at)}. {claims.filter((c) => c.sources?.id === src.id).length} {claims.filter((c) => c.sources?.id === src.id).length === 1 ? "quotation" : "quotations"}.
                 </li>
               ))}
           </ol>

@@ -1,4 +1,5 @@
 "use client";
+import { shortMonth } from "@/lib/dates";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { readProfile } from "@/lib/profile";
@@ -59,7 +60,7 @@ export default function ElectionTimeline({ ballots, today }: { ballots: B[]; tod
               <div className="tl-date" aria-hidden>
                 <span className="tl-dow">{dt.toLocaleDateString("en-GB", { weekday: "short", timeZone: "UTC" })}</span>
                 <span className="tl-dnum">{dt.getUTCDate()}</span>
-                <span className="tl-mon">{dt.toLocaleDateString("en-GB", { month: "short", timeZone: "UTC" })}</span>
+                <span className="tl-mon">{shortMonth(dt)}</span>
                 <span className="tl-rel">{rel}</span>
               </div>
               <div className="tl-body">

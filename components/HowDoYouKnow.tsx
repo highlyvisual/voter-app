@@ -18,7 +18,7 @@ export default function HowDoYouKnow() {
             <li><span className="chip layer-chip">Calculated</span> A tax or benefit figure from the open-source PolicyEngine model.</li>
             <li><span className="chip none">No published position found</span> We looked and found nothing we could source. Not a judgement.</li>
           </ul>
-          <p className="small">Every change is logged publicly, with the reason. <Link href="/about">How this works</Link> · <Link href="/ledger">The public ledger</Link></p>
+          <p className="small">Every change is logged publicly, with the reason. <Link href="/about" prefetch={false}>How this works</Link> · <Link href="/ledger">The public ledger</Link></p>
           <button type="button" className="secondary small" onClick={() => setOpen(false)}>Close</button>
         </div>
       ) : null}

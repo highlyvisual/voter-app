@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { adminClient } from "@/lib/admin";
 import { clearSession, currentReviewer, matchReviewer, setSession } from "@/lib/session";
@@ -16,10 +17,30 @@ async function log(claimId: number | null, event: string, actor: string, detail:
   if (error) throw error;
 }
 
+// Rate limit (review, 25 Sept): five wrong passcodes from one address in 15 minutes, or 30 from anywhere in an hour,
+// and sign-in pauses. Only a salted hash of the address is kept, and only for failed attempts.
+async function tooManyFailures(ipHash: string): Promise<boolean> {
+  const db = adminClient();
+  const since15 = new Date(Date.now() - 15 * 60_000).toISOString(), since60 = new Date(Date.now() - 60 * 60_000).toISOString();
+  const [mine, all] = await Promise.all([
+    db.from("review_signin_failures").select("id", { count: "exact", head: true }).eq("ip_hash", ipHash).gte("at", since15),
+    db.from("review_signin_failures").select("id", { count: "exact", head: true }).gte("at", since60),
+  ]);
+  return (mine.count ?? 0) >= 5 || (all.count ?? 0) >= 30;
+}
+
 export async function signIn(formData: FormData) {
+  const h = await headers();
+  const ip = h.get("x-nf-client-connection-ip") ?? h.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  const ipHash = createHash("sha256").update(`${process.env.REVIEWERS ?? ""}|${ip}`).digest("hex").slice(0, 32);
+  if (await tooManyFailures(ipHash)) redirect("/review?error=wait");
   const code = String(formData.get("passcode") ?? "");
   const name = matchReviewer(code);
-  if (!name) redirect("/review?error=1");
+  if (!name) {
+    await adminClient().from("review_signin_failures").insert({ ip_hash: ipHash });
+    await new Promise((r) => setTimeout(r, 1000));
+    redirect("/review?error=1");
+  }
   await setSession(name);
   redirect("/review");
 }

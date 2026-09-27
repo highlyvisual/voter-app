@@ -1,3 +1,8 @@
+import ExtLink from "@/components/ExtLink";
+import { fixLink, linkFixes, type LinkFix } from "@/lib/links";
+// Outbound links go through the weekly link check: a dead page is replaced by its archived copy.
+let FX: Map<string, LinkFix> = new Map();
+const L = (u: string) => fixLink(FX, u)?.href ?? u;
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -21,6 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function CouncilPage({ params }: { params: Promise<{ slug: string }> }) {
   const c = councilBySlug((await params).slug);
   if (!c) notFound();
+  FX = await linkFixes();
   const db = publicClient();
   const stripped = c.name.replace(/\s+(Borough|District|City|County|Council)(?=\s|$)/g, "").trim();
   // Exact names only: a prefix match would give Aberdeen City the councillors of Aberdeenshire.
@@ -61,13 +67,13 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
       <p className="lede">What the council itself has published on the five things it most shapes for a household: homes, getting about, the bill, the local environment and schools. Each line is quoted from the council&rsquo;s own document, with the link. This page says what was decided or proposed; it never says whether it was right.</p>
       <p className="meta">Read on {fmt(c.checked)}. Councils publish at different rates and in different places, so &ldquo;nothing found&rdquo; means nothing found, not nothing happening.</p>
 
-      <p className="council-links">{links.filter(([, u]) => u).map(([l, u], i) => <span key={l}>{i ? " · " : ""}<a href={u!} rel="noopener">{l}</a></span>)}</p>
+      <p className="council-links">{links.filter(([, u]) => u).map(([l, u], i) => <span key={l}>{i ? " · " : ""}<a href={L(u!)} rel="noopener">{l}</a></span>)}</p>
 
       {(consults ?? []).length ? (
         <section className="council-topic">
           <h2>Open consultations</h2>
           <ul className="auto-list">
-            {(consults ?? []).map((x: { url: string; title: string; closes: string }) => <li key={x.url}><a href={x.url} rel="noopener">{x.title}</a> <span className="meta">closes {fmt(x.closes)}</span></li>)}
+            {(consults ?? []).map((x: { url: string; title: string; closes: string }) => <li key={x.url}><a href={L(x.url)} rel="noopener">{x.title}</a> <span className="meta">closes {fmt(x.closes)}</span></li>)}
           </ul>
           <p className="meta">Listed automatically from the council&rsquo;s own consultation site, refreshed daily. Standing surveys open for more than a year are left out.</p>
         </section>
@@ -87,10 +93,10 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
               <div key={i} className="council-fact">
                 <p>{f.summary}</p>
                 <blockquote className="council-quote">&ldquo;{f.quote}&rdquo;</blockquote>
-                <p className="meta"><a href={f.url ?? "#"} rel="noopener">{f.publisher}</a>{f.published_on ? `, ${fmt(f.published_on)}` : ", undated"}. Read {fmt(c.checked)}.{f.note ? ` ${f.note}` : ""}</p>
+                <p className="meta"><a href={L(f.url ?? "#")} rel="noopener">{f.publisher}</a>{f.published_on ? `, ${fmt(f.published_on)}` : ", undated"}. Read {fmt(c.checked)}.{f.note ? ` ${f.note}` : ""}</p>
               </div>
             )) : (
-              <p className="empty">{empty?.summary || `Nothing on ${TOPIC_LABEL[t].toLowerCase()} was found on the council's website.`}{empty?.url ? <> <a href={empty.url} rel="noopener" className="meta">Where we looked</a></> : null}</p>
+              <p className="empty">{empty?.summary || `Nothing on ${TOPIC_LABEL[t].toLowerCase()} was found on the council's website.`}{empty?.url ? <> <a href={L(empty.url)} rel="noopener" className="meta">Where we looked</a></> : null}</p>
             )}
             {auto[t] ?? null}
           </section>
@@ -116,10 +122,10 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
           </details>
         ) : null}
         <p className="meta">
-          {c.links.interests ? <>Each councillor&rsquo;s <a href={c.links.interests} rel="noopener">register of interests</a> is on the council&rsquo;s own site, linked rather than summarised, because summarising means choosing. </> : <>The council&rsquo;s register of interests could not be located; the <a href={c.links.councillors ?? c.site} rel="noopener">councillors page</a> is the place to look. </>}
+          {c.links.interests ? <>Each councillor&rsquo;s <a href={L(c.links.interests)} rel="noopener">register of interests</a> is on the council&rsquo;s own site, linked rather than summarised, because summarising means choosing. </> : <>The council&rsquo;s register of interests could not be located; the <a href={L(c.links.councillors ?? c.site)} rel="noopener">councillors page</a> is the place to look. </>}
           Councillors from Open Council Data as recorded after the May 2026 elections; a by-election since then may have changed one seat. Attendance and allowances are not shown.
         </p>
-        {(agenda ?? []).length ? null : <p className="meta">This council&rsquo;s meeting papers could not be read automatically (the site blocks or did not answer), so decisions and motions are not listed here; the <a href={c.links.meetings ?? c.site} rel="noopener">meeting papers</a> hold them.</p>}
+        {(agenda ?? []).length ? null : <p className="meta">This council&rsquo;s meeting papers could not be read automatically (the site blocks or did not answer), so decisions and motions are not listed here; the <a href={L(c.links.meetings ?? c.site)} rel="noopener">meeting papers</a> hold them.</p>}
       </section>
 
       <CiteThis title={`${c.name}: what's happening where you live`} />
@@ -166,7 +172,7 @@ function Decisions({ rows, councillors, councilName, meetingsUrl }: { rows: Agen
   const proposers = (raw: string) => raw.replace(/^(cllrs?|councillors?)\.?\s+/i, "").split(/\s*(?:,|\band\b|&)\s*/).filter(Boolean).map((n) => { if (/^the\b/i.test(n.trim())) return n.trim(); const p = party(n); return `Cllr ${n.trim()}${p ? ` (${p})` : ""}`; }).join(" and ");
   const Meeting = ({ m }: { m: (typeof meetings)[number] }) => (
     <li className="dec-meeting">
-      <p className="dec-head"><a href={m.url} rel="noopener"><b>{fmt(m.date)}</b> · {m.body}</a>{m.status && !/^confirmed$/i.test(m.status) ? <span className="meta"> · {m.status.replace(/^Confirmed;?\s*/i, "")}</span> : null}</p>
+      <p className="dec-head"><a href={L(m.url)} rel="noopener"><b>{fmt(m.date)}</b> · {m.body}</a>{m.status && !/^confirmed$/i.test(m.status) ? <span className="meta"> · {m.status.replace(/^Confirmed;?\s*/i, "")}</span> : null}</p>
       {m.items.length ? (
         <ul className="dec-items">
           {m.items.map((it) => (
@@ -190,7 +196,7 @@ function Decisions({ rows, councillors, councilName, meetingsUrl }: { rows: Agen
         <ul className="dec-list">{recent.slice(0, 3).map((m) => <Meeting key={m.url} m={m} />)}</ul>
         {recent.length > 3 ? <details className="more"><summary className="meta">{recent.length - 3} earlier meetings</summary><ul className="dec-list">{recent.slice(3).map((m) => <Meeting key={m.url} m={m} />)}</ul></details> : null}
       </>) : null}
-      <p className="meta">From the council&rsquo;s own <a href={meetingsUrl} rel="noopener">meeting papers</a> (Modern.gov){retrieved ? `, read ${new Date(retrieved).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}` : ""}. Refreshed weekly. Results of motions are in each meeting&rsquo;s minutes, linked from the date.</p>
+      <p className="meta">From the council&rsquo;s own <a href={L(meetingsUrl)} rel="noopener">meeting papers</a> (Modern.gov){retrieved ? `, read ${new Date(retrieved).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}` : ""}. Refreshed weekly. Results of motions are in each meeting&rsquo;s minutes, linked from the date.</p>
     </section>
   );
 }
@@ -220,7 +226,7 @@ function PlanLines({ rows, fmt }: { rows: PlanRow[]; fmt: Fmt }) {
       <ul className="auto-list">
         {live.slice(0, 5).map((r) => (
           <li key={r.entity}>
-            {r.documentation_url ? <a href={r.documentation_url} rel="noopener">{r.name}</a> : r.name}
+            {r.documentation_url ? <ExtLink href={r.documentation_url}>{r.name}</ExtLink> : r.name}
             {r.process ? ` — ${r.process}` : ""}{r.adopted_date ? `, adopted ${fmt(r.adopted_date)}` : ""}
             {yr(r.period_start) || yr(r.period_end) ? `, plan period ${yr(r.period_start) ?? "?"}–${yr(r.period_end) ?? "?"}` : ""}
             {r.required_housing ? <>, housing requirement <b>{r.required_housing.toLocaleString("en-GB")}</b> homes</> : ""}
@@ -235,7 +241,7 @@ function PlanLines({ rows, fmt }: { rows: PlanRow[]; fmt: Fmt }) {
 function GazetteLines({ rows, fmt }: { rows: NoticeRow[]; fmt: Fmt }) {
   if (!rows.length) return null;
   const clip = (t: string | null) => (t && t.length > 170 ? t.slice(0, 167).trimEnd() + "…" : t ?? "Notice");
-  const item = (r: NoticeRow) => <li key={r.notice_id}><a href={r.url} rel="noopener">{clip(r.title)}</a> <span className="meta">{r.notice_type}{r.published ? `, ${fmt(r.published)}` : ""}</span></li>;
+  const item = (r: NoticeRow) => <li key={r.notice_id}><a href={L(r.url)} rel="noopener">{clip(r.title)}</a> <span className="meta">{r.notice_type}{r.published ? `, ${fmt(r.published)}` : ""}</span></li>;
   return (
     <AutoBlock title="Traffic and highways orders published in The Gazette (last four months)" source={<>The Gazette, the official public record (Open Government Licence). Titles are the orders&rsquo; own names. Councils outside London usually publish these in local newspapers instead, so an empty list here does not mean no orders were made.</>}>
       <ul className="auto-list">{rows.slice(0, 5).map(item)}</ul>
@@ -256,7 +262,7 @@ function SchoolLines({ rows, fmt, county }: { rows: SchoolRow[]; fmt: Fmt; count
     return [...m.entries()].sort((a, b) => b[1] - a[1]).map(([k, n]) => `${n} ${k.toLowerCase()}`).join(", ");
   };
   const line = (r: SchoolRow) => (
-    <li key={`${r.urn}-${r.status}`}><a href={r.gias_url} rel="noopener">{r.name}</a>{r.phase ? ` (${r.phase.toLowerCase()})` : ""} — {r.status.toLowerCase()}
+    <li key={`${r.urn}-${r.status}`}><a href={L(r.gias_url)} rel="noopener">{r.name}</a>{r.phase ? ` (${r.phase.toLowerCase()})` : ""} — {r.status.toLowerCase()}
       {why(r) ? `; reason recorded: ${why(r)!.toLowerCase()}` : ""}
       {r.status === "Open, but proposed to close" && r.close_date ? `; proposed date ${fmt(r.close_date)}` : ""}{r.status === "Proposed to open" && r.open_date ? `; proposed date ${fmt(r.open_date)}` : ""}
       {r.status === "Closed" && r.close_date ? `, ${fmt(r.close_date)}` : ""}{r.status === "Open" && r.open_date ? `, ${fmt(r.open_date)}` : ""}

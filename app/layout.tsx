@@ -4,18 +4,22 @@ import "./globals.css";
 import { SITE } from "@/lib/site";
 import Settings from "@/components/Settings";
 import MobileNav from "@/components/MobileNav";
+import PrintOpen from "@/components/PrintOpen";
 import HowDoYouKnow from "@/components/HowDoYouKnow";
 import FreshnessLine from "@/components/FreshnessLine";
 import { Suspense } from "react";
 
-export const viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" as const };
+export const viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" as const, colorScheme: "light dark" as const, themeColor: [{ media: "(prefers-color-scheme: light)", color: "#ffffff" }, { media: "(prefers-color-scheme: dark)", color: "#16161a" }] };
+
+// Search engines are kept out until the launch date. Set ALLOW_INDEXING=1 in Netlify and redeploy to let them in (robots.ts reads the same switch).
+const INDEXING = process.env.ALLOW_INDEXING === "1";
 
 export const metadata: Metadata = {
   title: { default: SITE.name, template: `%s · ${SITE.name}` },
   metadataBase: new URL(SITE.url),
   alternates: { types: { "application/rss+xml": "/feed.xml" } },
   description: "See who is on your ballot and what each candidate winning would change for a household like yours. Impartial, sourced, never a recommendation.",
-  robots: { index: false, follow: false },
+  robots: INDEXING ? { index: true, follow: true } : { index: false, follow: false },
   twitter: { card: "summary_large_image", title: `${SITE.name} — see who is asking for your vote`, description: "Every candidate, in ballot-paper order, with what they have actually published and what it could mean for you. Every claim sourced. No recommendations." },
   openGraph: { title: `${SITE.name} — see who is asking for your vote`, siteName: SITE.name, description: "Every candidate, in ballot-paper order, with what they have actually published and what it could mean for you. Every claim sourced. No recommendations.", type: "website", url: SITE.url },
 };
@@ -24,9 +28,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en-GB">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="/fonts/fonts.css" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ "@context": "https://schema.org", "@graph": [
+          { "@type": "Organization", "@id": `${SITE.url}/#org`, name: "What's It To Me?", url: SITE.url, email: "hello@whatsittome.org", founder: [{ "@type": "Person", name: "Romily Johnson" }, { "@type": "Person", name: "Barny Trevelyan-Johnson" }], description: "An independent, non-partisan UK voter-information project. It never recommends, ranks or scores any candidate or party." },
+          { "@type": "WebSite", "@id": `${SITE.url}/#site`, name: "What's It To Me?", url: SITE.url, inLanguage: "en-GB", publisher: { "@id": `${SITE.url}/#org` } },
+        ] }) }} />
       </head>
       <body>
         <script dangerouslySetInnerHTML={{ __html: "try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);var s=localStorage.getItem('textsize');if(s)document.documentElement.style.fontSize=s+'%';if(localStorage.getItem('contrast')==='high')document.documentElement.classList.add('high-contrast');if(localStorage.getItem('lite')==='1')document.documentElement.classList.add('lite')}catch(e){}" }} />
@@ -36,9 +42,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a className="skip" href="#main">Skip to content</a>
         <header className="site-header">
           <div className="inner">
-            <Link href="/" className="wordmark" aria-label={`${SITE.name}, home`}>
-              <img className="brand brand-light" src="/brand/mark-light.png" alt="" width={44} height={39} />
-              <img className="brand brand-dark" src="/brand/mark-dark.png" alt="" width={44} height={39} />
+            <Link href="/" prefetch={false} className="wordmark" aria-label={`${SITE.name}, home`}>
+              <img className="brand brand-light" src="/brand/mark-light.webp" alt="" width={44} height={39} />
+              <img className="brand brand-dark" src="/brand/mark-dark.webp" alt="" width={44} height={39} loading="lazy" />
               <span className="brand-name">What&rsquo;s It To Me?</span>
             </Link>
             <MobileNav>
@@ -59,9 +65,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <a href={SITE.repo}>{SITE.repo.replace("https://", "")}</a>. {SITE.name}, {SITE.url.replace("https://", "")}.
           </p>
           <Suspense fallback={null}><FreshnessLine /></Suspense>
-          <p className="foot-brand"><img className="brand-light" src="/brand/mark-light.png" alt="" width={30} height={27} /><img className="brand-dark" src="/brand/mark-dark.png" alt="" width={30} height={27} /><span><strong>What&rsquo;s It To Me?</strong> Politics, in your context.</span></p>
-          <p><Link href="/who-we-are">Who we are</Link> · contact, corrections and complaints: <a href="mailto:hello@whatsittome.org">hello@whatsittome.org</a> · <Link href="/about#contact">How we handle complaints</Link>.</p>
+          <p className="foot-brand"><img className="brand-light" src="/brand/mark-light.webp" alt="" width={30} height={27} loading="lazy" /><img className="brand-dark" src="/brand/mark-dark.webp" loading="lazy" alt="" width={30} height={27} /><span><strong>What&rsquo;s It To Me?</strong> Politics, in your context.</span></p>
+          <p><Link href="/who-we-are" prefetch={false}>Who we are</Link> · contact, corrections and complaints: <a href="mailto:hello@whatsittome.org">hello@whatsittome.org</a> · <Link href="/about#contact">How we handle complaints</Link> · <Link href="/about/data-use" prefetch={false}>Privacy</Link> · <Link href="/accessibility" prefetch={false}>Accessibility</Link>.</p>
         </footer>
+        <PrintOpen />
       </body>
     </html>
   );

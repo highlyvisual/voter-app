@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["scripts/auto/**", "!scripts/auto/schools.py", "!scripts/auto/consultations.py", ".github/workflows/weekly-refresh.yml"]
+    paths: ["scripts/auto/**", "!scripts/auto/schools.py", "!scripts/auto/consultations.py", "!scripts/auto/poll_eve_snapshots.py", ".github/workflows/weekly-refresh.yml"]
 permissions:
   contents: read
   issues: write

@@ -1,3 +1,4 @@
+import { ballotPageTitle } from "@/lib/meta";
 import { topicsForHousehold } from "@/lib/topicOrder";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -12,6 +13,8 @@ export const dynamic = "force-dynamic";
 // "What could this election change for you?" (Romily §8). Relevance, not importance: every card is a count of
 // published positions that touch something the user chose to tell us. Nothing here ranks topics or candidates;
 // the order is fixed and the same for everyone.
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) { return ballotPageTitle((await params).id, "What's at stake", "/stakes"); }
+
 export default async function Stakes({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const { id } = await params; const sp = await searchParams; const ballotId = decodeURIComponent(id);
   const ballot = await getBallot(ballotId); if (!ballot) notFound();

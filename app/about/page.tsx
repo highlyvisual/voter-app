@@ -1,4 +1,6 @@
 import Link from "next/link";
+export const metadata = { title: "How this works", description: "The rules this site follows, built into its code: every candidate the same page, every claim quoted from its source, never a recommendation." };
+
 export default function About() {
   return (
     <>
@@ -67,7 +69,7 @@ export default function About() {
 
       <h3>The household questions</h3>
       <p>
-        Eight questions are asked of every household, in bands. A few more are optional: whether anyone is disabled or has a long-term condition, is an unpaid carer,
+        Seven questions are asked of every household, in bands, after the postcode. A few more are optional: whether anyone is disabled or has a long-term condition, is an unpaid carer,
         is on a visa or seeking asylum, receives a means-tested benefit, drives, or has served in the armed forces. They exist only because published positions refer to them.
         Leave any blank and nothing is assumed either way: a position that depends on it is listed as applying to other households, never hidden and never presumed.
         We never ask about sexual orientation, gender identity, religion or ethnicity: positions on equality are shown to everyone rather than targeted.
@@ -92,7 +94,7 @@ export default function About() {
 
       <h2>Data sources</h2>
       <ul>
-        <li>Parliamentary record: the UK Parliament's Members and Commons Votes APIs (Open Parliament Licence). A candidate is linked only by an exact, checked match, recorded on their page; we show seats held and how they voted, never a score.</li>
+        <li>Parliamentary record: the UK Parliament's Members and Commons Votes APIs (Open Parliament Licence). A candidate is linked only by an exact, checked match, recorded on their page. A section showing seats held and how they voted is not built yet; until it is, we say so rather than imply it. It will never give a score.</li>
         <li>Area figures: petition.parliament.uk (signatures by constituency) and data.police.uk (recorded crime, Open Government Licence). They describe the place, not any household.</li>
         <li>Acts of Parliament: legislation.gov.uk, linked as further reading so you can read what became law.</li>
         <li>Candidates, ballots and official nomination documents: <a href="https://democracyclub.org.uk/">Democracy Club</a>.</li>

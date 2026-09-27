@@ -1141,7 +1141,7 @@ img.gone { display: none !important; }
 .topic-all { margin: 0; line-height: 1.8; font-family: var(--sans); font-size: 0.92rem; }
 .topic-why { font-weight: 400; font-size: 0.8rem; margin-left: 0.4rem; }
 .stake-why { display: block; font-size: 0.8rem; margin: -0.2rem 0 0.3rem; }
-html.lite .name-strip { display: flex; }
+html.lite .name-strip { display: grid; }
 .timeline-body > summary { cursor: pointer; margin: 0 0 0.6rem; }
 .timeline-body[open] > summary { display: none; }
 .next-vote ul { padding-left: 1.1rem; }
@@ -1396,3 +1396,42 @@ main a { overflow-wrap: anywhere; }
   .nav-toggle { padding-left: 0.7rem; padding-right: 0.7rem; }
 }
 @media (max-width: 24rem) { .brand-name { font-size: 1rem; } }
+
+/* Round eight (1): the profile leads on the home page; the postcode lookup is the quick alternative. */
+.start-cta { margin: 1.6rem 0 1rem; }
+.start-cta .button.big { font-size: 1.15rem; padding: 0.9rem 1.8rem; }
+.start-cta .meta { margin-top: 0.6rem; max-width: 36rem; }
+.quick-lookup { margin: 0 0 1.2rem; }
+.quick-lookup > summary { font-family: var(--sans); font-size: 0.95rem; cursor: pointer; color: var(--ink-soft); }
+.quick-lookup[open] > summary { margin-bottom: 0.2rem; }
+.quick-lookup .find-big { margin-top: 0.8rem; }
+.ticker { position: relative; }
+.ticker-pause { position: absolute; right: 0.3rem; top: 50%; transform: translateY(-50%); z-index: 2; font-size: 0.72rem; padding: 0.15rem 0.55rem; min-height: 24px; background: var(--paper); color: var(--ink); border: 1px solid var(--rule); box-shadow: none; }
+.ticker-pause:hover { background: var(--paper); color: var(--ink); transform: translateY(-50%); }
+
+/* Three layers for every claim (Romily, round eight): what they say, what it could mean for you, then the exact
+   words and source one tap away. In "Exact quotations" mode the quotation moves up front instead. */
+.only-verbatim { display: none; }
+html.mode-verbatim .only-verbatim { display: block; }
+html.mode-verbatim .not-verbatim { display: none; }
+.claim .say, .position .say { color: var(--ink); font-size: 1rem; margin: 0 0 0.35rem; }
+.for-you { margin: 0 0 0.35rem; }
+details.evidence { margin: 0.25rem 0 0; }
+details.evidence > summary { font-family: var(--sans); font-size: 0.85rem; color: var(--link, var(--ink-soft)); cursor: pointer; text-decoration: underline; text-underline-offset: 2px; min-height: 44px; display: flex; align-items: center; }
+details.evidence[open] > summary { margin-bottom: 0.2rem; }
+details.evidence blockquote.quote { margin-top: 0.1rem; }
+@media print {
+  .only-verbatim { display: none !important; }
+  .not-verbatim { display: block !important; }
+}
+.party .registered { display: block; font-size: 0.75rem; margin-top: 0.15rem; }
+
+/* Layout fixes from the review (25 Sept). */
+.candidate .name .meta, .name-strip .meta, .cand-nav .button { white-space: nowrap; }
+.name-strip { display: grid; grid-template-columns: 1fr; gap: 0.3rem; }
+@media (max-width: 480px) {
+  /* The floating "How do you know this?" button covered links on phones, so there it sits at the foot of the page. */
+  .hdyk { position: relative; right: auto; bottom: auto; display: flex; justify-content: flex-end; margin: 0.5rem 0.8rem 1rem; }
+  .hdyk-panel { right: 0; }
+}
+details.evidence blockquote.quote { border-left: 2px solid var(--rule-strong); padding-left: 0.6rem; font-style: italic; }

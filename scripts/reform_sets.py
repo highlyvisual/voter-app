@@ -27,4 +27,15 @@ REFORM_SETS = {
         "source_ids": [13],
         "parameters": {"gov.hmrc.national_insurance.class_1.rates.employee.additional": 0.08},
     },
+    # Liberal Democrats: "raising the tax-free personal allowance (and the national insurance threshold) to £15,000" (source id 64).
+    # Added 27 Sept 2026 so that the same £15,000 allowance pledged by two parties on one ballot is modelled for both (review, 25 Sept).
+    # The employee NI primary threshold is weekly in the model: £15,000 / 52. Their separate pledge to raise the higher-rate point gives
+    # no figure, so it is not modelled beyond the rise that follows automatically from a higher allowance.
+    "PP90-2026-09-personal-allowance-ni-threshold-15000": {
+        "party_ec_id": "PP90",
+        "label": "Liberal Democrats: personal allowance and National Insurance threshold £15,000",
+        "source_ids": [64],
+        "parameters": {"gov.hmrc.income_tax.allowances.personal_allowance.amount": 15000,
+                       "gov.hmrc.national_insurance.class_1.thresholds.primary_threshold": round(15000 / 52, 2)},
+    },
 }

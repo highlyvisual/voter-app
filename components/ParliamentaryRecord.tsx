@@ -4,7 +4,7 @@ import { TOPICS } from "@/lib/data";
 // WP-B6: the record on Real-O-Mat rules. Position shows a vote only where a justification exists; below two relevant divisions on a topic
 // the panel says so; absences are "Did not vote (reason not recorded)"; never a "voted for/against X" summary line.
 export default function ParliamentaryRecordView({ rec, note }: { rec: ParliamentRecord; note: string | null }) {
-  const fmt = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+  const fmt = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
   const voted = (v: boolean | null) => (v === null ? "Did not vote (reason not recorded)" : v ? "Aye" : "No");
   const withJ = rec.divisions.filter((d) => d.justification);
   const byTopic = TOPICS.map(([k, l]) => ({ k, l, rows: withJ.filter((d) => d.topic === k) })).filter((t) => t.rows.length > 0);

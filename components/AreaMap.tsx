@@ -16,8 +16,8 @@ export default function AreaMap({ ballotId = "", areaName, lat, lng, outcode, le
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   useEffect(() => {
     let map: any; let cancelled = false;
-    const css = document.createElement("link"); css.rel = "stylesheet"; css.href = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"; document.head.appendChild(css);
-    const s = document.createElement("script"); s.src = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js";
+    const css = document.createElement("link"); css.rel = "stylesheet"; css.href = "/vendor/leaflet-1.9.4/leaflet.css"; document.head.appendChild(css);
+    const s = document.createElement("script"); s.src = "/vendor/leaflet-1.9.4/leaflet.js";
     s.onload = async () => {
       if (cancelled || !ref.current || !window.L) return;
       const L = window.L;

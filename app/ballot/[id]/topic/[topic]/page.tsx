@@ -1,3 +1,5 @@
+import { ballotPageTitle } from "@/lib/meta";
+import { TOPICS as TOPIC_LIST } from "@/lib/data";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { claimsFor } from "@/components/CandidateCard";
@@ -11,6 +13,8 @@ import { conditionText, layerOf, splitForHousehold } from "@/lib/claims";
 
 export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ id: string; topic: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string; topic: string }> }) { const p = await params; const t = TOPIC_LIST.find(([k]) => k === p.topic)?.[1] ?? "Topic"; return ballotPageTitle(p.id, t, `/topic/${p.topic}`); }
 
 export default async function TopicPage({ params, searchParams }: Props) {
   const { id, topic } = await params;

@@ -1,8 +1,9 @@
 "use client";
 import { useMemo, useState } from "react";
+import { longDate } from "@/lib/dates";
 import { index, matches, queryTokens, suggest, normalise, stem } from "@/lib/search";
 
-export type Row = { id: number; who: string; party: string; election: string; ballot: string; candidateId: number | null; topic: string; topicKey: string; layer: string; precision: string; claim: string; quote: string; source: string; publisher: string; url: string; published: string | null };
+export type Row = { id: number; who: string; party: string; election: string; ballot: string; candidateId: number | null; topic: string; topicKey: string; layer: string; precision: string; claim: string; quote: string; source: string; publisher: string; url: string; published: string | null; urlArchived: boolean; archive: string | null; applies: string | null; record: boolean };
 
 // Search and filter over every position. Two columns on a phone (label, then the claim), a table on a wide screen.
 export default function PositionsTable({ rows, elections, topics, layers }: { rows: Row[]; elections: string[]; topics: string[]; layers: string[] }) {
@@ -55,9 +56,17 @@ export default function PositionsTable({ rows, elections, topics, layers }: { ro
               {r.precision === "aspiration" ? <span className="chip none">Stated aim</span> : null}
             </div>
             <div className="pos-body">
-              <blockquote className="quote">{mark(r.quote)}</blockquote>
-              <p className="summary">{mark(r.claim)}</p>
-              <p className="meta">{r.publisher}{r.published ? `, ${r.published}` : ""} · <a href={r.url} rel="noopener">{r.source}</a></p>
+              <p className="layer-label not-verbatim">{r.record ? "What the record shows" : "What they say"}</p>
+              <p className="summary say not-verbatim">{mark(r.claim)}</p>
+              <p className="layer-label only-verbatim">In their exact words</p>
+              <blockquote className="quote only-verbatim">{mark(r.quote)}</blockquote>
+              {r.applies ? <><p className="layer-label">What this could mean for you</p><p className="small for-you">This would apply to you if: {r.applies}.</p></> : null}
+              {/* Opened automatically while searching, so a match inside the quotation is visible. */}
+              <details className="evidence" open={tokens.length > 0}>
+                <summary>See the exact words and source</summary>
+                <blockquote className="quote not-verbatim">{mark(r.quote)}</blockquote>
+                <p className="small" style={{ margin: "0.3rem 0 0" }}><a href={r.url} rel="noopener">{r.source}</a>{r.urlArchived ? " (archived copy: the original page no longer loads)" : ""}, {r.publisher}{r.published ? `, published ${longDate(r.published)}` : ""}.{r.archive ? <> <a href={r.archive} rel="noopener">Archived copy</a>.</> : null}</p>
+              </details>
             </div>
           </li>
         ))}

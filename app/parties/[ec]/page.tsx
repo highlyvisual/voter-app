@@ -7,6 +7,12 @@ import { layerOf } from "@/lib/claims";
 import { img } from "@/lib/site";
 export const dynamic = "force-dynamic";
 
+export async function generateMetadata({ params }: { params: Promise<{ ec: string }> }) {
+  const { ec } = await params;
+  const { data } = await publicClient().from("parties").select("name").eq("ec_id", decodeURIComponent(ec)).maybeSingle();
+  return { title: data?.name ? `${data.name}: published positions` : "Party" };
+}
+
 export default async function Party({ params }: { params: Promise<{ ec: string }> }) {
   const { ec } = await params; const ecId = decodeURIComponent(ec);
   const db = publicClient();

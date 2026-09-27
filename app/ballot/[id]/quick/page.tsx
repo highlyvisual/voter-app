@@ -1,3 +1,4 @@
+import { ballotPageTitle } from "@/lib/meta";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { claimsFor } from "@/components/CandidateCard";
@@ -6,6 +7,8 @@ import { TOPICS, getBallot, listCandidates, listVerifiedClaims } from "@/lib/dat
 export const dynamic = "force-dynamic";
 
 // Quick mode: "I have two minutes." Same evidence as the full page, less of it. Ballot-paper order, no ranking.
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) { return ballotPageTitle((await params).id, "Two-minute guide", "/quick"); }
+
 export default async function Quick({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params; const ballotId = decodeURIComponent(id);
   const ballot = await getBallot(ballotId); if (!ballot) notFound();

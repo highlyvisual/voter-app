@@ -1,0 +1,316 @@
+{
+ "_about": "Who makes decisions where you live: groundwork data for Romily's round-eight point 7. Elected bodies, and whether each is directly elected. No page uses this yet; how bodies that are not directly elected are shown waits for Romily (round-eight question 16).",
+ "_sources": {
+  "combined_authorities": "ONS Open Geography Portal, Local Authority District to Combined Authority (May 2025) Lookup in England, LAD25_CAUTH25_EN_LU, read 27 Sept 2026: https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LAD25_CAUTH25_EN_LU/FeatureServer/0",
+  "mayors": "Institute for Government, 'Regional mayors' explainer, updated 3 Aug 2026: 14 regional mayors including the Mayor of London; May 2026 elections in Greater Essex, Sussex and Brighton, Hampshire and the Solent, and Norfolk and Suffolk postponed to 2028; Cheshire and Warrington and Cumbria to 2027. https://www.instituteforgovernment.org.uk/explainer/regional-mayors-devolution",
+  "policing": "House of Commons Library, 'Police and crime commissioners' (SN06104), 14 July 2026: policing governance is delivered by the mayors of Greater Manchester, West Yorkshire, York and North Yorkshire, and South Yorkshire, and in London by the Mayor's Office for Policing and Crime; PCCs to be abolished in May 2028. https://researchbriefings.files.parliament.uk/documents/SN06104/SN06104.pdf"
+ },
+ "combined_authorities": [
+  {
+   "name": "Cambridgeshire and Peterborough",
+   "code": "E47000008",
+   "mayor": true,
+   "policing": false,
+   "police_force_area": null,
+   "lads": [
+    "E06000031",
+    "E07000008",
+    "E07000009",
+    "E07000010",
+    "E07000011",
+    "E07000012"
+   ]
+  },
+  {
+   "name": "Devon and Torbay",
+   "code": "E47000015",
+   "mayor": false,
+   "policing": false,
+   "police_force_area": null,
+   "lads": [
+    "E06000027",
+    "E07000040",
+    "E07000041",
+    "E07000042",
+    "E07000043",
+    "E07000044",
+    "E07000045",
+    "E07000046",
+    "E07000047"
+   ]
+  },
+  {
+   "name": "East Midlands",
+   "code": "E47000013",
+   "mayor": true,
+   "policing": false,
+   "police_force_area": null,
+   "lads": [
+    "E06000015",
+    "E06000018",
+    "E07000032",
+    "E07000033",
+    "E07000034",
+    "E07000035",
+    "E07000036",
+    "E07000037",
+    "E07000038",
+    "E07000039",
+    "E07000170",
+    "E07000171",
+    "E07000172",
+    "E07000173",
+    "E07000174",
+    "E07000175",
+    "E07000176"
+   ]
+  },
+  {
+   "name": "Greater Lincolnshire",
+   "code": "E47000017",
+   "mayor": true,
+   "policing": false,
+   "police_force_area": null,
+   "lads": [
+    "E06000012",
+    "E06000013",
+    "E07000136",
+    "E07000137",
+    "E07000138",
+    "E07000139",
+    "E07000140",
+    "E07000141",
+    "E07000142"
+   ]
+  },
+  {
+   "name": "Greater Manchester",
+   "code": "E47000001",
+   "mayor": true,
+   "policing": true,
+   "police_force_area": "Greater Manchester",
+   "lads": [
+    "E08000001",
+    "E08000002",
+    "E08000003",
+    "E08000004",
+    "E08000005",
+    "E08000006",
+    "E08000007",
+    "E08000008",
+    "E08000009",
+    "E08000010"
+   ]
+  },
+  {
+   "name": "Hull and East Yorkshire",
+   "code": "E47000016",
+   "mayor": true,
+   "policing": false,
+   "police_force_area": null,
+   "lads": [
+    "E06000010",
+    "E06000011"
+   ]
+  },
+  {
+   "name": "Lancashire",
+   "code": "E47000018",
+   "mayor": false,
+   "policing": false,
+   "police_force_area": null,
+   "lads": [
+    "E06000008",
+    "E06000009",
+    "E07000117",
+    "E07000118",
+    "E07000119",
+    "E07000120",
+    "E07000121",
+    "E07000122",
+    "E07000123",
+    "E07000124",
+    "E07000125",
+    "E07000126",
+    "E07000127",
+    "E07000128"
+   ]
+  },
+  {
+   "name": "Liverpool City Region",
+   "code": "E47000004",
+   "mayor": true,
+   "policing": false,
+   "police_force_area": null,
+   "lads": [
+    "E06000006",
+    "E08000011",
+    "E08000012",
+    "E08000013",
+    "E08000014",
+    "E08000015"
+   ]
+  },
+  {
+   "name": "North East",
+   "code": "E47000014",
+   "mayor": true,
+   "policing": false,
+   "police_force_area": null,
+   "lads": [
+    "E06000047",
+    "E06000057",
+    "E08000021",
+    "E08000022",
+    "E08000023",
+    "E08000024",
+    "E08000037"
+   ]
+  },
+  {
+   "name": "South Yorkshire",
+   "code": "E47000002",
+   "mayor": true,
+   "policing": true,
+   "police_force_area": "South Yorkshire",
+   "lads": [
+    "E08000017",
+    "E08000018",
+    "E08000038",
+    "E08000039"
+   ]
+  },
+  {
+   "name": "Tees Valley",
+   "code": "E47000006",
+   "mayor": true,
+   "policing": false,
+   "police_force_area": null,
+   "lads": [
+    "E06000001",
+    "E06000002",
+    "E06000003",
+    "E06000004",
+    "E06000005"
+   ]
+  },
+  {
+   "name": "West Midlands",
+   "code": "E47000007",
+   "mayor": true,
+   "policing": false,
+   "police_force_area": null,
+   "lads": [
+    "E08000025",
+    "E08000026",
+    "E08000027",
+    "E08000028",
+    "E08000029",
+    "E08000030",
+    "E08000031"
+   ]
+  },
+  {
+   "name": "West Yorkshire",
+   "code": "E47000003",
+   "mayor": true,
+   "policing": true,
+   "police_force_area": "West Yorkshire",
+   "lads": [
+    "E08000032",
+    "E08000033",
+    "E08000034",
+    "E08000035",
+    "E08000036"
+   ]
+  },
+  {
+   "name": "West of England",
+   "code": "E47000009",
+   "mayor": true,
+   "policing": false,
+   "police_force_area": null,
+   "lads": [
+    "E06000022",
+    "E06000023",
+    "E06000025"
+   ]
+  },
+  {
+   "name": "York and North Yorkshire",
+   "code": "E47000012",
+   "mayor": true,
+   "policing": true,
+   "police_force_area": "North Yorkshire",
+   "lads": [
+    "E06000014",
+    "E06000065"
+   ]
+  }
+ ],
+ "london": {
+  "lad_prefix": "E09",
+  "bodies": [
+   {
+    "name": "Mayor of London",
+    "elected": "direct",
+    "what": "Transport for London, strategic planning and housing, and policing through the Mayor's Office for Policing and Crime"
+   },
+   {
+    "name": "London Assembly",
+    "elected": "direct",
+    "what": "Scrutinises the Mayor and can amend the Mayor's budget with a two-thirds majority"
+   }
+  ]
+ },
+ "policing_by_mayor": {
+  "Greater Manchester": "Mayor of Greater Manchester",
+  "West Yorkshire": "Mayor of West Yorkshire",
+  "North Yorkshire": "Mayor of York and North Yorkshire",
+  "South Yorkshire": "Mayor of South Yorkshire",
+  "Metropolitan Police": "Mayor of London (Mayor's Office for Policing and Crime)"
+ },
+ "policing_other": {
+  "London, City of": "City of London Corporation, as police authority (not a police and crime commissioner)",
+  "Scotland": "Scottish Police Authority (appointed, not elected)",
+  "Northern Ireland": "Northern Ireland Policing Board (members appointed or nominated, not directly elected)"
+ },
+ "national": {
+  "England": [
+   {
+    "name": "UK Parliament",
+    "elected": "direct"
+   }
+  ],
+  "Scotland": [
+   {
+    "name": "Scottish Parliament",
+    "elected": "direct"
+   },
+   {
+    "name": "UK Parliament",
+    "elected": "direct"
+   }
+  ],
+  "Wales": [
+   {
+    "name": "Senedd Cymru",
+    "elected": "direct"
+   },
+   {
+    "name": "UK Parliament",
+    "elected": "direct"
+   }
+  ],
+  "Northern Ireland": [
+   {
+    "name": "Northern Ireland Assembly",
+    "elected": "direct"
+   },
+   {
+    "name": "UK Parliament",
+    "elected": "direct"
+   }
+  ]
+ }
+}

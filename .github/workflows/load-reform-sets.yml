@@ -1,0 +1,24 @@
+name: Load reform sets
+# Loads any new party reform set in scripts/receipts/ into receipt_grid (scripts/auto/load_reform_sets.py).
+# Sets already loaded are left untouched.
+on:
+  push:
+    branches: [main]
+    paths: ["scripts/receipts/**"]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency: { group: load-reform-sets, cancel-in-progress: false }
+jobs:
+  load:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - run: python scripts/auto/load_reform_sets.py

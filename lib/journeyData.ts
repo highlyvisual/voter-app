@@ -1,3 +1,4 @@
+import { TOPIC_SHORT } from "@/lib/data";
 import { getBallot, listCandidates, listVerifiedClaims, TOPICS } from "@/lib/data";
 import { claimApplies, householdComplete, householdFromParams, type Household } from "@/lib/household";
 import { claimsFor } from "@/components/CandidateCard";
@@ -11,7 +12,7 @@ export type JourneyData = {
   topics: { topic: string; label: string; short: string; reason: string | null; n: number; who: number }[];
   stats: { claims: number; sources: number; covered: number };
 };
-const SHORT: Record<string, string> = { money_and_cost_of_living: "Money", housing_and_property: "Housing", healthcare_and_social_care: "Health and care", education_and_universities: "Education", environment_climate_and_energy: "Environment", immigration_and_borders: "Immigration", crime_policing_and_justice: "Crime and policing", defence_foreign_affairs_and_eu: "Defence and the world", equality_and_rights: "Equality and rights" };
+const SHORT = TOPIC_SHORT;
 
 export async function loadJourney(ballotId: string, sp: Record<string, string | string[] | undefined>): Promise<JourneyData | null> {
   const ballot = await getBallot(ballotId); if (!ballot) return null;

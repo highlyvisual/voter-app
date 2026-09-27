@@ -1,41 +1,29 @@
 import { topicsForHousehold } from "@/lib/topicOrder";
-import { TOPICS, effectivePartyId, type Candidate, type Claim, type ReceiptRow } from "@/lib/data";
+import { TOPICS, TOPIC_SHORT, effectivePartyId, type Candidate, type Claim, type ReceiptRow } from "@/lib/data";
 import { claimApplies, type Household } from "@/lib/household";
-import { conditionText, layerOf, precisionLabel, splitForHousehold, LEGEND } from "@/lib/claims";
+import { layerOf, precisionLabel, splitForHousehold, LEGEND } from "@/lib/claims";
 import { interestsFor, parliamentRecord, withPartySplits } from "@/lib/parliament";
 import ParliamentaryRecordView from "@/components/ParliamentaryRecord";
 import ActionBlock from "@/components/ActionBlock";
-import ExplainThis from "@/components/ExplainThis";
+import ClaimLayers from "@/components/ClaimLayers";
+import ExtLink from "@/components/ExtLink";
 import ReadAloud from "@/components/ReadAloud";
 import { layerKey } from "@/lib/claims";
 import { ballotLabel, type InvitationStatus, type Leaflet, type PreviousCandidacy } from "@/lib/data";
 import { img } from "@/lib/site";
 
 const gbp = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", maximumFractionDigits: 0 });
-const SHORT: Record<string, string> = {
-  money_and_cost_of_living: "Money", housing_and_property: "Housing", healthcare_and_social_care: "Health",
-  education_and_universities: "Education", environment_climate_and_energy: "Environment",
-  immigration_and_borders: "Immigration", crime_policing_and_justice: "Crime", defence_foreign_affairs_and_eu: "Defence & EU", equality_and_rights: "Equality",
-};
+const SHORT = TOPIC_SHORT;
 
 function ClaimView({ c }: { c: Claim }) {
-  const s = c.sources;
   const level = layerOf(c);
-  const cond = conditionText(c.applies_if);
+  const chip = <><span className="chip layer-chip">{level}</span>{c.tier === "computed" ? <span className="tier">Computed</span> : null}{precisionLabel(c) ? <span className="tier">{precisionLabel(c)}</span> : null}</>;
+  const footnote = c.party_ec_id === "PP53" && c.candidate_id === null && level === "Manifesto"
+    ? <p className="small" style={{ margin: "0.3rem 0 0" }}>Delivery tracked independently by <a href="https://fullfact.org/government-tracker/" rel="noopener">Full Fact's Government Tracker</a> (states: Achieved · On track · Signs of progress · Wait and see · Unclear).</p>
+    : null;
   return (
     <div className="claim">
-      <p className="meta" style={{ margin: "0 0 0.25rem" }}>
-        <span className="chip layer-chip">{level}</span>
-        {s ? <> · {s.publisher}{s.published_on ? `, ${s.published_on}` : ""} · <a href={s.url} rel="noopener">{s.title}</a></> : null}
-        {c.tier === "computed" ? <span className="tier">Computed</span> : null}
-        {precisionLabel(c) ? <span className="tier">{precisionLabel(c)}</span> : null}
-      </p>
-      <p className="layer-label">Their position</p>
-      <blockquote className="quote">{c.source_quote}</blockquote>
-      <p className="layer-label view-summary">What that means</p>
-      <p className="summary view-summary">{c.claim_text}</p>
-      <ExplainThis text={`${c.source_quote} ${c.claim_text}`} />
-      <p className="meta" style={{ margin: "0.2rem 0 0" }}>{cond ? `${cond}. ` : ""}{s ? `Retrieved ${s.retrieved_at.slice(0, 10)}.` : ""}{s?.archive_url ? <> <a href={s.archive_url} rel="noopener">Archived copy</a>.</> : null}{c.party_ec_id === "PP53" && c.candidate_id === null && level === "Manifesto" ? <> Delivery tracked independently by <a href="https://fullfact.org/government-tracker/" rel="noopener">Full Fact's Government Tracker</a> (states: Achieved · On track · Signs of progress · Wait and see · Unclear).</> : null}</p>
+      <ClaimLayers c={c} chip={chip} footnote={footnote} />
     </div>
   );
 }
@@ -86,7 +74,7 @@ export default async function CandidateCard({
   const campaignStart = pollDate ? new Date(new Date(pollDate + "T00:00:00Z").getTime() - 60 * 86400000).toISOString().slice(0, 10) : null;
   const current = leaflets.filter((l) => campaignStart && (l.date_uploaded ?? "") >= campaignStart);
   const earlier = leaflets.filter((l) => !(campaignStart && (l.date_uploaded ?? "") >= campaignStart));
-  const fmtD = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  const fmtD = (d: string) => new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
   const hhQs = new URLSearchParams(Object.entries(household).filter(([k, v]) => k !== "postcode" && typeof v === "string") as [string, string][]).toString();
   const record = candidate.parliament_member_id ? await parliamentRecord(candidate.parliament_member_id) : null;
   if (record && candidate.parliament_member_id) {
@@ -107,14 +95,14 @@ export default async function CandidateCard({
 
   return (
     <details className="candidate" id={`c-${candidate.id}`}>
-      <summary aria-label={`${candidate.name}, ${partyLabel}, ${total} ${total === 1 ? "position" : "positions"}`}>
+      <summary aria-label={`${position} ${candidate.name}, ${partyLabel}`}>
         <div className="who">
           <span className="avatar" aria-hidden style={partyColour ? { boxShadow: `inset 0 0 0 3px ${partyColour}`, background: "#fff", color: "var(--ink)" } : undefined}>{candidate.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("").toUpperCase()}</span>
           <div>
             <h3 className="name" data-pos={position}><span className="meta" style={{ marginRight: "0.5rem" }}>{position}</span>{candidate.name}</h3>
             <p className="party">
               {candidate.parties?.emblem_url ? <img className="emblem" src={img(candidate.parties.emblem_url)} alt="" loading="lazy" width={36} height={24} /> : null}
-              <span className="party-pill" style={partyColour ? { borderColor: partyColour, background: partyColour + "33" } : undefined}>{partyLabel}</span>
+              <span className="party-pill" style={partyColour ? { borderColor: partyColour, background: partyColour + "33" } : undefined}>{partyLabel}</span>{partyLabel !== candidate.party_name_on_ballot && candidate.party_name_on_ballot ? <span className="meta registered">Ballot-paper description. Registered party: {candidate.party_name_on_ballot}.</span> : null}
             </p>
           </div>
         </div>
@@ -135,7 +123,7 @@ export default async function CandidateCard({
       <div className="body">
         <div className="links">
           {candidate.dc_person_url ? <a href={candidate.dc_person_url.replace("/api/next/people/", "/person/")} rel="noopener">Democracy Club profile</a> : null}
-          {candidate.homepage_url ? <a href={candidate.homepage_url} rel="noopener">Candidate's own site</a> : null}
+          {candidate.homepage_url ? <ExtLink href={candidate.homepage_url}>Candidate's own site</ExtLink> : null}
           {candidate.parties?.official_site_url ? <a href={candidate.parties.official_site_url} rel="noopener">Party site</a> : null}
         </div>
 
