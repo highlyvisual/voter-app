@@ -1,10 +1,12 @@
 -- Open data from mySociety (docs/automation/open-data-mysociety.md), sections 1 and 3.
 --
 -- council_register: every UK local authority, past and current, from mySociety's "UK Local Authorities (past,
--- current and future)" (CC BY 4.0) joined to the WhatDoTheyKnow authorities list (CC BY-SA 4.0) for each council's own
--- website. Loaded weekly by scripts/auto/council_register.py. A council that leaves the file is never deleted: it is
--- marked not current, with the file's end date and successor. Codes that ONS lists but mySociety does not yet are
--- recorded with in_mysociety = false and only what ONS gives (code and name), never an invented type.
+-- current and future)" (CC BY 4.0), with each council's official home page, tier and parent from GOV.UK's local-authority
+-- API (OGL) and, from the WhatDoTheyKnow authorities list (CC BY-SA 4.0), a second home page plus the publication scheme
+-- and disclosure log. ONS's Code History Database (OGL) is the authority for codes created or terminated since mySociety's
+-- file stops (May 2025). Loaded weekly by scripts/auto/council_register.py. A council that leaves the file, or whose code
+-- ONS marks terminated, is never deleted: it is marked not current with the end date and successor. A live ONS code
+-- mySociety lacks is recorded with in_mysociety = false and only what ONS gives (code, name, entity type, dates).
 create table if not exists public.council_register (
   code text primary key,                      -- mySociety's three-letter code (BS 6879); the GSS code for ONS-only rows
   official_name text not null,
@@ -32,14 +34,25 @@ create table if not exists public.council_register (
   lat double precision,
   long double precision,
   alt_names text,
-  home_page text,                             -- the council's own site, after following redirects
+  home_page text,                             -- the council's own site, after following redirects (GOV.UK's first, else WhatDoTheyKnow's)
+  home_page_source text,                      -- 'gov.uk' or 'whatdotheyknow'
   home_page_raw text,                         -- as WhatDoTheyKnow lists it
+  govuk_slug text,                            -- the slug GOV.UK's API answered for (mySociety's gov-uk-slug, or one confirmed by an exact name match)
+  govuk_name text,
+  govuk_homepage text,                        -- as GOV.UK lists it
+  govuk_tier text,                            -- district, county, unitary
+  govuk_parent_slug text,
+  govuk_parent_name text,
+  ons_status text,                            -- live or terminated, per the Code History Database
+  ons_oper_date date,
+  ons_term_date date,
+  ons_successors text,                        -- GSS codes ONS records as replacing this one, comma-separated
   publication_scheme text,
   disclosure_log text,
   wdtk_url_name text,
   in_mysociety boolean not null default true,
   note text,
-  source_versions text,                       -- the dataset versions read, e.g. "uk_la_future 1.7.3; wdtk authorities 0.73.0"
+  source_versions text,                       -- the dataset versions read, e.g. "uk_la_future 1.7.3; wdtk authorities 0.73.0; ONS CHD June 2026"
   retrieved_at timestamptz not null default now(),
   ended_seen_at timestamptz                   -- when the job first saw the council gone from the file
 );
@@ -71,6 +84,24 @@ create index if not exists deprivation_areas_nation on public.deprivation_areas 
 alter table public.deprivation_areas enable row level security;
 drop policy if exists "public read" on public.deprivation_areas;
 create policy "public read" on public.deprivation_areas for select to anon, authenticated using (true);
+
+-- council_service_links: every council's service pages from GOV.UK's Local Links Manager export (OGL), refreshed weekly
+-- with the register and replaced wholesale each run. The council page shows a fixed, public list of everyday services from
+-- it ("Do it online"), the same list in the same order for every council, with the export's own wording as the link text.
+create table if not exists public.council_service_links (
+  gss text not null,
+  lgsl int not null,                          -- Local Government Service List number
+  lgil int not null,                          -- Local Government Interaction List number (8 information, 0 applications, 4 reporting, ...)
+  description text not null,                  -- the export's own "Service: Interaction" wording
+  url text not null,
+  title text,
+  supported_by_govuk boolean,
+  retrieved_at timestamptz not null default now(),
+  primary key (gss, lgsl, lgil)
+);
+alter table public.council_service_links enable row level security;
+drop policy if exists "public read" on public.council_service_links;
+create policy "public read" on public.council_service_links for select to anon, authenticated using (true);
 
 -- council_lines: a sentence from a council's own document, found and checked by a job, shown on the council page under a
 -- topic (section 5 of the brief: the council's climate-emergency motion, from the mySociety / Climate Emergency UK list of

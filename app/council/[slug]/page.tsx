@@ -7,7 +7,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { publicClient } from "@/lib/data";
-import { councilBySlug, councilSlugFor, REGISTER_ATTRIBUTION, TOPIC_ORDER, type CouncilFact } from "@/lib/councils";
+import { councilBySlug, councilSlugFor, EVERYDAY_SERVICES, REGISTER_ATTRIBUTION, TOPIC_ORDER, type CouncilFact } from "@/lib/councils";
 import WriteToThem from "@/components/WriteToThem";
 import CiteThis from "@/components/CiteThis";
 import JsonLd from "@/components/JsonLd";
@@ -37,7 +37,7 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
   const names = [...new Set([c.name, stripped])];
   const gss = c.gss ?? "__none__";
   const since = new Date(Date.now() - 120 * 86400000).toISOString().slice(0, 10);
-  const [{ data: cllrs }, { data: control }, { data: ctax }, { data: ballotRows }, { data: agenda }, { data: plans }, { data: notices }, { data: schools }, { data: consults }, { data: outcomes }, { data: queued }, { data: lines }] = await Promise.all([
+  const [{ data: cllrs }, { data: control }, { data: ctax }, { data: ballotRows }, { data: agenda }, { data: plans }, { data: notices }, { data: schools }, { data: consults }, { data: outcomes }, { data: queued }, { data: lines }, { data: svc }] = await Promise.all([
     db.from("councillors").select("name, party_name, ward, next_election").in("council", names).order("ward").order("name"),
     db.from("council_control").select("*").in("authority", names).eq("year", 2026).limit(1).maybeSingle(),
     db.from("council_tax_2026").select("*").in("authority", names).limit(1).maybeSingle(),
@@ -50,7 +50,12 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
     db.from("council_item_outcomes").select("meeting_id, item_id, outcome, votes_for, votes_against, abstentions, sentence, minutes_url, method").eq("council_slug", c.slug),
     db.from("outcome_queue").select("meeting_id, item_id, status, minutes_url").eq("council_slug", c.slug),
     reg ? db.from("council_lines").select("topic, url, quote, title, doc_date, publisher, dataset, checked_at").eq("council_code", reg.code) : Promise.resolve({ data: [] as LineRow[] }),
+    db.from("council_service_links").select("gss, lgsl, lgil, description, url").in("gss", [c.gss, reg?.gss_code, reg?.ons_gss_code].filter((x): x is string => Boolean(x))),
   ]);
+  // "Do it online": GOV.UK's list of this council's service pages, filtered to the same fixed everyday services in the same
+  // order for every council (EVERYDAY_SERVICES), with the export's own wording as the link text.
+  const byService = new Map(((svc ?? []) as ServiceRow[]).map((r) => [`${r.lgsl}:${r.lgil}`, r]));
+  const services = EVERYDAY_SERVICES.map(([l, i]) => byService.get(`${l}:${i}`)).filter((r): r is ServiceRow => Boolean(r));
   // Sentences a job found in the council's own documents and checked word for word (section 5 of the open-data brief);
   // shown only on pages whose facts were not gathered by hand, so the 29 hand-built pages stay as they were.
   const jobLines = c.handBuilt ? [] : ((lines ?? []) as LineRow[]);
@@ -89,12 +94,23 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
       {reg ? (
         <p className="small">
           <b>{reg.official_name}</b>{reg.la_type_name ? <>: {reg.la_type_name}</> : null}{reg.powers ? <> ({reg.powers})</> : null}{reg.nation ? <>, {reg.nation}</> : null}{reg.region && reg.region !== reg.nation ? <>, {reg.region}</> : null}{reg.county_la ? <>; within the county of {reg.county_la}</> : null}{reg.combined_authority ? <>; part of the {reg.combined_authority} combined authority</> : null}.
+          {reg.govuk_tier ? <> GOV.UK lists it as a {reg.govuk_tier} council{reg.govuk_parent_name ? <>, within {reg.govuk_parent_slug ? <Link href={`/council/${reg.govuk_parent_slug}`}>{reg.govuk_parent_name}</Link> : reg.govuk_parent_name}</> : null}.</> : null}
           {reg.gss_code ? <span className="meta"> ONS code {reg.gss_code}{reg.ons_gss_code ? ` (ONS now lists ${reg.ons_gss_code})` : ""}.</span> : null}
           {!reg.in_mysociety ? <span className="meta"> {reg.note}</span> : null}
         </p>
       ) : null}
 
       <p className="council-links">{links.filter(([, u]) => u).map(([l, u], i) => <span key={l}>{i ? " · " : ""}<a href={L(u!)} rel="noopener">{l}</a></span>)}</p>
+
+      {services.length ? (
+        <section className="council-topic">
+          <h2>Do it online</h2>
+          <ul className="auto-list" style={{ columns: "2 18rem" }}>
+            {services.map((r) => <li key={`${r.lgsl}:${r.lgil}`}><a href={L(r.url)} rel="noopener">{r.description}</a></li>)}
+          </ul>
+          <p className="meta">The council&rsquo;s own service pages as listed by GOV.UK&rsquo;s Local Links Manager (Open Government Licence), refreshed weekly; the same list of everyday services, in the same order, for every council, in GOV.UK&rsquo;s wording.</p>
+        </section>
+      ) : null}
 
       {(consults ?? []).length ? (
         <section className="council-topic">
@@ -184,6 +200,7 @@ type AgendaRow = { body: string; meeting_id: number; meeting_date: string; meeti
 // could not settle wait in outcome_queue; a rejected one is one the word-for-word check refused.
 type OutcomeRow = { meeting_id: number; item_id: number; outcome: string; votes_for: number | null; votes_against: number | null; abstentions: number | null; sentence: string; minutes_url: string; method: string };
 type QueueRow = { meeting_id: number; item_id: number; status: string; minutes_url: string };
+type ServiceRow = { gss: string; lgsl: number; lgil: number; description: string; url: string };
 type LineRow = { topic: string; url: string; quote: string; title: string | null; doc_date: string | null; publisher: string; dataset: string; checked_at: string };
 
 // Romily, round six (q13): every Full Council motion shown, labelled with who proposed it. The proposer is taken from the

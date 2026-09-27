@@ -8,63 +8,101 @@ because the build session's GitHub login cannot see the private repository, so B
 says, and `origin/main` was merged in so the `llms.txt` route and the data page from main could be edited. Merge phase 1
 first; this PR then shows only its own changes.
 
-**Not deployed. Nothing written to the database.** Two migrations to apply, in this order:
-`scripts/sql/migrations/2026-09-27-council-register.sql` (tables `council_register` and `deprivation_areas`), then run
-`python scripts/loaders/deprivation_nations.py all` once with the service key and the `Council register` workflow by hand.
+**Not deployed. Nothing written to the database.** One migration to apply,
+`scripts/sql/migrations/2026-09-27-council-register.sql` (tables `council_register`, `council_service_links`,
+`deprivation_areas` and `council_lines`), then run `python scripts/loaders/deprivation_nations.py all` once with the service
+key and the `Council register` workflow by hand.
 
-## 1. Council register (built)
+The addendum to the brief (later on 27 Sept: GOV.UK's local-authority API, the Local Links Manager export and the ONS Code
+History Database) is folded into sections 1 and 2 below. Nothing from the wider catalogue in `docs/research/11-data-sources.md`
+was started.
+
+## 1. Council register (built, with the addendum folded in)
 
 - `scripts/auto/council_register.py`, workflow `.github/workflows/council-register.yml` (Mondays 05:50 UTC, manual, on push
-  of the script). Reads mySociety's UK Local Authorities file (version 1.7.3, CC BY 4.0) and the WhatDoTheyKnow authorities
-  file (0.73.0, CC BY-SA 4.0), joins on `wdtk-id` (cast from float), follows each home page's redirects, and upserts by
-  the three-letter code. Versions go in the `job_runs` note and in every row.
-- A council that leaves the file is kept and marked not current (`ended_seen_at`), with the file's `end-date` and
+  of the script). Sources, joined by code:
+  - mySociety's UK Local Authorities file (version 1.7.3, CC BY 4.0): names, types, powers, dates, cross-identifiers.
+  - **GOV.UK's local-authority API** (OGL), per council: official home page, tier and parent. The slug is mySociety's
+    `gov-uk-slug`; where that is missing or answers 404, a slug made from the name is tried and accepted only if GOV.UK's
+    answer names the same council (exact match after stripping "council", "borough" and so on), so nothing is matched by
+    guesswork. GOV.UK answered for all 382 councils with pages, 11 of them by that confirmed name match.
+  - WhatDoTheyKnow authorities file (0.73.0, CC BY-SA 4.0), joined on `wdtk-id`: a second home page, the publication
+    scheme and the disclosure log.
+  - **ONS Code History Database** (newest edition on the Open Geography Portal, June 2026 today; OGL), the authority for
+    council codes created or terminated since mySociety's file stops (May 2025). A terminated code whose ONS successor has
+    the same name is a recode: the council stays current and `ons_gss_code` carries the new code. A terminated code with
+    no same-named successor is an abolition: the row stays, marked not current, with ONS's end date and successor codes.
+    A live ONS code no register row carries becomes a bare row with only what ONS gives (`in_mysociety = false`, name,
+    entity type, date). Today: 495 council codes in the database; recoded 2 (Barnsley E08000016 → E08000038, Sheffield
+    E08000019 → E08000039, both 1 April 2025); abolished 0; ONS-only 0. Combined authorities are not council entities in
+    the database and are left as mySociety has them.
+  - **GOV.UK Local Links Manager export** (OGL): every council's service pages, 45,276 rows for 385 councils, keyed by GSS
+    code (45,119 after removing duplicate service/interaction pairs; 376 of our 382 councils have links). Loaded into
+    `council_service_links` and replaced wholesale each run. Its `?postcode=` form is never used.
+- Home page: GOV.UK's where it has one (382 councils), else WhatDoTheyKnow's (11 more bodies), redirects followed; the
+  source is recorded in `home_page_source`. Versions and editions go in the `job_runs` note and in every row.
+- A council that leaves mySociety's file is kept and marked not current (`ended_seen_at`), with the file's `end-date` and
   `replaced-by`; 48 ended rows carry a successor already.
-- ONS check: the newest "Local Authority Districts … Names and Codes" and "County and Unitary Authority … Names and Codes"
-  feature services on the ONS Geography ArcGIS (April 2025 editions today, 361 + 218 codes). A code ONS has that mySociety
-  lacks goes on the council of the same name as `ons_gss_code` with a note, or, if no name matches, as a bare row with
-  `in_mysociety = false` and only ONS's name and code (none today). Today the only differences are Barnsley (mySociety
-  E08000016, ONS E08000038) and Sheffield (E08000019 / E08000039).
 - The job also writes `scripts/sql/council_register.json` (current rows, the fields the pages use), which the site uses
   when the table cannot be read, so every council page exists before the migration is applied.
-- Dry run (no service key), from the two downloaded files: 470 rows (397 current: England 332, Scotland 32, Wales 22, Northern Ireland 11; 382 councils with pages once the 14 combined authorities and the Greater London Authority are set aside); 434 register rows joined to a WhatDoTheyKnow body; 387 of the 397 current rows have a home page (the six without: Cumberland, North Northamptonshire, North Yorkshire, Somerset, Westmorland and Furness, West Northamptonshire, all councils created since 2021 that WhatDoTheyKnow's list has no id for in mySociety's file); 362 home pages resolve to https and 14 stay http; 160 have a publication scheme and 29 a disclosure log; ONS-only rows 0; ONS code differs 2 (Barnsley, Sheffield).
+- Dry run (no service key), from the downloaded files: 470 rows (397 current: England 332, Scotland 32, Wales 22,
+  Northern Ireland 11; 382 councils with pages once the 14 combined authorities and the Greater London Authority are set
+  aside); 434 register rows joined to a WhatDoTheyKnow body; 393 current rows with a home page; 160 with a publication
+  scheme and 29 a disclosure log.
 - Ten sample rows from the dry run:
 
-| Code | Council | Slug | GSS | Nation | Type | Powers | Website |
+| Code | Council | Slug | GSS | Nation | Type (mySociety) | Tier and parent (GOV.UK) | Website (source) |
 |---|---|---|---|---|---|---|---|
-| CHW | Cheshire West and Chester | cheshire-west-and-chester | E06000050 | England | Unitary authority | unitary | https://www.cheshirewestandchester.gov.uk/ |
-| SLF | Salford | salford | E08000006 | England | Metropolitan district | unitary | https://www.salford.gov.uk/ |
-| BOS | Bolsover | bolsover | E07000033 | England | Non-metropolitan district | lower tier | https://www.bolsover.gov.uk |
-| GAT | Gateshead | gateshead | E08000037 | England | Metropolitan district | unitary | https://www.gateshead.gov.uk |
-| CHA | Charnwood | charnwood | E07000130 | England | Non-metropolitan district | lower tier | https://www.charnwood.gov.uk |
-| PTE | Peterborough | peterborough | E06000031 | England | Unitary authority | unitary | https://www.peterborough.gov.uk/ |
-| NOW | Norwich | norwich | E07000148 | England | Non-metropolitan district | lower tier | https://www.norwich.gov.uk |
-| OAD | Oadby and Wigston | oadby-and-wigston | E07000135 | England | Non-metropolitan district | lower tier | https://www.oadby-wigston.gov.uk |
-| TOF | Torfaen | torfaen | W06000020 | Wales | Welsh unitary authority | unitary | https://www.torfaen.gov.uk |
-| MAN | Manchester | manchester | E08000003 | England | Metropolitan district | unitary | https://secure.manchester.gov.uk |
+| CLD | Calderdale | calderdale | E08000033 | England | Metropolitan district | unitary | https://www.calderdale.gov.uk/ (gov.uk) |
+| SLK | South Lanarkshire | south-lanarkshire | S12000029 | Scotland | Scottish unitary authority | unitary | https://www.southlanarkshire.gov.uk/ (gov.uk) |
+| BOT | Boston | boston | E07000136 | England | Non-metropolitan district | district, Lincolnshire County Council | https://www.boston.gov.uk/ (gov.uk) |
+| GED | Gedling | gedling | E07000173 | England | Non-metropolitan district | district, Nottinghamshire County Council | https://www.gedling.gov.uk/ (gov.uk) |
+| CHE | Cheshire East | cheshire-east | E06000049 | England | Unitary authority | unitary | https://www.cheshireeast.gov.uk/ (gov.uk) |
+| RCC | Redcar and Cleveland | redcar-and-cleveland | E06000003 | England | Unitary authority | unitary | https://www.redcar-cleveland.gov.uk/ (gov.uk) |
+| NSM | North Somerset | north-somerset | E06000024 | England | Unitary authority | unitary | https://www.n-somerset.gov.uk/ (gov.uk) |
+| OLD | Oldham | oldham | E08000004 | England | Metropolitan district | unitary | https://www.oldham.gov.uk/ (gov.uk) |
+| TOR | Torridge | torridge | E07000046 | England | Non-metropolitan district | district, Devon County Council | https://www.torridge.gov.uk/ (gov.uk) |
+| MAS | Mansfield | mansfield | E07000174 | England | Non-metropolitan district | district, Nottinghamshire County Council | https://www.mansfield.gov.uk/ (gov.uk) |
 
-- Note for the runner: from Barny's machine the two files trickle from GitHub Pages at 2–3 KB/s (the 25 MB one took a
-  sparse `git clone` of `mysociety/wdtk_authorities_list` instead); GitHub's own runners do not have this problem.
+  Ten sample service links: Flintshire "Adoption: Providing information"; Cheltenham "Registering for a council property:
+  Applications for service"; Rossendale "Litter removal: Providing information"; Birmingham "Conservation area planning:
+  Providing information"; South Derbyshire "Pest control: Applications for service"; Northumberland "Allotments:
+  Applications for service"; Tewkesbury "Recycling bags and containers: Providing information"; Aberdeenshire "School
+  closures: Providing information"; Nuneaton and Bedworth "Housing benefit new claim: Providing information"; Isle of Wight
+  "Abandoned vehicles: Reporting".
+- Note for the runner: from Barny's machine the mySociety files trickle from GitHub Pages at 2–3 KB/s (the 25 MB one came
+  by a sparse `git clone` of `mysociety/wdtk_authorities_list`); GOV.UK, ONS and the other hosts are fast, and GitHub's own
+  runners do not have this problem.
 
-## 2. A page for every council (built)
+## 2. A page for every council (built, with the addendum folded in)
 
 - `lib/councils.ts`: `councilBySlug`, `councilSlugFor` (now async) and the new `listAllCouncils` resolve the 29 hand-built
   councils first, then any current council in the register (combined and strategic authorities excluded). Slugs come from
   `nice-name` in the existing style; all 29 existing slugs derive identically, so nothing moved.
-- `/council/[slug]` renders a register-only council with the same template: the register's official name, type, powers,
-  nation and region, the council's website (plus WhatDoTheyKnow's publication scheme and disclosure log where listed),
-  who runs it and the councillors (Open Council Data, by name), council tax (England), consultations, notices and schools
-  where those tables have rows, and the phase-1 decisions block where the meetings reader covers it. Each of the five topics
-  says "We haven't read this council's own publications yet." in the same place, with a link to the council's site.
-- The 29 hand-built pages are unchanged apart from the attribution line (and the WriteToThem link from section 4).
+- `/council/[slug]` renders a register-only council with the same template: the register's official name, type and
+  powers, nation and region, GOV.UK's tier and parent council (linked to the parent's own page), the council's website
+  (GOV.UK's, plus WhatDoTheyKnow's publication scheme and disclosure log where listed), who runs it and the councillors
+  (Open Council Data, by name), council tax (England), consultations, notices and schools where those tables have rows,
+  and the phase-1 decisions block where the meetings reader covers it. Each of the five topics says "We haven't read this
+  council's own publications yet." in the same place, with a link to the council's site.
+- **"Do it online" on every council page** (the 29 too): GOV.UK's Local Links Manager links for this council, filtered to
+  one fixed list of 23 everyday services in one fixed order (`EVERYDAY_SERVICES` in `lib/councils.ts`: household waste
+  collection and missed collections, bulky and garden waste, recycling containers, fly-tipping, road maintenance, street
+  lighting, noise, council tax notification, payment, discount and benefit, housing benefit, the electoral register
+  (information and applications), primary and secondary school places, libraries, parking permits, planning decision
+  notices, the councillors directory and the complaints procedure), each with the export's own wording as the link text.
+  Nothing is chosen per council. Shown only once the table exists, so the 29 pages are otherwise unchanged apart from the
+  attribution line and the WriteToThem link.
 - `app/sitemap.ts` and `app/llms.txt/route.ts` list every council with a page: 382 today (29 before this branch).
 - Attribution on every council page and on `/data`: "Council list: mySociety, UK Local Authorities (CC BY 4.0) and
-  WhatDoTheyKnow authorities (CC BY-SA 4.0)."
+  WhatDoTheyKnow authorities (CC BY-SA 4.0); council websites, tiers and service links: GOV.UK (Open Government Licence);
+  codes: ONS Code History Database (Open Government Licence)."
 - Checked on a local dev server (`next dev`, public key, snapshot fallback): register-only pages for Bolsover (England,
   district), Fife (Scotland), Torfaen (Wales), Belfast (Northern Ireland) and Hertfordshire (county) all render (HTTP 200)
   with the five "not read yet" lines; Aberdeen City and Wiltshire (hand-built) still show their facts and "Read on" line
   plus the attribution; an unknown slug gives 404; `/place` for a Fife postcode links "What Fife council is deciding".
-  Screenshot of Fife: `docs/automation/open-data-council-fife.jpg` (attached to the PR).
+  Screenshot of Fife (before the GOV.UK tier line and the "Do it online" block, which need the tables):
+  `docs/automation/open-data-council-fife.jpg`.
 
 ## 3. Deprivation for all four nations (built)
 
