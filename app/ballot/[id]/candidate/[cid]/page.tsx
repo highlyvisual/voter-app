@@ -7,7 +7,7 @@ import ProfileApply from "@/components/ProfileApply";
 import ReadAloud from "@/components/ReadAloud";
 import CiteThis from "@/components/CiteThis";
 import { claimsFor } from "@/components/CandidateCard";
-import { TOPICS, TOPIC_SHORT, getBallot, listCandidates, listVerifiedClaims, listPreviousCandidacies, ballotLabel, type Claim } from "@/lib/data";
+import { TOPICS, TOPIC_SHORT, getBallot, listCandidates, listVerifiedClaims, listPreviousCandidacies, listLeaflets, ballotLabel, type Claim } from "@/lib/data";
 import { claimApplies, householdComplete, householdFromParams } from "@/lib/household";
 import { layerKey, layerOf } from "@/lib/claims";
 import { img } from "@/lib/site";
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 export default async function CandidatePage({ params, searchParams }: { params: Promise<{ id: string; cid: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const { id, cid } = await params; const sp = await searchParams; const ballotId = decodeURIComponent(id);
   const ballot = await getBallot(ballotId); if (!ballot) notFound();
-  const [candidates, claims, stood] = await Promise.all([listCandidates(ballotId), listVerifiedClaims(ballotId), listPreviousCandidacies(ballotId)]);
+  const [candidates, claims, stood, allLeaflets] = await Promise.all([listCandidates(ballotId), listVerifiedClaims(ballotId), listPreviousCandidacies(ballotId), listLeaflets(ballotId).catch(() => [])]);
   const idx = candidates.findIndex((c) => c.id === Number(cid)); if (idx < 0) notFound();
   const c = candidates[idx];
   const h = householdFromParams(sp); const complete = householdComplete(h);
@@ -50,6 +50,7 @@ export default async function CandidatePage({ params, searchParams }: { params: 
   const colour = c.parties?.colour_hex ?? null;
   const party = c.party_description_on_ballot && c.party_description_on_ballot !== "[blank]" ? c.party_description_on_ballot : c.party_name_on_ballot;
   const mineStood = stood.filter((s) => s.candidate_id === c.id);
+  const leaflets = allLeaflets.filter((l) => l.candidate_id === c.id).sort((a, b) => (b.date_uploaded ?? "").localeCompare(a.date_uploaded ?? ""));
   const prev = candidates[idx - 1], next = candidates[idx + 1];
   const nav = (x: typeof c) => `/ballot/${encodeURIComponent(ballotId)}/candidate/${x.id}${qs ? `?${qs}` : ""}`;
   const statement = c.statement_to_voters ?? "";
@@ -102,6 +103,13 @@ export default async function CandidatePage({ params, searchParams }: { params: 
           );
         })}
       </div>
+
+      {/* Leaflets beside the candidate (review, 25 Sept). Same section for every candidate, including when there are none. */}
+      <h3 className="section-lead" style={{ fontSize: "1.3rem" }}>Leaflets</h3>
+      {leaflets.length ? (
+        <div className="leaflets">{leaflets.map((l) => <a key={l.id} href={l.url} rel="noopener" className="leaflet"><img src={img(l.thumb_url)} alt={`Leaflet archived ${l.date_uploaded ?? ""}`} loading="lazy" width={110} height={147} /><span className="meta">{l.date_uploaded ? longDate(l.date_uploaded) : "Undated"}</span></a>)}</div>
+      ) : <p className="small">No leaflets from this candidate have been archived yet.</p>}
+      <p className="meta">From electionleaflets.org (Democracy Club), where anyone can photograph a leaflet they were sent. Leaflets are the candidate&rsquo;s or party&rsquo;s own material, shown as delivered; we check they are real, not that they are true. Older leaflets may be from earlier contests.</p>
 
       <p><ReadAloud selector="main" label="Read this page aloud" /></p>
       <CiteThis title={`${c.name}: candidate in ${ballot.area_name}, polling day ${longDate(ballot.poll_date)}`} />

@@ -9,7 +9,8 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "Every position" };
 
 // Every sourced position on the site, searchable and filterable. Ballot-paper order within each election; no ranking anywhere.
-export default async function Positions() {
+export default async function Positions({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const sp = await searchParams;
   const [live, archived] = await Promise.all([listBallots(), listArchivedBallots()]);
   const ballots = [...live, ...archived];
   const { data } = await publicClient().from("current_claims").select("*, sources(title, url, publisher, published_on, layer, archive_url)").eq("status", "verified").order("ballot_paper_id").order("candidate_id", { nullsFirst: true }).order("topic");
@@ -48,7 +49,7 @@ export default async function Positions() {
       <p className="eyebrow">Everything, in one list</p>
       <h1>Every position on this site</h1>
       <p className="lede">{rows.length} sourced positions across {new Set(rows.map((r) => r.ballot)).size} elections, current and past. Search the words, filter by election, topic or kind of source, and open any source. Order is by election, then ballot paper; nothing here is ranked.</p>
-      <PositionsTable rows={rows} elections={[...new Set(rows.map((r) => r.election))].sort()} topics={[...new Set(rows.map((r) => r.topic))]} layers={[...new Set(rows.map((r) => r.layer))]} />
+      <PositionsTable rows={rows} elections={[...new Set(rows.map((r) => r.election))].sort()} topics={[...new Set(rows.map((r) => r.topic))]} layers={[...new Set(rows.map((r) => r.layer))]} initialTopic={typeof sp.topic === "string" ? (topicLabel[sp.topic] ?? "") : ""} />
       <p className="meta">The quotation is the record; the short version is a reading aid. Reuse this list as JSON from <Link href="/data">the open data page</Link>.</p>
     </>
   );

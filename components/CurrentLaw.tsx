@@ -24,7 +24,7 @@ export default function CurrentLaw({ rows, complete, anyModelled, baselineId = "
   return (
     <section className="receipt" aria-labelledby="current-law">
       <h2 id="current-law" style={{ marginTop: "1.25rem" }}>A household like this one, under {year ? `the law as it stood in ${year}` : "current law"}</h2>
-      <p className="meta">Per year, for a representative household in these bands, calculated with PolicyEngine UK {baseline.policyengine_version}. The starting point each candidate's pledges are measured against.</p>
+      <p className="meta">Per year, for a representative household in these bands, calculated with PolicyEngine UK {baseline.policyengine_version}. The starting point each candidate's pledges are measured against. These figures describe a typical household in your bands, not you, and they are not a voting guide.</p>
       <div className="scroll"><table>
         <tbody>
           {Object.keys(LABELS).map((k) => (

@@ -97,7 +97,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
       {ballots.length ? (() => { const b = encodeURIComponent(ballots[0].ballot_paper_id); return (
         <section className="whats-it" aria-label="What's it to me?">
           <ul className="whats-it-topics">
-            <li><Link href={`/ballot/${b}/topic/housing_and_property`}><span>Housing.</span> What&rsquo;s it to me?</Link></li>
+            <li><Link href="/explore/housing"><span>Housing.</span> What&rsquo;s it to me?</Link></li>
             <li><Link href={`/ballot/${b}/topic/money_and_cost_of_living`}><span>Tax.</span> What&rsquo;s it to me?</Link></li>
             <li><Link href={`/ballot/${b}/office`}><span>The council, the MP.</span> What&rsquo;s it to me?</Link></li>
             <li><Link href={`/ballot/${b}/topic/environment_climate_and_energy`}><span>Climate policy.</span> What&rsquo;s it to me?</Link></li>

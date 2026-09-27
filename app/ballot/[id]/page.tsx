@@ -1,3 +1,4 @@
+import { img } from "@/lib/site";
 import ExtLink from "@/components/ExtLink";
 import { fixLink, linkFixes } from "@/lib/links";
 import { longDate } from "@/lib/dates";
@@ -105,7 +106,14 @@ export default async function BallotPage({ params, searchParams }: Props) {
           </div>
           <ol className="name-strip" aria-label="Candidates in ballot-paper order">
             {candidates.map((c, i) => (
-              <li key={c.id}><a href={`#c-${c.id}`}><span className="meta">{i + 1}</span> {c.name}<span className="party-dot" aria-hidden style={{ background: c.parties?.colour_hex ?? "var(--rule)" }} /><span className="meta">{c.party_description_on_ballot && c.party_description_on_ballot !== "[blank]" ? c.party_description_on_ballot : c.party_name_on_ballot}</span></a></li>
+              <li key={c.id} className="peek-host"><a href={`#c-${c.id}`}><span className="meta">{i + 1}</span> {c.name}<span className="party-dot" aria-hidden style={{ background: c.parties?.colour_hex ?? "var(--rule)" }} /><span className="meta">{c.party_description_on_ballot && c.party_description_on_ballot !== "[blank]" ? c.party_description_on_ballot : c.party_name_on_ballot}</span></a>
+                {/* Round five, q8 (Romily): no photos in lists, but "a hyperlink which opens a photo and some info". On a
+                    computer, hovering or focusing a name shows this card; on a phone the name goes to the full card. */}
+                <span className="peek" aria-hidden>
+                  {c.photo_url ? <img src={img(c.photo_url)} alt="" width={72} height={72} loading="lazy" /> : <span className="peek-initials">{c.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("")}</span>}
+                  <span className="peek-text"><strong>{c.name}</strong><span>{c.party_name_on_ballot}</span><span>{claims.filter((cl) => cl.candidate_id === c.id).length} of their own published positions sourced · {stood.filter((p) => p.candidate_id === c.id).length ? `stood ${stood.filter((p) => p.candidate_id === c.id).length} time${stood.filter((p) => p.candidate_id === c.id).length === 1 ? "" : "s"} before` : "no previous candidacies on record"}</span><Link prefetch={false} href={`/ballot/${encodeURIComponent(ballotId)}/candidate/${c.id}${qs ? `?${qs}` : ""}`} tabIndex={-1}>Their page &rarr;</Link></span>
+                </span>
+              </li>
             ))}
           </ol>
           {ballot.uncontested ? <div className="notice"><p><strong>Uncontested: elected without a poll.</strong> The number of valid nominations did not exceed the seats, so the candidate{candidates.length > 1 ? "s" : ""} below {candidates.length > 1 ? "are" : "is"} returned without a vote.</p></div> : null}

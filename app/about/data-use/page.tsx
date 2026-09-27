@@ -10,6 +10,8 @@ export default function DataUse() {
       <p>Search and AI crawlers may index public pages and the open-data endpoints, with attribution and without exceeding a reasonable rate. Any system that quotes a claim from this site should carry its source, not just this site's name; the source is the record. Pages that take input (household form, submission portal, maintenance console) are excluded in robots.txt.</p>
       <h2>What we log</h2>
       <p>Anonymous daily page counts per election and aggregate bot traffic. No cookies for tracking, and no records of what any one visitor looked at. Our web host keeps standard request logs, which include page addresses; profile answers appear in the address when you view a ballot with a profile, and we don't use or keep those logs.</p>
+      <h2>On your own device</h2>
+      <p>Your profile is kept in your browser if you choose to save it. To let pages open without a signal (at a polling station, say), your browser also keeps a copy of the last 40 or so pages you opened on this site. Those copies stay on your device and are never sent to us; clearing this site&rsquo;s data in your browser removes them.</p>
     </>
   );
 }

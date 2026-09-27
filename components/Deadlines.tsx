@@ -53,7 +53,7 @@ export default function Deadlines({ pollDate, noticeUrl, gss, level }: { pollDat
           Registration for this election has closed. If you weren&rsquo;t registered by {short(items[0].when)}, you can&rsquo;t vote in it, but <a href="https://www.gov.uk/register-to-vote" rel="noopener">registering now</a> takes about five minutes and puts you on the roll for the next one.
         </span>
       ) : null}
-      <span>Polls 7am to 10pm{idRequired ? " · photo ID needed" : " · no photo ID needed at this election"}</span>
+      <span>Polls 7am to 10pm{idRequired ? " · photo ID needed" : " · no photo ID needed at this election"} · <a href="https://wheredoivote.co.uk/" rel="noopener">Find your polling station</a> <span className="meta">(Democracy Club; it is also on your poll card)</span></span>
       <details>
         <summary>about these dates</summary>
         <ul>

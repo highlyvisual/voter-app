@@ -6,8 +6,8 @@ import { index, matches, queryTokens, suggest, normalise, stem } from "@/lib/sea
 export type Row = { id: number; who: string; party: string; election: string; ballot: string; candidateId: number | null; topic: string; topicKey: string; layer: string; precision: string; claim: string; quote: string; source: string; publisher: string; url: string; published: string | null; urlArchived: boolean; archive: string | null; applies: string | null; record: boolean };
 
 // Search and filter over every position. Two columns on a phone (label, then the claim), a table on a wide screen.
-export default function PositionsTable({ rows, elections, topics, layers }: { rows: Row[]; elections: string[]; topics: string[]; layers: string[] }) {
-  const [q, setQ] = useState(""); const [el, setEl] = useState(""); const [tp, setTp] = useState(""); const [ly, setLy] = useState(""); const [show, setShow] = useState(50);
+export default function PositionsTable({ rows, elections, topics, layers, initialTopic = "" }: { rows: Row[]; elections: string[]; topics: string[]; layers: string[]; initialTopic?: string }) {
+  const [q, setQ] = useState(""); const [el, setEl] = useState(""); const [tp, setTp] = useState(initialTopic); const [ly, setLy] = useState(""); const [show, setShow] = useState(50);
   // Index every row once: the search then understands word forms, hyphens, synonyms and a single typo.
   const indexed = useMemo(() => rows.map((r) => ({ r, h: index(`${r.who} ${r.party} ${r.election} ${r.claim} ${r.quote} ${r.source} ${r.publisher} ${r.topic} ${r.layer}`) })), [rows]);
   const vocabulary = useMemo(() => { const v = new Set<string>(); for (const { h } of indexed) for (const w of h.words) v.add(w); return v; }, [indexed]);

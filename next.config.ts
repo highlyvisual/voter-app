@@ -42,7 +42,8 @@ const nextConfig: NextConfig = {
     return [
       { source: "/:path((?!ballot/[^/]+/embed).*)", headers: [...common, { key: "Content-Security-Policy", value: csp("'none'") }, { key: "X-Frame-Options", value: "DENY" }] },
       { source: "/ballot/:id/embed", headers: [...common, { key: "Content-Security-Policy", value: csp("*") }] },
-      { source: "/:path((?!review|candidates/submit|api|_next|\\.netlify).*)", headers: edgeCache },
+      { source: "/:path((?!review|candidates/submit|api|_next|sw\\.js|\\.netlify).*)", headers: edgeCache },
+      { source: "/sw.js", headers: [{ key: "Cache-Control", value: "no-cache, no-store, must-revalidate" }, { key: "Netlify-CDN-Cache-Control", value: "no-store" }] },
       { source: "/brand/:file*", headers: [{ key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" }] },
       { source: "/fonts/:file*", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
       { source: "/vendor/:file*", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },

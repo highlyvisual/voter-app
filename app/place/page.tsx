@@ -31,7 +31,7 @@ export default async function Place({ searchParams }: { searchParams: Promise<Re
     <>
       <p className="eyebrow">Your area{outcode ? ` · ${outcode}` : ""}</p>
       <h1>No election here right now — but plenty is happening</h1>
-      <p className="lede">There is no election running at that postcode today. Most of the UK has none until May 2027. Here is who represents you now, when you next get a vote, and what the public record says about the ground around you.</p>
+      <p className="lede">There is no election running at that postcode today. Most of the UK has none until May 2027. Here is who makes decisions where you live, when you next get a vote, and what the public record says about the ground around you.</p>
 
       <Suspense fallback={<p className="meta">Looking up your next elections…</p>}>
         <NextElections lat={loc?.lat ?? null} lng={loc?.lng ?? null} />
@@ -39,12 +39,12 @@ export default async function Place({ searchParams }: { searchParams: Promise<Re
 
       {loc ? (
         <>
+          <Suspense fallback={<p className="meta">Working out who makes decisions for this postcode…</p>}>
+            <Layers lat={loc.lat} lng={loc.lng} electionCouncil={null} />
+          </Suspense>
           <h2>The ground around you</h2>
           <AreaMap areaName={area.constituency ?? outcode ?? "your area"} lat={loc.lat} lng={loc.lng} outcode={outcode} levelLabel="constituency" loc={loc} />
           <Suspense fallback={null}><PlacePanel lat={loc.lat} lng={loc.lng} /></Suspense>
-          <Suspense fallback={<p className="meta">Working out who represents this postcode…</p>}>
-            <Layers lat={loc.lat} lng={loc.lng} electionCouncil={null} />
-          </Suspense>
           <Suspense fallback={null}>
             <AreaPanel areaName={area.constituency ?? "your constituency"} level="parliamentary" lat={loc.lat} lng={loc.lng} pointNote={null} gss={area.gss} loc={loc} />
           </Suspense>

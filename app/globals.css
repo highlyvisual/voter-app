@@ -1472,3 +1472,43 @@ details.evidence blockquote.quote { border-left: 2px solid var(--rule-strong); p
   :root:not([data-theme="light"]) .range-ticks button.on { color: var(--ink); }
   :root:not([data-theme="light"]) .steps li { border: 1px solid #2a2a2a; background: #111114; }
 }
+
+/* "Who makes decisions where you live?" as a stepped chain, most local first (Romily, round eight, point 7). */
+.chain { list-style: none; margin: 0.9rem 0; padding: 0 0 0 1.4rem; position: relative; }
+.chain::before { content: ""; position: absolute; left: 0.45rem; top: 0.9rem; bottom: 0.9rem; width: 2px; background: var(--rule); }
+.chain-step { position: relative; margin: 0 0 0.55rem; border: 1px solid var(--rule); border-radius: 10px; background: var(--panel); }
+.chain-step::before { content: ""; position: absolute; left: -1.25rem; top: 1.05rem; width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--paper); border: 2px solid var(--ink-soft); }
+.chain-step.now { border: 2px solid var(--slate); }
+.chain-step.now::before { background: var(--slate); border-color: var(--slate); }
+.chain-step > details > summary { display: grid; gap: 0.1rem; padding: 0.7rem 0.9rem; cursor: pointer; list-style: none; min-height: 44px; }
+.chain-step > details > summary::-webkit-details-marker { display: none; }
+.chain-step > details > summary::after { content: "What it decides +"; font-family: var(--sans); font-size: 0.78rem; color: var(--ink-soft); text-decoration: underline; text-underline-offset: 2px; }
+.chain-step > details[open] > summary::after { content: "Hide"; }
+.chain-step > details > :not(summary) { padding: 0 0.9rem; }
+.chain-step > details[open] { padding-bottom: 0.7rem; }
+.chain-who { font-weight: 600; }
+
+/* Name peek: photo and a few facts on hover or focus, computers only (Romily, round five, q8). */
+.peek-host { position: relative; }
+.peek { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .peek { position: absolute; left: 1.4rem; top: calc(100% + 0.2rem); z-index: 30; display: flex; gap: 0.7rem; width: 22rem; max-width: 80vw; padding: 0.7rem; background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; box-shadow: var(--shadow-lift); opacity: 0; visibility: hidden; transition: opacity var(--t-fast) var(--ease); pointer-events: none; }
+  .peek-host:hover .peek, .peek-host:focus-within .peek { opacity: 1; visibility: visible; pointer-events: auto; }
+}
+.peek img, .peek-initials { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; flex: none; background: var(--sand); }
+.peek-initials { display: grid; place-items: center; font-family: var(--sans); font-weight: 600; }
+.peek-text { display: flex; flex-direction: column; gap: 0.15rem; font-family: var(--sans); font-size: 0.82rem; color: var(--ink-soft); }
+.peek-text strong { color: var(--ink); font-size: 0.95rem; }
+html.lite .peek img { display: none; }
+.receipt-gist { font-family: var(--display); font-size: 1.25rem; margin: 0.1rem 0 0.4rem; }
+.scale-items { list-style: none; margin: 0.3rem 0 0.5rem; padding: 0; display: grid; gap: 0.45rem; }
+.scale-items li { font-size: 0.95rem; padding: 0.45rem 0.6rem; border-left: 3px solid var(--rule); }
+.scale-items li.touches { border-left-color: var(--slate); background: var(--sand); }
+.scale-items .layer-tag { margin-right: 0.3rem; }
+.explore-pc { margin: 0.6rem 0 1rem; font-family: var(--sans); }
+.explore-pc .row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.explore-pc input { font: inherit; padding: 0.5rem 0.7rem; border: 1px solid var(--rule-strong); border-radius: 8px; background: var(--field, var(--paper)); color: var(--ink); width: 12rem; }
+/* The profile's introduction is read once: from step two on it folds away so each question sits at the top (review, 25 Sept). */
+.start-intro:has(~ .onboard:not([data-step="0"])) .lede, .start-intro:has(~ .onboard:not([data-step="0"])) .eyebrow { display: none; }
+.start-intro:has(~ .onboard:not([data-step="0"])) h1 { font-size: 1.4rem; margin-bottom: 0.4rem; }
+.tl-initials { font-size: 0.75rem; }

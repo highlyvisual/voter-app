@@ -36,7 +36,7 @@ export default function Onboarding({ action }: { action: (fd: FormData) => void 
   const back = () => { setWhy(false); setI((n) => Math.max(n - 1, 0)); };
   const pct = Math.round((i / (steps.length - 1)) * 100);
   return (
-    <form action={action} className="onboard" onSubmit={() => { if (keep) writeProfile({ ...vals, postcode: pc.trim().toUpperCase() }); }}>
+    <form action={action} className="onboard" data-step={i} onSubmit={() => { if (keep) writeProfile({ ...vals, postcode: pc.trim().toUpperCase() }); }}>
       <input type="hidden" name="postcode" value={pc} />
       {FIELD_KEYS.map((k) => <input key={k} type="hidden" name={k} value={vals[k] ?? ""} />)}
       {OPTIONAL_KEYS.map((k) => <input key={k} type="hidden" name={k} value={vals[k] ?? ""} />)}

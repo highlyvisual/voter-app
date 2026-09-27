@@ -45,10 +45,14 @@ function Receipt({ rows, partyEcId, verifiedSourceIds, baselineId }: { rows: Rec
   return (
     <div className="receipt scroll">
       <p className="meta" style={{ margin: "0.4rem 0 0.2rem" }}>Modelled: {label}</p>
+      {/* Direction before precision (review, 25 Sept, after the Dutch CPB and Nibud): the rough monthly change first,
+          the exact figures underneath. */}
+      <p className="receipt-gist">{Math.abs(delta) < 60 ? "Little or no change" : `About £${Math.round(Math.abs(delta) / 12 / 5) * 5 || 5} a month ${delta > 0 ? "more" : "less"}`} <span className="meta">for a household like this one</span></p>
       <div className="bars" aria-label={`Net income: current law ${gbp.format(a0)}, under this pledge ${gbp.format(b0)}`}>
         <div className="bar-row"><span className="bar-label">Current law</span><span className="bar"><span style={{ width: `${(100 * a0) / maxV}%` }} /></span><span className="bar-val">{gbp.format(a0)}</span></div>
         <div className="bar-row"><span className="bar-label">Under this pledge</span><span className="bar"><span style={{ width: `${(100 * b0) / maxV}%` }} /></span><span className="bar-val">{gbp.format(b0)}</span></div>
         <p className="meta" style={{ margin: "0.2rem 0 0.4rem" }}>Net income after tax and benefits: {delta === 0 ? "no change" : `${delta > 0 ? "+" : "\u2212"}${gbp.format(Math.abs(delta))} a year`} for a household like this one. Whether that is good or bad depends on what the money is for; that judgement is yours.</p>
+        <p className="meta" style={{ margin: "0 0 0.4rem" }}>One pledge, modelled on its own for a typical household in these bands. Not a forecast of your income, and not a voting guide.</p>
       </div>
       <table>
         <thead><tr><th>Per year</th><th className="num">Current law</th><th className="num">Under this pledge</th><th className="num">Change</th></tr></thead>

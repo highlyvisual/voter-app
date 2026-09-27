@@ -5,6 +5,7 @@ import { SITE } from "@/lib/site";
 import Settings from "@/components/Settings";
 import MobileNav from "@/components/MobileNav";
 import PrintOpen from "@/components/PrintOpen";
+import SwRegister from "@/components/SwRegister";
 import HowDoYouKnow from "@/components/HowDoYouKnow";
 import FreshnessLine from "@/components/FreshnessLine";
 import { Suspense } from "react";
@@ -69,6 +70,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <p><Link href="/who-we-are" prefetch={false}>Who we are</Link> · contact, corrections and complaints: <a href="mailto:hello@whatsittome.org">hello@whatsittome.org</a> · <Link href="/about#contact">How we handle complaints</Link> · <Link href="/about/data-use" prefetch={false}>Privacy</Link> · <Link href="/accessibility" prefetch={false}>Accessibility</Link>.</p>
         </footer>
         <PrintOpen />
+        <SwRegister />
       </body>
     </html>
   );
