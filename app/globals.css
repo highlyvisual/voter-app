@@ -1387,5 +1387,12 @@ main a { overflow-wrap: anywhere; }
 .settings-toggle:hover, .settings-toggle[aria-expanded="true"] { border-color: var(--rule); color: var(--ink); background: transparent; }
 .site-header .settings > .settings-toggle { min-height: 32px; padding: 0.2rem 0.45rem; }
 .dates .closed { color: var(--ink-soft); }
-.dates .closed a { text-decoration: line-through; }
 .dates .what-now { flex-basis: 100%; }
+@media (max-width: 40rem) {
+  .wordmark { flex-shrink: 0; }
+  .site-header .nav-wrap { gap: 0.4rem; }
+  .nav-profile { font-size: 0.82rem; padding: 0.25rem 0.6rem; }
+  .nav-toggle-word { display: none; }
+  .nav-toggle { padding-left: 0.7rem; padding-right: 0.7rem; }
+}
+@media (max-width: 24rem) { .brand-name { font-size: 1rem; } }

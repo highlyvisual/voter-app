@@ -17,8 +17,8 @@ export default function MobileNav({ children }: { children: React.ReactNode }) {
     <div className="nav-wrap" ref={ref}>
       <nav className="nav-inline" aria-label="Main">{LINKS.map(([h, l]) => <Link key={h} href={h}>{l}</Link>)}</nav>
       <Link href="/profile" className="nav-profile">My profile</Link>
-      <button type="button" className="nav-toggle secondary" aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen((o) => !o)}>
-        <span aria-hidden>{open ? "✕" : "☰"}</span> Menu
+      <button type="button" className="nav-toggle secondary" aria-label="Menu" aria-expanded={open} aria-controls="mobile-menu" onClick={() => setOpen((o) => !o)}>
+        <span aria-hidden>{open ? "✕" : "☰"}</span><span className="nav-toggle-word"> Menu</span>
       </button>
       {children}
       {open ? (
