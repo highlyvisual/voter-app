@@ -1436,7 +1436,7 @@ details.evidence blockquote.quote { margin-top: 0.1rem; }
 }
 details.evidence blockquote.quote { border-left: 2px solid var(--rule-strong); padding-left: 0.6rem; font-style: italic; }
 
-/* "Try it as someone else" (Romily, 27 Sept): three very different households, each an obvious link. */
+/* "Try it as someone else" (Barny, 27 Sept): three very different households, each an obvious link. */
 .examples { margin: 1.6rem 0 0; }
 .examples-title { border-top: 0; padding-top: 0; margin: 0 0 0.2rem; font-size: 1.35rem; }
 .example-cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 0.8rem; }
@@ -1455,7 +1455,7 @@ details.evidence blockquote.quote { border-left: 2px solid var(--rule-strong); p
 .steps li::before { color: var(--paper); margin: 1rem 0 0 1.1rem; }
 
 /* Dark mode: only the main call to action is bright. Secondary buttons, the election picker and the step cards sit
-   in the page instead of glowing white (Romily, 27 Sept). */
+   in the page instead of glowing white (Barny, 27 Sept). */
 :root[data-theme="dark"] .try-panel, :root[data-theme="dark"] .example-card { background: #111114; border-color: #2a2a2a; }
 :root[data-theme="dark"] .try-row { background: transparent; color: var(--ink); }
 :root[data-theme="dark"] .try-row:hover { background: #1c1c21; color: var(--ink); }

@@ -13,7 +13,7 @@ import PostcodeField from "@/components/PostcodeField";
 export const dynamic = "force-dynamic";
 const fmt = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 
-// "Try it" households (Romily, 27 Sept): deliberately unlike one another in age, household, housing, money, work and
+// "Try it" households (Barny, 27 Sept): deliberately unlike one another in age, household, housing, money, work and
 // travel, so that as many people as possible see someone like them. Every value is one of the profile's own bands.
 const EXAMPLES = [
   { title: "A student sharing a rented house", facts: "18 to 24 · university · part-time job · under £15,000 · no car",

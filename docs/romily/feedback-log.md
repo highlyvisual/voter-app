@@ -163,3 +163,11 @@ New rule from this round: an item is **Done** only when Romily has seen it on th
 | She said | Status |
 |---|---|
 | Inviting every candidate "wasn't the plan": it was one of the options and she didn't choose it; "slightly subjective". Agreed with Barny that automatic emailing and publishing "could get messy", a step for if the site becomes popular and there is funding for staff. | **Built 27 Sep, waiting for Romily.** Every "we invite candidates" line is gone: the candidate cards, the submission page, the action box and the moderation page now say we don't collect statements from candidates, and that a candidate who spots an error can email us and the correction is logged. Round seven's questions page is not needed and won't be published. |
+
+## Barny, 27 September — home page
+
+| He said | Status |
+|---|---|
+| "Open a ballot — describe a household — see what applies" looks usable but can't be clicked. | **Built 27 Sep.** Each step is now a link: choose an election, start the profile, see a worked example. |
+| In dark mode, "Elections coming up" is too bright. | **Built 27 Sep.** That list, the secondary buttons, the timeline slider labels and the step cards now sit in the dark page. |
+| The three "Try it" examples should be very different people, so that as many visitors as possible think "someone like me". | **Built 27 Sep.** A student sharing a rented house (18–24, part-time job, under £15,000, no car); a young family renting from the council (25–34, child under 5, £15,000–£25,000, Universal Credit); a retired homeowner living alone (65+, owns outright, £25,000–£40,000, drives). They use the election with the most sourced positions (Holborn and St Pancras), because the council by-elections have too few positions to show much. |
