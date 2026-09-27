@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Round eight — what changed, and what we need from you</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #000;
+    --paper: #fff;
+    --rule: #000;
+    --muted: #555;
+    --field: #f4f4f4;
+    --measure: 40rem;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 4rem 1.25rem 6rem;
+  }
+  header { margin-bottom: 3.5rem; }
+  h1 {
+    font-size: clamp(2.6rem, 8vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.25rem;
+  }
+  .lede { margin: 0 0 1rem; }
+  .lede + .lede { margin-top: 0; }
+  .small { font-size: 0.95rem; color: var(--muted); }
+  .meta {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+    margin-top: 2rem;
+  }
+  .meta span { white-space: nowrap; }
+
+  section { margin: 3.5rem 0 0; }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0 0 0.25rem;
+  }
+  .why { margin: 0 0 2rem; color: var(--muted); }
+
+  .q { margin: 0 0 2.5rem; }
+  .q label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .q label .n {
+    display: inline-block;
+    width: 2rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .q .hint {
+    margin: 0 0 0.6rem 2rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .q .hint em { font-style: italic; }
+  textarea, input[type=text] {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    font: inherit;
+    color: var(--ink);
+    background: var(--field);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    padding: 0.7rem 0.75rem;
+    resize: vertical;
+    min-height: 6.5rem;
+  }
+  input[type=text] { min-height: 0; }
+  textarea:focus, input:focus, button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .choices { margin: 0 0 0.75rem 2rem; }
+  .choices label {
+    display: block; font-weight: 400; margin: 0.15rem 0;
+  }
+  .choices input { margin-right: 0.5rem; accent-color: #000; }
+
+  .submit {
+    margin-top: 4rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+  button {
+    font: inherit;
+    font-weight: 500;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+  }
+  button.secondary { background: var(--paper); color: var(--ink); margin-left: 0.75rem; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  #status { margin-top: 1rem; min-height: 1.6rem; }
+  .hidden { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    #status { transition: opacity 200ms; }
+  }
+  .why a, .q a { color: inherit; }
+  .tablewrap { overflow-x: auto; margin: 0 0 1rem; border-top: 1px solid var(--rule); }
+  .tablewrap table { border-collapse: collapse; font-size: 0.95rem; line-height: 1.45; min-width: 36rem; width: 100%; }
+  .tablewrap th, .tablewrap td { text-align: left; vertical-align: top; padding: 0.5rem 0.6rem 0.5rem 0; border-bottom: 1px solid #ccc; }
+  .tablewrap th { font-weight: 500; border-bottom: 1px solid var(--rule); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Round eight.</h1>
+    <p class="lede">Thank you for the email. You were right that some of what you asked for earlier hadn't reached the site. Things were marked "done" when they'd been built somewhere, not where you'd see them.</p>
+    <p class="lede">So from now on nothing counts as done until you've seen it on the live site and ticked it here. Part one is that list. Part two is everything we can't start without you, in the order we'll build it.</p>
+    <p class="lede small">The first two sections matter before 8 October. As before, answers save in this browser as you type, nothing is sent until you press "Send my answers", and "I don't know yet" is fine. The full plan is in the repo as <em>docs/romily/round-8-plan.md</em>.</p>
+    <div class="meta" aria-live="polite">
+      <span id="progress">0 of 24 answered</span>
+      <span id="saved"></span>
+    </div>
+  </header>
+
+  <form id="form" method="POST" name="romily-answers-round-8" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="romily-answers-round-8">
+    <p class="hidden"><label>Leave this empty: <input name="bot-field"></label></p>
+
+    <div class="q">
+      <label for="name"><span class="n"></span>Your name</label>
+      <input type="text" id="name" name="name" autocomplete="name" value="Romily">
+    </div>
+
+    <section>
+      <h2>Part one: check what's changed</h2>
+      <p class="why">Each of these is live now. Open the link, have a look, and tell us if it's right. If it isn't, say what you meant, and it goes back on the list.</p>
+
+      <div class="q">
+        <label><span class="n">1</span>"My profile" is now a button in the header, on every page, on your phone and on a computer.</label>
+        <p class="hint">Your email, point 1. <a href="https://whatsittome.org/" target="_blank" rel="noopener">Look at any page</a>. The home page itself hasn't changed yet; that's question 5.</p>
+        <div class="choices">
+          <label><input type="radio" name="q1_check_profile_button" value="right"> That's right</label>
+          <label><input type="radio" name="q1_check_profile_button" value="not-quite"> Not quite (say below)</label>
+        </div>
+        <textarea name="q1_check_profile_button_why" placeholder="What's wrong with it?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">2</span>The display and accessibility button is now a small, quiet "Aa".</label>
+        <p class="hint">Your email, point 12. <a href="https://whatsittome.org/" target="_blank" rel="noopener">Top right of any page</a>.</p>
+        <div class="choices">
+          <label><input type="radio" name="q2_check_display_icon" value="right"> That's right</label>
+          <label><input type="radio" name="q2_check_display_icon" value="not-quite"> Not quite (say below)</label>
+        </div>
+        <textarea name="q2_check_display_icon_why" placeholder="What's wrong with it?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">3</span>The site no longer says we invite candidates. Candidates who spot a mistake are asked to email us instead, and the correction is logged.</label>
+        <p class="hint">From your WhatsApp with Dad this morning. See <a href="https://whatsittome.org/candidates/submit" target="_blank" rel="noopener">the candidates page</a> and the "Where this information comes from" box on <a href="https://whatsittome.org/ballot/parl.holborn-and-st-pancras.by.2026-10-08/candidate/6" target="_blank" rel="noopener">any candidate's page</a>.</p>
+        <div class="choices">
+          <label><input type="radio" name="q3_check_no_invitations" value="right"> That's right</label>
+          <label><input type="radio" name="q3_check_no_invitations" value="not-quite"> Not quite (say below)</label>
+        </div>
+        <textarea name="q3_check_no_invitations_why" placeholder="What's wrong with it?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">4</span>Deadlines that have passed now say "closed", and the ballot page tells someone who missed registration what to do next.</label>
+        <p class="hint">From the site review. See "Key dates" on <a href="https://whatsittome.org/ballot/parl.holborn-and-st-pancras.by.2026-10-08" target="_blank" rel="noopener">the Holborn and St Pancras page</a>.</p>
+        <div class="choices">
+          <label><input type="radio" name="q4_check_deadlines" value="right"> That's right</label>
+          <label><input type="radio" name="q4_check_deadlines" value="not-quite"> Not quite (say below)</label>
+        </div>
+        <textarea name="q4_check_deadlines_why" placeholder="What's wrong with it?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Before 8 October: the home page and Positions</h2>
+      <p class="why">Your points 1, 4 and 14. These are what a Holborn voter will actually use, so they come first.</p>
+
+      <div class="q">
+        <label><span class="n">5</span>The home page leads with "Start with you", which builds your profile, with the postcode as its first step. A smaller "Just look up my postcode" link sits underneath for people in a hurry. Is that what you mean?</label>
+        <div class="choices">
+          <label><input type="radio" name="q5_home_profile_first" value="yes"> Yes</label>
+          <label><input type="radio" name="q5_home_profile_first" value="no-postcode-shortcut"> Yes, but no postcode shortcut at all</label>
+          <label><input type="radio" name="q5_home_profile_first" value="other"> Something else (say below)</label>
+        </div>
+        <textarea name="q5_home_profile_first_why" placeholder="Why, or what instead?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">6</span>When someone finishes their profile, where should they land?</label>
+        <p class="hint">At the moment a postcode takes you to a page of area statistics (crime, house prices, deprivation) before you see any candidates. The site review suggested going straight to the ballot.</p>
+        <div class="choices">
+          <label><input type="radio" name="q6_land_after_profile" value="ballot-first"> The ballot, with "Your area", "What you're voting for" and "What's at stake" as cards underneath</label>
+          <label><input type="radio" name="q6_land_after_profile" value="area-first"> The area page first, as now</label>
+          <label><input type="radio" name="q6_land_after_profile" value="other"> Something else</label>
+        </div>
+        <textarea name="q6_land_after_profile_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">7</span>The area statistics (crime, deprivation, house prices): where do they belong?</label>
+        <div class="choices">
+          <label><input type="radio" name="q7_area_stats" value="card"> Keep them, as one of the cards under the ballot</label>
+          <label><input type="radio" name="q7_area_stats" value="where-you-live"> Move them into "What's happening where you live" (the council section)</label>
+          <label><input type="radio" name="q7_area_stats" value="drop"> Drop them for now</label>
+          <label><input type="radio" name="q7_area_stats" value="not-sure"> Not sure</label>
+        </div>
+        <textarea name="q7_area_stats_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label for="q8w"><span class="n">8</span>For Positions and the candidate pages, we'll use your three layers: "What they say", then "What this could mean for you", then "See the exact words and source". Keep those words, or change them?</label>
+        <p class="hint">"What this could mean for you" only appears when someone's profile makes a pledge relevant to them. The exact quote, source and method are always one tap away.</p>
+        <textarea id="q8w" name="q8_three_layers_wording" placeholder="Keep, or your wording"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">9</span>Each candidate page shows a big number per topic (for example "8" for Housing). An independent's page ends up as a column of zeros, and the numbers read like scores. Replace them with a plain line, such as "Published on: Housing, Health, Education"?</label>
+        <div class="choices">
+          <label><input type="radio" name="q9_drop_numbers" value="yes"> Yes, replace them</label>
+          <label><input type="radio" name="q9_drop_numbers" value="no"> No, keep the numbers</label>
+          <label><input type="radio" name="q9_drop_numbers" value="other"> Something else</label>
+        </div>
+        <textarea name="q9_drop_numbers_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Before 8 October: how it looks and sounds</h2>
+      <p class="why">Your points 2 and 3. We'll mock up three colour directions on the real home, ballot and candidate pages for you to choose between. Your answers here shape them.</p>
+
+      <div class="q">
+        <label for="q10w"><span class="n">10</span>In a few words, how should the site feel? (For example: bold, warm, bright, grown-up, playful, sharp.)</label>
+        <textarea id="q10w" name="q10_feel_words"></textarea>
+      </div>
+
+      <div class="q">
+        <label for="q11w"><span class="n">11</span>Any websites, brands, magazines or colours whose look you like? Links are fine.</label>
+        <textarea id="q11w" name="q11_look_references"></textarea>
+      </div>
+
+      <div class="q">
+        <label for="q12w"><span class="n">12</span>Apart from cream, beige and anything close to a party's colour, is there anything you definitely don't want?</label>
+        <textarea id="q12w" name="q12_look_avoid"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">13</span>For the rewrite, Claude will cut and shorten the text, then a person reads each page aloud and edits it. That way it's written by people, not just tidied by AI. Who reads?</label>
+        <div class="choices">
+          <label><input type="radio" name="q13_who_reads" value="romily"> Me</label>
+          <label><input type="radio" name="q13_who_reads" value="barny"> Dad</label>
+          <label><input type="radio" name="q13_who_reads" value="both"> Both, split by page</label>
+        </div>
+        <textarea name="q13_who_reads_why" placeholder="Anything else about how you want to do it?"></textarea>
+      </div>
+
+      <div class="q">
+        <label for="q14w"><span class="n">14</span>Paste a sentence or two from the site that sounds most like AI to you, and, if you like, how you'd say it instead.</label>
+        <p class="hint">Real examples are the fastest way for us to hear your voice.</p>
+        <textarea id="q14w" name="q14_ai_sounding_examples"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>October to November: where you live</h2>
+      <p class="why">Your points 5 to 8. The order will be: first "Who makes decisions where you live?", then the council section, then the scale explorer, because each builds on the one before.</p>
+
+      <div class="q">
+        <label><span class="n">15</span>You asked us not to decide which council issues are "important". Here's a rule that doesn't need us to judge: show everything on the agenda of full council, cabinet and the planning committee, sorted into your topics, newest first, with the source for each item. It replaces the old local-issues rule you wanted rethought. Does it work?</label>
+        <div class="choices">
+          <label><input type="radio" name="q15_council_rule" value="yes"> Yes</label>
+          <label><input type="radio" name="q15_council_rule" value="yes-plus"> Yes, and also include … (say below)</label>
+          <label><input type="radio" name="q15_council_rule" value="other"> Something else</label>
+        </div>
+        <textarea name="q15_council_rule_why" placeholder="Why, or what to add?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">16</span>In "Who makes decisions where you live?", how should we show the bodies you don't elect (NHS boards, fire authorities, national parks and so on)?</label>
+        <div class="choices">
+          <label><input type="radio" name="q16_unelected" value="beneath-collapsed"> Beneath the elected ones, folded away under a heading</label>
+          <label><input type="radio" name="q16_unelected" value="alongside"> Alongside the elected ones, marked "not elected"</label>
+          <label><input type="radio" name="q16_unelected" value="leave-out"> Leave them out for now</label>
+        </div>
+        <textarea name="q16_unelected_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">17</span>Transport as a tenth topic? You had it on your first list, and it matters a lot at council level.</label>
+        <div class="choices">
+          <label><input type="radio" name="q17_transport" value="yes-now"> Yes, add it</label>
+          <label><input type="radio" name="q17_transport" value="later"> Later</label>
+          <label><input type="radio" name="q17_transport" value="no"> No</label>
+        </div>
+        <textarea name="q17_transport_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>November to December: elections and Learn</h2>
+      <p class="why">Your points 9 to 11. We plan to build "Elections coming up" and "What's coming up?" as one thing: "What can I vote in next?"</p>
+
+      <div class="q">
+        <label><span class="n">18</span>Which two would you like "What can I vote in next?" to start with?</label>
+        <p class="hint">Tick up to two.</p>
+        <div class="choices">
+          <label><input type="checkbox" name="q18_elections_visual" value="timeline"> A timeline you can move along</label>
+          <label><input type="checkbox" name="q18_elections_visual" value="calendar"> A calendar</label>
+          <label><input type="checkbox" name="q18_elections_visual" value="map"> A map</label>
+          <label><input type="checkbox" name="q18_elections_visual" value="countdown"> A countdown to your next vote</label>
+          <label><input type="checkbox" name="q18_elections_visual" value="level-icons"> Icons showing which level of government each election is for</label>
+        </div>
+        <textarea name="q18_elections_visual_why" placeholder="Anything else?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">19</span>Which three Learn visuals first?</label>
+        <p class="hint">Tick three. "Who controls what" reuses the decision-makers work, so it's the cheapest to build.</p>
+        <div class="choices">
+          <label><input type="checkbox" name="q19_learn_first" value="who-controls-what"> Who controls what (council to Parliament)</label>
+          <label><input type="checkbox" name="q19_learn_first" value="fptp"> First Past the Post: a tiny mock election</label>
+          <label><input type="checkbox" name="q19_learn_first" value="when-you-vote"> What happens when you vote</label>
+          <label><input type="checkbox" name="q19_learn_first" value="vocab"> Tap-to-define political words</label>
+          <label><input type="checkbox" name="q19_learn_first" value="pr"> Proportional representation: votes into seats</label>
+          <label><input type="checkbox" name="q19_learn_first" value="bill-to-law"> How a bill becomes law</label>
+          <label><input type="checkbox" name="q19_learn_first" value="council-tax"> Where your council tax goes</label>
+          <label><input type="checkbox" name="q19_learn_first" value="parliament"> How Parliament works</label>
+        </div>
+        <textarea name="q19_learn_first_why" placeholder="Anything else?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Loose ends from earlier rounds</h2>
+
+      <div class="q">
+        <label><span class="n">20</span>Round five: steps or one page? Now that the profile leads, which way through should the site use?</label>
+        <p class="hint">You can still compare the two prototypes: <a href="https://whatsittome.org/journey/steps" target="_blank" rel="noopener">steps</a> and <a href="https://whatsittome.org/journey/flow" target="_blank" rel="noopener">one page</a>.</p>
+        <div class="choices">
+          <label><input type="radio" name="q20_journey_shape" value="steps-phone-page-desktop"> Steps on a phone, one page on a computer</label>
+          <label><input type="radio" name="q20_journey_shape" value="steps"> Steps everywhere</label>
+          <label><input type="radio" name="q20_journey_shape" value="one-page"> One page everywhere</label>
+          <label><input type="radio" name="q20_journey_shape" value="dont-mind"> Don't mind</label>
+        </div>
+        <textarea name="q20_journey_shape_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label for="q21w"><span class="n">21</span>Round five, you asked us to remind you about this: where we found nothing, the site says "Nothing published that we could source on housing. That means nothing found, not nothing to say." Keep it, or change it?</label>
+        <textarea id="q21w" name="q21_nothing_found_wording" placeholder="Keep, or your wording"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">22</span>The call with Peter at Democracy Club: which slot?</label>
+        <div class="choices">
+          <label><input type="radio" name="q22_dc_call" value="mon-28-sep"> Monday 28 September, 3 to 5pm</label>
+          <label><input type="radio" name="q22_dc_call" value="wed-7-oct"> Wednesday 7 October</label>
+          <label><input type="radio" name="q22_dc_call" value="fri-9-oct"> Friday 9 October</label>
+          <label><input type="radio" name="q22_dc_call" value="dad"> Dad takes it without me</label>
+        </div>
+        <textarea name="q22_dc_call_why" placeholder="Anything to raise with him?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">23</span>Welsh and Gaelic (your point 13): when should we start looking for a Welsh translator, and what about Gaelic?</label>
+        <p class="hint">Either way, a candidate's own words are never translated. They stay exactly as published, labelled with the language they were published in.</p>
+        <div class="choices">
+          <label><input type="radio" name="q23_languages" value="welsh-now-gaelic-investigate"> Welsh now; find out what Gaelic would take</label>
+          <label><input type="radio" name="q23_languages" value="both-after-8-oct"> Both after 8 October</label>
+          <label><input type="radio" name="q23_languages" value="welsh-only"> Welsh only for now</label>
+          <label><input type="radio" name="q23_languages" value="other"> Something else</label>
+        </div>
+        <textarea name="q23_languages_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">24</span>The app (your point 18). The plan: first a really strong phone site; then an installable web app you can add to your home screen, which reuses all the existing code; then App Store and Google Play versions of the same site, with things a web page can't do well, like polling-day reminders and your ballot saved offline. Store submission would come after the May 2027 elections. Happy with that order?</label>
+        <div class="choices">
+          <label><input type="radio" name="q24_app_route" value="yes"> Yes</label>
+          <label><input type="radio" name="q24_app_route" value="faster"> I'd like the store apps sooner</label>
+          <label><input type="radio" name="q24_app_route" value="other"> Something else</label>
+        </div>
+        <textarea name="q24_app_route_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <div class="submit">
+      <div class="q">
+        <label for="note"><span class="n"></span>Anything else</label>
+        <textarea id="note" name="anything_else"></textarea>
+      </div>
+      <button type="submit" id="send">Send my answers</button>
+      <button type="button" class="secondary" id="clear">Clear everything</button>
+      <p id="status" role="status"></p>
+      <p class="small">You can send more than once.</p>
+    </div>
+  </form>
+</main>
+
+<script>
+(function () {
+  var form = document.getElementById('form');
+  var status = document.getElementById('status');
+  var progress = document.getElementById('progress');
+  var saved = document.getElementById('saved');
+  var KEY = 'romily-app-answers-round-8';
+  var fields = Array.prototype.slice.call(form.querySelectorAll('textarea, input[type=text], input[type=radio], input[type=checkbox]'));
+  var questionNames = [];
+  fields.forEach(function (f) {
+    var base = f.name.replace(/_why$/, '');
+    if (/^q\d+_/.test(base) && questionNames.indexOf(base) === -1) questionNames.push(base);
+  });
+
+  function read() {
+    var data = {};
+    fields.forEach(function (f) {
+      if (f.type === 'radio') { if (f.checked) data[f.name] = f.value; }
+      else if (f.type === 'checkbox') { if (f.checked) data[f.name] = (data[f.name] ? data[f.name] + '; ' : '') + f.value; }
+      else data[f.name] = f.value;
+    });
+    return data;
+  }
+  function write(data) {
+    fields.forEach(function (f) {
+      if (!(f.name in data)) return;
+      if (f.type === 'radio') f.checked = (f.value === data[f.name]);
+      else if (f.type === 'checkbox') f.checked = String(data[f.name]).split('; ').indexOf(f.value) !== -1;
+      else f.value = data[f.name];
+    });
+  }
+  function answered(data) {
+    var n = 0;
+    questionNames.forEach(function (q) {
+      var has = false;
+      Object.keys(data).forEach(function (k) {
+        if (k.indexOf(q) === 0 && String(data[k]).trim() !== '') has = true;
+      });
+      if (has) n++;
+    });
+    return n;
+  }
+  function refresh() {
+    var data = read();
+    progress.textContent = answered(data) + ' of ' + questionNames.length + ' answered';
+    try {
+      localStorage.setItem(KEY, JSON.stringify(data));
+      saved.textContent = 'Saved in this browser';
+    } catch (e) {
+      saved.textContent = 'Could not save in this browser; send before you close the page';
+    }
+  }
+
+  try {
+    var stored = localStorage.getItem(KEY);
+    if (stored) write(JSON.parse(stored));
+  } catch (e) {}
+  refresh();
+  form.addEventListener('input', refresh);
+  form.addEventListener('change', refresh);
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var btn = document.getElementById('send');
+    btn.disabled = true;
+    status.textContent = 'Sending…';
+    var body = new URLSearchParams(new FormData(form)).toString();
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body
+    }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      status.textContent = 'Sent. Your answers stay saved here, so you can add to them and send again.';
+    }).catch(function () {
+      status.textContent = 'That didn\'t send. Your answers are still saved in this browser; try again in a minute.';
+    }).then(function () { btn.disabled = false; });
+  });
+
+  document.getElementById('clear').addEventListener('click', function () {
+    if (!confirm('Clear every answer on this page? This cannot be undone.')) return;
+    fields.forEach(function (f) {
+      if (f.type === 'radio' || f.type === 'checkbox') f.checked = false;
+      else if (f.name !== 'name') f.value = '';
+    });
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    refresh();
+    status.textContent = 'Cleared.';
+  });
+})();
+</script>
+</body>
+</html>
