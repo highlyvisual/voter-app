@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { MESSAGE } from "./message";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbs, graph, PEOPLE, webPage } from "@/lib/schema";
 
-export const metadata = { title: "Who we are", description: "Why What's It To Me exists, in the words of the student who started it — and who is behind it." };
+export const metadata = { title: "Who we are", description: "Why What's It To Me exists, in the words of the student who started it — and who is behind it.", alternates: { canonical: "/who-we-are" } };
 
 export default function WhoWeAre() {
   return (
     <>
+      <JsonLd data={graph(webPage("/who-we-are", "Who we are", metadata.description, { "@type": "AboutPage", about: { "@id": "https://whatsittome.org/#org" }, mentions: [{ "@id": PEOPLE.romily["@id"] }, { "@id": PEOPLE.barny["@id"] }] }), breadcrumbs([["Who we are", "/who-we-are"]]))} />
       <p className="eyebrow">Who we are</p>
       <h1>Why What's It To Me exists</h1>
       <article className="founder-message">
@@ -15,19 +18,16 @@ export default function WhoWeAre() {
 
       <h2>Who is behind it</h2>
       <ul className="founders">
-        <li><strong>Romily Johnson</strong> — Founder and Product Lead</li>
-        <li><strong>Barny Trevelyan-Johnson</strong> — Technical Lead</li>
+        <li id="romily"><strong>Romily Johnson</strong> — Founder and Product Lead</li>
+        <li id="barny"><strong>Barny Trevelyan-Johnson</strong> — Technical Lead</li>
       </ul>
 
-      <h2>Declaration of interests</h2>
+      <h2 id="interests">Declaration of interests</h2>
       <p>Neither founder is a member of, works for, or is paid by any political party or campaign.</p>
       <p>What's It To Me is self-funded for now. It takes no advertising and no money from any party, candidate or campaign.</p>
 
-      <h2>Contact</h2>
-      <p>Questions, corrections or complaints: <a href="mailto:hello@whatsittome.org">hello@whatsittome.org</a>. Every complaint about the content is logged publicly, with its outcome.</p>
-
-      <h2>Contact</h2>
-      <p>Questions, corrections or complaints: <a href="mailto:hello@whatsittome.org">hello@whatsittome.org</a>.</p>
+      <h2 id="contact">Contact</h2>
+      <p>Questions, corrections or complaints: <a href="mailto:hello@whatsittome.org">hello@whatsittome.org</a>. Every complaint about the content is logged publicly, with its outcome. <Link href="/contact">More ways to get in touch</Link>.</p>
 
       <h2 id="the-name">Where the name comes from</h2>
       <p className="word-head"><span className="word">What&rsquo;s it to me?</span></p>

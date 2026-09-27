@@ -1,4 +1,4 @@
-export const metadata = { title: "Moderation" };
+export const metadata = { title: "Moderation", description: "What we publish, hold or refuse from a source, and why: the same written rules for every candidate and party.", alternates: { canonical: "/about/moderation" } };
 export default function Moderation() {
   return (
     <>

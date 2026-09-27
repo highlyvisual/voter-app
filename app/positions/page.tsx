@@ -6,7 +6,7 @@ import { whenText } from "@/components/ClaimLayers";
 import { fixLink, linkFixes } from "@/lib/links";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Every position" };
+export const metadata = { title: "Every position", description: "Search every sourced candidate and party position on the site by words, election, topic or kind of source. Nothing is ranked.", alternates: { canonical: "/positions" } };
 
 // Every sourced position on the site, searchable and filterable. Ballot-paper order within each election; no ranking anywhere.
 export default async function Positions({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {

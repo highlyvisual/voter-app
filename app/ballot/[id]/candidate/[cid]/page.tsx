@@ -12,6 +12,8 @@ import { claimApplies, householdComplete, householdFromParams } from "@/lib/hous
 import { layerKey, layerOf } from "@/lib/claims";
 import { img } from "@/lib/site";
 import { longDate } from "@/lib/dates";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbs, candidatePerson, graph, webPage } from "@/lib/schema";
 export const dynamic = "force-dynamic";
 
 // A candidate's own page (Romily §10): short factual introduction, then large topic cards. Each card opens into
@@ -57,6 +59,12 @@ export default async function CandidatePage({ params, searchParams }: { params: 
   const topicLabel = Object.fromEntries(TOPICS);
   return (
     <>
+      {/* The same structured data for every candidate (lib/schema.ts): who they are, what they are standing for, their place on the ballot paper. */}
+      <JsonLd data={graph(
+        webPage(`/ballot/${encodeURIComponent(ballotId)}/candidate/${c.id}`, `${c.name}, candidate in ${ballot.area_name}`, undefined, { "@type": "ProfilePage", mainEntity: { "@id": `https://whatsittome.org/ballot/${encodeURIComponent(ballotId)}/candidate/${c.id}#person` } }),
+        candidatePerson(ballot, c, idx + 1, candidates.length),
+        breadcrumbs([[ballot.area_name, `/ballot/${encodeURIComponent(ballotId)}`], [c.name, `/ballot/${encodeURIComponent(ballotId)}/candidate/${c.id}`]]),
+      )} />
       <Suspense fallback={null}><ProfileApply /></Suspense>
       <p className="eyebrow"><Link href={`/ballot/${encodeURIComponent(ballotId)}${qs ? `?${qs}` : ""}#ballot-paper`}>{ballot.area_name}</Link> · number {idx + 1} of {candidates.length} on the ballot paper</p>
       <div className="cand-hero" id="cand">

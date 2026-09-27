@@ -26,8 +26,8 @@ without the service key (see `scripts/auto/common.py`): use that for local testi
 - Schema changes: a file in `scripts/sql/migrations/` named `YYYY-MM-DD-<name>.sql`, applied by Barny (or via the
   Supabase MCP if connected). RLS on every table.
 - Before committing: `npx tsc --noEmit` and `npx next build` must pass. Commit with clear messages; push to a
-  branch and open a PR unless told to push to main. Deploys to Netlify cost shared credits: batch them, and never
-  deploy between now and polling day (8 October 2026) without Barny's say-so.
+  branch and open a PR unless told to push to main. Deploys to Netlify cost shared credits: batch them.
 
 ## Current work
-The automation plan: `docs/automation/README.md`. Start with the phase it names as next.
+The automation plan: `docs/automation/README.md`. Next: `docs/automation/open-data-mysociety.md` (start with its
+section 0, the git pull on `automation/phase-1`).

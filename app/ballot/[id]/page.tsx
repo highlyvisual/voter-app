@@ -1,4 +1,6 @@
 import { img } from "@/lib/site";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbs, candidateList, electionEvent, electionName, graph, webPage } from "@/lib/schema";
 import ExtLink from "@/components/ExtLink";
 import { fixLink, linkFixes } from "@/lib/links";
 import { longDate } from "@/lib/dates";
@@ -43,7 +45,7 @@ const fmt = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB"
 export async function generateMetadata({ params }: Props) {
   const { id } = await params;
   const b = await getBallot(decodeURIComponent(id));
-  return { title: b ? `${b.area_name}, ${fmt(b.poll_date)}` : "Ballot", alternates: b ? { canonical: `/ballot/${encodeURIComponent(b.ballot_paper_id)}` } : undefined };
+  return { title: b ? `${b.area_name}, ${longDate(b.poll_date)}` : "Ballot", alternates: b ? { canonical: `/ballot/${encodeURIComponent(b.ballot_paper_id)}` } : undefined };
 }
 
 export default async function BallotPage({ params, searchParams }: Props) {
@@ -86,6 +88,11 @@ export default async function BallotPage({ params, searchParams }: Props) {
 
   return (
     <>
+      <JsonLd data={graph(
+        webPage(`/ballot/${encodeURIComponent(ballotId)}`, `${electionName(ballot)}, ${longDate(ballot.poll_date)}`, `All ${candidates.length} candidates in ballot-paper order, with their published positions and sources, and what each could mean for a household like yours.`, { about: { "@id": `https://whatsittome.org/ballot/${encodeURIComponent(ballotId)}#election` }, mainEntity: { "@id": `https://whatsittome.org/ballot/${encodeURIComponent(ballotId)}#candidates` } }),
+        electionEvent(ballot, candidates), candidateList(ballot, candidates),
+        breadcrumbs([[ballot.area_name, `/ballot/${encodeURIComponent(ballotId)}`]]),
+      )} />
       <p className="eyebrow">{ballot.level === "parliamentary" ? "UK Parliament" : ballot.level === "local" ? "Council" : ballot.level}{ballot.by_election_reason ? " by-election" : " election"} · {fmt(ballot.poll_date)}</p>
       <h1>{ballot.area_name}</h1>
       {ballot.archived ? (
@@ -97,7 +104,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
       {!ballot.archived ? <Journey ballotId={ballotId} current="" qs={qs} /> : null}
       <div className="ballot-masthead">
         <div className="masthead-main">
-          <p className="lede">{candidates.length} candidates{ballot.winner_count > 1 ? ` for ${ballot.winner_count} seats` : ""}. The same page for each of them, in the order you will see on the ballot paper. Read them all, or start with the one you have heard of.</p>
+          <p className="lede">{candidates.length} {candidates.length === 1 ? "candidate" : "candidates"}{ballot.winner_count > 1 ? ` for ${ballot.winner_count} seats` : ""} {ballot.archived ? "stood" : candidates.length === 1 ? "is standing" : "are standing"} here{ballot.uncontested || ballot.cancelled ? "" : `, polling day ${longDate(ballot.poll_date)}`}. The same page for each of them, in the order you will see on the ballot paper. Read them all, or start with the one you have heard of.</p>
           <div className="overview" aria-label="This election at a glance">
             <div><b><CountUp value={candidates.length} /></b><span>candidates{ballot.winner_count > 1 ? ` for ${ballot.winner_count} seats` : " for one seat"}</span></div>
             <div><b><CountUp value={claims.length} /></b><span>sourced positions</span></div>

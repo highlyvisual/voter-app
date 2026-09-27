@@ -7,7 +7,7 @@ export async function ballotPageTitle(id: string, page: string, path = ""): Prom
   const b = await getBallot(decodeURIComponent(id));
   if (!b) return { title: page };
   const date = new Date(b.poll_date + "T12:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/London" });
-  return { title: `${page} · ${b.area_name}, ${date}`, alternates: { canonical: `/ballot/${encodeURIComponent(b.ballot_paper_id)}${path}` } };
+  return { title: `${page} · ${b.area_name}, ${date}`, description: `${page} for the ${b.area_name} election on ${date}. Every candidate in ballot-paper order, every claim quoted from its source, no recommendations.`, alternates: { canonical: `/ballot/${encodeURIComponent(b.ballot_paper_id)}${path}` } };
 }
 
 export async function candidatePageTitle(id: string, cid: string): Promise<Metadata> {
@@ -16,5 +16,5 @@ export async function candidatePageTitle(id: string, cid: string): Promise<Metad
   const c = cands.find((x) => String(x.id) === cid);
   if (!b || !c) return { title: "Candidate" };
   const date = new Date(b.poll_date + "T12:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/London" });
-  return { title: `${c.name} (${c.party_name_on_ballot}) · ${b.area_name}, ${date}`, alternates: { canonical: `/ballot/${encodeURIComponent(ballotId)}/candidate/${cid}` } };
+  return { title: { absolute: `${c.name} (${c.party_name_on_ballot}) · ${b.area_name}, ${date}` }, description: `${c.name} (${c.party_name_on_ballot}) ${b.archived ? "was" : "is"} a candidate in ${b.area_name}, polling day ${date}. What they have published, quoted exactly with sources, and what it could mean for you.`, alternates: { canonical: `/ballot/${encodeURIComponent(ballotId)}/candidate/${cid}` } };
 }

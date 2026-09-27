@@ -15,7 +15,7 @@ export default function ParliamentaryRecordView({ rec, note }: { rec: Parliament
       <ul className="small" style={{ paddingLeft: "1.1rem", margin: "0.3rem 0" }}>
         {rec.memberships.slice(0, 4).map((m, i) => <li key={i}>{m.house === "Commons" ? "MP for" : "Member of the Lords,"} {m.from ?? ""}: {fmt(m.start)} to {m.end ? fmt(m.end) : "present"}</li>)}
       </ul>
-      <div className="tabs" role="tablist">
+      <div className="tabs">
         <details className="tab" open><summary>Position</summary>
           {byTopic.length === 0 ? <p className="empty">Not enough recorded votes with a recorded justification in this sample to say anything concrete.</p> : byTopic.map((t) => (
             <div key={t.k} style={{ marginBottom: "0.6rem" }}>

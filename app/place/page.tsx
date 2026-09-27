@@ -7,7 +7,7 @@ import PlacePanel from "@/components/PlacePanel";
 import NextElections from "@/components/NextElections";
 import { listBallots } from "@/lib/data";
 
-export const metadata = { title: "Your area", description: "Who represents you, when you next vote, and what is happening around you." };
+export const metadata = { title: "Your area", description: "Who represents you, when you next vote, and what is happening around you.", alternates: { canonical: "/place" } };
 export const dynamic = "force-dynamic";
 
 // Shown when a postcode has no election running. Most of the country is in that position most of the time, and

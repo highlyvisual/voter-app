@@ -1,0 +1,57 @@
+/* Search, AI-visibility and conversion work from the Nova Insight audit (27 Sept 2026). Kept in its own file, loaded
+   after globals.css, so it can be read and reverted as one piece. */
+
+/* Home: why you can rely on what you read, next to the first call to action. Each line links to the proof. */
+.trust-strip { list-style: none; margin: 1rem 0 1.1rem; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.5rem; font-family: var(--sans); }
+.trust-strip li { margin: 0; }
+.trust-strip a { display: block; height: 100%; min-height: 48px; box-sizing: border-box; padding: 0.55rem 0.75rem; border: 1px solid var(--rule); border-radius: var(--radius-sm); background: var(--panel); color: var(--ink-soft); text-decoration: none; font-size: 0.86rem; line-height: 1.35; }
+.trust-strip a b { display: block; color: var(--ink); font-size: 0.92rem; }
+.trust-strip a:hover { border-color: var(--ink-soft); }
+
+/* Footer: the pages that show who is behind the site, as a list of real targets rather than a sentence of small links. */
+.foot-nav ul { list-style: none; margin: 0.4rem 0 0.8rem; padding: 0; display: flex; flex-wrap: wrap; gap: 0.2rem 0.4rem; }
+.foot-nav li { margin: 0; }
+.foot-nav a { display: inline-flex; align-items: center; min-height: 48px; padding: 0 0.55rem; border-radius: var(--radius-sm); color: var(--ink-soft); }
+.foot-nav a:hover { background: var(--sand); color: var(--ink); }
+
+/* Contact page. */
+.contact-cards { list-style: none; margin: 1.2rem 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 0.8rem; }
+.contact-cards li { margin: 0; padding: 1rem 1.1rem; border: 1px solid var(--rule); border-radius: var(--radius-sm); background: var(--panel); display: flex; flex-direction: column; }
+.contact-cards h2 { margin: 0 0 0.4rem; padding: 0; border: 0; font-size: 1.15rem; }
+.contact-cards p { flex: 1; }
+.contact-cards .button { align-self: flex-start; }
+
+/* Tap targets of at least 48 by 48 CSS pixels on phones (the audit found 45 of 93 controls smaller). Text links inside
+   sentences keep their size; controls, menus and chips grow. Padding only, so the look is unchanged on desktop. */
+@media (max-width: 48rem) {
+  .skip:focus { min-height: 48px; display: inline-flex; align-items: center; }
+  .site-header .nav-toggle { min-height: 48px; min-width: 48px; justify-content: center; }
+  .site-header .settings > .settings-toggle { min-height: 48px; min-width: 48px; padding: 0.2rem 0.5rem; }
+  .site-header .nav-profile { min-height: 48px; display: inline-flex; align-items: center; }
+  .site-header .wordmark { min-height: 48px; display: inline-flex; align-items: center; }
+  .nav-sheet a { min-height: 48px; display: flex; align-items: center; }
+  html :is(button, .button, input[type="submit"], select, .try-row, .hdyk-btn) { min-height: 48px; }
+  html .hdyk-btn { min-width: 48px; }
+  html .range-ticks button { min-height: 48px; padding: 0 0.15rem; }
+  html .range input[type=range] { height: 48px; }
+  html .quick-lookup > summary, html .learn summary, html details.evidence > summary { min-height: 48px; box-sizing: border-box; padding-top: 0.75rem; padding-bottom: 0.75rem; }
+  html .leaflet-touch .leaflet-bar a { width: 44px; height: 44px; line-height: 44px; }
+  .skip { min-height: 48px; display: inline-flex; align-items: center; }
+  html :is(.site-header nav a, .section-nav a, .topic-nav a, .chip, .pill, .card-option, summary, .election-list a, .quick-row, .theme-toggle button, .journey a, .chain-step > details > summary, .yd-hub a, .face) { min-height: 48px; }
+  /* Links in the key-dates bar and similar one-line strips: taller tap area from transparent padding, same look. */
+  html :is(.dates, .what-now, .countdown) a { padding-block: 0.85rem; }
+  .button { display: inline-flex; align-items: center; justify-content: center; }
+  .pill, .chip-link, .topic-nav a, .topic-tabs a, .viewmode button, .settings-panel .pill { min-height: 48px; display: inline-flex; align-items: center; }
+  .quiet-link, .secondary-link, .step-go, .ex-title { min-height: 48px; display: inline-flex; align-items: center; }
+  .name-strip a { min-height: 48px; box-sizing: border-box; padding-block: 0.3rem; display: inline-flex; align-items: center; align-content: center; flex-wrap: wrap; column-gap: 0.35rem; }
+}
+
+/* Phones 385 to 440 wide: the brand name and three 48px controls share one line, so tighten the spacing slightly. */
+@media (max-width: 27.5rem) {
+  .site-header .brand-name { font-size: 0.98rem; }
+  .site-header .inner { gap: 0.5rem; padding-left: 0.9rem; padding-right: 0.9rem; }
+  .site-header .nav-wrap { gap: 0.25rem; }
+  .site-header .nav-profile { padding-left: 0.55rem; padding-right: 0.55rem; }
+  .site-header .inner > * { margin-right: 0; }
+}
+.spaced-links a { display: inline-block; padding-block: 0.3rem; }

@@ -1,7 +1,7 @@
 import Onboarding from "@/components/Onboarding";
 import { findElection } from "../find/actions";
 
-export const metadata = { title: "Build your profile" };
+export const metadata = { title: "Build your profile", description: "A few quick questions, starting with your postcode, so you see which candidates' published policies apply to a household like yours. Nothing is stored.", alternates: { canonical: "/start" } };
 export const dynamic = "force-dynamic";
 
 export default function Start() {
