@@ -10,6 +10,7 @@ Every job records each run in `job_runs`. `/status` shows the latest run of each
 |---|---|---|
 | Daily, 05:17 UTC | `ingest.yml` | ballot ingest (elections, candidates, statements, withdrawals, archiving) · leaflets · photos · schools (DfE) · consultations |
 | Mondays, 05:40 UTC | `council-meetings.yml` | council meetings (Modern.gov agendas and motions) |
+| Mondays, 05:50 UTC | `council-register.yml` | council register (every UK council from mySociety, its website from WhatDoTheyKnow, checked against ONS codes) |
 | Mondays, 06:20 UTC | `motion-outcomes.yml` | motion outcomes (the result of each agenda item from the published minutes; fixed forms of words, no AI) |
 | Mondays, 06:10 UTC | `weekly-refresh.yml` | Gazette notices · local plans · party publications · new editions of datasets · party funding · source watch · weekly review |
 
@@ -32,12 +33,14 @@ Every job records each run in `job_runs`. `/status` shows the latest run of each
 | Council transport: traffic orders | The Gazette (codes 1501 and 1503) | Weekly, automatic | London boroughs publish here; most other councils use local newspapers, so their lists are often empty |
 | Council education: school openings and closures | DfE Get Information about Schools, daily file | Daily, automatic (England) | Scotland and Wales have no equivalent daily register |
 | Council consultations | Councils' Citizen Space sites | Daily, automatic (Camden, Northumberland and Nottinghamshire today). Any council that moves to Citizen Space is picked up automatically. | Other platforms (EngagementHQ has no dates; Commonplace blocks readers) |
+| Council register (every UK council: name, codes, type, nation, website) | mySociety, UK Local Authorities (CC BY 4.0) joined to the WhatDoTheyKnow authorities list (CC BY-SA 4.0); ONS names-and-codes lists for a cross-check | Weekly, automatic. A council that leaves the file is marked ended, never deleted; a code ONS has that mySociety lacks is recorded as such. Also written to `scripts/sql/council_register.json` as the site's fallback. | — |
 | Council meetings and motions | Councils' Modern.gov web services | Weekly, automatic (14 councils) | Councils that block readers or run other systems |
 | Results of council items and motions | The published minutes, via the same web services (each item's own minute text) | Weekly, automatic: a result is recorded only when one of a fixed list of forms of words ("the motion was CARRIED", "RESOLVED", "the report was noted", a recorded vote) appears in that item's minute text, with the exact sentence and a link to the printed minutes. Anything else waits in `outcome_queue`. | Answering the queue (a reader step, phase 1b); the job publishes an answer only after checking the sentence is in the minutes word for word |
 | Council tax (England) | MHCLG, annual | **Release watch** flags the new edition each spring | Reloading (once a year; the file name changes each year) |
 | Councillors and council control | Open Council Data | Release watch flags a new file | Reload after each May; by-election changes are only on its web pages (ask the owner about their live feed) |
 | Party funding | Electoral Commission register | Weekly check; rebuilt automatically when a new quarter is published. Individual donors are grouped by name with titles removed, because the register sometimes holds one person under two records; organisations are grouped by donor ID. | — |
-| Deprivation | MHCLG indices of deprivation | Release watch flags a new edition | Reload (every few years) |
+| Deprivation, England | MHCLG English Indices of Deprivation 2025 | Release watch flags a new edition | Reload (every few years) |
+| Deprivation, Wales, Scotland and Northern Ireland | Welsh Government WIMD 2025; Scottish Government SIMD 2020v2; NISRA NIMDM 2017 (via OpenDataNI), all OGL | Release watch names the newest edition on each publisher's page (SIMD 2026 is expected late 2026) | Reload with `scripts/loaders/deprivation_nations.py` when an edition changes |
 | Wider bodies (combined authorities, fire, NHS boards) | ONS lookups | Release watch flags a new edition | Regenerate `lib/widerBodies.json` |
 | Ward history | DCLEAPIL (figshare) | Yearly | Reload |
 | Archived copies of sources | Internet Archive | Source watch reuses a recent capture where one exists, otherwise saves one (up to 15 new captures a week). The copy is linked beside each quoted position ("Archived copy"). | — |

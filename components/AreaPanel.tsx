@@ -33,11 +33,11 @@ export default async function AreaPanel({ areaName, level, lat, lng, pointNote, 
         {dep ? (
           <div>
             <h3>How this neighbourhood compares</h3>
-            <p className="small" style={{ margin: "0 0 0.3rem" }}>The neighbourhood around your postcode ({dep.name}) is <b>{decileWords(dep.imd)}</b> of England's 33,755 neighbourhoods on the official Index of Multiple Deprivation 2025.</p>
+            <p className="small" style={{ margin: "0 0 0.3rem" }}>The neighbourhood around your postcode ({dep.name}) is <b>{decileWords(dep.decile)}</b> of {dep.nation}&rsquo;s {num.format(dep.total)} neighbourhoods on the official {dep.indexName} {dep.edition}.</p>
             <ul className="small dep-grid">
-              {([["Income", dep.income], ["Employment", dep.employment], ["Education", dep.education], ["Health", dep.health], ["Crime", dep.crime], ["Housing and services", dep.housing], ["Living environment", dep.living]] as [string, number][]).map(([l, d]) => <li key={l}><span>{l}</span><span className="dep-bar" role="img" aria-label={`decile ${d} of 10, where 1 is most deprived`}>{Array.from({ length: 10 }, (_, k) => <i key={k} className={k < d ? "on" : ""} />)}</span><span className="meta">{d}/10</span></li>)}
+              {dep.domains.map((d) => <li key={d.name}><span>{d.name}</span><span className="dep-bar" role="img" aria-label={`decile ${d.decile} of 10, where 1 is most deprived`}>{Array.from({ length: 10 }, (_, k) => <i key={k} className={k < d.decile ? "on" : ""} />)}</span><span className="meta">{d.decile}/10</span></li>)}
             </ul>
-            <p className="meta">English Indices of Deprivation 2025, Ministry of Housing, Communities and Local Government (Open Government Licence). Deciles: 1 is the most deprived tenth of neighbourhoods, 10 the least. A measure of an area, not of anyone who lives there.</p>
+            <p className="meta">{dep.indexName} {dep.edition}, {dep.publisher} (Open Government Licence). Deciles: 1 is the most deprived tenth of {dep.nation}&rsquo;s neighbourhoods, 10 the least; each nation&rsquo;s index ranks only its own areas, so deciles are not comparable across the four nations. The domains are the ones this index publishes, under its own names. A measure of an area, not of anyone who lives there.</p>
           </div>
         ) : null}
         {hpi ? (

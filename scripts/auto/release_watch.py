@@ -55,6 +55,18 @@ def other():
     d = get_json("https://search.electoralcommission.org.uk/api/search/Donations?currentPage=1&rows=1&sort=AcceptedDate&order=desc&et=pp&prePoll=false&postPoll=true", timeout=60)
     r = (d.get("Result") or [{}])[0]
     out.append(("Electoral Commission: party donations", f"latest reporting period {r.get('ReportingPeriodName')}", "https://search.electoralcommission.org.uk/", "party_funding"))
+    # The devolved nations' deprivation indices (deprivation_areas): a new edition means a reload with scripts/loaders/deprivation_nations.py.
+    for key, url, pat, feeds in [
+        ("Welsh Index of Multiple Deprivation (Welsh Government)", "https://www.gov.wales/welsh-index-multiple-deprivation", rb"WIMD\s?(20\d\d)", "deprivation_areas (Wales)"),
+        ("Scottish Index of Multiple Deprivation (Scottish Government)", "https://simd.scot/", rb"SIMD\s?(20\d\d(?:v\d)?)", "deprivation_areas (Scotland)"),
+        ("Northern Ireland Multiple Deprivation Measure (NISRA)", "https://www.nisra.gov.uk/statistics/deprivation", rb"NIMDM\s?(20\d\d)", "deprivation_areas (Northern Ireland)"),
+    ]:
+        try:
+            st, body, _ = fetch(url, browser=True, timeout=60)
+            eds = sorted(set(m.decode() for m in re.findall(pat, body))) if st == 200 else []
+            out.append((key, f"newest edition named on the page: {eds[-1]}" if eds else f"page returned HTTP {st}", url, feeds))
+        except Exception as ex:
+            out.append((key, f"not read: {str(ex)[:80]}", url, feeds))
     st, body, _ = fetch("https://www.gov.scot/publications/council-tax-datasets/", browser=True, timeout=60)
     links = sorted(set(re.findall(rb'href="([^"]+\.xlsx)"', body))) if st == 200 else []
     out.append(("Scotland council tax by band (Scottish Government)", f"{len(links)} files, fingerprint {hashlib.sha256(b'|'.join(links)).hexdigest()[:12]}" if links else f"page returned HTTP {st}", "https://www.gov.scot/publications/council-tax-datasets/", "not yet used; Scottish council pages"))
