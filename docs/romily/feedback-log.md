@@ -132,3 +132,28 @@ Status key: **Done** · **Done, her way changed later** · **Partly** · **Waiti
 **Needs a person neither of us can conjure:** a Welsh translator (docs/welsh.md).
 
 **Nothing else outstanding** from rounds one to five: every other answer has been built, researched, or superseded by a later answer of hers, and the two misses found in this audit (the "where do you live" wording and the "What's it to me?" progression) were fixed on 24 September.
+
+## Round eight — email to Barny, 27 September
+
+New rule from this round: an item is **Done** only when Romily has seen it on the live site and ticked it. Until then the best status is **Built, waiting for Romily**. Order and reasoning: [round-8-plan.md](round-8-plan.md).
+
+| # | She said | Status | Stage |
+|---|---|---|---|
+| 1 | Home page should lead with creating your profile, postcode inside it; "My Profile" visually distinct in the navigation. | **Not done.** Round five's "profile as step one" was built on /start only; the home page still leads with "Find my election". | 0 (nav), 1 (home) |
+| 2 | Revisit the palette: no cream at the top, less beige, more contrast and personality, not generic AI pastel, still no party-associated colours. | **Not done.** Three directions to show her on real pages. | 1 |
+| 3 | Whole site more human: page by page, "would an actual person naturally say this?"; shorter sentences, fewer repeated explanatory blocks, a clear voice. | **Partly** (round six: four blocks). Now a full pass, voter path first, each page read aloud and edited by Romily or Barny. | 1 |
+| 4 | Positions far too wordy: What they say → What this could mean for you → See evidence. "Simple first. Evidence one click away." | **Not done.** | 1 |
+| 5 | "What is actually happening where I live?" outside an election: what the council is discussing and deciding, its priorities and targets, consultations and proposals, recent changes, what's coming up; all sourced, no choosing what's "important". | **Partly.** /council pages exist for 29 councils but are not reached from the postcode and are not the centre of the local section. | 2 |
+| 6 | The council itself matters more than individual councillor records; councillors sit within it. | **Agreed; matches round six.** No attendance or vote collection will be built. | 2 |
+| 7 | "Who makes decisions where you live?" instead of "regional": the actual chain for each postcode; elected vs unelected bodies. | **Partly.** /place lists representatives; not the layered chain she describes. | 2 (first) |
+| 8 | Geographical scale explorer: YOU / HOUSEHOLD → YOUR AREA → WIDER AREA → COUNTRY, per issue (Housing first). | **Not done** (the home-page progression links exist; the explorer does not). | 2 |
+| 9 | Elections coming up: more visual (timeline, calendar, map, countdown, election-type icons, level of government). | **Not done.** | 3 |
+| 10 | "What's coming up?" tool: properly interactive, "What can I vote in next?". | **Not done.** Built together with 9. | 3 |
+| 11 | Visual learning in Learn (bill to law, who controls what, FPTP mock election, PR, what happens when you vote, council tax breakdown, MP/councillor/mayor controls, tap definitions, how Parliament works). | **Not done.** | 3 |
+| 12 | Display/accessibility icon a bit smaller. | **Not done.** | 0 |
+| 13 | Welsh interface and Learn, investigate Gaelic; properly reviewed, not machine translation; never translate a candidate's words. | **Partly** (docs/welsh.md handover; no translator). String extraction happens during the copy pass. | 4 |
+| 14 | Less on the main election/candidate experience; progressive disclosure; think of someone who doesn't like politics. | **Not done.** With 4. | 1 |
+| 15 | Keep personalised ordering; personalisation explains relevance, not what should matter. | **Done** — principle recorded in the plan. | — |
+| 16 | Keep pushing "start from what I want to understand". | **Done so far** — principle recorded. | — |
+| 17 | Protect the impartiality structure while becoming more colourful and human. | **Principle recorded.** | — |
+| 18 | Roadmap to an app: website → strong mobile → app → App Store / Google Play. | **Written** (round-8-plan.md, Stage 5). | 5 |
