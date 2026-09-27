@@ -31,3 +31,6 @@
 ## Deep dive, 25 September 2026
 
 A full review of the platform against sixty voter-information tools worldwide and the research evidence, with a 117-item improvements list: [docs/bible/platform-review-2026-09.pdf](../bible/platform-review-2026-09.pdf). The eight underlying reports and the verification pass are in [deep-dive-2026-09/](deep-dive-2026-09/).
+## Public data sources, 27 September 2026
+
+Every useful public data source we could find, about 250 checked across democracy organisations, Parliament and the devolved legislatures, government, regulators and the four statistics offices: what to build from each, what is excluded and why. [11-data-sources.md](11-data-sources.md), with notes per area in [data-sources-2026-09/](data-sources-2026-09/).
