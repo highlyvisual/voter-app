@@ -106,13 +106,12 @@ These are what a Holborn voter will actually touch, so they come first:
     7. Where your council tax goes, from each council's published budget.
     8. How Parliament works.
 
-### Stage 4: alongside Stage 3 (languages)
+### Stage 4: languages (decided by Barny, 27 September)
 
-16. **Her point 13:** Welsh, then Scottish Gaelic.
-    - Stage 1's copy pass already moves every piece of interface text into one file per language, so the technical part (a language switch, a /cy/ address, the right language tag) is a few days' work.
-    - The real work is human translation and review. The Welsh handover note (`docs/welsh.md`) needs a named translator; for Gaelic, Bòrd na Gàidhlig's guidance should be read first.
-    - Candidate material is never translated. A candidate's words stay exactly as published, labelled "Published in English by the candidate", with our interface around it in Welsh.
-    - If a candidate publishes in Welsh, we show their Welsh.
+16. **Her point 13:** no translator, Welsh or Gaelic.
+    - Anything a candidate or party publishes in Welsh or Gaelic is shown in that language, exactly as received, and labelled with its language. Nothing is ever translated.
+    - The interface stays in English for now. Romily asked for a Welsh interface, so round eight (question 23) puts this decision to her.
+    - Moving text into one file during the copy pass still leaves the door open if that changes.
 
 ### Stage 5: from now, in steps (the app)
 
@@ -139,7 +138,6 @@ These are what a Holborn voter will actually touch, so they come first:
   - tick items on the tracker.
 - **Barny:**
   - the switches in item 9;
-  - find a Welsh translator;
   - app-store accounts, when the time comes.
 - **Claude (build sessions):**
   - everything else, in this order;

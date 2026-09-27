@@ -151,7 +151,7 @@ New rule from this round: an item is **Done** only when Romily has seen it on th
 | 10 | "What's coming up?" tool: properly interactive, "What can I vote in next?". | **Not done.** Built together with 9. | 3 |
 | 11 | Visual learning in Learn (bill to law, who controls what, FPTP mock election, PR, what happens when you vote, council tax breakdown, MP/councillor/mayor controls, tap definitions, how Parliament works). | **Not done.** | 3 |
 | 12 | Display/accessibility icon a bit smaller. | **Built 27 Sep, waiting for Romily:** now a small, quiet "Aa" in the header. | 0 |
-| 13 | Welsh interface and Learn, investigate Gaelic; properly reviewed, not machine translation; never translate a candidate's words. | **Partly** (docs/welsh.md handover; no translator). String extraction happens during the copy pass. | 4 |
+| 13 | Welsh interface and Learn, investigate Gaelic; properly reviewed, not machine translation; never translate a candidate's words. | **Decided by Barny, 27 Sep:** no translator; Welsh or Gaelic material is published as received, never translated; interface stays English for now. Put to Romily in round eight, q23. | 4 |
 | 14 | Less on the main election/candidate experience; progressive disclosure; think of someone who doesn't like politics. | **Not done.** With 4. | 1 |
 | 15 | Keep personalised ordering; personalisation explains relevance, not what should matter. | **Done** — principle recorded in the plan. | — |
 | 16 | Keep pushing "start from what I want to understand". | **Done so far** — principle recorded. | — |
