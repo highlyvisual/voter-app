@@ -145,7 +145,7 @@ These are what a Holborn voter will actually touch, so they come first:
 
 ## Progress, 27 September (evening)
 
-Built and live, **waiting for Romily to tick** (the rule: only she marks anything done):
+Live, **for Romily to check** (the rule: only she marks anything done; nothing below needs more building first):
 
 - Stage 0: "My profile" button, smaller "Aa", passed deadlines say "closed", /journey and internal notes gone, privacy wording true.
 - Stage 1, item 5: the home page leads with "Start with you"; the quick postcode lookup is folded underneath.
@@ -155,3 +155,19 @@ Built and live, **waiting for Romily to tick** (the rule: only she marks anythin
 - The review's "make the site true" list: see PROJECT.md, 27 Sep.
 
 Still blocked on her answers: palette (q10–12), the copy pass (q13–14), the council agenda rule (q15), how unelected bodies are shown (q16), replacing the per-topic numbers (q9), where the profile lands (q6).
+
+## Progress, 27 September (later): everything not waiting on her answers
+
+Also live, for Romily to check:
+
+- Stage 2, item 11: "Who makes decisions where you live?" as a stepped chain on every area page, most local first, each step sourced.
+- Stage 2, item 12 (part): the council reached from the postcode.
+- Stage 2, item 13: the scale explorer for Housing, /explore/housing.
+- Stage 5, "Next": the installable web app, with pages kept for use offline.
+- Round five, q8: the photo pop-over on names in the ballot list (computers).
+- From the review: leaflets on the candidate page, the rough monthly figure before the exact one, "not a voting guide" beside the figures, a polling-station finder, and the profile introduction folding away after step one.
+
+Not built, and why:
+
+- Waiting on her answers: palette (q10–12), copy pass (q13–14), which council agenda items to show (q15), transport (q17), election visuals (q18), which Learn visuals first (q19), journey shape (q20), where the profile lands (q6), the per-topic numbers (q9).
+- Not waiting on anyone, but not small: automatic refreshing of the hand-gathered council facts, and the result of each council motion (minutes are not published in a form a program can read reliably). Both are for after 8 October.
