@@ -175,7 +175,9 @@ function Decisions({ rows, outcomes, queued, councillors, councilName, meetingsU
     }
     if (q?.status === "rejected") return <span className="dec-result meta">We couldn&rsquo;t read the result from the minutes. <a href={L(q.minutes_url)} rel="noopener">Minutes</a></span>;
     if (q) return <span className="dec-result meta">Minutes published; result not yet read. <a href={L(q.minutes_url)} rel="noopener">Minutes</a></span>;
-    return <span className="dec-result meta">Minutes not yet published.</span>;
+    // Not "minutes not yet published": the reader may not have reached this council yet, or its server may refuse the
+    // runner, so all we know is that no result has been read.
+    return <span className="dec-result meta">Result not yet read from the minutes.</span>;
   };
   const byMeeting = new Map<number, AgendaRow[]>();
   for (const r of rows) byMeeting.set(r.meeting_id, [...(byMeeting.get(r.meeting_id) ?? []), r]);

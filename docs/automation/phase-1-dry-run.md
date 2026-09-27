@@ -12,7 +12,7 @@ Phase 1 of the automation plan (`docs/automation/phase-1-motion-results.md`): on
 - **`--verify`**: publishes an answered queue row only if the answered sentence is in the passage word for word (whitespace and quotes normalised) and the outcome is in the fixed list; otherwise marks it rejected. Nothing fills the queue yet (phase 1b).
 - **Ledger**: every published result is a `change_log` row (claim_id null, actor "motion outcomes job").
 - **Workflow** `.github/workflows/motion-outcomes.yml`: Mondays 06:20 UTC after the council meetings job, manual dispatch, and on push of the reader; runs `--verify` then the read. Job added to `/status` and `weekly_review.py`.
-- **Council page**: under each past item, "**Result: carried**, 16 July 2026 (86 for, 0 against, 0 abstained). “…sentence…” Minutes"; or "Minutes not yet published"; or "Minutes published; result not yet read" (open queue row); or "We couldn't read the result from the minutes" (rejected). Same wording for every council.
+- **Council page**: under each past item, "**Result: carried**, 16 July 2026 (86 for, 0 against, 0 abstained). “…sentence…” Minutes"; or "Result not yet read from the minutes" (no result read yet, including where the reader has not reached the council); or "Minutes published; result not yet read" (open queue row); or "We couldn't read the result from the minutes" (rejected). Same wording for every council.
 - `docs/data-freshness.md` and `CHANGELOG.md` updated.
 
 ## Dry run (no service key), three councils with published minutes
