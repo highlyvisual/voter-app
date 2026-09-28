@@ -13,17 +13,18 @@ the sitemap, spending and "in numbers" panels, party accounts, the Learn recess 
 record; no console or CSP errors. Details of each part: `docs/automation/phase-1-dry-run.md`,
 `docs/automation/open-data-results.md`, `docs/automation/data-1-7-results.md`.
 
-Not yet switched on, because the steps below haven't been run: council motion results (the phase-1 tables are empty),
-"Do it online" links, devolved-nation deprivation and the climate-emergency quotes. Council pages run from the committed
-register snapshot until the migration is applied.
+Post-merge steps, 28 Sept (Claude in Cowork, on Barny's word):
+- Open-data migration applied through the Supabase connection. Public reading of `council_register` was held off until
+  the first load, so pages kept using the snapshot meanwhile, then granted.
+- "Council register" ran (07:55 UTC): 397 current councils, 382 with pages, 45,119 GOV.UK service links ("Do it online"
+  is live). Its climate-emergency step is paused in `council-register.yml` until Romily answers round eight q28;
+  `council_lines` is empty.
+- Deprivation for Wales, Scotland and NI loaded by the new "Deprivation" workflow: 1,917 + 6,976 + 890 = 9,783 areas.
+- "Data files" ran successfully; figures unchanged, so no pull request.
+- "Motion outcomes" first run in progress at 08:10 UTC; council motion results appear as it settles items.
 
-### Post-merge steps still to do
-1. Apply `scripts/sql/migrations/2026-09-27-council-register.sql` (Claude can, through the Supabase connection, on
-   Barny's word).
-2. `python scripts/loaders/deprivation_nations.py all` once with the service key.
-3. Run the workflows once by hand: "Council register" (this also switches the climate-emergency quotes on, which await
-   Romily's round-eight q28, so hold it or remove the climate step first), "motion-outcomes" and "Data files".
-4. Allow Actions to open pull requests (Settings, Actions, General) for the weekly "Data files" branches.
+Still for Barny: allow Actions to open pull requests (Settings, Actions, General) so weekly "Data files" changes arrive
+as PRs.
 
 ## Outstanding, not blocked (can be built next)
 
@@ -51,7 +52,7 @@ heavy (about 1.5 MB of HTML for Holborn and St Pancras); the unknown-ballot 404 
   whether new publications are drafted into claims automatically.
 
 **On Barny**
-- The post-merge steps above (migration, deprivation loader, workflows).
+- Allow Actions to open pull requests (Settings, Actions, General).
 - Submit the sitemap to Google Search Console and Bing Webmaster Tools (indexing has been on since 28 Sept).
 - The repository is private, so the "source code on GitHub" link in the footer and on /about is a dead end for the
   public, which undercuts the AGPL claim. Make it public (also gives unlimited Actions minutes) or change the wording.
