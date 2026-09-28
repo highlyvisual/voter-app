@@ -1,0 +1,25 @@
+name: Deprivation (Wales, Scotland, NI)
+# Loads each devolved nation's official deprivation index into deprivation_areas (scripts/loaders/deprivation_nations.py):
+# WIMD 2025, SIMD 2020v2, NIMDM 2017. The indices change every few years, so this runs on demand, and on a push that
+# changes the loader. release_watch.py flags a new edition.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["scripts/loaders/deprivation_nations.py", ".github/workflows/deprivation-nations.yml"]
+concurrency: { group: deprivation-nations, cancel-in-progress: false }
+permissions:
+  contents: read
+jobs:
+  load:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - run: python scripts/loaders/deprivation_nations.py all

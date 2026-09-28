@@ -10,6 +10,9 @@ on:
   schedule:
     - cron: "20 6 * * 2"   # Tuesdays 06:20 UTC
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["scripts/loaders/council_finance.py", "scripts/loaders/party_register.py", ".github/workflows/data-files.yml"]
 concurrency: { group: data-files, cancel-in-progress: false }
 permissions:
   contents: write

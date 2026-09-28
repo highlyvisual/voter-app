@@ -10,6 +10,7 @@ on:
   push:
     branches: [main]
     paths: ["scripts/auto/motion_outcomes.py", ".github/workflows/motion-outcomes.yml"]
+# First run after the 28 Sept release is triggered by this file's push; after that, Mondays and on demand.
 concurrency: { group: motion-outcomes, cancel-in-progress: false }
 jobs:
   outcomes:
