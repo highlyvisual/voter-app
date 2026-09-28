@@ -1,0 +1,28 @@
+name: Council register
+# Every UK council from mySociety's UK Local Authorities list (CC BY 4.0) joined to the WhatDoTheyKnow authorities list
+# (CC BY-SA 4.0), with a check against ONS's names-and-codes lists (scripts/auto/council_register.py), then each council's own
+# climate-emergency motion re-read from its own site (scripts/auto/climate_declarations.py). Weekly and on demand.
+on:
+  schedule:
+    - cron: "50 5 * * 1"   # Mondays 05:50 UTC, after the council meetings job
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["scripts/auto/council_register.py", "scripts/auto/climate_declarations.py", ".github/workflows/council-register.yml"]
+concurrency: { group: council-register, cancel-in-progress: false }
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - name: Council register
+        run: python scripts/auto/council_register.py
+      - name: Climate-emergency motions from the councils' own documents
+        run: pip install --quiet pdfminer.six && (sudo apt-get install -y -qq poppler-utils > /dev/null || true) && python scripts/auto/climate_declarations.py

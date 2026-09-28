@@ -12,6 +12,7 @@ import ProfileApply from "@/components/ProfileApply";
 import Link from "next/link";
 import { getBallot } from "@/lib/data";
 import { councilSlugFor } from "@/lib/councils";
+import WriteToThem from "@/components/WriteToThem";
 export const dynamic = "force-dynamic";
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) { return ballotPageTitle((await params).id, "Your area", "/area"); }
 
@@ -27,7 +28,7 @@ export default async function Area({ params, searchParams }: { params: Promise<{
   if (!councilName && ballot.area_lat && ballot.area_lng) {
     try { councilName = (await fetch(`https://api.postcodes.io/postcodes?lon=${ballot.area_lng}&lat=${ballot.area_lat}&limit=1&radius=1000`, { signal: AbortSignal.timeout(5000), next: { revalidate: 604800 } }).then((r) => r.json()))?.result?.[0]?.admin_district ?? null; } catch { councilName = null; }
   }
-  const councilSlug = councilSlugFor(councilName);
+  const councilSlug = await councilSlugFor(councilName);
   return (
     <>
       <Suspense fallback={null}><ProfileApply /></Suspense>
@@ -39,6 +40,7 @@ export default async function Area({ params, searchParams }: { params: Promise<{
       {sp.approx === "1" ? <p className="notice small">We matched your postcode from its centre point because our usual lookup wasn&rsquo;t available. If your postcode sits on a boundary, check your poll card or your council&rsquo;s website to confirm which election you&rsquo;re in.</p> : null}
       <AreaMap ballotId={ballotId} areaName={ballot.area_name} lat={ballot.area_lat} lng={ballot.area_lng} outcode={outcode} levelLabel={ballot.level === "local" ? "ward" : "constituency"} loc={loc} />
       <Suspense fallback={<p className="meta">Looking up who represents you…</p>}><Representatives areaName={ballot.area_name} level={ballot.level} /></Suspense>
+      <WriteToThem />
       {councilSlug ? <p className="small"><Link href={`/council/${councilSlug}`}>What&rsquo;s happening at {councilName} council &rarr;</Link> <span className="meta">{ballot.level === "parliamentary" ? "Council business is kept off this page because this is a vote for an MP; the council has its own page." : "Housing, transport, council tax, environment and schools, from the council\u2019s own papers."}</span></p> : null}
       {loc ? <Suspense fallback={<p className="meta">Working out who represents this postcode…</p>}><Layers lat={loc.lat} lng={loc.lng} electionCouncil={ballot.level === "local" ? ballot.area_name.split(":")[0] : null} /></Suspense> : null}
       {loc ? <Suspense fallback={null}><PlacePanel lat={loc.lat} lng={loc.lng} /></Suspense> : null}

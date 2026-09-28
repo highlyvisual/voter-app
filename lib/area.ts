@@ -77,15 +77,33 @@ export async function claimantFor(gss: string): Promise<Claimant | null> {
   } catch { return null; }
 }
 // English Indices of Deprivation 2025 for the neighbourhood (LSOA) containing a point. England only.
-export type Deprivation = { lsoa: string; name: string; imd: number; income: number; employment: number; education: number; health: number; crime: number; housing: number; living: number };
+export type Deprivation = { code: string; name: string; nation: string; indexName: string; edition: string; publisher: string; total: number; decile: number; rank: number | null; domains: { name: string; decile: number }[] };
+const NATION_OF: Record<string, string> = { E: "England", W: "Wales", S: "Scotland", N: "Northern Ireland" };
+// The official index of each nation, from its own publisher (docs/automation/open-data-mysociety.md, section 3): England's
+// 2025 indices in deprivation_2025; Wales (WIMD 2025), Scotland (SIMD 2020v2) and Northern Ireland (NIMDM 2017) in
+// deprivation_areas. Each index ranks only its own nation's areas, so a decile is never compared across a border. The area
+// code comes from postcodes.io: 2021 LSOAs for England and Wales, 2011 data zones for Scotland (SIMD 2020 uses them), and
+// 2001 Super Output Areas for Northern Ireland (NIMDM 2017 uses them).
 export async function deprivationAt(lat: number, lng: number): Promise<Deprivation | null> {
   try {
     const pc = await fetch(`https://api.postcodes.io/postcodes?lon=${lng}&lat=${lat}&limit=1&radius=300`, { signal: AbortSignal.timeout(5000), next: { revalidate: 604800 } }).then((r) => r.json());
-    const code: string | undefined = pc?.result?.[0]?.codes?.lsoa21 ?? pc?.result?.[0]?.codes?.lsoa;
-    if (!code || !code.startsWith("E01")) return null;
+    const codes = pc?.result?.[0]?.codes ?? {};
+    const country: string | undefined = pc?.result?.[0]?.country;
+    const code: string | undefined = country === "Scotland" ? codes.lsoa11 : country === "Northern Ireland" ? codes.lsoa11 : (codes.lsoa21 ?? codes.lsoa);
+    if (!code) return null;
     const { publicClient } = await import("@/lib/data");
-    const { data } = await publicClient().from("deprivation_2025").select("*").eq("lsoa_code", code).maybeSingle();
+    const db = publicClient();
+    if (code.startsWith("E01")) {
+      const [{ data }, { count }] = await Promise.all([db.from("deprivation_2025").select("*").eq("lsoa_code", code).maybeSingle(), db.from("deprivation_2025").select("lsoa_code", { count: "exact", head: true })]);
+      if (!data) return null;
+      return { code: data.lsoa_code, name: data.lsoa_name, nation: "England", indexName: "English Indices of Deprivation", edition: "2025", publisher: "Ministry of Housing, Communities and Local Government", total: count ?? 33755, decile: data.imd_decile, rank: data.imd_rank,
+        domains: [["Income", data.income_decile], ["Employment", data.employment_decile], ["Education", data.education_decile], ["Health", data.health_decile], ["Crime", data.crime_decile], ["Housing and services", data.housing_services_decile], ["Living environment", data.living_env_decile]].map(([name, decile]) => ({ name: name as string, decile: decile as number })) };
+    }
+    const nation = NATION_OF[code[0]] ?? country;
+    if (!nation || nation === "England") return null;
+    const [{ data }, { count }] = await Promise.all([db.from("deprivation_areas").select("*").eq("area_code", code).maybeSingle(), db.from("deprivation_areas").select("area_code", { count: "exact", head: true }).eq("nation", nation)]);
     if (!data) return null;
-    return { lsoa: data.lsoa_code, name: data.lsoa_name, imd: data.imd_decile, income: data.income_decile, employment: data.employment_decile, education: data.education_decile, health: data.health_decile, crime: data.crime_decile, housing: data.housing_services_decile, living: data.living_env_decile };
+    return { code: data.area_code, name: data.area_name ?? data.area_code, nation: data.nation, indexName: data.index_name, edition: data.edition, publisher: data.publisher, total: count ?? 0, decile: data.overall_decile, rank: data.overall_rank,
+      domains: ((data.domains ?? []) as { name: string; decile: number }[]).map((d) => ({ name: d.name, decile: d.decile })) };
   } catch { return null; }
 }

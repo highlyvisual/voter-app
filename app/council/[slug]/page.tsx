@@ -7,7 +7,11 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { publicClient } from "@/lib/data";
-import { councilBySlug, councilSlugFor, TOPIC_ORDER, type CouncilFact } from "@/lib/councils";
+import { councilBySlug, councilSlugFor, EVERYDAY_SERVICES, REGISTER_ATTRIBUTION, TOPIC_ORDER, type CouncilFact } from "@/lib/councils";
+import WriteToThem from "@/components/WriteToThem";
+import AreaNumbers from "@/components/AreaNumbers";
+import { CouncilSpending, CouncilTaxDevolved } from "@/components/CouncilFinance";
+import { councilFinance } from "@/lib/councilFinance";
 import CiteThis from "@/components/CiteThis";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbs, graph, webPage } from "@/lib/schema";
@@ -21,13 +25,14 @@ export const dynamic = "force-dynamic";
 const TOPIC_LABEL: Record<string, string> = { housing: "Housing", transport: "Transport", council_tax: "Council tax", environment: "Environment", education: "Education" };
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const c = councilBySlug((await params).slug);
+  const c = await councilBySlug((await params).slug);
   return c ? { title: `${c.name}: what's happening where you live`, description: `What ${c.name} council has published on housing, transport, council tax, the environment and schools, with sources.`, alternates: { canonical: `/council/${c.slug}` } } : {};
 }
 
 export default async function CouncilPage({ params }: { params: Promise<{ slug: string }> }) {
-  const c = councilBySlug((await params).slug);
+  const c = await councilBySlug((await params).slug);
   if (!c) notFound();
+  const reg = c.register ?? null;
   FX = await linkFixes();
   const db = publicClient();
   const stripped = c.name.replace(/\s+(Borough|District|City|County|Council)(?=\s|$)/g, "").trim();
@@ -35,7 +40,7 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
   const names = [...new Set([c.name, stripped])];
   const gss = c.gss ?? "__none__";
   const since = new Date(Date.now() - 120 * 86400000).toISOString().slice(0, 10);
-  const [{ data: cllrs }, { data: control }, { data: ctax }, { data: ballotRows }, { data: agenda }, { data: plans }, { data: notices }, { data: schools }, { data: consults }] = await Promise.all([
+  const [{ data: cllrs }, { data: control }, { data: ctax }, { data: ballotRows }, { data: agenda }, { data: plans }, { data: notices }, { data: schools }, { data: consults }, { data: outcomes }, { data: queued }, { data: lines }, { data: svc }] = await Promise.all([
     db.from("councillors").select("name, party_name, ward, next_election").in("council", names).order("ward").order("name"),
     db.from("council_control").select("*").in("authority", names).eq("year", 2026).limit(1).maybeSingle(),
     db.from("council_tax_2026").select("*").in("authority", names).limit(1).maybeSingle(),
@@ -45,14 +50,26 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
     db.from("gazette_notices").select("*").eq("council_slug", c.slug).gte("published", since).order("published", { ascending: false }),
     db.from("school_changes").select("*").or(`district_gss.eq.${gss},la_gss.eq.${gss}`).order("name"),
     db.from("council_consultations").select("*").eq("council_slug", c.slug).order("closes"),
+    db.from("council_item_outcomes").select("meeting_id, item_id, outcome, votes_for, votes_against, abstentions, sentence, minutes_url, method").eq("council_slug", c.slug),
+    db.from("outcome_queue").select("meeting_id, item_id, status, minutes_url").eq("council_slug", c.slug),
+    reg ? db.from("council_lines").select("topic, url, quote, title, doc_date, publisher, dataset, checked_at").eq("council_code", reg.code) : Promise.resolve({ data: [] as LineRow[] }),
+    db.from("council_service_links").select("gss, lgsl, lgil, description, url").in("gss", [c.gss, reg?.gss_code, reg?.ons_gss_code].filter((x): x is string => Boolean(x))),
   ]);
+  // "Do it online": GOV.UK's list of this council's service pages, filtered to the same fixed everyday services in the same
+  // order for every council (EVERYDAY_SERVICES), with the export's own wording as the link text.
+  const fin = councilFinance(c.gss, reg?.gss_code, reg?.ons_gss_code);
+  const byService = new Map(((svc ?? []) as ServiceRow[]).map((r) => [`${r.lgsl}:${r.lgil}`, r]));
+  const services = EVERYDAY_SERVICES.map(([l, i]) => byService.get(`${l}:${i}`)).filter((r): r is ServiceRow => Boolean(r));
+  // Sentences a job found in the council's own documents and checked word for word (section 5 of the open-data brief);
+  // shown only on pages whose facts were not gathered by hand, so the 29 hand-built pages stay as they were.
+  const jobLines = c.handBuilt ? [] : ((lines ?? []) as LineRow[]);
   const fmt = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
   const auto: Record<string, ReactNode> = {
     housing: <PlanLines rows={(plans ?? []) as PlanRow[]} fmt={fmt} />,
     transport: <GazetteLines rows={(notices ?? []) as NoticeRow[]} fmt={fmt} />,
     education: <SchoolLines rows={(schools ?? []) as SchoolRow[]} fmt={fmt} county={c.gss?.startsWith("E10") ?? false} />,
   };
-  const ballots = (ballotRows ?? []).filter((b) => councilSlugFor(b.area_name) === c.slug);
+  const ballots = (await Promise.all((ballotRows ?? []).map(async (b) => ((await councilSlugFor(b.area_name)) === c.slug ? b : null)))).filter((b): b is NonNullable<typeof b> => b !== null);
   const councillors = (cllrs ?? []) as { name: string; party_name: string | null; ward: string; next_election: string | null }[];
   const nextElection = councillors.map((x) => x.next_election).filter(Boolean).sort()[0] ?? null;
   const byParty = new Map<string, number>();
@@ -60,7 +77,11 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
   const parties = [...byParty.entries()].sort((a, b) => b[1] - a[1]);
   const gbp = (n: number) => "£" + Number(n).toLocaleString("en-GB", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const factsFor = (t: string): CouncilFact[] => c.facts.filter((f) => f.topic === t);
-  const links: [string, string | null][] = [["Council plan", c.links.plan], ["Budget", c.links.budget], ["Meeting papers", c.links.meetings], ["Councillors", c.links.councillors], ["Register of interests", c.links.interests], ["Consultations", c.links.consultations]];
+  const links: [string, string | null][] = c.handBuilt
+    ? [["Council plan", c.links.plan], ["Budget", c.links.budget], ["Meeting papers", c.links.meetings], ["Councillors", c.links.councillors], ["Register of interests", c.links.interests], ["Consultations", c.links.consultations]]
+    : [["Council website", c.site || null], ["Publication scheme", reg?.publication_scheme ?? null], ["Disclosure log", reg?.disclosure_log ?? null]];
+  // The same words for every council whose publications have not been read yet (section 2 of the brief): never a guess.
+  const unread = "We haven't read this council's own publications yet.";
 
   return (
     <>
@@ -71,9 +92,29 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
       <p className="eyebrow">Your council</p>
       <h1>{c.name}: what&rsquo;s happening where you live</h1>
       <p className="lede">What the council itself has published on the five things it most shapes for a household: homes, getting about, the bill, the local environment and schools. Each line is quoted from the council&rsquo;s own document, with the link. This page says what was decided or proposed; it never says whether it was right.</p>
-      <p className="meta">Read on {fmt(c.checked)}. Councils publish at different rates and in different places, so &ldquo;nothing found&rdquo; means nothing found, not nothing happening.</p>
+      {c.handBuilt
+        ? <p className="meta">Read on {fmt(c.checked)}. Councils publish at different rates and in different places, so &ldquo;nothing found&rdquo; means nothing found, not nothing happening.</p>
+        : <p className="meta">This page is built from official registers only; the council&rsquo;s own publications have not been read yet, and every line below says so where that leaves a gap.</p>}
+      {reg ? (
+        <p className="small">
+          <b>{reg.official_name}</b>{reg.la_type_name ? <>: {reg.la_type_name}</> : null}{reg.powers ? <> ({reg.powers})</> : null}{reg.nation ? <>, {reg.nation}</> : null}{reg.region && reg.region !== reg.nation ? <>, {reg.region}</> : null}{reg.county_la ? <>; within the county of {reg.county_la}</> : null}{reg.combined_authority ? <>; part of the {reg.combined_authority} combined authority</> : null}.
+          {reg.govuk_tier ? <> GOV.UK lists it as a {reg.govuk_tier} council{reg.govuk_parent_name ? <>, within {reg.govuk_parent_slug ? <Link href={`/council/${reg.govuk_parent_slug}`}>{reg.govuk_parent_name}</Link> : reg.govuk_parent_name}</> : null}.</> : null}
+          {reg.gss_code ? <span className="meta"> ONS code {reg.gss_code}{reg.ons_gss_code ? ` (ONS now lists ${reg.ons_gss_code})` : ""}.</span> : null}
+          {!reg.in_mysociety ? <span className="meta"> {reg.note}</span> : null}
+        </p>
+      ) : null}
 
       <p className="council-links">{links.filter(([, u]) => u).map(([l, u], i) => <span key={l}>{i ? " · " : ""}<a href={L(u!)} rel="noopener">{l}</a></span>)}</p>
+
+      {services.length ? (
+        <section className="council-topic">
+          <h2>Do it online</h2>
+          <ul className="auto-list" style={{ columns: "2 18rem" }}>
+            {services.map((r) => <li key={`${r.lgsl}:${r.lgil}`}><a href={L(r.url)} rel="noopener">{r.description}</a></li>)}
+          </ul>
+          <p className="meta">The council&rsquo;s own service pages as listed by GOV.UK&rsquo;s Local Links Manager (Open Government Licence), refreshed weekly; the same list of everyday services, in the same order, for every council, in GOV.UK&rsquo;s wording.</p>
+        </section>
+      ) : null}
 
       {(consults ?? []).length ? (
         <section className="council-topic">
@@ -94,7 +135,13 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
             <h2>{TOPIC_LABEL[t]}</h2>
             {t === "council_tax" && ctax ? (
               <p className="small">Band D set by {ctax.authority} for 2026&ndash;27: <b>{gbp(Number(ctax.own_band_d))}</b>{ctax.area_band_d ? <> of a {gbp(Number(ctax.area_band_d))} total bill in the area</> : null}. <span className="meta">MHCLG, Council Tax levels set by local authorities in England 2026 to 2027 (Open Government Licence).</span></p>
-            ) : null}
+            ) : t === "council_tax" ? <CouncilTaxDevolved fin={fin} name={c.name} /> : null}
+            {jobLines.filter((l) => l.topic === t).map((l) => (
+              <div key={l.url} className="council-fact">
+                <blockquote className="council-quote">&ldquo;{l.quote}&rdquo;</blockquote>
+                <p className="meta"><a href={L(l.url)} rel="noopener">{l.publisher}</a>{l.doc_date ? `, ${fmt(l.doc_date)}` : ", undated"}{l.title ? `: ${l.title}` : ""}. The council&rsquo;s own document, found through {l.dataset}; the sentence was checked word for word on {fmt(l.checked_at.slice(0, 10))}.</p>
+              </div>
+            ))}
             {found.length ? found.map((f, i) => (
               <div key={i} className="council-fact">
                 <p>{f.summary}</p>
@@ -102,14 +149,18 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
                 <p className="meta"><a href={L(f.url ?? "#")} rel="noopener">{f.publisher}</a>{f.published_on ? `, ${fmt(f.published_on)}` : ", undated"}. Read {fmt(c.checked)}.{f.note ? ` ${f.note}` : ""}</p>
               </div>
             )) : (
-              <p className="empty">{empty?.summary || `Nothing on ${TOPIC_LABEL[t].toLowerCase()} was found on the council's website.`}{empty?.url ? <> <a href={L(empty.url)} rel="noopener" className="meta">Where we looked</a></> : null}</p>
+              <p className="empty">{c.handBuilt ? (empty?.summary || `Nothing on ${TOPIC_LABEL[t].toLowerCase()} was found on the council's website.`) : jobLines.some((l) => l.topic === t) ? "Beyond that document, we haven't read this council's own publications yet." : unread}{c.handBuilt && empty?.url ? <> <a href={L(empty.url)} rel="noopener" className="meta">Where we looked</a></> : null}{!c.handBuilt && c.site ? <> <a href={L(c.site)} rel="noopener" className="meta">The council&rsquo;s website</a></> : null}</p>
             )}
             {auto[t] ?? null}
           </section>
         );
       })}
 
-      <Decisions rows={(agenda ?? []) as AgendaRow[]} councillors={councillors} councilName={c.name} meetingsUrl={c.links.meetings ?? c.site} />
+      <Decisions rows={(agenda ?? []) as AgendaRow[]} outcomes={(outcomes ?? []) as OutcomeRow[]} queued={(queued ?? []) as QueueRow[]} councillors={councillors} councilName={c.name} meetingsUrl={c.links.meetings ?? c.site} />
+
+      <CouncilSpending fin={fin} name={c.name} />
+
+      <AreaNumbers gss={reg?.ons_gss_code ?? c.gss} name={c.name} />
 
       <section className="council-topic">
         <h2>Who runs the council</h2>
@@ -128,14 +179,15 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
           </details>
         ) : null}
         <p className="meta">
-          {c.links.interests ? <>Each councillor&rsquo;s <a href={L(c.links.interests)} rel="noopener">register of interests</a> is on the council&rsquo;s own site, linked rather than summarised, because summarising means choosing. </> : <>The council&rsquo;s register of interests could not be located; the <a href={L(c.links.councillors ?? c.site)} rel="noopener">councillors page</a> is the place to look. </>}
+          {c.links.interests ? <>Each councillor&rsquo;s <a href={L(c.links.interests)} rel="noopener">register of interests</a> is on the council&rsquo;s own site, linked rather than summarised, because summarising means choosing. </> : c.handBuilt ? <>The council&rsquo;s register of interests could not be located; the <a href={L(c.links.councillors ?? c.site)} rel="noopener">councillors page</a> is the place to look. </> : c.site ? <>Each councillor&rsquo;s register of interests is on <a href={L(c.site)} rel="noopener">the council&rsquo;s own website</a>; we have not yet located the page. </> : null}
           Councillors from Open Council Data as recorded after the May 2026 elections; a by-election since then may have changed one seat. Attendance and allowances are not shown.
         </p>
-        {(agenda ?? []).length ? null : <p className="meta">This council&rsquo;s meeting papers could not be read automatically (the site blocks or did not answer), so decisions and motions are not listed here; the <a href={L(c.links.meetings ?? c.site)} rel="noopener">meeting papers</a> hold them.</p>}
+        {(agenda ?? []).length ? null : c.handBuilt ? <p className="meta">This council&rsquo;s meeting papers could not be read automatically (the site blocks or did not answer), so decisions and motions are not listed here; the <a href={L(c.links.meetings ?? c.site)} rel="noopener">meeting papers</a> hold them.</p> : <p className="meta">This council&rsquo;s meeting papers are not yet read automatically, so decisions and motions are not listed here{c.site ? <>; they are on <a href={L(c.site)} rel="noopener">the council&rsquo;s website</a></> : null}.</p>}
+        <WriteToThem council />
       </section>
 
       <CiteThis title={`${c.name}: what's happening where you live`} />
-      <p className="meta">Every council page has the same five headings in the same order. Sources are the council&rsquo;s own publications and official statistics. Corrections: hello@whatsittome.org.</p>
+      <p className="meta">Every council page has the same five headings in the same order. Sources are the council&rsquo;s own publications and official statistics. {REGISTER_ATTRIBUTION} Corrections: hello@whatsittome.org.</p>
     </>
   );
 }
@@ -151,14 +203,40 @@ function describeControl(m: string | null): string {
 }
 
 type AgendaRow = { body: string; meeting_id: number; meeting_date: string; meeting_status: string | null; item_id: number; item_number: string | null; title: string; kind: string; proposer: string | null; url: string; retrieved_at: string };
+// Phase 1 of the automation plan (docs/automation/phase-1-motion-results.md): what the minutes say happened to each item,
+// read by scripts/auto/motion_outcomes.py from fixed forms of words only, with the exact sentence. Items the fixed words
+// could not settle wait in outcome_queue; a rejected one is one the word-for-word check refused.
+type OutcomeRow = { meeting_id: number; item_id: number; outcome: string; votes_for: number | null; votes_against: number | null; abstentions: number | null; sentence: string; minutes_url: string; method: string };
+type QueueRow = { meeting_id: number; item_id: number; status: string; minutes_url: string };
+type ServiceRow = { gss: string; lgsl: number; lgil: number; description: string; url: string };
+type LineRow = { topic: string; url: string; quote: string; title: string | null; doc_date: string | null; publisher: string; dataset: string; checked_at: string };
 
 // Romily, round six (q13): every Full Council motion shown, labelled with who proposed it. The proposer is taken from the
 // council's own agenda text; a councillor's party comes from Open Council Data. Where the agenda does not name the
 // proposer, the line says so and links the papers. Nothing is ranked, selected or matched to a ward (her q12 asked for the
 // ward rule to be rethought).
-function Decisions({ rows, councillors, councilName, meetingsUrl }: { rows: AgendaRow[]; councillors: { name: string; party_name: string | null }[]; councilName: string; meetingsUrl: string }) {
+function Decisions({ rows, outcomes, queued, councillors, councilName, meetingsUrl }: { rows: AgendaRow[]; outcomes: OutcomeRow[]; queued: QueueRow[]; councillors: { name: string; party_name: string | null }[]; councilName: string; meetingsUrl: string }) {
   if (!rows.length) return null;
   const today = new Date().toISOString().slice(0, 10);
+  const outcomeOf = new Map(outcomes.map((o) => [`${o.meeting_id}:${o.item_id}`, o]));
+  const queueOf = new Map(queued.map((q) => [`${q.meeting_id}:${q.item_id}`, q]));
+  const fmtLong = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+  // The same three lines for every council: the result in the minutes' own words, or that the minutes are not out yet, or
+  // that the result could not be read. Nothing is paraphrased.
+  const Result = ({ it }: { it: AgendaRow }) => {
+    if (it.meeting_date >= today) return null;
+    const o = outcomeOf.get(`${it.meeting_id}:${it.item_id}`);
+    const q = queueOf.get(`${it.meeting_id}:${it.item_id}`);
+    if (o) {
+      const votes = o.votes_for !== null && o.votes_against !== null ? ` (${o.votes_for} for, ${o.votes_against} against${o.abstentions !== null ? `, ${o.abstentions} abstained` : ""})` : "";
+      return <span className="dec-result"><b>Result: {o.outcome}</b>, {fmtLong(it.meeting_date)}{votes}. &ldquo;{o.sentence}&rdquo; <a href={L(o.minutes_url)} rel="noopener">Minutes</a></span>;
+    }
+    if (q?.status === "rejected") return <span className="dec-result meta">We couldn&rsquo;t read the result from the minutes. <a href={L(q.minutes_url)} rel="noopener">Minutes</a></span>;
+    if (q) return <span className="dec-result meta">Minutes published; result not yet read. <a href={L(q.minutes_url)} rel="noopener">Minutes</a></span>;
+    // Not "minutes not yet published": the reader may not have reached this council yet, or its server may refuse the
+    // runner, so all we know is that no result has been read.
+    return <span className="dec-result meta">Result not yet read from the minutes.</span>;
+  };
   const byMeeting = new Map<number, AgendaRow[]>();
   for (const r of rows) byMeeting.set(r.meeting_id, [...(byMeeting.get(r.meeting_id) ?? []), r]);
   const meetings = [...byMeeting.values()].map((rs) => ({ date: rs[0].meeting_date, body: rs[0].body, status: rs[0].meeting_status, url: rs[0].url, items: rs.filter((r) => r.kind !== "placeholder") }));
@@ -185,6 +263,7 @@ function Decisions({ rows, councillors, councilName, meetingsUrl }: { rows: Agen
             <li key={it.item_id}>
               {it.kind === "motion" ? <span className="chip none">Motion</span> : null} {it.title}
               {it.kind === "motion" ? <span className="meta"> — {it.proposer ? `from ${proposers(it.proposer)}` : "proposer named in the council's papers"}</span> : null}
+              <Result it={it} />
             </li>
           ))}
         </ul>
@@ -202,7 +281,7 @@ function Decisions({ rows, councillors, councilName, meetingsUrl }: { rows: Agen
         <ul className="dec-list">{recent.slice(0, 3).map((m) => <Meeting key={m.url} m={m} />)}</ul>
         {recent.length > 3 ? <details className="more"><summary className="meta">{recent.length - 3} earlier meetings</summary><ul className="dec-list">{recent.slice(3).map((m) => <Meeting key={m.url} m={m} />)}</ul></details> : null}
       </>) : null}
-      <p className="meta">From the council&rsquo;s own <a href={L(meetingsUrl)} rel="noopener">meeting papers</a> (Modern.gov){retrieved ? `, read ${new Date(retrieved).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}` : ""}. Refreshed weekly. Results of motions are in each meeting&rsquo;s minutes, linked from the date.</p>
+      <p className="meta">From the council&rsquo;s own <a href={L(meetingsUrl)} rel="noopener">meeting papers</a> (Modern.gov){retrieved ? `, read ${new Date(retrieved).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}` : ""}. Refreshed weekly. Once a meeting&rsquo;s minutes are published, each item shows the result in the minutes&rsquo; own words (carried, lost, withdrawn, deferred, noted or agreed), the recorded vote where the minutes give one, and a link to the minutes; where those words are not found, the page says so rather than guessing.</p>
     </section>
   );
 }

@@ -1,7 +1,7 @@
 # Automatic council data
 
 The plan (27 Sept 2026) is a Claude Doc: https://claude.ai/code/artifact/b79953ee-38f7-4db4-8c2b-b0fd7ae428ed
-This folder holds the build briefs, one per phase. The short version of the plan:
+This folder holds the build briefs, one per phase, and the results of each build (`*-results.md`, `*-dry-run.md`). The short version of the plan:
 
 1. **Motion results** (phase 1, built 27 Sept on `automation/phase-1`, PR pending): read Full Council and Cabinet minutes and show each motion's result, with
    the exact sentence. Brief: `phase-1-motion-results.md`.

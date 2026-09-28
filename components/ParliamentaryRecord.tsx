@@ -11,6 +11,7 @@ export default function ParliamentaryRecordView({ rec, note }: { rec: Parliament
   return (
     <section className="slot record">
       <h4>Parliamentary record</h4>
+      {rec.extras?.synopsis ? <p className="small">{rec.extras.synopsis} <span className="meta">(Parliament&rsquo;s own summary.)</span></p> : null}
       <p className="meta">UK Parliament open data (Members, Commons Votes, Hansard). {note ? note + "." : ""} Most recent {rec.divisions.length} divisions sampled; the full record is linked below.</p>
       <ul className="small" style={{ paddingLeft: "1.1rem", margin: "0.3rem 0" }}>
         {rec.memberships.slice(0, 4).map((m, i) => <li key={i}>{m.house === "Commons" ? "MP for" : "Member of the Lords,"} {m.from ?? ""}: {fmt(m.start)} to {m.end ? fmt(m.end) : "present"}</li>)}
@@ -44,6 +45,22 @@ export default function ParliamentaryRecordView({ rec, note }: { rec: Parliament
           </table></div>
           <p className="meta">Every division for this member: <a href={`https://members.parliament.uk/member/${rec.memberId}/voting`} rel="noopener">members.parliament.uk</a>. Context tags come from the division title; "Free vote" is never asserted because the record does not say.</p>
         </details>
+        {rec.extras && rec.extras.edms.total ? (
+          <details className="tab"><summary>Early day motions ({rec.extras.edms.total.toLocaleString("en-GB")})</summary>
+            <ul className="small" style={{ marginTop: "0.4rem" }}>
+              {rec.extras.edms.items.map((e) => <li key={e.id}><a href={`https://edm.parliament.uk/early-day-motion/${e.id}`} rel="noopener">{e.title}</a> <span className="meta">— EDM {e.number}, tabled {fmt(e.date)}{e.prayer ? "; a prayer against a statutory instrument" : ""}</span></li>)}
+            </ul>
+            <p className="meta">The most recent early day motions this member tabled or signed, by the titles Parliament gives them. An early day motion puts a view on record; very few are debated. <a href={`https://members.parliament.uk/member/${rec.memberId}/earlydaymotions`} rel="noopener">All of them</a>.</p>
+          </details>
+        ) : null}
+        {rec.extras && rec.extras.questions.total ? (
+          <details className="tab"><summary>Written questions ({rec.extras.questions.total.toLocaleString("en-GB")})</summary>
+            <ul className="small" style={{ marginTop: "0.4rem" }}>
+              {rec.extras.questions.items.map((q) => <li key={q.id} style={{ marginBottom: "0.3rem" }}>&ldquo;{q.text}&rdquo; <span className="meta">— {fmt(q.date)}{q.to ? `, to ${q.to}` : ""}. <a href={`https://questions-statements.parliament.uk/written-questions/detail/${q.date}/${q.uin}`} rel="noopener">Question and answer</a></span></li>)}
+            </ul>
+            <p className="meta">The member&rsquo;s most recent written questions to the government, in their own words. <a href={`https://members.parliament.uk/member/${rec.memberId}/writtenquestions`} rel="noopener">All of them</a>.</p>
+          </details>
+        ) : null}
         {rec.interests && rec.interests.length ? (
           <details className="tab"><summary>Declared interests ({rec.interestsTotal})</summary>
             <ul className="small" style={{ marginTop: "0.4rem" }}>

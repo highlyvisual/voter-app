@@ -1,5 +1,5 @@
 import { countClaimsPerBallot, listArchivedBallots, listBallots, listFaceTiles } from "@/lib/data";
-import { listCouncils } from "@/lib/councils";
+import { listAllCouncils } from "@/lib/councils";
 import { electionName } from "@/lib/schema";
 
 // A plain-text guide to the site for AI assistants (https://llmstxt.org), built from the live data every hour so the list
@@ -11,7 +11,7 @@ const plural = (n: number, w: string) => `${n} ${w}${n === 1 ? "" : "s"}`;
 const long = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 
 export async function GET() {
-  const [live, archived, perBallot, tiles] = await Promise.all([listBallots(), listArchivedBallots(), countClaimsPerBallot(), listFaceTiles()]);
+  const [live, archived, perBallot, tiles, councils] = await Promise.all([listBallots(), listArchivedBallots(), countClaimsPerBallot(), listFaceTiles(), listAllCouncils()]);
   const cands: Record<string, number> = {};
   for (const t of tiles) cands[t.ballot] = (cands[t.ballot] ?? 0) + 1;
   const link = (id: string) => `${U}/ballot/${encodeURIComponent(id)}`;
@@ -62,11 +62,11 @@ export async function GET() {
     "",
     ...live.map((b) => `- [${electionName(b)}, ${long(b.poll_date)}](${link(b.ballot_paper_id)}): ${plural(cands[b.ballot_paper_id] ?? 0, "candidate")}, ${plural(perBallot[b.ballot_paper_id] ?? 0, "sourced position")}. [Side by side](${link(b.ballot_paper_id)}/compare)`),
     "",
-    `## Councils (${listCouncils().length})`,
+    `## Councils (${councils.length})`,
     "",
-    "What each council has itself published on housing, transport, council tax, the environment and schools, and its recent Full Council motions.",
+    "A page for every UK council: its own website, who runs it and the councillors, and, where read, what it has itself published on housing, transport, council tax, the environment and schools, with its recent Full Council motions and their results. Council list: mySociety, UK Local Authorities (CC BY 4.0) and WhatDoTheyKnow authorities (CC BY-SA 4.0).",
     "",
-    ...listCouncils().map((c) => `- [${c.name}](${U}/council/${c.slug})`),
+    ...councils.map((c) => `- [${c.name}](${U}/council/${c.slug})`),
     "",
     "## Open data",
     "",

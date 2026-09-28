@@ -22,6 +22,7 @@ export default async function Data() {
       }, breadcrumbs([["Open data", "/data"]]))} />
       <h1>Open data</h1>
       <p className="lede">Everything on this site is reusable under CC BY-SA 4.0 (candidate and election data from Democracy Club is CC BY 4.0; boundaries and statistics are Open Government Licence).</p>
+      <p className="small">Council list: mySociety, UK Local Authorities (CC BY 4.0) and WhatDoTheyKnow authorities (CC BY-SA 4.0). Deprivation: English Indices of Deprivation 2025 (MHCLG), Welsh Index of Multiple Deprivation 2025 (Welsh Government), Scottish Index of Multiple Deprivation 2020v2 (Scottish Government) and Northern Ireland Multiple Deprivation Measure 2017 (NISRA), all Open Government Licence.</p>
       <h2>Endpoints</h2>
       <ul>
         <li><code>/ledger/snapshot</code>: the whole ledger (claims, sources, change log, receipt grid) as JSON with a SHA-256.</li>

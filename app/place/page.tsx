@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import AreaMap from "@/components/AreaMap";
 import AreaPanel from "@/components/AreaPanel";
 import Layers from "@/components/Layers";
+import WriteToThem from "@/components/WriteToThem";
 import PlacePanel from "@/components/PlacePanel";
 import NextElections from "@/components/NextElections";
 import { listBallots } from "@/lib/data";
@@ -42,6 +43,7 @@ export default async function Place({ searchParams }: { searchParams: Promise<Re
           <Suspense fallback={<p className="meta">Working out who makes decisions for this postcode…</p>}>
             <Layers lat={loc.lat} lng={loc.lng} electionCouncil={null} />
           </Suspense>
+          <WriteToThem />
           <h2>The ground around you</h2>
           <AreaMap areaName={area.constituency ?? outcode ?? "your area"} lat={loc.lat} lng={loc.lng} outcode={outcode} levelLabel="constituency" loc={loc} />
           <Suspense fallback={null}><PlacePanel lat={loc.lat} lng={loc.lng} /></Suspense>

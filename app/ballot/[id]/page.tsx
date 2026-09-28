@@ -35,7 +35,7 @@ import Feedback from "@/components/Feedback";
 import SeatContext from "@/components/SeatContext";
 import SystemExplainer from "@/components/SystemExplainer";
 import OfficeExplainer from "@/components/OfficeExplainer";
-import { previousResult } from "@/lib/democracyclub";
+import { electionTimetable, previousResult } from "@/lib/democracyclub";
 import { gridKey, householdComplete, householdFromParams } from "@/lib/household";
 
 export const dynamic = "force-dynamic";
@@ -73,8 +73,9 @@ export default async function BallotPage({ params, searchParams }: Props) {
   const [candidates, claims, receipts, previous, ownResult] = await Promise.all([
     listCandidates(ballotId), listVerifiedClaims(ballotId), key ? getReceipts(key) : Promise.resolve([]),
     prevId ? previousResult(prevId) : Promise.resolve(null),
-    ballot.archived ? previousResult(ballotId) : Promise.resolve(null),
+    ballot.archived || ballot.poll_date <= new Date().toISOString().slice(0, 10) ? previousResult(ballotId) : Promise.resolve(null),
   ]);
+  const timetable = ballot.archived ? null : await electionTimetable(ballotId);
   const prevLabel = prevId ? (prevId.includes("2024-07-04") ? "general election, 4 July 2024" : `election of ${fmt(prevId.slice(-10))}`) : "";
 
   const covered = candidates.filter((c) => claimsFor(c, claims).length > 0).length;
@@ -139,7 +140,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
           </section>
           {!ballot.archived ? (
             <div id="dates" style={{ scrollMarginTop: "6rem" }}>
-              <Deadlines pollDate={ballot.poll_date} noticeUrl={ballot.official_sopn_url} gss={ballot.area_gss} level={ballot.level} />
+              <Deadlines pollDate={ballot.poll_date} noticeUrl={ballot.official_sopn_url} gss={ballot.area_gss} level={ballot.level} timetable={timetable} />
             </div>
           ) : null}
           <details className="rail-more">
@@ -163,7 +164,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
       <SectionNav items={([["ballot-paper", "Candidates"], ["household", "Household"], ["compare", "Compare"], ["map", "Map"], ["area", "Area"], ["sources-heading", "Sources"]] as [string, string][]).filter(([id]) => !(ballot.archived && id === "area"))} />
 
       {ballot.archived && ownResult ? <SinceThen archiveId={ballotId} winnerParty={ownResult.rows[0]?.party ?? null} /> : null}
-      {ballot.archived && ownResult ? <LastTime result={ownResult} label={`the result, ${fmt(ballot.poll_date)}`} open /> : null}
+      {ownResult ? <LastTime result={ownResult} label={`the result, ${fmt(ballot.poll_date)}`} open /> : null}
 
 
       <div id="household" className="household-zone" style={{ scrollMarginTop: "6rem" }}><div><HouseholdForm household={household} complete={complete} />
