@@ -36,7 +36,7 @@ import SeatContext from "@/components/SeatContext";
 import SystemExplainer from "@/components/SystemExplainer";
 import OfficeExplainer from "@/components/OfficeExplainer";
 import { electionTimetable, previousResult } from "@/lib/democracyclub";
-import { gridKey, householdComplete, householdFromParams } from "@/lib/household";
+import { gridKey, householdComplete, householdFromParams, modelCaveat } from "@/lib/household";
 
 export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ id: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
@@ -105,9 +105,13 @@ export default async function BallotPage({ params, searchParams }: Props) {
       {!ballot.archived ? <Journey ballotId={ballotId} current="" qs={qs} /> : null}
       <div className="ballot-masthead">
         <div className="masthead-main">
-          <p className="lede">{candidates.length} {candidates.length === 1 ? "candidate" : "candidates"}{ballot.winner_count > 1 ? ` for ${ballot.winner_count} seats` : ""} {ballot.archived ? "stood" : candidates.length === 1 ? "is standing" : "are standing"} here{ballot.uncontested || ballot.cancelled ? "" : `, polling day ${longDate(ballot.poll_date)}`}. The same page for each of them, in the order you will see on the ballot paper. Read them all, or start with the one you have heard of.</p>
+          {!ballot.archived && !ballot.candidates_locked ? (
+            <p className="lede">{candidates.length === 0 ? "The candidates haven't been confirmed yet." : `${candidates.length} ${candidates.length === 1 ? "person has" : "people have"} said they are standing so far, but the list isn't confirmed yet.`} Polling day is {longDate(ballot.poll_date)}. Once nominations close, a few weeks before polling day, the council publishes the official list (the Statement of Persons Nominated), and this page updates from it. Everyone who stands then gets the same page, in the order you will see on the ballot paper.</p>
+          ) : (
+            <p className="lede">{candidates.length} {candidates.length === 1 ? "candidate" : "candidates"}{ballot.winner_count > 1 ? ` for ${ballot.winner_count} seats` : ""} {ballot.archived ? "stood" : candidates.length === 1 ? "is standing" : "are standing"} here{ballot.uncontested || ballot.cancelled ? "" : `, polling day ${longDate(ballot.poll_date)}`}. The same page for each of them, in the order you will see on the ballot paper. Read them all, or start with the one you have heard of.</p>
+          )}
           <div className="overview" aria-label="This election at a glance">
-            <div><b><CountUp value={candidates.length} /></b><span>candidates{ballot.winner_count > 1 ? ` for ${ballot.winner_count} seats` : " for one seat"}</span></div>
+            <div><b><CountUp value={candidates.length} /></b><span>{candidates.length === 1 ? "candidate" : "candidates"}{!ballot.archived && !ballot.candidates_locked ? " so far" : ""}{ballot.winner_count > 1 ? ` for ${ballot.winner_count} seats` : " for one seat"}</span></div>
             <div><b><CountUp value={claims.length} /></b><span>sourced positions</span></div>
             <div><b><CountUp value={covered} /></b><span>with something published</span></div>
             <div><b><CountUp value={new Set(claims.map((c) => c.sources?.id).filter(Boolean)).size} /></b><span>named sources</span></div>
@@ -129,7 +133,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
           {ballot.cancelled && !ballot.uncontested ? <div className="notice"><p><strong>Cancelled.</strong> The council has cancelled this poll.</p></div> : null}
           {!ballot.archived ? <SeatContext result={previous} label={prevLabel} seats={ballot.winner_count} /> : null}
           <p className="cta-row">
-            <a href="#ballot-paper" className="button">See the {candidates.length} candidates</a>
+            {candidates.length ? <a href="#ballot-paper" className="button">{candidates.length === 1 ? "See the candidate" : `See the ${candidates.length} candidates`}</a> : null}
             <Link href={`/ballot/${encodeURIComponent(ballotId)}/quick`} className="quiet-link">In a hurry? Two-minute guide →</Link>
           </p>
         </div>
@@ -181,14 +185,14 @@ export default async function BallotPage({ params, searchParams }: Props) {
 
       {isLocal ? (
         <div className="notice small">
-          <p className="meta" style={{ margin: "0 0 0.4rem" }}>In this ward {candidates.length} candidates from {new Set(candidates.map((c) => c.party_ec_id === "ynmp-party:2" ? `ind-${c.id}` : c.party_ec_id)).size} parties or independent slots are standing. Parties do not stand everywhere; <Link href="/about/parties-standing">here is how to find out whether yours stands nearby</Link>.</p>
+          <p className="meta" style={{ margin: "0 0 0.4rem" }}>In this ward {candidates.length} {candidates.length === 1 ? "candidate" : "candidates"} from {((n) => `${n} ${n === 1 ? "party or independent slot is" : "parties or independent slots are"}`)(new Set(candidates.map((c) => c.party_ec_id === "ynmp-party:2" ? `ind-${c.id}` : c.party_ec_id)).size)} standing. Parties do not stand everywhere; <Link href="/about/parties-standing">here is how to find out whether yours stands nearby</Link>.</p>
           <p><strong>This is a council seat.</strong> A councillor's win changes what the council decides: council tax, housing repairs and allocations, planning, social care, schools admissions, parking, bins, libraries. It does not change national tax, benefits or NHS policy, so this page shows only positions published for this council election, and no national party pledges are implied.</p>
         </div>
       ) : null}
-      {complete && !isLocal ? <CurrentLaw rows={receipts} complete={complete} anyModelled={anyModelled} baselineId={baselineId} year={ballot.archived ? year : undefined} /> : null}
+      {complete && !isLocal ? <CurrentLaw rows={receipts} complete={complete} anyModelled={anyModelled} baselineId={baselineId} caveat={modelCaveat(household)} year={ballot.archived ? year : undefined} /> : null}
 
       <div className="coverage" style={{ marginTop: "1.75rem" }} aria-label="Coverage">
-        <span>Sourced positions found for {covered} of {candidates.length} candidates</span>
+        <span>Sourced positions found for {covered} of {candidates.length} {candidates.length === 1 ? "candidate" : "candidates"}</span>
         <div className="bar" aria-hidden><span style={{ width: `${candidates.length ? (100 * covered) / candidates.length : 0}%` }} /></div>
       </div>
       {covered === 0 ? (

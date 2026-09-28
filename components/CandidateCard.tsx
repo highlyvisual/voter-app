@@ -1,6 +1,6 @@
 import { topicsForHousehold } from "@/lib/topicOrder";
 import { TOPICS, TOPIC_SHORT, effectivePartyId, type Candidate, type Claim, type ReceiptRow } from "@/lib/data";
-import { claimApplies, type Household } from "@/lib/household";
+import { claimApplies, modelCaveat, type Household } from "@/lib/household";
 import { layerOf, precisionLabel, splitForHousehold, LEGEND } from "@/lib/claims";
 import { interestsFor, parliamentExtras, parliamentRecord, withPartySplits } from "@/lib/parliament";
 import ParliamentaryRecordView from "@/components/ParliamentaryRecord";
@@ -225,7 +225,7 @@ export default async function CandidateCard({
                       {t.hidden.length ? <p className="meta">{t.hidden.length} other {t.hidden.length === 1 ? "position applies" : "positions apply"} only to different households.</p> : null}
                     </>
                   )}
-                  {key === "money_and_cost_of_living" && complete ? <Receipt rows={receipts} partyEcId={effectivePartyId(candidate)} verifiedSourceIds={verifiedSourceIds} baselineId={baselineId} /> : null}
+                  {key === "money_and_cost_of_living" && complete && !modelCaveat(household) ? <Receipt rows={receipts} partyEcId={effectivePartyId(candidate)} verifiedSourceIds={verifiedSourceIds} baselineId={baselineId} /> : null}
                 </div>
               );
             })}</div>

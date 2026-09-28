@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-09-28 — Fixes from the persona test (30 made-up people, Romily's idea)
+Report: `docs/testing/persona-test-2026-09-28.md`; harness to re-run it: `docs/testing/persona-harness/`.
+- Enter (or a phone's Go key) in the postcode box on /start no longer submits the whole form and skips the questions; it does what Next does.
+- Typing a postcode before the page's script has loaded no longer leaves Next greyed out: whatever is in the box is picked up, and Next is never disabled.
+- Screen readers: focus moves to each new question's heading, so it is read out.
+- The postcode is checked on step 1 (format, then postcodes.io, via a POST server action): a typo, half a postcode or a Channel Islands / Isle of Man postcode gets a message there, not after nine questions. If the final lookup still fails, people go back to /start with their answers kept (never the postcode).
+- Money figures are withheld, with the reason and GOV.UK sources, for a household on a visa or seeking asylum and for a single full-time student with no children: most such households can't claim Universal Credit, which the model counts.
+- Ballots whose candidates Democracy Club hasn't locked say the list isn't confirmed yet instead of "0 candidates are standing"; "1 candidates" plurals fixed.
+
 ## 2026-09-19 — Tier A from the comparator brief
 - WP-A1: every view defaults to every candidate in ballot-paper order; "Showing N of M. Show all." when a subset is chosen.
 - WP-A2: `precision` on claims (measurable/aspiration) with the "Stated aim" label; `/coverage/[ballot]` grid of sourced counts per party × topic; `docs/claims-style-guide.md`.

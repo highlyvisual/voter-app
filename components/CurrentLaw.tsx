@@ -1,4 +1,5 @@
 import type { ReceiptRow } from "@/lib/data";
+import type { ModelCaveat } from "@/lib/household";
 
 const gbp = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", maximumFractionDigits: 0 });
 // The review (25 Sept) found the lines did not add up to the total: PolicyEngine's net income counts earnings and every
@@ -16,8 +17,15 @@ const LABELS: Record<string, string> = {
   household_net_income: "Net income after tax and benefits",
 };
 
-export default function CurrentLaw({ rows, complete, anyModelled, baselineId = "baseline", year }: { rows: ReceiptRow[]; complete: boolean; anyModelled: boolean; baselineId?: string; year?: string }) {
+export default function CurrentLaw({ rows, complete, anyModelled, baselineId = "baseline", year, caveat = null }: { rows: ReceiptRow[]; complete: boolean; anyModelled: boolean; baselineId?: string; year?: string; caveat?: ModelCaveat | null }) {
   if (!complete) return null;
+  if (caveat) return (
+    <section className="receipt" aria-labelledby="current-law">
+      <h2 id="current-law" style={{ marginTop: "1.25rem" }}>A household like this one: no money figures</h2>
+      <p className="meta">{caveat.text}</p>
+      <p className="meta" style={{ margin: "0.3rem 0 0" }}>Sources: {caveat.sources.map((s, i) => <span key={s.url}>{i ? " · " : ""}<a href={s.url} rel="noopener">{s.label}</a></span>)}. Candidates' published positions on money are still shown in full below.</p>
+    </section>
+  );
   const baseline = rows.find((r) => r.reform_set_id === baselineId);
   const other = rows.find((r) => r.reform_set_id === (baselineId === "baseline" ? "baseline-2024" : "baseline"));
   if (!baseline) return <p className="muted small">No calculation is available for this combination of bands.</p>;
@@ -49,6 +57,7 @@ export default function CurrentLaw({ rows, complete, anyModelled, baselineId = "
           <li>One representative age per band (17, 21, 30, 42, 57, 70). "Youngest under 5" is one child aged 3; "school age" is one child aged 10. An adult dependant is not modelled.</li>
           <li>Rent: private renters £15,600 a year (single, no children) or £21,600; social renters £9,000; owners nil. Mortgage interest is not modelled. Region: London.</li>
           <li>Universal Credit and Child Benefit are claimed where there is entitlement. Student finance is outside the model.</li>
+          <li>No figures are shown for a household on a visa or seeking asylum, or for a single full-time student with no children: most such households can't claim Universal Credit, which the model would otherwise count.</li>
           <li>Every figure is reproducible from the open-source code and model version shown.</li>
         </ul>
       </details>

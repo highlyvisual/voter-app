@@ -187,3 +187,25 @@ export function gridKey(h: Household): string | null {
     return `${k}=${v}`;
   }).join("|");
 }
+
+// Persona test (28 Sept 2026): the PolicyEngine grid assumes Universal Credit is claimed wherever the bands give an
+// entitlement, but two answers mean most such households cannot claim it at all. Rather than show a Universal Credit
+// figure they would not get, the money figures are withheld for them, with the reason and its sources.
+//   Visa or asylum: GOV.UK lists Universal Credit as a public fund, and most visas carry "no recourse to public funds";
+//     people without permission to stay (including those awaiting an asylum decision) have no recourse either, and may get asylum support.
+//   Full-time students: GOV.UK's eligibility page allows them only in listed cases (a partner who is eligible, a child
+//     they are responsible for, State Pension age, and a few others), so a single student with no child is withheld.
+export type ModelCaveat = { reason: "visa" | "student"; text: string; sources: { label: string; url: string }[] };
+export const UC_ELIGIBILITY = { label: "GOV.UK, Universal Credit: eligibility", url: "https://www.gov.uk/universal-credit/eligibility" };
+export const ASYLUM_SUPPORT = { label: "GOV.UK, Asylum support", url: "https://www.gov.uk/asylum-support" };
+export const PUBLIC_FUNDS = { label: "GOV.UK, Public funds (Home Office guidance)", url: "https://www.gov.uk/government/publications/public-funds--2/public-funds" };
+export function modelCaveat(h: Household): ModelCaveat | null {
+  if (h.visa === "yes") {
+    return { reason: "visa", sources: [PUBLIC_FUNDS, ASYLUM_SUPPORT], text: "We don't show money figures for this household. The model assumes Universal Credit is claimed wherever the income bands allow it, but Universal Credit is a “public fund”, and most UK visas don't allow claiming public funds. People waiting for an asylum decision can't claim them either, and may get asylum support (housing and money) instead. A figure here could show money this household would not get." };
+  }
+  const student = h.student === "university" || h.student === "school_college" || h.employment === "student" || h.employment === "student_working";
+  if (student && h.children === "none" && h.household !== "couple" && h.age_band !== "65_plus") {
+    return { reason: "student", sources: [UC_ELIGIBILITY], text: "We don't show money figures for this household. The model assumes Universal Credit is claimed wherever the income bands allow it, but most full-time students can't claim it: GOV.UK lists the exceptions, such as living with a partner who is eligible or being responsible for a child. A figure here could show money this household would not get." };
+  }
+  return null;
+}

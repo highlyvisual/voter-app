@@ -68,7 +68,7 @@ export default function BallotTools({ counts, total }: { counts: Record<number, 
           <button type="button" className="secondary small" onClick={clear}>Show all {total}</button>
         </div>
       ) : null}
-      <p className="meta" aria-live="polite"><span className="result-count">Showing {shown} of {total} candidates.</span> {filtered ? `${total - shown} hidden by your filters — hiding is a view, not a judgement; everyone remains on the ballot paper.` : "Everyone on the ballot, in ballot-paper order."}</p>
+      <p className="meta" aria-live="polite"><span className="result-count">Showing {shown} of {total} {total === 1 ? "candidate" : "candidates"}.</span> {filtered ? `${total - shown} hidden by your filters — hiding is a view, not a judgement; everyone remains on the ballot paper.` : "Everyone on the ballot, in ballot-paper order."}</p>
       {filtered && shown === 0 ? (
         <div className="deadend">
           <p style={{ margin: 0 }}><strong>Nothing matches that here.</strong> That may mean no candidate has published on it, rather than that it does not matter.</p>
