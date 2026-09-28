@@ -89,6 +89,8 @@ Dates are when the decision was made or relayed. Newest last.
 | 27 Sep | Barny | Use mySociety open data: a register and page for every UK council, deprivation for Wales, Scotland and NI from each nation's own official index (not mySociety's composite, which uses older editions and modelled scores), a WriteToThem link without the postcode. Built by Claude Code on `automation/open-data`. |
 | 27 Sep | Barny | Search every public data source for anything usable. About 250 checked; results and a build order in research paper 11. Sources that score or rate (Ofsted, CQC, police inspection grades, DfT road ratings, fact-check verdicts, polls) are excluded, as are campaigning aggregators where a primary source exists and candidates' company directorships. |
 | 28 Sep | Romily | Not taking the Democracy Club call on 28 Sep. The other offered slot is 7–9 Oct. |
+| 28 Sep | Barny | Search indexing switched on: ALLOW_INDEXING=1 set in Netlify and redeployed (deploy 6aba00a3, same code as 27 Sep). |
+| 28 Sep | Barny | Build items 1–7 of the data-source list. Built by Claude (Cowork) on `automation/data-1-7`, stacked on open data, not merged. New data lives in JSON files in `lib/` refreshed weekly by pull request, so a data change never deploys by itself. PolicyEngine is pinned at 2.98.0 and checked weekly against 15 GOV.UK rates. |
 
 ## Open decisions (waiting on a person)
 

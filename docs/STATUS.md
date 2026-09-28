@@ -1,11 +1,14 @@
 # Status, 28 September 2026
 
-Where everything stands after the 27 September build sessions (Claude in Cowork and Claude Code). Replace this file
+Where everything stands after the 27 and 28 September build sessions (Claude in Cowork and Claude Code). Replace this file
 rather than adding to it; history is in git, `CHANGELOG.md` and the decisions log in `docs/PROJECT.md`.
 
 ## Live on whatsittome.org
 
-Last deploy `6ab92f78a04142ac5c1209d5` (27 Sept), code `6bf2060`. Everything on `main` after that is documentation only.
+Last deploy `6aba00a3` (28 Sept), the same code as 27 Sept (`6bf2060`) with `ALLOW_INDEXING=1` set in Netlify: search
+engines may now index the site (robots meta "index, follow"; robots.txt lists the sitemap). Everything on `main` after
+that is documentation only. Next step for search: submit https://whatsittome.org/sitemap.xml in Google Search Console
+and Bing Webmaster Tools.
 
 - Round eight, everything not waiting on Romily: three layers for every claim, the home page leading with the profile,
   "Who makes decisions where you live?", the housing scale explorer, the installable web app, and the rest listed in
@@ -19,10 +22,10 @@ Last deploy `6ab92f78a04142ac5c1209d5` (27 Sept), code `6bf2060`. Everything on 
 - Database: the phase-1 tables `council_item_outcomes` and `outcome_queue` were applied to Supabase on 27 Sept. They
   are empty until the phase-1 job runs.
 
-## Built, not merged (two pull requests to open)
+## Built, not merged (three pull requests to open)
 
 The GitHub login on the Mac can't see the private repository, so the PRs are opened from the compare pages. Merge in
-this order; neither is deployed.
+this order (each is cut from the one before); none is deployed.
 
 1. **Phase 1, council motion results** — `automation/phase-1`, head `b308c27`.
    https://github.com/highlyvisual/voter-app/compare/main...automation/phase-1?expand=1
@@ -44,22 +47,30 @@ this order; neither is deployed.
    `python scripts/loaders/deprivation_nations.py all` once with the service key, and run the "Council register"
    workflow by hand. Until the migration is applied the pages fall back to `scripts/sql/council_register.json`, so
    nothing breaks.
+3. **Data sources, items 1 to 7** — `automation/data-1-7`, head `28b55c3` (cut from open data).
+   https://github.com/highlyvisual/voter-app/compare/automation/open-data...automation/data-1-7?expand=1
+   Description: `docs/automation/data-1-7-results.md`. No migration.
+   - Election pages: deadlines from Democracy Club's timetable; results with electors and spoilt ballots from polling
+     day.
+   - Council pages: "{Council} in numbers" (14 ONS indicators, the same for every council); "What the council plans to
+     spend, 2026–27" for 371 councils in each government's own headings; council tax for Wales and Scotland.
+   - Party pages: the Electoral Commission register entry, latest accounts, loans in the last four quarters and 2024
+     general election spending, for all 398 registered parties.
+   - Money layer: PolicyEngine pinned at 2.98.0 (reproduces the live grid exactly); a weekly check of 15 GOV.UK rates
+     against the model (all agree today); an on-demand recompute job.
+   - Candidate records: Parliament's own summary, early day motions and written questions for matched MPs.
+   - Learn: "Parliament now" (recess) and the Representation of the People Bill's stages.
+   Three of these (area numbers, council spending, the fuller parliamentary record) were on Romily's list of decisions;
+   see "Decisions needed". After merging: run the "Data files" workflow once by hand, and allow Actions to open pull
+   requests (Settings, Actions, General) or open its weekly branches by hand.
 
 ## Outstanding, not blocked (can be built next)
 
-From `docs/research/11-data-sources.md`, in the suggested order. None started.
-1. Election pages from Democracy Club: results the morning after the count, the registration, postal, proxy and
-   voter-ID deadlines, the official nomination statement, ballot descriptions, polling stations.
-2. "Your area in numbers" for all four nations: ONS Explore Local Statistics, Nomis (ward level), StatsWales,
-   data.gov.scot, NISRA.
-3. Council pages: spending by service (England, Wales, Scotland), council tax for Scotland and Wales, housing tables.
-4. Party pages: the Electoral Commission register, accounts, loans and spending.
-5. The money layer: run PolicyEngine UK in GitHub Actions instead of calling its undocumented web backend; take
-   displayed rates from GOV.UK, legislation.gov.uk, Ofgem and the Bank of England, never from PolicyEngine's
-   parameters (its price cap is stale).
-6. Records for candidates who are or were MPs, MSPs, MSs or MLAs.
-7. Learn: a live bill tracker (the Representation of the People Bill) and a recess strip.
-8. Future wards for May 2027, once Democracy Club loads the May 2027 elections.
+From `docs/research/11-data-sources.md`; items 1 to 7 are built (above). Still to do:
+- Future wards for May 2027, once Democracy Club loads the May 2027 elections.
+- Parts of items 1–7 left out: Nomis ward-level figures and the devolved statistics portals; council housing tables;
+  matching candidates to MSPs, MSs and MLAs (none on current ballots; the Senedd's site refuses scripted requests, so it
+  needs its Modern.gov service); Ofgem and Bank of England figures in the rates watch (the grid doesn't use them).
 
 Also outstanding, smaller: phase 1b (a reader for the motions the fixed words couldn't settle); the ballot pages are
 heavy (about 1.5 MB of HTML for Holborn and St Pancras); the unknown-ballot 404 is blank without JavaScript.
@@ -79,10 +90,9 @@ heavy (about 1.5 MB of HTML for Holborn and St Pancras); the unknown-ballot 404 
   whether new publications are drafted into claims automatically.
 
 **On Barny**
-- Open the two pull requests and merge them; apply the open-data migration; run the loaders and workflows listed above.
-  (Claude can apply the migration through the Supabase connection on your word.)
-- The search-engine launch date: set `ALLOW_INDEXING=1` in Netlify and redeploy. Until then none of the search work
-  counts.
+- Open the three pull requests and merge them; apply the open-data migration; run the loaders and workflows listed
+  above. (Claude can apply the migration through the Supabase connection on your word.) Then one batched deploy.
+- Submit the sitemap to Google Search Console and Bing Webmaster Tools (indexing has been on since 28 Sept).
 - The repository is private, so the "source code on GitHub" link in the footer and on /about is a dead end for the
   public, which undercuts the AGPL claim. Make it public (also gives unlimited Actions minutes) or change the wording.
 - The opening line (paper 01) and the shared Netlify credit pot (paper 07).
@@ -97,7 +107,8 @@ heavy (about 1.5 MB of HTML for Holborn and St Pancras); the unknown-ballot 404 
   heading or a news sentence rather than the resolution, and one names a party ("our Labour Mayor"). Only 17 of 382
   councils would have one. Recommendation: keep the data job but don't show it until Romily has looked; removing it is
   one step in `council-register.yml` and one block in the council page.
-- **Area statistics (Romily)**, asked on 25 Sept: official figures that aren't the council's own words. Now available
-  for all four nations.
-- Local petitions by constituency, party-level ad spending, the parliamentary record for sitting or former members,
-  council spending by service (Romily).
+- **Area statistics, council spending by service, the fuller parliamentary record (Romily).** Area statistics were asked
+  on 25 Sept; all three are now built on `automation/data-1-7` at Barny's instruction, as official figures with their
+  source and period and the same template everywhere. If Romily wants any held back, each is one line on the council
+  page or candidate card to remove before merging.
+- Local petitions by constituency, party-level ad spending (Romily).
