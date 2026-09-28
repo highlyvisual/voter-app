@@ -88,6 +88,7 @@ Dates are when the decision was made or relayed. Newest last.
 | 27 Sep | Claude (for Barny) | Phase-1 wording: a past council item with no result read says "Result not yet read from the minutes", not "Minutes not yet published", which would be an unchecked claim for councils the reader hasn't reached. Phase-1 tables applied to Supabase. |
 | 27 Sep | Barny | Use mySociety open data: a register and page for every UK council, deprivation for Wales, Scotland and NI from each nation's own official index (not mySociety's composite, which uses older editions and modelled scores), a WriteToThem link without the postcode. Built by Claude Code on `automation/open-data`. |
 | 27 Sep | Barny | Search every public data source for anything usable. About 250 checked; results and a build order in research paper 11. Sources that score or rate (Ofsted, CQC, police inspection grades, DfT road ratings, fact-check verdicts, polls) are excluded, as are campaigning aggregators where a primary source exists and candidates' company directorships. |
+| 28 Sep | Romily | Not taking the Democracy Club call on 28 Sep. The other offered slot is 7–9 Oct. |
 
 ## Open decisions (waiting on a person)
 
@@ -109,7 +110,7 @@ Carried from CHANGELOG handovers, still open on 24 Sep:
 - Human confirmation of Democracy Club photo licences before any all-or-none rule could apply.
 - Council pledges for Lambeth (primary minutes need a browser).
 - Welsh translation (docs/welsh.md).
-- Democracy Club call with Peter Keeling: Romily to pick Mon 28 Sep 3–5pm UK (today, as of 28 Sep) or 7–9 Oct. Ask: is a candidates-API token separate; rate limits for by-election-day traffic (hobbyist key is 1,000/day); candidate photo licences; scheduled 2027 elections before they are called.
+- Democracy Club call with Peter Keeling: Romily declined Mon 28 Sep; the remaining offer is 7–9 Oct, or ask Peter for a later time. Ask: is a candidates-API token separate; rate limits for by-election-day traffic (hobbyist key is 1,000/day); candidate photo licences; scheduled 2027 elections before they are called.
 
 ## How the sessions work
 

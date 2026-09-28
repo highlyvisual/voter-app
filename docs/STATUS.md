@@ -73,8 +73,8 @@ heavy (about 1.5 MB of HTML for Holborn and St Pancras); the unknown-ballot 404 
   (q15); unelected bodies (q16); transport (q17); how elections and Learn should look (q18–19), which the elections
   timeline, the "What can I vote in next?" tool and visual Learn wait on; the journey shape (q20); the app stores (q24).
   Form: https://romily-app-questions.netlify.app/ (round eight).
-- The Democracy Club call with Peter Keeling: the first slot offered is today, Monday 28 Sept, 3–5pm UK; the other is
-  7–9 Oct.
+- The Democracy Club call with Peter Keeling: Romily declined the 28 Sept slot. The remaining offer is 7–9 Oct (the
+  week of the Holborn and St Pancras by-election); she can take that or ask Peter for a later time.
 - Older and still open: the local-issues rule (round six q12), which journey shape, the "nothing found" wording,
   whether new publications are drafted into claims automatically.
 
