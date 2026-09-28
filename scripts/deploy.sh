@@ -20,7 +20,10 @@ SITE_ID="78eef734-43c6-4ab4-8b93-3384df0fe013"
 STAGE="$(mktemp -d)"
 git archive HEAD | tar -x -C "$STAGE"
 # Not read by the build or at runtime (reports/ is: /about/accuracy reads it).
-rm -rf "$STAGE/snapshots" "$STAGE/scripts/sql" "$STAGE/scripts/sql-2024" "$STAGE/scripts/claims" "$STAGE/docs"
+# Keep scripts/sql/council_register.json: lib/councils.ts imports it as the fallback when the council_register table is
+# missing or unreachable, so the build fails without it.
+find "$STAGE/scripts/sql" -mindepth 1 ! -name council_register.json -exec rm -rf {} +
+rm -rf "$STAGE/snapshots" "$STAGE/scripts/sql-2024" "$STAGE/scripts/claims" "$STAGE/docs"
 echo "Deploying $(git rev-parse --short HEAD) ($(du -sh "$STAGE" | cut -f1) staged) to site $SITE_ID"
 cd "$STAGE"
 npx -y @netlify/mcp@latest --site-id "$SITE_ID" --no-wait --proxy-path "$PROXY"
