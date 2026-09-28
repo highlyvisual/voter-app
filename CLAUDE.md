@@ -29,5 +29,6 @@ without the service key (see `scripts/auto/common.py`): use that for local testi
   branch and open a PR unless told to push to main. Deploys to Netlify cost shared credits: batch them.
 
 ## Current work
-The automation plan: `docs/automation/README.md`. Next: `docs/automation/open-data-mysociety.md` (start with its
-section 0, the git pull on `automation/phase-1`).
+Read `docs/STATUS.md` first: what is live, what is built but not merged, what is outstanding and what is blocked.
+The automation plan and its briefs are in `docs/automation/`; the catalogue of usable public data, with a suggested
+build order, is `docs/research/11-data-sources.md`. Don't start a new item from it until Barny says which.

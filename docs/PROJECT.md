@@ -2,7 +2,7 @@
 
 **Single place for everything about the project.** Code, research, Romily's decisions and the build log all live in this repository (`highlyvisual/voter-app`). If it isn't here, it isn't canonical.
 
-Last consolidated: 24 September 2026.
+Last consolidated: 28 September 2026. **Where things stand right now (live, built but not merged, outstanding, blocked): [docs/STATUS.md](STATUS.md).**
 
 ## What the site is
 
@@ -20,6 +20,9 @@ A non-partisan UK voter-information site. Someone enters a postcode and a few ho
 
 | What | Where |
 |---|---|
+| Current status: live, awaiting merge, outstanding, blocked | [docs/STATUS.md](STATUS.md) |
+| Automation plan and build briefs, one per phase, with each build's results | [docs/automation/](automation/) — [README.md](automation/README.md) |
+| Every useful public data source (about 250 checked, 27 Sep) | [docs/research/11-data-sources.md](research/11-data-sources.md) |
 | Rules the code enforces, stack, how to run, add a ballot, ingest | [README.md](../README.md) |
 | Build log, newest at the bottom | [CHANGELOG.md](../CHANGELOG.md) |
 | Technical bible: internal edition and funders-and-partners edition (branded PDFs, with HTML source) | [docs/bible/](bible/) |
@@ -47,7 +50,9 @@ The shared folder `/Volumes/BTJ_ONE/Projects/UKPolitcs` on Barny's Mac Studio is
 - **Nightly job:** `.github/workflows/ingest.yml` (05:17 UTC) — Democracy Club ballots and candidates, then the leaflet scan. Needs the `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` repository secrets; `DEMOCRACY_CLUB_TOKEN` (candidates-API token) is optional and not yet issued.
 - **Democracy Club developers API:** account "What's It To Me?" on developers.democracyclub.org.uk (created 24 Sep from Romily's login link), hobbyist plan: one key, 1,000 requests a day, `?auth_token=`. Held in Netlify as `DEMOCRACY_CLUB_DEVELOPERS_KEY`; used for postcode lookup. It is not accepted by the candidates API (tested). Peter Keeling (Democracy Club) offered a call: Monday 28 Sep 3–5pm UK, or 7–9 Oct; he also pointed at localintelligencehub.com (Climate Coalition / mySociety / Green Alliance) and dashboard.constituencies.org.uk as data sources.
 - **Secrets held only by Barny:** `SUPABASE_SERVICE_ROLE_KEY`, `REVIEWERS`, `DEMOCRACY_CLUB_DEVELOPERS_KEY`, the GitHub token, Netlify and Vercel accounts.
-- **Money layer:** precomputed PolicyEngine UK grid (`scripts/compute_grid.py`), assumptions listed on every calculation.
+- **Money layer:** precomputed PolicyEngine UK grid (`scripts/compute_grid.py`), assumptions listed on every calculation. The live site's `api.policyengine.org` is PolicyEngine's undocumented web backend on an older model; research paper 11 recommends running the `policyengine-uk` package in GitHub Actions instead, and never displaying PolicyEngine's own parameter values as today's rates.
+- **Database changes applied 27 Sep:** `council_item_outcomes` and `outcome_queue` (phase 1). Pending: `2026-09-27-council-register.sql` (open-data branch).
+- **Last deploy:** `6ab92f78a04142ac5c1209d5` (27 Sep), code `6bf2060`.
 
 ## Decisions log
 
@@ -79,10 +84,14 @@ Dates are when the decision was made or relayed. Newest last.
 | 27 Sep | Claude | Where two parties on one ballot pledge the same modellable change, both are modelled or neither is. The Liberal Democrats' £15,000 personal allowance and National Insurance threshold is now modelled alongside Reform UK's allowance (PolicyEngine UK 2.98.0, 8,100 households, hash-checked on load). Their unquantified higher-rate pledge is not modelled beyond what follows from the allowance. |
 | 27 Sep | Claude | New automatic jobs: eve-of-poll archive copies of every ballot and candidate page (daily 17:05 and 19:35 UTC); a weekly link check (Sundays) whose dead links are shown as their Internet Archive copy; reform sets load from scripts/receipts on push. All report to /status. |
 | 27 Sep | Claude | Corrections logged in the ledger: rows 495 and 496 (duplicates of 494 and 493) and 183 (Ben Walker's ballot-paper description, counted as a position when no one else's was) withdrawn by rows 517–519. |
+| 27 Sep | Barny | Improve search, AI visibility and conversion from the Nova Insight audit: built and deployed the same day (titles, canonical addresses, descriptions, structured data, `/llms.txt`, AI crawlers named in robots.txt, `/contact`, home trust strip, 48px tap targets, lighter fonts and logo). Nothing the audit suggested that would rank or score was adopted; the CSP `unsafe-inline` and HSTS preload items were left, with reasons. |
+| 27 Sep | Claude (for Barny) | Phase-1 wording: a past council item with no result read says "Result not yet read from the minutes", not "Minutes not yet published", which would be an unchecked claim for councils the reader hasn't reached. Phase-1 tables applied to Supabase. |
+| 27 Sep | Barny | Use mySociety open data: a register and page for every UK council, deprivation for Wales, Scotland and NI from each nation's own official index (not mySociety's composite, which uses older editions and modelled scores), a WriteToThem link without the postcode. Built by Claude Code on `automation/open-data`. |
+| 27 Sep | Barny | Search every public data source for anything usable. About 250 checked; results and a build order in research paper 11. Sources that score or rate (Ofsted, CQC, police inspection grades, DfT road ratings, fact-check verdicts, polls) are excluded, as are campaigning aggregators where a primary source exists and candidates' company directorships. |
 
 ## Open decisions (waiting on a person)
 
-From the research index and round six. Answers arrive in the Netlify form `romily-answers-round-6` on the questions site.
+The full, current list with who each waits on is in [docs/STATUS.md](STATUS.md). Round eight answers arrive in the Netlify form `romily-answers-round-8` on the questions site; none of its 24 questions is answered yet (the one submission, 27 Sep, was blank).
 
 - **Barny:** which opening line (paper 01).
 - **Barny:** what to do about the shared Netlify credit pot before 8 October — separate team or plan, fewer deploys, or another host (paper 07).
@@ -100,7 +109,7 @@ Carried from CHANGELOG handovers, still open on 24 Sep:
 - Human confirmation of Democracy Club photo licences before any all-or-none rule could apply.
 - Council pledges for Lambeth (primary minutes need a browser).
 - Welsh translation (docs/welsh.md).
-- Democracy Club call with Peter Keeling: Romily to pick Mon 28 Sep 3–5pm UK or 7–9 Oct. Ask: is a candidates-API token separate; rate limits for by-election-day traffic (hobbyist key is 1,000/day); candidate photo licences; scheduled 2027 elections before they are called.
+- Democracy Club call with Peter Keeling: Romily to pick Mon 28 Sep 3–5pm UK (today, as of 28 Sep) or 7–9 Oct. Ask: is a candidates-API token separate; rate limits for by-election-day traffic (hobbyist key is 1,000/day); candidate photo licences; scheduled 2027 elections before they are called.
 
 ## How the sessions work
 
