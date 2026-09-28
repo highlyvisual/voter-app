@@ -1531,3 +1531,9 @@ html.lite .peek img { display: none; }
 .start-intro:has(~ .onboard:not([data-step="0"])) .lede, .start-intro:has(~ .onboard:not([data-step="0"])) .eyebrow { display: none; }
 .start-intro:has(~ .onboard:not([data-step="0"])) h1 { font-size: 1.4rem; margin-bottom: 0.4rem; }
 .tl-initials { font-size: 0.75rem; }
+
+/* Persona test (28 Sept): WCAG 2.2 target size. The candidate name strip and small disclosure summaries were 22.8px
+   tall; give every one at least 24px. */
+.name-strip li > a { display: inline-block; min-height: 24px; padding-block: 1px; }
+details > summary { min-height: 24px; }
+details.small > summary, details.small > .muted { padding-block: 1px; }

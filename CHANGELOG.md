@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-09-28 (later) — The rest of the persona-test findings
+- Money tables (the household box and each candidate's pledge figures) can be scrolled by keyboard: `tabindex`, `role=region` and a label (axe: scrollable-region-focusable).
+- Tap targets: the candidate name strip and small disclosure summaries are at least 24px tall (WCAG 2.2 target size).
+- 16 and 17-year-olds get a line on the candidates and area pages: can't vote yet in UK Parliament elections or council elections in England and Northern Ireland (18), can in council elections in Scotland and Wales (16), with registration and the bill tracker. Source: Electoral Commission, "Who can vote".
+- A partly described household (a question skipped) now gets its "This household" summary, with what wasn't answered.
+- Northern Ireland: councillors are matched by District Electoral Area, taken from the NISRA 2021 Super Data Zone name postcodes.io returns (48 of 48 random NI postcodes, all 11 councils, matched Open Council Data's DEA names).
+- Money box: earnings or pension is its own line (the band midpoint the model is given, or nothing), and the remainder is labelled "Other taxes and benefits the model counts (net)", hidden when zero. No more "-£180 earnings".
+- Money box: withheld for a household of 16 and 17-year-olds, because the grid models them as children and adds Child Benefit to every such row.
+- /start: the final button says "Finding your election…" and can't be pressed twice while the lookup runs.
+- Home-page lookup: Channel Islands and Isle of Man postcodes are told the site covers UK elections only (they reached a map centred on 0,0).
+
 ## 2026-09-28 — Fixes from the persona test (30 made-up people, Romily's idea)
 Report: `docs/testing/persona-test-2026-09-28.md`; harness to re-run it: `docs/testing/persona-harness/`.
 - Enter (or a phone's Go key) in the postcode box on /start no longer submits the whole form and skips the questions; it does what Next does.

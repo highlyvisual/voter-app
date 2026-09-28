@@ -44,7 +44,7 @@ export async function findElection(formData: FormData) {
 
   // postcodes.io: a rounded location (about 100 m) for the place panel (Romily's decision, 19 Sept 2026), and the official
   // area codes for this postcode, used as a fallback below. Never stored.
-  type Pio = { latitude: number; longitude: number; parliamentary_constituency?: string; codes?: Record<string, string | undefined> };
+  type Pio = { latitude: number | null; longitude: number | null; country?: string; parliamentary_constituency?: string; codes?: Record<string, string | undefined> };
   let pio: Pio | null = null;
   let pioMissing = false;
   try {
@@ -52,6 +52,8 @@ export async function findElection(formData: FormData) {
     if (r.ok) pio = ((await r.json()) as { result?: Pio }).result ?? null;
     else if (r.status === 404) pioMissing = true;
   } catch { pio = null; }
+  // Channel Islands and Isle of Man postcodes have no UK elections; they used to reach a map centred on 0,0 (persona test).
+  if (pio && (pio.latitude == null || (pio.country && !UK_COUNTRIES.has(pio.country)))) fail("That postcode is outside the UK. This site covers elections in England, Scotland, Wales and Northern Ireland.");
   const outcode = raw.slice(0, -3);
   const loc = pio ? `${Number(pio.latitude).toFixed(3)},${Number(pio.longitude).toFixed(3)}` : "";
   const hq = householdQuery(formData);

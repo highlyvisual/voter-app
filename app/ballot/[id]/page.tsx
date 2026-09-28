@@ -8,6 +8,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import CandidateCard, { claimsFor } from "@/components/CandidateCard";
 import CurrentLaw from "@/components/CurrentLaw";
+import AgeNote from "@/components/AgeNote";
 import Deadlines from "@/components/Deadlines";
 import ExpandAll from "@/components/ExpandAll";
 import BlindRead from "@/components/BlindRead";
@@ -103,6 +104,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
       ) : null}
       <Suspense fallback={null}><ProfileApply /></Suspense>
       {!ballot.archived ? <Journey ballotId={ballotId} current="" qs={qs} /> : null}
+      <AgeNote ageBand={household.age_band} ballot={ballot} />
       <div className="ballot-masthead">
         <div className="masthead-main">
           {!ballot.archived && !ballot.candidates_locked ? (

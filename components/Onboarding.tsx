@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { useFormStatus } from "react-dom";
 import { FIELDS, FIELD_KEYS, OPTIONAL_FIELDS, OPTIONAL_KEYS } from "@/lib/household";
 import { readProfile, writeProfile } from "@/lib/profile";
 
@@ -20,6 +21,13 @@ const WHY: Record<string, string> = {
   drives: "Fuel duty, parking and road policies refer to it.",
   veteran: "Veterans' policies refer to it.",
 };
+
+// Shows that the lookup is under way. In the persona test the button sometimes seemed to do nothing on the first press;
+// now it says so while the lookup runs, and can't be pressed twice.
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return <button type="submit" disabled={pending} aria-busy={pending || undefined}>{pending ? "Finding your election…" : "See my election"}</button>;
+}
 
 export default function Onboarding({ action, check, error = null, initial = {} }: { action: (fd: FormData) => void; check?: (pc: string) => Promise<{ ok: boolean; message?: string }>; error?: string | null; initial?: Record<string, string> }) {
   const steps = ["postcode", ...FIELD_KEYS, "optional"] as const;
@@ -108,7 +116,7 @@ export default function Onboarding({ action, check, error = null, initial = {} }
             </fieldset>
           ))}
           <label className="keep"><input type="checkbox" checked={keep} onChange={(e) => setKeep(e.target.checked)} /> Keep this as my profile on this device, so I don't have to answer again. <span className="meta">Saved only in this browser. You can edit or delete it at any time.</span></label>
-          <div className="onboard-actions"><button type="submit">See my election</button><button type="button" className="secondary" onClick={back}>Back</button></div>
+          <div className="onboard-actions"><SubmitButton /><button type="button" className="secondary" onClick={back}>Back</button></div>
         </div>
       ) : (
         <div className="onboard-step" key={i}>

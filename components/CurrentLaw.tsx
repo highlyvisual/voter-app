@@ -8,12 +8,22 @@ export function otherItems(r: Record<string, unknown>): number {
   const n = (k: string) => Number(r[k] ?? 0);
   return n("household_net_income") + n("income_tax") + n("national_insurance") - n("universal_credit") - n("child_benefit");
 }
+// Persona test (28 Sept): the first line used to be the whole remainder, labelled as earnings, so it showed -£180 for a
+// household with no income. The model's earnings or pension input is known exactly (scripts/compute_grid.py): the band's
+// midpoint (over £100,000 uses £130,000) for employed, self-employed and retired households, and nothing otherwise.
+// So that is shown as its own line, and what is left over is labelled for what it is.
+const MIDPOINT: Record<string, number> = { under_15k: 10000, "15k_25k": 20000, "25k_40k": 32500, "40k_60k": 50000, "60k_100k": 80000, over_100k: 130000 };
+export function modelledEarnings(householdKey: string): number {
+  const kv = Object.fromEntries(householdKey.split("|").map((p) => p.split("=") as [string, string]));
+  return ["employed", "self_employed", "retired"].includes(kv.employment) ? MIDPOINT[kv.income_band] ?? 0 : 0;
+}
 const LABELS: Record<string, string> = {
-  other: "Earnings, and other income, taxes and benefits the model counts",
+  earnings: "Earnings or pension before tax (the middle of your band)",
   income_tax: "Income tax paid",
   national_insurance: "National Insurance paid",
   universal_credit: "Universal Credit received",
   child_benefit: "Child Benefit received",
+  other: "Other taxes and benefits the model counts (net)",
   household_net_income: "Net income after tax and benefits",
 };
 
@@ -33,14 +43,19 @@ export default function CurrentLaw({ rows, complete, anyModelled, baselineId = "
     <section className="receipt" aria-labelledby="current-law">
       <h2 id="current-law" style={{ marginTop: "1.25rem" }}>A household like this one, under {year ? `the law as it stood in ${year}` : "current law"}</h2>
       <p className="meta">Per year, for a representative household in these bands, calculated with PolicyEngine UK {baseline.policyengine_version}. The starting point each candidate's pledges are measured against. These figures describe a typical household in your bands, not you, and they are not a voting guide.</p>
-      <div className="scroll"><table>
+      <div className="scroll" tabIndex={0} role="region" aria-label="Money figures for this household, scrolls sideways on small screens"><table>
         <tbody>
-          {Object.keys(LABELS).map((k) => (
-            <tr key={k}><th scope="row">{LABELS[k]}</th><td className="num">{k === "income_tax" || k === "national_insurance" ? "\u2212" : k === "other" ? "" : "+"}{gbp.format(k === "other" ? otherItems(baseline.results) : Number(baseline.results[k] ?? 0))}</td></tr>
-          ))}
+          {(() => {
+            const earned = modelledEarnings(baseline.household_key);
+            const other = otherItems(baseline.results) - earned;
+            const val: Record<string, number> = { earnings: earned, other, ...Object.fromEntries(["income_tax", "national_insurance", "universal_credit", "child_benefit", "household_net_income"].map((k) => [k, Number(baseline.results[k] ?? 0)])) };
+            return Object.keys(LABELS).filter((k) => k !== "other" || Math.round(other) !== 0).map((k) => (
+              <tr key={k}><th scope="row">{LABELS[k]}</th><td className="num">{k === "income_tax" || k === "national_insurance" ? "\u2212" : k === "earnings" ? "" : k === "other" ? (val[k] < 0 ? "\u2212" : "+") : "+"}{gbp.format(k === "other" ? Math.abs(val[k]) : val[k])}</td></tr>
+            ));
+          })()}
         </tbody>
       </table></div>
-      <p className="meta" style={{ margin: "0.3rem 0 0" }}>The first line is worked out as the net income, plus the tax and National Insurance paid, less the two benefits listed, so the lines add up to the total. It is mostly earnings or pension, and also includes any other taxes and benefits the model counts.</p>
+      <p className="meta" style={{ margin: "0.3rem 0 0" }}>Earnings or pension is what the model is given: the middle of your income band, or nothing if no one works or draws a pension. The &ldquo;other&rdquo; line is whatever else the model counts, added or taken away, so the lines add up to the total; it is left out when it is zero.</p>
       {other ? <details className="small" style={{ marginTop: "0.4rem" }}><summary>Compare with the law as it stood in {baselineId === "baseline" ? "2024" : "2026"}</summary><p className="meta" style={{ margin: "0.3rem 0 0" }}>Net income after tax and benefits for the same household: {new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", maximumFractionDigits: 0 }).format(Number(other.results.household_net_income ?? 0))} under {baselineId === "baseline" ? "2024" : "2026"} law, against {new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", maximumFractionDigits: 0 }).format(Number(baseline.results.household_net_income ?? 0))} now. Differences reflect thresholds, rates and benefit levels changing between the two years, not any candidate.</p></details> : null}
       <details className="small" style={{ marginTop: "0.5rem" }}>
         <summary>What this model can and cannot turn into a number</summary>
@@ -57,7 +72,7 @@ export default function CurrentLaw({ rows, complete, anyModelled, baselineId = "
           <li>One representative age per band (17, 21, 30, 42, 57, 70). "Youngest under 5" is one child aged 3; "school age" is one child aged 10. An adult dependant is not modelled.</li>
           <li>Rent: private renters £15,600 a year (single, no children) or £21,600; social renters £9,000; owners nil. Mortgage interest is not modelled. Region: London.</li>
           <li>Universal Credit and Child Benefit are claimed where there is entitlement. Student finance is outside the model.</li>
-          <li>No figures are shown for a household on a visa or seeking asylum, or for a single full-time student with no children: most such households can't claim Universal Credit, which the model would otherwise count.</li>
+          <li>No figures are shown for a household on a visa or seeking asylum, or for a single full-time student with no children (most can't claim Universal Credit, which the model would otherwise count), or for a household of 16 and 17-year-olds (the model counts them as children and adds Child Benefit).</li>
           <li>Every figure is reproducible from the open-source code and model version shown.</li>
         </ul>
       </details>

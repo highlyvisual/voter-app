@@ -43,7 +43,7 @@ function Receipt({ rows, partyEcId, verifiedSourceIds, baselineId }: { rows: Rec
   const a0 = Number(baseline.results.household_net_income ?? 0), b0 = Number(party.results.household_net_income ?? 0);
   const maxV = Math.max(a0, b0, 1), delta = b0 - a0;
   return (
-    <div className="receipt scroll">
+    <div className="receipt scroll" tabIndex={0} role="region" aria-label="What this pledge would change for this household">
       <p className="meta" style={{ margin: "0.4rem 0 0.2rem" }}>Modelled: {label}</p>
       {/* Direction before precision (review, 25 Sept, after the Dutch CPB and Nibud): the rough monthly change first,
           the exact figures underneath. */}

@@ -7,7 +7,7 @@ import chain from "@/lib/decision-chain.json";
 // Everyone who represents this postcode, layer by layer. Areas overlap rather than nest: a postcode has one MP, one or
 // two councils, perhaps a parish, and a police area, each with different powers. Idea adapted from Beyond the Vote's
 // "My place"; data from postcodes.io (ONS geography), UK Parliament and Open Council Data.
-type Pc = { postcode: string; parliamentary_constituency: string | null; admin_district: string | null; admin_county: string | null; admin_ward: string | null; ced: string | null; parish: string | null; pfa: string | null; country: string | null; region: string | null; icb: string | null; national_park: string | null; senedd_constituency: string | null; codes?: { admin_district?: string | null } };
+type Pc = { lsoa21?: string | null; postcode: string; parliamentary_constituency: string | null; admin_district: string | null; admin_county: string | null; admin_ward: string | null; ced: string | null; parish: string | null; pfa: string | null; country: string | null; region: string | null; icb: string | null; national_park: string | null; senedd_constituency: string | null; codes?: { admin_district?: string | null } };
 // Wider bodies from ONS lookups (Open Government Licence): combined authorities and the GLA (elected mayors), fire and rescue authorities. See lib/widerBodies.json for sources.
 type Wider = { combined_authority: Record<string, { code: string; name: string; mayor: boolean | null }>; gla: string[]; fire_authority: Record<string, { code: string; name: string; governance: string | null }> };
 const W = wider as unknown as Wider;
@@ -26,9 +26,14 @@ export default async function Layers({ lat, lng, electionCouncil }: { lat: numbe
   const ca = lad ? W.combined_authority[lad] ?? null : null;
   const fra = lad ? W.fire_authority[lad] ?? null : null;
   const councilSlug = await councilSlugFor(pc.admin_district);
+  // Northern Ireland councillors are elected for District Electoral Areas, not wards, so matching on the ward found
+  // nobody (persona test, 28 Sept: "Belfast · Central ward, not listed"). NISRA's 2021 Super Data Zones are named after
+  // the DEA they sit in ("Botanic_Q"), and postcodes.io gives the zone, so the DEA is its name without the letter.
+  // Checked against Open Council Data's DEA names: 48 of 48 random NI postcodes, all 11 councils.
+  const niDea = pc.country === "Northern Ireland" ? (pc.lsoa21?.match(/^(.*)_[A-Z]{1,2}$/)?.[1].replace(/_/g, " ") ?? null) : null;
   const [mp, district, county] = await Promise.all([
     pc.parliamentary_constituency ? currentMp(pc.parliamentary_constituency) : Promise.resolve(null),
-    cllrs(pc.admin_district, pc.admin_ward),
+    cllrs(pc.admin_district, niDea ?? pc.admin_ward),
     twoTier ? cllrs(pc.admin_county, pc.ced) : Promise.resolve([]),
   ]);
   const list = (xs: { name: string; party_name: string | null }[]) => xs.length ? xs.map((c) => `${c.name}${c.party_name ? ` (${c.party_name})` : ""}`).join(", ") : "not listed";
@@ -49,7 +54,7 @@ export default async function Layers({ lat, lng, electionCouncil }: { lat: numbe
   const policingElected = pc.country === "England" || pc.country === "Wales";
   const rows: Row[] = [
     ...(pc.parish && !/unparished/i.test(pc.parish) ? [{ layer: "Parish or town council", area: pc.parish, who: "Parish or town councillors, elected", does: "Allotments, bus shelters, community centres, play areas, grants to local groups, and a say on neighbourhood planning.", src: SRC.council }] : []),
-    { layer: twoTier ? "District council" : "Council", area: `${pc.admin_district ?? "—"}${pc.admin_ward ? ` · ${pc.admin_ward} ward` : ""}`, who: list(district), does: twoTier ? "Rubbish and recycling, council tax collection, housing and planning applications." : "All the services a county and a district provide between them: education, social care, planning, housing, libraries, rubbish and recycling, and more.", now: Boolean(isThis(pc.admin_district)), src: SRC.council, link: councilSlug ? { href: `/council/${councilSlug}`, text: `What ${pc.admin_district} council is deciding` } : undefined },
+    { layer: twoTier ? "District council" : "Council", area: `${pc.admin_district ?? "—"}${niDea ? ` · ${niDea} District Electoral Area` : pc.admin_ward ? ` · ${pc.admin_ward} ward` : ""}`, who: list(district), does: twoTier ? "Rubbish and recycling, council tax collection, housing and planning applications." : "All the services a county and a district provide between them: education, social care, planning, housing, libraries, rubbish and recycling, and more.", now: Boolean(isThis(pc.admin_district)), src: SRC.council, link: councilSlug ? { href: `/council/${councilSlug}`, text: `What ${pc.admin_district} council is deciding` } : undefined },
     ...(twoTier ? [{ layer: "County council", area: `${pc.admin_county}${pc.ced ? ` · ${pc.ced} division` : ""}`, who: list(county), does: "Education, transport, planning, social care, libraries, waste management and trading standards across the county.", now: Boolean(isThis(pc.admin_county)), src: SRC.council }] : []),
     // Romily, round six (q10-11): whatever sits between the council and Westminster, elected bodies first.
     ...(lad && W.gla.includes(lad) ? [{ layer: "Greater London Authority", area: "Greater London", who: "The Mayor of London and the London Assembly, both elected", does: "The Mayor leads London-wide policy (transport, policing, planning, housing money); the Assembly holds the Mayor to account.", src: SRC.london }] : []),

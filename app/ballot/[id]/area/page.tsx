@@ -13,6 +13,7 @@ import Link from "next/link";
 import { getBallot } from "@/lib/data";
 import { councilSlugFor } from "@/lib/councils";
 import WriteToThem from "@/components/WriteToThem";
+import AgeNote from "@/components/AgeNote";
 export const dynamic = "force-dynamic";
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) { return ballotPageTitle((await params).id, "Your area", "/area"); }
 
@@ -36,6 +37,7 @@ export default async function Area({ params, searchParams }: { params: Promise<{
       <p className="eyebrow">{ballot.level === "local" ? "Council by-election" : "UK Parliament election"} · {ballot.area_name} · {new Date(ballot.poll_date + "T12:00:00Z").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "Europe/London" })}</p>
       <h1>This is where politics meets your life.</h1>
       <p className="lede">Before anyone asks for your vote: what the official record says about the area around {outcode ? `your postcode, ${outcode}` : "this area"}, from planning to local statistics, and who represents you now.</p>
+      <AgeNote ageBand={typeof sp.age_band === "string" ? sp.age_band : undefined} ballot={ballot} />
       <p><Link className="button" href={`/ballot/${encodeURIComponent(ballotId)}${qs ? `?${qs}` : ""}#ballot-paper`}>See who is standing &rarr;</Link></p>
       {sp.approx === "1" ? <p className="notice small">We matched your postcode from its centre point because our usual lookup wasn&rsquo;t available. If your postcode sits on a boundary, check your poll card or your council&rsquo;s website to confirm which election you&rsquo;re in.</p> : null}
       <AreaMap ballotId={ballotId} areaName={ballot.area_name} lat={ballot.area_lat} lng={ballot.area_lng} outcode={outcode} levelLabel={ballot.level === "local" ? "ward" : "constituency"} loc={loc} />

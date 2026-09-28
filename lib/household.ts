@@ -195,13 +195,20 @@ export function gridKey(h: Household): string | null {
 //     people without permission to stay (including those awaiting an asylum decision) have no recourse either, and may get asylum support.
 //   Full-time students: GOV.UK's eligibility page allows them only in listed cases (a partner who is eligible, a child
 //     they are responsible for, State Pension age, and a few others), so a single student with no child is withheld.
-export type ModelCaveat = { reason: "visa" | "student"; text: string; sources: { label: string; url: string }[] };
+export type ModelCaveat = { reason: "visa" | "student" | "age"; text: string; sources: { label: string; url: string }[] };
 export const UC_ELIGIBILITY = { label: "GOV.UK, Universal Credit: eligibility", url: "https://www.gov.uk/universal-credit/eligibility" };
 export const ASYLUM_SUPPORT = { label: "GOV.UK, Asylum support", url: "https://www.gov.uk/asylum-support" };
+export const CHILD_BENEFIT = { label: "GOV.UK, Child Benefit: eligibility", url: "https://www.gov.uk/child-benefit/eligibility" };
 export const PUBLIC_FUNDS = { label: "GOV.UK, Public funds (Home Office guidance)", url: "https://www.gov.uk/government/publications/public-funds--2/public-funds" };
 export function modelCaveat(h: Household): ModelCaveat | null {
   if (h.visa === "yes") {
     return { reason: "visa", sources: [PUBLIC_FUNDS, ASYLUM_SUPPORT], text: "We don't show money figures for this household. The model assumes Universal Credit is claimed wherever the income bands allow it, but Universal Credit is a “public fund”, and most UK visas don't allow claiming public funds. People waiting for an asylum decision can't claim them either, and may get asylum support (housing and money) instead. A figure here could show money this household would not get." };
+  }
+  // Aged 16 or 17: the grid models the adults as 17, and PolicyEngine then counts them as a child in their own household,
+  // so every such row includes Child Benefit (checked: all 400 childless 16_17 rows, 28 Sept). Child Benefit goes to
+  // whoever is responsible for a child, so the figure would be wrong; withheld until the grid models this properly.
+  if (h.age_band === "16_17") {
+    return { reason: "age", sources: [CHILD_BENEFIT], text: "We don't show money figures for a household of 16 and 17-year-olds. The model treats a 17-year-old as a child, so it adds Child Benefit, which is paid to whoever is responsible for a child, not to the young person. A figure here would be wrong." };
   }
   const student = h.student === "university" || h.student === "school_college" || h.employment === "student" || h.employment === "student_working";
   if (student && h.children === "none" && h.household !== "couple" && h.age_band !== "65_plus") {
