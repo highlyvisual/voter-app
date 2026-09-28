@@ -9,6 +9,9 @@ import { notFound } from "next/navigation";
 import { publicClient } from "@/lib/data";
 import { councilBySlug, councilSlugFor, EVERYDAY_SERVICES, REGISTER_ATTRIBUTION, TOPIC_ORDER, type CouncilFact } from "@/lib/councils";
 import WriteToThem from "@/components/WriteToThem";
+import AreaNumbers from "@/components/AreaNumbers";
+import { CouncilSpending, CouncilTaxDevolved } from "@/components/CouncilFinance";
+import { councilFinance } from "@/lib/councilFinance";
 import CiteThis from "@/components/CiteThis";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbs, graph, webPage } from "@/lib/schema";
@@ -54,6 +57,7 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
   ]);
   // "Do it online": GOV.UK's list of this council's service pages, filtered to the same fixed everyday services in the same
   // order for every council (EVERYDAY_SERVICES), with the export's own wording as the link text.
+  const fin = councilFinance(c.gss, reg?.gss_code, reg?.ons_gss_code);
   const byService = new Map(((svc ?? []) as ServiceRow[]).map((r) => [`${r.lgsl}:${r.lgil}`, r]));
   const services = EVERYDAY_SERVICES.map(([l, i]) => byService.get(`${l}:${i}`)).filter((r): r is ServiceRow => Boolean(r));
   // Sentences a job found in the council's own documents and checked word for word (section 5 of the open-data brief);
@@ -131,7 +135,7 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
             <h2>{TOPIC_LABEL[t]}</h2>
             {t === "council_tax" && ctax ? (
               <p className="small">Band D set by {ctax.authority} for 2026&ndash;27: <b>{gbp(Number(ctax.own_band_d))}</b>{ctax.area_band_d ? <> of a {gbp(Number(ctax.area_band_d))} total bill in the area</> : null}. <span className="meta">MHCLG, Council Tax levels set by local authorities in England 2026 to 2027 (Open Government Licence).</span></p>
-            ) : null}
+            ) : t === "council_tax" ? <CouncilTaxDevolved fin={fin} name={c.name} /> : null}
             {jobLines.filter((l) => l.topic === t).map((l) => (
               <div key={l.url} className="council-fact">
                 <blockquote className="council-quote">&ldquo;{l.quote}&rdquo;</blockquote>
@@ -153,6 +157,10 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
       })}
 
       <Decisions rows={(agenda ?? []) as AgendaRow[]} outcomes={(outcomes ?? []) as OutcomeRow[]} queued={(queued ?? []) as QueueRow[]} councillors={councillors} councilName={c.name} meetingsUrl={c.links.meetings ?? c.site} />
+
+      <CouncilSpending fin={fin} name={c.name} />
+
+      <AreaNumbers gss={reg?.ons_gss_code ?? c.gss} name={c.name} />
 
       <section className="council-topic">
         <h2>Who runs the council</h2>

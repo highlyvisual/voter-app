@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ExplainThis from "@/components/ExplainThis";
 import PartyFunding from "@/components/PartyFunding";
+import { PartyMoney, PartyRegisterEntry } from "@/components/PartyRegister";
+import { partyEntry } from "@/lib/partyRegister";
 import { TOPICS, publicClient, type Claim } from "@/lib/data";
 import { layerOf } from "@/lib/claims";
 import { img } from "@/lib/site";
@@ -25,6 +27,7 @@ export default async function Party({ params }: { params: Promise<{ ec: string }
   const seen = new Map<string, Claim>();
   for (const c of claims) { const k = `${c.topic}|${c.source_quote}`; if (!seen.has(k)) seen.set(k, c); }
   const unique = [...seen.values()];
+  const entry = partyEntry(ecId);
   return (
     <>
       <JsonLd data={graph(
@@ -55,7 +58,9 @@ export default async function Party({ params }: { params: Promise<{ ec: string }
           </section>
         );
       })}
+      <PartyRegisterEntry p={entry} />
       <PartyFunding ecId={ecId} partyName={party.name} />
+      <PartyMoney p={entry} partyName={party.name} />
       <p className="meta">Positions change. Where a party has superseded something, the ledger keeps both and shows the reason: <Link href="/ledger">the public ledger</Link>.</p>
     </>
   );

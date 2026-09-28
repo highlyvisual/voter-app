@@ -2,7 +2,7 @@ import { topicsForHousehold } from "@/lib/topicOrder";
 import { TOPICS, TOPIC_SHORT, effectivePartyId, type Candidate, type Claim, type ReceiptRow } from "@/lib/data";
 import { claimApplies, type Household } from "@/lib/household";
 import { layerOf, precisionLabel, splitForHousehold, LEGEND } from "@/lib/claims";
-import { interestsFor, parliamentRecord, withPartySplits } from "@/lib/parliament";
+import { interestsFor, parliamentExtras, parliamentRecord, withPartySplits } from "@/lib/parliament";
 import ParliamentaryRecordView from "@/components/ParliamentaryRecord";
 import ActionBlock from "@/components/ActionBlock";
 import ClaimLayers from "@/components/ClaimLayers";
@@ -82,8 +82,9 @@ export default async function CandidateCard({
   const hhQs = new URLSearchParams(Object.entries(household).filter(([k, v]) => k !== "postcode" && typeof v === "string") as [string, string][]).toString();
   const record = candidate.parliament_member_id ? await parliamentRecord(candidate.parliament_member_id) : null;
   if (record && candidate.parliament_member_id) {
-    const [ints, splits] = await Promise.all([interestsFor(candidate.parliament_member_id), withPartySplits(candidate.parliament_member_id, record.divisions)]);
+    const [ints, splits, extras] = await Promise.all([interestsFor(candidate.parliament_member_id), withPartySplits(candidate.parliament_member_id, record.divisions), parliamentExtras(candidate.parliament_member_id)]);
     if (ints) { record.interests = ints.items; record.interestsTotal = ints.total; }
+    if (extras) record.extras = extras;
     record.divisions = splits;
   }
   const mine = claimsFor(candidate, claims);

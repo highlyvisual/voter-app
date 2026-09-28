@@ -1,0 +1,3 @@
+# The PolicyEngine UK version that computed the receipt grid now in the database (receipt_grid.policyengine_version).
+# Change it only together with a recompute (Money layer workflow, "compute" job) and a reload of the grid.
+policyengine-uk==2.98.0

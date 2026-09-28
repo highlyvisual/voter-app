@@ -1,7 +1,12 @@
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
+import { BillProgress, RecessStrip } from "@/components/ParliamentNow";
 import { breadcrumbs, faqPage, graph } from "@/lib/schema";
 export const metadata = { title: "Learn", description: "Plain thirty-second answers: what an MP and a councillor do, first past the post, manifestos, by-elections, voter ID and more.", alternates: { canonical: "/learn" } };
+// Recess dates and the bill tracker are fetched from Parliament and cached for an hour.
+export const revalidate = 3600;
+// The bill that would change the rules for elections themselves (Bills API id 4080), tracked stage by stage.
+const ELECTIONS_BILL = 4080;
 // Thirty-second answers to the questions people are too embarrassed to ask. Neutral, sourced where a source exists.
 const Q: [string, string][] = [
   ["What does an MP actually do?", "An MP represents one constituency in the House of Commons. They vote on national laws and budgets, can question ministers, sit on committees that examine policy, and take up constituents' problems with government bodies. They do not run local services, and they cannot overturn a council's planning decision."],
@@ -16,18 +21,20 @@ const Q: [string, string][] = [
   ["What happens to my ballot paper?", "It is counted by hand, in public, with candidates' agents watching. A paper that is unclear or marked for too many candidates is set aside as spoilt, and spoilt papers are counted and reported. Your paper has a number, but the law protects the secrecy of your vote."],
   ["Does my vote actually matter?", "Council by-elections are frequently decided by tens of votes, and the ward result on this site's Lambeth pages was decided by 88. We cannot tell you your vote will decide the result; we can tell you that small margins are common and that non-voting is itself counted and noticed by parties."],
 ];
-export default function Learn() {
+export default async function Learn() {
   return (
     <>
       <JsonLd data={graph(faqPage("/learn", "The questions nobody wants to ask out loud", Q), breadcrumbs([["Learn", "/learn"]]))} />
       <p className="eyebrow">Thirty seconds each</p>
       <h1>The questions nobody wants to ask out loud</h1>
       <p className="lede">Plain answers, no politics. If a term on this site is unfamiliar, look for the "Explain this" link beneath any quotation.</p>
+      <RecessStrip />
       <div className="learn">
         {Q.map(([q, a]) => (
           <details key={q}><summary>{q}</summary><p>{a}</p></details>
         ))}
       </div>
+      <BillProgress billId={ELECTIONS_BILL} why="A bill before Parliament that would change the rules for UK elections; its long title, below, lists what it covers, starting with votes at 16 and 17." />
       <p className="meta">Sources: UK Parliament and Local Government Association descriptions of each role, and the <a href="https://www.electoralcommission.org.uk/voting-and-elections" rel="noopener">Electoral Commission</a>. More on how to vote: <Link href="/how-to-vote">the plain guide</Link>.</p>
     </>
   );

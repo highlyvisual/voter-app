@@ -55,3 +55,24 @@
   .site-header .inner > * { margin-right: 0; }
 }
 .spaced-links a { display: inline-block; padding-block: 0.3rem; }
+
+/* Council pages: the area in numbers (ONS Explore Local Statistics). */
+.stat-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 0.4rem 1.2rem; margin: 0.6rem 0; font-family: var(--sans); }
+.stat-list > div { border-top: 1px solid var(--rule); padding: 0.45rem 0; }
+.stat-list dt { font-size: 0.85rem; color: var(--ink-soft); }
+.stat-list dd { margin: 0.1rem 0 0; }
+.stat-list dd b { font-size: 1.1rem; color: var(--ink); }
+.stat-list .sub { display: block; font-size: 0.78rem; }
+
+/* Council budget by service and council tax bands: plain figures, no colour, no bars. */
+table.spend-table { max-width: 36rem; }
+table.spend-table tfoot th, table.spend-table tfoot td { border-top: 2px solid var(--rule); border-bottom: 0; }
+table.spend-table td.num { white-space: nowrap; }
+
+/* Learn: "Parliament now" strip and a bill's stages. Neutral: no traffic-light colours, done/pending by weight only. */
+.parliament-now { border: 1px solid var(--rule); border-left-width: 4px; border-radius: var(--radius-sm); padding: 0.7rem 1rem; margin: 1rem 0 1.4rem; }
+.parliament-now h2 { font-size: 1rem; margin: 0 0 0.25rem; }
+.parliament-now p { margin: 0.2rem 0; }
+ol.bill-stages { padding-left: 1.3rem; margin: 0.5rem 0; }
+ol.bill-stages li { margin: 0.15rem 0; }
+ol.bill-stages li.current { font-weight: 600; }
