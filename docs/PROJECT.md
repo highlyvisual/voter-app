@@ -91,6 +91,7 @@ Dates are when the decision was made or relayed. Newest last.
 | 28 Sep | Romily | Not taking the Democracy Club call on 28 Sep. The other offered slot is 7–9 Oct. |
 | 28 Sep | Barny | Search indexing switched on: ALLOW_INDEXING=1 set in Netlify and redeployed (deploy 6aba00a3, same code as 27 Sep). |
 | 28 Sep | Barny | Build items 1–7 of the data-source list. Built by Claude (Cowork) on `automation/data-1-7`, stacked on open data, not merged. New data lives in JSON files in `lib/` refreshed weekly by pull request, so a data change never deploys by itself. PolicyEngine is pinned at 2.98.0 and checked weekly against 15 GOV.UK rates. |
+| 28 Sep | Barny | Release: phase 1, open data and items 1–7 merged to main (cc1af60) and deployed (6aba1ab1). Migration, loaders and workflows not yet run; the climate-emergency quotes stay off until Romily answers round eight q28. |
 
 ## Open decisions (waiting on a person)
 
