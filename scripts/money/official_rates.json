@@ -1,0 +1,83 @@
+{
+ "tax_year": 2026,
+ "confirmed_on": "2026-09-28",
+ "values": {
+  "personal_allowance": 12570.0,
+  "higher_rate_threshold": 50270.0,
+  "additional_rate_threshold": 125140.0,
+  "ni_primary_threshold": 12570.0,
+  "ni_upper_earnings_limit": 50270.0,
+  "ni_main_rate": 0.08,
+  "ni_additional_rate": 0.02,
+  "uc_single_under_25": 338.58,
+  "uc_single_25_plus": 424.9,
+  "uc_couple_25_plus": 666.97,
+  "uc_work_allowance_higher": 710.0,
+  "uc_work_allowance_lower": 427.0,
+  "uc_taper": 0.55,
+  "child_benefit_eldest": 27.05,
+  "child_benefit_additional": 17.9
+ },
+ "sources": {
+  "personal_allowance": {
+   "url": "https://www.gov.uk/income-tax-rates",
+   "words": "standard Personal Allowance is £12,570,"
+  },
+  "higher_rate_threshold": {
+   "url": "https://www.gov.uk/income-tax-rates",
+   "words": "Basic rate £12,571 to £50,270 20%"
+  },
+  "additional_rate_threshold": {
+   "url": "https://www.gov.uk/income-tax-rates",
+   "words": "Additional rate over £125,140 45%"
+  },
+  "ni_primary_threshold": {
+   "url": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+   "words": "Primary threshold £242 per week £1,048 per month £12,570 per year"
+  },
+  "ni_upper_earnings_limit": {
+   "url": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+   "words": "Upper earnings limit £967 per week £4,189 per month £50,270 per year"
+  },
+  "ni_main_rate": {
+   "url": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+   "words": "A 0% 8% 2%"
+  },
+  "ni_additional_rate": {
+   "url": "https://www.gov.uk/guidance/rates-and-thresholds-for-employers-2026-to-2027",
+   "words": "A 0% 8% 2%"
+  },
+  "uc_single_under_25": {
+   "url": "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027",
+   "words": "Single under 25 316.98 338.58"
+  },
+  "uc_single_25_plus": {
+   "url": "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027",
+   "words": "Single 25 or over 400.14 424.90"
+  },
+  "uc_couple_25_plus": {
+   "url": "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027",
+   "words": "Joint claimants, one or both 25 or over 628.10 666.97"
+  },
+  "uc_work_allowance_higher": {
+   "url": "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027",
+   "words": "Higher work allowance (no housing amount) - One or more dependent children or limited capability for work 684.00 710.00"
+  },
+  "uc_work_allowance_lower": {
+   "url": "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027",
+   "words": "Lower work allowance - One or more dependent children or limited capability for work 411.00 427.00"
+  },
+  "uc_taper": {
+   "url": "https://www.gov.uk/universal-credit/how-your-earnings-affect-payments",
+   "words": "goes down by 55p"
+  },
+  "child_benefit_eldest": {
+   "url": "https://www.gov.uk/child-benefit",
+   "words": "Eldest or only child £27.05"
+  },
+  "child_benefit_additional": {
+   "url": "https://www.gov.uk/child-benefit",
+   "words": "Additional children £17.90"
+  }
+ }
+}

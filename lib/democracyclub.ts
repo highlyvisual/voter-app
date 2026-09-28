@@ -56,23 +56,49 @@ export async function ballotsForPostcode(postcode: string): Promise<DcBallotSumm
 
 export type PreviousResult = {
   ballot_paper_id: string; source: string | null; turnout_percentage: number | null; total_electorate: number | null; total_votes: number;
+  spoilt: number | null; turnout_reported: number | null;
   rows: { name: string; party: string; votes: number; share: number; elected: boolean }[];
 };
 
 // The most recent result for the same post, for a factual "last time here" panel. No commentary is derived from it.
+// A result declared overnight must show the next morning, so a ballot polled in the last fortnight is re-read every 15
+// minutes; older results are cached for a week.
 export async function previousResult(ballotPaperId: string): Promise<PreviousResult | null> {
+  const poll = ballotPaperId.slice(-10);
+  const recent = /^\d{4}-\d{2}-\d{2}$/.test(poll) && Date.now() - new Date(poll + "T00:00:00Z").getTime() < 15 * 86400000;
   try {
-    const r = await fetch(withToken(`${BASE}/results/${encodeURIComponent(ballotPaperId)}/`), { signal: AbortSignal.timeout(6000), next: { revalidate: 604800 } });
+    const r = await fetch(withToken(`${BASE}/results/${encodeURIComponent(ballotPaperId)}/`), { signal: AbortSignal.timeout(6000), next: { revalidate: recent ? 900 : 604800 } });
     if (!r.ok) return null;
     const j = (await r.json()) as {
-      source: string | null; turnout_percentage: number | null; total_electorate: number | null;
+      source: string | null; turnout_percentage: number | null; total_electorate: number | null; num_spoilt_ballots: number | null; num_turnout_reported: number | null;
       candidate_results: { num_ballots: number | null; elected: boolean; person: { name: string }; party: { name: string } | null }[];
     };
     const total = j.candidate_results.reduce((a, c) => a + (c.num_ballots ?? 0), 0);
     const rows = j.candidate_results
       .map((c) => ({ name: c.person.name, party: c.party?.name ?? "Independent", votes: c.num_ballots ?? 0, share: total ? (100 * (c.num_ballots ?? 0)) / total : 0, elected: c.elected }))
       .sort((a, b) => b.votes - a.votes);
-    return { ballot_paper_id: ballotPaperId, source: j.source, turnout_percentage: j.turnout_percentage, total_electorate: j.total_electorate, total_votes: total, rows };
+    if (!rows.length) return null;
+    return { ballot_paper_id: ballotPaperId, source: j.source, turnout_percentage: j.turnout_percentage == null ? null : Number(j.turnout_percentage), total_electorate: j.total_electorate, total_votes: total, spoilt: j.num_spoilt_ballots ?? null, turnout_reported: j.num_turnout_reported ?? null, rows };
+  } catch {
+    return null;
+  }
+}
+
+
+// Democracy Club EveryElection: the statutory timetable for a ballot (registration, postal, proxy and voter-ID
+// certificate deadlines) and whether photo ID is required. CC BY 4.0, no key.
+export type Timetable = { registration?: string; postal?: string; proxy?: string; vac?: string; requiresId: boolean | null; source: string };
+export async function electionTimetable(ballotPaperId: string): Promise<Timetable | null> {
+  const url = `https://elections.democracyclub.org.uk/api/elections/${encodeURIComponent(ballotPaperId)}/`;
+  try {
+    const r = await fetch(url, { signal: AbortSignal.timeout(6000), headers: { "User-Agent": "What's It To Me? (whatsittome.org; hello@whatsittome.org)" }, next: { revalidate: 86400 } });
+    if (!r.ok) return null;
+    const j = (await r.json()) as { timetable?: Record<string, string | null> | null; requires_voter_id?: string | null };
+    const t = j.timetable ?? {};
+    const d = (k: string) => (typeof t[k] === "string" && /^\d{4}-\d{2}-\d{2}$/.test(t[k] as string) ? (t[k] as string) : undefined);
+    const out = { registration: d("registration_deadline"), postal: d("postal_vote_application_deadline"), proxy: d("proxy_vote_application_deadline"), vac: d("vac_application_deadline"),
+      requiresId: "requires_voter_id" in j ? !!j.requires_voter_id : null, source: `https://elections.democracyclub.org.uk/elections/${encodeURIComponent(ballotPaperId)}/` };
+    return out.registration || out.postal || out.proxy ? out : null;
   } catch {
     return null;
   }

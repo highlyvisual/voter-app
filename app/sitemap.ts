@@ -1,15 +1,16 @@
 import type { MetadataRoute } from "next";
 import { TOPICS, listBallots, listArchivedBallots, listCandidates, publicClient } from "@/lib/data";
-import { listCouncils } from "@/lib/councils";
+import { listAllCouncils } from "@/lib/councils";
 
 // Rebuilt hourly. Advertised in robots.txt only once ALLOW_INDEXING is set.
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = "https://whatsittome.org";
-  const [live, archived, parties] = await Promise.all([
+  const [live, archived, parties, councils] = await Promise.all([
     listBallots(), listArchivedBallots(),
     publicClient().from("parties").select("ec_id").then((r) => (r.data ?? []) as { ec_id: string }[]),
+    listAllCouncils(),
   ]);
   const statics = ["", "/start", "/how-to-vote", "/learn", "/positions", "/parties", "/place", "/about", "/about/accuracy", "/about/data-use", "/about/moderation", "/about/parties-standing", "/who-we-are", "/contact", "/ledger", "/status", "/data", "/accessibility", "/explore/housing"]
     .map((p) => ({ url: `${base}${p}` }));
@@ -26,7 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }))).flat();
   return [
     ...statics,
-    ...listCouncils().map((c) => ({ url: `${base}/council/${c.slug}` })),
+    ...councils.map((c) => ({ url: `${base}/council/${c.slug}` })),
     ...parties.map((p) => ({ url: `${base}/parties/${encodeURIComponent(p.ec_id)}` })),
     ...liveEntries,
     ...archived.map((b) => ({ url: `${base}/ballot/${encodeURIComponent(b.ballot_paper_id)}` })),

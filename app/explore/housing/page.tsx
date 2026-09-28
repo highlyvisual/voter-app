@@ -63,8 +63,8 @@ export default async function HousingExplorer({ searchParams }: { searchParams: 
   const england = !country || country === "England";
   const lad = pc?.codes?.admin_district ?? null;
   const twoTier = Boolean(pc?.admin_county);
-  const slug = councilSlugFor(pc?.admin_district);
-  const council = slug ? councilBySlug(slug) : null;
+  const slug = await councilSlugFor(pc?.admin_district);
+  const council = slug ? await councilBySlug(slug) : null;
   const fact = council?.facts.find((f) => f.topic === "housing" && f.quote) ?? null;
   const plans = slug ? ((await publicClient().from("local_plans").select("name, required_housing, period_start, period_end, documentation_url").eq("council_slug", slug).order("period_end", { ascending: false, nullsFirst: false }).limit(1)).data ?? []) : [];
   const plan = plans[0] as { name: string | null; required_housing: number | null; period_start: string | null; period_end: string | null; documentation_url: string | null } | undefined;

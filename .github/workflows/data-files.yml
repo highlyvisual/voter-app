@@ -1,0 +1,45 @@
+name: Data files
+# Official figures the site reads from files in the repository rather than the database:
+#   lib/council_finance.json  council budgets by service (England, Wales, Scotland) and council tax for Wales and Scotland
+#                             (scripts/loaders/council_finance.py)
+#   lib/party_register.json   each party's Electoral Commission register entry, latest accounts, recent loans and 2024
+#                             general election spending (scripts/loaders/party_register.py)
+# Weekly. When a file's figures change it pushes a branch and opens a pull request rather than pushing to main, so a data
+# change never triggers a deploy on its own (deploys are batched by hand).
+on:
+  schedule:
+    - cron: "20 6 * * 2"   # Tuesdays 06:20 UTC
+  workflow_dispatch:
+concurrency: { group: data-files, cancel-in-progress: false }
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  files:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      PYTHONUNBUFFERED: "1"
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - run: pip install --quiet pandas odfpy openpyxl requests
+      - name: Council finance
+        run: python scripts/loaders/council_finance.py
+      - name: Party register
+        run: python scripts/loaders/party_register.py
+      - name: Open a pull request if the figures changed
+        run: |
+          # retrieved_at changes every run; only the figures count as a change.
+          if git diff --quiet -I '"retrieved_at"' -- lib/council_finance.json && git diff --quiet -I '"retrieved_at"' -- lib/party_register.json; then echo "No change"; exit 0; fi
+          branch="data/files-$(date -u +%Y-%m-%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add lib/council_finance.json lib/party_register.json
+          git commit -m "Data files: figures changed at source"
+          git push -u origin "$branch"
+          gh pr create --title "Data files: figures changed at source" --body "The weekly run of scripts/loaders/council_finance.py and scripts/loaders/party_register.py found changed figures. Check the diff against the sources named in each file, then merge with the next batched deploy." --base main --head "$branch" \
+            || echo "::warning::Pushed $branch but couldn't open the pull request (the repository may not let Actions create them); open it from https://github.com/${{ github.repository }}/compare/main...$branch"

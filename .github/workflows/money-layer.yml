@@ -1,0 +1,76 @@
+name: Money layer
+# PolicyEngine UK run as a package here, never through api.policyengine.org (the web app's undocumented backend).
+#   watch    weekly: official tax and benefit rates from GOV.UK against the last confirmed values and against the pinned
+#            PolicyEngine version (scripts/auto/rates_watch.py). Fails, with a table in the run summary, when a rate
+#            changes at source or the model disagrees with GOV.UK.
+#   compute  on demand: recomputes the receipt grid and the party reform sets with a given PolicyEngine version and
+#            shows whether the figures differ from the committed ones. It never writes to the database: the output is
+#            attached to the run for review, and loading it stays a separate, deliberate step.
+on:
+  schedule:
+    - cron: "40 5 * * 1"   # Mondays 05:40 UTC
+  workflow_dispatch:
+    inputs:
+      job:
+        description: "watch or compute"
+        default: "watch"
+        type: choice
+        options: [watch, compute]
+      policyengine_version:
+        description: "PolicyEngine UK version for compute (blank = the pinned one in scripts/money/requirements.txt)"
+        required: false
+        default: ""
+concurrency: { group: money-layer, cancel-in-progress: false }
+permissions:
+  contents: read
+jobs:
+  watch:
+    if: github.event_name == 'schedule' || inputs.job == 'watch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env: { PYTHONUNBUFFERED: "1" }
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - run: pip install --quiet -r scripts/money/requirements.txt
+      - name: Latest PolicyEngine UK release (for information)
+        run: |
+          latest=$(curl -s https://pypi.org/pypi/policyengine-uk/json | python -c "import json,sys; print(json.load(sys.stdin)['info']['version'])")
+          pinned=$(grep -oP 'policyengine-uk==\K\S+' scripts/money/requirements.txt)
+          echo "Pinned $pinned; latest on PyPI $latest" | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Official rates against confirmed values and the pinned model
+        run: python scripts/auto/rates_watch.py
+  compute:
+    if: github.event_name == 'workflow_dispatch' && inputs.job == 'compute'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env: { PYTHONUNBUFFERED: "1" }
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - name: Install PolicyEngine UK
+        run: |
+          if [ -n "${{ inputs.policyengine_version }}" ]; then pip install --quiet "policyengine-uk==${{ inputs.policyengine_version }}"; else pip install --quiet -r scripts/money/requirements.txt; fi
+          python -c "import importlib.metadata as m; print('policyengine-uk', m.version('policyengine-uk'))" | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Baseline grid
+        run: python scripts/compute_grid.py
+      - name: Party reform sets
+        run: python scripts/compute_reform_sets.py | tee reform_hashes.txt
+      - name: Did anything change?
+        run: |
+          {
+            echo "### Baseline grid against the committed files"
+            if git diff --quiet -- scripts/sql/grid_batch_*.sql; then echo "Identical: this version reproduces the committed grid exactly."; else git diff --stat -- scripts/sql/grid_batch_*.sql; echo; echo "Figures differ: review the attached files before loading anything."; fi
+            echo; echo "### Reform sets (sha256 of every row)"; cat reform_hashes.txt
+          } | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: receipt-grid-${{ github.run_id }}
+          path: |
+            scripts/sql/grid_batch_*.sql
+            scripts/sql/grid_assumptions.json
+            scripts/sql/reform_*.json
+            reform_hashes.txt
+          retention-days: 30

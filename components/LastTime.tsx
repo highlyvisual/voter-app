@@ -21,7 +21,7 @@ export default function LastTime({ result, label, open = false }: { result: Prev
         </tbody>
       </table>
       <p className="muted" style={{ margin: "0.4rem 0 0" }}>
-        {num.format(result.total_votes)} valid votes{result.turnout_percentage ? `, turnout ${pct.format(result.turnout_percentage)}%` : ""}.
+        {num.format(result.total_votes)} valid votes{result.turnout_percentage ? `, turnout ${pct.format(result.turnout_percentage)}%` : ""}{result.total_electorate ? ` of ${num.format(result.total_electorate)} registered electors` : ""}{result.spoilt != null ? `, ${num.format(result.spoilt)} spoilt ${result.spoilt === 1 ? "ballot" : "ballots"}` : ""}.
         Result data from Democracy Club{result.source ? <> (<a href={result.source} rel="noopener">source</a>)</> : null}. Past results describe the past; each election is a new contest.
       </p>
     </details>

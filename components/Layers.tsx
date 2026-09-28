@@ -25,7 +25,7 @@ export default async function Layers({ lat, lng, electionCouncil }: { lat: numbe
   const lad = pc.codes?.admin_district ?? null;
   const ca = lad ? W.combined_authority[lad] ?? null : null;
   const fra = lad ? W.fire_authority[lad] ?? null : null;
-  const councilSlug = councilSlugFor(pc.admin_district);
+  const councilSlug = await councilSlugFor(pc.admin_district);
   const [mp, district, county] = await Promise.all([
     pc.parliamentary_constituency ? currentMp(pc.parliamentary_constituency) : Promise.resolve(null),
     cllrs(pc.admin_district, pc.admin_ward),

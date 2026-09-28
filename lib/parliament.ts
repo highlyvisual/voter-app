@@ -6,7 +6,7 @@ export type Membership = { house: string; from: string | null; start: string; en
 export type PartySplit = { party: string; aye: number; no: number };
 export type Division = { id: number; title: string; date: string; votedAye: boolean | null; ayes: number; noes: number; context: string; topic: string | null; justification: { text: string; url: string; debate: string } | null; split?: PartySplit[]; ownParty?: string | null; withParty?: boolean | null };
 export type Interest = { category: string; summary: string; registered: string };
-export type ParliamentRecord = { memberId: number; name: string; party: string | null; memberships: Membership[]; divisions: Division[]; totalDivisionsSampled: number; interests?: Interest[]; interestsTotal?: number };
+export type ParliamentRecord = { memberId: number; name: string; party: string | null; memberships: Membership[]; divisions: Division[]; totalDivisionsSampled: number; interests?: Interest[]; interestsTotal?: number; extras?: ParliamentExtras };
 
 export async function parliamentRecord(memberId: number, take = 8): Promise<ParliamentRecord | null> {
   try {
@@ -103,4 +103,39 @@ export async function withPartySplits(memberId: number, divisions: Division[]): 
       return { ...d, split: [...tally.values()].sort((a, b) => b.aye + b.no - (a.aye + a.no)), ownParty: own, withParty };
     } catch { return d; }
   }));
+}
+
+// Item 6 of the data-sources build list: more of the member's own record, all from the Members API (Open Parliament
+// Licence). Parliament's own one-line synopsis; early day motions the member tabled or signed (titles as published);
+// written questions the member asked (their own words, verbatim, never shortened into a summary of ours).
+export type Edm = { id: number; title: string; number: string; date: string; prayer: boolean };
+export type WrittenQuestion = { id: number; uin: string; date: string; text: string; to: string | null; house: string };
+export type ParliamentExtras = { synopsis: string | null; edms: { total: number; items: Edm[] }; questions: { total: number; items: WrittenQuestion[] } };
+
+export async function parliamentExtras(memberId: number): Promise<ParliamentExtras | null> {
+  const get = (p: string, revalidate: number) => fetch(`https://members-api.parliament.uk/api/Members/${memberId}/${p}`, { signal: AbortSignal.timeout(6000), headers: H, next: { revalidate } }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+  const [syn, edm, wq] = await Promise.all([get("Synopsis", 604800), get("Edms?page=1", 86400), get("WrittenQuestions?page=1", 86400)]);
+  if (!syn && !edm && !wq) return null;
+  // The synopsis is HTML with links to Parliament's own pages; keep the words only.
+  const synopsis = typeof syn?.value === "string" ? syn.value.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim() : null;
+  type E = { value: { id: number; title: string; number: string; dateTabled: string; isPrayer: boolean } };
+  type Q = { value: { id: number; uin: string; dateTabled: string; questionText: string; house: number; answeringBody?: { name?: string } | null } };
+  return {
+    synopsis,
+    edms: { total: edm?.totalResults ?? 0, items: ((edm?.items ?? []) as E[]).slice(0, 8).map(({ value: v }) => ({ id: v.id, title: v.title, number: v.number, date: (v.dateTabled ?? "").slice(0, 10), prayer: Boolean(v.isPrayer) })) },
+    questions: { total: wq?.totalResults ?? 0, items: await fullQuestions(((wq?.items ?? []) as Q[]).map(({ value: v }) => ({ id: v.id, uin: v.uin, date: (v.dateTabled ?? "").slice(0, 10), text: v.questionText, to: v.answeringBody?.name ?? null, house: v.house === 2 ? "Lords" : "Commons" }))) },
+  };
+}
+
+// The Members API (and the Questions API's list) cut question text at 255 characters. The member's words are shown
+// whole or not at all: a cut question is re-read from the Written Questions API, and dropped if that fails.
+async function fullQuestions(qs: WrittenQuestion[]): Promise<WrittenQuestion[]> {
+  const latest = [...qs].sort((a, b) => b.date.localeCompare(a.date) || b.id - a.id).slice(0, 6);
+  const out = await Promise.all(latest.map(async (q) => {
+    if (q.text.length < 255) return q;
+    const j = await fetch(`https://questions-statements-api.parliament.uk/api/writtenquestions/questions/${q.id}`, { signal: AbortSignal.timeout(6000), headers: H, next: { revalidate: 604800 } }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    const text = j?.value?.questionText;
+    return typeof text === "string" && text.length >= q.text.length ? { ...q, text } : null;
+  }));
+  return out.filter((q): q is WrittenQuestion => q !== null);
 }
