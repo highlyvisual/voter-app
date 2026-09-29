@@ -73,7 +73,7 @@ export default function About() {
         Seven questions are asked of every household, in bands, after the postcode. A few more are optional: whether anyone is disabled or has a long-term condition, is an unpaid carer,
         is on a visa or seeking asylum, receives a means-tested benefit, drives, or has served in the armed forces. They exist only because published positions refer to them.
         Leave any blank and nothing is assumed either way: a position that depends on it is listed as applying to other households, never hidden and never presumed.
-        We never ask about sexual orientation, gender identity, religion or ethnicity: positions on equality are shown to everyone rather than targeted.
+        Since 29 September 2026 there are also optional questions about you: ethnic group, religion, sex, whether your gender matches the sex you were registered at birth, and sexual orientation (the Census categories). They were added at our founder's request so that the site can be more personal, and they work differently from everything else: the answers stay in your browser, never go into a page address, are never sent to us and are never used in a calculation. If you answer, every party's own words that mention the group you chose are shown first, and Equality and rights moves to the top. The rule is the same for every answer and every party, and the site never says whether a policy is good or bad for anyone.
       </p>
 
       <h2>Going deeper</h2>

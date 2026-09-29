@@ -35,6 +35,28 @@ export async function GET(req: NextRequest) {
       if (gj?.features?.length) out.push({ ...l, geojson: gj, count: gj.features.length });
     } catch { /* optional */ }
   }));
+  // Recorded crime (round eight q6: "crime rates" on the map). data.police.uk street-level crimes within about a mile of
+  // the point for the latest published month, grouped by the anonymised location the police give (a street or a public
+  // place, never an address). Open Government Licence. Counts, not rates: busy places record more.
+  try {
+    const month = (await fetch("https://data.police.uk/api/crimes-street-dates", { signal: AbortSignal.timeout(5000), headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : null)))?.[0]?.date as string | undefined;
+    if (month) {
+      const rows = await fetch(`https://data.police.uk/api/crimes-street/all-crime?lat=${lat}&lng=${lng}&date=${month}`, { signal: AbortSignal.timeout(6000), headers: H, next: { revalidate: 86400 } }).then((r) => (r.ok ? r.json() : null));
+      if (Array.isArray(rows) && rows.length) {
+        const by = new Map<string, { lat: number; lng: number; street: string; n: number; cats: Map<string, number> }>();
+        for (const c of rows as { category: string; location?: { latitude: string; longitude: string; street?: { name?: string } } }[]) {
+          if (!c.location) continue;
+          const key = `${c.location.latitude},${c.location.longitude}`;
+          const e = by.get(key) ?? { lat: Number(c.location.latitude), lng: Number(c.location.longitude), street: c.location.street?.name ?? "Near this point", n: 0, cats: new Map() };
+          e.n++; e.cats.set(c.category, (e.cats.get(c.category) ?? 0) + 1); by.set(key, e);
+        }
+        const [y, m] = month.split("-").map(Number);
+        const monthText = new Date(Date.UTC(y, m - 1, 1)).toLocaleDateString("en-GB", { month: "long", year: "numeric", timeZone: "UTC" });
+        const features = [...by.values()].map((e) => ({ type: "Feature", geometry: { type: "Point", coordinates: [e.lng, e.lat] }, properties: { name: `${e.street}: ${e.n} recorded in ${monthText}`, detail: [...e.cats.entries()].sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k.replace(/-/g, " ")} ${v}`).join(", ") } }));
+        out.push({ dataset: "police-crime", label: `Recorded crime, ${monthText}`, colour: "#37474f", topic: "crime_policing_and_justice", mode: "site", more: "https://data.police.uk/about/", note: "Crimes recorded by the police within about a mile, placed at the nearest anonymised point the police publish (a street or a public place, never an address). A count, not a rate: town centres and stations record more because more people pass through.", whatItMeans: "Crimes the police recorded in the latest month they have published, within about a mile of your postcode. Each dot is the anonymised point the police publish, not the scene of the crime. It reflects reporting and policing as well as offending.", geojson: { type: "FeatureCollection", features }, count: rows.length });
+      }
+    }
+  } catch { /* optional */ }
   const ballot = req.nextUrl.searchParams.get("ballot");
   const published: Record<string, number> = {};
   if (ballot) {

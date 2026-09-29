@@ -11,7 +11,7 @@ export default function DataUse() {
       <h2>What we log</h2>
       <p>Anonymous daily page counts per election and aggregate bot traffic. No cookies for tracking, and no records of what any one visitor looked at. Our web host keeps standard request logs, which include page addresses; profile answers appear in the address when you view a ballot with a profile, and we don't use or keep those logs.</p>
       <h2>On your own device</h2>
-      <p>Your profile is kept in your browser if you choose to save it. To let pages open without a signal (at a polling station, say), your browser also keeps a copy of the last 40 or so pages you opened on this site. Those copies stay on your device and are never sent to us; clearing this site&rsquo;s data in your browser removes them.</p>
+      <p>Your profile is kept in your browser if you choose to save it. The optional answers about you (ethnic group, religion, sex, gender and sexual orientation) never leave your browser at all: they are not put in page addresses, not sent to us and not in our host's logs. If you don't save a profile, they last only until you close the tab. You can delete them on My profile. To let pages open without a signal (at a polling station, say), your browser also keeps a copy of the last 40 or so pages you opened on this site. Those copies stay on your device and are never sent to us; clearing this site&rsquo;s data in your browser removes them.</p>
     </>
   );
 }

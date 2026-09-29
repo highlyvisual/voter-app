@@ -2,7 +2,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { FIELDS, FIELD_KEYS, OPTIONAL_FIELDS, OPTIONAL_KEYS } from "@/lib/household";
-import { readProfile, writeProfile } from "@/lib/profile";
+import { readProfile, writeProfile, writeSessionPersonal } from "@/lib/profile";
+import { PERSONAL_FIELDS, PERSONAL_KEYS, PERSONAL_WHY } from "@/lib/personal";
 
 // One question at a time. Every question says why it is asked and can be skipped. Nothing is sent anywhere until the
 // postcode lookup, and nothing is kept by us (the optional profile lives in the browser only). We never ask who you support or how you voted.
@@ -30,7 +31,7 @@ function SubmitButton() {
 }
 
 export default function Onboarding({ action, check, error = null, initial = {} }: { action: (fd: FormData) => void; check?: (pc: string) => Promise<{ ok: boolean; message?: string }>; error?: string | null; initial?: Record<string, string> }) {
-  const steps = ["postcode", ...FIELD_KEYS, "optional"] as const;
+  const steps = ["postcode", ...FIELD_KEYS, "personal", "optional"] as const;
   const [i, setI] = useState(0);
   const [vals, setVals] = useState<Record<string, string>>(initial);
   const [pc, setPc] = useState("");
@@ -82,7 +83,7 @@ export default function Onboarding({ action, check, error = null, initial = {} }
     <form action={action} className="onboard" data-step={i} onSubmit={(e) => {
       // Pressing Enter in the postcode box used to submit the whole form, skipping every question (persona test, 28 Sept).
       if (step !== "optional") { e.preventDefault(); if (step === "postcode") void postcodeNext(); return; }
-      if (keep) writeProfile({ ...vals, postcode: pc.trim().toUpperCase() });
+      if (keep) writeProfile({ ...vals, postcode: pc.trim().toUpperCase() }); else writeSessionPersonal(vals);
     }}>
       <input type="hidden" name="postcode" value={pc} />
       <input type="hidden" name="from" value="start" />
@@ -99,6 +100,25 @@ export default function Onboarding({ action, check, error = null, initial = {} }
           <input ref={pcRef} className="big-input" type="text" inputMode="text" autoCapitalize="characters" autoComplete="postal-code" enterKeyHint="next" value={pc} onChange={(e) => { setPc(e.target.value); if (pcError) setPcError(null); }} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); void postcodeNext(); } }} placeholder="e.g. WC1H 9JE" aria-label="Your postcode" aria-invalid={pcError ? true : undefined} aria-describedby={pcError ? "pc-error pc-hint" : "pc-hint"} />
           {pcError ? <p id="pc-error" className="notice small" role="alert" style={{ marginTop: "0.6rem" }}>{pcError}</p> : null}
           <div className="onboard-actions"><button type="button" onClick={() => void postcodeNext()} aria-busy={checking || undefined}>{checking ? "Checking…" : "Next"}</button></div>
+        </div>
+      ) : step === "personal" ? (
+        <div className="onboard-step" key={i}>
+          {/* Round eight q6 (29 Sept): optional questions about the person, kept in this browser only. */}
+          <h2 ref={headingRef} tabIndex={-1}>A bit more about you, if you like</h2>
+          <p className="lede">Entirely optional. Parties publish positions on race, religion, sex, gender and sexual orientation; answer any of these and we put every party&rsquo;s own words on it first. We never say whether a policy is good or bad for you.</p>
+          <p className="notice small">These answers stay in this browser. They are never put in a page address, never sent to us and never used to calculate anything. You can delete them at any time from My profile.</p>
+          {PERSONAL_KEYS.map((k) => (
+            <fieldset key={k} className="onboard-optional">
+              <legend>{PERSONAL_FIELDS[k].label}</legend>
+              <div className="pills">
+                {PERSONAL_FIELDS[k].options.map(([code, text]) => (
+                  <button key={code} type="button" aria-pressed={vals[k] === code} className={`pill${vals[k] === code ? " on" : ""}`} onClick={() => setVals((v) => ({ ...v, [k]: v[k] === code ? "" : code }))}>{text}</button>
+                ))}
+              </div>
+              <p className="meta">{PERSONAL_WHY[k]} Leave it blank to skip.</p>
+            </fieldset>
+          ))}
+          <div className="onboard-actions"><button type="button" onClick={next}>Next</button><button type="button" className="secondary" onClick={back}>Back</button></div>
         </div>
       ) : step === "optional" ? (
         <div className="onboard-step" key={i}>

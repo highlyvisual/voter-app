@@ -2,7 +2,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FIELDS, FIELD_KEYS, OPTIONAL_FIELDS, OPTIONAL_KEYS } from "@/lib/household";
-import { clearProfile, readProfile, writeProfile, type Profile } from "@/lib/profile";
+import { HOUSEHOLD_KEYS, clearPersonal, clearProfile, readProfile, writeProfile, type Profile } from "@/lib/profile";
+import { PERSONAL_FIELDS, PERSONAL_KEYS, PERSONAL_WHY } from "@/lib/personal";
 
 // "My profile": every answer, why it is asked, and one tap to change or remove it. Lives on this device only.
 const WHY: Record<string, string> = {
@@ -71,11 +72,39 @@ export default function ProfileView({ findAction }: { findAction: (fd: FormData)
           );
         })}
       </div>
+      <h2>About you <span className="meta">(optional, this browser only)</span></h2>
+      <p className="meta">Never put in a page address, never sent to us, never used to calculate anything. If you answer, every party&rsquo;s own words on these subjects are shown first on Your politics.</p>
+      <div className="profile-grid">
+        {PERSONAL_KEYS.map((k) => {
+          const options = PERSONAL_FIELDS[k].options as unknown as [string, string][];
+          const current = options.find(([code]) => code === p[k])?.[1];
+          return (
+            <section key={k} className="profile-card">
+              <p className="profile-label">{PERSONAL_FIELDS[k].label}</p>
+              {editing === k ? (
+                <div className="pills">
+                  {options.map(([code, text]) => <button key={code} type="button" className={`pill${p[k] === code ? " on" : ""}`} onClick={() => set(k, code)}>{text}</button>)}
+                  <button type="button" className="pill" onClick={() => set(k, "")}>Prefer not to say</button>
+                </div>
+              ) : (
+                <>
+                  <p className="profile-value">{current ?? <span className="meta">Not answered</span>}</p>
+                  <p className="meta">{PERSONAL_WHY[k]}</p>
+                  <button type="button" className="secondary small" onClick={() => setEditing(k)}>{current ? "Change" : "Answer"}</button>
+                </>
+              )}
+            </section>
+          );
+        })}
+      </div>
+      {PERSONAL_KEYS.some((k) => p[k]) ? <p><button type="button" className="secondary" onClick={() => { clearPersonal(); setP(readProfile()); }}>Delete my answers about me</button></p> : null}
       <div className="profile-actions">
         {p.postcode ? <form action={findAction} style={{ display: "inline" }}>
           <input type="hidden" name="postcode" value={p.postcode} />
-          {Object.entries(p).filter(([k]) => k !== "postcode").map(([k, v]) => <input key={k} type="hidden" name={k} value={v} />)}
-          <button type="submit">Show my election</button>
+          <input type="hidden" name="from" value="profile" />
+          {/* Household answers only: answers about the person never leave this browser. */}
+          {Object.entries(p).filter(([k]) => HOUSEHOLD_KEYS.includes(k)).map(([k, v]) => <input key={k} type="hidden" name={k} value={v} />)}
+          <button type="submit">Show my politics</button>
         </form> : null}
         <button type="button" className="secondary" onClick={() => { if (confirm("Delete your profile from this device?")) { clearProfile(); setP(null); } }}>Delete my profile</button>
       </div>

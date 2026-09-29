@@ -57,8 +57,15 @@ export async function findElection(formData: FormData) {
   const outcode = raw.slice(0, -3);
   const loc = pio ? `${Number(pio.latitude).toFixed(3)},${Number(pio.longitude).toFixed(3)}` : "";
   const hq = householdQuery(formData);
-  const toBallot = (id: string, approx = false) => redirect(`/ballot/${encodeURIComponent(id)}/area?pc=${encodeURIComponent(outcode)}${loc ? `&loc=${loc}` : ""}${approx ? "&approx=1" : ""}${hq ? `&${hq}` : ""}`);
-  const toPlace = () => redirect(`/place?pc=${encodeURIComponent(outcode)}${loc ? `&loc=${loc}` : ""}`);
+  // Round eight q6 (Romily, 29 Sept): someone who has just built or reopened their profile lands on "Your politics"
+  // (/you), a page built around them. The quick lookup on the home page still goes straight to the election.
+  const landYou = fromStart || formData.get("from") === "profile";
+  const toBallot = (id: string, approx = false) => redirect(landYou
+    ? `/you?ballot=${encodeURIComponent(id)}&pc=${encodeURIComponent(outcode)}${loc ? `&loc=${loc}` : ""}${approx ? "&approx=1" : ""}${hq ? `&${hq}` : ""}`
+    : `/ballot/${encodeURIComponent(id)}/area?pc=${encodeURIComponent(outcode)}${loc ? `&loc=${loc}` : ""}${approx ? "&approx=1" : ""}${hq ? `&${hq}` : ""}`);
+  const toPlace = () => redirect(landYou
+    ? `/you?pc=${encodeURIComponent(outcode)}${loc ? `&loc=${loc}` : ""}${hq ? `&${hq}` : ""}`
+    : `/place?pc=${encodeURIComponent(outcode)}${loc ? `&loc=${loc}` : ""}`);
 
   // Primary: Democracy Club, which knows every election at the address and handles postcodes split between areas.
   const dc = await ballotsForPostcode(raw);

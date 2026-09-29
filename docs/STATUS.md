@@ -28,9 +28,17 @@ Round eight (Romily's answers of 29 Sept, `docs/romily/round-8-answers.md`), eve
   goes (q19), each on its own page and linked from /learn.
 - The journey prototypes switch between steps and one page (q20).
 - Three colour directions to try at /looks (q10–12), stored in the visitor's browser only; not indexed.
+- Where the profile lands (q6), built after Barny and Romily's decisions of 29 Sept: /you, "Your politics". What you're
+  voting for; your area (map with recorded crime from data.police.uk added, official figures); who decides; and what's
+  at stake by scale (your council, your nation or region, the UK, the world) in each party's own words, topics that touch
+  the household first. Optional questions about the person (ethnic group, religion, sex, gender, sexual orientation, ONS
+  Census categories) are stored in the browser only, never in an address or sent to us; answering puts Equality and
+  rights first and gathers every party's positions whose own words mention that group. /about and the privacy page say so.
 - Code links now point to github.com/highlyvisual/whatsittome, a new public repository (see Blocked: it is still empty).
 
 ## Outstanding, not blocked (can be built next)
+
+Next batch (Barny, 29 Sept): waste and transport layers on the Your politics map.
 
 From `docs/research/11-data-sources.md`; items 1 to 7 are built (above). Still to do:
 - Future wards for May 2027, once Democracy Club loads the May 2027 elections.
@@ -44,9 +52,8 @@ heavy (about 1.5 MB of HTML for Holborn and St Pancras); the unknown-ballot 404 
 ## Blocked
 
 **On Romily**
-- Round eight, still open: where the profile lands (q6; her example of calling a policy racist would be a verdict, see
-  note 1), the council agenda order (q15, note 2), Welsh (q23: reverses the 27 Sept decision; needs Barny too), and her
-  choice of colour direction at /looks. The area figures on the map (the rest of q7) wait on the map design in q6.
+- Round eight, still open: the council agenda order (q15, note 2), Welsh (q23: reverses the 27 Sept decision; needs Barny too), and her
+  choice of colour direction at /looks.
 - The Democracy Club call: she wrote "Thurs 8th October", which is polling day for Holborn and St Pancras. Peter's
   offer was 7 to 9 October; 7 or 9 October avoids the clash.
 - Older and still open: the local-issues rule (round six q12), whether new publications are drafted into claims
