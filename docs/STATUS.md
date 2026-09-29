@@ -1,12 +1,20 @@
-# Status, 29 September 2026 (evening)
+# Status, 29 September 2026 (late)
 
 Where everything stands after the 27–29 September build sessions (Claude in Cowork and Claude Code). Replace this file
 rather than adding to it; history is in git, `CHANGELOG.md` and the decisions log in `docs/PROJECT.md`.
 
 ## Live on whatsittome.org
 
-Deploy `6abb952262ff4c0931a15973` (29 Sept, 10:39 UTC), code `aa74026` on `main`, built by Claude in Cowork:
-Romily's design choices of 29 Sept from the five app-feel directions (`docs/design/2026-09-29-directions.md` maps each
+Deploy `6abba8a19ce37b0b03093a68` (29 Sept, 12:02 UTC), code `0335d7a` on `main`, built by Claude in Cowork:
+Romily's WhatsApp notes on the new pages (Your politics tells apart positions that **name your group** from those on
+the subject in general, and "Whose point of view?" lets you describe someone else just for the page; the fake grab
+handle on the home sheet is gone; map sources are behind "About this map"), and **/feedback**, "Tell us what you
+think": a two-minute anonymous questionnaire for the critique round, stored in Netlify Forms (form `site-feedback`;
+form detection switched on for the site on 29 Sept). Submissions: Netlify, voter-app-uk, Forms. Email notifications
+are not set up yet (Barny: Project configuration, Notifications, Emails and webhooks, Form submission notifications).
+Checked: axe clean on 17 pages, light and dark, 390 and 1280px, plus the new states; `npm test` 27/27.
+
+Before it: deploy `6abb952262ff4c0931a15973`, code `aa74026`, Romily's design choices of 29 Sept from the five app-feel directions (`docs/design/2026-09-29-directions.md` maps each
 choice to the files). Direction C's latte, cocoa and rose with A's sand and raspberry and E's apricot and aubergine
 (`app/theme.css`, loaded last; Fraunces and Public Sans self-hosted); a bottom tab bar on phones and tablets
 (`components/TabBar.tsx`); a map-first home page with "Coming up near you" bottom right (`components/HomeApp.tsx`);
