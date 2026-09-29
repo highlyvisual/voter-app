@@ -5,11 +5,16 @@ rather than adding to it; history is in git, `CHANGELOG.md` and the decisions lo
 
 ## Live on whatsittome.org
 
-Deploy `6abb687912a7813e38351574` (29 Sept, 07:29 UTC), code `6d764a9` on `main` (Your politics, /you), built by Claude in
-Cowork; the round-eight release before it was deploy `6abb5ea71096fa10a3eb62c2`, code `c25b0af`. Both
-carry Claude Code's persona-test fixes (`c88b046`, `de3ff1e`) and the Positions explorer (`185418a`). Checked live:
-every changed page returns 200 with no console or CSP errors and no sideways scroll at 390px; axe clean (WCAG 2.2 AA and
-AAA contrast) in light and dark at 390 and 1280px before release.
+Deploy `6abb7df49d942740b4394972` (29 Sept, about 09:00 UTC), code `e8ac5e5` on `main`, built by Claude in Cowork:
+Romily's WhatsApp notes of 29 Sept (header on one line with "More", "My profile" readable on hover, home slogan about
+40% smaller on a laptop, introduction cut to 25 words for her to edit, teal and coral as interface colours, party
+colours on everything that belongs to a party; `lib/partyColour.ts`). Details and her words: `docs/romily/feedback-log.md`
+(last section) and `CHANGELOG.md`. Checked before release: axe clean (WCAG 2.2 AA) on ten pages in light and dark at 390
+and 1280px, no sideways scroll, header one line from 360 to 1512px and at 150% text.
+
+Before it: deploy `6abb687912a7813e38351574` (29 Sept, 07:29 UTC), code `6d764a9` (Your politics, /you); the round-eight
+release, deploy `6abb5ea71096fa10a3eb62c2`, code `c25b0af`. Both carry Claude Code's persona-test fixes (`c88b046`,
+`de3ff1e`) and the Positions explorer (`185418a`).
 
 Round eight (Romily's answers of 29 Sept, `docs/romily/round-8-answers.md`), everything not waiting on a decision:
 - Home: her wording (q14), "Personalise my politics" (q5), four examples for the widest range of people.
@@ -56,6 +61,10 @@ heavy (about 1.5 MB of HTML for Holborn and St Pancras); the unknown-ballot 404 
 **On Romily**
 - Round eight, still open: the council agenda order (q15, note 2), Welsh (q23: reverses the 27 Sept decision; needs Barny too), and her
   choice of colour direction at /looks.
+- Five app-feel design directions (29 Sept), each element numbered, with a decision sheet: the Claude Design canvas
+  "What's It To Me? — five app-feel directions" (Barny shares it from its Share menu) and PNG contact sheets in the
+  UKPolitcs folder, `Claude outputs/design-2026-09-29/`. Her picks decide the app-like rebuild (bottom bar, one look
+  per job). The new introduction on the home page is also hers to edit.
 - The Democracy Club call: she wrote "Thurs 8th October", which is polling day for Holborn and St Pancras. Peter's
   offer was 7 to 9 October; 7 or 9 October avoids the clash.
 - Older and still open: the local-issues rule (round six q12), whether new publications are drafted into claims
