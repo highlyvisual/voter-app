@@ -143,7 +143,7 @@ export default async function You({ searchParams }: { searchParams: Promise<Reco
       {loc ? (
         <section id="you-area" className="you-sec" aria-labelledby="you-area-h">
           <h2 id="you-area-h">Your area</h2>
-          <p>The map shows what is around your postcode: recorded crime, schools, land for new homes, green belt and conservation areas, flood risk, air quality and storm overflows. Tap a dot for the official record, or use the key to switch layers on and off.</p>
+          <p>The map shows what is around your postcode: recorded crime, schools, bus stops and stations, permitted waste sites, land for new homes, green belt and conservation areas, flood risk, air quality and storm overflows. Tap a dot for the official record, or use the key to switch layers on and off.</p>
           <AreaMap ballotId={ballot?.ballot_paper_id} areaName={ballot?.area_name ?? place.district ?? outcode ?? "your area"} lat={loc.lat} lng={loc.lng} outcode={outcode} levelLabel={ballot?.level === "local" ? "ward" : "constituency"} loc={loc} />
           <h3>Issues where you live: the official figures</h3>
           {place.districtGss ? <Suspense fallback={<p className="meta">Loading official figures…</p>}><AreaNumbers gss={reg?.ons_gss_code ?? place.districtGss} name={place.district ?? "your council area"} region={reg?.region ?? place.region} /></Suspense> : null}
