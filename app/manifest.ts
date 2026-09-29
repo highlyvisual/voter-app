@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Who is on your ballot, what each candidate has published, and what it could mean for a household like yours. Impartial and sourced; never a recommendation.",
     start_url: "/",
     display: "standalone",
-    background_color: "#ffffff",
-    theme_color: "#ffffff",
+    background_color: "#F7EFE6",
+    theme_color: "#FFFBF6",
     lang: "en-GB",
     icons: [
       { src: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },

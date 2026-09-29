@@ -24,6 +24,7 @@ import Journey from "@/components/Journey";
 import CiteThis from "@/components/CiteThis";
 import { topicsForHousehold } from "@/lib/topicOrder";
 import CountUp from "@/components/CountUp";
+import NameCards from "@/components/NameCards";
 import ProfileApply from "@/components/ProfileApply";
 import FurtherReading from "@/components/FurtherReading";
 import AreaPanel from "@/components/AreaPanel";
@@ -38,7 +39,6 @@ import SystemExplainer from "@/components/SystemExplainer";
 import OfficeExplainer from "@/components/OfficeExplainer";
 import { electionTimetable, previousResult } from "@/lib/democracyclub";
 import { gridKey, householdComplete, householdFromParams, modelCaveat } from "@/lib/household";
-import { partyVars } from "@/lib/partyColour";
 
 export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ id: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
@@ -119,18 +119,6 @@ export default async function BallotPage({ params, searchParams }: Props) {
             <div><b><CountUp value={covered} /></b><span>with something published</span></div>
             <div><b><CountUp value={new Set(claims.map((c) => c.sources?.id).filter(Boolean)).size} /></b><span>named sources</span></div>
           </div>
-          <ol className="name-strip" aria-label="Candidates in ballot-paper order">
-            {candidates.map((c, i) => (
-              <li key={c.id} className="peek-host party-scope" style={partyVars(c.parties?.colour_hex)}><a href={`#c-${c.id}`}><span className="meta">{i + 1}</span> {c.name}<span className="party-dot" aria-hidden style={{ background: c.parties?.colour_hex ?? "var(--rule)" }} /><span className="meta">{c.party_description_on_ballot && c.party_description_on_ballot !== "[blank]" ? c.party_description_on_ballot : c.party_name_on_ballot}</span></a>
-                {/* Round five, q8 (Romily): no photos in lists, but "a hyperlink which opens a photo and some info". On a
-                    computer, hovering or focusing a name shows this card; on a phone the name goes to the full card. */}
-                <span className="peek" aria-hidden>
-                  {c.photo_url ? <img src={img(c.photo_url)} alt="" width={72} height={72} loading="lazy" /> : <span className="peek-initials">{c.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("")}</span>}
-                  <span className="peek-text"><strong>{c.name}</strong><span>{c.party_name_on_ballot}</span><span>{claims.filter((cl) => cl.candidate_id === c.id).length} of their own published positions sourced · {stood.filter((p) => p.candidate_id === c.id).length ? `stood ${stood.filter((p) => p.candidate_id === c.id).length} time${stood.filter((p) => p.candidate_id === c.id).length === 1 ? "" : "s"} before` : "no previous candidacies on record"}</span><Link prefetch={false} href={`/ballot/${encodeURIComponent(ballotId)}/candidate/${c.id}${qs ? `?${qs}` : ""}`} tabIndex={-1}>Their page &rarr;</Link></span>
-                </span>
-              </li>
-            ))}
-          </ol>
           {ballot.uncontested ? <div className="notice"><p><strong>Uncontested: elected without a poll.</strong> The number of valid nominations did not exceed the seats, so the candidate{candidates.length > 1 ? "s" : ""} below {candidates.length > 1 ? "are" : "is"} returned without a vote.</p></div> : null}
           {ballot.postponed ? <div className="notice"><p><strong>Postponed.</strong> {ballot.postponed_note ?? "This poll has been postponed; the new date will appear here when the council publishes it."}</p></div> : null}
           {ballot.cancelled && !ballot.uncontested ? <div className="notice"><p><strong>Cancelled.</strong> The council has cancelled this poll.</p></div> : null}
@@ -167,6 +155,8 @@ export default async function BallotPage({ params, searchParams }: Props) {
           </details>
         </aside>
       </div>
+
+      {candidates.length ? <NameCards ballotId={ballotId} candidates={candidates} claims={claims} household={household} complete={complete} qs={qs} /> : null}
 
       <SectionNav items={([["ballot-paper", "Candidates"], ["household", "Household"], ["compare", "Compare"], ["map", "Map"], ["area", "Area"], ["sources-heading", "Sources"]] as [string, string][]).filter(([id]) => !(ballot.archived && id === "area"))} />
 
@@ -215,8 +205,8 @@ export default async function BallotPage({ params, searchParams }: Props) {
       </nav>
       <OfficeExplainer level={ballot.level} areaName={ballot.area_name} seats={ballot.winner_count} generalElection={ballot.level === "parliamentary" && !ballot.ballot_paper_id.includes(".by.")} parties={[...new Map(candidates.filter((c) => c.parties?.name && c.party_ec_id !== "ynmp-party:2").map((c) => [c.party_ec_id!, { ec_id: c.party_ec_id!, name: c.parties!.name, colour: c.parties!.colour_hex }])).values()]} />
       <SystemExplainer system={ballot.voting_system} seats={ballot.winner_count} />
-      <div className="toolbar" id="ballot-paper" style={{ scrollMarginTop: "6rem" }}>
-        <h2 style={{ margin: 0 }}>The ballot paper</h2>
+      <div className="toolbar" id="everyone" style={{ scrollMarginTop: "6rem" }}>
+        <h2 style={{ margin: 0 }}>Everyone on one page</h2>
         <ExpandAll />
       </div>
       <div style={{ display: "flex", gap: "1rem", alignItems: "center", flexWrap: "wrap", margin: "0.3rem 0" }}><ViewMode /><BlindRead /></div>

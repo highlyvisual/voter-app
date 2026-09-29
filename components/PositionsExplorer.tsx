@@ -207,8 +207,8 @@ export default function PositionsExplorer({ rows, elections, topics, initial }: 
                       <blockquote className="quote only-verbatim">{mark(r.quote)}</blockquote>
                       {r.applies ? <><p className="layer-label">What this could mean for you</p><p className="small for-you">This would apply to you if: {r.applies}.</p></> : null}
                       {/* Opened while searching, so a match inside the quotation is visible. */}
-                      <details className="evidence" open={tokens.length > 0}>
-                        <summary>See the exact words and source</summary>
+                      <details className="evidence said-where" open={tokens.length > 0}>
+                        <summary><span className="sw-label">Sourced:</span> {r.source}{r.published ? `, ${longDate(r.published)}` : ""}</summary>
                         <blockquote className="quote not-verbatim">{mark(r.quote)}</blockquote>
                         <p className="small" style={{ margin: "0.3rem 0 0" }}><a href={r.url} rel="noopener">{r.source}</a>{r.urlArchived ? " (archived copy: the original page no longer loads)" : ""}, {r.publisher}{r.published ? `, published ${longDate(r.published)}` : ""}.{r.archive ? <> <a href={r.archive} rel="noopener">Archived copy</a>.</> : null}</p>
                       </details>

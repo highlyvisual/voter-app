@@ -1,11 +1,9 @@
 import Link from "next/link";
 import { longDate } from "@/lib/dates";
 import { countClaimsByStatus, countClaimsPerBallot, listArchivedBallots, listBallots, listFaceTiles, publicClient } from "@/lib/data";
-import BallotsMap from "@/components/BallotsMap";
 import CountUp from "@/components/CountUp";
 import Ticker from "@/components/Ticker";
-import YourDemocracy from "@/components/YourDemocracy";
-import TryPostcode from "@/components/TryPostcode";
+import { HomeComingUp, HomeMap, HomeTiles, type HomeBallot } from "@/components/HomeApp";
 import ElectionTimeline from "@/components/ElectionTimeline";
 import HomeLookup, { LookupView } from "@/components/HomeLookup";
 import JsonLd from "@/components/JsonLd";
@@ -39,53 +37,55 @@ export default async function Home() {
   const [ballots, archived, counts, srcRes, perBallot, tiles, recent] = await Promise.all([listBallots(), listArchivedBallots(), countClaimsByStatus(), publicClient().from("sources").select("id"), countClaimsPerBallot(), listFaceTiles(), publicClient().from("current_claims").select("id, created_at").eq("status", "verified").gte("created_at", weekAgo)]);
   const live = counts.verified ?? 0; const sources = srcRes.data?.length ?? 0;
   // The worked examples use the upcoming election with the most sourced positions, so there is something to see.
+  const today = new Date().toISOString().slice(0, 10);
+  const homeBallots: HomeBallot[] = ballots.map((b) => ({ id: b.ballot_paper_id, area: b.area_name, date: b.poll_date, level: b.level, lat: b.area_lat, lng: b.area_lng }));
   const example = [...ballots].sort((a, b) => (perBallot[b.ballot_paper_id] ?? 0) - (perBallot[a.ballot_paper_id] ?? 0))[0] ?? null;
   return (
     <>
       <JsonLd data={graph(webPage("/", "What’s It To Me? · Who’s on your ballot and what it means", "See every candidate on your UK ballot in ballot-paper order, what each has actually published, and what it could mean for you. Impartial and sourced.", { "@type": ["WebPage", "CollectionPage"], about: { "@type": "Thing", name: "UK elections and the candidates standing in them" }, mainEntity: { "@type": "ItemList", name: "Elections covered", numberOfItems: ballots.length, itemListElement: ballots.map((b, i) => ({ "@type": "ListItem", position: i + 1, name: `${b.area_name}, ${longDate(b.poll_date)}`, url: `https://whatsittome.org/ballot/${encodeURIComponent(b.ballot_paper_id)}` })) } }))} />
-      <YourDemocracy />
-      <div className="home-lockup">
-        {/* AVIF first (about half the bytes of the WebP), WebP for older browsers (Nova audit: the largest thing on a phone's first screen). */}
-        <picture className="brand-light"><source srcSet="/brand/lockup-light.avif" type="image/avif" /><img src="/brand/lockup-light.webp" fetchPriority="high" alt="What&rsquo;s It To Me? Politics, in your context." width={633} height={514} /></picture>
-        <picture className="brand-dark"><source srcSet="/brand/lockup-dark.avif" type="image/avif" /><img src="/brand/lockup-dark.webp" loading="lazy" alt="What&rsquo;s It To Me? Politics, in your context." width={633} height={515} /></picture>
-      </div>
-      <section className="hero-ballot hero-grid">
-        <div className="hero-main">
-
-        {/* Romily's own words (round eight, q14, 29 Sept), replacing the lines she picked out as sounding like AI. Cut down on
-            29 Sept at her request ("it has written it as I was giving it ideas of what to say but it's too chunky"): her
-            headline, and her introduction in two short lines. For her to edit. */}
-        <h1 className="home-slogan">You&rsquo;ve heard what they stand for. <em>But what does it mean for you?</em></h1>
-        <p className="lede home-intro">The people, policies and decisions shaping your life, every word sourced. No rankings, no recommendations: just what you need to make up your own mind.</p>
-
-        {/* Romily, round eight (1, and q5 on 29 Sept): the profile is the centre of attention, called "Personalise my politics";
-            the postcode is its first step and the quick lookup stays folded underneath. */}
-        <div className="start-cta">
-          <Link href="/start" className="button big">Personalise my politics &rarr;</Link>
-          <p className="meta">Postcode first, then skip anything you like. We don&rsquo;t store your answers.</p>
+      {/* Romily's design choices, 29 Sept (rows 3 and 10, design E): the map first, big, with what to open beside it
+          (below it on a phone), and "Coming up near you" at the foot of that column. Her headline and "Personalise my
+          politics" stay at the top of it. */}
+      <section className="home-app" aria-label="Start here">
+        <HomeMap ballots={homeBallots} />
+        <div className="home-sheet">
+          <span className="sheet-handle" aria-hidden />
+          <div className="home-lockup">
+            {/* AVIF first (about half the bytes of the WebP), WebP for older browsers (Nova audit). */}
+            <picture className="brand-light"><source srcSet="/brand/lockup-light.avif" type="image/avif" /><img src="/brand/lockup-light.webp" fetchPriority="high" alt="What&rsquo;s It To Me? Politics, in your context." width={633} height={514} /></picture>
+            <picture className="brand-dark"><source srcSet="/brand/lockup-dark.avif" type="image/avif" /><img src="/brand/lockup-dark.webp" loading="lazy" alt="What&rsquo;s It To Me? Politics, in your context." width={633} height={515} /></picture>
+          </div>
+          {/* Romily's own words (round eight, q14), cut down on 29 Sept at her request ("too chunky"). For her to edit. */}
+          <h1 className="home-slogan">You&rsquo;ve heard what they stand for. <em>But what does it mean for you?</em></h1>
+          <p className="lede home-intro">The people, policies and decisions shaping your life, every word sourced. No rankings, no recommendations: just what you need to make up your own mind.</p>
+          {/* Round eight (q5): the profile is the centre of attention; the quick postcode lookup stays folded underneath. */}
+          <div className="start-cta">
+            <Link href="/start" className="button big">Personalise my politics &rarr;</Link>
+            <p className="meta">Postcode first, then skip anything you like. We don&rsquo;t store your answers.</p>
+          </div>
+          <Suspense fallback={<LookupView error={null} />}><HomeLookup /></Suspense>
+          <HomeTiles ballots={homeBallots} />
+          <HomeComingUp ballots={homeBallots} today={today} />
         </div>
-        <Suspense fallback={<LookupView error={null} />}><HomeLookup /></Suspense>
+      </section>
+
+      <section className="hero-ballot home-after">
         <ul className="trust-strip" aria-label="Why you can rely on what you read here">
           <li><Link href="/about"><b>Never tells you how to vote.</b> No rankings, scores or quiz matches.</Link></li>
           <li><Link href="/ledger"><b>Every claim sourced.</b> Exact words, dated, in a public ledger.</Link></li>
           <li><Link href="/who-we-are#interests"><b>Independent.</b> No ads and no money from any party.</Link></li>
           <li><Link href="/accessibility"><b>Built for everyone.</b> Tested against WCAG 2.2 AA.</Link></li>
         </ul>
-        {/* The longer "we will never tell you who to vote for" paragraph that sat here repeated the four lines above; cut (29 Sept). */}
-        </div>
-        <TryPostcode today={new Date().toISOString().slice(0, 10)} />
         <aside className="word-card" aria-label="Where the name comes from">
           <p className="word-head"><span className="word">What&rsquo;s it to me?</span> <span className="word-answer">Quite a lot, actually.</span></p>
           <p>The question people actually ask about politics, and the hardest one to get answered. Not who is winning &mdash; what it would mean for you, your household, your street. <Link href="/who-we-are#the-name">Where the name comes from &rarr;</Link></p>
         </aside>
-        <div className="hero-foot">
         <ul className="stats" aria-label="What is on the site">
           <li><b><CountUp value={ballots.length} /></b> elections now</li>
           <li><b><CountUp value={live} /></b> sourced positions</li>
           <li><b><CountUp value={sources} /></b> named sources</li>
           <li><b>0</b> recommendations</li>
         </ul>
-        </div>
       </section>
 
       <Ticker items={[
@@ -155,8 +155,6 @@ export default async function Home() {
 
       {ballots.length > 3 ? (<>
         <ElectionTimeline today={new Date().toISOString().slice(0, 10)} ballots={ballots.map((b) => ({ id: b.ballot_paper_id, area: b.area_name, date: b.poll_date, level: b.level, locked: b.candidates_locked, positions: perBallot[b.ballot_paper_id] ?? 0, faces: tiles.filter((t) => t.ballot === b.ballot_paper_id).map((t) => ({ name: t.name, photo: null, colour: t.colour })) }))} />
-        <h3 style={{ marginTop: "2rem" }}>On the map</h3>
-        <BallotsMap ballots={ballots.map((b) => ({ ballot_paper_id: b.ballot_paper_id, area_name: b.area_name, poll_date: b.poll_date, level: b.level, lat: b.area_lat, lng: b.area_lng }))} />
         <p><Link href="/next">What can I vote in next? Calendar, map and countdown &rarr;</Link></p>
       </>) : null}
       <p className="meta">A test version. Elections are added as their candidate lists are confirmed; you can look at any covered election whether or not you live there.</p>

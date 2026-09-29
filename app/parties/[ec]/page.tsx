@@ -54,7 +54,7 @@ export default async function Party({ params }: { params: Promise<{ ec: string }
                 <blockquote className="quote">{c.source_quote}</blockquote>
                 <p className="summary">{c.claim_text}</p>
                 <ExplainThis text={`${c.source_quote} ${c.claim_text}`} />
-                {c.sources ? <p className="meta"><a href={c.sources.url} rel="noopener">{c.sources.title}</a>{(c as { supersedes?: number | null }).supersedes ? <> · <Link href={`/ledger#claim-${c.id}`}>Previous version and why it changed →</Link></> : null}</p> : null}
+                {c.sources ? <details className="evidence said-where"><summary><span className="sw-label">Sourced:</span> {c.sources.title}</summary><p className="meta"><a href={c.sources.url} rel="noopener">{c.sources.title}</a>, {c.sources.publisher}. <span className="sw-url">{c.sources.url}</span>{(c as { supersedes?: number | null }).supersedes ? <> · <Link href={`/ledger#claim-${c.id}`}>Previous version and why it changed →</Link></> : null}</p></details> : null}
               </article>
             ))}
           </section>

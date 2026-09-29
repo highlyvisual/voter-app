@@ -328,20 +328,11 @@ dl.glossary dd { margin: 0.1rem 0 0; }
       create vibrancy ... like teal, coral." 4. "Use more colour of the parties whenever talking about policies, candidates
       and the party itself." Teal and coral were checked against every party colour on the site (CIEDE2000): the teal is
       deeper than Reform UK's turquoise and bluer than Plaid Cymru's green; the coral is used only as a light fill with
-      dark text, because a darker coral drifts into Labour and Workers Party red. */
+      dark text, because a darker coral drifts into Labour and Workers Party red. Later the same day Romily chose her
+   palette from the five design directions and teal and coral gave way to it (app/theme.css). */
 
-:root {
-  --teal: #127C8A;       /* fills; white text on it 4.9:1 */
-  --teal-ink: #106E80;   /* teal text, 5.1:1 or better on every light background */
-  --teal-soft: #E1F2F3;
-  --coral: #FF7F66;      /* fills only, with --on-coral text (7.5:1); never coral text on light */
-  --on-coral: #1d0f0a;
-  --coral-soft: #FFE6DF;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) { --teal-ink: #7AD3CF; --teal-soft: #0f2a2c; --coral: #FF8F78; --coral-soft: #2e1814; }
-}
-:root[data-theme="dark"] { --teal-ink: #7AD3CF; --teal-soft: #0f2a2c; --coral: #FF8F78; --coral-soft: #2e1814; }
+/* The colour tokens are in app/theme.css (Romily's palette, 29 Sept, afternoon): teal and coral were replaced by her
+   choice of direction C with A's sand and raspberry and E's apricot and aubergine. */
 
 /* 1. Header: one line, always. Five links inline, "More" for the two about-us pages; Menu whenever they would not fit. */
 .site-header nav.nav-inline { flex-wrap: nowrap; white-space: nowrap; gap: 0 1.1rem; }
@@ -363,39 +354,37 @@ dl.glossary dd { margin: 0.1rem 0 0; }
 }
 /* The word "Menu" stays readable by screen readers on phones, where only the icon shows. */
 @media (max-width: 40rem) { .nav-toggle-word { display: inline; position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } }
-/* My profile: coral, and readable in every state (the site-wide link hover was turning its text magenta on black). */
-.site-header .nav-wrap a.nav-profile { background: var(--coral); border-color: var(--coral); color: var(--on-coral); }
+/* My profile: rose, and readable in every state (the site-wide link hover was turning its text magenta on black). */
+.site-header .nav-wrap a.nav-profile { background: var(--rose); border-color: var(--rose); color: var(--on-rose); }
 .site-header .nav-wrap a.nav-profile:hover, .site-header .nav-wrap a.nav-profile:focus-visible, .site-header .nav-wrap a.nav-profile[aria-current="page"] { background: var(--ink); border-color: var(--ink); color: var(--paper); text-decoration: none; }
 
-/* 2. Home: the slogan much smaller, the introduction short, the teal carrying the question. */
-.hero-main h1.home-slogan { font-size: clamp(1.7rem, 2.9vw, 2.35rem); line-height: 1.12; max-width: 26ch; margin: 0.3rem 0 0.7rem; }
-.home-slogan em { color: var(--teal-ink); }
-.hero-main .home-intro { font-size: 1.12rem; max-width: 34rem; }
+/* 2. Home: the slogan much smaller, the introduction short, the rose carrying the question. */
+h1.home-slogan { font-size: clamp(1.6rem, 2.5vw, 2.15rem); line-height: 1.12; max-width: 24ch; margin: 0.3rem 0 0.7rem; }
+.home-slogan em { color: var(--rose-ink); }
+.home-intro { font-size: 1.08rem; max-width: 34rem; }
 
-/* 3. Teal and coral around the site. */
-.start-cta .button.big { background: var(--coral); border-color: var(--coral); color: var(--on-coral); }
+/* 3. Colour around the site: aubergine, raspberry and rose. */
+.start-cta .button.big { background: var(--rose); border-color: var(--rose); color: var(--on-rose); }
 .start-cta .button.big:hover, .start-cta .button.big:focus-visible { background: var(--ink); border-color: var(--ink); color: var(--paper); }
-.ticker { background: var(--teal); color: #fff; }
-.trust-strip li:nth-child(odd) a { border-top: 4px solid var(--teal); }
-.trust-strip li:nth-child(even) a { border-top: 4px solid var(--coral); }
-.whats-it-topics li { border-left: 4px solid var(--teal); padding-left: 0.6rem; }
-.whats-it-topics li:nth-child(even) { border-left-color: var(--coral); }
-.keypoints li { border-top: 4px solid var(--teal); }
-.keypoints li:nth-child(2) { border-top-color: var(--coral); }
-.keypoints li:nth-child(3) { border-top-color: var(--accent); }
-.keypoints li b, .hero-ballot .stats li b { color: var(--teal-ink); }
-.example-card { border-top: 5px solid var(--teal); }
-.example-card:nth-child(2) { border-top-color: var(--coral); }
-.example-card:nth-child(3) { border-top-color: var(--accent); }
-.steps li::before { background: var(--teal); color: #fff; }
-.steps li:nth-child(2)::before { background: var(--coral); color: var(--on-coral); }
-.steps li:nth-child(3)::before { background: var(--accent); color: #fff; }
-.learn-cards li:nth-child(3n+1) a { border-top: 4px solid var(--teal); }
-.learn-cards li:nth-child(3n+2) a { border-top: 4px solid var(--coral); }
-.learn-cards li:nth-child(3n) a { border-top: 4px solid var(--accent); }
-.dates { border-left-color: var(--coral); }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .steps li:nth-child(3)::before { color: #000; } }
-:root[data-theme="dark"] .steps li:nth-child(3)::before { color: #000; }
+.ticker { background: var(--aubergine); color: var(--on-aubergine); }
+.trust-strip li:nth-child(odd) a { border-top: 4px solid var(--aubergine); }
+.trust-strip li:nth-child(even) a { border-top: 4px solid var(--accent); }
+.whats-it-topics li { border-left: 4px solid var(--aubergine); padding-left: 0.6rem; }
+.whats-it-topics li:nth-child(even) { border-left-color: var(--accent); }
+.keypoints li { border-top: 4px solid var(--aubergine); }
+.keypoints li:nth-child(2) { border-top-color: var(--accent); }
+.keypoints li:nth-child(3) { border-top-color: var(--rose); }
+.keypoints li b, .hero-ballot .stats li b { color: var(--rose-ink); }
+.example-card { border-top: 5px solid var(--aubergine); }
+.example-card:nth-child(2) { border-top-color: var(--accent); }
+.example-card:nth-child(3) { border-top-color: var(--rose); }
+.steps li::before { background: var(--aubergine); color: var(--on-aubergine); }
+.steps li:nth-child(2)::before { background: var(--accent); color: var(--on-accent); }
+.steps li:nth-child(3)::before { background: var(--rose); color: var(--on-rose); }
+.learn-cards li:nth-child(3n+1) a { border-top: 4px solid var(--aubergine); }
+.learn-cards li:nth-child(3n+2) a { border-top: 4px solid var(--accent); }
+.learn-cards li:nth-child(3n) a { border-top: 4px solid var(--rose); }
+.dates { border-left-color: var(--accent); }
 
 /* 4. Party colours on everything that belongs to one party: its candidates, their positions, its own pages.
    --party, --party-ink and --party-tint come from lib/partyColour.ts. */

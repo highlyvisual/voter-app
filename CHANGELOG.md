@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-09-29 (evening) — Romily's design choices: the app-like rebuild
+Her picks from the five app-feel directions (`docs/design/2026-09-29-directions.md`):
+- Palette and type (row 1): direction C (latte, cocoa, rose; Fraunces and Public Sans, self-hosted) with A's sand and raspberry and E's apricot and aubergine, in `app/theme.css`, light and dark. The aubergine is a deeper plum than drawn: E's was UKIP's purple to the eye. /looks is retired and any stored trial look is cleared.
+- Tab bar on phones and tablets (row 2): Home, You, Ballot, Coming up, Learn (`components/TabBar.tsx`).
+- Home (rows 3 and 10): the map first (the person's own area and layers once known, otherwise every election), a location pill, her headline and Personalise, four "Your politics" tiles, "Coming up near you" at the foot of the right-hand column; on a computer the map fills the left half and stays put (`components/HomeApp.tsx`).
+- Questions (row 4): step header, segmented progress, radio cards, Back and "Next: …" at the foot; the optional extras as a conversation with editable answers.
+- Ballot (row 5): name cards in ballot-paper order (`components/NameCards.tsx`); the full list stays below as "Everyone on one page".
+- Candidate page (rows 6, 8, 9): by scale (council, region, UK, world; `components/ScaleTabs.tsx`), "On the map" links, "Applies to you" only where a statement's condition matches, the next candidate in a bar at the foot.
+- Sources (row 7): "Sourced: [title], [date]", one tap for the exact words, the full citation and the address.
+- Fix: `overflow-x: hidden` on the page root had stopped every sticky element sticking (the header included); now `clip`. The candidate rows' scroll-in effect no longer fades them.
+- Checked: axe (WCAG 2.2 AA) clean on 14 pages and 7 interactive states, light and dark, at 390 and 1280px; no sideways scroll; `npm test` 22 of 22.
+
 ## 2026-09-29 (afternoon) — Romily's notes: header, slogan, teal and coral, party colours
 - Header: never wraps. Five links inline, "More" for How this works and Who we are, Menu below 58rem or whenever the links would not fit (measured with a ResizeObserver, so it holds at 150% text). "My profile" is coral and readable in every state; the old site-wide link hover turned it magenta on black.
 - Home: the slogan is about 40% smaller on a laptop (a quarter smaller on a phone); the introduction cut from 56 to 25 words (for Romily to edit); shorter line under the button; the paragraph repeating the trust lines removed.

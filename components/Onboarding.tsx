@@ -23,11 +23,54 @@ const WHY: Record<string, string> = {
   veteran: "Veterans' policies refer to it.",
 };
 
+const STEP_NAME: Record<string, string> = {
+  postcode: "Your elections", age_band: "Your age", household: "Who lives with you", children: "Children", tenure: "Your home",
+  income_band: "Income", employment: "Work", student: "Studying", personal: "About you (optional)", optional: "Anything else (optional)",
+};
+
+type ChatItem = { key: string; label: string; options: readonly (readonly [string, string])[]; why: string };
+// The optional questions as a conversation (design C): the site asks, one question at a time; each answer appears on
+// the right and can be changed with one tap; "Skip this one" is always there. Nothing leaves the browser from here.
+function Chat({ intro, items, vals, set }: { intro: string; items: ChatItem[]; vals: Record<string, string>; set: (k: string, v: string) => void }) {
+  const [at, setAt] = useState(0);
+  const [skipped, setSkipped] = useState<Record<string, boolean>>({});
+  const askRef = useRef<HTMLParagraphElement>(null);
+  const first = useRef(true);
+  useEffect(() => { if (first.current) { first.current = false; return; } askRef.current?.focus(); }, [at]);
+  const answer = (k: string, v: string, n: number) => { set(k, v); setSkipped((x) => ({ ...x, [k]: false })); setAt(Math.max(at, n + 1)); };
+  const skip = (k: string, n: number) => { set(k, ""); setSkipped((x) => ({ ...x, [k]: true })); setAt(Math.max(at, n + 1)); };
+  return (
+    <ol className="chat">
+      <li className="bub app"><img src="/brand/mark-light.webp" alt="" width={26} height={23} className="bub-av brand-light" /><img src="/brand/mark-dark.webp" alt="" width={26} height={23} className="bub-av brand-dark" /><p>{intro}</p></li>
+      {items.slice(0, Math.min(at + 1, items.length)).map((it, n) => {
+        const chosen = it.options.find(([c]) => c === vals[it.key]);
+        const done = n < at;
+        return (
+          <li key={it.key} className="chat-q">
+            <div className="bub app"><img src="/brand/mark-light.webp" alt="" width={26} height={23} className="bub-av brand-light" /><img src="/brand/mark-dark.webp" alt="" width={26} height={23} className="bub-av brand-dark" /><p ref={n === at ? askRef : undefined} tabIndex={n === at ? -1 : undefined}><strong>{it.label}</strong><span className="bub-why">{it.why}</span></p></div>
+            {done ? (
+              <button type="button" className="bub me" onClick={() => setAt(n)} aria-label={`${it.label}: ${chosen ? chosen[1] : "skipped"}. Change`}>
+                {chosen ? chosen[1] : skipped[it.key] ? "Skipped" : "No answer"} <svg viewBox="0 0 24 24" aria-hidden><path d="M4 20h4l10-10-4-4L4 16zM13 7l4 4" /></svg>
+              </button>
+            ) : (
+              <div className="chat-answers" role="group" aria-label={it.label}>
+                {it.options.map(([code, text]) => <button key={code} type="button" className={`chip-answer${vals[it.key] === code ? " on" : ""}`} aria-pressed={vals[it.key] === code} onClick={() => answer(it.key, code, n)}>{text}</button>)}
+                <button type="button" className="link" onClick={() => skip(it.key, n)}>Skip this one</button>
+              </div>
+            )}
+          </li>
+        );
+      })}
+      {at >= items.length ? <li className="bub app"><img src="/brand/mark-light.webp" alt="" width={26} height={23} className="bub-av brand-light" /><img src="/brand/mark-dark.webp" alt="" width={26} height={23} className="bub-av brand-dark" /><p ref={askRef} tabIndex={-1}>Thank you. Tap any answer above to change it.</p></li> : null}
+    </ol>
+  );
+}
+
 // Shows that the lookup is under way. In the persona test the button sometimes seemed to do nothing on the first press;
 // now it says so while the lookup runs, and can't be pressed twice.
 function SubmitButton() {
   const { pending } = useFormStatus();
-  return <button type="submit" disabled={pending} aria-busy={pending || undefined}>{pending ? "Finding your election…" : "See my election"}</button>;
+  return <button type="submit" disabled={pending} aria-busy={pending || undefined}>{pending ? "Finding your election…" : "See what applies to me"}</button>;
 }
 
 export default function Onboarding({ action, check, error = null, initial = {} }: { action: (fd: FormData) => void; check?: (pc: string) => Promise<{ ok: boolean; message?: string }>; error?: string | null; initial?: Record<string, string> }) {
@@ -79,8 +122,10 @@ export default function Onboarding({ action, check, error = null, initial = {} }
     setPcError(null);
     next();
   };
+  const skippable = step !== "postcode";
+  const nextName = i + 1 < steps.length ? STEP_NAME[steps[i + 1]] : null;
   return (
-    <form action={action} className="onboard" data-step={i} onSubmit={(e) => {
+    <form action={action} className="onboard ob" data-step={i} onSubmit={(e) => {
       // Pressing Enter in the postcode box used to submit the whole form, skipping every question (persona test, 28 Sept).
       if (step !== "optional") { e.preventDefault(); if (step === "postcode") void postcodeNext(); return; }
       if (keep) writeProfile({ ...vals, postcode: pc.trim().toUpperCase() }); else writeSessionPersonal(vals);
@@ -89,71 +134,70 @@ export default function Onboarding({ action, check, error = null, initial = {} }
       <input type="hidden" name="from" value="start" />
       {FIELD_KEYS.map((k) => <input key={k} type="hidden" name={k} value={vals[k] ?? ""} />)}
       {OPTIONAL_KEYS.map((k) => <input key={k} type="hidden" name={k} value={vals[k] ?? ""} />)}
-      <div className="onboard-progress" aria-hidden><span style={{ width: `${pct}%` }} /></div>
-      <p className="meta">Step {i + 1} of {steps.length} · we never ask who you support or how you voted</p>
+
+      {/* Row 4, design A6-A7 (Romily, 29 Sept): a step header, the length of the journey shown as segments, one question per screen. */}
+      <div className="ob-head">
+        {i === 0 ? <a href="/" className="ob-back" aria-label="Back to the home page"><svg viewBox="0 0 24 24" aria-hidden><path d="M15 5l-7 7 7 7" /></svg></a>
+          : <button type="button" className="ob-back" aria-label="Back to the previous question" onClick={back}><svg viewBox="0 0 24 24" aria-hidden><path d="M15 5l-7 7 7 7" /></svg></button>}
+        <span className="ob-title">Personalise my politics</span>
+        {skippable && step !== "optional" ? <button type="button" className="link ob-skip" onClick={next}>Skip</button> : null}
+      </div>
+      <div className="ob-progress" aria-hidden>{steps.map((s2, n) => <i key={s2} className={n <= i ? "on" : undefined} />)}</div>
+      <p className="meta ob-count">Step {i + 1} of {steps.length} · {STEP_NAME[step]}</p>
 
       {step === "postcode" ? (
         <div className="onboard-step" key={i}>
           {/* Not "where do you live?": Romily (round 5, q4) asked that the first step not be framed that way. */}
           <h2 ref={headingRef} tabIndex={-1}>Which elections can you vote in?</h2>
-          <p className="lede" id="pc-hint">A postcode finds them. We use it once to look them up and don't keep it, and you can look at any election, not only your own.</p>
-          <input ref={pcRef} className="big-input" type="text" inputMode="text" autoCapitalize="characters" autoComplete="postal-code" enterKeyHint="next" value={pc} onChange={(e) => { setPc(e.target.value); if (pcError) setPcError(null); }} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); void postcodeNext(); } }} placeholder="e.g. WC1H 9JE" aria-label="Your postcode" aria-invalid={pcError ? true : undefined} aria-describedby={pcError ? "pc-error pc-hint" : "pc-hint"} />
+          <p className="lede" id="pc-hint">A postcode finds them. We use it once to look them up and don&rsquo;t keep it, and you can look at any election, not only your own.</p>
+          <label htmlFor="ob-pc" className="ob-label">Postcode</label>
+          <input id="ob-pc" ref={pcRef} className="big-input" type="text" inputMode="text" autoCapitalize="characters" autoComplete="postal-code" enterKeyHint="next" value={pc} onChange={(e) => { setPc(e.target.value); if (pcError) setPcError(null); }} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); void postcodeNext(); } }} placeholder="e.g. WC1H 9JE" aria-invalid={pcError ? true : undefined} aria-describedby={pcError ? "pc-error pc-hint" : "pc-hint"} />
           {pcError ? <p id="pc-error" className="notice small" role="alert" style={{ marginTop: "0.6rem" }}>{pcError}</p> : null}
-          <div className="onboard-actions"><button type="button" onClick={() => void postcodeNext()} aria-busy={checking || undefined}>{checking ? "Checking…" : "Next"}</button></div>
         </div>
-      ) : step === "personal" ? (
+      ) : step === "personal" || step === "optional" ? (
         <div className="onboard-step" key={i}>
-          {/* Round eight q6 (29 Sept): optional questions about the person, kept in this browser only. */}
-          <h2 ref={headingRef} tabIndex={-1}>A bit more about you, if you like</h2>
-          <p className="lede">Entirely optional. Parties publish positions on race, religion, sex, gender and sexual orientation; answer any of these and we put every party&rsquo;s own words on it first. We never say whether a policy is good or bad for you.</p>
-          <p className="notice small">These answers stay in this browser. They are never put in a page address, never sent to us and never used to calculate anything. You can delete them at any time from My profile.</p>
-          {PERSONAL_KEYS.map((k) => (
-            <fieldset key={k} className="onboard-optional">
-              <legend>{PERSONAL_FIELDS[k].label}</legend>
-              <div className="pills">
-                {PERSONAL_FIELDS[k].options.map(([code, text]) => (
-                  <button key={code} type="button" aria-pressed={vals[k] === code} className={`pill${vals[k] === code ? " on" : ""}`} onClick={() => setVals((v) => ({ ...v, [k]: v[k] === code ? "" : code }))}>{text}</button>
-                ))}
-              </div>
-              <p className="meta">{PERSONAL_WHY[k]} Leave it blank to skip.</p>
-            </fieldset>
-          ))}
-          <div className="onboard-actions"><button type="button" onClick={next}>Next</button><button type="button" className="secondary" onClick={back}>Back</button></div>
-        </div>
-      ) : step === "optional" ? (
-        <div className="onboard-step" key={i}>
-          <h2 ref={headingRef} tabIndex={-1}>Anything else that applies?</h2>
-          <p className="lede">Optional, and each exists only because published policies refer to it. Leave any blank and nothing is assumed.</p>
-          {OPTIONAL_KEYS.map((k) => (
-            <fieldset key={k} className="onboard-optional">
-              <legend>{OPTIONAL_FIELDS[k].label}</legend>
-              <div className="pills">
-                {OPTIONAL_FIELDS[k].options.map(([code, text]) => (
-                  <button key={code} type="button" aria-pressed={vals[k] === code} className={`pill${vals[k] === code ? " on" : ""}`} onClick={() => setVals((v) => ({ ...v, [k]: v[k] === code ? "" : code }))}>{text}</button>
-                ))}
-              </div>
-              <p className="meta">{WHY[k]}</p>
-            </fieldset>
-          ))}
-          <label className="keep"><input type="checkbox" checked={keep} onChange={(e) => setKeep(e.target.checked)} /> Keep this as my profile on this device, so I don't have to answer again. <span className="meta">Saved only in this browser. You can edit or delete it at any time.</span></label>
-          <div className="onboard-actions"><SubmitButton /><button type="button" className="secondary" onClick={back}>Back</button></div>
+          <h2 ref={headingRef} tabIndex={-1}>{step === "personal" ? "A bit more about you, if you like" : "Anything else that applies?"}</h2>
+          {/* Row 4 (Romily): the extra, non-essential questions as a conversation (design C): one question at a time, your
+              answers on the right where one tap changes them, and "Skip this one" beside every question. */}
+          <Chat
+            key={step}
+            intro={step === "personal"
+              ? "Entirely optional. Parties publish positions on race, religion, sex, gender and sexual orientation; answer any of these and we put every party’s own words on it first. We never say whether a policy is good or bad for you. These answers stay in this browser: never in a page address, never sent to us, never used to calculate anything."
+              : "Optional, and each exists only because published policies refer to it. Leave any blank and nothing is assumed."}
+            items={step === "personal"
+              ? PERSONAL_KEYS.map((k) => ({ key: k as string, label: PERSONAL_FIELDS[k].label, options: PERSONAL_FIELDS[k].options, why: PERSONAL_WHY[k] }))
+              : OPTIONAL_KEYS.map((k) => ({ key: k as string, label: OPTIONAL_FIELDS[k].label, options: OPTIONAL_FIELDS[k].options, why: WHY[k] }))}
+            vals={vals}
+            set={(k, v) => setVals((x) => ({ ...x, [k]: v }))}
+          />
+          {step === "optional" ? <label className="keep"><input type="checkbox" checked={keep} onChange={(e) => setKeep(e.target.checked)} /> Keep this as my profile on this device, so I don&rsquo;t have to answer again. <span className="meta">Saved only in this browser. You can edit or delete it at any time.</span></label> : null}
         </div>
       ) : (
         <div className="onboard-step" key={i}>
-          <h2 ref={headingRef} tabIndex={-1}>{FIELDS[step as keyof typeof FIELDS].label}</h2>
-          <div className="onboard-cards">
+          <h2 ref={headingRef} tabIndex={-1} id={`q-${step}`}>{FIELDS[step as keyof typeof FIELDS].label}</h2>
+          {/* Design A8: radio cards, one tap to choose, the chosen card marked in raspberry. */}
+          <div className="ob-cards" role="radiogroup" aria-labelledby={`q-${step}`}>
             {FIELDS[step as keyof typeof FIELDS].options.map(([code, text]) => (
-              <button key={code} type="button" aria-pressed={vals[step] === code} className={`card-option${vals[step] === code ? " on" : ""}`} onClick={() => { setVals((v) => ({ ...v, [step]: code })); setTimeout(next, 120); }}>{text}</button>
+              <label key={code} className={`ob-card${vals[step] === code ? " on" : ""}`}>
+                <input type="radio" name={`q-${step}`} value={code} checked={vals[step] === code} onChange={() => setVals((v) => ({ ...v, [step]: code }))} />
+                <span className="ob-radio" aria-hidden />
+                <span>{text}</span>
+              </label>
             ))}
           </div>
           <p><button type="button" className="link" onClick={() => setWhy((w) => !w)} aria-expanded={why}>Why are we asking this?</button></p>
           {why ? <p className="keypoint" style={{ fontSize: "0.95rem" }}>{WHY[step] ?? "It changes which published positions apply to a household like yours."}</p> : null}
-          <div className="onboard-actions">
-            <button type="button" className="secondary" onClick={next}>Skip</button>
-            <button type="button" className="secondary" onClick={back}>Back</button>
-          </div>
         </div>
       )}
+
+      <p className="ob-privacy"><svg viewBox="0 0 24 24" aria-hidden><rect x="4" y="10" width="16" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg>Kept in this browser only. We never ask who you support or how you voted.</p>
+      {/* Design A9: Back and Next fixed at the foot of the screen, Next naming what comes after. */}
+      <div className="ob-bar">
+        {i > 0 ? <button type="button" className="secondary" onClick={back}>Back</button> : null}
+        {step === "postcode" ? <button type="button" onClick={() => void postcodeNext()} aria-busy={checking || undefined}>{checking ? "Checking…" : `Next: ${nextName?.toLowerCase()}`}</button>
+          : step === "optional" ? <SubmitButton />
+          : <button type="button" onClick={next}>{nextName ? `Next: ${nextName.toLowerCase()}` : "Next"}</button>}
+      </div>
     </form>
   );
 }

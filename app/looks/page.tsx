@@ -1,17 +1,17 @@
 import Link from "next/link";
-import LookPicker from "@/components/LookPicker";
 
-export const metadata = { title: "Try a colour direction", robots: { index: false } };
+export const metadata = { title: "Colour direction", robots: { index: false } };
 
-// For Romily (round eight q10-12): pick a direction here, then use the site as normal; it stays on in this browser.
+// Round eight (q10-12) offered three colour directions to try here. On 29 Sept Romily chose from five app-feel design
+// directions instead: direction C's colours and type, with A's sand and raspberry and E's apricot and aubergine. That
+// is now the site's own look, so there is nothing left to try; any trial choice stored in a browser is cleared.
 export default function LooksPage() {
   return (
     <>
       <p className="eyebrow">For Romily</p>
-      <h1>Try a colour direction</h1>
-      <p className="lede">Pick one, then use the site as normal: the <Link href="/">home page</Link>, a <Link href="/ballot/parl.holborn-and-st-pancras.by.2026-10-08">ballot page</Link>, <Link href="/positions">Positions</Link> and <Link href="/learn">Learn</Link>. It stays on in this browser until you come back and change it. Nobody else sees it.</p>
-      <LookPicker />
-      <p className="meta">All three keep text at the highest contrast level (7:1 or better) and stay clear of the main UK parties&rsquo; colours (umber is the closest to a party red, so look at it next to Labour&rsquo;s panel before choosing). Dark mode keeps its own colours.</p>
+      <h1>Your colours are now the site&rsquo;s</h1>
+      <p className="lede">You chose the latte, cocoa and rose of direction C, with the sand and raspberry from A and the apricot and aubergine from E, and Fraunces and Public Sans for the type. Every page now uses them, in light and dark. The three trial directions that were here have gone, and any you had switched on in this browser has been cleared.</p>
+      <p><Link href="/">See the home page</Link> · <Link href="/ballot/parl.holborn-and-st-pancras.by.2026-10-08">A ballot page</Link> · <Link href="/positions">Positions</Link></p>
     </>
   );
 }

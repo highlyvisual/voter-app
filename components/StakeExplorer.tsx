@@ -20,7 +20,12 @@ function Position({ p }: { p: StakePosition }) {
   return (
     <li className="sx-pos">
       <blockquote>&ldquo;{p.quote}&rdquo;</blockquote>
-      <p className="meta">In short: {p.summary} <span className="sx-src">Source: {p.url ? <a href={p.url} rel="noopener">{p.source}</a> : p.source}, {fmtDate(p.published)}.</span></p>
+      <p className="meta">In short: {p.summary}</p>
+      {/* Row 7 (Romily, 29 Sept): the source in one line; one tap opens the full link. */}
+      <details className="evidence said-where">
+        <summary><span className="sw-label">Sourced:</span> {p.source}, {fmtDate(p.published)}</summary>
+        <p className="small sx-src">{p.url ? <a href={p.url} rel="noopener">{p.source}</a> : p.source}, published {fmtDate(p.published)}. {p.url ? <span className="sw-url">{p.url}</span> : null}</p>
+      </details>
     </li>
   );
 }

@@ -181,3 +181,22 @@ New rule from this round: an item is **Done** only when Romily has seen it on th
 | The introduction "is quite confusing, it has written it as I was giving it ideas of what to say but it's too chunky." | **Built 29 Sep, for her to edit.** Cut from 56 words to 25: "The people, policies and decisions shaping your life, every word sourced. No rankings, no recommendations: just what you need to make up your own mind." The line under the button is now "Postcode first, then skip anything you like. We don't store your answers." The paragraph under the four trust lines, which repeated them, is gone. |
 | "Use more colours that aren't affiliated with parties to create vibrancy and captivate audiences — some colours like teal, coral." | **Built 29 Sep.** Teal (#127C8A, text #106E80) and coral (#FF7F66) join the magenta and slate: Personalise my politics and My profile in coral, the ticker in teal, coloured edges on the trust lines, the four "What's it to me?" lines, What's happening now, the example households, the three steps and the Learn cards. Checked against every party colour on the site (CIEDE2000): Reform UK's is a bright turquoise (#12B6CF), so the teal is deeper and bluer (19 apart) and clear of Plaid Cymru's dark green (13 apart); a darker coral drifts into Labour and Workers Party red, so coral is only ever a light fill with dark text (20 from Labour). |
 | "Also it can use more colour of the parties whenever talking about policies, candidates and the party itself — it can make it a bit more obvious." | **Built 29 Sep.** A party's own colour now marks: the candidate cards on a ballot page (a band down the side, a filled party label, initials in the colour), the list of names, a candidate's own page (a band across the top, a filled label, a band on each topic card), Compare (thicker column heads, tinted), the topic pages (the side band had been switched off by an old rule), Positions (a band beside each person or party, their party label filled), Your politics (a band and a swatch beside each party's words), the parties list and each party's page. Text on a party colour is black or white, whichever reads better. Colour appears only beside that party's own name and words, never elsewhere. |
+
+## Design choices, 29 September (from the five app-feel directions; relayed by Barny)
+
+Her words: "1) Base the colours on C, yet add the sand and raspberry colours from A and the apricot Aubergine on E 2) A 3) E ( include the coming up near you at the bottom on the right ) 4) A ( for the extra questions like non essential but additional we could do the C format ) 5) C 6) E 7) C but can we make the said where / sourced: ( then click on it and it shows you the full link ) 8) A 9) C 10) E ( i like the big map )"
+
+| Row | Status |
+|---|---|
+| 1 Colours and type | **Built 29 Sep.** C's latte, cocoa and rose with A's sand and raspberry and E's apricot and aubergine; Fraunces and Public Sans. E's aubergine as drawn was UKIP's purple to the eye, so a deeper plum is used. Teal and coral (her morning note) gave way to this palette. |
+| 2 Navigation (A) | **Built 29 Sep.** Five-tab bar at the foot of the screen on phones and tablets. |
+| 3 First screen (E) | **Built 29 Sep.** Map first, her headline and "Personalise my politics", four tiles, "Coming up near you" at the foot of the right-hand column. |
+| 4 Questions (A; extras as C) | **Built 29 Sep.** |
+| 5 Ballot (C) | **Built 29 Sep.** Name cards. |
+| 6 Candidate page (E) | **Built 29 Sep.** By scale, with "On the map". |
+| 7 Sources (C, "Sourced:" then the full link) | **Built 29 Sep.** |
+| 8 "Applies to you" (A) | **Built 29 Sep.** Only where a statement's own condition matches. |
+| 9 Next candidate (C) | **Built 29 Sep.** |
+| 10 Desktop (E) | **Built 29 Sep.** The big map on the left. |
+
+Where each piece lives: `docs/design/2026-09-29-directions.md`.

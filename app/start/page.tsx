@@ -17,7 +17,8 @@ export default async function Start({ searchParams }: { searchParams: Promise<Re
       <div className="start-intro">
       <p className="eyebrow">Let's make politics relevant to you</p>
       <h1 style={{ maxWidth: "16ch" }}>A few questions. No quiz, no score.</h1>
-      <p className="lede">Each answer decides which published policies apply to a household like yours, so that what you read is about your life, not everyone's. Every question after the postcode can be skipped. We never ask who you support or how you voted, and we never will. We don't store your answers. They go into the page address so the page can show results for a household like yours, and if you choose, they're kept in this browser so you don't have to answer again. A few optional questions about you (ethnic group, religion, sex, gender, sexual orientation) never leave this browser at all.</p>
+      {/* Row 4 (Romily, 29 Sept, design A): the question comes first; how the answers are used is one tap away. */}
+      <details className="start-why"><summary>How your answers are used</summary><p>Each answer decides which published policies apply to a household like yours, so that what you read is about your life, not everyone's. Every question after the postcode can be skipped. We never ask who you support or how you voted, and we never will. We don't store your answers. They go into the page address so the page can show results for a household like yours, and if you choose, they're kept in this browser so you don't have to answer again. A few optional questions about you (ethnic group, religion, sex, gender, sexual orientation) never leave this browser at all.</p></details>
       </div>
       <Onboarding action={findElection} check={checkPostcode} error={error} initial={initial} />
     </>

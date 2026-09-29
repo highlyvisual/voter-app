@@ -17,8 +17,8 @@ export default function Settings() {
   const [size, setSize] = useState(100); const [hc, setHc] = useState(false); const [open, setOpen] = useState(false); const [theme, setTheme] = useState<Theme>("system"); const [lite, setLite] = useState(false);
   const wrap = useRef<HTMLDivElement>(null); const toggle = useRef<HTMLButtonElement>(null);
   useEffect(() => { try { const s = Number(localStorage.getItem("textsize") ?? 100); if (s >= 90) setSize(s); setHc(localStorage.getItem("contrast") === "high"); const t = localStorage.getItem("theme"); if (t === "light" || t === "dark") setTheme(t); setLite(localStorage.getItem("lite") === "1"); } catch {} }, []);
-  // The colour direction chosen at /looks (round eight), re-applied after hydration in case the root was re-rendered.
-  useEffect(() => { try { const k = localStorage.getItem("look"); if (k === "warm" || k === "brass" || k === "umber") document.documentElement.setAttribute("data-look", k); } catch {} }, []);
+  // The trial colour directions at /looks ended when Romily chose her palette (29 Sept); any stored choice is cleared.
+  useEffect(() => { try { localStorage.removeItem("look"); document.documentElement.removeAttribute("data-look"); } catch {} }, []);
   useEffect(() => { document.documentElement.classList.toggle("lite", lite); try { localStorage.setItem("lite", lite ? "1" : "0"); } catch {} }, [lite]);
   useEffect(() => { document.documentElement.style.fontSize = `${size}%`; try { localStorage.setItem("textsize", String(size)); } catch {} }, [size]);
   useEffect(() => { document.documentElement.classList.toggle("high-contrast", hc); try { localStorage.setItem("contrast", hc ? "high" : "normal"); } catch {} }, [hc]);

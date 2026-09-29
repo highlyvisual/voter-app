@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
 import "./enhance.css";
+import "./theme.css";
 import JsonLd from "@/components/JsonLd";
 import { siteGraph } from "@/lib/schema";
 import { SITE } from "@/lib/site";
@@ -10,10 +11,11 @@ import MobileNav from "@/components/MobileNav";
 import PrintOpen from "@/components/PrintOpen";
 import SwRegister from "@/components/SwRegister";
 import HowDoYouKnow from "@/components/HowDoYouKnow";
+import TabBar from "@/components/TabBar";
 import FreshnessLine from "@/components/FreshnessLine";
 import { Suspense } from "react";
 
-export const viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" as const, colorScheme: "light dark" as const, themeColor: [{ media: "(prefers-color-scheme: light)", color: "#ffffff" }, { media: "(prefers-color-scheme: dark)", color: "#16161a" }] };
+export const viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" as const, colorScheme: "light dark" as const, themeColor: [{ media: "(prefers-color-scheme: light)", color: "#FFFBF6" }, { media: "(prefers-color-scheme: dark)", color: "#241A15" }] };
 
 // Search engines are kept out until the launch date. Set ALLOW_INDEXING=1 in Netlify and redeploy to let them in (robots.ts reads the same switch).
 const INDEXING = process.env.ALLOW_INDEXING === "1";
@@ -34,11 +36,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en-GB">
       <head>
-        <link rel="stylesheet" href="/fonts/fonts-v2.css" />
+        <link rel="stylesheet" href="/fonts/fonts-v3.css" />
+        <link rel="preload" href="/fonts/public-sans-latin.woff2" as="font" type="font/woff2" crossOrigin="" />
+        <link rel="preload" href="/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossOrigin="" />
         <JsonLd data={siteGraph()} />
       </head>
       <body>
-        <script dangerouslySetInnerHTML={{ __html: "try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);var s=localStorage.getItem('textsize');if(s)document.documentElement.style.fontSize=s+'%';if(localStorage.getItem('contrast')==='high')document.documentElement.classList.add('high-contrast');if(localStorage.getItem('lite')==='1')document.documentElement.classList.add('lite');var k=localStorage.getItem('look');if(k==='warm'||k==='brass'||k==='umber')document.documentElement.setAttribute('data-look',k)}catch(e){}" }} />
+        <script dangerouslySetInnerHTML={{ __html: "try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);var s=localStorage.getItem('textsize');if(s)document.documentElement.style.fontSize=s+'%';if(localStorage.getItem('contrast')==='high')document.documentElement.classList.add('high-contrast');if(localStorage.getItem('lite')==='1')document.documentElement.classList.add('lite');localStorage.removeItem('look')}catch(e){}" }} />
         <script id="img-error-guard" dangerouslySetInnerHTML={{ __html: "addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('gone');var p=t.parentElement;if(p&&!p.querySelector('.avatar-fallback')){var s=document.createElement('span');s.className='avatar-fallback';s.style.width=(t.width||24)+'px';s.style.height=(t.height||24)+'px';s.setAttribute('aria-hidden','true');p.insertBefore(s,t);}}},true)" }} />
         <script id="img-fallback" dangerouslySetInnerHTML={{ __html: "addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('gone');var p=t.parentElement;if(p){p.classList.add('gone-parent');if(!p.dataset.initials&&t.dataset.initials)p.dataset.initials=t.dataset.initials;}}},true)" }} />
         <div className="progress-rail" aria-hidden><span /></div>
@@ -84,6 +88,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </nav>
           <p className="small">Contact, corrections and complaints: <a href="mailto:hello@whatsittome.org">hello@whatsittome.org</a>. <Link href="/about#contact">How we handle complaints</Link>.</p>
         </footer>
+        <TabBar />
         <PrintOpen />
         <SwRegister />
       </body>

@@ -5,7 +5,7 @@ import { layerOf, precisionLabel, splitForHousehold, LEGEND } from "@/lib/claims
 import { interestsFor, parliamentExtras, parliamentRecord, withPartySplits } from "@/lib/parliament";
 import ParliamentaryRecordView from "@/components/ParliamentaryRecord";
 import ActionBlock from "@/components/ActionBlock";
-import ClaimLayers from "@/components/ClaimLayers";
+import ClaimLayers, { whenText } from "@/components/ClaimLayers";
 import ExtLink from "@/components/ExtLink";
 import ReadAloud from "@/components/ReadAloud";
 import { layerKey } from "@/lib/claims";
@@ -16,7 +16,7 @@ import { partyFill, partyVars } from "@/lib/partyColour";
 const gbp = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", maximumFractionDigits: 0 });
 const SHORT = TOPIC_SHORT;
 
-function ClaimView({ c }: { c: Claim }) {
+function ClaimView({ c, applies = false }: { c: Claim; applies?: boolean }) {
   const level = layerOf(c);
   const chip = <><span className="chip layer-chip">{level}</span>{c.tier === "computed" ? <span className="tier">Computed</span> : null}{precisionLabel(c) ? <span className="tier">{precisionLabel(c)}</span> : null}</>;
   const footnote = c.party_ec_id === "PP53" && c.candidate_id === null && level === "Manifesto"
@@ -24,7 +24,7 @@ function ClaimView({ c }: { c: Claim }) {
     : null;
   return (
     <div className="claim">
-      <ClaimLayers c={c} chip={chip} footnote={footnote} />
+      <ClaimLayers c={c} chip={chip} footnote={footnote} applies={applies} />
     </div>
   );
 }
@@ -206,11 +206,11 @@ export default async function CandidateCard({
                         return (
                           <div key={g} className="claim-group">
                             <p className="group-label">{gl}</p>
-                            {inGroup.slice(0, 3).map((c) => <ClaimView key={c.id} c={c} />)}
+                            {inGroup.slice(0, 3).map((c) => <ClaimView key={c.id} c={c} applies={complete && Boolean(whenText(c.applies_if)) && claimApplies(c.applies_if, household)} />)}
                             {inGroup.length > 3 ? (
                               <details className="more">
                                 <summary className="meta">{inGroup.length - 3} more</summary>
-                                {inGroup.slice(3).map((c) => <ClaimView key={c.id} c={c} />)}
+                                {inGroup.slice(3).map((c) => <ClaimView key={c.id} c={c} applies={complete && Boolean(whenText(c.applies_if)) && claimApplies(c.applies_if, household)} />)}
                               </details>
                             ) : null}
                           </div>

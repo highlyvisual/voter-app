@@ -11,6 +11,15 @@ export default function ProfileApply() {
   const [using, setUsing] = useState(false);
   // Remember which ballot this device belongs to, so the home page can say "your election". Device only.
   useEffect(() => { const m = path.match(/^\/ballot\/([^/]+)/); const p = readProfile(); if (m && p && p.postcode && sp.get("pc") && p.ballot !== decodeURIComponent(m[1])) writeProfile({ ...p, ballot: decodeURIComponent(m[1]) }); }, [path, sp]);
+  // Remember where this person's own "Your politics" page is (outward code, rounded point, ballot), so the home page,
+  // the tab bar and the map can open it again. Device only, and only when they chose to keep a profile.
+  useEffect(() => {
+    if (path !== "/you" || !sp.get("pc")) return;
+    const p = readProfile(); if (!p) return;
+    const q = new URLSearchParams(); for (const k of ["pc", "loc", "ballot", "approx"]) { const v = sp.get(k); if (v) q.set(k, v); }
+    const you = q.toString(); const ballot = sp.get("ballot") ?? p.ballot;
+    if (p.you !== you || (ballot && p.ballot !== ballot)) writeProfile({ ...p, you, ...(ballot ? { ballot } : {}) });
+  }, [path, sp]);
   useEffect(() => {
     const has = HOUSEHOLD_KEYS.some((k) => sp.get(k));
     const p = readProfile(); const q = profileQuery(p);

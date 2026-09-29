@@ -2,7 +2,9 @@ import { candidatePageTitle } from "@/lib/meta";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import ClaimLayers from "@/components/ClaimLayers";
+import ClaimLayers, { whenText } from "@/components/ClaimLayers";
+import ScaleTabs from "@/components/ScaleTabs";
+import { topicsForHousehold } from "@/lib/topicOrder";
 import ProfileApply from "@/components/ProfileApply";
 import ReadAloud from "@/components/ReadAloud";
 import CiteThis from "@/components/CiteThis";
@@ -20,12 +22,15 @@ export const dynamic = "force-dynamic";
 // A candidate's own page (Romily §10): short factual introduction, then large topic cards. Each card opens into
 // three layers — what they say, what it could mean for you, and the exact words with the source one tap away
 // (Romily, round eight) — so a person can stop at ten seconds, one minute or five. Every candidate's page has exactly the same structure, whatever they have published.
-const BIG: [string, string][] = ["money_and_cost_of_living", "housing_and_property", "healthcare_and_social_care", "education_and_universities", "environment_climate_and_energy"].map((k) => [k, TOPIC_SHORT[k]]);
+// The topics decided mainly beyond the UK's own borders, read under "The world" (as on Your politics).
+const WORLD = new Set(["defence_foreign_affairs_and_eu", "environment_climate_and_energy"]);
+// Topics with a layer on the area map (design E16): the map and the words point at each other.
+const MAP_LAYER: Record<string, string> = { housing_and_property: "land for new homes", crime_policing_and_justice: "recorded crime", education_and_universities: "schools", environment_climate_and_energy: "flood risk" };
 
-function Layered({ c }: { c: Claim }) {
+function Layered({ c, applies = false }: { c: Claim; applies?: boolean }) {
   return (
     <article className="claim">
-      <ClaimLayers c={c} chip={<span className="chip layer-chip">{badge(c)}</span>} />
+      <ClaimLayers c={c} applies={applies} chip={<span className="chip layer-chip">{badge(c)}</span>} />
     </article>
   );
 }
@@ -58,6 +63,8 @@ export default async function CandidatePage({ params, searchParams }: { params: 
   const nav = (x: typeof c) => `/ballot/${encodeURIComponent(ballotId)}/candidate/${x.id}${qs ? `?${qs}` : ""}`;
   const statement = c.statement_to_voters ?? "";
   const topicLabel = Object.fromEntries(TOPICS);
+  const isLocal = ballot.level === "local";
+  const order = topicsForHousehold(h).all;
   return (
     <>
       {/* The same structured data for every candidate (lib/schema.ts): who they are, what they are standing for, their place on the ballot paper. */}
@@ -86,32 +93,39 @@ export default async function CandidatePage({ params, searchParams }: { params: 
         </details>
       ) : <p className="meta">No statement to voters supplied.</p>}
 
-      <h2>What could their policies mean for {complete ? "your profile" : "you"}?</h2>
-      <p className="meta">{complete ? "Counting what applies to a household like yours." : <>Showing everything they have published. <Link href="/start">Add your profile</Link> to see only what applies to you.</>} Tap a card to open it: what they say, what it could mean for you, and the exact words with their source.</p>
-      <div className={`topic-cards${colour ? " party-scope" : ""}`} style={partyVars(colour)}>
-        {BIG.map(([k, t]) => {
-          const list = applying.filter((cl) => cl.topic === k);
-          return (
-            <details key={k} className={`topic-card${list.length ? "" : " empty"}`}>
-              <summary><span className="tc-title">{t}</span><span className="tc-unit">{list.length ? "Published" : "Nothing found"}</span></summary>
-              <div className="tc-body">{list.length ? list.map((cl) => <Layered key={cl.id} c={cl} />) : <p className="small">Nothing published that we could source on {topicLabel[k].toLowerCase()}. That means nothing found, not nothing to say.</p>}</div>
-            </details>
-          );
-        })}
-      </div>
+      {/* Rows 6 and 8 (Romily, 29 Sept): what's at stake by scale (design E), "Applies to you" (design A), and the map
+          one tap away for the topics it has a layer for. Same cards, same order, for every candidate. */}
+      <h2>What&rsquo;s it to {complete ? "your household" : "you"}?</h2>
+      <p className="meta">{complete ? "Showing what applies to a household like yours." : <>Showing everything they have published. <Link href="/start">Add your profile</Link> to see only what applies to you.</>} Open a topic for what they say, what it could mean for you, and where they said it.</p>
+      <ScaleTabs initial={isLocal ? "council" : "uk"} tabs={isLocal ? [
+        { key: "council", label: "Your council" },
+        { key: "region", label: "Your region", note: "A councillor doesn't decide regional matters; in England a mayor and combined authority, where there is one, and in Scotland, Wales and Northern Ireland their own parliament or assembly, do.", href: "/learn/who-decides", hrefText: "Who decides what" },
+        { key: "uk", label: "The UK", note: "A councillor doesn't vote on national law, tax or benefits. What each party has published nationally is on Your politics.", href: "/you#you-stake", hrefText: "What's at stake nationally" },
+        { key: "world", label: "The world", note: "A councillor doesn't decide defence, foreign affairs or trade.", href: "/you#you-stake", hrefText: "Each party's own words on the world" },
+      ] : [
+        { key: "council", label: "Your council", note: `An MP doesn't run the council: bins, planning, local roads, parking, libraries and council tax are decided by councillors.`, href: "/learn/who-decides", hrefText: "Who decides what" },
+        { key: "region", label: "Your region", note: "An MP votes on laws for the whole UK (or for England where a matter is devolved elsewhere); regional decisions sit with mayors, combined authorities and the devolved parliaments.", href: "/learn/who-decides", hrefText: "Who decides what" },
+        { key: "uk", label: "The UK" },
+        { key: "world", label: "The world" },
+      ]}>
+        <div className={`topic-cards${colour ? " party-scope" : ""}`} style={partyVars(colour)}>
+          {order.map(({ topic: k, label: t }) => {
+            const list = applying.filter((cl) => cl.topic === k);
+            const scale = isLocal ? "council" : WORLD.has(k) ? "world" : "uk";
+            const map = MAP_LAYER[k];
+            return (
+              <details key={k} className={`topic-card${list.length ? "" : " empty"}`} data-scale={scale}>
+                <summary><span className="tc-title">{TOPIC_SHORT[k] ?? t}</span>{list.length ? (complete && list.some((cl) => whenText(cl.applies_if))) ? <span className="tc-tag applies">Applies to you</span> : <span className="tc-unit">Published</span> : <span className="tc-unit">Nothing found</span>}</summary>
+                <div className="tc-body">
+                  {list.length ? list.map((cl) => <Layered key={cl.id} c={cl} applies={complete && Boolean(whenText(cl.applies_if)) && claimApplies(cl.applies_if, h)} />) : <p className="small">Nothing published that we could source on {topicLabel[k].toLowerCase()}. That means nothing found, not nothing to say.</p>}
+                  {map ? <p className="on-map"><Link href={`/ballot/${encodeURIComponent(ballotId)}/area${qs ? `?${qs}` : ""}#map`}><svg viewBox="0 0 24 24" aria-hidden><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3zM9 3v15M15 6v15" /></svg>On the map: {map} near you</Link></p> : null}
+                </div>
+              </details>
+            );
+          })}
+        </div>
+      </ScaleTabs>
       <p className="small"><Link href={`/ballot/${encodeURIComponent(ballotId)}/area${qs ? `?${qs}` : ""}`}>What is happening in {ballot.area_name}: local issues on the map →</Link></p>
-      <h3 className="section-lead" style={{ fontSize: "1.3rem" }}>Other topics</h3>
-      <div className={`topic-cards small-cards${colour ? " party-scope" : ""}`} style={partyVars(colour)}>
-        {TOPICS.filter(([k]) => !BIG.some(([b]) => b === k)).map(([k, t]) => {
-          const list = applying.filter((cl) => cl.topic === k);
-          return (
-            <details key={k} className={`topic-card${list.length ? "" : " empty"}`}>
-              <summary><span className="tc-title">{t}</span><span className="tc-unit">{list.length ? "Published" : "Nothing found"}</span></summary>
-              <div className="tc-body">{list.length ? list.map((cl) => <Layered key={cl.id} c={cl} />) : <p className="small">Nothing published that we could source.</p>}</div>
-            </details>
-          );
-        })}
-      </div>
 
       {/* Leaflets beside the candidate (review, 25 Sept). Same section for every candidate, including when there are none. */}
       <h3 className="section-lead" style={{ fontSize: "1.3rem" }}>Leaflets</h3>
@@ -122,10 +136,12 @@ export default async function CandidatePage({ params, searchParams }: { params: 
 
       <p><ReadAloud selector="main" label="Read this page aloud" /></p>
       <CiteThis title={`${c.name}: candidate in ${ballot.area_name}, polling day ${longDate(ballot.poll_date)}`} />
-      <nav className="cand-nav" aria-label="Other candidates, in ballot-paper order">
-        {prev ? <Link href={nav(prev)} className="button secondary-link">← {idx}. {prev.name}</Link> : <span />}
-        <Link href={`/ballot/${encodeURIComponent(ballotId)}/compare${qs ? `?${qs}` : ""}`} className="quiet-link">Compare side by side</Link>
-        {next ? <Link href={nav(next)} className="button secondary-link">{idx + 2}. {next.name} →</Link> : <span />}
+      {/* Row 9 (design C20): the next candidate on the paper, always at the foot of the screen, and the way back. */}
+      <nav className="cand-foot" aria-label="Other candidates, in ballot-paper order">
+        <Link href={`/ballot/${encodeURIComponent(ballotId)}${qs ? `?${qs}` : ""}#ballot-paper`} className="cf-back" aria-label="Back to the ballot paper"><span aria-hidden>&larr;</span>&nbsp;<span className="cf-long">{"Back to the "}</span>paper</Link>
+        {prev ? <Link href={nav(prev)} className="cf-prev">&larr; No. {idx}<span className="cf-wide">, {prev.name}</span></Link> : null}
+        {next ? <Link href={nav(next)} className="button cf-next">Next: <span className="cf-long">{`No. ${idx + 2}, `}</span>{next.name} <span aria-hidden>&rarr;</span></Link>
+          : <Link href={`/ballot/${encodeURIComponent(ballotId)}/compare${qs ? `?${qs}` : ""}`} className="button cf-next">Compare everyone side by side <span aria-hidden>&rarr;</span></Link>}
       </nav>
       <p className="meta">Every candidate's page has the same structure and the same cards, in the same order. Previous candidacies on Democracy Club’s records{mineStood.length ? ` (${mineStood.length})` : ""}: {mineStood.map((s) => ballotLabel(s.ballot_paper_id)).join("; ") || "none"}.</p>
     </>

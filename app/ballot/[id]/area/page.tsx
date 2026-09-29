@@ -40,7 +40,7 @@ export default async function Area({ params, searchParams }: { params: Promise<{
       <AgeNote ageBand={typeof sp.age_band === "string" ? sp.age_band : undefined} ballot={ballot} />
       <p><Link className="button" href={`/ballot/${encodeURIComponent(ballotId)}${qs ? `?${qs}` : ""}#ballot-paper`}>See who is standing &rarr;</Link></p>
       {sp.approx === "1" ? <p className="notice small">We matched your postcode from its centre point because our usual lookup wasn&rsquo;t available. If your postcode sits on a boundary, check your poll card or your council&rsquo;s website to confirm which election you&rsquo;re in.</p> : null}
-      <AreaMap ballotId={ballotId} areaName={ballot.area_name} lat={ballot.area_lat} lng={ballot.area_lng} outcode={outcode} levelLabel={ballot.level === "local" ? "ward" : "constituency"} loc={loc} />
+      <div id="map" style={{ scrollMarginTop: "5rem" }} /><AreaMap ballotId={ballotId} areaName={ballot.area_name} lat={ballot.area_lat} lng={ballot.area_lng} outcode={outcode} levelLabel={ballot.level === "local" ? "ward" : "constituency"} loc={loc} />
       <Suspense fallback={<p className="meta">Looking up who represents you…</p>}><Representatives areaName={ballot.area_name} level={ballot.level} /></Suspense>
       <WriteToThem />
       {councilSlug ? <p className="small"><Link href={`/council/${councilSlug}`}>What&rsquo;s happening at {councilName} council &rarr;</Link> <span className="meta">{ballot.level === "parliamentary" ? "Council business is kept off this page because this is a vote for an MP; the council has its own page." : "Housing, transport, council tax, environment and schools, from the council\u2019s own papers."}</span></p> : null}
