@@ -5,8 +5,9 @@ rather than adding to it; history is in git, `CHANGELOG.md` and the decisions lo
 
 ## Live on whatsittome.org
 
-Deploy `6abb5ea71096fa10a3eb62c2` (29 Sept, 06:46 UTC), code `c25b0af` on `main`, built by Claude in Cowork. It also
-carries Claude Code's persona-test fixes (`c88b046`, `de3ff1e`) and the Positions explorer (`185418a`). Checked live:
+Deploy `6abb687912a7813e38351574` (29 Sept, 07:29 UTC), code `6d764a9` on `main` (Your politics, /you), built by Claude in
+Cowork; the round-eight release before it was deploy `6abb5ea71096fa10a3eb62c2`, code `c25b0af`. Both
+carry Claude Code's persona-test fixes (`c88b046`, `de3ff1e`) and the Positions explorer (`185418a`). Checked live:
 every changed page returns 200 with no console or CSP errors and no sideways scroll at 390px; axe clean (WCAG 2.2 AA and
 AAA contrast) in light and dark at 390 and 1280px before release.
 
@@ -35,6 +36,7 @@ Round eight (Romily's answers of 29 Sept, `docs/romily/round-8-answers.md`), eve
   Census categories) are stored in the browser only, never in an address or sent to us; answering puts Equality and
   rights first and gathers every party's positions whose own words mention that group. /about and the privacy page say so.
 - Code links now point to github.com/highlyvisual/whatsittome, a new public repository (see Blocked: it is still empty).
+  The code-only copy waiting to be pushed matches `6d764a9`.
 
 ## Outstanding, not blocked (can be built next)
 
