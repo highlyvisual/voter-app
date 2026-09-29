@@ -4,19 +4,19 @@
    "key": "lab-growth",
    "url": "https://labour.org.uk/change/kickstart-economic-growth/",
    "layer": "manifesto",
-   "title": null,
+   "title": "(existing source)",
    "publisher": null,
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Source already in the ledger; reused by URL, so these fields are not written."
   },
   {
    "key": "con-plan",
    "url": "https://www.conservatives.com/our-plan-for-britain",
    "layer": "manifesto",
-   "title": null,
+   "title": "(existing source)",
    "publisher": null,
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Source already in the ledger; reused by URL, so these fields are not written."
   },
   {
    "key": "grn-transport",
@@ -31,172 +31,172 @@
    "key": "ref-contract",
    "url": "https://assets.nationbuilder.com/reformuk/pages/253/attachments/original/1718625371/Reform_UK_Our_Contract_with_You.pdf",
    "layer": "manifesto",
-   "title": null,
+   "title": "(existing source)",
    "publisher": null,
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Source already in the ledger; reused by URL, so these fields are not written."
   },
   {
    "key": "ukip-manifesto",
    "url": "https://irp.cdn-website.com/f6e3b8c6/files/uploaded/2025_Manifesto_-_REV3_MASTER_COPY.pdf",
    "layer": "manifesto",
-   "title": null,
+   "title": "(existing source)",
    "publisher": null,
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Source already in the ledger; reused by URL, so these fields are not written."
   },
   {
    "key": "ld-manifesto",
    "url": "https://www.libdems.org.uk/fileadmin/groups/2_Federal_Party/Documents/PolicyPapers/Manifesto_2024/For_a_Fair_Deal_-_Liberal_Democrat_Manifesto_2024.pdf",
    "layer": "manifesto",
-   "title": null,
+   "title": "(existing source)",
    "publisher": null,
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Source already in the ledger; reused by URL, so these fields are not written."
   },
   {
    "key": "rejoin-manifesto",
    "url": "https://therejoineuparty.com/manifesto-2024/",
    "layer": "manifesto",
-   "title": null,
+   "title": "(existing source)",
    "publisher": null,
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Source already in the ledger; reused by URL, so these fields are not written."
   },
   {
    "key": "climate-blueprint",
    "url": "https://theclimate.party/blueprint-for-a-sustainable-future",
    "layer": "manifesto",
-   "title": null,
+   "title": "(existing source)",
    "publisher": null,
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Source already in the ledger; reused by URL, so these fields are not written."
   },
   {
    "key": "loony-2024",
    "url": "https://www.loonyparty.com/3515/8736/manicfesto-for-general-election-2024/",
    "layer": "manifesto",
-   "title": null,
+   "title": "(existing source)",
    "publisher": null,
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Source already in the ledger; reused by URL, so these fields are not written."
   },
   {
    "key": "ukvoice-policies",
    "url": "https://www.myukvoice.org/policies",
    "layer": "manifesto",
-   "title": null,
+   "title": "(existing source)",
    "publisher": null,
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Source already in the ledger; reused by URL, so these fields are not written."
   },
   {
    "key": "restore-infra",
    "url": "https://www.restorebritain.org.uk/environment_infrastructure",
    "layer": "manifesto",
-   "title": null,
+   "title": "(existing source)",
    "publisher": null,
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Source already in the ledger; reused by URL, so these fields are not written."
   },
   {
    "key": "wpb-manifesto",
    "url": "https://workerspartybritain.org/wp-content/uploads/2024/03/01_Manifesto_FINAL_mar.pdf",
    "layer": "manifesto",
-   "title": null,
+   "title": "(existing source)",
    "publisher": null,
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Source already in the ledger; reused by URL, so these fields are not written."
   },
   {
    "key": "cpa-manifesto",
    "url": "https://cpaparty.net/wp-content/uploads/2026/04/CPA-Manifesto-cover-2026.pdf",
    "layer": "manifesto",
-   "title": null,
+   "title": "(existing source)",
    "publisher": null,
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Source already in the ledger; reused by URL, so these fields are not written."
   },
   {
    "key": "dc-13832",
    "url": "https://candidates.democracyclub.org.uk/person/13832/",
    "layer": "candidate_statement",
-   "title": null,
-   "publisher": null,
+   "title": "Statement to voters: John Bloxsom",
+   "publisher": "John Bloxsom (candidate), via Democracy Club",
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Statement supplied by the candidate to Democracy Club (source already in the ledger; reused by URL)."
   },
   {
    "key": "dc-139522",
    "url": "https://candidates.democracyclub.org.uk/person/139522/",
    "layer": "candidate_statement",
-   "title": null,
-   "publisher": null,
+   "title": "Statement to voters: Josh Swash",
+   "publisher": "Josh Swash (candidate), via Democracy Club",
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Statement supplied by the candidate to Democracy Club (source already in the ledger; reused by URL)."
   },
   {
    "key": "dc-55155",
    "url": "https://candidates.democracyclub.org.uk/person/55155/",
    "layer": "candidate_statement",
-   "title": null,
-   "publisher": null,
+   "title": "Statement to voters: Katy Brookes-Duncan",
+   "publisher": "Katy Brookes-Duncan (candidate), via Democracy Club",
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Statement supplied by the candidate to Democracy Club (source already in the ledger; reused by URL)."
   },
   {
    "key": "dc-122561",
    "url": "https://candidates.democracyclub.org.uk/person/122561/",
    "layer": "candidate_statement",
-   "title": null,
-   "publisher": null,
+   "title": "Statement to voters: Mac McIntyre Brown",
+   "publisher": "Mac McIntyre Brown (candidate), via Democracy Club",
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Statement supplied by the candidate to Democracy Club (source already in the ledger; reused by URL)."
   },
   {
    "key": "dc-5691",
    "url": "https://candidates.democracyclub.org.uk/person/5691/",
    "layer": "candidate_statement",
-   "title": null,
-   "publisher": null,
+   "title": "Statement to voters: Bob Buxton",
+   "publisher": "Bob Buxton (candidate), via Democracy Club",
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Statement supplied by the candidate to Democracy Club. Retrieved 2026-09-29."
   },
   {
    "key": "dc-123678",
    "url": "https://candidates.democracyclub.org.uk/person/123678/",
    "layer": "candidate_statement",
-   "title": null,
-   "publisher": null,
+   "title": "Statement to voters: Kathryn Sara Penny",
+   "publisher": "Kathryn Sara Penny (candidate), via Democracy Club",
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Statement supplied by the candidate to Democracy Club (source already in the ledger; reused by URL)."
   },
   {
    "key": "dc-95622",
    "url": "https://candidates.democracyclub.org.uk/person/95622/",
    "layer": "candidate_statement",
-   "title": null,
-   "publisher": null,
+   "title": "Statement to voters: Mark Strong",
+   "publisher": "Mark Strong (candidate), via Democracy Club",
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Statement supplied by the candidate to Democracy Club (source already in the ledger; reused by URL)."
   },
   {
    "key": "dc-55316",
    "url": "https://candidates.democracyclub.org.uk/person/55316/",
    "layer": "candidate_statement",
-   "title": null,
-   "publisher": null,
+   "title": "Statement to voters: Tom Bradley",
+   "publisher": "Tom Bradley (candidate), via Democracy Club",
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Statement supplied by the candidate to Democracy Club (source already in the ledger; reused by URL)."
   },
   {
    "key": "dc-103119",
    "url": "https://candidates.democracyclub.org.uk/person/103119/",
    "layer": "candidate_statement",
-   "title": null,
-   "publisher": null,
+   "title": "Statement to voters: Anil Singh",
+   "publisher": "Anil Singh (candidate), via Democracy Club",
    "published_on": null,
-   "notes": "Existing source, reused by URL."
+   "notes": "Statement supplied by the candidate to Democracy Club (source already in the ledger; reused by URL)."
   }
  ],
  "claims": [
@@ -590,8 +590,8 @@
    "dc_person_id": 5691,
    "party_ec_id": "PP2055",
    "topic": "transport",
-   "claim_text": "Says Yorkshire deserves world-class transport to create jobs and cut pollution.",
-   "source_quote": "Yorkshire deserves world-class transport to create jobs and cut pollution.",
+   "claim_text": "Lists a West Yorkshire Metro among what Yorkshire could build with what he calls its fair share of public spending, saying metros are quicker and more reliable than trams.",
+   "source_quote": "Build a West Yorkshire Metro - Metros have elevated and underground sections to cut through congestion, making them quicker and more reliable than trams.",
    "applies_if": {},
    "precision": "aspiration",
    "drafted_by": "ai:claude (drafted from the published text; quote checked verbatim); statement checked live on Democracy Club, 29 Sept 2026"
