@@ -22,6 +22,28 @@ export default function Settings() {
   useEffect(() => { document.documentElement.classList.toggle("lite", lite); try { localStorage.setItem("lite", lite ? "1" : "0"); } catch {} }, [lite]);
   useEffect(() => { document.documentElement.style.fontSize = `${size}%`; try { localStorage.setItem("textsize", String(size)); } catch {} }, [size]);
   useEffect(() => { document.documentElement.classList.toggle("high-contrast", hc); try { localStorage.setItem("contrast", hc ? "high" : "normal"); } catch {} }, [hc]);
+  // High contrast meets WCAG 2.2 AAA 2.5.5 (targets 44 by 44): links inside a sentence are exempt, but a link that stands
+  // on its own in its line ("Source: GOV.UK", "More figures →") must be big enough to tap. CSS can't tell the two apart,
+  // so while high contrast is on, links whose parent holds little else are marked data-hc-solo and grown in theme.css.
+  useEffect(() => {
+    const mark = () => {
+      document.querySelectorAll<HTMLAnchorElement>("main a[href]").forEach((a) => {
+        const p = a.parentElement; if (!p || a.classList.contains("card-link")) return;
+        if (!a.hasAttribute("data-hc-solo") && getComputedStyle(a).display !== "inline") return;
+        const own = (a.textContent ?? "").replace(/\s+/g, " ").trim();
+        const rest = (p.textContent ?? "").replace(/\s+/g, " ").trim().replace(own, "").replace(/[\s·•|,.:;→←()\-–—]+/g, "");
+        const solo = rest.length <= 15;
+        if (solo && !a.hasAttribute("data-hc-solo")) a.setAttribute("data-hc-solo", "");
+        if (!solo && a.hasAttribute("data-hc-solo")) a.removeAttribute("data-hc-solo");
+      });
+    };
+    if (!hc) { document.querySelectorAll("[data-hc-solo]").forEach((e) => e.removeAttribute("data-hc-solo")); return; }
+    mark();
+    let raf = 0;
+    const mo = new MutationObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(mark); });
+    mo.observe(document.body, { childList: true, subtree: true });
+    return () => { mo.disconnect(); cancelAnimationFrame(raf); };
+  }, [hc]);
   useEffect(() => {
     if (theme === "system") document.documentElement.removeAttribute("data-theme"); else document.documentElement.setAttribute("data-theme", theme);
     try { theme === "system" ? localStorage.removeItem("theme") : localStorage.setItem("theme", theme); } catch {}

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-09-29 (afternoon, later) — High contrast to WCAG 2.2 AAA; a home-page fix
+- **Fix:** the "Trying it out?" link on the home page (added at 12:02 UTC) carried `card-link`, whose stretched overlay turned the whole home panel into a link to /feedback: tapping any tile or election opened the questionnaire. Removed.
+- High contrast (Display panel) now meets the display-related WCAG 2.2 AAA criteria, light and dark: 1.4.6 (7:1 text; party labels as ink in a party-coloured border), 1.4.8 (line height 1.5, paragraph spacing, 70ch lines, no justification), 2.3.3 (no motion), 2.4.12 and 2.4.13 (3px focus ring, never covered), 2.5.5 (44px targets; stand-alone links found by `components/Settings.tsx`). Details and what isn't claimed: `docs/accessibility-aaa.md`; the accessibility page says the same.
+- Found on the way, all modes: the journey's current step had white text on a light step in dark mode; keyboard focus could go into the clipped part of a "Show more" list (it now opens).
+- Checked: high contrast, axe with the AAA tags on 31 pages, light and dark, 390 and 1280px (124 checks, clean); every visible text element checked by script against its background (about 63,000, none under 7:1 or 4.5:1 large); targets measured; 1,628 keyboard focus stops, each with a visible, uncovered ring. Normal mode: axe AA clean on 22 pages as before; `npm test` 27/27.
+
 ## 2026-09-29 (late) — Romily's notes on the new pages; a feedback questionnaire
 - Answers about the person now tell two things apart: positions whose own words **name your group** (or a wider group that plainly includes it, such as "ethnic minority" or "LGBT") and positions on the same subject that don't. A Black person sees Labour's Race Equality Act under "Names your group"; a white person sees it under "Same subject, not naming the group" (`lib/personal.ts`, `tierHits`). Words that are mostly about other things ("Chinese", "Indian", "black market") are left out on purpose. Tests in `tests/personal.test.mjs`.
 - "Whose point of view?" on Your politics: "Yours" or "Someone else's", describing another person just for that page (nothing saved, your own answers unchanged).

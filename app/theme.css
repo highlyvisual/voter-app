@@ -112,6 +112,9 @@ button.secondary:hover { background: var(--sand); color: var(--ink); border-colo
 .hdyk-btn { background: var(--aubergine); color: var(--on-aubergine); }
 .chip:not(.none) { background: var(--aubergine); color: var(--on-aubergine); }
 .pill.on, .card-option.on, .section-nav a[aria-current="location"], .topic-nav a[aria-current="page"], .topic-tabs a[aria-current="page"], .journey li.now { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+/* The step you are on in a journey: its link and number sat in hard-coded white, invisible once the step turned light
+   in dark mode. */
+.journey li.now a, .journey li.now .n { color: var(--paper); border-color: var(--paper); }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .chip:not(.none) { background: var(--aubergine); color: var(--on-aubergine); }
 }
@@ -401,3 +404,91 @@ fieldset.fb-q > legend { float: left; width: 100%; }
 fieldset.fb-q > legend + * { clear: both; }
 /* Leaflet's own credit line: its link underlined like every other link in running text. */
 .leaflet-container .leaflet-control-attribution a { text-decoration: underline; text-decoration-thickness: 1px; }
+
+/* ===== High contrast (Display panel > Contrast > High), WCAG 2.2 AAA =====
+   Barny, 29 Sept: the high-contrast version should meet WCAG 2.2 at level AAA. What this mode does, criterion by
+   criterion (checked with axe's AAA rules on 24 pages, light and dark, phone and laptop; see docs/accessibility-aaa.md):
+   1.4.6 Contrast (Enhanced): every text colour is 7:1 or better on every surface it sits on (the palette below; party
+         labels become black or white text with a party-coloured border, because text on several party colours can't
+         reach 7:1 in either black or white).
+   1.4.8 Visual presentation: line spacing 1.5, space between paragraphs, lines no wider than about 70 characters, no
+         justified text; colours chosen by the reader (this panel).
+   2.3.3 Animation from interactions: no motion or transitions.
+   2.4.12 and 2.4.13 Focus not obscured and focus appearance: a 3px ink ring with a 2px paper gap, 21:1 against the
+         page, and the page scrolls so the sticky header and tab bar never cover what has focus.
+   2.5.5 Target size (Enhanced): everything you tap is at least 44 by 44 pixels, except links inside a sentence.
+   Tokens use :root.high-contrast (and its dark variants) so they beat the light and dark palettes above. */
+:root.high-contrast {
+  --paper: #FFFFFF; --panel: #FFFFFF; --sand: #F2F2F2; --apricot: #FFF1E6; --field: #FFFFFF; --hover: #EBEBEB;
+  --rule: #000000; --rule-strong: #000000;
+  --ink: #000000; --ink-soft: #000000; --muted: #1F1F1F; --faint: #2E2E2E;
+  --accent: #8C0039; --accent-bright: #8C0039; --accent-ink: #8C0039; --accent-soft: #FFE4EF; --on-accent: #FFFFFF;
+  --rose: #6E2433; --rose-dark: #4E1924; --rose-ink: #6E2433; --rose-soft: #F6E3E6; --rose-gold: #6E2433; --on-rose: #FFFFFF;
+  --aubergine: #3A1530; --aubergine-soft: #F3E3EE; --on-aubergine: #FFFFFF;
+  --slate: var(--rose); --link: #8C0039;
+  --shadow: none; --shadow-lift: none;
+}
+:root.high-contrast[data-theme="dark"] {
+  --paper: #000000; --panel: #000000; --sand: #141414; --apricot: #1A120D; --field: #000000; --hover: #262626;
+  --rule: #FFFFFF; --rule-strong: #FFFFFF;
+  --ink: #FFFFFF; --ink-soft: #FFFFFF; --muted: #E6E6E6; --faint: #D6D6D6;
+  --accent: #FF9EC6; --accent-bright: #FF9EC6; --accent-ink: #FF9EC6; --accent-soft: #2A0D1A; --on-accent: #000000;
+  --rose: #FFC2CB; --rose-dark: #FFD9DF; --rose-ink: #FFC2CB; --rose-soft: #2A1418; --rose-gold: #FFC2CB; --on-rose: #000000;
+  --aubergine: #F0D3E6; --aubergine-soft: #24121F; --on-aubergine: #000000;
+  --slate: var(--rose); --link: #FF9EC6;
+}
+@media (prefers-color-scheme: dark) {
+  :root.high-contrast:not([data-theme="light"]) {
+    --paper: #000000; --panel: #000000; --sand: #141414; --apricot: #1A120D; --field: #000000; --hover: #262626;
+    --rule: #FFFFFF; --rule-strong: #FFFFFF;
+    --ink: #FFFFFF; --ink-soft: #FFFFFF; --muted: #E6E6E6; --faint: #D6D6D6;
+    --accent: #FF9EC6; --accent-bright: #FF9EC6; --accent-ink: #FF9EC6; --accent-soft: #2A0D1A; --on-accent: #000000;
+    --rose: #FFC2CB; --rose-dark: #FFD9DF; --rose-ink: #FFC2CB; --rose-soft: #2A1418; --rose-gold: #FFC2CB; --on-rose: #000000;
+    --aubergine: #F0D3E6; --aubergine-soft: #24121F; --on-aubergine: #000000;
+    --slate: var(--rose); --link: #FF9EC6;
+  }
+}
+/* 1.4.6: party labels and initials as ink on paper inside a thick party-coloured border (inline styles, so !important). */
+:root.high-contrast .party-pill.filled, :root.high-contrast .avatar[style], :root.high-contrast .px-party.filled {
+  background: var(--paper) !important; color: var(--ink) !important; border: 3px solid var(--party, var(--ink)) !important; }
+:root.high-contrast .party-scope, :root.high-contrast .party-band { --party-tint: transparent; }
+:root.high-contrast body { background: var(--paper); color: var(--ink); }
+/* Links always underlined; visited and unvisited alike. */
+:root.high-contrast a:not(.button):not(.tile):not(.row-link):not(.wordmark):not(.card-link) { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+/* 1.4.8 */
+:root.high-contrast main :is(p, li, dd, dt, blockquote, td, th, label, summary) { line-height: 1.5; text-align: start; }
+:root.high-contrast main p:has(+ p) { margin-bottom: 1em; }
+:root.high-contrast main :is(p, li, blockquote) { max-width: 70ch; }
+/* 2.3.3 (and 2.2.2 for the ticker): no motion. The map is left alone; its own zoom is the reader's doing. */
+:root.high-contrast :not(.leaflet-container, .leaflet-container *),
+:root.high-contrast :not(.leaflet-container, .leaflet-container *)::before,
+:root.high-contrast :not(.leaflet-container, .leaflet-container *)::after { animation: none !important; transition: none !important; }
+:root.high-contrast { scroll-behavior: auto; }
+/* 2.4.12 and 2.4.13 */
+:root.high-contrast { scroll-padding-top: 5.5rem; scroll-padding-bottom: 6rem; }
+:root.high-contrast :focus-visible { outline: 3px solid var(--ink) !important; outline-offset: 2px !important; box-shadow: 0 0 0 2px var(--paper) !important; }
+/* 2.5.5: 44 by 44 targets. Controls grow; links that stand on their own (menus, lists of links, table cells, headings,
+   "Learn" breadcrumbs) become 44px tall boxes; links inside sentences are exempt and keep their line. */
+:root.high-contrast :is(button, select, [role="button"], [role="tab"], input:not([type="radio"]):not([type="checkbox"]):not([type="hidden"]), textarea) { min-height: 44px; }
+:root.high-contrast :is(button, [role="button"], [role="tab"]) { min-width: 44px; }
+:root.high-contrast summary { min-height: 44px; box-sizing: border-box; padding-block: 0.55rem; }
+:root.high-contrast .dates summary { display: list-item; }
+:root.high-contrast :is(input[type="radio"], input[type="checkbox"]) { width: 22px; height: 22px; }
+:root.high-contrast label:has(> :is(input[type="radio"], input[type="checkbox"])) { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; min-width: 44px; }
+:root.high-contrast :is(.nav-inline, .topic-nav, .section-nav, .foot-nav, .you-links, .links, .eyebrow, .topic-all, .whats-it-topics, .on-map, th, td, dd, h1, h2, h3, h4, h5, li.meta) a,
+:root.high-contrast :is(a.skip, a.skip-results, a.wordmark, a.nav-profile, a.see-all, a.quiet-link, .actions > a),
+:root.high-contrast a[data-hc-solo] { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; box-sizing: border-box; }
+/* Links tagged data-hc-solo stand alone in their line ("Source: GOV.UK", "More figures for Camden →"); tagged by
+   components/Settings.tsx while high contrast is on. */
+:root.high-contrast a[data-hc-solo] { vertical-align: middle; }
+/* Focus never lands on something hidden: a collapsed "Show more" list opens as soon as keyboard focus goes inside it
+   (all modes; WCAG 2.4.11), and high contrast never collapses it at all. */
+.showmore:not(.open):focus-within .showmore-body { max-height: none; overflow: visible; }
+.showmore:not(.open):focus-within .showmore-fade { display: none; }
+:root.high-contrast .showmore:not(.open) .showmore-body { max-height: none; overflow: visible; }
+:root.high-contrast .showmore-fade { display: none; }
+/* On a phone the candidate page has the "Next" bar above the tab bar: leave room for both when scrolling to focus. */
+@media (max-width: 58rem) { :root.high-contrast:has(.cand-foot) { scroll-padding-bottom: 10.5rem; } }
+/* In the key-dates strip the links sit inside sentences, where their extra tap padding overlapped the next line's link
+   and hid part of it when focused. High contrast keeps them in their line instead (inline links are exempt from 2.5.5). */
+:root.high-contrast :is(.dates, .what-now, .countdown) a:not([data-hc-solo]) { padding-block: 0; }

@@ -65,7 +65,7 @@ export default async function Home() {
           <Suspense fallback={<LookupView error={null} />}><HomeLookup /></Suspense>
           <HomeTiles ballots={homeBallots} />
           <HomeComingUp ballots={homeBallots} today={today} />
-          <Link href="/feedback?from=/" className="fb-invite card-link"><span><strong>Trying it out?</strong> Tell us what you think: two minutes, anonymous.</span><span aria-hidden>&rarr;</span></Link>
+          <Link href="/feedback?from=/" className="fb-invite"><span><strong>Trying it out?</strong> Tell us what you think: two minutes, anonymous.</span><span aria-hidden>&rarr;</span></Link>
         </div>
       </section>
 
