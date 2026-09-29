@@ -24,6 +24,8 @@ export const metadata: Metadata = {
   alternates: { types: { "application/rss+xml": "/feed.xml" } },
   description: "See who is on your ballot and what each candidate winning would change for a household like yours. Impartial, sourced, never a recommendation.",
   robots: INDEXING ? { index: true, follow: true } : { index: false, follow: false },
+  // Search Console ownership (URL-prefix property https://whatsittome.org/, added 29 Sept 2026). Public by design; not a secret.
+  verification: { google: "d3qV3vMOeAu9dPMM7heqXFRLOm6po6Rh5CnYxoUF7yA" },
   twitter: { card: "summary_large_image", title: `${SITE.name} — see who is asking for your vote`, description: "Every candidate, in ballot-paper order, with what they have actually published and what it could mean for you. Every claim sourced. No recommendations." },
   openGraph: { title: `${SITE.name} — see who is asking for your vote`, siteName: SITE.name, description: "Every candidate, in ballot-paper order, with what they have actually published and what it could mean for you. Every claim sourced. No recommendations.", type: "website", url: SITE.url },
 };
