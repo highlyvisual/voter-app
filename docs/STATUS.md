@@ -1,30 +1,34 @@
-# Status, 28 September 2026
+# Status, 29 September 2026
 
-Where everything stands after the 27 and 28 September build sessions (Claude in Cowork and Claude Code). Replace this file
+Where everything stands after the 27–29 September build sessions (Claude in Cowork and Claude Code). Replace this file
 rather than adding to it; history is in git, `CHANGELOG.md` and the decisions log in `docs/PROJECT.md`.
 
 ## Live on whatsittome.org
 
-Deploy `6aba1ab178dff63ebf0434e2` (28 Sept, 07:44 UTC), code `217e7fd` on `main`: the release merge `cc1af60` of all three
-branches (phase 1, open data, data items 1 to 7; merged and built by Claude Code as `release/2026-09-28`), plus a fix to
-`scripts/deploy.sh`, which was deleting `scripts/sql/council_register.json` that the council pages now import. Search
-indexing is on (`ALLOW_INDEXING=1` since 28 Sept). Checked live after the deploy: council pages for all 382 councils in
-the sitemap, spending and "in numbers" panels, party accounts, the Learn recess strip and bill tracker, the former-MP
-record; no console or CSP errors. Details of each part: `docs/automation/phase-1-dry-run.md`,
-`docs/automation/open-data-results.md`, `docs/automation/data-1-7-results.md`.
+Deploy `6abb5ea71096fa10a3eb62c2` (29 Sept, 06:46 UTC), code `c25b0af` on `main`, built by Claude in Cowork. It also
+carries Claude Code's persona-test fixes (`c88b046`, `de3ff1e`) and the Positions explorer (`185418a`). Checked live:
+every changed page returns 200 with no console or CSP errors and no sideways scroll at 390px; axe clean (WCAG 2.2 AA and
+AAA contrast) in light and dark at 390 and 1280px before release.
 
-Post-merge steps, 28 Sept (Claude in Cowork, on Barny's word):
-- Open-data migration applied through the Supabase connection. Public reading of `council_register` was held off until
-  the first load, so pages kept using the snapshot meanwhile, then granted.
-- "Council register" ran (07:55 UTC): 397 current councils, 382 with pages, 45,119 GOV.UK service links ("Do it online"
-  is live). Its climate-emergency step is paused in `council-register.yml` until Romily answers round eight q28;
-  `council_lines` is empty.
-- Deprivation for Wales, Scotland and NI loaded by the new "Deprivation" workflow: 1,917 + 6,976 + 890 = 9,783 areas.
-- "Data files" ran successfully; figures unchanged, so no pull request.
-- "Motion outcomes" first run in progress at 08:10 UTC; council motion results appear as it settles items.
-
-Still for Barny: allow Actions to open pull requests (Settings, Actions, General) so weekly "Data files" changes arrive
-as PRs.
+Round eight (Romily's answers of 29 Sept, `docs/romily/round-8-answers.md`), everything not waiting on a decision:
+- Home: her wording (q14), "Personalise my politics" (q5), four examples for the widest range of people.
+- Display panel restyled (q2); "Polls are open today" / "Result pending" on ballot pages (q4).
+- No counts anywhere a topic is shown (q9): candidate pages and cards, journeys, "What's at stake".
+- Unelected bodies alongside the elected ones in the "Who makes decisions" chain, marked "Not elected" (q16).
+- Council figures renamed "Life in [council]: the official facts", every figure with an everyday name and meaning (q25),
+  with a switch to the region, nation or UK (q7; also fixes Northern Ireland councils, which the old code skipped).
+- Transport and roads is the tenth topic (q17). Database: `topic` enum gained `transport`
+  (`scripts/sql/migrations/2026-09-29-topic-transport.sql`, applied through the Supabase connection). 37 verbatim
+  positions loaded by "Load drafted claims" run 5: 26 for 13 of the 14 parties on the Holborn and St Pancras ballot (no
+  transport wording found for the Communist League) and 11 from council candidates' own statements. Positions already
+  filed under another topic stay there; the transport rows sit alongside. One statement was left out on purpose: Craig
+  Griffiths (Carmarthenshire, Saron) has a Democracy Club statement written for a different ward and a June by-election.
+- "What can I vote in next?" at /next: countdown, calendar, map and a list by date (q18); "Coming up" in the menu.
+- Learn: who decides what, first past the post, what happens when you vote, election words, where your council tax
+  goes (q19), each on its own page and linked from /learn.
+- The journey prototypes switch between steps and one page (q20).
+- Three colour directions to try at /looks (q10–12), stored in the visitor's browser only; not indexed.
+- Code links now point to github.com/highlyvisual/whatsittome, a new public repository (see Blocked: it is still empty).
 
 ## Outstanding, not blocked (can be built next)
 
@@ -40,22 +44,23 @@ heavy (about 1.5 MB of HTML for Holborn and St Pancras); the unknown-ballot 404 
 ## Blocked
 
 **On Romily**
-- Round eight questions: none of the 24 has been answered (the one form submission, 27 Sept 07:51 UTC, was blank).
-  Fourteen of them hold up work: where the profile lands (q6); the per-topic numbers (q9); the palette (q10–12); who
-  the copy is for and examples of AI-sounding text (q13–14), which the copy pass waits on; the council agenda rule
-  (q15); unelected bodies (q16); transport (q17); how elections and Learn should look (q18–19), which the elections
-  timeline, the "What can I vote in next?" tool and visual Learn wait on; the journey shape (q20); the app stores (q24).
-  Form: https://romily-app-questions.netlify.app/ (round eight).
-- The Democracy Club call with Peter Keeling: Romily declined the 28 Sept slot. The remaining offer is 7–9 Oct (the
-  week of the Holborn and St Pancras by-election); she can take that or ask Peter for a later time.
-- Older and still open: the local-issues rule (round six q12), which journey shape, the "nothing found" wording,
-  whether new publications are drafted into claims automatically.
+- Round eight, still open: where the profile lands (q6; her example of calling a policy racist would be a verdict, see
+  note 1), the council agenda order (q15, note 2), Welsh (q23: reverses the 27 Sept decision; needs Barny too), and her
+  choice of colour direction at /looks. The area figures on the map (the rest of q7) wait on the map design in q6.
+- The Democracy Club call: she wrote "Thurs 8th October", which is polling day for Holborn and St Pancras. Peter's
+  offer was 7 to 9 October; 7 or 9 October avoids the clash.
+- Older and still open: the local-issues rule (round six q12), whether new publications are drafted into claims
+  automatically.
 
 **On Barny**
-- Allow Actions to open pull requests (Settings, Actions, General).
 - Submit the sitemap to Google Search Console and Bing Webmaster Tools (indexing has been on since 28 Sept).
-- The repository is private, so the "source code on GitHub" link in the footer and on /about is a dead end for the
-  public, which undercuts the AGPL claim. Make it public (also gives unlimited Actions minutes) or change the wording.
+- The public code copy: github.com/highlyvisual/whatsittome exists (public, created 29 Sept) and the site links to it,
+  but it is empty. A code-only copy with fresh history (no docs/romily, research or internal notes; AGPL licence text
+  added) is committed at `~/code/voter-app/.sync/public-copy`. The token the Mac uses can only write to voter-app, so the
+  push was refused: either run `git push https://github.com/highlyvisual/whatsittome.git main` from that folder and sign
+  in, or give the token access to the new repository.
+- The git remote in `.sync/wt-main` has an access token written into its URL, where any tool that lists remotes prints
+  it. Move it to the macOS keychain (or a credential helper) and consider rotating it.
 - The opening line (paper 01) and the shared Netlify credit pot (paper 07).
 - Keys and accounts, all free: a Democracy Club candidates-API token; DWP Stat-Xplore, Bus Open Data and the energy
   certificates register (for later items); Internet Archive keys. Whether to complete Meta's identity check for its
