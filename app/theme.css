@@ -149,8 +149,7 @@ a { text-decoration-color: var(--accent); }
 .map-cta { position: absolute; right: 12px; top: calc(54vh - 64px); z-index: 500; display: inline-flex; align-items: center; gap: 0.4rem; min-height: 48px; padding: 0 1.1rem; border-radius: 999px;
   background: var(--rose); color: var(--on-rose); font-family: var(--sans); font-weight: 700; font-size: 0.95rem; text-decoration: none; box-shadow: 0 6px 16px rgba(43, 27, 20, 0.3); }
 .map-cta:hover { background: var(--rose-dark); color: var(--on-rose) !important; }
-.home-sheet { position: relative; background: var(--apricot); border-radius: 22px 22px 0 0; padding: 0.6rem 1.1rem 1.8rem; box-shadow: 0 -8px 24px rgba(43, 27, 20, 0.10); }
-.sheet-handle { display: block; width: 42px; height: 5px; border-radius: 3px; background: var(--rule); margin: 0 auto 0.4rem; }
+.home-sheet { position: relative; background: var(--apricot); border-radius: 22px 22px 0 0; padding: 1rem 1.1rem 1.8rem; box-shadow: 0 -8px 24px rgba(43, 27, 20, 0.10); }
 .home-sheet .home-lockup { justify-content: flex-start; margin: 0.4rem 0 0.4rem; }
 .home-sheet .home-lockup img { width: 150px; }
 .home-sheet h2 { border-top: 0; padding-top: 0; font-size: 1.3rem; margin: 1.6rem 0 0.6rem; display: flex; align-items: baseline; gap: 0.6rem; }
@@ -182,7 +181,6 @@ a { text-decoration-color: var(--accent); }
   .home-map .map-note { padding: 0.35rem 1rem; }
   .map-cta { display: none; }
   .home-sheet { border-radius: 0; box-shadow: none; padding: 1.4rem 2rem 2.4rem; min-height: calc(100vh - 66px); }
-  .sheet-handle { display: none; }
 }
 
 /* ===== Row 4: the profile questions. Design A for the questions, design C for the optional extras ===== */
@@ -343,3 +341,63 @@ details.said-where > summary::before { margin-right: 0.35rem; }
 /* The "How do you know this?" button moves up out of the way of the next-candidate bar. */
 body:has(.cand-foot) .hdyk { bottom: 5.4rem; }
 @media (max-width: 58rem) { body:has(.cand-foot) .hdyk { bottom: calc(9.4rem + env(safe-area-inset-bottom)); } }
+
+/* ===== Romily's notes, 29 Sept (afternoon) ===== */
+/* The map's sources, one tap away rather than a paragraph under every map. */
+.map-credits { margin: 0.25rem 0 0; padding: 0 0.1rem; font-size: 0.8rem; color: var(--muted); text-align: right; }
+.home-map .map-credits { padding: 0 1rem; }
+.map-credits > summary { display: inline-flex; align-items: center; gap: 0.3rem; min-height: 32px; cursor: pointer; list-style: none; color: var(--muted); font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.map-credits > summary::-webkit-details-marker { display: none; }
+.map-credits > summary::before { content: "i"; display: inline-grid; place-items: center; width: 1.05rem; height: 1.05rem; border-radius: 50%; border: 1.5px solid currentColor; font: italic 700 0.7rem/1 var(--display); text-decoration: none; }
+.map-credits > summary:hover { color: var(--ink); }
+.map-credits[open] { text-align: left; }
+.map-credits > p { margin: 0.1rem 0 0.4rem; line-height: 1.45; }
+/* Whose point of view: yours, or someone else's described just for the page. */
+.sx-lens { margin: 0.4rem 0 0.8rem; }
+.sx-lens h3 { margin: 0 0 0.2rem; font-size: 1.1rem; }
+.sx-lens .scale-switch { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.4rem 0 0.6rem; }
+.sx-other { background: var(--sand); border: 1px solid var(--rule); border-radius: 14px; padding: 0.7rem 0.9rem 0.4rem; }
+.sx-other > .meta { margin-top: 0; }
+.sx-other-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 0.6rem 1rem; margin: 0.5rem 0 0.6rem; }
+.sx-field { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.9rem; font-weight: 600; }
+.sx-field select { font: inherit; font-weight: 400; min-height: 44px; padding: 0.35rem 0.6rem; border: 1.5px solid var(--rule); border-radius: 10px; background: var(--field); color: var(--ink); max-width: 100%; }
+.sx-field select:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }
+.sx-tier { display: inline-block; margin-right: 0.35rem; padding: 0.1rem 0.55rem; border-radius: 999px; font-family: var(--sans); font-size: 0.78rem; font-weight: 700; vertical-align: 0.1em; background: var(--sand); color: var(--ink); border: 1px solid var(--rule); }
+.sx-tier.named { background: var(--aubergine); color: var(--on-aubergine); border-color: var(--aubergine); }
+/* The feedback questionnaire (/feedback) and its invitation on the home page. */
+.fb-invite { display: flex; align-items: center; gap: 0.8rem; justify-content: space-between; margin: 1.2rem 0 0; padding: 0.8rem 1rem; min-height: 52px; border-radius: 14px;
+  border: 1.5px dashed var(--rose); color: var(--ink); text-decoration: none; font-size: 0.95rem; }
+.fb-invite:hover { background: var(--hover); border-style: solid; }
+.fb-invite > span:last-child { color: var(--accent-ink); font-weight: 700; }
+.fb-page { max-width: 42rem; }
+.fb-privacy { background: var(--sand); border: 1px solid var(--rule); border-radius: 12px; padding: 0.7rem 0.9rem; }
+.fb-sec { margin: 1.6rem 0 0; }
+.fb-sec h2 { display: flex; align-items: center; gap: 0.6rem; font-size: 1.35rem; margin: 0 0 0.6rem; }
+.fb-n { display: inline-grid; place-items: center; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--aubergine); color: var(--on-aubergine); font: 700 0.95rem/1 var(--sans); flex: none; }
+.fb-q { margin: 0 0 1.1rem; padding: 0.9rem 1rem; border: 1px solid var(--rule); border-radius: 16px; background: var(--panel); min-width: 0; }
+fieldset.fb-q { margin-inline: 0; }
+.fb-label { display: block; font-weight: 700; font-size: 1.02rem; line-height: 1.35; padding: 0; margin: 0 0 0.5rem; }
+.fb-hint { margin: -0.3rem 0 0.5rem; }
+.fb-ends { display: flex; justify-content: space-between; gap: 1rem; margin: -0.2rem 0 0.4rem; font-size: 0.82rem; }
+.fb-opts { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.fb-scale .fb-opts { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.fb-opt { position: relative; display: inline-flex; }
+.fb-scale .fb-opt.wide { grid-column: 1 / -1; }
+.fb-opt input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.fb-opt > span { display: inline-flex; align-items: center; justify-content: center; width: 100%; min-height: 44px; padding: 0.35rem 1rem; border-radius: 999px;
+  border: 1.5px solid var(--rule); background: var(--field); color: var(--ink); font-weight: 600; font-size: 0.95rem; text-align: center; }
+.fb-opt:hover > span { border-color: var(--ink); }
+.fb-opt input:checked + span { background: var(--aubergine); border-color: var(--aubergine); color: var(--on-aubergine); }
+.fb-opt input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 2px; }
+.fb-q input[type="text"], .fb-q textarea { box-sizing: border-box; width: 100%; font: inherit; padding: 0.6rem 0.75rem; min-height: 44px; border: 1.5px solid var(--rule); border-radius: 12px; background: var(--field); color: var(--ink); }
+.fb-q input[type="text"]:focus-visible, .fb-q textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; border-color: var(--ink); }
+.fb-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.fb-send { margin: 1.4rem 0 2rem; }
+.fb-send button { min-height: 50px; padding: 0 1.6rem; font-size: 1.05rem; }
+.fb-err { color: var(--accent-ink); font-weight: 600; }
+.fb-done { background: var(--apricot); border-radius: 18px; padding: 1.2rem 1.3rem; margin-top: 1rem; }
+.fb-done h2 { margin-top: 0; }
+fieldset.fb-q > legend { float: left; width: 100%; }
+fieldset.fb-q > legend + * { clear: both; }
+/* Leaflet's own credit line: its link underlined like every other link in running text. */
+.leaflet-container .leaflet-control-attribution a { text-decoration: underline; text-decoration-thickness: 1px; }

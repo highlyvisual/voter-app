@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-09-29 (late) — Romily's notes on the new pages; a feedback questionnaire
+- Answers about the person now tell two things apart: positions whose own words **name your group** (or a wider group that plainly includes it, such as "ethnic minority" or "LGBT") and positions on the same subject that don't. A Black person sees Labour's Race Equality Act under "Names your group"; a white person sees it under "Same subject, not naming the group" (`lib/personal.ts`, `tierHits`). Words that are mostly about other things ("Chinese", "Indian", "black market") are left out on purpose. Tests in `tests/personal.test.mjs`.
+- "Whose point of view?" on Your politics: "Yours" or "Someone else's", describing another person just for that page (nothing saved, your own answers unchanged).
+- Home: the grab handle on the phone sheet is gone (it looked draggable and wasn't).
+- Maps: the paragraph of sources under every map is now "About this map", one tap away; ONS is credited on the map itself beside OpenStreetMap; the postcode-centre label no longer opens by itself.
+- New: /feedback, "Tell us what you think", a two-minute anonymous questionnaire in four short sections (15 questions, all optional), stored with Netlify Forms (form `site-feedback`). The field list lives in `lib/feedbackForm.ts`; Netlify detects the form from `public/__forms.html`, and `tests/forms.test.mjs` fails if the two differ. Linked from the foot of every page and from the home page. Privacy page updated.
+- Checked: axe (WCAG 2.2 AA) clean on 17 pages, light and dark, at 390 and 1280px, plus the new states (your view, someone else's, the questionnaire); `npm test` 27 of 27.
+
 ## 2026-09-29 (evening) — Romily's design choices: the app-like rebuild
 Her picks from the five app-feel directions (`docs/design/2026-09-29-directions.md`):
 - Palette and type (row 1): direction C (latte, cocoa, rose; Fraunces and Public Sans, self-hosted) with A's sand and raspberry and E's apricot and aubergine, in `app/theme.css`, light and dark. The aubergine is a deeper plum than drawn: E's was UKIP's purple to the eye. /looks is retired and any stored trial look is cleared.

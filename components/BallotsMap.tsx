@@ -17,7 +17,7 @@ export default function BallotsMap({ ballots }: { ballots: B[] }) {
       const L = window.L;
       map = L.map(ref.current, { scrollWheelZoom: false }).setView([54.5, -3], 5);
       map.getContainer().setAttribute("role", "region");
-      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "&copy; OpenStreetMap contributors" }).addTo(map);
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "&copy; OpenStreetMap contributors · Boundaries: ONS (OGL)" }).addTo(map);
       const pts: [number, number][] = [];
       for (const b of ballots) {
         if (b.lat == null || b.lng == null) continue;
@@ -36,7 +36,11 @@ export default function BallotsMap({ ballots }: { ballots: B[] }) {
   return (
     <div className="map-wrap">
       <div ref={ref} className="map map-tall" role="region" aria-label="Map of upcoming elections" />
-      <p className="meta map-note">{err ? "Map couldn't load." : "Each marker is an election you can open. Larger marker: UK Parliament by-election."} Boundary centres: ONS Open Geography Portal. Tiles: OpenStreetMap.</p>
+      <p className="meta map-note">{err ? "Map couldn't load." : "Each marker is an election you can open. Larger marker: UK Parliament by-election."}</p>
+      <details className="map-credits">
+        <summary>About this map</summary>
+        <p>Boundary centres: ONS Open Geography Portal (Open Government Licence). Map tiles: &copy; OpenStreetMap contributors.</p>
+      </details>
     </div>
   );
 }

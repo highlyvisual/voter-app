@@ -72,8 +72,8 @@ export default function ProfileView({ findAction }: { findAction: (fd: FormData)
           );
         })}
       </div>
-      <h2>About you <span className="meta">(optional, this browser only)</span></h2>
-      <p className="meta">Never put in a page address, never sent to us, never used to calculate anything. If you answer, every party&rsquo;s own words on these subjects are shown first on Your politics.</p>
+      <h2 id="about-you">About you <span className="meta">(optional, this browser only)</span></h2>
+      <p className="meta">Never put in a page address, never sent to us, never used to calculate anything. If you answer, Your politics shows first the parties&rsquo; own words that name your group, then those on the subject in general. You can also look through someone else&rsquo;s eyes there without changing these.</p>
       <div className="profile-grid">
         {PERSONAL_KEYS.map((k) => {
           const options = PERSONAL_FIELDS[k].options as unknown as [string, string][];

@@ -75,6 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <p className="foot-brand"><img className="brand-light" src="/brand/mark-light.webp" alt="" width={30} height={27} loading="lazy" /><img className="brand-dark" src="/brand/mark-dark.webp" loading="lazy" alt="" width={30} height={27} /><span><strong>What&rsquo;s It To Me?</strong> Politics, in your context.</span></p>
           <nav className="foot-nav" aria-label="About this site">
             <ul>
+              <li><Link href="/feedback" prefetch={false}>Tell us what you think</Link></li>
               <li><Link href="/who-we-are" prefetch={false}>Who we are</Link></li>
               <li><Link href="/contact" prefetch={false}>Contact and corrections</Link></li>
               <li><Link href="/about" prefetch={false}>How this works</Link></li>

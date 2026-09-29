@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="robots" content="noindex"><title>Form definitions</title></head>
+<body>
+<!-- Netlify reads this file at deploy time to learn the site-feedback form and its fields (Next.js pages aren't static
+     HTML, so it can't find the form in them). The page at /feedback posts here. Generated from lib/feedbackForm.ts;
+     tests/forms.test.mjs fails if the two differ. Not linked from anywhere. -->
+<form name="site-feedback" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="site-feedback" />
+  <input type="text" name="from" />
+  <input type="text" name="bot-field" />
+  <input type="text" name="device" />
+  <input type="text" name="what_for" />
+  <input type="text" name="easy" />
+  <input type="text" name="tappable" />
+  <input type="text" name="postcode" />
+  <input type="text" name="meaning" />
+  <input type="text" name="trust" />
+  <input type="text" name="bias" />
+  <input type="text" name="bias_where" />
+  <input type="text" name="look" />
+  <input type="text" name="useful" />
+  <input type="text" name="confusing" />
+  <input type="text" name="use_it" />
+  <input type="text" name="can_vote" />
+  <input type="text" name="anything_else" />
+</form>
+</body>
+</html>

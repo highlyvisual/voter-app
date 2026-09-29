@@ -200,3 +200,13 @@ Her words: "1) Base the colours on C, yet add the sand and raspberry colours fro
 | 10 Desktop (E) | **Built 29 Sep.** The big map on the left. |
 
 Where each piece lives: `docs/design/2026-09-29-directions.md`.
+
+## WhatsApp, 29 September, 14:11 and 14:15 (relayed by Barny)
+
+| She said | Status |
+|---|---|
+| "I think it should not just pick up on me putting my race as let's show her race it should be able to identify if my race was the same as that said in the policy. If I were then to put someone else's demographics then I could learn how it would affect them?" | **Built 29 Sep.** Your politics now separates positions whose own words name your group ("Names your group: Black people, or ethnic minorities") from those on the subject that don't ("Same subject, not naming the group"). "Whose point of view?" switches to "Someone else's", where you describe anyone (ethnic group, religion, sex, gender, orientation) just for that page; nothing is saved. It still never says whether a position helps or harms anyone: it matches the words. |
+| "The circled icon makes it look like you can pull that down which you can't." | **Built 29 Sep.** The handle is gone. |
+| "Could we put the citing of the map less in your face." | **Built 29 Sep.** The sources are behind "About this map" under each map, and credited in small type on the map itself. |
+
+Also 29 Sep, from Barny: a short online questionnaire before she sends the site out for critique. **Built:** whatsittome.org/feedback.

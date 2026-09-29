@@ -23,7 +23,7 @@ export default function AreaMap({ ballotId = "", areaName, lat, lng, outcode, le
       const L = window.L;
       mapRefObj.current = map = L.map(ref.current, { scrollWheelZoom: false, attributionControl: true }).setView([lat ?? 51.5, lng ?? -0.12], 13);
       map.getContainer().setAttribute("role", "region");
-      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "&copy; OpenStreetMap contributors" }).addTo(map);
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "&copy; OpenStreetMap contributors · Boundaries: ONS (OGL)" }).addTo(map);
       try {
         const gj = ballotId ? await fetch(`/api/boundary?ballot=${encodeURIComponent(ballotId)}`).then((r) => r.json()) : null;
         if (gj?.features?.length) {
@@ -38,7 +38,7 @@ export default function AreaMap({ ballotId = "", areaName, lat, lng, outcode, le
           const o = oc?.result;
           if (o?.latitude) {
             L.circle([o.latitude, o.longitude], { radius: 700, color: "#7a5a00", weight: 2, fillColor: "#f5c451", fillOpacity: 0.25 }).addTo(map)
-              .bindTooltip(`Postcode district ${outcode} (approximate centre; your exact address is never used)`).openTooltip();
+              .bindTooltip(`Postcode district ${outcode} (approximate centre; your exact address is never used)`);
           }
         } catch { /* optional */ }
       }
@@ -109,9 +109,13 @@ export default function AreaMap({ ballotId = "", areaName, lat, lng, outcode, le
           </button>
         ))}
         {layers.map((l) => l.whatItMeans ? <button key={`${l.label}-q`} type="button" className={`key-what${explain === l.label ? " on" : ""}`} aria-expanded={explain === l.label} onClick={() => setExplain((e) => (e === l.label ? null : l.label))} title={`What "${l.label}" means`}>What does "{l.label.replace(/ \(.*\)$/, "")}" mean?</button> : null)}
-        {explain ? (() => { const l = layers.find((x) => x.label === explain); return l?.whatItMeans ? <span className="key-explain" role="note"><strong>{l.label.replace(/ \(.*\)$/, "")}:</strong> {l.whatItMeans}{l.more ? <> <a href={l.more} target="_blank" rel="noopener">Official guidance →</a></> : null}</span> : null; })() : null} Tap any shape or dot for what it is, the official record, and what candidates here have published on it. These are facts about the ground, not anyone's proposals. Layer colours are chosen to be unlike any party's.</p>
+        {explain ? (() => { const l = layers.find((x) => x.label === explain); return l?.whatItMeans ? <span className="key-explain" role="note"><strong>{l.label.replace(/ \(.*\)$/, "")}:</strong> {l.whatItMeans}{l.more ? <> <a href={l.more} target="_blank" rel="noopener">Official guidance →</a></> : null}</span> : null; })() : null} Tap any shape or dot for what it is, the official record, and what candidates here have published on it.</p>
       ) : null}
-      <p className="meta map-note">Boundary: ONS Open Geography Portal (Open Government Licence). Map tiles: OpenStreetMap. {outcode ? "The highlighted circle is the centre of your postcode district, not your address." : ""}</p>
+      {/* Romily, 29 Sept: the map's sources "less in your face". Kept one tap away, and credited on the map itself. */}
+      <details className="map-credits">
+        <summary>About this map</summary>
+        <p>{outcode ? "The highlighted circle is the centre of your postcode district, not your address. " : ""}{layers.length ? "The layers are facts about the ground, not anyone's proposals, and their colours are chosen to be unlike any party's. " : ""}Boundaries: ONS Open Geography Portal (Open Government Licence). Map tiles: &copy; OpenStreetMap contributors.</p>
+      </details>
     </div>
   );
 }

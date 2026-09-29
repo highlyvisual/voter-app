@@ -49,7 +49,6 @@ export default async function Home() {
       <section className="home-app" aria-label="Start here">
         <HomeMap ballots={homeBallots} />
         <div className="home-sheet">
-          <span className="sheet-handle" aria-hidden />
           <div className="home-lockup">
             {/* AVIF first (about half the bytes of the WebP), WebP for older browsers (Nova audit). */}
             <picture className="brand-light"><source srcSet="/brand/lockup-light.avif" type="image/avif" /><img src="/brand/lockup-light.webp" fetchPriority="high" alt="What&rsquo;s It To Me? Politics, in your context." width={633} height={514} /></picture>
@@ -66,6 +65,7 @@ export default async function Home() {
           <Suspense fallback={<LookupView error={null} />}><HomeLookup /></Suspense>
           <HomeTiles ballots={homeBallots} />
           <HomeComingUp ballots={homeBallots} today={today} />
+          <Link href="/feedback?from=/" className="fb-invite card-link"><span><strong>Trying it out?</strong> Tell us what you think: two minutes, anonymous.</span><span aria-hidden>&rarr;</span></Link>
         </div>
       </section>
 
