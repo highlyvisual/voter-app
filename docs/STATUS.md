@@ -1,18 +1,25 @@
-# Status, 29 September 2026
+# Status, 29 September 2026 (evening)
 
 Where everything stands after the 27–29 September build sessions (Claude in Cowork and Claude Code). Replace this file
 rather than adding to it; history is in git, `CHANGELOG.md` and the decisions log in `docs/PROJECT.md`.
 
 ## Live on whatsittome.org
 
-Deploy `6abb7df49d942740b4394972` (29 Sept, about 09:00 UTC), code `e8ac5e5` on `main`, built by Claude in Cowork:
-Romily's WhatsApp notes of 29 Sept (header on one line with "More", "My profile" readable on hover, home slogan about
-40% smaller on a laptop, introduction cut to 25 words for her to edit, teal and coral as interface colours, party
-colours on everything that belongs to a party; `lib/partyColour.ts`). Details and her words: `docs/romily/feedback-log.md`
-(last section) and `CHANGELOG.md`. Checked before release: axe clean (WCAG 2.2 AA) on ten pages in light and dark at 390
-and 1280px, no sideways scroll, header one line from 360 to 1512px and at 150% text.
+Deploy `6abb952262ff4c0931a15973` (29 Sept, 10:39 UTC), code `aa74026` on `main`, built by Claude in Cowork:
+Romily's design choices of 29 Sept from the five app-feel directions (`docs/design/2026-09-29-directions.md` maps each
+choice to the files). Direction C's latte, cocoa and rose with A's sand and raspberry and E's apricot and aubergine
+(`app/theme.css`, loaded last; Fraunces and Public Sans self-hosted); a bottom tab bar on phones and tablets
+(`components/TabBar.tsx`); a map-first home page with "Coming up near you" bottom right (`components/HomeApp.tsx`);
+one question per screen for the essentials and a chat for the optional ones (`components/Onboarding.tsx`); the ballot
+as name cards (`components/NameCards.tsx`); the candidate page by scale, council to world (`components/ScaleTabs.tsx`);
+"Sourced: …" that opens to the full link; "Applies to you" only where a statement's own condition matches; a sticky
+"Next: No. N" bar. The trial looks at /looks are retired and any stored choice is cleared. Her words:
+`docs/romily/feedback-log.md` (last section). Checked before release: axe clean (WCAG 2.2 AA) on 14 pages in light and
+dark at 390 and 1280px, locally and live, plus seven interactive states; `npm test` 22/22.
 
-Before it: deploy `6abb687912a7813e38351574` (29 Sept, 07:29 UTC), code `6d764a9` (Your politics, /you); the round-eight
+Before it: deploy `6abb7df49d942740b4394972`, code `e8ac5e5` (her WhatsApp notes: header on one line, smaller slogan,
+25-word introduction, party colours on party material; the teal and coral from that release are replaced by her
+palette). Earlier: deploy `6abb687912a7813e38351574` (29 Sept, 07:29 UTC), code `6d764a9` (Your politics, /you); the round-eight
 release, deploy `6abb5ea71096fa10a3eb62c2`, code `c25b0af`. Both carry Claude Code's persona-test fixes (`c88b046`,
 `de3ff1e`) and the Positions explorer (`185418a`).
 
@@ -33,7 +40,7 @@ Round eight (Romily's answers of 29 Sept, `docs/romily/round-8-answers.md`), eve
 - Learn: who decides what, first past the post, what happens when you vote, election words, where your council tax
   goes (q19), each on its own page and linked from /learn.
 - The journey prototypes switch between steps and one page (q20).
-- Three colour directions to try at /looks (q10–12), stored in the visitor's browser only; not indexed.
+- Three colour directions to try at /looks (q10–12); since retired by her design choices (see above).
 - Where the profile lands (q6), built after Barny and Romily's decisions of 29 Sept: /you, "Your politics". What you're
   voting for; your area (map with recorded crime from data.police.uk added, official figures); who decides; and what's
   at stake by scale (your council, your nation or region, the UK, the world) in each party's own words, topics that touch
@@ -59,12 +66,9 @@ heavy (about 1.5 MB of HTML for Holborn and St Pancras); the unknown-ballot 404 
 ## Blocked
 
 **On Romily**
-- Round eight, still open: the council agenda order (q15, note 2), Welsh (q23: reverses the 27 Sept decision; needs Barny too), and her
-  choice of colour direction at /looks.
-- Five app-feel design directions (29 Sept), each element numbered, with a decision sheet: the Claude Design canvas
-  "What's It To Me? — five app-feel directions" (Barny shares it from its Share menu) and PNG contact sheets in the
-  UKPolitcs folder, `Claude outputs/design-2026-09-29/`. Her picks decide the app-like rebuild (bottom bar, one look
-  per job). The new introduction on the home page is also hers to edit.
+- Round eight, still open: the council agenda order (q15, note 2) and Welsh (q23: reverses the 27 Sept decision; needs Barny too).
+- Her design choices are live. Still hers: the home introduction wording (a 25-word placeholder) and a look at the
+  new pages on her phone. The design canvas needs sharing from its Share menu if she is to reopen it.
 - The Democracy Club call: she wrote "Thurs 8th October", which is polling day for Holborn and St Pancras. Peter's
   offer was 7 to 9 October; 7 or 9 October avoids the clash.
 - Older and still open: the local-issues rule (round six q12), whether new publications are drafted into claims
