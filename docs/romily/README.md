@@ -13,7 +13,7 @@ Romily is the project owner. Each round of decisions is put to her as a page on 
 | 5 | `/round-5/` | Shaping the journey | Answered 24 Sep, 12:08 — below |
 | 6 | `/round-6/` | What the research found: 17 questions in six sections | Answered 24 Sep, 14:39 UTC — see feedback-log.md |
 | 7 | — | Inviting candidates | Settled on WhatsApp, 27 Sep: no invitations for now. Page never published; questions kept in candidate-invitations-questions.md |
-| 8 | `/round-8/` | Check what's changed (tick or send back) and everything waiting on Romily, from her 27 Sep email | Published 27 Sep; updated 28 Sep (q5 and q16 now checks, q22 new dates, new q25–28 on council figures, party records, the former-MP record and climate quotes); answers to form `romily-answers-round-8`, none yet |
+| 8 | `/round-8/` | Check what's changed (tick or send back) and everything waiting on Romily, from her 27 Sep email | Published 27 Sep, updated 28 Sep (q25–28 added); answered 29 Sep 04:53 UTC: [round-8-answers.md](round-8-answers.md) |
 
 ## Round five answers (24 Sep 2026, 12:08)
 

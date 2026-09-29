@@ -23,7 +23,8 @@ const KIND_HELP: Record<string, string> = {
 const KIND_ORDER = ["candidate_statement", "manifesto", "campaign_leaflet", "enacted_record", "third_party_analysis"];
 const PAGE = 60;
 
-// Explore every position: choose an election and a topic with large buttons, or search. Results are grouped by election,
+// Explore every position: choose an election and a topic with large buttons, or search. No counts on the buttons
+// (Romily, round eight q9: "I don't like the numbers - they are confusing"). Results are grouped by election,
 // then by who said it, in ballot-paper order. The filter state lives in the address, so a view can be shared or bookmarked.
 export default function PositionsExplorer({ rows, elections, topics, initial }: { rows: Row[]; elections: Election[]; topics: TopicOpt[]; initial: { election: string; topic: string; q: string; kind: string; past: boolean } }) {
   const known = new Set(elections.map((e) => e.id));
@@ -124,19 +125,19 @@ export default function PositionsExplorer({ rows, elections, topics, initial }: 
           <legend>2. Which topic?</legend>
           <div className="topic-buttons">
             <button type="button" className={`topic-btn${tp ? "" : " on"}`} aria-pressed={!tp} onClick={() => { setTp(""); reset(); }}>
-              All topics <span className="n">{base.length}</span>
+              All topics
             </button>
             {topics.map((t) => {
               const n = topicCount.get(t.key) ?? 0;
               return (
                 <button key={t.key} type="button" className={`topic-btn${tp === t.key ? " on" : ""}`} aria-pressed={tp === t.key} disabled={n === 0 && tp !== t.key}
                   onClick={() => { setTp(tp === t.key ? "" : t.key); reset(); }} title={t.label}>
-                  {t.short} <span className="n">{n}</span>
+                  {t.short}
                 </button>
               );
             })}
           </div>
-          <p className="meta hint">The number is how many positions each topic would show with your other choices. Greyed-out topics have none.</p>
+          <p className="meta hint">A dashed, greyed-out topic has nothing published for your other choices.</p>
         </fieldset>
 
         <div className="px-search">
