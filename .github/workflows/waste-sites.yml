@@ -1,0 +1,24 @@
+name: Waste sites
+# Every permitted waste site in England from the Environment Agency's public register of waste operations, into waste_sites
+# for the "Permitted waste sites" map layer (scripts/auto/waste_sites.py). Weekly and on demand.
+on:
+  schedule:
+    - cron: "30 6 * * 1"   # Mondays 06:30 UTC
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["scripts/auto/waste_sites.py", ".github/workflows/waste-sites.yml"]
+concurrency: { group: waste-sites, cancel-in-progress: false }
+jobs:
+  load:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - run: python scripts/auto/waste_sites.py

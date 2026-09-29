@@ -8,6 +8,7 @@ const JOBS: { job: string; what: string; when: string; max: number }[] = [
   { job: "schools (GIAS)", what: "Proposed and recent school openings and closures in England (DfE register)", when: "Daily", max: 30 },
   { job: "consultations", what: "Open consultations from councils that use Citizen Space", when: "Daily", max: 30 },
   { job: "council register", what: "Every UK council, its website and codes (mySociety, checked against ONS)", when: "Mondays", max: 8 * 24 },
+  { job: "waste sites", what: "Permitted waste sites in England (Environment Agency public register), for the map", when: "Mondays", max: 8 * 24 },
   { job: "climate declarations", what: "Each council's climate-emergency motion, re-read from the council's own document", when: "Mondays", max: 8 * 24 },
   { job: "council meetings", what: "Full Council and Cabinet agendas and motions (Modern.gov)", when: "Mondays", max: 8 * 24 },
   { job: "motion outcomes", what: "The result of each agenda item, read from the published minutes in the council's own words", when: "Mondays", max: 8 * 24 },
