@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 // On narrow screens the six links collapse behind one Menu button; on wide screens they show inline as before.
-const LINKS: [string, string][] = [["/how-to-vote", "How to vote"], ["/learn", "Learn"], ["/about", "How this works"], ["/who-we-are", "Who we are"], ["/positions", "Positions"], ["/parties", "Parties"]];
+const LINKS: [string, string][] = [["/next", "Coming up"], ["/how-to-vote", "How to vote"], ["/learn", "Learn"], ["/about", "How this works"], ["/who-we-are", "Who we are"], ["/positions", "Positions"], ["/parties", "Parties"]];
 export default function MobileNav({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);

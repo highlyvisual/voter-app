@@ -112,17 +112,10 @@ export default async function CandidateCard({
           </div>
         </div>
         <span className="disclosure"><span className="closed">Show</span><span className="opened">Hide</span></span>
-        <div className="strip" aria-label="Positions by topic">
-          {perTopic.map((t) => (
-            t.applying.length ? (
-              <span key={t.key} className="chip" title={`${SHORT[t.key]}: ${t.applying.length} ${t.applying.length === 1 ? "position" : "positions"}`}>
-                {SHORT[t.key]} {t.applying.length}
-              </span>
-            ) : (
-              <span key={t.key} className="chip none" title={`${SHORT[t.key]}: no published position`}>{SHORT[t.key]} —</span>
-            )
-          ))}
-          <span className="chip none">{total} in total</span>
+        {/* Round eight q9 (Romily, 29 Sept): "I don't like the numbers - they are confusing." Topics named, never counted. */}
+        <div className="strip" aria-label="Topics with a published position">
+          {perTopic.some((t) => t.applying.length) ? <span className="meta strip-label">Published on:</span> : <span className="meta strip-label">No published position found yet.</span>}
+          {perTopic.filter((t) => t.applying.length).map((t) => <span key={t.key} className="chip">{SHORT[t.key]}</span>)}
         </div>
       </summary>
       <div className="body">
@@ -190,7 +183,7 @@ export default async function CandidateCard({
         </section>
 
         <section className="slot">
-          <h4>Published positions on the nine topics{complete ? ", for this household" : ""}</h4>
+          <h4>Published positions on the ten topics{complete ? ", for this household" : ""}</h4>
           {total > 0 ? <p className="meta" style={{ margin: "0 0 0.4rem" }}>{LEGEND} Switch between summaries and exact quotations with the control above the list.</p> : null}
           {total === 0 && perTopic.every((t) => t.relevant.length === 0) ? (
             <ActionBlock level={level} areaName={areaName} councilSiteUrl={councilSiteUrl} partySiteUrl={candidate.parties?.official_site_url} />

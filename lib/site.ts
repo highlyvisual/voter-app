@@ -5,7 +5,7 @@ export const SITE = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://whatsittome.org",
   email: "hello@whatsittome.org",
   tagline: process.env.NEXT_PUBLIC_SITE_TAGLINE ?? "Who is on your ballot, and what each of them winning would change for a household like yours.",
-  repo: "https://github.com/highlyvisual/voter-app",
+  repo: "https://github.com/highlyvisual/whatsittome",
   // "any": show a photo wherever one exists (Barny, 19 Sept 2026). "all-or-none": only when every candidate on the ballot has one (WP-A3).
   photos: (process.env.NEXT_PUBLIC_PHOTOS_MODE ?? "any") as "any" | "all-or-none",
 };

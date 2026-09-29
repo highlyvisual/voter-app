@@ -92,7 +92,7 @@ export default async function CandidatePage({ params, searchParams }: { params: 
           const list = applying.filter((cl) => cl.topic === k);
           return (
             <details key={k} className={`topic-card${list.length ? "" : " empty"}`}>
-              <summary><span className="tc-title">{t}</span><span className="tc-n">{list.length}</span><span className="tc-unit">{list.length === 1 ? "position" : "positions"}</span></summary>
+              <summary><span className="tc-title">{t}</span><span className="tc-unit">{list.length ? "Published" : "Nothing found"}</span></summary>
               <div className="tc-body">{list.length ? list.map((cl) => <Layered key={cl.id} c={cl} />) : <p className="small">Nothing published that we could source on {topicLabel[k].toLowerCase()}. That means nothing found, not nothing to say.</p>}</div>
             </details>
           );
@@ -105,7 +105,7 @@ export default async function CandidatePage({ params, searchParams }: { params: 
           const list = applying.filter((cl) => cl.topic === k);
           return (
             <details key={k} className={`topic-card${list.length ? "" : " empty"}`}>
-              <summary><span className="tc-title">{t}</span><span className="tc-n">{list.length}</span></summary>
+              <summary><span className="tc-title">{t}</span><span className="tc-unit">{list.length ? "Published" : "Nothing found"}</span></summary>
               <div className="tc-body">{list.length ? list.map((cl) => <Layered key={cl.id} c={cl} />) : <p className="small">Nothing published that we could source.</p>}</div>
             </details>
           );

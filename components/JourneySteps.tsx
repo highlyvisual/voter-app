@@ -4,6 +4,7 @@ import { useRouter, usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import type { JourneyData } from "@/lib/journeyData";
 import JourneyProfile from "@/components/JourneyProfile";
+import JourneyMode from "@/components/JourneyMode";
 
 // Prototype A (Romily, round 5, q6): one screen per stage, Back and Next, a trail showing where you are, like an app.
 // The step lives in the URL (?s=n) so every screen has its own link and survives a reload.
@@ -16,6 +17,7 @@ export default function JourneySteps({ d, step, map, reps, office }: { d: Journe
   const rel = d.topics.filter((t) => t.reason);
   return (
     <div className="js">
+      <JourneyMode mode="steps" qs={d.qs} />
       <ol className="js-trail" aria-label="Where you are">{STEP_NAMES.map((n, i) => <li key={n} className={i === s ? "now" : i < s ? "done" : ""}><button type="button" onClick={() => go(i)}><span className="n">{i + 1}</span><span className="t">{n}</span></button></li>)}</ol>
       <div className="js-screen" key={s}>
         {s === 0 ? (<>
@@ -44,28 +46,26 @@ export default function JourneySteps({ d, step, map, reps, office }: { d: Journe
           {office}
         </>) : s === 5 ? (<>
           <p className="eyebrow">What matters</p>
-          <h1>{rel.length ? "The topics that touch your household, first." : "Nine topics. Pick any."}</h1>
+          <h1>{rel.length ? "The topics that touch your household, first." : "Ten topics. Pick any."}</h1>
           {rel.length ? <ul className="topic-first">{rel.map((t) => <li key={t.topic}><strong>{t.label}</strong> <span className="meta">— first {t.reason}</span></li>)}</ul> : null}
           <div className="stakes">{d.topics.map((t) => (
             <Link key={t.topic} href={`${base}/topic/${t.topic}${qq}`} className={`stake${t.n ? "" : " empty"}`}>
               <span className="stake-title">{t.short}</span>
               {t.reason ? <span className="meta stake-why">First {t.reason}</span> : null}
-              <span className="stake-n">{t.n}</span>
-              <span className="stake-unit">published {t.n === 1 ? "position" : "positions"}{t.n ? ` from ${t.who} of ${d.candidates.length} candidates` : ""}</span>
-              <span className="stake-go">{t.n ? "Compare them →" : "Nothing published yet →"}</span>
+              <span className="stake-unit">{t.n ? "Published positions to compare" : "Nobody has published on this yet"}</span>
+              <span className="stake-go">{t.n ? "Compare them →" : "See the topic →"}</span>
             </Link>))}</div>
-          <p className="meta">A count measures how much has been published, not how good or how important anything is.</p>
         </>) : s === 6 ? (<>
           <p className="eyebrow">Candidates</p>
           <h1>Everyone asking for your vote.</h1>
           <p className="lede">{d.candidates.length} candidates, in ballot-paper order, the same page for each. Open one for their photo, their published positions and the sources.</p>
           <ol className="js-cands">{d.candidates.map((c) => (
-            <li key={c.id}><Link href={`${base}/candidate/${c.id}${qq}`}><span className="n">{c.n}</span><span className="who"><strong>{c.name}</strong><span className="party"><span className="party-dot" style={{ background: c.colour ?? "var(--rule)" }} />{c.party}</span></span><span className="meta">{c.positions ? `${c.positions} sourced ${c.positions === 1 ? "position" : "positions"}` : "Nothing published found"}</span></Link></li>
+            <li key={c.id}><Link href={`${base}/candidate/${c.id}${qq}`}><span className="n">{c.n}</span><span className="who"><strong>{c.name}</strong><span className="party"><span className="party-dot" style={{ background: c.colour ?? "var(--rule)" }} />{c.party}</span></span><span className="meta">{c.positions ? "Has published positions" : "Nothing published found"}</span></Link></li>
           ))}</ol>
         </>) : (<>
           <p className="eyebrow">Go deeper</p>
           <h1>The evidence, when you want it.</h1>
-          <p className="lede">{d.stats.claims} sourced positions from {d.stats.sources} named sources, every one linked to where it was published.</p>
+          <p className="lede">Every position here is quoted from a named source and linked to where it was published.</p>
           <ul className="js-links">
             <li><Link href={`${base}/compare${qq}`}>Compare candidates side by side, one topic at a time</Link></li>
             <li><Link href={`${base}${qq}`}>The full ballot page, everything in one place</Link></li>

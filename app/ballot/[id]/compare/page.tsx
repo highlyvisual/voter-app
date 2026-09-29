@@ -43,7 +43,7 @@ export default async function ComparePage({ params, searchParams }: Props) {
     <>
       <p className="eyebrow"><Link href={`/ballot/${encodeURIComponent(ballotId)}${hhQs ? `?${hhQs}` : ""}`}>{ballot.area_name}</Link> · side by side</p>
       <h1>Compare candidates</h1>
-      <p className="lede">Candidates across, the nine topics down. Each cell is the short version; open a topic for the exact quotations and sources.</p>
+      <p className="lede">Candidates across, the ten topics down. Each cell is the short version; open a topic for the exact quotations and sources.</p>
 
       <details className="household">
         <summary><span className="summary-line"><b>Showing {cols.length} of {candidates.length} {candidates.length === 1 ? "candidate" : "candidates"}.</b>{cols.length < candidates.length ? <> <Link href={`/ballot/${encodeURIComponent(ballotId)}/compare${hhQs ? `?${hhQs}` : ""}`}>Show all</Link>.</> : " Everyone on the ballot, in ballot-paper order."}</span><span className="change">Pick 2 to 4 to compare closely</span></summary>

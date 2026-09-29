@@ -58,7 +58,7 @@ export default function BallotTools({ counts, total }: { counts: Record<number, 
   return (
     <div className="ballot-tools">
       <div className="row">
-        <label className="meta" htmlFor="bt-topic">Topic<select id="bt-topic" value={topic} onChange={(e) => setTopic(e.target.value)}><option value="">All nine</option>{TOPICS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select></label>
+        <label className="meta" htmlFor="bt-topic">Topic<select id="bt-topic" value={topic} onChange={(e) => setTopic(e.target.value)}><option value="">All ten</option>{TOPICS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select></label>
         <label className="meta" htmlFor="bt-q">Search every position on this ballot<input id="bt-q" type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="e.g. rent, GP, police, pylons" /></label>
       </div>
       {filtered ? (

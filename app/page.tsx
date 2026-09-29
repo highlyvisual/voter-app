@@ -52,12 +52,14 @@ export default async function Home() {
       <section className="hero-ballot hero-grid">
         <div className="hero-main">
 
-        <h1>Politics affects your life. Understanding it <em>shouldn&rsquo;t be difficult.</em></h1>
-        <p className="lede" style={{ maxWidth: "44rem" }}>Someone is asking for your vote. Here is who they are, what they have actually put in writing, and what it could mean for a home like yours.</p>
-        
-        {/* Romily, round eight (1): lead with the person; the postcode is the profile's first step. */}
+        {/* Romily's own words (round eight, q14, 29 Sept), replacing the lines she picked out as sounding like AI. */}
+        <h1>You&rsquo;ve heard what they stand for. <em>But what does it mean for you?</em></h1>
+        <p className="lede" style={{ maxWidth: "44rem" }}>In an era where we hear about politics from politicians and misinformation blurs the line between fact and opinion, What&rsquo;s It To Me? puts the information back in your hands. Explore the people, policies and decisions affecting your life, your community and beyond. No rankings. No recommendations. Just the information to make up your own mind.</p>
+
+        {/* Romily, round eight (1, and q5 on 29 Sept): the profile is the centre of attention, called "Personalise my politics";
+            the postcode is its first step and the quick lookup stays folded underneath. */}
         <div className="start-cta">
-          <Link href="/start" className="button big">Start with you &rarr;</Link>
+          <Link href="/start" className="button big">Personalise my politics &rarr;</Link>
           <p className="meta">A few quick questions, starting with your postcode, so what you read is about a household like yours. Skip any after the first. We don&rsquo;t store your answers.</p>
         </div>
         <Suspense fallback={<LookupView error={null} />}><HomeLookup /></Suspense>
@@ -71,7 +73,7 @@ export default async function Home() {
         </div>
         <TryPostcode today={new Date().toISOString().slice(0, 10)} />
         <aside className="word-card" aria-label="Where the name comes from">
-          <p className="word-head"><span className="word">What&rsquo;s it to me?</span></p>
+          <p className="word-head"><span className="word">What&rsquo;s it to me?</span> <span className="word-answer">Quite a lot, actually.</span></p>
           <p>The question people actually ask about politics, and the hardest one to get answered. Not who is winning &mdash; what it would mean for you, your household, your street. <Link href="/who-we-are#the-name">Where the name comes from &rarr;</Link></p>
         </aside>
         <div className="hero-foot">
@@ -95,15 +97,17 @@ export default async function Home() {
         "We never ask who you support",
       ]} />
 
-      {/* Romily (round 5, "anything else"): the question, asked of each topic, then with the perspective widened. Every link goes to a page
+      {/* Romily (round 5, "anything else"): the question, asked of each topic, then with the perspective widened. Round eight q5
+          (29 Sept): the four examples should touch the widest range of people, so they are things almost every household meets
+          (the cost of living, health and care, a home, and who runs things locally and nationally). Every link goes to a page
           that treats every candidate the same; the order is fixed and nothing here depends on who is standing. */}
       {ballots.length ? (() => { const b = encodeURIComponent(ballots[0].ballot_paper_id); return (
         <section className="whats-it" aria-label="What's it to me?">
           <ul className="whats-it-topics">
-            <li><Link href="/explore/housing"><span>Housing.</span> What&rsquo;s it to me?</Link></li>
-            <li><Link href={`/ballot/${b}/topic/money_and_cost_of_living`}><span>Tax.</span> What&rsquo;s it to me?</Link></li>
+            <li><Link href={`/ballot/${b}/topic/money_and_cost_of_living`}><span>The cost of living.</span> What&rsquo;s it to me?</Link></li>
+            <li><Link href={`/ballot/${b}/topic/healthcare_and_social_care`}><span>Health and care.</span> What&rsquo;s it to me?</Link></li>
+            <li><Link href="/explore/housing"><span>A home.</span> What&rsquo;s it to me?</Link></li>
             <li><Link href={`/ballot/${b}/office`}><span>The council, the MP.</span> What&rsquo;s it to me?</Link></li>
-            <li><Link href={`/ballot/${b}/topic/environment_climate_and_energy`}><span>Climate policy.</span> What&rsquo;s it to me?</Link></li>
           </ul>
           <p className="whats-it-shift">Then widen the question: <Link href={`/ballot/${b}/area`}>what&rsquo;s it to my neighbourhood?</Link> <Link href={`/ballot/${b}/area#reps-heading`}>My region?</Link> <Link href="/parties">The country?</Link> <Link href={`/ballot/${b}?age_band=65_plus&household=single&children=none&tenure=social_rent&income_band=under_15k&employment=retired&student=no`}>Someone unlike me?</Link></p>
           <p className="meta">Describe any household, not only your own. The same page, the same rules, for every candidate.</p>
@@ -143,14 +147,15 @@ export default async function Home() {
 
       <ol className="steps">
         <li><strong>Open a ballot</strong><span>Every candidate, from the official nomination list, in the order they appear on the paper.</span><a href="#elections" className="step-go card-link">Choose an election <span aria-hidden>→</span></a></li>
-        <li><strong>Describe a household</strong><span>Seven quick questions. Yours, a friend's, a neighbour's, someone unlike you. We don't store your answers.</span><Link prefetch={false} href="/start" className="step-go card-link">Start with you <span aria-hidden>→</span></Link></li>
-        <li><strong>See what applies</strong><span>What each candidate has said on nine topics, what it would mean for that household in pounds where it can be calculated, and where every word came from.</span>{example ? <Link prefetch={false} href={`/ballot/${encodeURIComponent(example.ballot_paper_id)}?${EXAMPLES[0].query}`} className="step-go card-link">See an example <span aria-hidden>→</span></Link> : null}</li>
+        <li><strong>Describe a household</strong><span>Seven quick questions. Yours, a friend's, a neighbour's, someone unlike you. We don't store your answers.</span><Link prefetch={false} href="/start" className="step-go card-link">Personalise my politics <span aria-hidden>→</span></Link></li>
+        <li><strong>See what applies</strong><span>What each candidate has said on ten topics, what it would mean for that household in pounds where it can be calculated, and where every word came from.</span>{example ? <Link prefetch={false} href={`/ballot/${encodeURIComponent(example.ballot_paper_id)}?${EXAMPLES[0].query}`} className="step-go card-link">See an example <span aria-hidden>→</span></Link> : null}</li>
       </ol>
 
       {ballots.length > 3 ? (<>
         <ElectionTimeline today={new Date().toISOString().slice(0, 10)} ballots={ballots.map((b) => ({ id: b.ballot_paper_id, area: b.area_name, date: b.poll_date, level: b.level, locked: b.candidates_locked, positions: perBallot[b.ballot_paper_id] ?? 0, faces: tiles.filter((t) => t.ballot === b.ballot_paper_id).map((t) => ({ name: t.name, photo: null, colour: t.colour })) }))} />
         <h3 style={{ marginTop: "2rem" }}>On the map</h3>
         <BallotsMap ballots={ballots.map((b) => ({ ballot_paper_id: b.ballot_paper_id, area_name: b.area_name, poll_date: b.poll_date, level: b.level, lat: b.area_lat, lng: b.area_lng }))} />
+        <p><Link href="/next">What can I vote in next? Calendar, map and countdown &rarr;</Link></p>
       </>) : null}
       <p className="meta">A test version. Elections are added as their candidate lists are confirmed; you can look at any covered election whether or not you live there.</p>
 

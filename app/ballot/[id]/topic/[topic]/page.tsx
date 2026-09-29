@@ -34,7 +34,7 @@ export default async function TopicPage({ params, searchParams }: Props) {
       <h1>{label}</h1>
       <p className="lede">Every candidate's published position on this one topic, side by side, in ballot-paper order.</p>
 
-      <p className="meta" style={{ margin: "0 0 0.5rem" }}><Link href={`/ballot/${encodeURIComponent(ballotId)}/compare${qs ? `?${qs}` : ""}`}>All nine topics side by side</Link></p>
+      <p className="meta" style={{ margin: "0 0 0.5rem" }}><Link href={`/ballot/${encodeURIComponent(ballotId)}/compare${qs ? `?${qs}` : ""}`}>All ten topics side by side</Link></p>
       <nav className="topic-nav" aria-label="Topics">
         {TOPICS.map(([k, l]) => (
           <Link prefetch={false} key={k} href={`/ballot/${encodeURIComponent(ballotId)}/topic/${k}${qs ? `?${qs}` : ""}`} aria-current={k === topic ? "page" : undefined}>{l}</Link>

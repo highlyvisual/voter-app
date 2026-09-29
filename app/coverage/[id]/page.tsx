@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { claimsFor } from "@/components/CandidateCard";
 import { TOPICS, effectivePartyId, getBallot, listCandidates, listVerifiedClaims } from "@/lib/data";
-const SHORT: Record<string, string> = { money_and_cost_of_living: "Money", housing_and_property: "Housing", healthcare_and_social_care: "Health", education_and_universities: "Education", environment_climate_and_energy: "Environment", immigration_and_borders: "Immigration", crime_policing_and_justice: "Crime", defence_foreign_affairs_and_eu: "Defence & EU", equality_and_rights: "Equality" };
+const SHORT: Record<string, string> = { money_and_cost_of_living: "Money", housing_and_property: "Housing", healthcare_and_social_care: "Health", education_and_universities: "Education", environment_climate_and_energy: "Environment", transport: "Transport", immigration_and_borders: "Immigration", crime_policing_and_justice: "Crime", defence_foreign_affairs_and_eu: "Defence & EU", equality_and_rights: "Equality" };
 
 export const dynamic = "force-dynamic";
 

@@ -15,6 +15,34 @@ export const LOCAL_STAT_SLUGS = [
   "electric-vehicle-public-charging-devices", "active-businesses",
 ];
 
+// Round eight q25 (Romily, 29 Sept): "I don't get the Council in numbers... so many people won't". Each figure gets an
+// everyday name and one line on what it means, written from ELS's own definition (the subtitle), and a plain unit.
+export const PLAIN: Record<string, { name: string; means: string; unit?: string }> = {
+  "population-count": { name: "People living here", means: "An official estimate of everyone who lives in the area, in the middle of the year.", unit: "people" },
+  "median-age": { name: "Typical age", means: "Half the people who live here are younger than this and half are older." },
+  "gross-disposable-household-income-per-head": { name: "Money to live on, per person, per year", means: "Average household income per person after taxes, with benefits added: what people have to spend or save." },
+  "gross-median-weekly-pay": { name: "Typical weekly pay, before tax", means: "For employees who live here: half earn more than this each week, half earn less." },
+  "children-in-relative-poverty-after-housing": { name: "Children growing up in poverty", means: "The share of children under 16 in families on low incomes once housing costs are paid." },
+  "claimant-count": { name: "People claiming unemployment-related benefits", means: "The share of people aged 16 to 64 claiming Jobseeker's Allowance or Universal Credit while looking for work." },
+  "average-house-price": { name: "Average price of a home", means: "The average price of a home here in the month shown." },
+  "housing-affordability-ratio": { name: "How many years of pay a home costs", means: "A typical home's price divided by the typical yearly pay of people who live here.", unit: "times yearly pay" },
+  "healthy-life-expectancy-female": { name: "Years in good health: women", means: "How many years a girl born here can expect to live in good health, at current rates." },
+  "healthy-life-expectancy-male": { name: "Years in good health: men", means: "How many years a boy born here can expect to live in good health, at current rates." },
+  "greenhouse-gas-emissions": { name: "Greenhouse gases, per person", means: "Emissions from the area in a year, shared out per resident, in tonnes of carbon dioxide or its equivalent.", unit: "tonnes per person" },
+  "gigabit-capable-broadband": { name: "Homes and businesses that can get the fastest broadband", means: "The share of addresses that can get gigabit broadband (1,000 Mbps)." },
+  "electric-vehicle-public-charging-devices": { name: "Public chargers for electric cars", means: "Public charging points at all speeds, for every 100,000 people.", unit: "per 100,000 people" },
+  "active-businesses": { name: "Businesses trading here", means: "Businesses with sales or staff in the year.", unit: "businesses" },
+};
+
+// Wider areas for the same figures (round eight q7: "the option to expand the geographical area"). ONS codes checked
+// against ELS's own area pages on 29 Sept 2026. Regions exist only in England.
+export const REGION_GSS: Record<string, string> = {
+  "North East": "E12000001", "North West": "E12000002", "Yorkshire and The Humber": "E12000003", "East Midlands": "E12000004",
+  "West Midlands": "E12000005", "East of England": "E12000006", "London": "E12000007", "South East": "E12000008", "South West": "E12000009",
+};
+export const NATION_GSS: Record<string, [string, string]> = { E: ["E92000001", "England"], W: ["W92000004", "Wales"], S: ["S92000003", "Scotland"], N: ["N92000002", "Northern Ireland"] };
+export const UK_GSS = "K02000001";
+
 type Item = {
   label: string;
   extension: { slug: string; subtitle?: string; prefix?: string | null; suffix?: string | null; subText?: string | null; decimalPlaces?: number; source?: { name: string; href: string }[] };
@@ -39,14 +67,15 @@ export function periodText(p: string): string {
   return `${MONTHS[month - 1]} ${year} to ${MONTHS[(month + 10) % 12]} ${endYear}`;
 }
 
-function format(value: number, e: Item["extension"]): string {
+function format(value: number, e: Item["extension"], unit?: string): string {
   const dp = e.decimalPlaces ?? 0;
   const n = new Intl.NumberFormat("en-GB", { minimumFractionDigits: dp, maximumFractionDigits: dp }).format(value);
-  return `${e.prefix ?? ""}${n}${e.suffix ?? ""}${e.subText ? ` ${e.subText}` : ""}`;
+  const tail = unit ?? e.subText;
+  return `${e.prefix ?? ""}${n}${e.suffix ?? ""}${tail ? ` ${tail}` : ""}`;
 }
 
 export async function localStats(gss: string | null | undefined): Promise<LocalStat[]> {
-  if (!gss || !/^[ENSW]\d{8}$/.test(gss)) return [];
+  if (!gss || !/^[ENSWK]\d{8}$/.test(gss)) return [];
   try {
     const r = await fetch(`https://www.ons.gov.uk/explore-local-statistics/api/v1/data.json?geo=${gss}&time=latest`, {
       signal: AbortSignal.timeout(8000), headers: { "User-Agent": "What's It To Me? (whatsittome.org; hello@whatsittome.org)" }, next: { revalidate: 86400 },
@@ -65,7 +94,7 @@ export async function localStats(gss: string | null | undefined): Promise<LocalS
       if (typeof v !== "number" || !Number.isFinite(v)) continue;
       const period = Object.keys(it.dimension.period.category.index)[0] ?? "";
       const src = it.extension.source?.[0] ?? null;
-      out.push({ slug, label: it.label, subtitle: it.extension.subtitle ?? "", value: v, display: format(v, it.extension), period: periodText(period), source: src ? { name: src.name, href: src.href } : null });
+      out.push({ slug, label: it.label, subtitle: it.extension.subtitle ?? "", value: v, display: format(v, it.extension, PLAIN[slug]?.unit), period: periodText(period), source: src ? { name: src.name, href: src.href } : null });
     }
     return out;
   } catch {

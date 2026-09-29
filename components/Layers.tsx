@@ -65,7 +65,7 @@ export default async function Layers({ lat, lng, electionCouncil }: { lat: numbe
     ...(pc.country === "Northern Ireland" && pc.parliamentary_constituency ? [{ layer: "Northern Ireland Assembly", area: pc.parliamentary_constituency, who: "MLAs, elected", does: "Makes laws on transferred matters, including health, education, justice and agriculture.", src: SRC.devo }] : []),
     { layer: "UK Parliament", area: pc.parliamentary_constituency ?? "—", who: mp ? (mp.vacant ? "Seat vacant" : `${mp.name}${mp.party ? ` (${mp.party})` : ""}`) : "—", does: pc.country === "England" ? "National laws, taxes and benefits, the NHS and schools in England, immigration, defence and foreign policy." : "Laws on reserved matters for the whole UK: most taxes and benefits, immigration, defence and foreign policy.", src: SRC.devo },
   ];
-  // Unelected bodies, behind "Who else runs things here" (Romily, round six q11): named, with what they decide, never in the elected list.
+  // Unelected bodies (Romily, round six q11; round eight q16): named, with what they decide, shown in the chain marked "Not elected".
   const unelected: { layer: string; area: string; who: string; does: string }[] = [
     ...(!policingElected && pfa ? [{ layer: "Policing", area: pfa === "Scotland" ? "Police Scotland" : pfa, who: pc.country === "Scotland" ? "The Scottish Police Authority, appointed" : "The Northern Ireland Policing Board: some members nominated from the Assembly, the rest appointed", does: "Oversees the police service and holds the chief constable to account." }] : []),
     ...(pfa === "London, City of" ? [{ layer: "Policing", area: "City of London", who: "The City of London Corporation, as police authority", does: "Oversees the City of London Police." }] : []),
@@ -74,42 +74,38 @@ export default async function Layers({ lat, lng, electionCouncil }: { lat: numbe
     ...(ca && !ca.mayor ? [{ layer: "Combined authority", area: ca.name, who: "The leaders of the member councils; no directly elected mayor yet", does: "Transport, skills and strategic planning across the area." }] : []),
     ...(pc.national_park && !/non-National Park|non national/i.test(pc.national_park) ? [{ layer: "National park authority", area: pc.national_park, who: "An appointed authority with some councillors", does: "Planning decisions inside the park." }] : []),
   ];
+  // Round eight q16 (Romily, 29 Sept): unelected bodies sit alongside the elected ones, marked "Not elected", placed with
+  // the other area-wide bodies (after the council layers, before the national parliaments). Same order for every address.
+  const elected = rows.filter((r) => !(r.layer === "Policing" && pfa === "London, City of"));
+  const national = /^(Senedd Cymru|Scottish Parliament|Northern Ireland Assembly|UK Parliament)$/;
+  const cut = elected.findIndex((r) => national.test(r.layer));
+  const steps: (Row & { unelected?: boolean })[] = [
+    ...elected.slice(0, cut < 0 ? elected.length : cut),
+    ...unelected.map((u) => ({ ...u, unelected: true })),
+    ...(cut < 0 ? [] : elected.slice(cut)),
+  ];
   return (
     <section className="layers" aria-labelledby="layers-heading">
       <h2 id="layers-heading">Who makes decisions where you live?</h2>
-      <p className="meta">Your address sits inside several areas at once, each with different people and different powers. From the most local to the most national{electionCouncil ? "; the one this election is for is marked" : ""}.</p>
+      <p className="meta">Your address sits inside several areas at once, each with different people and different powers. From the most local to the most national{electionCouncil ? "; the one this election is for is marked" : ""}. Bodies nobody votes for are shown too, marked "Not elected".</p>
       <p className="small"><Link href={`/explore/housing?pc=${encodeURIComponent(pc.postcode.split(" ")[0])}&loc=${lat.toFixed(3)},${lng.toFixed(3)}`}>Housing here: who decides what, from your front door to Parliament &rarr;</Link></p>
       <ol className="chain">
-        {rows.filter((r) => !(r.layer === "Policing" && pfa === "London, City of")).map((r) => (
-          <li key={r.layer} className={`chain-step${r.now ? " now" : ""}`}>
+        {steps.map((r) => (
+          <li key={`${r.layer} ${r.area}`} className={`chain-step${r.now ? " now" : ""}${r.unelected ? " unelected" : ""}`}>
             <details open={r.now || undefined}>
               <summary>
-                <span className="layer-name">{r.layer}{r.now ? <span className="layer-tag">This election</span> : null}</span>
+                <span className="layer-name">{r.layer}{r.now ? <span className="layer-tag">This election</span> : null}{r.unelected ? <span className="layer-tag not-elected">Not elected</span> : null}</span>
                 <span className="layer-area">{r.area}</span>
                 <span className="small chain-who">{r.who}</span>
               </summary>
               <p className="small" style={{ margin: "0.35rem 0 0.2rem" }}>{r.does}</p>
               {r.link ? <p className="small" style={{ margin: "0.2rem 0" }}><Link href={r.link.href}>{r.link.text} &rarr;</Link></p> : null}
               {r.src ? <p className="meta" style={{ margin: 0 }}>Source: <a href={r.src[1]} rel="noopener">{r.src[0]}</a></p> : null}
+              {r.unelected ? <p className="meta" style={{ margin: 0 }}>Nobody votes for this body directly, so it is never on a ballot paper.</p> : null}
             </details>
           </li>
         ))}
       </ol>
-      {unelected.length ? (
-        <details className="more">
-          <summary className="meta">Who else runs things here</summary>
-          <div className="layers-grid" style={{ marginTop: "0.5rem" }}>
-            {unelected.map((r) => (
-              <div key={r.layer} className="layer">
-                <p className="layer-name">{r.layer}<span className="layer-tag">Not elected</span></p>
-                <p className="layer-area">{r.area}</p>
-                <p className="small" style={{ margin: "0.2rem 0" }}><strong>{r.who}</strong></p>
-                <p className="meta" style={{ margin: 0 }}>{r.does}</p>
-              </div>
-            ))}
-          </div>
-        </details>
-      ) : null}
       <p className="meta">Areas from the ONS via postcodes.io; MP from UK Parliament; councillors from Open Council Data as recorded after the May 2026 elections; combined and fire authorities from ONS lookups (2025). Council responsibilities vary slightly by area; the council's own website is definitive.</p>
     </section>
   );

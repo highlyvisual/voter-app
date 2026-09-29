@@ -1,7 +1,7 @@
 import { TOPICS, type Topic } from "@/lib/data";
 import type { Household } from "@/lib/household";
 
-// Orders the nine topics for one household: the ones that touch something the
+// Orders the ten topics for one household: the ones that touch something the
 // person told us come first, each with the reason in their own terms; the rest
 // follow in the fixed order. Uses only household facts, never anything political,
 // and never changes the order of candidates. Romily, round 5, question 11.
@@ -26,6 +26,7 @@ const REASONS: [Topic, (h: Household) => string | null][] = [
     : h.employment === "unemployed" ? "because you told us you're out of work"
     : h.employment === "retired" || h.age_band === "65_plus" ? "because you told us you're retired or 65 or over"
     : null],
+  ["transport", (h) => (h.drives === "yes" ? "because you told us you drive" : null)],
   ["immigration_and_borders", (h) => (h.visa === "yes" ? "because you told us someone in your household is on a visa" : null)],
   ["defence_foreign_affairs_and_eu", (h) => (h.veteran === "yes" ? "because you told us you're a veteran" : null)],
 ];

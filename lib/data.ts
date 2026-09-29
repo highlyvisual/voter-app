@@ -14,6 +14,8 @@ export const TOPICS = [
   ["healthcare_and_social_care", "Healthcare and social care"],
   ["education_and_universities", "Education and universities"],
   ["environment_climate_and_energy", "Environment, climate and energy"],
+  // Tenth topic, added 29 Sept 2026 at Romily's request (round eight q17).
+  ["transport", "Transport and roads"],
   ["immigration_and_borders", "Immigration and borders"],
   ["crime_policing_and_justice", "Crime, policing and justice"],
   ["defence_foreign_affairs_and_eu", "Defence, foreign affairs and the EU"],
@@ -21,7 +23,7 @@ export const TOPICS = [
 ] as const;
 export type Topic = (typeof TOPICS)[number][0];
 // The one set of short topic names, used wherever space is tight (chips, cards). Full names are in TOPICS.
-export const TOPIC_SHORT: Record<string, string> = { money_and_cost_of_living: "Money", housing_and_property: "Housing", healthcare_and_social_care: "Health and care", education_and_universities: "Education", environment_climate_and_energy: "Environment", immigration_and_borders: "Immigration", crime_policing_and_justice: "Crime and policing", defence_foreign_affairs_and_eu: "Defence and the EU", equality_and_rights: "Equality and rights" };
+export const TOPIC_SHORT: Record<string, string> = { money_and_cost_of_living: "Money", housing_and_property: "Housing", healthcare_and_social_care: "Health and care", education_and_universities: "Education", environment_climate_and_energy: "Environment", transport: "Transport", immigration_and_borders: "Immigration", crime_policing_and_justice: "Crime and policing", defence_foreign_affairs_and_eu: "Defence and the EU", equality_and_rights: "Equality and rights" };
 
 export type Ballot = {
   ballot_paper_id: string;

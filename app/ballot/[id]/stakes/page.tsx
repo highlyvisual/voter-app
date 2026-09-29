@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import Journey, { JourneyNext } from "@/components/Journey";
 import ProfileApply from "@/components/ProfileApply";
 import { claimsFor } from "@/components/CandidateCard";
-import { TOPICS, getBallot, listCandidates, listVerifiedClaims } from "@/lib/data";
+import { getBallot, listCandidates, listVerifiedClaims } from "@/lib/data";
 import { claimApplies, householdComplete, householdFromParams } from "@/lib/household";
 export const dynamic = "force-dynamic";
 
@@ -32,13 +32,13 @@ export default async function Stakes({ params, searchParams }: { params: Promise
     { key: "home", title: "Your home", lead: h.tenure && tenureText[h.tenure] ? `${tenureText[h.tenure]} See what has been published on rents, ownership and housing supply.` : "Rents, ownership, building and planning.", topic: "housing_and_property" },
     { key: "health", title: "Your health and care", lead: h.disability === "yes" || h.carer === "yes" ? "Including positions on disability, care and carers, which you told us apply." : "The NHS, GPs and social care.", topic: "healthcare_and_social_care" },
     { key: "education", title: "Education", lead: h.student && h.student !== "no" ? "You're studying: fees, loans and support." : h.children && h.children !== "none" ? "You have children: schools and childcare." : "Schools, colleges and universities.", topic: "education_and_universities" },
-    { key: "climate", title: "Climate, energy and the local environment", lead: "Energy bills, green spaces, air, transport.", topic: "environment_climate_and_energy" },
+    { key: "climate", title: "Climate, energy and the local environment", lead: "Energy bills, green spaces, air.", topic: "environment_climate_and_energy" },
+    { key: "transport", title: "Getting around", lead: h.drives === "yes" ? "You drive: roads, fuel, speed limits and parking, and buses and trains too." : "Buses, trains, roads, cycling and parking.", topic: "transport" },
     { key: "crime", title: "Crime and safety", lead: "Policing, courts, safer streets.", topic: "crime_policing_and_justice" },
     { key: "immigration", title: "Immigration", lead: h.visa === "yes" ? "Including visa and asylum policy, which you told us applies." : "Borders, visas and asylum.", topic: "immigration_and_borders" },
     { key: "world", title: "Defence, the world and the EU", lead: "Armed forces, Ukraine, Europe, trade.", topic: "defence_foreign_affairs_and_eu" },
     { key: "rights", title: "Equality and rights", lead: "Discrimination law, disability rights, sex and gender.", topic: "equality_and_rights" },
   ];
-  const label = Object.fromEntries(TOPICS);
   const order = topicsForHousehold(h);
   const reason = Object.fromEntries(order.relevant.map((r) => [r.topic, r.reason])) as Record<string, string>;
   const rank = Object.fromEntries(order.all.map((r, i) => [r.topic, i])) as Record<string, number>;
@@ -49,7 +49,7 @@ export default async function Stakes({ params, searchParams }: { params: Promise
       <Journey ballotId={ballotId} current="stakes" qs={qs} />
       <p className="eyebrow">{ballot.area_name}</p>
       <h1>What could this election change for you?</h1>
-      <p className="lede">{complete ? "Each card counts the published positions that touch something you told us about your household." : "Each card counts the published positions on that subject. Add your profile to narrow them to what applies to you."} We show where policy meets your life; we don't decide which of these matters most. That's yours.</p>
+      <p className="lede">{complete ? "Each card shows whether candidates have published anything that touches something you told us about your household." : "Each card shows whether candidates have published anything on that subject. Add your profile to narrow it to what applies to you."} We show where policy meets your life; we don't decide which of these matters most. That's yours.</p>
       {!complete ? <p><Link href="/start" className="button">Build my profile</Link> <span className="meta">A few questions, each skippable. Nothing sent to us.</span></p> : null}
       <div className="stakes">
         {cards.map((c) => {
@@ -58,15 +58,14 @@ export default async function Stakes({ params, searchParams }: { params: Promise
             <Link key={c.key} href={`/ballot/${encodeURIComponent(ballotId)}/topic/${c.topic}${qs ? `?${qs}` : ""}`} className={`stake${s.n ? "" : " empty"}`}>
               <span className="stake-title">{c.title}</span>
               {reason[c.topic] ? <span className="meta stake-why">First {reason[c.topic]}</span> : null}
-              <span className="stake-n">{s.n}</span>
-              <span className="stake-unit">published {s.n === 1 ? "position" : "positions"}{s.n ? ` from ${s.who} of ${candidates.length} candidates` : ""}</span>
+              <span className="stake-unit">{s.n ? "Published positions to compare" : "Nobody has published on this yet"}</span>
               <span className="stake-lead">{c.lead}</span>
-              <span className="stake-go">{s.n ? `Compare them →` : `Nothing published yet →`}</span>
+              <span className="stake-go">{s.n ? `Compare them →` : `See the topic →`}</span>
             </Link>
           );
         })}
       </div>
-      <p className="meta">{order.relevant.length ? "Cards that touch something you told us about your household come first, with the reason; the rest follow in a fixed order. Nothing political changes the order." : "The order of these cards is fixed until you add your household; then the ones that touch it come first, with the reason."} {label[""] ?? ""}A count measures how much has been published, not how good or how important anything is.</p>
+      <p className="meta">{order.relevant.length ? "Cards that touch something you told us about your household come first, with the reason; the rest follow in a fixed order. Nothing political changes the order." : "The order of these cards is fixed until you add your household; then the ones that touch it come first, with the reason."}</p>
       <JourneyNext ballotId={ballotId} current="stakes" qs={qs} />
     </>
   );

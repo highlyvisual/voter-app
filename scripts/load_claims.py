@@ -18,7 +18,7 @@ URL = os.environ["SUPABASE_URL"].rstrip("/") + "/rest/v1"; KEY = os.environ["SUP
 H = {"apikey": KEY, "Authorization": "Bearer " + KEY, "Content-Type": "application/json"}
 TOPICS = {"money_and_cost_of_living", "housing_and_property", "healthcare_and_social_care", "education_and_universities",
           "environment_climate_and_energy", "immigration_and_borders", "crime_policing_and_justice",
-          "defence_foreign_affairs_and_eu", "equality_and_rights"}
+          "defence_foreign_affairs_and_eu", "equality_and_rights", "transport"}
 LAYERS = {"manifesto", "enacted_record", "candidate_statement", "campaign_leaflet", "third_party_analysis"}
 
 

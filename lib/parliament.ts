@@ -66,6 +66,7 @@ export function topicOf(title: string): string | null {
     [/nhs|health|social care|mental health|hospital|assisted dying|terminally ill/, "healthcare_and_social_care"],
     [/school|education|university|student|children.?s wellbeing|skills/, "education_and_universities"],
     [/climate|energy|environment|water|net zero|great british energy|nature|flood/, "environment_climate_and_energy"],
+    [/\brail|railway|\bbus(es)?\b|transport|\broads?\b|highways|aviation|airport|driving|motorists?|vehicle|cycling/, "transport"],
     [/immigration|asylum|border|migration|nationality|citizenship/, "immigration_and_borders"],
     [/crime|police|sentenc|justice|prison|offender|terrorism|public order/, "crime_policing_and_justice"],
     [/defence|armed forces|ukraine|foreign|european union|nato|israel|gaza|trade/, "defence_foreign_affairs_and_eu"],

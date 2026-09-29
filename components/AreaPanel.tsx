@@ -1,6 +1,6 @@
 import { claimantFor, crimeNear, deprivationAt, hpiFor, hpiRegionFromArea, topPetitionsFor } from "@/lib/area";
 
-// "Your area in numbers": official statistics that describe the place, never a household, each with its source and its limits.
+// "Life in [area]: the official facts" (formerly "in numbers"; round eight q25): official statistics that describe the place, never a household, each with its source and its limits.
 export default async function AreaPanel({ areaName, level, lat, lng, pointNote, hpiRegion, gss = null, loc = null }: { areaName: string; level: string; lat: number | null; lng: number | null; pointNote: string | null; hpiRegion?: string | null; gss?: string | null; loc?: { lat: number; lng: number } | null }) {
   const region = hpiRegion ?? hpiRegionFromArea(areaName);
   const [petitions, crime, hpi, claimant, dep] = await Promise.all([level === "parliamentary" ? topPetitionsFor(areaName) : Promise.resolve(null), lat && lng ? crimeNear(lat, lng) : Promise.resolve(null), region ? hpiFor(region) : Promise.resolve(null), gss ? claimantFor(gss) : Promise.resolve(null), loc ? deprivationAt(loc.lat, loc.lng) : Promise.resolve(null)]);
@@ -9,7 +9,7 @@ export default async function AreaPanel({ areaName, level, lat, lng, pointNote, 
   const num = new Intl.NumberFormat("en-GB");
   return (
     <section className="area" aria-labelledby="area-heading">
-      <h2 id="area-heading">{areaName} in numbers</h2>
+      <h2 id="area-heading">Life in {areaName}: the official facts</h2>
       <p className="meta">Official open data about the area. It describes the place, not you, and it favours no candidate.</p>
       <div className="area-grid">
         {petitions?.rows.length ? (

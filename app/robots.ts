@@ -6,7 +6,7 @@ import type { MetadataRoute } from "next";
 // cited accurately, so each is allowed the same public pages as everyone else and kept out of the same private ones. A
 // crawler named in its own group ignores the "*" group, so every group carries the full list. How they should cite the
 // site is in /llms.txt and on /about/data-use.
-const DISALLOW = ["/review", "/candidates/submit", "/journey", "/profile", "/api/", "/*/notes"];
+const DISALLOW = ["/looks", "/review", "/candidates/submit", "/journey", "/profile", "/api/", "/*/notes"];
 const ALLOW = ["/", "/api/data/", "/llms.txt"];
 const AI = [
   "GPTBot", "OAI-SearchBot", "ChatGPT-User",

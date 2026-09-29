@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { INK, MARK, MARK_RATIO, OG_SIZE, PAPER, RULE, SLATE, SOFT, ogFonts } from "@/lib/og";
 
-export const alt = "What's It To Me — politics affects your life. Understanding it shouldn't be difficult.";
+export const alt = "What's It To Me? You've heard what they stand for. But what does it mean for you?";
 export const size = OG_SIZE;
 export const contentType = "image/png";
 
@@ -15,9 +15,9 @@ export default async function Image() {
           <div style={{ display: "flex", fontFamily: "Inter", fontWeight: 600, fontSize: 36, color: SLATE, letterSpacing: -0.5 }}>What’s It To Me?</div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", marginTop: 54, fontFamily: "Newsreader", fontWeight: 500, fontSize: 80, lineHeight: 1.04, color: INK, letterSpacing: -1.5 }}>
-          <div>Politics affects your life.</div>
-          <div style={{ display: "flex" }}>Understanding it&nbsp;<span style={{ fontStyle: "italic", fontWeight: 400, color: SLATE }}>shouldn&rsquo;t</span></div>
-          <div style={{ display: "flex", fontStyle: "italic", fontWeight: 400, color: SLATE }}>be difficult.</div>
+          <div>You&rsquo;ve heard what</div>
+          <div>they stand for.</div>
+          <div style={{ display: "flex", fontStyle: "italic", fontWeight: 400, color: SLATE }}>What does it mean for you?</div>
         </div>
         <div style={{ display: "flex", marginTop: "auto", borderTop: `2px solid ${RULE}`, paddingTop: 26, gap: 34, fontFamily: "Inter", fontWeight: 500, fontSize: 26, color: SOFT }}>
           <span>Politics, in your context</span><span>·</span><span>Every claim sourced</span><span>·</span><span>No recommendations</span>

@@ -53,15 +53,16 @@ export default function About() {
         Households are described in bands, so every possible household is one of a fixed set of cells. For each cell we compute a representative household once,
         offline, with PolicyEngine UK, and store the result. The same postcode and bands always give the same figures, and the entire table is part of the published snapshot.
         The assumptions (band midpoints, representative ages and rents, which benefits are claimed) are listed under every calculation and in the
-        <a href="https://github.com/highlyvisual/voter-app/blob/main/scripts/compute_grid.py"> script that produces it</a>.
+        <a href="https://github.com/highlyvisual/whatsittome/blob/main/scripts/compute_grid.py"> script that produces it</a>.
       </p>
 
-      <h2>Why these nine topics</h2>
+      <h2>Why these ten topics</h2>
       <p>
         The topics are not chosen by us. A topic earns a slot if it is in the top ten of the <a href="https://www.ipsos.com/en-uk/topic/issues-index" rel="noopener">Ipsos Issues Index</a>, the
         longest-running unprompted survey of what the public says matters most, or if it is the main subject of at least one candidate's published statement on the ballot.
         That rule produced: money and cost of living; housing; healthcare and social care; education; environment and energy; immigration and borders; crime, policing and justice; defence, foreign affairs and the EU. A ninth, equality and rights, is added on a different footing: the protected characteristics in the Equality Act 2010 (age, disability, sex, sexual orientation, gender reassignment, race, religion, and others) give it standing independent of any party, and parties publish positions on it.
         Immigration has been the public's most-mentioned concern throughout 2026; leaving it out would have quietly favoured some candidates over others.
+        A tenth, transport and roads, was added in September 2026 at our founder's request: buses, trains, roads, parking and cycling are decided at every level from the parish to Parliament, candidates and parties publish positions on them, and they touch almost every household. Positions that were already filed under another topic stay there; transport positions are added alongside, quoted in full like every other.
       </p>
       <p>
         Some topics, such as money and housing, can be related to a household. Others, such as immigration or defence, mostly cannot, and we do not pretend otherwise: those rows show what candidates and parties have published, with sources, and nothing more.
@@ -119,7 +120,7 @@ export default function About() {
 
       <h2>Code</h2>
       <p>
-        Open source under AGPL-3.0: <a href="https://github.com/highlyvisual/voter-app">github.com/highlyvisual/voter-app</a>. Anyone can run the same
+        Open source under AGPL-3.0: <a href="https://github.com/highlyvisual/whatsittome">github.com/highlyvisual/whatsittome</a>. Anyone can run the same
         ballot and household and get the same result.
       </p>
       <h2 id="limits">What this site can't tell you</h2>

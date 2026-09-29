@@ -1,0 +1,23 @@
+// Plain definitions for the Learn page's election words (round eight q19). No politics.
+export const WORDS: [string, string][] = [
+  ["Ballot paper", "The paper you mark to vote. It lists every candidate in alphabetical order of surname, with their party if they have one."],
+  ["By-election", "An election for one seat between the scheduled ones, usually because the person who held it died, resigned or was disqualified."],
+  ["Candidate", "A person standing for election. Anyone qualified can stand, with or without a party."],
+  ["Constituency", "The area an MP represents. There are 650 in the UK."],
+  ["Council", "The local authority that runs services such as bins, planning, libraries and, in many areas, schools and social care."],
+  ["Councillor", "A person elected to a council for a ward. Councillors together set the council's budget and council tax."],
+  ["Devolved", "Powers the UK Parliament has handed to the Scottish Parliament, the Senedd or the Northern Ireland Assembly, such as health and education."],
+  ["First past the post", "The voting system where you mark one cross and the candidate with the most votes wins, even without a majority."],
+  ["Independent", "A candidate who stands without a party."],
+  ["Majority", "In a result, how many more votes the winner got than the runner-up. In Parliament, having more seats than all the other parties combined."],
+  ["Manifesto", "A party's published programme for an election: what it says it would do if it won."],
+  ["MP", "Member of Parliament: the person elected to represent a constituency in the House of Commons."],
+  ["Polling station", "The place you go to vote in person, often a school or community hall. It's on your poll card."],
+  ["Postal vote", "Voting by post instead of in person. You apply in advance."],
+  ["Precept", "The part of your council tax that goes to another body, such as the police, fire service or a parish council."],
+  ["Proxy vote", "Someone you trust votes for you, as you tell them. You apply in advance."],
+  ["Register to vote", "Putting your name on the electoral register so you can vote. It takes about five minutes online."],
+  ["Returning officer", "The official who runs an election in an area and announces the result."],
+  ["Turnout", "The share of registered voters who voted."],
+  ["Ward", "The area a councillor represents. A council area is split into wards; in Northern Ireland councillors are elected for larger district electoral areas."],
+];

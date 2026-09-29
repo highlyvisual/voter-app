@@ -78,7 +78,7 @@ export default async function HousingExplorer({ searchParams }: { searchParams: 
       key: "you", title: "You and your household",
       body: tenure ? `You told us: ${tenureLabel(tenure)?.toLowerCase()}. The lines marked "you" below are the ones that touch that.` : "Add your profile and the lines that touch your household are marked below. Nothing is assumed if you don't.",
       items: [],
-      extra: tenure ? null : <p className="small"><Link href="/start">Start with you &rarr;</Link></p>,
+      extra: tenure ? null : <p className="small"><Link href="/start">Personalise my politics &rarr;</Link></p>,
     },
     {
       key: "area", title: `Your area: ${councilName}`,

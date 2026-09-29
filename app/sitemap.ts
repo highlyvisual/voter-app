@@ -12,7 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     publicClient().from("parties").select("ec_id").then((r) => (r.data ?? []) as { ec_id: string }[]),
     listAllCouncils(),
   ]);
-  const statics = ["", "/start", "/how-to-vote", "/learn", "/positions", "/parties", "/place", "/about", "/about/accuracy", "/about/data-use", "/about/moderation", "/about/parties-standing", "/who-we-are", "/contact", "/ledger", "/status", "/data", "/accessibility", "/explore/housing"]
+  const statics = ["", "/start", "/next", "/how-to-vote", "/learn", "/learn/who-decides", "/learn/first-past-the-post", "/learn/when-you-vote", "/learn/words", "/learn/council-tax", "/positions", "/parties", "/place", "/about", "/about/accuracy", "/about/data-use", "/about/moderation", "/about/parties-standing", "/who-we-are", "/contact", "/ledger", "/status", "/data", "/accessibility", "/explore/housing"]
     .map((p) => ({ url: `${base}${p}` }));
   const liveEntries = (await Promise.all(live.map(async (b) => {
     const id = encodeURIComponent(b.ballot_paper_id);

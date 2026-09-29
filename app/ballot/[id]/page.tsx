@@ -170,7 +170,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
       <SectionNav items={([["ballot-paper", "Candidates"], ["household", "Household"], ["compare", "Compare"], ["map", "Map"], ["area", "Area"], ["sources-heading", "Sources"]] as [string, string][]).filter(([id]) => !(ballot.archived && id === "area"))} />
 
       {ballot.archived && ownResult ? <SinceThen archiveId={ballotId} winnerParty={ownResult.rows[0]?.party ?? null} /> : null}
-      {ownResult ? <LastTime result={ownResult} label={`the result, ${fmt(ballot.poll_date)}`} open /> : null}
+      {ownResult ? <LastTime result={ownResult} label={`the result, ${fmt(ballot.poll_date)}`} open /> : <ResultPending pollDate={ballot.poll_date} skip={Boolean(ballot.uncontested || ballot.cancelled)} />}
 
 
       <div id="household" className="household-zone" style={{ scrollMarginTop: "6rem" }}><div><HouseholdForm household={household} complete={complete} />
@@ -221,7 +221,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
       <div style={{ display: "flex", gap: "1rem", alignItems: "center", flexWrap: "wrap", margin: "0.3rem 0" }}><ViewMode /><BlindRead /></div>
       <BallotTools counts={topicCounts} total={candidates.length} />
       <p className="meta" style={{ margin: "0 0 0.75rem" }}>
-        Numbered as on the ballot paper. Open a candidate to see their positions on the nine topics{complete ? " that apply to this household" : ""}, with sources.
+        Numbered as on the ballot paper. Open a candidate to see their positions on the ten topics{complete ? " that apply to this household" : ""}, with sources.
         {!complete ? " Until a household is described, only positions that apply to everyone are counted." : ""}
       </p>
       {candidates.map((c, i) => (
@@ -241,7 +241,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
       {pledges.length ? <CouncilPledges pledges={pledges} partyName={(ec) => candidates.find((c) => c.party_ec_id === ec)?.parties?.name ?? ec ?? "Council"} /> : null}
       {!ballot.archived ? <div id="area" style={{ scrollMarginTop: "6rem" }} /> : null}
       {!ballot.archived ? (
-        <Suspense fallback={<section className="area"><h2>{ballot.area_name} in numbers</h2><p className="meta">Loading official figures for the area…</p></section>}>
+        <Suspense fallback={<section className="area"><h2>Life in {ballot.area_name}: the official facts</h2><p className="meta">Loading official figures for the area…</p></section>}>
           <AreaPanel areaName={ballot.area_name} level={ballot.level} lat={ballot.area_lat} lng={ballot.area_lng} pointNote={ballot.area_point_note} hpiRegion={ballot.hpi_region} gss={ballot.area_gss} loc={loc} />
         </Suspense>
       ) : null}
@@ -268,5 +268,23 @@ export default async function BallotPage({ params, searchParams }: Props) {
       ) : null}
       <CiteThis title={`${ballot.area_name}: ${ballot.level === "parliamentary" ? "UK Parliament" : "council"} election, ${fmt(ballot.poll_date)}`} />
     </>
+  );
+}
+
+// Round eight q4 (Romily, 29 Sept): once the deadlines have passed, show the result, or say plainly that it is pending.
+// Polls close at 10pm UK time; until the result is published by Democracy Club (checked every 15 minutes) it is "pending".
+function ResultPending({ pollDate, skip }: { pollDate: string; skip: boolean }) {
+  if (skip) return null;
+  const now = new Date();
+  const ukDay = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/London", year: "numeric", month: "2-digit", day: "2-digit" }).format(now);
+  const ukHour = Number(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", hour: "2-digit", hour12: false }).format(now));
+  if (ukDay < pollDate) return null;
+  const pollsOpen = ukDay === pollDate && ukHour < 22;
+  return (
+    <section className="result-pending" aria-live="polite">
+      <h2>{pollsOpen ? "Polls are open today" : "Result pending"}</h2>
+      <p>{pollsOpen ? "Polling stations are open until 10pm. The result will appear here once it has been declared and published." : "Voting has closed. The votes are counted after the polls close, sometimes overnight and sometimes the next day. The result will appear here, with every candidate's votes, as soon as it is published."}</p>
+      <p className="meta">Results come from Democracy Club, which records the returning officer&rsquo;s declaration; this page checks for it every 15 minutes.</p>
+    </section>
   );
 }

@@ -99,7 +99,7 @@ export default async function Status() {
 
       <h2>How the update works</h2>
       <p>Every morning at 05:17 UTC an automated job asks Democracy Club for every election now open, writes what it finds here, and records the time against each one. It also looks for new campaign leaflets and candidate photos, marks candidates who have withdrawn, and moves elections off the current lists the day after polling. If a single election cannot be fetched, the job still loads the rest but records a failure rather than quietly dropping it, and that election appears in the list above.</p>
-      <p className="meta">Times are shown in UTC, which is the same as UK time in winter and one hour behind British Summer Time. Sourced positions are added by people, not by the nightly job, so that row moves less often and a gap there is normal. The code that does all this is <a href="https://github.com/highlyvisual/voter-app">open source</a>, and every change to a published claim is listed in <Link href="/ledger">the public ledger</Link>.</p>
+      <p className="meta">Times are shown in UTC, which is the same as UK time in winter and one hour behind British Summer Time. Sourced positions are added by people, not by the nightly job, so that row moves less often and a gap there is normal. The code that does all this is <a href="https://github.com/highlyvisual/whatsittome">open source</a>, and every change to a published claim is listed in <Link href="/ledger">the public ledger</Link>.</p>
     </>
   );
 }

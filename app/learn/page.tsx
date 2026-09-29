@@ -18,7 +18,7 @@ const Q: [string, string][] = [
   ["What do left and right mean?", "Broad labels, not exact ones. Roughly: the left tends to favour more state action to reduce economic inequality; the right tends to favour lower taxes, smaller government and market solutions. Many important questions — Europe, immigration, civil liberties, the environment — cut across the line, and parties contain a range of views."],
   ["What is a by-election?", "An election for a single seat between scheduled elections, usually because the sitting member has died, resigned or been disqualified. Turnout is usually lower than at a general election."],
   ["Can I vote if I have no photo ID?", "Yes, but you need to sort it out in advance: apply free for a Voter Authority Certificate, or use a postal vote, which needs no ID. Photo ID is required at UK Parliament elections and English council elections, not at Scottish or Welsh council elections."],
-  ["What happens to my ballot paper?", "It is counted by hand, in public, with candidates' agents watching. A paper that is unclear or marked for too many candidates is set aside as spoilt, and spoilt papers are counted and reported. Your paper has a number, but the law protects the secrecy of your vote."],
+  ["What happens to my ballot paper?", "It is counted by hand, watched by the candidates, their agents and accredited observers. A paper that is unclear or marked for too many candidates is set aside as spoilt, and spoilt papers are counted and reported. Your paper has a number, but the law protects the secrecy of your vote."],
   ["Does my vote actually matter?", "Council by-elections are frequently decided by tens of votes, and the ward result on this site's Lambeth pages was decided by 88. We cannot tell you your vote will decide the result; we can tell you that small margins are common and that non-voting is itself counted and noticed by parties."],
 ];
 export default async function Learn() {
@@ -28,6 +28,14 @@ export default async function Learn() {
       <p className="eyebrow">Thirty seconds each</p>
       <h1>The questions nobody wants to ask out loud</h1>
       <p className="lede">Plain answers, no politics. If a term on this site is unfamiliar, look for the "Explain this" link beneath any quotation.</p>
+      {/* Round eight q19 (Romily, 29 Sept): the five visuals she chose, in her order. */}
+      <ul className="learn-cards">
+        <li><Link href="/learn/who-decides"><strong>Who decides what</strong><span>Bins, schools, the NHS, buses, tax: who controls each, where you live.</span></Link></li>
+        <li><Link href="/learn/first-past-the-post"><strong>First past the post</strong><span>Run a make-believe count and see how a winner is picked.</span></Link></li>
+        <li><Link href="/learn/when-you-vote"><strong>What happens when you vote</strong><span>From registering to the result, one step at a time.</span></Link></li>
+        <li><Link href="/learn/words"><strong>Election words</strong><span>Tap a word to see what it means.</span></Link></li>
+        <li><Link href="/learn/council-tax"><strong>Where your council tax goes</strong><span>Pick a council and see its bill and budget.</span></Link></li>
+      </ul>
       <RecessStrip />
       <div className="learn">
         {Q.map(([q, a]) => (

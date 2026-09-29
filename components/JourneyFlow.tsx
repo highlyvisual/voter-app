@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
 import type { JourneyData } from "@/lib/journeyData";
 import JourneyProfile from "@/components/JourneyProfile";
+import JourneyMode from "@/components/JourneyMode";
 
 // Prototype B (Romily, round 5, q6): one page that opens up as you go. Each section appears once the one before is
 // done, and detail expands in place. Nothing is hidden for good: "show everything" opens the lot.
@@ -17,6 +18,7 @@ export default function JourneyFlow({ d, map, reps, office }: { d: JourneyData; 
   const rel = d.topics.filter((t) => t.reason);
   return (
     <div className="jf">
+      <JourneyMode mode="flow" qs={d.qs} />
       <header className="jf-hero">
         <p className="eyebrow">What's It To Me?</p>
         <h1>{d.ballot.place}: {d.ballot.days ? `${d.ballot.days} days to go.` : "polling day."}</h1>
@@ -43,11 +45,11 @@ export default function JourneyFlow({ d, map, reps, office }: { d: JourneyData; 
       </section> : null}
 
       {shown(3) ? <section id="jf-matters" className="jf-sec">
-        <h2><span className="n">4</span>{rel.length ? "What touches your household, first" : "Nine topics"}</h2>
+        <h2><span className="n">4</span>{rel.length ? "What touches your household, first" : "Ten topics"}</h2>
         {rel.length ? <ul className="topic-first">{rel.map((t) => <li key={t.topic}><strong>{t.label}</strong> <span className="meta">— first {t.reason}</span></li>)}</ul> : null}
         <div className="jf-topics">{d.topics.map((t) => (
           <details key={t.topic} className="jf-topic">
-            <summary><span className="jf-tname">{t.short}</span><span className="jf-tn">{t.n}</span><span className="meta">{t.n ? `published ${t.n === 1 ? "position" : "positions"} from ${t.who} of ${d.candidates.length}` : "nothing published yet"}</span></summary>
+            <summary><span className="jf-tname">{t.short}</span><span className="meta">{t.n ? "published positions to compare" : "nothing published yet"}</span></summary>
             <div className="jf-tbody">{t.reason ? <p className="meta">Shown first {t.reason}.</p> : null}<p><Link href={`${base}/topic/${t.topic}${qq}`}>See what each candidate has published on {t.label.toLowerCase()} →</Link></p></div>
           </details>))}</div>
         {!shown(4) ? <p><button type="button" onClick={() => reveal(5)}>Next: the candidates</button></p> : null}
@@ -57,14 +59,14 @@ export default function JourneyFlow({ d, map, reps, office }: { d: JourneyData; 
         <h2><span className="n">5</span>The candidates</h2>
         <p className="meta">{d.candidates.length} in ballot-paper order, the same page for each. Open one for their photo, positions and sources.</p>
         <ol className="js-cands">{d.candidates.map((c) => (
-          <li key={c.id}><Link href={`${base}/candidate/${c.id}${qq}`}><span className="n">{c.n}</span><span className="who"><strong>{c.name}</strong><span className="party"><span className="party-dot" style={{ background: c.colour ?? "var(--rule)" }} />{c.party}</span></span><span className="meta">{c.positions ? `${c.positions} sourced ${c.positions === 1 ? "position" : "positions"}` : "Nothing published found"}</span></Link></li>
+          <li key={c.id}><Link href={`${base}/candidate/${c.id}${qq}`}><span className="n">{c.n}</span><span className="who"><strong>{c.name}</strong><span className="party"><span className="party-dot" style={{ background: c.colour ?? "var(--rule)" }} />{c.party}</span></span><span className="meta">{c.positions ? "Has published positions" : "Nothing published found"}</span></Link></li>
         ))}</ol>
         {!shown(5) ? <p><button type="button" onClick={() => reveal(6)}>Next: go deeper</button></p> : null}
       </section> : null}
 
       {shown(5) ? <section id="jf-deeper" className="jf-sec">
         <h2><span className="n">6</span>Go deeper</h2>
-        <p>{d.stats.claims} sourced positions from {d.stats.sources} named sources, every one linked to where it was published.</p>
+        <p>Every position here is quoted from a named source and linked to where it was published.</p>
         <ul className="js-links">
           <li><Link href={`${base}/compare${qq}`}>Compare candidates side by side, one topic at a time</Link></li>
           <li><Link href={`${base}${qq}`}>The full ballot page, everything in one place</Link></li>

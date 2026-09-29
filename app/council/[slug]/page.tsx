@@ -160,7 +160,7 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
 
       <CouncilSpending fin={fin} name={c.name} />
 
-      <AreaNumbers gss={reg?.ons_gss_code ?? c.gss} name={c.name} />
+      <AreaNumbers gss={reg?.ons_gss_code ?? c.gss} name={c.name} region={reg?.region} />
 
       <section className="council-topic">
         <h2>Who runs the council</h2>
