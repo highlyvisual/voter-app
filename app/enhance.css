@@ -76,3 +76,56 @@ table.spend-table td.num { white-space: nowrap; }
 ol.bill-stages { padding-left: 1.3rem; margin: 0.5rem 0; }
 ol.bill-stages li { margin: 0.15rem 0; }
 ol.bill-stages li.current { font-weight: 600; }
+
+/* Positions explorer (Romily, 29 Sept: more interactive, less confusing, more accessible). Large targets (48px),
+   one step per block, plain labels, the state of every button announced; no colour carries meaning on its own. */
+.explorer { font-family: var(--sans); }
+.skip-results { position: absolute; left: -999rem; }
+.skip-results:focus { position: static; display: inline-block; margin: 0 0 0.6rem; padding: 0.5rem 0.8rem; background: var(--ink); color: var(--paper); }
+.explorer-controls { border: 1px solid var(--rule); background: var(--panel); padding: 1rem 1.1rem 0.6rem; margin: 1rem 0 0.8rem; }
+.explorer-controls fieldset { border: 0; padding: 0; margin: 0 0 1.1rem; min-width: 0; }
+.explorer-controls legend, .explorer-controls .px-step { display: block; font-weight: 700; font-size: 1.02rem; margin: 0 0 0.45rem; padding: 0; color: var(--ink); }
+.explorer-controls select, .explorer-controls input[type=search] { display: block; width: 100%; max-width: 40rem; min-height: 48px; font: inherit; font-size: 1rem; padding: 0.55rem 0.7rem; border: 2px solid var(--ink); background: var(--paper); color: var(--ink); border-radius: 0; }
+.explorer-controls .check { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; margin-top: 0.3rem; font-size: 0.95rem; cursor: pointer; }
+.explorer-controls .check input { width: 1.25rem; height: 1.25rem; accent-color: var(--ink); }
+.px-search { margin: 0 0 1rem; }
+.topic-buttons { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.topic-btn { min-height: 48px; padding: 0.5rem 0.9rem; border: 2px solid var(--ink); border-radius: 0; background: var(--paper); color: var(--ink); font-weight: 600; font-size: 0.95rem; box-shadow: none; }
+.topic-btn:hover { background: var(--hover); color: var(--ink); transform: none; box-shadow: none; }
+.topic-btn.on, .topic-btn[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.topic-btn.on::before { content: "\2713\00a0"; }
+.topic-btn .n { font-weight: 400; font-variant-numeric: tabular-nums; opacity: 0.85; margin-left: 0.25rem; }
+.topic-btn:disabled { border-style: dashed; opacity: 0.55; }
+.explorer-controls .hint { margin: 0.4rem 0 0; }
+.more-options { margin: 0 0 0.6rem; }
+.more-options > summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-weight: 600; }
+.more-options fieldset { margin-top: 0.6rem; }
+.kind-options { display: grid; gap: 0.35rem; }
+.kind { display: flex; gap: 0.6rem; align-items: flex-start; min-height: 44px; padding: 0.35rem 0; cursor: pointer; }
+.kind input { width: 1.2rem; height: 1.2rem; margin-top: 0.2rem; accent-color: var(--ink); flex: none; }
+.viewmode-row { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; margin: 0.4rem 0 0.6rem; }
+.viewmode-row .viewmode button { min-height: 40px; }
+.explorer-status { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; justify-content: space-between; border-top: 3px solid var(--ink); border-bottom: 1px solid var(--rule); padding: 0.55rem 0; margin: 0 0 0.6rem; position: sticky; top: 0; background: var(--paper); z-index: 5; }
+.explorer-status p { margin: 0; }
+.explorer-status button { min-height: 44px; }
+#results:focus { outline: none; }
+.px-election { margin: 1.6rem 0 0; }
+.px-election h2 { font-size: 1.45rem; margin: 0 0 0.2rem; }
+.px-election-meta { margin: 0 0 0.6rem; }
+.px-person { border-top: 1px solid var(--rule); padding: 0.7rem 0 0.2rem; }
+.px-person h3 { font-size: 1.1rem; margin: 0 0 0.35rem; }
+.px-party { font-weight: 400; color: var(--muted); font-size: 0.95rem; }
+.px-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+.px-card { border-left: 3px solid var(--rule); padding: 0.35rem 0 0.35rem 0.8rem; }
+.px-card .px-tags { margin: 0 0 0.3rem; display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.px-card .summary { margin: 0 0 0.3rem; font-family: var(--serif); font-size: 1.05rem; line-height: 1.5; }
+.px-card .evidence > summary { min-height: 44px; display: inline-flex; align-items: center; cursor: pointer; }
+@media (max-width: 40rem) { .explorer-controls { padding: 0.8rem 0.8rem 0.4rem; } .topic-btn { flex: 1 1 calc(50% - 0.45rem); text-align: left; } }
+.more-options > summary::before, .px-card .evidence > summary::before { content: "\25B8"; display: inline-block; width: 1.1em; transition: transform var(--t-fast) var(--ease); }
+.more-options[open] > summary::before, .px-card .evidence[open] > summary::before { transform: rotate(90deg); }
+.more-options > summary::-webkit-details-marker, .px-card .evidence > summary::-webkit-details-marker { display: none; }
+.explorer-status .status-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.explorer-status .button { min-height: 44px; display: inline-flex; align-items: center; }
+/* Topic and source labels on a position are labels, not controls: no tap-target height for them. */
+html .px-card .px-tags span.chip { min-height: 0; line-height: 1.5; }
+#results, .px-election h2 { scroll-margin-top: 4.5rem; }
