@@ -10,6 +10,7 @@ import { TOPICS, getBallot, listCandidates, listResources, listVerifiedClaims, t
 import FurtherReading from "@/components/FurtherReading";
 import { claimApplies, householdComplete, householdFromParams } from "@/lib/household";
 import { conditionText, layerOf, splitForHousehold } from "@/lib/claims";
+import { partyVars } from "@/lib/partyColour";
 
 export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ id: string; topic: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
@@ -50,7 +51,7 @@ export default async function TopicPage({ params, searchParams }: Props) {
           const { shown, hidden } = splitForHousehold(mine, household, complete, claimApplies);
           const partyLabel = c.party_description_on_ballot && c.party_description_on_ballot !== "[blank]" ? c.party_description_on_ballot : c.party_name_on_ballot;
           return (
-            <li key={c.id} className="topic-row" style={{ borderLeft: `4px solid ${c.parties?.colour_hex ?? "var(--rule)"}`, paddingLeft: "0.8rem" }}>
+            <li key={c.id} className="topic-row party-scope" style={partyVars(c.parties?.colour_hex)}>
               <div className="who">
                 <span className="meta">{i + 1}</span>
                 <span className="name blindable" data-blind={`Candidate ${i + 1}`}>{c.name}</span>

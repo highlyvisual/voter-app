@@ -51,9 +51,11 @@ export default async function You({ searchParams }: { searchParams: Promise<Reco
   const db = publicClient();
   const [{ data: partyRows }, { data: parties }] = await Promise.all([
     db.from("current_claims").select("id, candidate_id, party_ec_id, topic, claim_text, source_quote, sources(title, url, published_on)").eq("status", "verified").is("candidate_id", null).not("party_ec_id", "is", null),
-    db.from("parties").select("ec_id, name"),
+    db.from("parties").select("ec_id, name, colour_hex"),
   ]);
   const partyName = new Map((parties ?? []).map((p) => [p.ec_id as string, p.name as string]));
+  // Each party's own colour beside its own words (Romily, 29 Sept); candidates carry their party's.
+  const colours: Record<string, string | null> = Object.fromEntries((parties ?? []).map((p) => [p.name as string, (p.colour_hex as string | null) ?? null]));
   const WORLD = new Set(["defence_foreign_affairs_and_eu", "environment_climate_and_energy"]);
   const seen = new Set<string>();
   const positions: StakePosition[] = [];
@@ -71,6 +73,7 @@ export default async function You({ searchParams }: { searchParams: Promise<Reco
     const cands = await listCandidates(ballot.ballot_paper_id);
     const label = new Map(cands.map((c) => [c.id, `${c.name}${c.party_name_on_ballot ? ` (${c.party_name_on_ballot})` : ""}`]));
     localWho = cands.map((c) => label.get(c.id)!);
+    for (const c of cands) colours[label.get(c.id)!] = c.parties?.colour_hex ?? null;
     const { data: lc } = await db.from("current_claims").select("id, candidate_id, party_ec_id, topic, claim_text, source_quote, sources(title, url, published_on)").eq("status", "verified").eq("ballot_paper_id", ballot.ballot_paper_id).not("candidate_id", "is", null);
     for (const c of (lc ?? []) as unknown as Row[]) {
       const who = c.candidate_id ? label.get(c.candidate_id) : undefined;
@@ -156,7 +159,7 @@ export default async function You({ searchParams }: { searchParams: Promise<Reco
 
       <section id="you-stake" className="you-sec" aria-labelledby="you-stake-h">
         <h2 id="you-stake-h">What&rsquo;s at stake, from your street to the world</h2>
-        <StakeExplorer positions={positions} topics={topics} scales={scales} parties={partyList} sourceNote="Party positions are quoted from each party's own published documents, the same set used on the ballot pages; the short version under each quote is a reading aid. Parties are listed alphabetically; candidates in ballot-paper order." />
+        <StakeExplorer colours={colours} positions={positions} topics={topics} scales={scales} parties={partyList} sourceNote="Party positions are quoted from each party's own published documents, the same set used on the ballot pages; the short version under each quote is a reading aid. Parties are listed alphabetically; candidates in ballot-paper order." />
       </section>
     </>
   );

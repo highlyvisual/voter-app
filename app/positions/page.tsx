@@ -18,11 +18,12 @@ export default async function Positions({ searchParams }: { searchParams: Promis
   const db = publicClient();
   const [{ data }, { data: cands }, { data: parties }] = await Promise.all([
     db.from("current_claims").select("*, sources(title, url, publisher, published_on, layer, archive_url)").eq("status", "verified").order("ballot_paper_id").order("topic"),
-    db.from("candidates").select("id, name, party_name_on_ballot, ballot_paper_id, surname_sort").is("withdrawn_at", null),
-    db.from("parties").select("ec_id, name"),
+    db.from("candidates").select("id, name, party_name_on_ballot, party_ec_id, ballot_paper_id, surname_sort").is("withdrawn_at", null),
+    db.from("parties").select("ec_id, name, colour_hex"),
   ]);
   const byId = new Map((cands ?? []).map((c) => [c.id, c]));
   const partyName = new Map((parties ?? []).map((p) => [p.ec_id, p.name]));
+  const partyColour = new Map((parties ?? []).map((p) => [p.ec_id, p.colour_hex as string | null]));
   const ballotOf = new Map(ballots.map((b) => [b.ballot_paper_id, b]));
   const topicLabel = Object.fromEntries(TOPICS) as Record<string, string>;
   const fixes = await linkFixes();
@@ -54,6 +55,7 @@ export default async function Positions({ searchParams }: { searchParams: Promis
       archive: c.sources?.archive_url ?? null,
       applies: whenText(c.applies_if),
       record: layerKey(c) === "enacted_record",
+      colour: (cand?.party_ec_id ? partyColour.get(cand.party_ec_id) : c.party_ec_id ? partyColour.get(c.party_ec_id) : null) ?? null,
     };
   });
   const today = new Date().toISOString().slice(0, 10);

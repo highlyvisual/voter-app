@@ -321,3 +321,98 @@ dl.glossary dd { margin: 0.1rem 0 0; }
 .sx-mentions h3 { margin-top: 0; }
 .sx-mention h4 { margin: 0.8rem 0 0.2rem; }
 .onboard .notice.small { margin: 0.4rem 0 0.8rem; }
+
+/* ===== Romily's notes of 29 Sept (WhatsApp, via Barny) =====
+   1. The header wrapped "Positions" and "Parties" onto a second line on a laptop, and "My profile" turned dark pink on
+      black when hovered. 2. "Make that slogan a lot smaller." 3. "Use more colours that aren't affiliated with parties to
+      create vibrancy ... like teal, coral." 4. "Use more colour of the parties whenever talking about policies, candidates
+      and the party itself." Teal and coral were checked against every party colour on the site (CIEDE2000): the teal is
+      deeper than Reform UK's turquoise and bluer than Plaid Cymru's green; the coral is used only as a light fill with
+      dark text, because a darker coral drifts into Labour and Workers Party red. */
+
+:root {
+  --teal: #127C8A;       /* fills; white text on it 4.9:1 */
+  --teal-ink: #106E80;   /* teal text, 5.1:1 or better on every light background */
+  --teal-soft: #E1F2F3;
+  --coral: #FF7F66;      /* fills only, with --on-coral text (7.5:1); never coral text on light */
+  --on-coral: #1d0f0a;
+  --coral-soft: #FFE6DF;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --teal-ink: #7AD3CF; --teal-soft: #0f2a2c; --coral: #FF8F78; --coral-soft: #2e1814; }
+}
+:root[data-theme="dark"] { --teal-ink: #7AD3CF; --teal-soft: #0f2a2c; --coral: #FF8F78; --coral-soft: #2e1814; }
+
+/* 1. Header: one line, always. Five links inline, "More" for the two about-us pages; Menu whenever they would not fit. */
+.site-header nav.nav-inline { flex-wrap: nowrap; white-space: nowrap; gap: 0 1.1rem; }
+.site-header .nav-toggle { display: inline-flex; align-items: center; gap: 0.35rem; }
+.nav-toggle .w-menu { display: none; }
+.nav-sheet a.sheet-primary { display: none; }
+.site-header .nav-wrap.compact nav.nav-inline { display: none; }
+.nav-wrap.compact .nav-toggle .w-menu { display: inline; }
+.nav-wrap.compact .nav-toggle .w-more { display: none; }
+.site-header .nav-wrap.compact .nav-sheet a.sheet-primary { display: flex; }
+@media (max-width: 58rem) {
+  .nav-toggle .w-menu { display: inline; }
+  .nav-toggle .w-more { display: none; }
+  .site-header .nav-sheet a.sheet-primary { display: flex; }
+}
+@media (min-width: 58.01rem) {
+  .nav-wrap:not(.compact) .nav-toggle { background: transparent; border: 0; box-shadow: none; color: var(--ink-soft); font-family: var(--sans); font-weight: 400; font-size: 0.9rem; padding: 0.3rem 0.2rem; min-height: 40px; }
+  .nav-wrap:not(.compact) .nav-toggle:hover, .nav-wrap:not(.compact) .nav-toggle[aria-expanded="true"] { background: transparent; color: var(--ink); text-decoration: underline; transform: none; box-shadow: none; }
+}
+/* The word "Menu" stays readable by screen readers on phones, where only the icon shows. */
+@media (max-width: 40rem) { .nav-toggle-word { display: inline; position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } }
+/* My profile: coral, and readable in every state (the site-wide link hover was turning its text magenta on black). */
+.site-header .nav-wrap a.nav-profile { background: var(--coral); border-color: var(--coral); color: var(--on-coral); }
+.site-header .nav-wrap a.nav-profile:hover, .site-header .nav-wrap a.nav-profile:focus-visible, .site-header .nav-wrap a.nav-profile[aria-current="page"] { background: var(--ink); border-color: var(--ink); color: var(--paper); text-decoration: none; }
+
+/* 2. Home: the slogan much smaller, the introduction short, the teal carrying the question. */
+.hero-main h1.home-slogan { font-size: clamp(1.7rem, 2.9vw, 2.35rem); line-height: 1.12; max-width: 26ch; margin: 0.3rem 0 0.7rem; }
+.home-slogan em { color: var(--teal-ink); }
+.hero-main .home-intro { font-size: 1.12rem; max-width: 34rem; }
+
+/* 3. Teal and coral around the site. */
+.start-cta .button.big { background: var(--coral); border-color: var(--coral); color: var(--on-coral); }
+.start-cta .button.big:hover, .start-cta .button.big:focus-visible { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.ticker { background: var(--teal); color: #fff; }
+.trust-strip li:nth-child(odd) a { border-top: 4px solid var(--teal); }
+.trust-strip li:nth-child(even) a { border-top: 4px solid var(--coral); }
+.whats-it-topics li { border-left: 4px solid var(--teal); padding-left: 0.6rem; }
+.whats-it-topics li:nth-child(even) { border-left-color: var(--coral); }
+.keypoints li { border-top: 4px solid var(--teal); }
+.keypoints li:nth-child(2) { border-top-color: var(--coral); }
+.keypoints li:nth-child(3) { border-top-color: var(--accent); }
+.keypoints li b, .hero-ballot .stats li b { color: var(--teal-ink); }
+.example-card { border-top: 5px solid var(--teal); }
+.example-card:nth-child(2) { border-top-color: var(--coral); }
+.example-card:nth-child(3) { border-top-color: var(--accent); }
+.steps li::before { background: var(--teal); color: #fff; }
+.steps li:nth-child(2)::before { background: var(--coral); color: var(--on-coral); }
+.steps li:nth-child(3)::before { background: var(--accent); color: #fff; }
+.learn-cards li:nth-child(3n+1) a { border-top: 4px solid var(--teal); }
+.learn-cards li:nth-child(3n+2) a { border-top: 4px solid var(--coral); }
+.learn-cards li:nth-child(3n) a { border-top: 4px solid var(--accent); }
+.dates { border-left-color: var(--coral); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .steps li:nth-child(3)::before { color: #000; } }
+:root[data-theme="dark"] .steps li:nth-child(3)::before { color: #000; }
+
+/* 4. Party colours on everything that belongs to one party: its candidates, their positions, its own pages.
+   --party, --party-ink and --party-tint come from lib/partyColour.ts. */
+.party-pill.filled, .px-party.party-pill.filled { background: var(--party); border-color: var(--party); color: var(--party-ink); font-weight: 600; }
+:root:not(.no-party) .party-pill.filled { color: var(--party-ink) !important; }
+.candidate.party-scope { border-left: 6px solid var(--party); padding-left: 0.9rem; }
+.candidate.party-scope[open] { background: linear-gradient(90deg, var(--party-tint), transparent 45%); }
+.cand-hero.party-band { border-top: 8px solid var(--party); padding: 1rem 1rem 1.1rem; background: linear-gradient(180deg, var(--party-tint), transparent 90%); border-radius: 10px 10px 0 0; }
+.topic-cards.party-scope .topic-card:not(.empty) { border-left: 6px solid var(--party); }
+.name-strip li.party-scope { border-left: 4px solid var(--party); padding-left: 0.55rem; }
+.name-strip .party-dot { width: 0.75rem; height: 0.75rem; }
+.compare th.party-scope { background: var(--party-tint); }
+.topic-row.party-scope { border-left: 6px solid var(--party) !important; padding-left: 0.9rem !important; }
+.party-card.party-scope { border: 1px solid var(--rule); border-top: 10px solid var(--party); background: linear-gradient(180deg, var(--party-tint), var(--panel) 75%); }
+.party-page.party-scope { border-top: 10px solid var(--party); padding-top: 0.9rem; }
+.party-page.party-scope .claim { border-left: 4px solid var(--party); }
+.px-person.party-scope { border-left: 5px solid var(--party); padding-left: 0.9rem; }
+.px-person .px-party.party-pill.filled { margin-left: 0.35rem; font-size: 0.8rem; vertical-align: middle; font-family: var(--sans); }
+.sx-party.party-scope { border-left: 5px solid var(--party); padding-left: 0.8rem; }
+.party-swatch { display: inline-block; width: 0.8rem; height: 0.8rem; border-radius: 3px; background: var(--party, var(--rule)); margin-right: 0.45rem; vertical-align: -0.05em; }

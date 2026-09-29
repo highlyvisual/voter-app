@@ -3,11 +3,13 @@ import { useEffect, useMemo, useState } from "react";
 import { longDate } from "@/lib/dates";
 import { index, matches, queryTokens, suggest, normalise, stem } from "@/lib/search";
 import ViewMode from "@/components/ViewMode";
+import { partyFill, partyVars } from "@/lib/partyColour";
 
 export type Row = {
   id: number; who: string; whoKind: "candidate" | "party"; party: string; sortKey: string; ballot: string; candidateId: number | null;
   topic: string; topicShort: string; topicKey: string; layer: string; layerKey: string; precision: string; claim: string; quote: string;
   source: string; publisher: string; url: string; published: string | null; urlArchived: boolean; archive: string | null; applies: string | null; record: boolean;
+  colour: string | null; // the party's own colour, for its own candidates and material only
 };
 export type Election = { id: string; name: string; date: string | null; upcoming: boolean };
 type TopicOpt = { key: string; label: string; short: string };
@@ -65,7 +67,7 @@ export default function PositionsExplorer({ rows, elections, topics, initial }: 
   const groups = useMemo(() => {
     const order = new Map(elections.map((e, i) => [e.id, i]));
     const sorted = [...filtered].sort((a, b) => (order.get(a.ballot) ?? 999) - (order.get(b.ballot) ?? 999) || a.sortKey.localeCompare(b.sortKey, "en-GB") || a.topic.localeCompare(b.topic));
-    const out: { election: Election; people: { key: string; who: string; party: string; kind: Row["whoKind"]; candidateId: number | null; rows: Row[] }[] }[] = [];
+    const out: { election: Election; people: { key: string; who: string; party: string; kind: Row["whoKind"]; candidateId: number | null; colour: string | null; rows: Row[] }[] }[] = [];
     let shown = 0;
     for (const r of sorted) {
       if (shown >= show) break;
@@ -74,7 +76,7 @@ export default function PositionsExplorer({ rows, elections, topics, initial }: 
       if (!g || g.election.id !== r.ballot) { g = { election: elections.find((e) => e.id === r.ballot) ?? { id: r.ballot, name: r.ballot, date: null, upcoming: false }, people: [] }; out.push(g); }
       const key = `${r.whoKind}:${r.candidateId ?? r.who}`;
       let p = g.people[g.people.length - 1];
-      if (!p || p.key !== key) { p = { key, who: r.who, party: r.party, kind: r.whoKind, candidateId: r.candidateId, rows: [] }; g.people.push(p); }
+      if (!p || p.key !== key) { p = { key, who: r.who, party: r.party, kind: r.whoKind, candidateId: r.candidateId, colour: r.colour, rows: [] }; g.people.push(p); }
       p.rows.push(r);
     }
     return out;
@@ -189,10 +191,10 @@ export default function PositionsExplorer({ rows, elections, topics, initial }: 
               <a href={`/ballot/${encodeURIComponent(g.election.id)}`}>The ballot page</a> · <a href={`/ballot/${encodeURIComponent(g.election.id)}/compare`}>Compare everyone side by side</a>
             </p>
             {g.people.map((p) => (
-              <div key={p.key} className="px-person">
+              <div key={p.key} className={`px-person${p.colour ? " party-scope" : ""}`} style={partyVars(p.colour)}>
                 <h3>
                   {p.kind === "candidate" ? <a href={`/ballot/${encodeURIComponent(g.election.id)}${p.candidateId ? `#c-${p.candidateId}` : ""}`}>{p.who}</a> : p.who}
-                  {p.party ? <span className="px-party"> {p.party}</span> : null}
+                  {p.party ? <> <span className={`px-party${p.colour ? " party-pill filled" : ""}`} style={partyFill(p.colour)}>{p.party}</span></> : null}
                   {p.kind === "party" ? <span className="px-party"> (the party&rsquo;s own material)</span> : null}
                 </h3>
                 <ul className="px-list">

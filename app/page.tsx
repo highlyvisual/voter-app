@@ -52,15 +52,17 @@ export default async function Home() {
       <section className="hero-ballot hero-grid">
         <div className="hero-main">
 
-        {/* Romily's own words (round eight, q14, 29 Sept), replacing the lines she picked out as sounding like AI. */}
-        <h1>You&rsquo;ve heard what they stand for. <em>But what does it mean for you?</em></h1>
-        <p className="lede" style={{ maxWidth: "44rem" }}>In an era where we hear about politics from politicians and misinformation blurs the line between fact and opinion, What&rsquo;s It To Me? puts the information back in your hands. Explore the people, policies and decisions affecting your life, your community and beyond. No rankings. No recommendations. Just the information to make up your own mind.</p>
+        {/* Romily's own words (round eight, q14, 29 Sept), replacing the lines she picked out as sounding like AI. Cut down on
+            29 Sept at her request ("it has written it as I was giving it ideas of what to say but it's too chunky"): her
+            headline, and her introduction in two short lines. For her to edit. */}
+        <h1 className="home-slogan">You&rsquo;ve heard what they stand for. <em>But what does it mean for you?</em></h1>
+        <p className="lede home-intro">The people, policies and decisions shaping your life, every word sourced. No rankings, no recommendations: just what you need to make up your own mind.</p>
 
         {/* Romily, round eight (1, and q5 on 29 Sept): the profile is the centre of attention, called "Personalise my politics";
             the postcode is its first step and the quick lookup stays folded underneath. */}
         <div className="start-cta">
           <Link href="/start" className="button big">Personalise my politics &rarr;</Link>
-          <p className="meta">A few quick questions, starting with your postcode, so what you read is about a household like yours. Skip any after the first. We don&rsquo;t store your answers.</p>
+          <p className="meta">Postcode first, then skip anything you like. We don&rsquo;t store your answers.</p>
         </div>
         <Suspense fallback={<LookupView error={null} />}><HomeLookup /></Suspense>
         <ul className="trust-strip" aria-label="Why you can rely on what you read here">
@@ -69,7 +71,7 @@ export default async function Home() {
           <li><Link href="/who-we-are#interests"><b>Independent.</b> No ads and no money from any party.</Link></li>
           <li><Link href="/accessibility"><b>Built for everyone.</b> Tested against WCAG 2.2 AA.</Link></li>
         </ul>
-        <p className="hero-rules">We will never tell you who to vote for, and we never score anyone. Every candidate gets the same page, in the order they appear on the ballot paper, and every statement links to where they said it. The judgement stays with you.</p>
+        {/* The longer "we will never tell you who to vote for" paragraph that sat here repeated the four lines above; cut (29 Sept). */}
         </div>
         <TryPostcode today={new Date().toISOString().slice(0, 10)} />
         <aside className="word-card" aria-label="Where the name comes from">

@@ -11,6 +11,7 @@ import ReadAloud from "@/components/ReadAloud";
 import { layerKey } from "@/lib/claims";
 import { ballotLabel, type InvitationStatus, type Leaflet, type PreviousCandidacy } from "@/lib/data";
 import { img } from "@/lib/site";
+import { partyFill, partyVars } from "@/lib/partyColour";
 
 const gbp = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", maximumFractionDigits: 0 });
 const SHORT = TOPIC_SHORT;
@@ -89,7 +90,7 @@ export default async function CandidateCard({
   }
   const mine = claimsFor(candidate, claims);
   const verifiedSourceIds = new Set(mine.map((c) => c.sources?.id).filter((x): x is number => typeof x === "number"));
-  const partyColour = candidate.parties?.colour_hex ?? null; // only ever here, on this candidate's own panel
+  const partyColour = candidate.parties?.colour_hex ?? null; // only ever on this candidate's own panel, labels and positions
   const partyLabel = candidate.party_description_on_ballot && candidate.party_description_on_ballot !== "[blank]" ? candidate.party_description_on_ballot : candidate.party_name_on_ballot;
   const perTopic = TOPICS.map(([key]) => {
     const relevant = mine.filter((c) => c.topic === key);
@@ -99,15 +100,15 @@ export default async function CandidateCard({
   const total = perTopic.reduce((n, t) => n + t.applying.length, 0);
 
   return (
-    <details className="candidate" id={`c-${candidate.id}`}>
+    <details className={`candidate${partyColour ? " party-scope" : ""}`} id={`c-${candidate.id}`} style={partyVars(partyColour)}>
       <summary aria-label={`${position} ${candidate.name}, ${partyLabel}`}>
         <div className="who">
-          <span className="avatar" aria-hidden style={partyColour ? { boxShadow: `inset 0 0 0 3px ${partyColour}`, background: "#fff", color: "var(--ink)" } : undefined}>{candidate.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("").toUpperCase()}</span>
+          <span className="avatar" aria-hidden style={partyColour ? partyFill(partyColour) : undefined}>{candidate.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("").toUpperCase()}</span>
           <div>
             <h3 className="name" data-pos={position}><span className="meta" style={{ marginRight: "0.5rem" }}>{position}</span>{candidate.name}</h3>
             <p className="party">
               {candidate.parties?.emblem_url ? <img className="emblem" src={img(candidate.parties.emblem_url)} alt="" loading="lazy" width={36} height={24} /> : null}
-              <span className="party-pill" style={partyColour ? { borderColor: partyColour, background: partyColour + "33" } : undefined}>{partyLabel}</span>{partyLabel !== candidate.party_name_on_ballot && candidate.party_name_on_ballot ? <span className="meta registered">Ballot-paper description. Registered party: {candidate.party_name_on_ballot}.</span> : null}
+              <span className={`party-pill${partyColour ? " filled" : ""}`} style={partyFill(partyColour)}>{partyLabel}</span>{partyLabel !== candidate.party_name_on_ballot && candidate.party_name_on_ballot ? <span className="meta registered">Ballot-paper description. Registered party: {candidate.party_name_on_ballot}.</span> : null}
             </p>
           </div>
         </div>

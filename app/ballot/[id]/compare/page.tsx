@@ -10,6 +10,7 @@ import HouseholdForm from "@/components/HouseholdForm";
 import { TOPICS, getBallot, listCandidates, listVerifiedClaims } from "@/lib/data";
 import { claimApplies, householdComplete, householdFromParams, FIELD_KEYS } from "@/lib/household";
 import { layerOf, splitForHousehold, LEGEND } from "@/lib/claims";
+import { partyVars } from "@/lib/partyColour";
 
 export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ id: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
@@ -76,7 +77,7 @@ export default async function ComparePage({ params, searchParams }: Props) {
             <tr>
               <th scope="col" className="corner">Topic</th>
               {cols.map((c, i) => (
-                <th scope="col" key={c.id} style={{ borderTop: `4px solid ${c.parties?.colour_hex ?? "var(--rule)"}` }}>
+                <th scope="col" key={c.id} className="party-scope" style={{ ...partyVars(c.parties?.colour_hex), borderTop: `8px solid ${c.parties?.colour_hex ?? "var(--rule)"}` }}>
                   <span className="meta">{candidates.indexOf(c) + 1}</span>
                   <span className="name blindable" data-blind={`Candidate ${candidates.indexOf(c) + 1}`}>{c.name}</span>
                   <span className="party blindable" data-blind="party hidden">{partyLabel(c)}</span>

@@ -9,6 +9,7 @@ import { layerOf } from "@/lib/claims";
 import { img } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbs, graph, webPage } from "@/lib/schema";
+import { partyVars } from "@/lib/partyColour";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ ec: string }> }) {
@@ -28,8 +29,9 @@ export default async function Party({ params }: { params: Promise<{ ec: string }
   for (const c of claims) { const k = `${c.topic}|${c.source_quote}`; if (!seen.has(k)) seen.set(k, c); }
   const unique = [...seen.values()];
   const entry = partyEntry(ecId);
+  // The party's own colour runs through its own page (Romily, 29 Sept).
   return (
-    <>
+    <div className={party.colour_hex ? "party-page party-scope" : "party-page"} style={partyVars(party.colour_hex)}>
       <JsonLd data={graph(
         webPage(`/parties/${encodeURIComponent(ecId)}`, `${party.name}: published positions`, undefined, { about: { "@type": "Organization", name: party.name, identifier: ecId, ...(party.official_site_url ? { url: party.official_site_url } : {}) } }),
         breadcrumbs([["Parties", "/parties"], [party.name, `/parties/${encodeURIComponent(ecId)}`]]),
@@ -62,6 +64,6 @@ export default async function Party({ params }: { params: Promise<{ ec: string }
       <PartyFunding ecId={ecId} partyName={party.name} />
       <PartyMoney p={entry} partyName={party.name} />
       <p className="meta">Positions change. Where a party has superseded something, the ledger keeps both and shows the reason: <Link href="/ledger">the public ledger</Link>.</p>
-    </>
+    </div>
   );
 }

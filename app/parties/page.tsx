@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { publicClient } from "@/lib/data";
 import { img } from "@/lib/site";
+import { partyVars } from "@/lib/partyColour";
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Explore the parties", description: "What each UK party has published, by topic, quoted exactly with the date it was published and the date we checked. Listed alphabetically.", alternates: { canonical: "/parties" } };
 
@@ -29,7 +30,7 @@ export default async function Parties() {
       <ul className="party-grid">
         {rows.map((p) => (
           <li key={p.ec_id}>
-            <Link href={`/parties/${encodeURIComponent(p.ec_id)}`} className="party-card" style={{ borderColor: p.colour_hex ?? "var(--ink)" }}>
+            <Link href={`/parties/${encodeURIComponent(p.ec_id)}`} className={`party-card${p.colour_hex ? " party-scope" : ""}`} style={partyVars(p.colour_hex)}>
               {p.emblem_url ? <img src={img(p.emblem_url)} alt="" loading="lazy" /> : null}
               <strong>{p.name}</strong>
               <span className="meta">{counts.get(p.ec_id)} published positions</span>

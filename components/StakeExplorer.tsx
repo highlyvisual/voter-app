@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { readPersonal } from "@/lib/profile";
 import { personalMatchers, type PersonalMatch } from "@/lib/personal";
+import { partyVars } from "@/lib/partyColour";
 
 // Round eight q6 (Romily, 29 Sept; agreed with Barny: no verdicts, more personal): "What's at stake", from your street to
 // the world, with the topics that touch you first. Every party's own words, same template for each, parties in
@@ -24,7 +25,7 @@ function Position({ p }: { p: StakePosition }) {
   );
 }
 
-function TopicBlock({ t, positions, parties, reason }: { t: StakeTopic; positions: StakePosition[]; parties: string[]; reason: string | null }) {
+function TopicBlock({ t, positions, parties, reason, colours }: { t: StakeTopic; positions: StakePosition[]; parties: string[]; reason: string | null; colours: Record<string, string | null> }) {
   const byParty = new Map<string, StakePosition[]>();
   for (const p of positions) byParty.set(p.party, [...(byParty.get(p.party) ?? []), p]);
   const withAny = parties.filter((x) => byParty.has(x));
@@ -38,8 +39,8 @@ function TopicBlock({ t, positions, parties, reason }: { t: StakeTopic; position
       </summary>
       <div className="sx-body">
         {withAny.map((party) => (
-          <section key={party} className="sx-party">
-            <h4>{party}</h4>
+          <section key={party} className={`sx-party${colours[party] ? " party-scope" : ""}`} style={partyVars(colours[party])}>
+            <h4><span className="party-swatch" aria-hidden />{party}</h4>
             <ul>{byParty.get(party)!.slice(0, 3).map((p) => <Position key={p.id} p={p} />)}</ul>
             {byParty.get(party)!.length > 3 ? <p className="meta"><Link href={`/positions?topic=${t.key}&q=${encodeURIComponent(party)}`}>More from {party} on this &rarr;</Link></p> : null}
           </section>
@@ -51,7 +52,7 @@ function TopicBlock({ t, positions, parties, reason }: { t: StakeTopic; position
   );
 }
 
-export default function StakeExplorer({ positions, topics, scales, parties, sourceNote }: { positions: StakePosition[]; topics: StakeTopic[]; scales: Scale[]; parties: string[]; sourceNote: string }) {
+export default function StakeExplorer({ positions, topics, scales, parties, sourceNote, colours = {} }: { positions: StakePosition[]; topics: StakeTopic[]; scales: Scale[]; parties: string[]; sourceNote: string; colours?: Record<string, string | null> }) {
   const [matchers, setMatchers] = useState<PersonalMatch[]>([]);
   const [scale, setScale] = useState(scales[0]?.key ?? "");
   useEffect(() => {
@@ -99,7 +100,7 @@ export default function StakeExplorer({ positions, topics, scales, parties, sour
       </div>
       <div className="sx-scale" aria-live="polite">
         <p>{cur.intro}{cur.extra ? <> <Link href={cur.extra.href}>{cur.extra.text} &rarr;</Link></> : null}</p>
-        {cur.topics.length ? ordered(cur.topics).map((t) => <TopicBlock key={t.key} t={t} positions={positions.filter((p) => p.scale === cur.key && p.topic === t.key)} parties={cur.who} reason={reasonFor(t.key)} />) : null}
+        {cur.topics.length ? ordered(cur.topics).map((t) => <TopicBlock colours={colours} key={t.key} t={t} positions={positions.filter((p) => p.scale === cur.key && p.topic === t.key)} parties={cur.who} reason={reasonFor(t.key)} />) : null}
       </div>
       <p className="meta">{sourceNote}</p>
     </div>

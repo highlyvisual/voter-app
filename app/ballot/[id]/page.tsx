@@ -38,6 +38,7 @@ import SystemExplainer from "@/components/SystemExplainer";
 import OfficeExplainer from "@/components/OfficeExplainer";
 import { electionTimetable, previousResult } from "@/lib/democracyclub";
 import { gridKey, householdComplete, householdFromParams, modelCaveat } from "@/lib/household";
+import { partyVars } from "@/lib/partyColour";
 
 export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ id: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
@@ -120,7 +121,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
           </div>
           <ol className="name-strip" aria-label="Candidates in ballot-paper order">
             {candidates.map((c, i) => (
-              <li key={c.id} className="peek-host"><a href={`#c-${c.id}`}><span className="meta">{i + 1}</span> {c.name}<span className="party-dot" aria-hidden style={{ background: c.parties?.colour_hex ?? "var(--rule)" }} /><span className="meta">{c.party_description_on_ballot && c.party_description_on_ballot !== "[blank]" ? c.party_description_on_ballot : c.party_name_on_ballot}</span></a>
+              <li key={c.id} className="peek-host party-scope" style={partyVars(c.parties?.colour_hex)}><a href={`#c-${c.id}`}><span className="meta">{i + 1}</span> {c.name}<span className="party-dot" aria-hidden style={{ background: c.parties?.colour_hex ?? "var(--rule)" }} /><span className="meta">{c.party_description_on_ballot && c.party_description_on_ballot !== "[blank]" ? c.party_description_on_ballot : c.party_name_on_ballot}</span></a>
                 {/* Round five, q8 (Romily): no photos in lists, but "a hyperlink which opens a photo and some info". On a
                     computer, hovering or focusing a name shows this card; on a phone the name goes to the full card. */}
                 <span className="peek" aria-hidden>

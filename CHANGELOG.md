@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-09-29 (afternoon) — Romily's notes: header, slogan, teal and coral, party colours
+- Header: never wraps. Five links inline, "More" for How this works and Who we are, Menu below 58rem or whenever the links would not fit (measured with a ResizeObserver, so it holds at 150% text). "My profile" is coral and readable in every state; the old site-wide link hover turned it magenta on black.
+- Home: the slogan is about 40% smaller; the introduction cut from 61 to 27 words (for Romily to edit); shorter line under the button; the paragraph repeating the trust lines removed.
+- Colour: teal (#127C8A / #106E80 text / #7AD3CF dark) and coral (#FF7F66, fills only, dark text) added as interface colours, checked against every party colour on the site. Used on the main buttons, the ticker, the home cards and steps, Learn cards and key dates.
+- Party colour: `lib/partyColour.ts` gives anything belonging to one party `--party`, `--party-ink` (black or white, whichever reads better) and `--party-tint`. Applied to candidate cards, the name list, candidate pages, Compare, topic pages, Positions, Your politics, the parties list and each party's page.
+- Checked: axe (WCAG 2.2 AA) clean on ten pages, light and dark, at 390 and 1280px; no sideways scroll; header one line from 360 to 1512px.
+
 ## 2026-09-28 (later) — The rest of the persona-test findings
 - Money tables (the household box and each candidate's pledge figures) can be scrolled by keyboard: `tabindex`, `role=region` and a label (axe: scrollable-region-focusable).
 - Tap targets: the candidate name strip and small disclosure summaries are at least 24px tall (WCAG 2.2 target size).

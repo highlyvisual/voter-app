@@ -1,5 +1,6 @@
-/* Design rules (Romily, 18 Sept 2026): neutrally coloured, no colour that carries any symbolism; interactive and engaging without being a game;
-   continuously neutral and professional. Greys and off-white only. A party's own colour appears only on that party's own panel, if set. */
+/* Design rules. Romily, 18 Sept 2026: neutral, no colour that carries symbolism. Superseded in part by Barny (19 Sept: parties
+   may be shown in their own colours) and by Romily (29 Sept: more non-party colour, teal and coral, for vibrancy, and more
+   party colour wherever a party, its candidates or its policies are shown). See the block at the end of enhance.css. */
 :root {
   /* Warm neutral system. One accent (--accent), chosen to sit away from every UK party colour; change it here and everywhere follows. */
   --ink: #000000;

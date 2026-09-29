@@ -14,6 +14,7 @@ import { img } from "@/lib/site";
 import { longDate } from "@/lib/dates";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbs, candidatePerson, graph, webPage } from "@/lib/schema";
+import { partyFill, partyVars } from "@/lib/partyColour";
 export const dynamic = "force-dynamic";
 
 // A candidate's own page (Romily §10): short factual introduction, then large topic cards. Each card opens into
@@ -67,11 +68,11 @@ export default async function CandidatePage({ params, searchParams }: { params: 
       )} />
       <Suspense fallback={null}><ProfileApply /></Suspense>
       <p className="eyebrow"><Link href={`/ballot/${encodeURIComponent(ballotId)}${qs ? `?${qs}` : ""}#ballot-paper`}>{ballot.area_name}</Link> · number {idx + 1} of {candidates.length} on the ballot paper</p>
-      <div className="cand-hero" id="cand">
+      <div className={`cand-hero${colour ? " party-band" : ""}`} id="cand" style={partyVars(colour)}>
         {c.photo_url ? <img src={img(c.photo_url)} alt="" width={120} height={120} className="cand-photo" data-initials={c.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("")} style={{ borderColor: colour ?? "var(--ink)" }} /> : <span className="cand-photo initials" style={{ borderColor: colour ?? "var(--ink)" }}>{c.name.split(/\s+/).filter((w) => /^[A-Za-z]/.test(w)).map((w) => w[0]).slice(0, 2).join("")}</span>}
         <div>
           <h1 style={{ margin: "0 0 0.3rem" }}>{c.name}</h1>
-          <p className="party"><span className="party-pill" style={colour ? { borderColor: colour, background: colour + "33" } : undefined}>{party}</span>{party !== c.party_name_on_ballot && c.party_name_on_ballot ? <span className="meta registered">Ballot-paper description. Registered party: {c.party_name_on_ballot}.</span> : null}</p>
+          <p className="party"><span className={`party-pill${colour ? " filled" : ""}`} style={partyFill(colour)}>{party}</span>{party !== c.party_name_on_ballot && c.party_name_on_ballot ? <span className="meta registered">Ballot-paper description. Registered party: {c.party_name_on_ballot}.</span> : null}</p>
           <p className="small" style={{ margin: "0.4rem 0 0" }}>Standing for {ballot.level === "parliamentary" ? "Parliament" : "the council"} in {ballot.area_name}, polling day {new Date(ballot.poll_date + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })}. {mineStood.length ? `Has stood ${mineStood.length} time${mineStood.length === 1 ? "" : "s"} before, on Democracy Club’s records.` : "No previous candidacies on Democracy Club’s records."}</p>
           {c.photo_url ? <p className="meta" style={{ margin: "0.3rem 0 0" }}>Photo: <a href={c.dc_person_url ? c.dc_person_url.replace("/api/next/people/", "/person/") : "https://candidates.democracyclub.org.uk/"} rel="noopener">Democracy Club</a>{PHOTO_LICENCE[(c as { photo_copyright?: string | null }).photo_copyright ?? ""] ? `, ${PHOTO_LICENCE[(c as { photo_copyright?: string | null }).photo_copyright ?? ""]}` : ""}.</p> : null}
         </div>
@@ -87,7 +88,7 @@ export default async function CandidatePage({ params, searchParams }: { params: 
 
       <h2>What could their policies mean for {complete ? "your profile" : "you"}?</h2>
       <p className="meta">{complete ? "Counting what applies to a household like yours." : <>Showing everything they have published. <Link href="/start">Add your profile</Link> to see only what applies to you.</>} Tap a card to open it: what they say, what it could mean for you, and the exact words with their source.</p>
-      <div className="topic-cards">
+      <div className={`topic-cards${colour ? " party-scope" : ""}`} style={partyVars(colour)}>
         {BIG.map(([k, t]) => {
           const list = applying.filter((cl) => cl.topic === k);
           return (
@@ -100,7 +101,7 @@ export default async function CandidatePage({ params, searchParams }: { params: 
       </div>
       <p className="small"><Link href={`/ballot/${encodeURIComponent(ballotId)}/area${qs ? `?${qs}` : ""}`}>What is happening in {ballot.area_name}: local issues on the map →</Link></p>
       <h3 className="section-lead" style={{ fontSize: "1.3rem" }}>Other topics</h3>
-      <div className="topic-cards small-cards">
+      <div className={`topic-cards small-cards${colour ? " party-scope" : ""}`} style={partyVars(colour)}>
         {TOPICS.filter(([k]) => !BIG.some(([b]) => b === k)).map(([k, t]) => {
           const list = applying.filter((cl) => cl.topic === k);
           return (
