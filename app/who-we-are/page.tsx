@@ -22,8 +22,15 @@ export default function WhoWeAre() {
         <li id="barny"><strong>Barny Trevelyan-Johnson</strong> — Technical Lead</li>
       </ul>
 
+      {/* Romily, 30 Sept 2026: "Democracy Club explicitly recognises that people involved in its work have political views
+          while expecting their work to remain nonpartisan... otherwise it's not completely honest." */}
+      <h2 id="views">We have political views. The site doesn&rsquo;t.</h2>
+      <p>Both of us have political views, as almost anyone who cares enough about politics to build something like this does. Saying otherwise wouldn&rsquo;t be honest, and we don&rsquo;t think you need people with no opinions to get fair information. You need rules that keep the opinions out.</p>
+      <p>So impartiality here doesn&rsquo;t rest on a promise about what we think. It rests on how the site is built. Every candidate and party gets the same page, in the order the law uses on the ballot paper. Every position is their own words, with the source. Nothing is ranked, scored or recommended. The rules are published <Link href="/about">here</Link> and in the code, so anyone can check them, and if you think something leans one way, <Link href="/contact">tell us</Link>: the correction, or our reason for leaving it, goes in the <Link href="/ledger">public log</Link>.</p>
+      <p><a href="https://democracyclub.org.uk/blog/2023/02/17/why-democracy-club-is-non-partisan/" rel="noopener">Democracy Club</a>, whose election data this site is built on, works the same way: its volunteers include members of all the main parties and none, and it asks them to &ldquo;leave their politics at the door&rdquo;.</p>
+
       <h2 id="interests">Declaration of interests</h2>
-      <p>Neither founder is a member of, works for, or is paid by any political party or campaign.</p>
+      <p>Neither of us works for or is paid by any political party, candidate or campaign. At the time of writing, neither of us is a member of a party. If either of us joins a party, stands for election or campaigns for one, it will be declared here, with the date.</p>
       <p>What's It To Me is self-funded for now. It takes no advertising and no money from any party, candidate or campaign.</p>
 
       <h2 id="contact">Contact</h2>

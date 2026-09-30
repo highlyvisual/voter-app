@@ -109,7 +109,7 @@ export default function About() {
       <h2 id="contact">Who runs this</h2>
       <p>
         What's It To Me is an independent, non-partisan, not-for-profit project. It answers one question: what would this election mean for you? Every candidate gets the same page, in ballot-paper order, and every statement links to where it was published. It takes no advertising and sells no data.
-        {" "}It was started by Romily Johnson (Founder and Product Lead), with Barny Trevelyan-Johnson (Technical Lead), and is self-funded for now. Neither is a member of, works for, or is paid by any political party or campaign. <Link href="/who-we-are">Why What's It To Me exists, in Romily's words</Link>.
+        {" "}It was started by Romily Johnson (Founder and Product Lead), with Barny Trevelyan-Johnson (Technical Lead), and is self-funded for now. Both have political views of their own; neither works for or is paid by any party or campaign, and the site is built so that their views stay out of it. <Link href="/who-we-are#views">How, and our declaration of interests</Link> · <Link href="/who-we-are">Why What's It To Me exists, in Romily's words</Link>.
         {" "}Contact us at <a href="mailto:hello@whatsittome.org">hello@whatsittome.org</a>.
       </p>
       <h3>Complaints and corrections</h3>
