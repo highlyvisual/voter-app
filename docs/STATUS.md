@@ -66,7 +66,13 @@ Round eight (Romily's answers of 29 Sept, `docs/romily/round-8-answers.md`), eve
 
 ## Outstanding, not blocked (can be built next)
 
-Next batch (Barny, 29 Sept): waste and transport layers on the Your politics map.
+Next batch (Barny, 29 Sept): waste and transport layers on the Your politics map. **Built 29 Sept on
+`you/waste-transport-layers`** (Claude Code): bus and coach stops, stations (rail, tube, tram, ferry, taxi ranks) and
+permitted waste sites, from the DfT's NaPTAN register and each nation's environmental regulator, every dot linking its own
+record; Northern Ireland has no open source for either. Needs one migration
+(`scripts/sql/migrations/2026-09-29-waste-sites.sql`) and one run of the new "Waste sites" workflow, because the Environment
+Agency's own distance query takes over twenty seconds; until then England shows landfill boundaries only. Details in
+`CHANGELOG.md`.
 
 From `docs/research/11-data-sources.md`; items 1 to 7 are built (above). Still to do:
 - Future wards for May 2027, once Democracy Club loads the May 2027 elections.
