@@ -298,6 +298,10 @@ dl.glossary dd { margin: 0.1rem 0 0; }
 .you-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0.3rem 0.9rem; border: 1px solid var(--rule); border-radius: 999px; background: var(--panel); text-decoration: none; }
 .you-nav a:hover { border-color: var(--ink); }
 .you-sec { scroll-margin-top: 5rem; margin: 2rem 0; }
+/* What matters to you right now (components/RightNow.tsx): one short block per kind of news, each with its own source. */
+.now-list { list-style: none; margin: 0.6rem 0; padding: 0; display: grid; gap: 1rem; }
+.now-list > li { border-left: 3px solid var(--rule); padding-left: 0.9rem; }
+.now-list h3 { margin: 0 0 0.3rem; font-size: 1.02rem; }
 .you-ballot { border: 2px solid var(--ink); border-radius: 14px; padding: 1rem 1.1rem; background: var(--panel); }
 .you-when { margin: 0; font-family: var(--sans); font-weight: 700; font-size: 1.1rem; }
 .you-what { margin: 0.3rem 0 0.7rem; }
