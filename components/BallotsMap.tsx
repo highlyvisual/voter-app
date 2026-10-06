@@ -2,6 +2,7 @@
 import { shortMonth } from "@/lib/dates";
 import { useEffect, useRef, useState } from "react";
 declare global { interface Window { L?: any } }
+const MARKER = "#B8004F";
 type B = { ballot_paper_id: string; area_name: string; poll_date: string; level: string; lat: number | null; lng: number | null };
 
 // Every upcoming election on one map. Markers are area centres from ONS boundaries; nothing about the viewer is used.
@@ -23,7 +24,11 @@ export default function BallotsMap({ ballots }: { ballots: B[] }) {
         if (b.lat == null || b.lng == null) continue;
         pts.push([b.lat, b.lng]);
         const d = (() => { const x = new Date(b.poll_date + "T00:00:00Z"); return `${x.getUTCDate()} ${shortMonth(x)}`; })();
-        L.circleMarker([b.lat, b.lng], { radius: b.level === "parliamentary" ? 10 : 7, color: "#23262d", weight: 2, fillColor: b.level === "parliamentary" ? "#23262d" : "#ffffff", fillOpacity: 0.9 })
+        // Raspberry, the site's own accent (not a party colour). Fixed rather than themed: the map tiles stay light in dark mode.
+        const parl = b.level === "parliamentary";
+        L.circleMarker([b.lat, b.lng], parl
+          ? { radius: 10, color: "#ffffff", weight: 2, fillColor: MARKER, fillOpacity: 1 }
+          : { radius: 7, color: MARKER, weight: 2.5, fillColor: "#ffffff", fillOpacity: 0.95 })
           .addTo(map)
           .bindPopup(`<strong>${b.area_name}</strong><br>${b.level === "parliamentary" ? "UK Parliament" : "Council"} by-election, ${d}<br><a href="/ballot/${encodeURIComponent(b.ballot_paper_id)}">Open</a>`);
       }
