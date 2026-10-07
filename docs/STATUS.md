@@ -1,11 +1,21 @@
-# Status, 29 September 2026 (late)
+# Status, 6 October 2026
 
 Where everything stands after the 27–29 September build sessions (Claude in Cowork and Claude Code). Replace this file
 rather than adding to it; history is in git, `CHANGELOG.md` and the decisions log in `docs/PROJECT.md`.
 
 ## Live on whatsittome.org
 
-Deploy `6abbc6454f1a7a60a958a39e` (29 Sept, about 14:10 UTC), code on `main` (see git log), built by Claude in Cowork:
+Deploy `6ac53d3f69994e765fd5e39a` (6 Oct, 18:26 UTC), code `314b202` on `main` (Claude Code on the MacBook). It brings
+in two merged PRs:
+- **#3, map markers (Romily, 6 Oct, "fix those black dots"):** `components/BallotsMap.tsx` (home map and /next).
+  Markers are raspberry #B8004F, the site accent, instead of near-black. Council by-elections are white with a
+  raspberry edge; UK Parliament by-elections are larger and filled raspberry with a white edge. The colour is fixed
+  rather than themed, because the OSM tiles stay light in dark mode. First deployed from the branch as `6ac52aa9`.
+- **#4, waste and transport layers on the Your politics map.** Migration `2026-09-29-waste-sites.sql` applied 6 Oct
+  via the Supabase MCP; the "Waste sites" workflow then loaded 5,056 permitted sites in England (run 37511713540). Rebased onto main: `tsc` clean, `next build` passes, `npm test` 27/27. Live check: /, /next, /you, /about,
+  /feedback, /status and /llms.txt all return 200.
+
+Before it: deploy `6abbc6454f1a7a60a958a39e` (29 Sept, about 14:10 UTC), code on `main` (see git log), built by Claude in Cowork:
 **High contrast meets WCAG 2.2 AAA** for everything a display setting can change (1.4.6, 1.4.8, 2.3.3, 2.4.12, 2.4.13,
 2.5.5), light and dark; what isn't claimed and how it was checked: `docs/accessibility-aaa.md`. Also a **fix**: the
 home page's "Trying it out?" link (added at 12:02) made the whole home panel a link to /feedback; removed. And, in all
@@ -66,13 +76,12 @@ Round eight (Romily's answers of 29 Sept, `docs/romily/round-8-answers.md`), eve
 
 ## Outstanding, not blocked (can be built next)
 
-Next batch (Barny, 29 Sept): waste and transport layers on the Your politics map. **Built 29 Sept on
-`you/waste-transport-layers`** (Claude Code): bus and coach stops, stations (rail, tube, tram, ferry, taxi ranks) and
+Waste and transport layers on the Your politics map: **done, live since 6 Oct (PR #4)**; the migration and first
+workflow run were done the same day. Built 29 Sept (Claude Code): bus and coach stops, stations (rail, tube, tram, ferry, taxi ranks) and
 permitted waste sites, from the DfT's NaPTAN register and each nation's environmental regulator, every dot linking its own
-record; Northern Ireland has no open source for either. Needs one migration
-(`scripts/sql/migrations/2026-09-29-waste-sites.sql`) and one run of the new "Waste sites" workflow, because the Environment
-Agency's own distance query takes over twenty seconds; until then England shows landfill boundaries only. Details in
-`CHANGELOG.md`.
+record; Northern Ireland has no open source for either. England's sites come from the `waste_sites` table, reloaded
+weekly by the "Waste sites" workflow, because the Environment Agency's own distance query takes over twenty seconds.
+Details in `CHANGELOG.md`.
 
 From `docs/research/11-data-sources.md`; items 1 to 7 are built (above). Still to do:
 - Future wards for May 2027, once Democracy Club loads the May 2027 elections.
