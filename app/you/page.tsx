@@ -6,6 +6,7 @@ import AreaPanel from "@/components/AreaPanel";
 import Layers from "@/components/Layers";
 import NextElections from "@/components/NextElections";
 import ProfileApply from "@/components/ProfileApply";
+import RightNow from "@/components/RightNow";
 import StakeExplorer, { type Scale, type StakePosition } from "@/components/StakeExplorer";
 import YouSummary from "@/components/YouSummary";
 import { TOPICS, getBallot, listCandidates, publicClient } from "@/lib/data";
@@ -118,7 +119,7 @@ export default async function You({ searchParams }: { searchParams: Promise<Reco
       <YouSummary />
 
       <nav className="you-nav" aria-label="On this page">
-        <a href="#you-vote">What you&rsquo;re voting for</a><a href="#you-area">Your area</a><a href="#you-decides">Who decides</a><a href="#you-stake">What&rsquo;s at stake</a>
+        <a href="#you-vote">What you&rsquo;re voting for</a><a href="#you-now">Right now</a><a href="#you-area">Your area</a><a href="#you-decides">Who decides</a><a href="#you-stake">What&rsquo;s at stake</a>
       </nav>
 
       <section id="you-vote" className="you-sec" aria-labelledby="you-vote-h">
@@ -139,6 +140,13 @@ export default async function You({ searchParams }: { searchParams: Promise<Reco
         )}
         <p className="meta"><Link href="/next">Every election coming up, with a calendar and a map &rarr;</Link></p>
       </section>
+
+      {loc ? (
+        <section id="you-now" className="you-sec" aria-labelledby="you-now-h">
+          <h2 id="you-now-h">What matters to you right now</h2>
+          <Suspense fallback={<p className="meta">Looking up what is happening near you…</p>}><RightNow councilSlug={councilSlug} district={place.district} /></Suspense>
+        </section>
+      ) : null}
 
       {loc ? (
         <section id="you-area" className="you-sec" aria-labelledby="you-area-h">
