@@ -7,14 +7,15 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { MetaResponse } from '@/lib/appApi';
 import { compareVersions } from '@/lib/appApi';
 import { loadMeta, savedAtText } from '@/core/api';
-import { useStore } from '@/core/store';
+import { FIELD_KEYS, type Household } from '@/lib/household';
+import { useStore, type Personal } from '@/core/store';
 import { F, TAP, usePalette } from '@/core/theme';
 import { useBallot } from '@/core/useBallot';
 import { AreaMap } from '@/components/AreaMap';
-import { Emblem, Wordmark } from '@/components/brand';
+import { Emblem, IndependentLine, Wordmark } from '@/components/brand';
 import { ComingUp, Countdown, Deadlines, Eyebrow, NameCards, SectionTitle, TopicsForYou, upcoming } from '@/components/nextVote';
 import { PlaceFinder } from '@/components/PlaceFinder';
-import { InfoButton, Sheet } from '@/components/Sheet';
+import { Sheet } from '@/components/Sheet';
 import { Banner, Button, ErrorState, LinkRow, Loading, Small, haptic, openLink, s } from '@/components/ui';
 
 const APP_VERSION = Constants.expoConfig?.version ?? '0.0.0';
@@ -62,6 +63,7 @@ function WherePrompt() {
       <Text style={[s.h1, { color: c.ink, fontSize: 34, lineHeight: 40 }]} accessibilityRole="header">Where do you <Text style={{ fontFamily: F.displayItalic, color: c.rose }}>vote?</Text></Text>
       <Text style={[s.body, { color: c.soft, fontSize: 18 }]}>We’ll find your next election and who’s standing.</Text>
       <PlaceFinder />
+      <IndependentLine />
     </Animated.ScrollView>
   );
 }
@@ -70,9 +72,8 @@ function NextVote() {
   const c = usePalette();
   const insets = useSafeAreaInsets();
   const { height } = useWindowDimensions();
-  const { saved, clearElections, household, complete } = useStore();
+  const { saved, clearElections, household, complete, personal } = useStore();
   const [changing, setChanging] = useState(false);
-  const [credits, setCredits] = useState(false);
   const [scrollY] = useState(() => new Animated.Value(0));
   const { next, ahead } = upcoming(saved!.elections);
   const mapH = Math.round(Math.min(480, height * 0.46));
@@ -95,10 +96,10 @@ function NextVote() {
         <View style={{ backgroundColor: c.paper, borderTopLeftRadius: 30, borderTopRightRadius: 30, paddingHorizontal: 20, paddingBottom: 48, gap: 12, minHeight: height - insets.top, shadowColor: '#2B1B14', shadowOpacity: 0.12, shadowRadius: 18, shadowOffset: { width: 0, height: -4 }, elevation: 8 }}>
           <View style={{ alignSelf: 'center', width: 44, height: 5, borderRadius: 3, backgroundColor: c.line, marginTop: 10, marginBottom: 8 }} />
           <UpdateNotice />
-          {next?.covered ? <Covered id={next.ballot_paper_id} household={household} complete={complete} /> : next ? <NotCovered name={next.election_name} date={next.election_date} label={next.post_label} placeUrl={saved!.placeUrl} /> : <NothingScheduled outcode={saved!.outcode} placeUrl={saved!.placeUrl} />}
+          {next?.covered ? <Covered id={next.ballot_paper_id} household={household} complete={complete} personal={personal} /> : next ? <NotCovered name={next.election_name} date={next.election_date} label={next.post_label} placeUrl={saved!.placeUrl} /> : <NothingScheduled outcode={saved!.outcode} placeUrl={saved!.placeUrl} />}
 
           {!complete ? (
-            <Pressable onPress={() => { haptic.press(); router.push({ pathname: '/welcome/question', params: { n: '0' } }); }} accessibilityRole="button" accessibilityLabel="Personalise my politics" accessibilityHint="Seven quick questions about your household. Answers stay on this phone."
+            <Pressable onPress={() => { haptic.press(); router.push({ pathname: '/ask', params: { n: String(Math.max(0, FIELD_KEYS.findIndex((k) => !household[k]))) } }); }} accessibilityRole="button" accessibilityLabel="Personalise my politics" accessibilityHint="Seven quick questions about your household. Answers stay on this phone."
               style={({ pressed }) => [{ marginTop: 18, flexDirection: 'row', alignItems: 'center', gap: 14, backgroundColor: c.aubergine, borderRadius: 20, padding: 16, transform: [{ scale: pressed ? 0.98 : 1 }] }]}>
               <Ionicons name="person-circle-outline" size={30} color={c.onAubergine} />
               <View style={{ flex: 1 }}>
@@ -113,11 +114,7 @@ function NextVote() {
           <ComingUp list={ahead} placeUrl={saved!.placeUrl} skip={next?.ballot_paper_id} />
           <LinkRow label="What’s happening where you live" url={saved!.placeUrl} hint="Opens your area page on the website" />
 
-          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 4, marginTop: 20 }}>
-            <Emblem size={22} />
-            <Small style={{ color: c.muted }}>Independent. No rankings, no recommendations.</Small>
-            <InfoButton label="Sources and map credits" onPress={() => setCredits(true)} />
-          </View>
+          <IndependentLine />
         </View>
       </Animated.ScrollView>
 
@@ -146,17 +143,11 @@ function NextVote() {
         <Small style={{ color: c.muted }}>Saved on {savedAtText(saved!.savedAt)}. Only {saved!.outcode} is kept on this phone.</Small>
         <Button label="Forget this area" kind="secondary" onPress={() => { setChanging(false); clearElections(); }} hint="Removes the saved area from this phone" />
       </Sheet>
-      <Sheet open={credits} onClose={() => setCredits(false)} label="Sources and credits">
-        <Eyebrow>Sources</Eyebrow>
-        <Small>Elections, candidates and dates: Democracy Club (CC BY 4.0) and official notices. Area outline: ONS Open Geography Portal (Open Government Licence). Postcode lookup: postcodes.io.</Small>
-        <Small>What’s It To Me? is independent. It does not represent any government, council or political party.</Small>
-        <LinkRow label="Who we are and how it works" url="https://whatsittome.org/who-we-are" />
-      </Sheet>
     </View>
   );
 }
 
-function Covered({ id, household, complete }: { id: string; household: ReturnType<typeof useStore>['household']; complete: boolean }) {
+function Covered({ id, household, complete, personal }: { id: string; household: Household; complete: boolean; personal: Personal }) {
   const c = usePalette();
   const { ballot: b, fromCache, savedAt, error, retry } = useBallot(id);
   if (error && !b) return <ErrorState message={error} onRetry={retry} />;
@@ -177,7 +168,7 @@ function Covered({ id, household, complete }: { id: string; household: ReturnTyp
       <NameCards ballotId={id} candidates={b.candidates} parties={b.parties} />
 
       <SectionTitle>What changes for you</SectionTitle>
-      <TopicsForYou ballotId={id} b={b} household={household} complete={complete} />
+      <TopicsForYou ballotId={id} b={b} household={household} complete={complete} personal={personal} />
       <LinkRow label="Everything on this ballot" onPress={() => router.push({ pathname: '/elections/[ballotId]', params: { ballotId: id } })} />
     </View>
   );

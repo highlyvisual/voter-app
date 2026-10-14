@@ -1,9 +1,9 @@
-# Largest accessibility text size: screenshots of each main screen, opened by deep link. Set the size first:
+# Largest accessibility text size: screenshots of each main screen, opened by deep link (Holborn, archived, has
+# positions on every screen). Set the size first:
 #   xcrun simctl ui <device> content_size accessibility-extra-extra-extra-large
 appId: org.whatsittome.app
 env:
-  BALLOT: local.flintshire.higher-kinnerton.by.2026-10-15
-  CANDIDATE: "299"
+  BALLOT: parl.holborn-and-st-pancras.by.2026-10-08
 ---
 - launchApp
 - takeScreenshot: L1-home
@@ -12,18 +12,15 @@ env:
     text: "Open"
     optional: true
 - scrollUntilVisible:
-    element: "Key dates"
+    element: "Before polling day"
     visibilityPercentage: 30
     timeout: 30000
 - takeScreenshot: L2-ballot
 - scrollUntilVisible:
-    element: "The \\d+ candidates"
+    element: "The \\d+ on your paper"
     visibilityPercentage: 30
 - takeScreenshot: L3-ballot-candidates
-- openLink: whatsittome://elections/${BALLOT}/candidate/${CANDIDATE}
-- tapOn:
-    text: "Open"
-    optional: true
+- tapOn: "Number 1, .*"
 - scrollUntilVisible:
     element: "In their own words"
     visibilityPercentage: 30
@@ -37,5 +34,5 @@ env:
     visible: "Housing and property"
     timeout: 20000
 - takeScreenshot: L4-topic
-- tapOn: "Profile"
+- tapOn: "You"
 - takeScreenshot: L5-profile

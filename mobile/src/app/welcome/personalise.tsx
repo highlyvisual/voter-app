@@ -17,7 +17,7 @@ export default function Personalise() {
   return (
     <Step step={3} of={3} onSkip={finish} skipLabel="Not now"
       foot={<>
-        <Button label="Personalise" onPress={() => router.push({ pathname: '/welcome/question', params: { n: '0' } })} hint={`${FIELD_KEYS.length} quick questions, one at a time`} />
+        <Button label="Personalise" onPress={() => router.push({ pathname: '/ask', params: { n: '0', mode: 'intro' } })} hint={`${FIELD_KEYS.length} quick questions, one at a time`} />
         <TextButton label="Not now, take me to my next vote" onPress={finish} />
       </>}>
       {found ? (

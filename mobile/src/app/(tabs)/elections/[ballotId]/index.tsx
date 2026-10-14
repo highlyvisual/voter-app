@@ -1,65 +1,70 @@
 import { Stack, router, useLocalSearchParams } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
-import { TOPICS, TOPIC_SHORT } from '@/lib/types';
+import { FIELD_KEYS, FIELDS } from '@/lib/household';
 import { savedAtText } from '@/core/api';
 import { useStore } from '@/core/store';
-import { TAP, usePalette } from '@/core/theme';
+import { F, TAP, usePalette } from '@/core/theme';
 import { useBallot } from '@/core/useBallot';
-import { CandidateCard, KeyDates } from '@/components/ballot';
-import { Banner, Card, ErrorState, H1, H2, LinkRow, Loading, Screen, Small, longDate, s } from '@/components/ui';
+import { Countdown, Deadlines, NameCards, SectionTitle, TopicsForYou } from '@/components/nextVote';
+import { Banner, ErrorState, LinkRow, Loading, Screen, Small, haptic, s } from '@/components/ui';
 
-// The ballot: key dates, the candidates in ballot-paper order, and "What changes for you" by topic.
+// The ballot: the countdown, the deadlines, the paper as name cards in ballot-paper order (Romily's choice C), and what
+// changes for you by topic, the household's own first with the reason behind an (i). The same pieces as Home.
 export default function BallotScreen() {
   const { ballotId } = useLocalSearchParams<{ ballotId: string }>();
   const c = usePalette();
-  const { complete } = useStore();
+  const { household, complete, personal } = useStore();
   const { ballot: b, fromCache, savedAt, error, refreshing, refresh, retry } = useBallot(ballotId);
-  const parties = new Map((b?.parties ?? []).map((p) => [p.ec_id, p]));
-  const count = (topic: string) => b ? b.parties.reduce((n, p) => n + p.claims.filter((x) => x.topic === topic).length, 0) + b.candidates.reduce((n, k) => n + k.claims.filter((x) => x.topic === topic).length, 0) : 0;
+  const short = b?.ballot.area.replace(/^.*?:\s*/, '') ?? '';
 
   return (
     <Screen refreshing={refreshing} onRefresh={refresh} edges={[]}>
-      <Stack.Screen options={{ title: b?.ballot.area ?? 'Ballot' }} />
-      {fromCache ? <Banner>You’re offline. Showing the copy saved on {savedAtText(savedAt)}.</Banner> : null}
+      <Stack.Screen options={{ title: short || 'Ballot' }} />
+      {fromCache ? <Banner>You’re offline. Showing the copy saved {savedAtText(savedAt)}.</Banner> : null}
       {error && !b ? <ErrorState message={error} onRetry={retry} /> : null}
       {!b && !error ? <Loading label="Loading the ballot" /> : null}
       {b ? (
         <>
-          <Text style={[s.small, { color: c.accent, fontWeight: '800', textTransform: 'uppercase', letterSpacing: 0.5 }]}>{longDate(b.ballot.date)}</Text>
-          <H1>{b.ballot.name}</H1>
           {b.ballot.cancelled ? <Banner>This election has been cancelled.</Banner> : null}
           {b.ballot.postponed ? <Banner>This election has been postponed.{b.ballot.postponed_note ? ` ${b.ballot.postponed_note}` : ''}</Banner> : null}
+          <Countdown date={b.ballot.date} name={b.ballot.by_election_reason ? `${short} by-election` : b.ballot.name} area={b.ballot.area} />
+          {b.ballot.by_election_reason ? <Small style={{ color: c.muted }}>Why there’s a by-election: {b.ballot.by_election_reason.charAt(0).toUpperCase() + b.ballot.by_election_reason.slice(1).toLowerCase().replace(/_/g, ' ')}</Small> : null}
+
+          <ProfileStrip />
+
+          <SectionTitle>Before polling day</SectionTitle>
+          <Deadlines items={b.key_dates.items} idRequired={b.key_dates.id_required} />
+          {b.key_dates.notice_url ? <LinkRow label="The council’s official notice" url={b.key_dates.notice_url} /> : null}
+
+          <SectionTitle right={<Text style={[s.small, { color: c.muted }]}>in ballot order</Text>}>{b.candidates.length === 1 ? 'The candidate' : `The ${b.candidates.length} on your paper`}</SectionTitle>
           {b.ballot.uncontested ? <Banner>Uncontested: there are no more candidates than seats, so no vote will be held.</Banner> : null}
-          {b.ballot.by_election_reason ? <Small>Why there’s a by-election: {b.ballot.by_election_reason.charAt(0).toUpperCase() + b.ballot.by_election_reason.slice(1).toLowerCase().replace(/_/g, " ")}</Small> : null}
+          <Small style={{ color: c.muted }}>In the order you’ll see them on the paper, alphabetical by surname, as the law sets it.</Small>
+          <NameCards ballotId={ballotId} candidates={b.candidates} parties={b.parties} />
 
-          <KeyDates b={b} />
+          <SectionTitle>What changes for you</SectionTitle>
+          <TopicsForYou ballotId={ballotId} b={b} household={household} complete={complete} personal={personal} />
 
-          <H2>{b.candidates.length === 1 ? 'The candidate' : `The ${b.candidates.length} candidates`}</H2>
-          <Small>In ballot-paper order (alphabetical by surname), as the law sets it. Tap a candidate for their statement and positions.</Small>
-          <View style={{ gap: 10 }}>
-            {b.candidates.map((k) => <CandidateCard key={k.id} ballotId={ballotId} c={k} party={k.party_ec_id ? parties.get(k.party_ec_id) : undefined} />)}
-          </View>
-
-          <H2>What changes for you</H2>
-          {/* Topics in the website's fixed order. TODO(Romily): order by the household's profile, with the reason shown (round five). */}
-          <Small>{complete ? 'Each topic shows the positions that apply to your household first. Your answers stay on this phone.' : 'Answer the household questions in Profile to see which positions apply to you first. Your answers stay on this phone.'}</Small>
-          <Card style={{ paddingVertical: 4 }}>
-            {TOPICS.map(([id, name]) => {
-              const n = count(id);
-              return (
-                <Pressable key={id} onPress={() => router.push({ pathname: '/elections/[ballotId]/topic/[topic]', params: { ballotId, topic: id } })} accessibilityRole="button" accessibilityLabel={`${name}, ${n} ${n === 1 ? 'position' : 'positions'}`}
-                  style={({ pressed }) => [{ minHeight: TAP, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12, borderTopWidth: id === TOPICS[0][0] ? 0 : 1, borderTopColor: c.line, opacity: pressed ? 0.6 : 1 }]}>
-                  <Text style={[s.body, { color: c.ink, flexShrink: 1 }]}>{TOPIC_SHORT[id] ?? name}</Text>
-                  <Text style={[s.small, { color: c.soft }]}>{n ? `${n} ›` : 'None yet ›'}</Text>
-                </Pressable>
-              );
-            })}
-          </Card>
-
-          <LinkRow label="Open this ballot on the website" url={b.ballot.web_url} />
-          <Small>Sources: {b.source}.</Small>
+          <LinkRow label="This ballot on the website" url={b.ballot.web_url} />
+          <Small style={{ color: c.muted }}>Sources: {b.source}.</Small>
         </>
       ) : null}
     </Screen>
+  );
+}
+
+// "Your answers so far" (Romily's choice C12): the household in one line, with Edit, so it is always visible.
+function ProfileStrip() {
+  const c = usePalette();
+  const { household, complete } = useStore();
+  const bits = FIELD_KEYS.filter((k) => household[k] && k !== 'student').map((k) => (FIELDS[k].options as readonly (readonly [string, string])[]).find(([v]) => v === household[k])?.[1]).filter(Boolean);
+  return (
+    <Pressable onPress={() => { haptic.choose(); router.navigate('/profile'); }} accessibilityRole="button" accessibilityHint="Opens You, to change your answers"
+      style={({ pressed }) => [{ minHeight: TAP, flexDirection: 'row', alignItems: 'center', gap: 10, backgroundColor: c.roseSoft, borderRadius: 16, padding: 12, opacity: pressed ? 0.8 : 1 }]}>
+      <View style={{ flex: 1, gap: 2 }}>
+        <Text style={[s.eyebrow, { color: c.rose }]}>{complete ? 'Your answers so far' : 'Not personalised yet'}</Text>
+        <Text style={{ fontFamily: F.body, fontSize: 14, lineHeight: 19, color: c.ink }} numberOfLines={2}>{bits.length ? bits.join(' · ') : 'Answer a few questions to see what applies to a household like yours first.'}</Text>
+      </View>
+      <Text style={[s.link, { color: c.accent }]}>{bits.length ? 'Edit' : 'Start'}</Text>
+    </Pressable>
   );
 }

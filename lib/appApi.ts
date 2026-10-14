@@ -38,7 +38,12 @@ export type ElectionsResponse =
 
 // GET /api/app/v1/boundary/[ballot id]  (app 0.3.0) The voting area's outline for the drawn map on Home: outer rings as
 // [lng, lat] pairs (WGS84). Static per ballot and cacheable; nothing about the viewer is sent.
-export type BoundaryResponse = { ok: true; area: string; rings: [number, number][][]; source: string } | AppError;
+// roads and places (optional) are main roads and place names around the area from OpenStreetMap, fetched by the server
+// so the phone never contacts it; absent when OpenStreetMap didn't answer. credits names every source drawn, for the
+// map's (i).
+export type AppMapRoad = { ref: string | null; name: string | null; kind: "major" | "minor"; line: [number, number][] };
+export type AppMapPlace = { name: string; kind: string; at: [number, number] };
+export type BoundaryResponse = { ok: true; area: string; rings: [number, number][][]; source: string; roads?: AppMapRoad[]; places?: AppMapPlace[]; credits?: string[] } | AppError;
 
 // GET /api/app/v1/meta
 export type MetaResponse = {
@@ -258,6 +263,8 @@ export function problemsWithBallot(x: unknown): string[] {
   return p;
 }
 
+const isLngLat = (pt: unknown) => Array.isArray(pt) && pt.length === 2 && typeof pt[0] === "number" && typeof pt[1] === "number" && Math.abs(pt[0]) <= 180 && Math.abs(pt[1]) <= 90;
+
 export function problemsWithBoundary(x: unknown): string[] {
   if (!isObj(x)) return ["not an object"];
   if (x.ok === false) return isStr(x.message) && x.message ? [] : ["error without a message"];
@@ -268,8 +275,17 @@ export function problemsWithBoundary(x: unknown): string[] {
   if (!Array.isArray(x.rings) || x.rings.length === 0) return [...p, "rings missing or empty"];
   x.rings.forEach((r, i) => {
     if (!Array.isArray(r) || r.length < 4) { p.push(`rings[${i}] needs at least 4 points`); return; }
-    if (!r.every((pt) => Array.isArray(pt) && pt.length === 2 && typeof pt[0] === "number" && typeof pt[1] === "number" && Math.abs(pt[0]) <= 180 && Math.abs(pt[1]) <= 90)) p.push(`rings[${i}] has a point that isn't [lng, lat]`);
+    if (!r.every(isLngLat)) p.push(`rings[${i}] has a point that isn't [lng, lat]`);
   });
+  if (x.roads !== undefined) {
+    if (!Array.isArray(x.roads)) p.push("roads is not a list");
+    else x.roads.forEach((r, i) => { if (!isObj(r) || (r.kind !== "major" && r.kind !== "minor") || !Array.isArray(r.line) || !r.line.every(isLngLat)) p.push(`roads[${i}] needs a kind and a line of [lng, lat]`); });
+  }
+  if (x.places !== undefined) {
+    if (!Array.isArray(x.places)) p.push("places is not a list");
+    else x.places.forEach((pl, i) => { if (!isObj(pl) || !isStr(pl.name) || !pl.name || !isLngLat(pl.at)) p.push(`places[${i}] needs a name and an [lng, lat]`); });
+  }
+  if (x.credits !== undefined && !(Array.isArray(x.credits) && x.credits.every(isStr))) p.push("credits is not a list of text");
   return p;
 }
 

@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Animated, View } from 'react-native';
-import { Lockup } from '@/components/brand';
+import { IndependentLine, Lockup } from '@/components/brand';
 import { Lede, Step } from '@/components/Onboarding';
 import { Button } from '@/components/ui';
 
@@ -10,7 +10,7 @@ export default function Welcome() {
   const [rise] = useState(() => new Animated.Value(0));
   useEffect(() => { Animated.timing(rise, { toValue: 1, duration: 600, delay: 150, useNativeDriver: true }).start(); }, [rise]);
   return (
-    <Step step={1} of={3} foot={<Button label="Get started" onPress={() => router.push('/welcome/place')} />}>
+    <Step step={1} of={3} foot={<><Button label="Get started" onPress={() => router.push('/welcome/place')} /><IndependentLine /></>}>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', gap: 28, paddingVertical: 24 }}>
         <Lockup width={290} />
         <Animated.View style={{ opacity: rise, transform: [{ translateY: rise.interpolate({ inputRange: [0, 1], outputRange: [12, 0] }) }] }}>

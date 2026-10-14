@@ -37,6 +37,8 @@ export default function RootLayout() {
             <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: p.paper } }}>
               <Stack.Screen name="(tabs)" />
               <Stack.Screen name="welcome" options={{ animation: 'fade', gestureEnabled: false }} />
+              <Stack.Screen name="ask" options={{ animation: 'slide_from_bottom' }} />
+              <Stack.Screen name="sources" options={{ headerShown: true, title: 'Sources', headerTintColor: p.accent, headerStyle: { backgroundColor: p.paper }, headerTitleStyle: { color: p.ink, fontFamily: 'Fraunces_600SemiBold' }, headerShadowVisible: false, headerBackButtonDisplayMode: 'minimal' }} />
             </Stack>
           ) : null}
         </ThemeProvider>

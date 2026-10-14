@@ -4,7 +4,7 @@ import type { AppReceiptSetRef, BallotResponse, ReceiptSetResponse } from '@/lib
 import { gridKey, modelCaveat, type Household } from '@/lib/household';
 import { PLEDGE_LABELS, RECEIPT_FIELDS, currentLawLines, monthlyGist } from '@/lib/receipts';
 import { loadReceiptSet } from '@/core/api';
-import { usePalette } from '@/core/theme';
+import { F, usePalette } from '@/core/theme';
 import { Body, Card, ErrorState, H3, LinkRow, Skeleton, Small, s } from '@/components/ui';
 
 type Receipts = NonNullable<Extract<BallotResponse, { ok: true }>['receipts']>;
@@ -36,7 +36,7 @@ export function CurrentLaw({ receipts, household, complete }: { receipts: Receip
   const c = usePalette();
   const base = receipts?.sets.find((r) => r.id === receipts.baseline_id);
   const { sets, error } = useReceiptSets(receipts, base && complete ? [base] : []);
-  if (!complete) return <Small>Answer the household questions in Profile to see money figures for a household like yours. They stay on this phone.</Small>;
+  if (!complete) return <Small>Answer the household questions in You to see money figures for a household like yours. They stay on this phone.</Small>;
   const caveat = modelCaveat(household);
   if (caveat) return (
     <Card>
@@ -59,8 +59,8 @@ export function CurrentLaw({ receipts, household, complete }: { receipts: Receip
       <View accessibilityRole="summary" style={{ marginTop: 6 }}>
         {currentLawLines(key, r).map((l) => (
           <View key={l.key} style={{ flexDirection: 'row', justifyContent: 'space-between', gap: 12, paddingVertical: 8, borderTopWidth: 1, borderTopColor: c.line }} accessible accessibilityLabel={`${l.label}: ${l.sign === '-' ? 'minus ' : ''}${gbp.format(l.amount)}`}>
-            <Text style={[s.small, { color: c.ink, flex: 1, fontWeight: l.key === 'household_net_income' ? '800' : '400' }]}>{l.label}</Text>
-            <Text style={[s.small, { color: c.ink, fontWeight: l.key === 'household_net_income' ? '800' : '600' }]}>{l.sign === '-' ? '−' : l.sign}{gbp.format(l.amount)}</Text>
+            <Text style={[s.small, { color: c.ink, flex: 1, fontFamily: l.key === 'household_net_income' ? F.bold : F.body }]}>{l.label}</Text>
+            <Text style={[s.small, { color: c.ink, fontFamily: l.key === 'household_net_income' ? F.bold : F.semi }]}>{l.sign === '-' ? '−' : l.sign}{gbp.format(l.amount)}</Text>
           </View>
         ))}
       </View>
@@ -85,7 +85,7 @@ export function PledgeReceipt({ receipts, partyEcId, household, complete }: { re
   return (
     <Card style={{ marginTop: 8 }}>
       <Small>Modelled: {ref.label ?? 'Modelled pledge'}</Small>
-      <Body style={{ fontWeight: '800' }}>{monthlyGist(delta)}</Body>
+      <Body style={{ fontFamily: F.bold }}>{monthlyGist(delta)}</Body>
       <Small>for a household like this one. Whether that is good or bad depends on what the money is for; that judgement is yours.</Small>
       {RECEIPT_FIELDS.map((f) => {
         const x = ra[f] ?? 0, y = rb[f] ?? 0;

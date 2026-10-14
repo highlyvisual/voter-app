@@ -63,20 +63,14 @@ env:
 - waitForAnimationToEnd
 - takeScreenshot: 07-home-paper
 - scrollUntilVisible:
-    element: "What changes for you"
+    element: "No one on this paper has published.*"
     centerElement: true
 - waitForAnimationToEnd
-- takeScreenshot: 08-home-topics
-- tapOn: "Why Housing is near the top"
-- extendedWaitUntil:
-    visible: "Why it’s near the top"
-- waitForAnimationToEnd
-- takeScreenshot: 09-home-why
-- tapOn: "Close"
+- takeScreenshot: 08-home-nothing-sourced
 - scrollUntilVisible:
-    element: "Coming up near you"
+    element: "Independent. No rankings.*"
     centerElement: true
-- takeScreenshot: 10-home-coming-up
+- takeScreenshot: 10-home-foot
 - scrollUntilVisible:
     element: "Your area: .*"
     direction: UP

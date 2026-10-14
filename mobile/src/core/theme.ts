@@ -12,7 +12,7 @@ export const light = {
   aubergine: '#3A1530', onAubergine: '#FFFFFF', aubergineSoft: '#F0DCE8',
   line: '#E6D8CC', chip: '#F4F1EA', skeleton: '#EDE2D6', warn: '#7A4B00', warnBg: '#FFF4D6',
   // The drawn area map (no tiles): ground, grid and the boundary.
-  mapGround: '#FBEADB', mapGrid: '#F1DCC8', mapFill: '#E9C9D4', mapEdge: '#3A1530',
+  mapGround: '#FBEADB', mapGrid: '#F1DCC8', mapFill: '#E9C9D4', mapEdge: '#3A1530', road: '#FFFBF6', roadCasing: '#E2C6AE',
 };
 export const dark: typeof light = {
   paper: '#1B1310', panel: '#241A15', sand: '#2A1F19', apricot: '#2E211A',
@@ -21,7 +21,7 @@ export const dark: typeof light = {
   rose: '#F2A3AE', onRose: '#1B1310', roseSoft: '#3A2023', roseGold: '#C98A80',
   aubergine: '#E2BFD7', onAubergine: '#1B1310', aubergineSoft: '#33202E',
   line: '#46362C', chip: '#2A1F19', skeleton: '#2F231D', warn: '#FFD68A', warnBg: '#3A2B12',
-  mapGround: '#2E211A', mapGrid: '#36271F', mapFill: '#4A2A3C', mapEdge: '#E2BFD7',
+  mapGround: '#2E211A', mapGrid: '#36271F', mapFill: '#4A2A3C', mapEdge: '#E2BFD7', road: '#4A3A31', roadCasing: '#241A15',
 };
 export type Palette = typeof light;
 

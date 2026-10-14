@@ -1,63 +1,98 @@
-# The 0.2.0 journey: postcode → ballot → candidate → a topic → profile → back. Run with:
+# The 0.3.0 journey: welcome → postcode → Home → the paper → a candidate → Next and swipe through the paper → a topic
+# → Coming up → You (the extras as a conversation, the optional questions about you) → More → Sources. Run with:
 #   MAESTRO_CLI_NO_ANALYTICS=1 maestro test mobile/.maestro/journey.yaml --test-output-dir <dir>
-# Screenshots are written for the PR. Uses CH4 9AA (Higher Kinnerton by-election); swap the postcode once that has passed.
+# Uses BH14 9BA (Penn Hill ward by-election, 5 Nov 2026); swap the postcode once that has passed.
 appId: org.whatsittome.app
 env:
-  POSTCODE: CH4 9AA
+  POSTCODE: BH14 9BA
 ---
 - launchApp:
     clearState: true
-- assertVisible: "What’s It To Me?"
-- takeScreenshot: 01-home
-- scrollUntilVisible:
-    element:
-      id: postcode
+    clearKeychain: true
+- extendedWaitUntil:
+    visible: "Get started"
+    timeout: 15000
+- tapOn: "Get started"
 - tapOn:
     id: postcode
 - inputText: ${POSTCODE}
-- hideKeyboard
-- scrollUntilVisible:
-    element: "Find my elections"
-- tapOn: "Find my elections"
-- scrollUntilVisible:
-    element: "Coming up in.*"
+- pressKey: Enter
+- extendedWaitUntil:
+    visible: "Not now, take me to my next vote"
     timeout: 30000
-- takeScreenshot: 02-elections
-- scrollUntilVisible:
-    element: "Flintshire local election.*"
-- tapOn:
-    text: "Flintshire local election.*"
+- tapOn: "Not now, take me to my next vote"
 - extendedWaitUntil:
-    visible: "Key dates"
-    timeout: 20000
-- takeScreenshot: 03-ballot
+    visible: ".*polling day.*"
+    timeout: 30000
+- waitForAnimationToEnd
+- takeScreenshot: 01-home-not-personalised
 - scrollUntilVisible:
-    element: "The \\d+ candidates"
-- takeScreenshot: 04-ballot-candidates
+    element: "Independent. No rankings.*"
+- takeScreenshot: 02-home-foot
 - scrollUntilVisible:
-    element: "Josh Swash.*"
-- tapOn:
-    text: "Josh Swash.*"
-- scrollUntilVisible:
-    element: "In their own words"
-    timeout: 20000
-- takeScreenshot: 05-candidate
-- scrollUntilVisible:
-    element: "Positions by topic"
-- takeScreenshot: 06-candidate-positions
-- tapOn: "Back"
-- scrollUntilVisible:
-    element: "What changes for you"
-- scrollUntilVisible:
-    element: "Housing.*"
-- tapOn:
-    text: "Housing.*"
+    element: "Number 1, .*"
+    direction: UP
+    centerElement: true
+- tapOn: "Number 1, .*"
 - extendedWaitUntil:
-    visible: "Housing and property"
-    timeout: 10000
-- takeScreenshot: 07-topic
-- tapOn: "Profile"
-- assertVisible: "Your answers never leave this phone"
-- takeScreenshot: 08-profile
-- tapOn: "Home"
-- takeScreenshot: 09-back-home
+    visible: "In their own words"
+    timeout: 20000
+- waitForAnimationToEnd
+- takeScreenshot: 03-candidate-1
+- tapOn: "Next on the paper: number 2.*"
+- extendedWaitUntil:
+    visible: "No. 2 of \\d+"
+- waitForAnimationToEnd
+- takeScreenshot: 04-candidate-2-by-next
+- swipe:
+    start: 85%, 45%
+    end: 15%, 45%
+- extendedWaitUntil:
+    visible: "No. 3 of \\d+"
+- waitForAnimationToEnd
+- takeScreenshot: 05-candidate-3-by-swipe
+- scrollUntilVisible:
+    element: "The UK"
+    centerElement: true
+- tapOn: "The UK"
+- waitForAnimationToEnd
+- takeScreenshot: 06-candidate-scale-uk
+- tapOn: "Back to the paper"
+- extendedWaitUntil:
+    visible: ".*polling day.*"
+- tapOn: "Coming up"
+- extendedWaitUntil:
+    visible: "Near .*"
+- takeScreenshot: 07-coming-up
+- tapOn: "You"
+- extendedWaitUntil:
+    visible: "Your answers never leave this phone.*"
+- takeScreenshot: 08-you
+- scrollUntilVisible:
+    element: "Does your household own or regularly drive a car\\?"
+    centerElement: true
+    timeout: 20000
+- tapOn:
+    text: "Skip this one"
+    index: 0
+- tapOn:
+    text: "Skip this one"
+    index: 0
+- tapOn:
+    text: "Skip this one"
+    index: 0
+- tapOn:
+    text: "Skip this one"
+    index: 0
+- tapOn: "Yes"
+- waitForAnimationToEnd
+- takeScreenshot: 09-you-conversation
+- scrollUntilVisible:
+    element: "Which ethnic group are you\\?"
+    centerElement: true
+- takeScreenshot: 10-you-about-you
+- tapOn: "More"
+- tapOn: "Sources"
+- extendedWaitUntil:
+    visible: "Independent"
+- takeScreenshot: 11-sources

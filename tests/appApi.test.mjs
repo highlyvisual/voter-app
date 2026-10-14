@@ -88,6 +88,11 @@ test("boundary reply: outer rings of [lng, lat]", async () => {
   assert.ok(problemsWithBoundary({ ok: true, area: "x", rings: [], source: "ONS" }).length > 0);
   assert.ok(problemsWithBoundary({ ok: true, area: "x", rings: [[[50.72, -1.92, 0]]], source: "ONS" }).length > 0);
   assert.ok(problemsWithBoundary({ ok: true, area: "x", rings: [ring.map(([a, b]) => [b * 4, a])], source: "ONS" }).length > 0);
+  const roads = [{ ref: "A35", name: null, kind: "major", line: [[-1.92, 50.72], [-1.93, 50.73]] }];
+  const places = [{ name: "Parkstone", kind: "suburb", at: [-1.94, 50.73] }];
+  assert.deepEqual(problemsWithBoundary({ ok: true, area: "x", rings: [ring], source: "ONS", roads, places, credits: ["ONS", "OSM"] }), []);
+  assert.ok(problemsWithBoundary({ ok: true, area: "x", rings: [ring], source: "ONS", roads: [{ kind: "road", line: [] }] }).length > 0);
+  assert.ok(problemsWithBoundary({ ok: true, area: "x", rings: [ring], source: "ONS", places: [{ name: "", at: [0, 0] }] }).length > 0);
 });
 test("elections reply may say how the area was found", () => {
   assert.deepEqual(problemsWithElections({ ...good, found_by: "location" }), []);

@@ -5,8 +5,10 @@ import { Pressable, Text, View } from 'react-native';
 import type { AppCandidate, AppClaim, AppElection, AppKeyDate, AppParty } from '@/lib/appApi';
 import { conditionText } from '@/lib/claims';
 import { claimApplies, type Household } from '@/lib/household';
+import { PERSONAL_KEYS } from '@/lib/personal';
 import { topicsForHousehold } from '@/lib/topicOrder';
 import { TOPIC_SHORT } from '@/lib/types';
+import type { Personal } from '@/core/store';
 import type { Ballot } from '@/core/useBallot';
 import { F, TAP, usePalette } from '@/core/theme';
 import { InfoButton, Sheet } from '@/components/Sheet';
@@ -46,7 +48,14 @@ export function SectionTitle({ children, right }: { children: string; right?: Re
 export function Countdown({ date, name, area }: { date: string; name: string; area: string }) {
   const c = usePalette();
   const d = daysUntil(date);
-  const big = d <= 0 ? 'Today' : d === 1 ? 'Tomorrow' : String(d);
+  if (d < 0) return (
+    <View style={{ gap: 6 }}>
+      <Eyebrow color={c.muted}>Held</Eyebrow>
+      <Text style={[s.h2, { color: c.ink, marginTop: 2 }]} accessibilityRole="header">{name}</Text>
+      <Text style={[s.small, { color: c.soft }]}>Polling day was {longDate(date)} · {area}</Text>
+    </View>
+  );
+  const big = d === 0 ? 'Today' : d === 1 ? 'Tomorrow' : String(d);
   const unit = d > 1 ? 'days to polling day' : d === 1 ? 'is polling day' : 'is polling day · polls open 7am to 10pm';
   return (
     <View style={{ gap: 6 }} accessible accessibilityLabel={`${d > 1 ? `${d} days to polling day` : big + ' ' + unit}. ${name}, ${longDate(date)}.`}>
@@ -132,27 +141,46 @@ export function NameCards({ ballotId, candidates, parties }: { ballotId: string;
   );
 }
 
-// Topics, the household's own first (Romily, round ten Q29), the reason behind an (i) rather than on the row. A topic
-// is tagged "Applies to you" only where a statement's own condition matches this household.
-export function TopicsForYou({ ballotId, b, household, complete }: { ballotId: string; b: Ballot; household: Household; complete: boolean }) {
+// Topics, the household's own first (Romily, round ten Q29), the reason behind an (i) rather than on the row. With any
+// optional question about the person answered, Equality and rights comes first too, as on the website. Only topics
+// with a sourced position are listed (Barny, 14 Oct); with none at all, one line says so and points to the candidates'
+// own statements. A topic is tagged "Applies to you" only where a statement's own condition matches this household.
+export function orderedTopics(household: Household, personal: Personal) {
+  const base = topicsForHousehold(household).all;
+  if (!PERSONAL_KEYS.some((k) => personal[k])) return base;
+  const eq = base.find((t) => t.topic === 'equality_and_rights')!;
+  return [{ ...eq, reason: eq.reason ?? 'because you answered the optional questions about you' }, ...base.filter((t) => t.topic !== 'equality_and_rights')];
+}
+
+export function TopicsForYou({ ballotId, b, household, complete, personal }: { ballotId: string; b: Ballot; household: Household; complete: boolean; personal: Personal }) {
   const c = usePalette();
   const [why, setWhy] = useState<{ label: string; reason: string } | null>(null);
-  const order = topicsForHousehold(household);
   const claims: AppClaim[] = [...b.parties.flatMap((p) => p.claims), ...b.candidates.flatMap((k) => k.claims)];
   const appliesOn = new Set(complete ? claims.filter((x) => conditionText(x.applies_if) && claimApplies(x.applies_if, household)).map((x) => x.topic) : []);
   const published = new Set(claims.map((x) => x.topic));
+  const list = orderedTopics(household, personal).filter((t) => published.has(t.topic));
+  const first = b.candidates[0];
+  if (!list.length) return (
+    <View style={{ backgroundColor: c.sand, borderRadius: 20, padding: 16, gap: 6 }}>
+      <Text style={[s.body, { color: c.ink }]}>No one on this paper has published a position we could source yet.</Text>
+      {first ? (
+        <Pressable onPress={() => { haptic.choose(); router.push({ pathname: '/elections/[ballotId]/candidate/[candidateId]', params: { ballotId, candidateId: String(first.id) } }); }}
+          accessibilityRole="button" accessibilityHint="Starts with number 1; swipe or tap Next for the rest, in ballot order" style={({ pressed }) => [{ minHeight: TAP, flexDirection: 'row', alignItems: 'center', gap: 6, opacity: pressed ? 0.6 : 1 }]}>
+          <Text style={[s.link, { color: c.accent }]}>Read the candidates’ own statements</Text>
+          <Ionicons name="arrow-forward" size={16} color={c.accent} />
+        </Pressable>
+      ) : null}
+    </View>
+  );
   return (
-    <View style={{ gap: 10 }}>
-    {published.size === 0 ? <Text style={[s.body, { color: c.soft }]}>No one on this paper has published a position we could source yet.</Text> : null}
     <View style={{ backgroundColor: c.panel, borderRadius: 20, borderWidth: 1, borderColor: c.line, paddingLeft: 16 }}>
-      {order.all.map((t, n) => (
+      {list.map((t, n) => (
         <View key={t.topic} style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: n ? 1 : 0, borderTopColor: c.line }}>
           <Pressable onPress={() => { haptic.choose(); router.push({ pathname: '/elections/[ballotId]/topic/[topic]', params: { ballotId, topic: t.topic } }); }}
-            accessibilityRole="button" accessibilityLabel={`${TOPIC_SHORT[t.topic] ?? t.label}${appliesOn.has(t.topic) ? ', applies to you' : published.has(t.topic) || published.size === 0 ? '' : ', nothing published yet'}`}
+            accessibilityRole="button" accessibilityLabel={`${TOPIC_SHORT[t.topic] ?? t.label}${appliesOn.has(t.topic) ? ', applies to you' : ''}`}
             style={({ pressed }) => [{ flex: 1, minHeight: TAP + 6, flexDirection: 'row', alignItems: 'center', gap: 10, opacity: pressed ? 0.6 : 1 }]}>
             <Text style={{ fontFamily: t.reason ? F.semi : F.body, fontSize: 17, color: c.ink, flexShrink: 1 }}>{TOPIC_SHORT[t.topic] ?? t.label}</Text>
             {appliesOn.has(t.topic) ? <View style={{ borderRadius: 999, paddingHorizontal: 8, paddingVertical: 3, backgroundColor: c.accentSoft }}><Text style={{ fontFamily: F.bold, fontSize: 11, color: c.accent }}>Applies to you</Text></View> : null}
-            {published.size > 0 && !published.has(t.topic) ? <Text style={[s.small, { color: c.muted }]}>Nothing yet</Text> : null}
           </Pressable>
           {t.reason ? <InfoButton label={`Why ${TOPIC_SHORT[t.topic] ?? t.label} is near the top`} onPress={() => setWhy({ label: TOPIC_SHORT[t.topic] ?? t.label, reason: t.reason! })} /> : <View style={{ width: 8 }} />}
           <Ionicons name="chevron-forward" size={18} color={c.muted} style={{ marginRight: 12 }} />
@@ -161,10 +189,9 @@ export function TopicsForYou({ ballotId, b, household, complete }: { ballotId: s
       <Sheet open={!!why} onClose={() => setWhy(null)} label={`Why ${why?.label ?? ''}`}>
         <Eyebrow>Why it’s near the top</Eyebrow>
         <Text style={[s.h2, { color: c.ink, marginTop: 0 }]}>{why?.label}: shown first {why?.reason}.</Text>
-        <Text style={[s.body, { color: c.soft }]}>The order changes only with what you told us about your household, never with anything political. It never changes who is shown, or in what order.</Text>
+        <Text style={[s.body, { color: c.soft }]}>The order changes only with what you told us, never with anything political. It never changes who is shown, or in what order.</Text>
         <Pressable onPress={() => setWhy(null)} accessibilityRole="button" style={{ minHeight: TAP, justifyContent: 'center' }}><Text style={[s.link, { color: c.accent }]}>Close</Text></Pressable>
       </Sheet>
-    </View>
     </View>
   );
 }
