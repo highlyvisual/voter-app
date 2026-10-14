@@ -73,26 +73,19 @@ env:
     element: "Is anyone in your household disabled.*"
     centerElement: true
     timeout: 20000
-- tapOn:
-    text: "Skip this one"
-    index: 0
-- tapOn:
-    text: "Skip this one"
-    index: 0
-- tapOn:
-    text: "Skip this one"
-    index: 0
-- tapOn:
-    text: "Skip this one"
-    index: 0
-- tapOn: "Yes"
+- tapOn: "No"
+- extendedWaitUntil:
+    visible: "Is anyone in your household an unpaid carer\\?"
 - waitForAnimationToEnd
 - takeScreenshot: 09-you-conversation
 - scrollUntilVisible:
     element: "Which ethnic group are you\\?"
     centerElement: true
+    timeout: 20000
 - takeScreenshot: 10-you-about-you
 - tapOn: "More"
+- extendedWaitUntil:
+    visible: "Sources"
 - tapOn: "Sources"
 - extendedWaitUntil:
     visible: "Independent"

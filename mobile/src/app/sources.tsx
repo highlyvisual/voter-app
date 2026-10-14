@@ -1,7 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Constants from 'expo-constants';
 import { Pressable, ScrollView, Text, View } from 'react-native';
-import { SITE } from '@/core/api';
 import { F, TAP, usePalette } from '@/core/theme';
 import { Emblem } from '@/components/brand';
 import { haptic, openLink, s } from '@/components/ui';

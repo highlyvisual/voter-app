@@ -32,7 +32,7 @@ export default function More() {
       {ITEMS.map((group, g) => (
         <View key={g} style={{ backgroundColor: c.panel, borderRadius: 20, borderWidth: 1, borderColor: c.line, paddingLeft: 16 }}>
           {group.map((x, i) => (
-            <Pressable key={x.label} onPress={() => { haptic.choose(); if (x.to) router.push(x.to); else openLink(x.url!, c); }} accessibilityRole={x.to ? 'button' : 'link'} accessibilityHint={x.to ? undefined : 'Opens on the website'}
+            <Pressable key={x.label} onPress={() => { haptic.choose(); if (x.to) router.push(x.to); else openLink(x.url!, c); }} accessibilityRole={x.to ? 'button' : 'link'} accessibilityLabel={x.label} accessibilityHint={x.to ? undefined : 'Opens on the website'}
               style={({ pressed }) => [{ minHeight: TAP + 6, flexDirection: 'row', alignItems: 'center', gap: 14, paddingRight: 14, borderTopWidth: i ? 1 : 0, borderTopColor: c.line, opacity: pressed ? 0.6 : 1 }]}>
               <Ionicons name={x.icon} size={20} color={c.aubergine} />
               <Text style={{ fontFamily: F.semi, fontSize: 16, color: c.ink, flex: 1 }}>{x.label}</Text>
