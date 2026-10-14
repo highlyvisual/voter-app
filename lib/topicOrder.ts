@@ -1,4 +1,4 @@
-import { TOPICS, type Topic } from "@/lib/data";
+import { TOPICS, type Topic } from "@/lib/types";
 import type { Household } from "@/lib/household";
 
 // Orders the ten topics for one household: the ones that touch something the

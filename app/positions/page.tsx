@@ -2,6 +2,7 @@ import Link from "next/link";
 import PositionsExplorer, { type Election, type Row } from "@/components/PositionsExplorer";
 import { TOPICS, TOPIC_SHORT, listBallots, listArchivedBallots, publicClient } from "@/lib/data";
 import { layerOf, layerKey } from "@/lib/claims";
+import type { Claim } from "@/lib/types";
 import { whenText } from "@/components/ClaimLayers";
 import { fixLink, linkFixes } from "@/lib/links";
 
@@ -27,7 +28,7 @@ export default async function Positions({ searchParams }: { searchParams: Promis
   const ballotOf = new Map(ballots.map((b) => [b.ballot_paper_id, b]));
   const topicLabel = Object.fromEntries(TOPICS) as Record<string, string>;
   const fixes = await linkFixes();
-  const rows: Row[] = ((data ?? []) as Parameters<typeof layerOf>[0][]).map((c) => {
+  const rows: Row[] = ((data ?? []) as Claim[]).map((c) => {
     const cand = c.candidate_id ? byId.get(c.candidate_id) : null;
     const pname = c.party_ec_id ? partyName.get(c.party_ec_id) ?? null : null;
     return {
