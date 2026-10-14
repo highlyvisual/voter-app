@@ -44,7 +44,8 @@ export default function CandidateScreen() {
               {k.is_incumbent ? <Small>Currently holds this seat.</Small> : null}
             </View>
           </View>
-          {k.photo_url && k.photo_credit ? <Small>Photo: {k.photo_credit}, via Democracy Club.</Small> : null}
+          {/* photo_credit can be a licence code such as "other" rather than a name; then only the source is named. */}
+          {k.photo_url ? <Small>{k.photo_credit && !/^(other|public-domain|profile-photo|copyright-assigned|sopn)$/i.test(k.photo_credit) ? `Photo: ${k.photo_credit}, via Democracy Club.` : "Photo via Democracy Club."}</Small> : null}
 
           <H2>In their own words</H2>
           {k.statement ? (

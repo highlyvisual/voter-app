@@ -30,7 +30,7 @@ export default function BallotScreen() {
           {b.ballot.cancelled ? <Banner>This election has been cancelled.</Banner> : null}
           {b.ballot.postponed ? <Banner>This election has been postponed.{b.ballot.postponed_note ? ` ${b.ballot.postponed_note}` : ''}</Banner> : null}
           {b.ballot.uncontested ? <Banner>Uncontested: there are no more candidates than seats, so no vote will be held.</Banner> : null}
-          {b.ballot.by_election_reason ? <Small>{b.ballot.by_election_reason}</Small> : null}
+          {b.ballot.by_election_reason ? <Small>Why there’s a by-election: {b.ballot.by_election_reason.charAt(0).toUpperCase() + b.ballot.by_election_reason.slice(1).toLowerCase().replace(/_/g, " ")}</Small> : null}
 
           <KeyDates b={b} />
 

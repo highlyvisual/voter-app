@@ -1,0 +1,55 @@
+# The 0.2.0 journey: postcode → ballot → candidate → a topic → profile → back. Run with:
+#   MAESTRO_CLI_NO_ANALYTICS=1 maestro test mobile/.maestro/journey.yaml --test-output-dir <dir>
+# Screenshots are written for the PR. Uses CH4 9AA (Higher Kinnerton by-election); swap the postcode once that has passed.
+appId: org.whatsittome.app
+env:
+  POSTCODE: CH4 9AA
+---
+- launchApp:
+    clearState: true
+- assertVisible: "What’s It To Me?"
+- takeScreenshot: 01-home
+- tapOn:
+    id: postcode
+- inputText: ${POSTCODE}
+- tapOn: "Find my elections"
+- extendedWaitUntil:
+    visible: "Coming up in.*"
+    timeout: 20000
+- takeScreenshot: 02-elections
+- tapOn:
+    text: "Flintshire local election.*"
+- extendedWaitUntil:
+    visible: "Key dates"
+    timeout: 20000
+- takeScreenshot: 03-ballot
+- scrollUntilVisible:
+    element: "The \\d+ candidates"
+- takeScreenshot: 04-ballot-candidates
+- scrollUntilVisible:
+    element: "Josh Swash.*"
+- tapOn:
+    text: "Josh Swash.*"
+- extendedWaitUntil:
+    visible: "In their own words"
+    timeout: 10000
+- takeScreenshot: 05-candidate
+- scrollUntilVisible:
+    element: "Positions by topic"
+- takeScreenshot: 06-candidate-positions
+- tapOn: "Back"
+- scrollUntilVisible:
+    element: "What changes for you"
+- scrollUntilVisible:
+    element: "Housing.*"
+- tapOn:
+    text: "Housing.*"
+- extendedWaitUntil:
+    visible: "Housing and property"
+    timeout: 10000
+- takeScreenshot: 07-topic
+- tapOn: "Profile"
+- assertVisible: "Your answers never leave this phone"
+- takeScreenshot: 08-profile
+- tapOn: "Home"
+- takeScreenshot: 09-back-home

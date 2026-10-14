@@ -1,6 +1,6 @@
 import Constants from 'expo-constants';
 import { useEffect, useState } from 'react';
-import { KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from 'react-native';
+import { Keyboard, KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from 'react-native';
 import type { ElectionsResponse, MetaResponse } from '@/lib/appApi';
 import { compareVersions } from '@/lib/appApi';
 import { loadMeta, lookupElections } from '@/core/api';
@@ -28,6 +28,7 @@ export default function Home() {
   const storeUrl = meta ? (Platform.OS === 'ios' ? meta.storeUrls.ios : meta.storeUrls.android) : null;
 
   async function look() {
+    Keyboard.dismiss();
     setBusy(true);
     setResult(null);
     try {
@@ -65,6 +66,7 @@ export default function Home() {
           autoComplete="postal-code"
           textContentType="postalCode"
           returnKeyType="search"
+          testID="postcode"
           accessibilityLabel="Your postcode"
           accessibilityLabelledBy="pcLabel"
           style={{ borderWidth: 2, borderRadius: 12, paddingHorizontal: 14, minHeight: 52, fontSize: 20, letterSpacing: 1, color: c.ink, backgroundColor: c.panel, borderColor: c.line }}
