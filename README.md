@@ -21,7 +21,7 @@ Everything about the project — where things live, infrastructure, the decision
 
 ## Stack
 
-Next.js (App Router) on Netlify · Supabase Postgres + PostGIS · PolicyEngine UK (offline) · postcodes.io.
+Next.js (App Router) on Netlify · Supabase Postgres · PolicyEngine UK (offline) · postcodes.io.
 
 ## Environment
 

@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Round ten — everything still open, in one place</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #000;
+    --paper: #fff;
+    --rule: #000;
+    --muted: #555;
+    --field: #f4f4f4;
+    --measure: 40rem;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 4rem 1.25rem 6rem;
+  }
+  header { margin-bottom: 3.5rem; }
+  h1 {
+    font-size: clamp(2.6rem, 8vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.25rem;
+  }
+  .lede { margin: 0 0 1rem; }
+  .lede + .lede { margin-top: 0; }
+  .small { font-size: 0.95rem; color: var(--muted); }
+  .meta {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+    margin-top: 2rem;
+  }
+  .meta span { white-space: nowrap; }
+
+  section { margin: 3.5rem 0 0; }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0 0 0.25rem;
+  }
+  .why { margin: 0 0 2rem; color: var(--muted); }
+
+  .q { margin: 0 0 2.5rem; }
+  .q label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .q label .n {
+    display: inline-block;
+    width: 2rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .q .hint {
+    margin: 0 0 0.6rem 2rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .q .hint em { font-style: italic; }
+  textarea, input[type=text] {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    font: inherit;
+    color: var(--ink);
+    background: var(--field);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    padding: 0.7rem 0.75rem;
+    resize: vertical;
+    min-height: 6.5rem;
+  }
+  input[type=text] { min-height: 0; }
+  textarea:focus, input:focus, button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .choices { margin: 0 0 0.75rem 2rem; }
+  .choices label {
+    display: block; font-weight: 400; margin: 0.15rem 0;
+  }
+  .choices input { margin-right: 0.5rem; accent-color: #000; }
+
+  .submit {
+    margin-top: 4rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+  button {
+    font: inherit;
+    font-weight: 500;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+  }
+  button.secondary { background: var(--paper); color: var(--ink); margin-left: 0.75rem; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  #status { margin-top: 1rem; min-height: 1.6rem; }
+  .hidden { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    #status { transition: opacity 200ms; }
+  }
+  .why a, .q a { color: inherit; }
+  .tablewrap { overflow-x: auto; margin: 0 0 1rem; border-top: 1px solid var(--rule); }
+  .tablewrap table { border-collapse: collapse; font-size: 0.95rem; line-height: 1.45; min-width: 36rem; width: 100%; }
+  .tablewrap th, .tablewrap td { text-align: left; vertical-align: top; padding: 0.5rem 0.6rem 0.5rem 0; border-bottom: 1px solid #ccc; }
+  .tablewrap th { font-weight: 500; border-bottom: 1px solid var(--rule); }
+
+  .changes { margin: 0 0 1rem; padding-left: 1.2rem; }
+  .changes li { margin: 0 0 0.9rem; }
+  .tag { display: inline-block; font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; border: 1px solid var(--ink); padding: 0 0.4rem; margin-right: 0.4rem; vertical-align: 0.1em; }
+  .tag.soon { border-style: dashed; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Round ten.</h1>
+    <p class="lede">Everything still open, in one place. This replaces round nine, which nobody has answered yet, so you don&rsquo;t need to go back to it. It also covers your meeting with Peter Keeling at Democracy Club on 8 October, and your map note.</p>
+    <p class="lede small">Part A matters most; Part D only matters if you keep the two extra pages; Part E is about the app&rsquo;s new screens. As before, answers save in this browser as you type. Nothing is sent until you press &ldquo;Send my answers&rdquo;, you can send more than once, and &ldquo;I don&rsquo;t know yet&rdquo; is a fine answer. Wednesday 14 October 2026.</p>
+    <div class="meta" aria-live="polite">
+      <span id="progress">0 answered</span>
+      <span id="saved"></span>
+    </div>
+  </header>
+
+  <section>
+    <h2>What&rsquo;s changed</h2>
+    <p class="why"><span class="tag">Live</span> means you can see it now. <span class="tag soon">Built</span> means it&rsquo;s finished, waiting to go live. <span class="tag soon">Next</span> means it&rsquo;s planned. The earlier list of changes is still on <a href="/round-9/">round nine</a>.</p>
+    <ul class="changes">
+      <li><span class="tag">Live</span><strong>Your map note.</strong> The &ldquo;What does &hellip; mean?&rdquo; links and the map&rsquo;s source line are now behind one small &ldquo;Define these terms&rdquo; button, closed until you tap it. The coloured chips stay.</li>
+      <li><span class="tag">Live</span><strong>The phone app, first test version.</strong> It&rsquo;s on Dad&rsquo;s iPhone through Apple&rsquo;s TestFlight, and on Google Play for testers. Google is reviewing the version for wider testing. You&rsquo;re on the Android tester list; you&rsquo;ll get an iPhone invite once Dad adds you in Apple&rsquo;s system. For now it&rsquo;s one screen: postcode, then your elections. Tapping an election opens the website.</li>
+      <li><span class="tag soon">Built</span><strong>The app made properly native.</strong> Your ballot, the candidates, and what each result means for your household, built as real app screens, with your answers kept on the phone. It works end to end on Dad&rsquo;s computer and comes to your phone next. Part E has its questions; question 1 decides what it leads with.</li>
+    </ul>
+  </section>
+
+  <form id="form" method="POST" name="romily-answers-round-10" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="romily-answers-round-10">
+    <p class="hidden"><label>Leave this empty: <input name="bot-field"></label></p>
+
+    <div class="q">
+      <label for="name"><span class="n"></span>Your name</label>
+      <input type="text" id="name" name="name" autocomplete="name" value="Romily">
+    </div>
+
+    <section>
+      <h2>Part A: the big decisions</h2>
+      <p class="why">Please answer these first; they shape everything else. Peter Keeling&rsquo;s main point on 8 October was that Democracy Club did well partly by doing one thing particularly well. You said the breadth is fine, but pages should be clearer and less dense.</p>
+      <div class="q">
+        <label><span class="n">1</span>If What&rsquo;s It To Me? could only do one thing brilliantly, which would it be?</label>
+        <p class="hint">Everything else would still be there, a tap behind. This decides what the home page and the app lead with, and whether the extra pages in Part D stay.</p>
+        <div class="choices">
+          <label><input type="radio" name="q1_one_thing" value="next-vote"> Your next vote: who&rsquo;s standing and what it means for you</label>
+          <label><input type="radio" name="q1_one_thing" value="where-you-live"> What&rsquo;s happening where you live: the council and local decisions</label>
+          <label><input type="radio" name="q1_one_thing" value="how-politics-works"> Helping people understand how politics works</label>
+          <label><input type="radio" name="q1_one_thing" value="other"> Something else (say below)</label>
+        </div>
+        <textarea name="q1_one_thing_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">2</span>One rule for every page: one idea per screen, with details, definitions and sources behind a tap, like your map change. Use it everywhere? And which page should we simplify first?</label>
+        <p class="hint">You asked for less dense pages on 6 October. None of the five feedback answers named a page as too busy, so it&rsquo;s your call.</p>
+        <div class="choices">
+          <label><input type="radio" name="q2_less_dense" value="home"> Yes, start with the home page</label>
+          <label><input type="radio" name="q2_less_dense" value="ballot"> Yes, start with the ballot page</label>
+          <label><input type="radio" name="q2_less_dense" value="candidate"> Yes, start with a candidate&rsquo;s page</label>
+          <label><input type="radio" name="q2_less_dense" value="you"> Yes, start with Your politics</label>
+          <label><input type="radio" name="q2_less_dense" value="council"> Yes, start with a council page</label>
+          <label><input type="radio" name="q2_less_dense" value="other"> Something else (say below)</label>
+        </div>
+        <textarea name="q2_less_dense_why" placeholder="Anything that must always stay visible? Which bits do you use least?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">3</span>Parish councils and combined authorities: Peter suggested covering them, because local decisions affect everyday life most. When, and which first?</label>
+        <div class="choices">
+          <label><input type="radio" name="q3_coverage" value="combined-after"> Combined authorities and mayors first, after the pages are simpler</label>
+          <label><input type="radio" name="q3_coverage" value="parish-after"> Parish and town councils first, after the pages are simpler</label>
+          <label><input type="radio" name="q3_coverage" value="both-after"> Both, after the pages are simpler</label>
+          <label><input type="radio" name="q3_coverage" value="now"> Start now, alongside the simplifying</label>
+          <label><input type="radio" name="q3_coverage" value="not-yet"> Not for now</label>
+        </div>
+        <textarea name="q3_coverage_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">4</span>Every claim already says which kind of source it is: manifesto, public record, the candidate&rsquo;s own words, leaflet, or third-party report. Peter stressed a clear line between what parties say and independent sources. Make that more visible, for example a coloured tag on each claim?</label>
+        <div class="choices">
+          <label><input type="radio" name="q4_source_labels" value="tag"> Yes, a visible tag on each</label>
+          <label><input type="radio" name="q4_source_labels" value="fine"> It&rsquo;s clear enough now</label>
+          <label><input type="radio" name="q4_source_labels" value="other"> Something else</label>
+        </div>
+        <textarea name="q4_source_labels_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">5</span>Peter also advised being realistic about whether something is working. What would make you say &ldquo;this is working&rdquo; by the May 2027 local elections?</label>
+        <p class="hint">For example: a number of people using it, a number of areas covered, first-time voters telling us it helped, or a partner organisation using it.</p>
+        <textarea name="q5_success" placeholder="What does working look like?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Part B: getting it to people</h2>
+      <div class="q">
+        <label><span class="n">6</span>Google needs 12 people with Android phones to test the app for 14 days in a row before it can go on the Play Store. Can you ask friends? We need each person&rsquo;s Gmail address, and they must agree to it.</label>
+        <p class="hint">Anyone with a Gmail account and an Android phone. They install it from a link and keep it for two weeks. Feedback is welcome but not required.</p>
+        <textarea name="q6_testers" placeholder="Names and Gmail addresses (only with their agreement)"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">7</span>Outreach. Who do we contact first, what do we ask, and who sends it?</label>
+        <p class="hint">Your list (round nine): Shout Out UK, My Life My Say and Full Fact. Peter&rsquo;s suggestions: The Politics Project, Seneca, Reach and &ldquo;State&rdquo;. There are notes on Peter&rsquo;s four at the bottom of this page. My suggestion: The Politics Project first. Nothing goes out until Dad says yes.</p>
+        <div class="choices">
+          <label><input type="radio" name="q7_outreach" value="feedback"> Ask them to try the site and give feedback</label>
+          <label><input type="radio" name="q7_outreach" value="partner"> Ask about working together or linking to us</label>
+          <label><input type="radio" name="q7_outreach" value="both"> Both</label>
+          <label><input type="radio" name="q7_outreach" value="other"> Something else</label>
+        </div>
+        <textarea name="q7_outreach_why" placeholder="Who first, who sends it, and anything to say or avoid?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">8</span>An embeddable &ldquo;Your next election&rdquo; box that other websites could put on their pages: postcode in, elections out, with a link back to us. Build one?</label>
+        <p class="hint">Peter suggested widgets. Democracy Club&rsquo;s own figures for this year&rsquo;s elections show 3.8% of its postcode searches came through widgets on other sites (<a href="https://democracyclub.org.uk/blog/2026/05/08/2026-postcode-search-summary/" target="_blank" rel="noopener">their 2026 summary</a>).</p>
+        <div class="choices">
+          <label><input type="radio" name="q8_widget" value="yes"> Yes</label>
+          <label><input type="radio" name="q8_widget" value="later"> Later</label>
+          <label><input type="radio" name="q8_widget" value="no"> No</label>
+        </div>
+        <textarea name="q8_widget_why" placeholder="Who should it be for first: local news, schools, councils, charities?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">9</span>Where would you start reaching people who don&rsquo;t usually follow politics, and getting more answers to &ldquo;Tell us what you think&rdquo;? Only five people have filled it in so far.</label>
+        <div class="choices">
+          <label><input type="radio" name="q9_reach" value="schools"> Schools, sixth forms and colleges</label>
+          <label><input type="radio" name="q9_reach" value="tiktok"> Your TikToks and Instagram</label>
+          <label><input type="radio" name="q9_reach" value="local-news"> Local news sites</label>
+          <label><input type="radio" name="q9_reach" value="students"> Student groups and unions</label>
+          <label><input type="radio" name="q9_reach" value="friends"> Send it round to more people we know first</label>
+          <label><input type="radio" name="q9_reach" value="other"> Somewhere else</label>
+        </div>
+        <textarea name="q9_reach_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">10</span>The social post template for your TikToks: what should it make?</label>
+        <p class="hint">For example: a portrait (9:16) card for each candidate in ballot order with the source shown, a &ldquo;polls open&rdquo; or deadline countdown, or one &ldquo;what&rsquo;s at stake&rdquo; topic with each party&rsquo;s own words.</p>
+        <textarea name="q10_social_template" placeholder="Format, what goes on it, any examples you like"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Part C: wording and decisions on existing pages</h2>
+      <div class="q">
+        <label><span class="n">11</span>The section on Your politics is headed &ldquo;What matters to <em>you</em> right now&rdquo;, to match the rest of the page, which talks to the reader as &ldquo;you&rdquo;. Your words were &ldquo;to <em>me</em>&rdquo;. Which should it be?</label>
+        <p class="hint"><a href="https://whatsittome.org/you" target="_blank" rel="noopener">Your politics</a>, after &ldquo;What you&rsquo;re voting for&rdquo;.</p>
+        <div class="choices">
+          <label><input type="radio" name="q11_right_now_heading" value="you"> &ldquo;What matters to you right now&rdquo;</label>
+          <label><input type="radio" name="q11_right_now_heading" value="me"> &ldquo;What matters to me right now&rdquo;</label>
+          <label><input type="radio" name="q11_right_now_heading" value="other"> Something else (say below)</label>
+        </div>
+        <textarea name="q11_right_now_heading_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">12</span>When you said &ldquo;current affairs&rdquo;, did you mean more than what&rsquo;s happening locally?</label>
+        <p class="hint">Showing headlines from newspapers or broadcasters is a bigger decision. We only quote words exactly, so we&rsquo;d need a news source we can quote word for word and link to, and we&rsquo;d have to show every outlet the same way.</p>
+        <div class="choices">
+          <label><input type="radio" name="q12_current_affairs" value="local"> Local is enough: the council, consultations and Parliament</label>
+          <label><input type="radio" name="q12_current_affairs" value="impartial"> Local, plus impartial national sources such as GOV.UK and Parliament</label>
+          <label><input type="radio" name="q12_current_affairs" value="news"> Also headlines from news organisations (say which below)</label>
+          <label><input type="radio" name="q12_current_affairs" value="other"> Something else</label>
+        </div>
+        <textarea name="q12_current_affairs_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">13</span>Ordering council business. Your round eight answer was &ldquo;let&rsquo;s continue talking about options&rdquo;. Here&rsquo;s one that uses your profile without us judging what matters: items on the topics in your profile first, then everything else, newest first, each with its source. Until you decide, it&rsquo;s by date only.</label>
+        <div class="choices">
+          <label><input type="radio" name="q13_council_order" value="yes"> Yes, do that</label>
+          <label><input type="radio" name="q13_council_order" value="yes-plus"> Yes, and also &hellip; (say below)</label>
+          <label><input type="radio" name="q13_council_order" value="other"> Something else</label>
+        </div>
+        <textarea name="q13_council_order_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">14</span>Hustings: Democracy Club lists local hustings for each election, with where and when. Many are run by campaign groups (for example a wildlife trust&rsquo;s nature hustings). We&rsquo;d list every one for a ballot and say who runs it. OK?</label>
+        <div class="choices">
+          <label><input type="radio" name="q14_hustings" value="all"> Yes, list them all and say who runs each</label>
+          <label><input type="radio" name="q14_hustings" value="neutral-only"> Only ones run by neutral organisers</label>
+          <label><input type="radio" name="q14_hustings" value="no"> No</label>
+        </div>
+        <textarea name="q14_hustings_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">15</span>The climate-emergency quotes on 17 council pages are still held, as you asked. Some are a heading or a news sentence rather than the motion&rsquo;s own words, and one names a party. Ready to decide?</label>
+        <div class="choices">
+          <label><input type="radio" name="q15_climate_quotes" value="hold"> Keep holding them</label>
+          <label><input type="radio" name="q15_climate_quotes" value="motion-only"> Show only the ones quoting the motion&rsquo;s own words</label>
+          <label><input type="radio" name="q15_climate_quotes" value="show"> Show them all</label>
+          <label><input type="radio" name="q15_climate_quotes" value="drop"> Drop them</label>
+        </div>
+        <textarea name="q15_climate_quotes_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">16</span>Welsh on the site. You said you&rsquo;d like a translator; on 27 September Dad decided against one for now. A proper Welsh version needs a professional translator for every page, and again whenever a page changes. Candidates&rsquo; own words are never translated either way.</label>
+        <div class="choices">
+          <label><input type="radio" name="q16_welsh" value="english-now"> English for now; Welsh material published as received</label>
+          <label><input type="radio" name="q16_welsh" value="welsh-learn"> Start with Learn and the main pages in Welsh, professionally translated</label>
+          <label><input type="radio" name="q16_welsh" value="welsh-all"> The whole site in Welsh, professionally translated</label>
+          <label><input type="radio" name="q16_welsh" value="talk"> Talk it through with Dad</label>
+        </div>
+        <textarea name="q16_welsh_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">17</span>Any websites, brands, magazines or colours whose look you like? Links are fine. Skip this if you&rsquo;re happy with how the site looks now.</label>
+        <textarea name="q17_looks" placeholder="Links or names"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">18</span>&ldquo;Keep everything in one file.&rdquo; What did you mean?</label>
+        <div class="choices">
+          <label><input type="radio" name="q18_one_file" value="one-page"> The site: put everything for a place on one page</label>
+          <label><input type="radio" name="q18_one_file" value="one-doc"> Our planning: one document with every plan and decision</label>
+          <label><input type="radio" name="q18_one_file" value="other"> Something else (say below)</label>
+        </div>
+        <textarea name="q18_one_file_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Part D: the two extra pages</h2>
+      <p class="why">&ldquo;Thinking of moving here?&rdquo; and &ldquo;What people are reading&rdquo; are built but not yet linked from the main menu. Given Peter&rsquo;s advice to focus, question 19 asks whether to keep them at all. If you answer &ldquo;park&rdquo; or &ldquo;drop&rdquo;, skip the rest of this part.</p>
+      <div class="q">
+        <label><span class="n">19</span>Keep these two pages?</label>
+        <div class="choices">
+          <label><input type="radio" name="q19_extra_pages" value="keep"> Keep and finish them</label>
+          <label><input type="radio" name="q19_extra_pages" value="moving-only"> Keep &ldquo;Thinking of moving here?&rdquo; only</label>
+          <label><input type="radio" name="q19_extra_pages" value="reading-only"> Keep &ldquo;What people are reading&rdquo; only</label>
+          <label><input type="radio" name="q19_extra_pages" value="park"> Park both for now</label>
+          <label><input type="radio" name="q19_extra_pages" value="drop"> Drop both</label>
+        </div>
+        <textarea name="q19_extra_pages_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">20</span>&ldquo;Thinking of moving here?&rdquo; puts the area first (schools, GPs, house prices, crime) and the politics after. Is that the right balance for someone who comes for the area?</label>
+        <p class="hint">Schools are listed by distance only, the only fair order we have, because grades and results score them.</p>
+        <div class="choices">
+          <label><input type="radio" name="q20_moving_page" value="yes"> Yes, that&rsquo;s right</label>
+          <label><input type="radio" name="q20_moving_page" value="more-politics"> Bring the politics in sooner</label>
+          <label><input type="radio" name="q20_moving_page" value="other"> Something else (say below)</label>
+        </div>
+        <textarea name="q20_moving_page_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">21</span>Beside each school, show the Department for Education&rsquo;s own figures on how many families asked for it? For example, Lawnswood School in Leeds had 261 places in 2026, was named on 596 applications and was the first choice on 114. Schools would stay nearest first, never sorted by demand.</label>
+        <p class="hint">The risk: some people may read a popular school as a &ldquo;better&rdquo; one.</p>
+        <div class="choices">
+          <label><input type="radio" name="q21_school_demand" value="yes"> Yes, show them</label>
+          <label><input type="radio" name="q21_school_demand" value="council-only"> Only the council-wide figure (e.g. &ldquo;83% got their first-choice secondary&rdquo;)</label>
+          <label><input type="radio" name="q21_school_demand" value="no"> No, leave them off</label>
+          <label><input type="radio" name="q21_school_demand" value="other"> Something else</label>
+        </div>
+        <textarea name="q21_school_demand_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">22</span>Which of these should &ldquo;Thinking of moving here?&rdquo; also show for the exact spot? Each comes from an official body, in its own words, with no &ldquo;good&rdquo; or &ldquo;bad&rdquo;. Tick any.</label>
+        <div class="choices">
+          <label><input type="checkbox" name="q22_moving_facts" value="flood"> Flood risk</label>
+          <label><input type="checkbox" name="q22_moving_facts" value="noise"> Road, rail and airport noise</label>
+          <label><input type="checkbox" name="q22_moving_facts" value="air"> Air pollution</label>
+          <label><input type="checkbox" name="q22_moving_facts" value="radon"> Radon and ground conditions</label>
+          <label><input type="checkbox" name="q22_moving_facts" value="homes-sold"> Homes sold nearby, and their prices</label>
+          <label><input type="checkbox" name="q22_moving_facts" value="sewage"> Sewage overflows nearby</label>
+          <label><input type="checkbox" name="q22_moving_facts" value="health"> Pharmacies, dentists and care homes nearby</label>
+          <label><input type="checkbox" name="q22_moving_facts" value="childcare"> Nurseries and childcare places</label>
+          <label><input type="checkbox" name="q22_moving_facts" value="school-size"> Each school&rsquo;s size, capacity and class sizes</label>
+        </div>
+        <textarea name="q22_moving_facts_why" placeholder="Anything to leave out or add?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">23</span>&ldquo;What people are reading&rdquo; orders each list by its publisher&rsquo;s own count (pages read on GOV.UK, signatures on petitions). OK under our &ldquo;never rank&rdquo; rule?</label>
+        <p class="hint">Never used for candidates or parties; counts are never combined or adjusted; the page says being read a lot doesn&rsquo;t make something important or true.</p>
+        <div class="choices">
+          <label><input type="radio" name="q23_popularity_order" value="yes"> Yes</label>
+          <label><input type="radio" name="q23_popularity_order" value="newest-only"> No: put every list newest first</label>
+          <label><input type="radio" name="q23_popularity_order" value="other"> Something else</label>
+        </div>
+        <textarea name="q23_popularity_order_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">24</span>The most-signed Parliament petitions include contested causes, such as one asking for a public inquiry into illegal migration and one against adding folic acid to flour. They&rsquo;re there only because the most people signed them. Keep petitions on the list?</label>
+        <div class="choices">
+          <label><input type="radio" name="q24_petitions" value="keep"> Keep them, as they are</label>
+          <label><input type="radio" name="q24_petitions" value="drop"> Leave petitions off</label>
+          <label><input type="radio" name="q24_petitions" value="other"> Something else</label>
+        </div>
+        <textarea name="q24_petitions_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">25</span>Council e-petitions: list each council&rsquo;s open petitions on its page, most signed first, in the petitioner&rsquo;s own words (never showing who signed)?</label>
+        <div class="choices">
+          <label><input type="radio" name="q25_council_petitions" value="yes"> Yes, most signed first</label>
+          <label><input type="radio" name="q25_council_petitions" value="newest"> Yes, but newest first</label>
+          <label><input type="radio" name="q25_council_petitions" value="no"> No</label>
+        </div>
+        <textarea name="q25_council_petitions_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">26</span>&ldquo;Have your say&rdquo;: Parliament&rsquo;s committees asking for public evidence, and government consultations open now. Where should they go?</label>
+        <div class="choices">
+          <label><input type="radio" name="q26_have_your_say" value="reading"> On &ldquo;What people are reading&rdquo;</label>
+          <label><input type="radio" name="q26_have_your_say" value="right-now"> In &ldquo;Right now&rdquo; on Your politics</label>
+          <label><input type="radio" name="q26_have_your_say" value="both"> Both</label>
+          <label><input type="radio" name="q26_have_your_say" value="neither"> Neither</label>
+          <label><input type="radio" name="q26_have_your_say" value="other"> Somewhere else</label>
+        </div>
+        <textarea name="q26_have_your_say_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">27</span>Any other impartial sources for the reading lists? The publisher must have a duty to be impartial, for example the Electoral Commission, the Office for Budget Responsibility, or the research services of the Senedd, the Scottish Parliament and the Northern Ireland Assembly.</label>
+        <textarea name="q27_more_sources" placeholder="Which, and why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">28</span>If you keep them, where should these pages go on the site?</label>
+        <p class="hint">Right now they&rsquo;re only linked from the no-election area page and from &ldquo;Right now&rdquo;.</p>
+        <div class="choices">
+          <label><input type="radio" name="q28_navigation" value="menu"> In the main menu</label>
+          <label><input type="radio" name="q28_navigation" value="home"> On the home page</label>
+          <label><input type="radio" name="q28_navigation" value="both"> Both</label>
+          <label><input type="radio" name="q28_navigation" value="tucked"> Tucked away as they are</label>
+          <label><input type="radio" name="q28_navigation" value="other"> Somewhere else</label>
+        </div>
+        <textarea name="q28_navigation_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Part E: the app&rsquo;s new screens</h2>
+      <p class="why">The app now has real screens: your ballot, each candidate, and what each result means for your household, with your answers kept on the phone. These are the wording and order choices it needs from you. For now it uses the placeholders described below.</p>
+      <div class="q">
+        <label><span class="n">29</span>What order should the topics go in?</label>
+        <p class="hint">You asked for this earlier. Right now the app uses the website&rsquo;s fixed order.</p>
+        <div class="choices">
+          <label><input type="radio" name="q29_app_topic_order" value="profile"> Topics that match my household first, with a line saying why</label>
+          <label><input type="radio" name="q29_app_topic_order" value="fixed"> The same fixed order as the website</label>
+          <label><input type="radio" name="q29_app_topic_order" value="other"> Something else</label>
+        </div>
+        <textarea name="q29_app_topic_order_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">30</span>When a candidate has positions on a topic but none of them apply to your household, what should it say?</label>
+        <div class="choices">
+          <label><input type="radio" name="q30_app_nothing_applies" value="keep"> &ldquo;None of these name a household like yours.&rdquo; (the placeholder)</label>
+          <label><input type="radio" name="q30_app_nothing_applies" value="mention"> &ldquo;None of these positions mention households like yours.&rdquo;</label>
+          <label><input type="radio" name="q30_app_nothing_applies" value="other"> Something else (write it below)</label>
+        </div>
+        <textarea name="q30_app_nothing_applies_why" placeholder="Your wording, or why"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">31</span>When a candidate has no position on a topic, every such candidate gets the same card. What should it say?</label>
+        <p class="hint">The card looks the same for every candidate, so nobody is singled out.</p>
+        <div class="choices">
+          <label><input type="radio" name="q31_app_no_position" value="keep"> &ldquo;No published position found yet.&rdquo; (the placeholder)</label>
+          <label><input type="radio" name="q31_app_no_position" value="other"> Something else (write it below)</label>
+        </div>
+        <textarea name="q31_app_no_position_why" placeholder="Your wording, or why"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">32</span>Positions that don&rsquo;t apply to your household sit under &ldquo;Applies to others&rdquo;. Should that start open or closed?</label>
+        <div class="choices">
+          <label><input type="radio" name="q32_app_applies_to_others" value="closed"> Closed, tap to open (as now)</label>
+          <label><input type="radio" name="q32_app_applies_to_others" value="open"> Open</label>
+        </div>
+        <textarea name="q32_app_applies_to_others_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">33</span>Money figures appear only once all seven money questions in your profile are answered, as on the website. Keep it that way?</label>
+        <div class="choices">
+          <label><input type="radio" name="q33_app_money_figures" value="keep"> Yes, only when all seven are answered</label>
+          <label><input type="radio" name="q33_app_money_figures" value="partial"> Show what we can with fewer answers, and say what&rsquo;s missing</label>
+          <label><input type="radio" name="q33_app_money_figures" value="other"> Something else</label>
+        </div>
+        <textarea name="q33_app_money_figures_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <section>
+      <h2>Notes on Peter&rsquo;s four organisations</h2>
+      <p class="why">Researched on 14 October 2026 from each organisation&rsquo;s own pages. The links are the sources.</p>
+      <ul class="changes">
+        <li><strong>The Politics Project.</strong> A non-partisan democratic education organisation working with schools and youth groups across the UK: video calls between learners and elected representatives, youth hustings, and the Democracy Classroom Network of more than 100 organisations. It says it supports more than 4,000 schools and youth groups (<a href="https://www.thepoliticsproject.org.uk/" target="_blank" rel="noopener">their site</a>), and it co-produces the UK Democracy Bulletin with Democracy Club (<a href="https://ukdemocracynetwork.medium.com/uk-democracy-bulletin-march-2026-c5b61220f548" target="_blank" rel="noopener">March 2026</a>). Contact: info@thepoliticsproject.org.uk (<a href="https://www.thepoliticsproject.org.uk/contact" target="_blank" rel="noopener">contact page</a>). <em>The closest fit to what we do.</em></li>
+        <li><strong>Seneca Learning.</strong> A free homework and revision platform for students from Year 3 to A level, used by about 15 million students by its own count, covering Citizenship and A-level Politics (<a href="https://senecalearning.com/en-GB/" target="_blank" rel="noopener">their site</a>, <a href="https://help.senecalearning.com/en/articles/3621918-what-subjects-courses-are-covered-on-seneca" target="_blank" rel="noopener">subjects</a>). GoStudent bought it in 2022 (<a href="https://techcrunch.com/2022/02/01/gostudent-acquires-uks-seneca-learning-and-spains-tus-media-group" target="_blank" rel="noopener">TechCrunch</a>). Contact: learnmore@seneca.io. <em>A huge student audience, but it&rsquo;s a company, so expect a slower process.</em></li>
+        <li><strong>Reach plc.</strong> The UK&rsquo;s largest commercial news publisher: the Mirror, Express, Manchester Evening News, WalesOnline and the &ldquo;Live&rdquo; local news sites (<a href="https://reachsolutions.co.uk/resources/blog/agency/reach-further-consolidates-its-position-as-the-uks-largest-commercial-publisher-with-deeper-engagement-driving-page-view-growth-in-2025" target="_blank" rel="noopener">Reach Solutions</a>). We found no election tool of theirs. Partnership enquiries go through a form on their <a href="https://www.reachsolutions.co.uk/solutions/partnerships" target="_blank" rel="noopener">partnerships page</a>. <em>Huge local reach; best once the app and widget exist.</em></li>
+        <li><strong>&ldquo;State&rdquo;.</strong> We couldn&rsquo;t find a current UK politics app by that name. A website called State closed some years ago (<a href="https://en.wikipedia.org/wiki/State_(website)" target="_blank" rel="noopener">Wikipedia</a>), and an app called State on Google Play is a discussion app with no UK link. <em>Worth asking Peter for a link.</em></li>
+      </ul>
+    </section>
+
+    <div class="submit">
+      <section style="margin-top:0">
+        <h2>Anything else</h2>
+        <p class="why">Anything at all, including anything else from your meeting with Peter.</p>
+        <div class="q">
+          <label for="note"><span class="n"></span>Any other comments</label>
+          <textarea id="note" name="anything_else" style="min-height:10rem"></textarea>
+        </div>
+      </section>
+      <button type="submit" id="send">Send my answers</button>
+      <button type="button" class="secondary" id="clear">Clear everything</button>
+      <p id="status" role="status"></p>
+      <p class="small">You can send more than once.</p>
+    </div>
+  </form>
+</main>
+
+<script>
+(function () {
+  var form = document.getElementById('form');
+  var status = document.getElementById('status');
+  var progress = document.getElementById('progress');
+  var saved = document.getElementById('saved');
+  var KEY = 'romily-app-answers-round-10-combined';
+  var fields = Array.prototype.slice.call(form.querySelectorAll('textarea, input[type=text], input[type=radio], input[type=checkbox]'));
+  var questionNames = [];
+  fields.forEach(function (f) {
+    var base = f.name.replace(/_why$/, '');
+    if (/^q\d+_/.test(base) && questionNames.indexOf(base) === -1) questionNames.push(base);
+  });
+
+  function read() {
+    var data = {};
+    fields.forEach(function (f) {
+      if (f.type === 'radio') { if (f.checked) data[f.name] = f.value; }
+      else if (f.type === 'checkbox') { if (f.checked) data[f.name] = (data[f.name] ? data[f.name] + '; ' : '') + f.value; }
+      else data[f.name] = f.value;
+    });
+    return data;
+  }
+  function write(data) {
+    fields.forEach(function (f) {
+      if (!(f.name in data)) return;
+      if (f.type === 'radio') f.checked = (f.value === data[f.name]);
+      else if (f.type === 'checkbox') f.checked = String(data[f.name]).split('; ').indexOf(f.value) !== -1;
+      else f.value = data[f.name];
+    });
+  }
+  function answered(data) {
+    var n = 0;
+    questionNames.forEach(function (q) {
+      var has = false;
+      Object.keys(data).forEach(function (k) {
+        if (k.indexOf(q) === 0 && String(data[k]).trim() !== '') has = true;
+      });
+      if (has) n++;
+    });
+    return n;
+  }
+  function refresh() {
+    var data = read();
+    progress.textContent = answered(data) + ' of ' + questionNames.length + ' answered';
+    try {
+      localStorage.setItem(KEY, JSON.stringify(data));
+      saved.textContent = 'Saved in this browser';
+    } catch (e) {
+      saved.textContent = 'Could not save in this browser; send before you close the page';
+    }
+  }
+
+  try {
+    var stored = localStorage.getItem(KEY);
+    if (stored) write(JSON.parse(stored));
+  } catch (e) {}
+  refresh();
+  form.addEventListener('input', refresh);
+  form.addEventListener('change', refresh);
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var btn = document.getElementById('send');
+    btn.disabled = true;
+    status.textContent = 'Sending…';
+    var body = new URLSearchParams(new FormData(form)).toString();
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body
+    }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      status.textContent = 'Sent. Your answers stay saved here, so you can add to them and send again.';
+    }).catch(function () {
+      status.textContent = 'That didn\'t send. Your answers are still saved in this browser; try again in a minute.';
+    }).then(function () { btn.disabled = false; });
+  });
+
+  document.getElementById('clear').addEventListener('click', function () {
+    if (!confirm('Clear every answer on this page? This cannot be undone.')) return;
+    fields.forEach(function (f) {
+      if (f.type === 'radio' || f.type === 'checkbox') f.checked = false;
+      else if (f.name !== 'name') f.value = '';
+    });
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    refresh();
+    status.textContent = 'Cleared.';
+  });
+})();
+</script>
+</body>
+</html>

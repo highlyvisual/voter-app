@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Round nine — what&rsquo;s new, and what&rsquo;s still open</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #000;
+    --paper: #fff;
+    --rule: #000;
+    --muted: #555;
+    --field: #f4f4f4;
+    --measure: 40rem;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, "Times New Roman", serif;
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+  main {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 4rem 1.25rem 6rem;
+  }
+  header { margin-bottom: 3.5rem; }
+  h1 {
+    font-size: clamp(2.6rem, 8vw, 4.5rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.25rem;
+  }
+  .lede { margin: 0 0 1rem; }
+  .lede + .lede { margin-top: 0; }
+  .small { font-size: 0.95rem; color: var(--muted); }
+  .meta {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
+    margin-top: 2rem;
+  }
+  .meta span { white-space: nowrap; }
+
+  section { margin: 3.5rem 0 0; }
+  h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0 0 0.25rem;
+  }
+  .why { margin: 0 0 2rem; color: var(--muted); }
+
+  .q { margin: 0 0 2.5rem; }
+  .q label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+  .q label .n {
+    display: inline-block;
+    width: 2rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .q .hint {
+    margin: 0 0 0.6rem 2rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .q .hint em { font-style: italic; }
+  textarea, input[type=text] {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    font: inherit;
+    color: var(--ink);
+    background: var(--field);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    border-radius: 0;
+    padding: 0.7rem 0.75rem;
+    resize: vertical;
+    min-height: 6.5rem;
+  }
+  input[type=text] { min-height: 0; }
+  textarea:focus, input:focus, button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .choices { margin: 0 0 0.75rem 2rem; }
+  .choices label {
+    display: block; font-weight: 400; margin: 0.15rem 0;
+  }
+  .choices input { margin-right: 0.5rem; accent-color: #000; }
+
+  .submit {
+    margin-top: 4rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+  button {
+    font: inherit;
+    font-weight: 500;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+  }
+  button.secondary { background: var(--paper); color: var(--ink); margin-left: 0.75rem; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  #status { margin-top: 1rem; min-height: 1.6rem; }
+  .hidden { display: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    #status { transition: opacity 200ms; }
+  }
+  .why a, .q a { color: inherit; }
+  .tablewrap { overflow-x: auto; margin: 0 0 1rem; border-top: 1px solid var(--rule); }
+  .tablewrap table { border-collapse: collapse; font-size: 0.95rem; line-height: 1.45; min-width: 36rem; width: 100%; }
+  .tablewrap th, .tablewrap td { text-align: left; vertical-align: top; padding: 0.5rem 0.6rem 0.5rem 0; border-bottom: 1px solid #ccc; }
+  .tablewrap th { font-weight: 500; border-bottom: 1px solid var(--rule); }
+
+  .changes { margin: 0 0 1rem; padding-left: 1.2rem; }
+  .changes li { margin: 0 0 0.9rem; }
+  .tag { display: inline-block; font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; border: 1px solid var(--ink); padding: 0 0.4rem; margin-right: 0.4rem; vertical-align: 0.1em; }
+  .tag.soon { border-style: dashed; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Round nine.</h1>
+    <p class="lede"><strong>This round is now part of <a href="/round-10/">round ten</a>, with everything still open in one place. Please answer there instead.</strong></p>
+    <p class="lede">Here&rsquo;s what has changed since round eight, then the questions that are still open. Some are carried over from round eight because they still need your answer; the rest are new, including five from a fresh search for data. The last box is for anything else on your mind.</p>
+    <p class="lede small">As before, answers save in this browser as you type. Nothing is sent until you press &ldquo;Send my answers&rdquo;, you can send more than once, and &ldquo;I don&rsquo;t know yet&rdquo; is a fine answer. Wednesday 7 October 2026.</p>
+    <div class="meta" aria-live="polite">
+      <span id="progress">0 answered</span>
+      <span id="saved"></span>
+    </div>
+  </header>
+
+  <section>
+    <h2>What&rsquo;s changed since round eight</h2>
+    <p class="why"><span class="tag">Live</span> means you can see it on whatsittome.org now. <span class="tag soon">Built</span> means it&rsquo;s finished and checked, but waiting for Dad to merge and deploy it. <span class="tag soon">Found</span> means research, not built yet.</p>
+    <ul class="changes">
+      <li><span class="tag">Live</span><strong>&ldquo;What matters to you right now&rdquo;</strong>, your ask of 6 October. A new section on <a href="https://whatsittome.org/you" target="_blank" rel="noopener">Your politics</a>, after &ldquo;What you&rsquo;re voting for&rdquo;. It shows your council&rsquo;s open consultations, its next Full Council or Cabinet meeting, recent decisions with the result quoted from the minutes, traffic orders, schools proposed to open or close, and whether Parliament is sitting. Questions 1 and 2 are about it.</li>
+      <li><span class="tag">Live</span><strong>The map dots are raspberry now</strong>, not black (6 October). Council by-elections are white with a raspberry edge, and UK Parliament by-elections are bigger and filled in. See <a href="https://whatsittome.org/next" target="_blank" rel="noopener">Coming up</a>.</li>
+      <li><span class="tag">Live</span><strong>Waste and transport are on the Your politics map</strong>, the next batch after crime, schools, housing land and flood risk. That&rsquo;s 5,056 permitted waste sites across England.</li>
+      <li><span class="tag">Live</span><strong>Who we are</strong> now says we have our own political views and the site doesn&rsquo;t (your note of 30 September).</li>
+      <li><span class="tag">Live</span><strong>The &ldquo;Tell us what you think&rdquo; questionnaire</strong> has had five answers so far, on 30 September and 1 October. Every score was 3 or more out of 5, and nobody said anything felt biased. Five is far too few to go on; question 14 is about getting more.</li>
+      <li><span class="tag soon">Built</span><strong>&ldquo;Right now&rdquo; for far more councils.</strong> At first we could only read the meeting papers of about 14 councils and the consultations of 3, so most postcodes saw almost nothing. The site now finds each council&rsquo;s own meetings and consultation websites by itself. In a test, that came to about 200 councils for meetings, 33 for consultations, and Gazette notices for 49, up from mostly Camden.</li>
+      <li><span class="tag soon">Built</span><strong>&ldquo;Thinking of moving here?&rdquo;</strong> Dad asked for this for people looking at an area they might move to, so they come for the area and stay for the politics. Put in a postcode and you see every school within 2 miles, nearest first, and GP practices within 1.5 miles. There&rsquo;s a plain explanation of how school catchment areas and admissions work, then house prices, crime, the planning record, the next elections and who decides things there. There are no Ofsted grades or exam results, because they score schools. Questions 3 and 7.</li>
+      <li><span class="tag soon">Found</span><strong>A deeper search for new data.</strong> On 7 October Dad had seven searches run at once for official, impartial data we don&rsquo;t use yet, each one checked by loading real data. Among the finds: GOV.UK publishes how many times each page was viewed, so &ldquo;What people are reading&rdquo; can show a real number; DfE publishes how many families asked for each school; Scotland has a national map of school catchments; and councils&rsquo; meeting systems list their decisions and petitions. Questions 18 to 22.</li>
+      <li><span class="tag soon">Built</span><strong>&ldquo;What people are reading&rdquo;</strong>, impartial sources only: official statistics on GOV.UK and from the ONS, petitions to Parliament, the bills going through Parliament, and the House of Commons Library, Lords Library and Parliament&rsquo;s science office. Each list stays in its publisher&rsquo;s own order, and the page says what that order is. GOV.UK ranks by how often each page is read, and petitions by signatures. Where a publisher gives no count, the list is newest first. We never mix the lists or reorder them. Questions 4 to 7.</li>
+    </ul>
+  </section>
+
+  <form id="form" method="POST" name="romily-answers-round-9" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="romily-answers-round-9">
+    <p class="hidden"><label>Leave this empty: <input name="bot-field"></label></p>
+
+    <div class="q">
+      <label for="name"><span class="n"></span>Your name</label>
+      <input type="text" id="name" name="name" autocomplete="name" value="Romily">
+    </div>
+
+    <section>
+      <h2>&ldquo;Right now&rdquo; and the news</h2>
+      <p class="why">Your ask of 6 October: &ldquo;What matters to me right now&rdquo;.</p>
+      <div class="q">
+        <label><span class="n">1</span>The section is headed &ldquo;What matters to <em>you</em> right now&rdquo;, to match the rest of Your politics, which talks to the reader as &ldquo;you&rdquo;. Your words were &ldquo;to <em>me</em>&rdquo;. Which should it be?</label>
+        <p class="hint"><a href="https://whatsittome.org/you" target="_blank" rel="noopener">Your politics</a>, after &ldquo;What you&rsquo;re voting for&rdquo;.</p>
+        <div class="choices">
+          <label><input type="radio" name="q1_right_now_heading" value="you"> &ldquo;What matters to you right now&rdquo;</label>
+          <label><input type="radio" name="q1_right_now_heading" value="me"> &ldquo;What matters to me right now&rdquo;</label>
+          <label><input type="radio" name="q1_right_now_heading" value="other"> Something else (say below)</label>
+        </div>
+        <textarea name="q1_right_now_heading_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">2</span>When you said &ldquo;current affairs&rdquo;, did you mean more than what&rsquo;s happening locally?</label>
+        <p class="hint">Showing headlines from newspapers or broadcasters is a bigger decision. We only quote words exactly, so we&rsquo;d need a news source we can quote word for word and link to, and we&rsquo;d have to show every outlet the same way. None of them publish how often a story is read.</p>
+        <div class="choices">
+          <label><input type="radio" name="q2_current_affairs" value="local"> Local is enough: the council, consultations and Parliament</label>
+          <label><input type="radio" name="q2_current_affairs" value="impartial"> Local, plus the impartial national sources on &ldquo;What people are reading&rdquo;</label>
+          <label><input type="radio" name="q2_current_affairs" value="news"> Also headlines from news organisations (say which below)</label>
+          <label><input type="radio" name="q2_current_affairs" value="other"> Something else</label>
+        </div>
+        <textarea name="q2_current_affairs_why" placeholder="Why?"></textarea>
+      </div>
+
+    </section>
+
+    <section>
+      <h2>The two new pages</h2>
+      <p class="why">&ldquo;Thinking of moving here?&rdquo; and &ldquo;What people are reading&rdquo;. For the reading lists, Dad asked for an order that&rsquo;s fair, such as how often something is read on its own website, and for the site to be open about how it does it.</p>
+      <div class="q">
+        <label><span class="n">3</span>&ldquo;Thinking of moving here?&rdquo; puts the area first (schools, GPs, house prices, crime) and the politics after. Is that the right balance for someone who comes for the area?</label>
+        <p class="hint">Schools are listed by distance only. That&rsquo;s the only fair order we have, because grades and results score them.</p>
+        <div class="choices">
+          <label><input type="radio" name="q3_moving_page" value="yes"> Yes, that&rsquo;s right</label>
+          <label><input type="radio" name="q3_moving_page" value="more-politics"> Bring the politics in sooner</label>
+          <label><input type="radio" name="q3_moving_page" value="other"> Something else (say below)</label>
+        </div>
+        <textarea name="q3_moving_page_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">4</span>Is ordering by each publisher&rsquo;s own count (pages read on GOV.UK, signatures on petitions) all right under our &ldquo;never rank&rdquo; rule?</label>
+        <p class="hint">It&rsquo;s never used for candidates or parties, and we don&rsquo;t combine or adjust the counts. The page says plainly that being read a lot doesn&rsquo;t make something important or true.</p>
+        <div class="choices">
+          <label><input type="radio" name="q4_popularity_order" value="yes"> Yes</label>
+          <label><input type="radio" name="q4_popularity_order" value="newest-only"> No: put every list newest first</label>
+          <label><input type="radio" name="q4_popularity_order" value="other"> Something else</label>
+        </div>
+        <textarea name="q4_popularity_order_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">5</span>The most-signed petitions include contested causes. Today&rsquo;s top ten includes one asking for a public inquiry into illegal migration and one against adding folic acid to flour. They&rsquo;re there only because the most people signed them, and the page says petitions are written by the public. Keep petitions on the list?</label>
+        
+        <div class="choices">
+          <label><input type="radio" name="q5_petitions" value="keep"> Keep them, as they are</label>
+          <label><input type="radio" name="q5_petitions" value="drop"> Leave petitions off this page</label>
+          <label><input type="radio" name="q5_petitions" value="other"> Something else</label>
+        </div>
+        <textarea name="q5_petitions_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">6</span>Any other impartial sources you&rsquo;d like on the list? The rule is that the publisher must have a duty to be impartial.</label>
+        <p class="hint">For example: the Electoral Commission, the Office for Budget Responsibility, or the research services of the Senedd, the Scottish Parliament and the Northern Ireland Assembly.</p>
+        <textarea name="q6_more_sources" placeholder="Which, and why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">7</span>Where should &ldquo;Thinking of moving here?&rdquo; and &ldquo;What people are reading&rdquo; go on the site?</label>
+        <p class="hint">At the moment they&rsquo;re only linked from the no-election area page and from &ldquo;Right now&rdquo;.</p>
+        <div class="choices">
+          <label><input type="radio" name="q7_navigation" value="menu"> In the main menu</label>
+          <label><input type="radio" name="q7_navigation" value="home"> On the home page</label>
+          <label><input type="radio" name="q7_navigation" value="both"> Both</label>
+          <label><input type="radio" name="q7_navigation" value="tucked"> Tucked away as they are</label>
+          <label><input type="radio" name="q7_navigation" value="other"> Somewhere else</label>
+        </div>
+        <textarea name="q7_navigation_why" placeholder="Why?"></textarea>
+      </div>
+
+    </section>
+
+    <section>
+      <h2>Your other asks of 6 October</h2>
+      <div class="q">
+        <label><span class="n">8</span>&ldquo;Less dense pages, with the least-used content tucked away.&rdquo; Which pages should we start with?</label>
+        <p class="hint">You said to start with the pages raised in the questionnaire, but none of the five answers named a page as too busy. Tick the one that matters most, or name others below.</p>
+        <div class="choices">
+          <label><input type="radio" name="q8_less_dense" value="home"> The home page</label>
+          <label><input type="radio" name="q8_less_dense" value="ballot"> The ballot page</label>
+          <label><input type="radio" name="q8_less_dense" value="candidate"> A candidate&rsquo;s page</label>
+          <label><input type="radio" name="q8_less_dense" value="you"> Your politics</label>
+          <label><input type="radio" name="q8_less_dense" value="council"> A council page</label>
+          <label><input type="radio" name="q8_less_dense" value="other"> Others (say below)</label>
+        </div>
+        <textarea name="q8_less_dense_why" placeholder="Which bits do you use least?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">9</span>The social post template for your TikToks: what should it make?</label>
+        <p class="hint">For example: a portrait (9:16) card for each candidate in ballot order with the source shown, a &ldquo;polls open&rdquo; or deadline countdown, or one &ldquo;what&rsquo;s at stake&rdquo; topic with each party&rsquo;s own words.</p>
+        <textarea name="q9_social_template" placeholder="Format, what goes on it, any examples you like"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">10</span>Outreach to Shout Out UK, My Life My Say and Full Fact (tier 1, phase 1 on your list). What do we ask them for, and who sends it?</label>
+        <p class="hint">Nothing goes out until Dad says yes.</p>
+        <div class="choices">
+          <label><input type="radio" name="q10_outreach" value="feedback"> Ask them to try the site and give feedback</label>
+          <label><input type="radio" name="q10_outreach" value="partner"> Ask about working together or linking to us</label>
+          <label><input type="radio" name="q10_outreach" value="both"> Both</label>
+          <label><input type="radio" name="q10_outreach" value="other"> Something else</label>
+        </div>
+        <textarea name="q10_outreach_why" placeholder="Who sends it, and anything to say or avoid?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">11</span>&ldquo;Keep everything in one file.&rdquo; What did you mean?</label>
+        
+        <div class="choices">
+          <label><input type="radio" name="q11_one_file" value="one-page"> The site: put everything for a place on one page</label>
+          <label><input type="radio" name="q11_one_file" value="one-doc"> Our planning: one document with every plan and decision</label>
+          <label><input type="radio" name="q11_one_file" value="other"> Something else (say below)</label>
+        </div>
+        <textarea name="q11_one_file_why" placeholder="Why?"></textarea>
+      </div>
+
+    </section>
+
+    <section>
+      <h2>Still open from round eight</h2>
+      <div class="q">
+        <label><span class="n">12</span>Your answer to question 15 was &ldquo;let&rsquo;s continue talking about options&rdquo;. Here&rsquo;s a way to order council business that uses your profile without us judging what matters: items on the topics in your profile come first, then everything else, newest first, with the source for each. &ldquo;Right now&rdquo; is ordered by date only until you decide.</label>
+        
+        <div class="choices">
+          <label><input type="radio" name="q12_council_order" value="yes"> Yes, do that</label>
+          <label><input type="radio" name="q12_council_order" value="yes-plus"> Yes, and also … (say below)</label>
+          <label><input type="radio" name="q12_council_order" value="other"> Something else</label>
+        </div>
+        <textarea name="q12_council_order_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">13</span>Welsh on the site. You said you want a translator, so the whole site is in Welsh as well as English. On 27 September Dad decided against one for now. Candidates&rsquo; own words are never translated either way. Which do you want?</label>
+        <p class="hint">A proper Welsh version needs a professional translator for every page, and again every time a page changes. You said earlier it should be properly reviewed, not machine translation.</p>
+        <div class="choices">
+          <label><input type="radio" name="q13_welsh" value="english-now"> English for now; Welsh material published as received</label>
+          <label><input type="radio" name="q13_welsh" value="welsh-learn"> Start with Learn and the main pages in Welsh, professionally translated</label>
+          <label><input type="radio" name="q13_welsh" value="welsh-all"> The whole site in Welsh, professionally translated</label>
+          <label><input type="radio" name="q13_welsh" value="talk"> Talk it through with Dad</label>
+        </div>
+        <textarea name="q13_welsh_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">14</span>Only five people have filled in &ldquo;Tell us what you think&rdquo;. How should we get more answers?</label>
+        
+        <div class="choices">
+          <label><input type="radio" name="q14_wider_feedback" value="tiktok"> Through your TikToks</label>
+          <label><input type="radio" name="q14_wider_feedback" value="outreach"> Through the outreach groups, once Dad agrees</label>
+          <label><input type="radio" name="q14_wider_feedback" value="friends"> Send it round to more people we know first</label>
+          <label><input type="radio" name="q14_wider_feedback" value="other"> Something else</label>
+        </div>
+        <textarea name="q14_wider_feedback_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">15</span>The climate-emergency quotes are still held, as you asked (question 28). Are you ready to look at them?</label>
+        <p class="hint">There are 17 council pages. Some quotes are a heading or a news sentence rather than the motion&rsquo;s own words, and one names a party.</p>
+        <div class="choices">
+          <label><input type="radio" name="q15_climate_quotes" value="hold"> Keep holding them</label>
+          <label><input type="radio" name="q15_climate_quotes" value="motion-only"> Show only the ones quoting the motion&rsquo;s own words</label>
+          <label><input type="radio" name="q15_climate_quotes" value="show"> Show them all</label>
+          <label><input type="radio" name="q15_climate_quotes" value="drop"> Drop them</label>
+        </div>
+        <textarea name="q15_climate_quotes_why" placeholder="Why?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">16</span>The Democracy Club call. You suggested Thursday 8 October, but that&rsquo;s polling day in Holborn and St Pancras, and their offer was 7 to 9 October. Shall we ask for a new date?</label>
+        
+        <div class="choices">
+          <label><input type="radio" name="q16_dc_call" value="after"> Ask for a date after the by-election</label>
+          <label><input type="radio" name="q16_dc_call" value="9th"> Try Friday 9 October</label>
+          <label><input type="radio" name="q16_dc_call" value="skip"> Skip it for now</label>
+        </div>
+        <textarea name="q16_dc_call_why" placeholder="Any times that suit you?"></textarea>
+      </div>
+
+      <div class="q">
+        <label><span class="n">17</span>You haven&rsquo;t answered question 11 yet: any websites, brands, magazines or colours whose look you like? Links are fine. Skip this if you&rsquo;re happy with how the site looks now.</label>
+        
+        <textarea name="q17_looks" placeholder="Links or names"></textarea>
+      </div>
+
+    </section>
+
+    <section>
+      <h2>From Dad&rsquo;s search for new data</h2>
+      <p class="why">On 7 October we searched again for official, impartial data the site could use, and checked every source by loading real data from it. These are the finds that need your say before they go on the site. The full write-up is <em>docs/research/12-data-sources-deep-dive.md</em>.</p>
+      <div class="q">
+        <label><span class="n">18</span>&ldquo;Thinking of moving here?&rdquo; could show, beside each school, the Department for Education&rsquo;s own figures on how many families asked for it. For example, Lawnswood School in Leeds had 261 places in 2026, was named on 596 applications and was the first choice on 114. The schools would stay in nearest-first order and never be sorted by demand. Show these figures?</label>
+        <p class="hint">Some people may read a popular school as a &ldquo;better&rdquo; one. The figures are DfE&rsquo;s own, but that&rsquo;s the risk.</p>
+        <div class="choices">
+          <label><input type="radio" name="q18_school_demand" value="yes"> Yes, show them</label>
+          <label><input type="radio" name="q18_school_demand" value="council-only"> Only the council-wide figure (e.g. &ldquo;83% got their first-choice secondary&rdquo;)</label>
+          <label><input type="radio" name="q18_school_demand" value="no"> No, leave them off</label>
+          <label><input type="radio" name="q18_school_demand" value="other"> Something else</label>
+        </div>
+        <textarea name="q18_school_demand_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">19</span>Which of these should &ldquo;Thinking of moving here?&rdquo; also show for the exact spot? Each comes from an official body and is shown in its own words, with no &ldquo;good&rdquo; or &ldquo;bad&rdquo;. Tick any.</label>
+        
+        <div class="choices">
+          <label><input type="checkbox" name="q19_moving_facts" value="flood"> Flood risk (Environment Agency and the Welsh and Scottish equivalents)</label>
+          <label><input type="checkbox" name="q19_moving_facts" value="noise"> Road, rail and airport noise</label>
+          <label><input type="checkbox" name="q19_moving_facts" value="air"> Air pollution</label>
+          <label><input type="checkbox" name="q19_moving_facts" value="radon"> Radon and ground conditions</label>
+          <label><input type="checkbox" name="q19_moving_facts" value="homes-sold"> Homes sold nearby, and their prices</label>
+          <label><input type="checkbox" name="q19_moving_facts" value="sewage"> Sewage overflows nearby: spilling now and hours last year</label>
+          <label><input type="checkbox" name="q19_moving_facts" value="health"> Pharmacies, dentists and care homes nearby</label>
+          <label><input type="checkbox" name="q19_moving_facts" value="childcare"> Nurseries and childcare places</label>
+          <label><input type="checkbox" name="q19_moving_facts" value="school-size"> Each school&rsquo;s size, capacity and class sizes</label>
+        </div>
+        <textarea name="q19_moving_facts_why" placeholder="Anything to leave out or add?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">20</span>&ldquo;Have your say&rdquo; lists: Parliament&rsquo;s committees asking the public for evidence (28 open today, closing soonest first), and government consultations open now. Where should they go?</label>
+        
+        <div class="choices">
+          <label><input type="radio" name="q20_have_your_say" value="reading"> On &ldquo;What people are reading&rdquo;</label>
+          <label><input type="radio" name="q20_have_your_say" value="right-now"> In &ldquo;Right now&rdquo; on Your politics</label>
+          <label><input type="radio" name="q20_have_your_say" value="both"> Both</label>
+          <label><input type="radio" name="q20_have_your_say" value="neither"> Neither</label>
+          <label><input type="radio" name="q20_have_your_say" value="other"> Somewhere else</label>
+        </div>
+        <textarea name="q20_have_your_say_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">21</span>Council e-petitions: many councils run their own petitions, with the number who signed. We can list each council&rsquo;s open petitions on its page, most signed first, written by the petitioner (never showing who signed). OK?</label>
+        <p class="hint">The same approach as Parliament petitions, so most signed first is the petitions site&rsquo;s own order.</p>
+        <div class="choices">
+          <label><input type="radio" name="q21_council_petitions" value="yes"> Yes, most signed first</label>
+          <label><input type="radio" name="q21_council_petitions" value="newest"> Yes, but newest first</label>
+          <label><input type="radio" name="q21_council_petitions" value="no"> No</label>
+        </div>
+        <textarea name="q21_council_petitions_why" placeholder="Why?"></textarea>
+      </div>
+      <div class="q">
+        <label><span class="n">22</span>Hustings: Democracy Club lists local hustings for each election, with where and when. Many are run by campaign groups (for example a wildlife trust&rsquo;s nature hustings). We would list every one for a ballot and say who runs it. OK?</label>
+        
+        <div class="choices">
+          <label><input type="radio" name="q22_hustings" value="all"> Yes, list them all and say who runs each</label>
+          <label><input type="radio" name="q22_hustings" value="neutral-only"> Only ones run by neutral organisers</label>
+          <label><input type="radio" name="q22_hustings" value="no"> No</label>
+        </div>
+        <textarea name="q22_hustings_why" placeholder="Why?"></textarea>
+      </div>
+    </section>
+
+    <div class="submit">
+      <section style="margin-top:0">
+        <h2>Anything else</h2>
+        <p class="why">Anything at all: things you&rsquo;ve noticed on the site, ideas, worries, or things you&rsquo;d like changed.</p>
+        <div class="q">
+          <label for="note"><span class="n"></span>Any other comments</label>
+          <textarea id="note" name="anything_else" style="min-height:10rem"></textarea>
+        </div>
+      </section>
+      <button type="submit" id="send">Send my answers</button>
+      <button type="button" class="secondary" id="clear">Clear everything</button>
+      <p id="status" role="status"></p>
+      <p class="small">You can send more than once.</p>
+    </div>
+  </form>
+</main>
+
+<script>
+(function () {
+  var form = document.getElementById('form');
+  var status = document.getElementById('status');
+  var progress = document.getElementById('progress');
+  var saved = document.getElementById('saved');
+  var KEY = 'romily-app-answers-round-9';
+  var fields = Array.prototype.slice.call(form.querySelectorAll('textarea, input[type=text], input[type=radio], input[type=checkbox]'));
+  var questionNames = [];
+  fields.forEach(function (f) {
+    var base = f.name.replace(/_why$/, '');
+    if (/^q\d+_/.test(base) && questionNames.indexOf(base) === -1) questionNames.push(base);
+  });
+
+  function read() {
+    var data = {};
+    fields.forEach(function (f) {
+      if (f.type === 'radio') { if (f.checked) data[f.name] = f.value; }
+      else if (f.type === 'checkbox') { if (f.checked) data[f.name] = (data[f.name] ? data[f.name] + '; ' : '') + f.value; }
+      else data[f.name] = f.value;
+    });
+    return data;
+  }
+  function write(data) {
+    fields.forEach(function (f) {
+      if (!(f.name in data)) return;
+      if (f.type === 'radio') f.checked = (f.value === data[f.name]);
+      else if (f.type === 'checkbox') f.checked = String(data[f.name]).split('; ').indexOf(f.value) !== -1;
+      else f.value = data[f.name];
+    });
+  }
+  function answered(data) {
+    var n = 0;
+    questionNames.forEach(function (q) {
+      var has = false;
+      Object.keys(data).forEach(function (k) {
+        if (k.indexOf(q) === 0 && String(data[k]).trim() !== '') has = true;
+      });
+      if (has) n++;
+    });
+    return n;
+  }
+  function refresh() {
+    var data = read();
+    progress.textContent = answered(data) + ' of ' + questionNames.length + ' answered';
+    try {
+      localStorage.setItem(KEY, JSON.stringify(data));
+      saved.textContent = 'Saved in this browser';
+    } catch (e) {
+      saved.textContent = 'Could not save in this browser; send before you close the page';
+    }
+  }
+
+  try {
+    var stored = localStorage.getItem(KEY);
+    if (stored) write(JSON.parse(stored));
+  } catch (e) {}
+  refresh();
+  form.addEventListener('input', refresh);
+  form.addEventListener('change', refresh);
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    var btn = document.getElementById('send');
+    btn.disabled = true;
+    status.textContent = 'Sending…';
+    var body = new URLSearchParams(new FormData(form)).toString();
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body
+    }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      status.textContent = 'Sent. Your answers stay saved here, so you can add to them and send again.';
+    }).catch(function () {
+      status.textContent = 'That didn\'t send. Your answers are still saved in this browser; try again in a minute.';
+    }).then(function () { btn.disabled = false; });
+  });
+
+  document.getElementById('clear').addEventListener('click', function () {
+    if (!confirm('Clear every answer on this page? This cannot be undone.')) return;
+    fields.forEach(function (f) {
+      if (f.type === 'radio' || f.type === 'checkbox') f.checked = false;
+      else if (f.name !== 'name') f.value = '';
+    });
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    refresh();
+    status.textContent = 'Cleared.';
+  });
+})();
+</script>
+</body>
+</html>
