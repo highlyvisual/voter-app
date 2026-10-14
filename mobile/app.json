@@ -43,6 +43,12 @@
           }
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "a0ea29b8-fd21-4214-b225-3d01f6c2adaf"
+      }
+    },
+    "owner": "barnytj"
   }
 }
