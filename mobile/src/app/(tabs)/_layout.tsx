@@ -1,6 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Tabs } from 'expo-router';
-import { usePalette } from '@/core/theme';
+import { F, usePalette } from '@/core/theme';
 
 type IconName = keyof typeof Ionicons.glyphMap;
 
@@ -14,8 +14,8 @@ export default function TabLayout() {
         headerShown: false,
         tabBarActiveTintColor: c.accent,
         tabBarInactiveTintColor: c.soft,
-        tabBarStyle: { backgroundColor: c.paper, borderTopColor: c.line },
-        tabBarLabelStyle: { fontSize: 12, fontWeight: '700' },
+        tabBarStyle: { backgroundColor: c.panel, borderTopColor: c.line },
+        tabBarLabelStyle: { fontSize: 12, fontFamily: F.semi },
       }}
     >
       <Tabs.Screen name="index" options={{ title: 'Home', tabBarIcon: icon('home-outline'), tabBarAccessibilityLabel: 'Home' }} />

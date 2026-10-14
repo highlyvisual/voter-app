@@ -75,14 +75,14 @@ function NextVote() {
   const [credits, setCredits] = useState(false);
   const [scrollY] = useState(() => new Animated.Value(0));
   const { next, ahead } = upcoming(saved!.elections);
-  const mapH = Math.round(Math.min(440, height * 0.44));
+  const mapH = Math.round(Math.min(480, height * 0.46));
   const area = next?.post_label ?? null;
 
   return (
     <View style={{ flex: 1, backgroundColor: c.mapGround }}>
       {/* The map sits behind and drifts up at half speed as the sheet slides over it. */}
       <Animated.View style={{ position: 'absolute', top: 0, left: 0, right: 0, transform: [{ translateY: scrollY.interpolate({ inputRange: [-200, 0, mapH], outputRange: [0, 0, -mapH / 2], extrapolate: 'clamp' }) }] }}>
-        <AreaMap ballotId={next?.covered ? next.ballot_paper_id : null} height={mapH} />
+        <AreaMap ballotId={next?.covered ? next.ballot_paper_id : null} height={mapH} top={insets.top + 84} />
       </Animated.View>
 
       <Animated.ScrollView
@@ -121,6 +121,8 @@ function NextVote() {
         </View>
       </Animated.ScrollView>
 
+      {/* Once the sheet covers the map, a band of paper fades in behind the pill so text never runs under it. */}
+      <Animated.View pointerEvents="none" style={{ position: 'absolute', top: 0, left: 0, right: 0, height: insets.top + 72, backgroundColor: c.paper, borderBottomWidth: 1, borderBottomColor: c.line, opacity: scrollY.interpolate({ inputRange: [mapH - insets.top - 140, mapH - insets.top - 80], outputRange: [0, 1], extrapolate: 'clamp' }) }} />
       {/* Floating over the map: where this is (tap to change) and the emblem. */}
       <View style={{ position: 'absolute', top: insets.top + 8, left: 16, right: 16, flexDirection: 'row', alignItems: 'center', gap: 10 }} pointerEvents="box-none">
         <Pressable onPress={() => { haptic.choose(); setChanging(true); }} accessibilityRole="button" accessibilityLabel={`Your area: ${saved!.outcode}${area ? `, ${area}` : ''}`} accessibilityHint="Change or forget your area"

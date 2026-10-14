@@ -142,15 +142,17 @@ export function TopicsForYou({ ballotId, b, household, complete }: { ballotId: s
   const appliesOn = new Set(complete ? claims.filter((x) => conditionText(x.applies_if) && claimApplies(x.applies_if, household)).map((x) => x.topic) : []);
   const published = new Set(claims.map((x) => x.topic));
   return (
+    <View style={{ gap: 10 }}>
+    {published.size === 0 ? <Text style={[s.body, { color: c.soft }]}>No one on this paper has published a position we could source yet.</Text> : null}
     <View style={{ backgroundColor: c.panel, borderRadius: 20, borderWidth: 1, borderColor: c.line, paddingLeft: 16 }}>
       {order.all.map((t, n) => (
         <View key={t.topic} style={{ flexDirection: 'row', alignItems: 'center', borderTopWidth: n ? 1 : 0, borderTopColor: c.line }}>
           <Pressable onPress={() => { haptic.choose(); router.push({ pathname: '/elections/[ballotId]/topic/[topic]', params: { ballotId, topic: t.topic } }); }}
-            accessibilityRole="button" accessibilityLabel={`${TOPIC_SHORT[t.topic] ?? t.label}${appliesOn.has(t.topic) ? ', applies to you' : published.has(t.topic) ? '' : ', nothing published yet'}`}
+            accessibilityRole="button" accessibilityLabel={`${TOPIC_SHORT[t.topic] ?? t.label}${appliesOn.has(t.topic) ? ', applies to you' : published.has(t.topic) || published.size === 0 ? '' : ', nothing published yet'}`}
             style={({ pressed }) => [{ flex: 1, minHeight: TAP + 6, flexDirection: 'row', alignItems: 'center', gap: 10, opacity: pressed ? 0.6 : 1 }]}>
             <Text style={{ fontFamily: t.reason ? F.semi : F.body, fontSize: 17, color: c.ink, flexShrink: 1 }}>{TOPIC_SHORT[t.topic] ?? t.label}</Text>
             {appliesOn.has(t.topic) ? <View style={{ borderRadius: 999, paddingHorizontal: 8, paddingVertical: 3, backgroundColor: c.accentSoft }}><Text style={{ fontFamily: F.bold, fontSize: 11, color: c.accent }}>Applies to you</Text></View> : null}
-            {!published.has(t.topic) ? <Text style={[s.small, { color: c.muted }]}>Nothing yet</Text> : null}
+            {published.size > 0 && !published.has(t.topic) ? <Text style={[s.small, { color: c.muted }]}>Nothing yet</Text> : null}
           </Pressable>
           {t.reason ? <InfoButton label={`Why ${TOPIC_SHORT[t.topic] ?? t.label} is near the top`} onPress={() => setWhy({ label: TOPIC_SHORT[t.topic] ?? t.label, reason: t.reason! })} /> : <View style={{ width: 8 }} />}
           <Ionicons name="chevron-forward" size={18} color={c.muted} style={{ marginRight: 12 }} />
@@ -162,6 +164,7 @@ export function TopicsForYou({ ballotId, b, household, complete }: { ballotId: s
         <Text style={[s.body, { color: c.soft }]}>The order changes only with what you told us about your household, never with anything political. It never changes who is shown, or in what order.</Text>
         <Pressable onPress={() => setWhy(null)} accessibilityRole="button" style={{ minHeight: TAP, justifyContent: 'center' }}><Text style={[s.link, { color: c.accent }]}>Close</Text></Pressable>
       </Sheet>
+    </View>
     </View>
   );
 }

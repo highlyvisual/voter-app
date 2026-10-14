@@ -1,0 +1,87 @@
+# App 0.3.0: first launch (the three welcome screens, then the household questions one per screen) and Home ("Your
+# next vote"). Run once in light and once in dark (xcrun simctl ui <device> appearance dark), with
+#   MAESTRO_CLI_NO_ANALYTICS=1 maestro test mobile/.maestro/welcome-home.yaml --test-output-dir <dir>
+# Uses BH14 9BA (Penn Hill ward by-election, 5 Nov 2026); swap the postcode once that has passed.
+appId: org.whatsittome.app
+env:
+  POSTCODE: BH14 9BA
+---
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible: "Get started"
+    timeout: 15000
+- waitForAnimationToEnd
+- takeScreenshot: 01-welcome
+- tapOn: "Get started"
+- extendedWaitUntil:
+    visible: "Use my location"
+- takeScreenshot: 02-where-you-vote
+- tapOn:
+    id: postcode
+- inputText: ${POSTCODE}
+- pressKey: Enter
+- extendedWaitUntil:
+    visible: "Your answers never leave this phone"
+    timeout: 30000
+- waitForAnimationToEnd
+- takeScreenshot: 03-personalise
+- tapOn: "Personalise"
+- extendedWaitUntil:
+    visible: "How old are you?"
+- takeScreenshot: 04-question-age
+- tapOn: "25 to 34"
+- extendedWaitUntil:
+    visible: "Who do you live with?"
+- tapOn: "A couple"
+- extendedWaitUntil:
+    visible: "Any children or dependants?"
+- tapOn: "None"
+- extendedWaitUntil:
+    visible: "How do you live?"
+- waitForAnimationToEnd
+- takeScreenshot: 05-question-home
+- tapOn: "Rent privately (including a shared student house)"
+- extendedWaitUntil:
+    visible: "Roughly what does your household earn?"
+- tapOn: "£25,000 to £40,000"
+- extendedWaitUntil:
+    visible: "Are you working?"
+- tapOn: "Employed"
+- extendedWaitUntil:
+    visible: "Are you studying?"
+- tapOn: "Not a student"
+- extendedWaitUntil:
+    visible: ".*polling day.*"
+    timeout: 30000
+- waitForAnimationToEnd
+- takeScreenshot: 06-home
+- scrollUntilVisible:
+    element: "The \\d+ on your paper"
+    centerElement: true
+- waitForAnimationToEnd
+- takeScreenshot: 07-home-paper
+- scrollUntilVisible:
+    element: "What changes for you"
+    centerElement: true
+- waitForAnimationToEnd
+- takeScreenshot: 08-home-topics
+- tapOn: "Why Housing is near the top"
+- extendedWaitUntil:
+    visible: "Why it’s near the top"
+- waitForAnimationToEnd
+- takeScreenshot: 09-home-why
+- tapOn: "Close"
+- scrollUntilVisible:
+    element: "Coming up near you"
+    centerElement: true
+- takeScreenshot: 10-home-coming-up
+- scrollUntilVisible:
+    element: "Your area: .*"
+    direction: UP
+- tapOn: "Your area: .*"
+- extendedWaitUntil:
+    visible: "Somewhere else?"
+- waitForAnimationToEnd
+- takeScreenshot: 11-change-area

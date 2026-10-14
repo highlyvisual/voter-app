@@ -45,7 +45,12 @@ export function PlaceFinder({ onFound, disabled }: { onFound?: () => void; disab
     const perm = await Location.requestForegroundPermissionsAsync();
     if (!perm.granted) { setMessage('Location is off for this app, so type your postcode instead. You can change this in Settings.'); return; }
     finish(async () => {
-      const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Low });
+      let pos: Location.LocationObject;
+      try {
+        pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Low });
+      } catch {
+        return { ok: false, message: 'We couldn’t get your location just now. Please type your postcode instead.' };
+      }
       return lookupElectionsNear(pos.coords.latitude, pos.coords.longitude);
     }, 'location');
   }

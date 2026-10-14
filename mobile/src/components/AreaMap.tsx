@@ -8,7 +8,7 @@ import { usePalette } from '@/core/theme';
 // No map tiles, so nothing about where the phone is goes to a tile server, and it draws offline from the saved copy.
 // Layers (crime, schools, housing land, flooding) can be added on top later. Decorative to screen readers: the area is
 // named in words next to it.
-export function AreaMap({ ballotId, height }: { ballotId: string | null; height: number }) {
+export function AreaMap({ ballotId, height, top = 96 }: { ballotId: string | null; height: number; top?: number }) {
   const c = usePalette();
   const { width } = useWindowDimensions();
   const [got, setGot] = useState<{ id: string; rings: [number, number][][] } | null>(null);
@@ -28,11 +28,11 @@ export function AreaMap({ ballotId, height }: { ballotId: string | null; height:
     const k = Math.cos((lat0 * Math.PI) / 180);
     const xs = pts.map((p) => p[0] * k), ys = pts.map((p) => -p[1]);
     const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
-    const padX = 40, top = 96, bottom = 72;
+    const padX = 40, bottom = 72;
     const scale = Math.min((width - padX * 2) / (maxX - minX || 1), (height - top - bottom) / (maxY - minY || 1));
     const ox = (width - (maxX - minX) * scale) / 2, oy = top + (height - top - bottom - (maxY - minY) * scale) / 2;
     return rings.map((r) => r.map(([x, y], i) => `${i ? 'L' : 'M'}${(ox + (x * k - minX) * scale).toFixed(1)},${(oy + (-y - minY) * scale).toFixed(1)}`).join('') + 'Z').join('');
-  }, [rings, width, height]);
+  }, [rings, width, height, top]);
 
   return (
     <View style={{ width, height, backgroundColor: c.mapGround }} accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
