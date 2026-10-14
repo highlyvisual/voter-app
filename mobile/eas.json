@@ -16,6 +16,15 @@
       "env": {
         "EXPO_PUBLIC_SITE": "https://6acf67e7f6b710ae3ed2ddb3--voter-app-uk.netlify.app"
       }
+    },
+    "testflight-draft-TESTING-ONLY": {
+      "distribution": "store",
+      "ios": {
+        "buildConfiguration": "Release"
+      },
+      "env": {
+        "EXPO_PUBLIC_SITE": "https://6acf67e7f6b710ae3ed2ddb3--voter-app-uk.netlify.app"
+      }
     }
   },
   "submit": {
