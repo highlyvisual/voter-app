@@ -10,8 +10,10 @@ import { FIELD_KEYS, OPTIONAL_KEYS, householdComplete, type Household } from '@/
 //   here, on the phone.
 // - the outward code (e.g. "CH4") and the elections found for it, so "My elections" works without asking again.
 //   The full postcode is used once for the lookup and not kept.
+// - whether the three welcome screens have been seen (app 0.3.0), so they show once.
 const HOUSEHOLD_KEY = 'household.v1';
 const electionsFile = () => new File(Paths.document, 'my-elections.json');
+const introFile = () => new File(Paths.document, 'intro-seen');
 
 export type SavedElections = { outcode: string; placeUrl: string; elections: AppElection[]; savedAt: string };
 
@@ -24,6 +26,8 @@ type Store = {
   saved: SavedElections | null;
   saveElections: (s: Omit<SavedElections, 'savedAt'>) => void;
   clearElections: () => void;
+  introSeen: boolean;
+  markIntroSeen: () => void;
 };
 
 const Ctx = createContext<Store | null>(null);
@@ -40,6 +44,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
   const [household, setHousehold] = useState<Household>({});
   const [saved, setSaved] = useState<SavedElections | null>(null);
+  const [introSeen, setIntroSeen] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -51,6 +56,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         const f = electionsFile();
         if (f.exists) setSaved(JSON.parse(await f.text()) as SavedElections);
       } catch { /* start empty */ }
+      try { setIntroSeen(introFile().exists); } catch { /* show the welcome again */ }
       setReady(true);
     })();
   }, []);
@@ -79,8 +85,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     try { const f = electionsFile(); if (f.exists) f.delete(); } catch { /* nothing to remove */ }
   }, []);
 
-  const value = useMemo<Store>(() => ({ ready, household, complete: householdComplete(household), saveHousehold, clearHousehold, saved, saveElections, clearElections }),
-    [ready, household, saveHousehold, clearHousehold, saved, saveElections, clearElections]);
+  const markIntroSeen = useCallback(() => {
+    setIntroSeen(true);
+    try { const f = introFile(); if (!f.exists) f.create(); } catch { /* shown again next launch */ }
+  }, []);
+
+  const value = useMemo<Store>(() => ({ ready, household, complete: householdComplete(household), saveHousehold, clearHousehold, saved, saveElections, clearElections, introSeen, markIntroSeen }),
+    [ready, household, saveHousehold, clearHousehold, saved, saveElections, clearElections, introSeen, markIntroSeen]);
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 

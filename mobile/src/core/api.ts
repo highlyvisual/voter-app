@@ -1,9 +1,10 @@
 import { Directory, File, Paths } from 'expo-file-system';
-import type { AppReceiptSetRef, BallotResponse, ElectionsResponse, MetaResponse, ReceiptSetResponse, TopicsResponse } from '@/lib/appApi';
+import type { AppReceiptSetRef, BallotResponse, BoundaryResponse, ElectionsResponse, MetaResponse, ReceiptSetResponse, TopicsResponse } from '@/lib/appApi';
 
 // Everything the app shows comes from whatsittome.org through /api/app/v1 (contract: lib/appApi.ts). The app holds no
 // content of its own. Replies are kept on the phone so the last ballot opened still reads offline.
-export const SITE = 'https://whatsittome.org';
+// EXPO_PUBLIC_SITE points a development build at a draft deploy; release builds never set it.
+export const SITE = process.env.EXPO_PUBLIC_SITE || 'https://whatsittome.org';
 export const API = `${SITE}/api/app/v1`;
 
 type Ok<T> = Extract<T, { ok: true }>;
@@ -66,6 +67,17 @@ async function cached<T extends { ok: boolean }>(name: string, url: string): Pro
 
 export function lookupElections(postcode: string) {
   return getJson<ElectionsResponse>(`${API}/elections`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ postcode }) });
+}
+
+// "Use my location": the phone's approximate position, rounded here to about 100 m, sent once. The server turns it into
+// the nearest postcode and keeps neither.
+export function lookupElectionsNear(lat: number, lng: number) {
+  const r = (x: number) => Math.round(x * 1000) / 1000;
+  return getJson<ElectionsResponse>(`${API}/elections`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ lat: r(lat), lng: r(lng) }) });
+}
+
+export function loadBoundary(id: string) {
+  return cached<BoundaryResponse>(`boundary-${id}.json`, `${API}/boundary/${encodeURIComponent(id)}`);
 }
 
 export function loadMeta() {

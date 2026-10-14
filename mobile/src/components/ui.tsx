@@ -1,11 +1,18 @@
+import * as Haptics from 'expo-haptics';
 import * as WebBrowser from 'expo-web-browser';
 import { useEffect, useState, type ReactNode } from 'react';
 import { ActivityIndicator, Animated, Pressable, RefreshControl, ScrollView, StyleSheet, Text, View, type StyleProp, type TextStyle, type ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { TAP, usePalette, type Palette } from '@/core/theme';
+import { F, TAP, usePalette, type Palette } from '@/core/theme';
 
-// Small building blocks, all in the site palette. Text uses the system font sizes, so Dynamic Type and Android font
-// scaling apply everywhere; nothing has a fixed height that would clip larger text.
+// Small building blocks, in Romily's palette and the site's type (Fraunces headings, Public Sans text). Text scales
+// with Dynamic Type and Android font scaling everywhere; nothing has a fixed height that would clip larger text.
+
+// A light tick under the finger: a selection for choices, a soft knock for buttons. Silent where the phone has none.
+export const haptic = {
+  choose: () => { Haptics.selectionAsync().catch(() => {}); },
+  press: () => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {}); },
+};
 
 export function openLink(url: string, c: Palette) {
   return WebBrowser.openBrowserAsync(url, { toolbarColor: c.paper, controlsColor: c.accent });
@@ -57,15 +64,15 @@ export function Button({ label, onPress, disabled, busy, kind = 'primary', hint 
   const primary = kind === 'primary';
   return (
     <Pressable
-      onPress={onPress}
+      onPress={() => { haptic.press(); onPress(); }}
       disabled={disabled || busy}
       accessibilityRole="button"
       accessibilityLabel={label}
       accessibilityHint={hint}
       accessibilityState={{ disabled: !!(disabled || busy), busy: !!busy }}
-      style={({ pressed }) => [s.button, primary ? { backgroundColor: c.accent } : { borderWidth: 2, borderColor: c.accent }, { opacity: disabled ? 0.5 : pressed ? 0.85 : 1 }]}
+      style={({ pressed }) => [s.button, primary ? { backgroundColor: c.rose } : { borderWidth: 2, borderColor: c.ink }, { opacity: disabled ? 0.5 : pressed ? 0.85 : 1, transform: [{ scale: pressed ? 0.98 : 1 }] }]}
     >
-      {busy ? <ActivityIndicator color={primary ? c.onAccent : c.accent} /> : <Text style={[s.buttonText, { color: primary ? c.onAccent : c.accent }]}>{label}</Text>}
+      {busy ? <ActivityIndicator color={primary ? c.onRose : c.ink} /> : <Text style={[s.buttonText, { color: primary ? c.onRose : c.ink }]}>{label}</Text>}
     </Pressable>
   );
 }
@@ -115,14 +122,14 @@ export function Loading({ label = 'Loading' }: { label?: string }) {
 
 export function Banner({ children }: { children: ReactNode }) {
   const c = usePalette();
-  return <View style={[s.banner, { backgroundColor: c.warnBg, borderColor: c.warn }]} accessibilityRole="alert"><Text style={[s.small, { color: c.warn, fontWeight: '700' }]}>{children}</Text></View>;
+  return <View style={[s.banner, { backgroundColor: c.warnBg, borderColor: c.warn }]} accessibilityRole="alert"><Text style={[s.small, { color: c.warn, fontFamily: F.bold }]}>{children}</Text></View>;
 }
 
 export function ErrorState({ message, onRetry }: { message: string; onRetry?: () => void }) {
   const c = usePalette();
   return (
     <Card style={{ gap: 12 }}>
-      <Text style={[s.body, { color: c.accent, fontWeight: '700' }]} accessibilityLiveRegion="polite">{message}</Text>
+      <Text style={[s.body, { color: c.accent, fontFamily: F.bold }]} accessibilityLiveRegion="polite">{message}</Text>
       {onRetry ? <Button label="Try again" onPress={onRetry} kind="secondary" /> : null}
     </Card>
   );
@@ -140,18 +147,19 @@ export function shortDate(iso: string) {
 export const s = StyleSheet.create({
   fill: { flex: 1 },
   page: { padding: 20, paddingBottom: 40, gap: 14 },
-  h1: { fontSize: 30, fontWeight: '800' },
-  h2: { fontSize: 22, fontWeight: '800', marginTop: 8 },
-  h3: { fontSize: 18, fontWeight: '700' },
-  body: { fontSize: 17, lineHeight: 24 },
-  small: { fontSize: 14, lineHeight: 20 },
-  card: { borderWidth: 1, borderRadius: 16, padding: 16, gap: 6 },
-  button: { minHeight: TAP, borderRadius: TAP / 2, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 20 },
-  buttonText: { fontSize: 18, fontWeight: '700' },
+  h1: { fontFamily: F.display, fontSize: 32, lineHeight: 38, letterSpacing: -0.3 },
+  h2: { fontFamily: F.display, fontSize: 24, lineHeight: 30, marginTop: 8, letterSpacing: -0.2 },
+  h3: { fontFamily: F.display, fontSize: 19, lineHeight: 25 },
+  body: { fontFamily: F.body, fontSize: 17, lineHeight: 24 },
+  small: { fontFamily: F.body, fontSize: 14, lineHeight: 20 },
+  eyebrow: { fontFamily: F.bold, fontSize: 12, lineHeight: 16, letterSpacing: 1, textTransform: 'uppercase' },
+  card: { borderWidth: 1, borderRadius: 18, padding: 16, gap: 6 },
+  button: { minHeight: TAP + 4, borderRadius: TAP, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 22 },
+  buttonText: { fontFamily: F.bold, fontSize: 17 },
   linkRow: { minHeight: TAP, justifyContent: 'center' },
-  link: { fontSize: 16, fontWeight: '700' },
+  link: { fontFamily: F.bold, fontSize: 16 },
   chip: { alignSelf: 'flex-start', borderRadius: 999, paddingHorizontal: 10, paddingVertical: 4 },
-  chipText: { fontSize: 13, fontWeight: '700' },
+  chipText: { fontFamily: F.semi, fontSize: 13 },
   skel: { height: 16, borderRadius: 8 },
   banner: { borderWidth: 1, borderRadius: 12, padding: 12 },
 });

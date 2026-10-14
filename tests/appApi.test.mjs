@@ -78,3 +78,17 @@ test("receipt set reply", () => {
   assert.ok(problemsWithReceiptSet({ ...set, rows: { "postcode=CH4": [1, 2] } }).some((p) => p.includes("grid key")));
   assert.ok(problemsWithReceiptSet({ ...set, rows: { [Object.keys(set.rows)[0]]: [1] } }).some((p) => p.includes("numbers")));
 });
+
+// App 0.3.0: the drawn area map on Home.
+test("boundary reply: outer rings of [lng, lat]", async () => {
+  const { problemsWithBoundary } = await import("../dist-test/appApi.mjs");
+  const ring = [[-1.92, 50.72], [-1.93, 50.72], [-1.93, 50.73], [-1.92, 50.72]];
+  assert.deepEqual(problemsWithBoundary({ ok: true, area: "Penn Hill ward", rings: [ring], source: "ONS" }), []);
+  assert.deepEqual(problemsWithBoundary({ ok: false, message: "No outline" }), []);
+  assert.ok(problemsWithBoundary({ ok: true, area: "x", rings: [], source: "ONS" }).length > 0);
+  assert.ok(problemsWithBoundary({ ok: true, area: "x", rings: [[[50.72, -1.92, 0]]], source: "ONS" }).length > 0);
+  assert.ok(problemsWithBoundary({ ok: true, area: "x", rings: [ring.map(([a, b]) => [b * 4, a])], source: "ONS" }).length > 0);
+});
+test("elections reply may say how the area was found", () => {
+  assert.deepEqual(problemsWithElections({ ...good, found_by: "location" }), []);
+});

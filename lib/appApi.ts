@@ -28,10 +28,17 @@ export type AppElection = {
   url: string | null; // ballot page on whatsittome.org, when covered
 };
 
-// POST /api/app/v1/elections  body: { postcode: string }
+// POST /api/app/v1/elections  body: { postcode: string }, or (app 0.3.0) { lat: number; lng: number } from the phone's
+// approximate location, rounded on the phone to 3 decimal places (about 100 m). The server turns a location into the
+// nearest postcode once and keeps neither. found_by says which was used (absent from older servers: "postcode").
+export type ElectionsRequest = { postcode: string } | { lat: number; lng: number };
 export type ElectionsResponse =
-  | { ok: true; outcode: string; elections: AppElection[]; placeUrl: string; source: string }
+  | { ok: true; outcode: string; elections: AppElection[]; placeUrl: string; source: string; found_by?: "postcode" | "location" }
   | AppError;
+
+// GET /api/app/v1/boundary/[ballot id]  (app 0.3.0) The voting area's outline for the drawn map on Home: outer rings as
+// [lng, lat] pairs (WGS84). Static per ballot and cacheable; nothing about the viewer is sent.
+export type BoundaryResponse = { ok: true; area: string; rings: [number, number][][]; source: string } | AppError;
 
 // GET /api/app/v1/meta
 export type MetaResponse = {
@@ -248,6 +255,21 @@ export function problemsWithBallot(x: unknown): string[] {
     }
   }
   if (!isStr(x.source) || !x.source) p.push("source missing");
+  return p;
+}
+
+export function problemsWithBoundary(x: unknown): string[] {
+  if (!isObj(x)) return ["not an object"];
+  if (x.ok === false) return isStr(x.message) && x.message ? [] : ["error without a message"];
+  if (x.ok !== true) return ["ok is neither true nor false"];
+  const p: string[] = [];
+  if (!isStr(x.area) || !x.area) p.push("area missing");
+  if (!isStr(x.source) || !x.source) p.push("source missing");
+  if (!Array.isArray(x.rings) || x.rings.length === 0) return [...p, "rings missing or empty"];
+  x.rings.forEach((r, i) => {
+    if (!Array.isArray(r) || r.length < 4) { p.push(`rings[${i}] needs at least 4 points`); return; }
+    if (!r.every((pt) => Array.isArray(pt) && pt.length === 2 && typeof pt[0] === "number" && typeof pt[1] === "number" && Math.abs(pt[0]) <= 180 && Math.abs(pt[1]) <= 90)) p.push(`rings[${i}] has a point that isn't [lng, lat]`);
+  });
   return p;
 }
 
