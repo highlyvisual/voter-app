@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { getBallot } from "@/lib/data";
 import { BOUNDARY_SOURCE, fetchBoundary, outerRings } from "@/lib/boundary";
 import { OSM_CREDIT, fetchMapContext } from "@/lib/mapContext";
@@ -11,9 +11,10 @@ export const dynamic = "force-dynamic";
 export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const ballotId = decodeURIComponent(id);
-  // A full reply keeps a week; one without roads (OpenStreetMap didn't answer) only ten minutes, so they are filled in.
+  // A full reply keeps a week; one without roads (OpenStreetMap didn't answer in time) only two minutes, so they are
+  // filled in soon.
   const reply = (res: BoundaryResponse, status = 200) =>
-    NextResponse.json(res, { status, headers: { "Cache-Control": status !== 200 ? "no-store" : res.ok && res.roads ? "public, max-age=604800, stale-while-revalidate=86400" : "public, max-age=600" } });
+    NextResponse.json(res, { status, headers: { "Cache-Control": status !== 200 ? "no-store" : res.ok && res.roads ? "public, max-age=604800, stale-while-revalidate=86400" : "public, max-age=120" } });
   if (!/^[a-z0-9.-]{3,200}$/i.test(ballotId)) return reply({ ok: false, message: "That isn't a ballot we know." }, 400);
 
   let ballot;
@@ -25,6 +26,9 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
   if (!rings.length) return reply({ ok: false, message: "No outline was published for this area." }, 404);
   // Main roads and place names around it, so people can tell where it is (OpenStreetMap; optional).
   const pts = rings.flat();
-  const ctx = await fetchMapContext([Math.min(...pts.map((q) => q[0])), Math.min(...pts.map((q) => q[1])), Math.max(...pts.map((q) => q[0])), Math.max(...pts.map((q) => q[1]))]);
+  const bbox: [number, number, number, number] = [Math.min(...pts.map((q) => q[0])), Math.min(...pts.map((q) => q[1])), Math.max(...pts.map((q) => q[0])), Math.max(...pts.map((q) => q[1]))];
+  const ctx = await fetchMapContext(bbox);
+  // Too slow this time: keep asking after the reply has gone, so the cache has them for the next request.
+  if (!ctx) after(async () => { await fetchMapContext(bbox, 25000); });
   return reply({ ok: true, area: ballot.area_name, rings, source: BOUNDARY_SOURCE, ...(ctx ? { roads: ctx.roads, places: ctx.places } : {}), credits: [`Area outline: ${BOUNDARY_SOURCE}`, ...(ctx ? [OSM_CREDIT] : [])] });
 }

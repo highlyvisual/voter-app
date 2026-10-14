@@ -59,7 +59,8 @@ env:
 - takeScreenshot: 06-candidate-scale-uk
 - tapOn: "Back to the paper"
 - extendedWaitUntil:
-    visible: ".*polling day.*"
+    visible: "Before polling day"
+- takeScreenshot: 06b-ballot
 - tapOn: "Coming up"
 - extendedWaitUntil:
     visible: "Near .*"

@@ -131,7 +131,11 @@ export default function CandidateScreen() {
                 {tab.href ? <LinkRow label={tab.hrefText ?? 'Find out more'} url={`${SITE}${tab.href}`} /> : null}
               </View>
             ) : null}
-            {topics.map((t) => {
+            {!all.length ? (
+              <View style={{ backgroundColor: c.sand, borderRadius: 16, padding: 14 }}>
+                <Text style={[s.body, { color: c.soft }]}>Nothing published that we could source for {k.name} yet. That means nothing found, not nothing to say.</Text>
+              </View>
+            ) : topics.map((t) => {
               const list = all.filter((x) => x.topic === t.topic);
               return <TopicCard key={t.topic} title={TOPIC_SHORT[t.topic] ?? t.label} list={list}
                 applies={complete && list.some((x) => conditionText(x.applies_if) && claimApplies(x.applies_if, household))}>
@@ -146,7 +150,7 @@ export default function CandidateScreen() {
       {/* The next name on the paper, always under the thumb. Ballot order only: there is no "best next". */}
       {b && k ? (
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 16, paddingVertical: 10, borderTopWidth: 1, borderTopColor: c.line, backgroundColor: c.panel }}>
-          <Pressable onPress={() => { haptic.choose(); router.back(); }} accessibilityRole="button" style={{ minHeight: TAP, justifyContent: 'center' }}>
+          <Pressable onPress={() => { haptic.choose(); router.replace({ pathname: '/elections/[ballotId]', params: { ballotId } }); }} accessibilityRole="button" style={{ minHeight: TAP, justifyContent: 'center' }}>
             <Text style={{ fontFamily: F.semi, fontSize: 15, color: c.soft, textDecorationLine: 'underline' }}>Back to the paper</Text>
           </Pressable>
           <View style={{ flex: 1 }} />

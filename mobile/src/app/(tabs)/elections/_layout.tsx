@@ -1,6 +1,9 @@
 import { Stack } from 'expo-router';
 import { F, usePalette } from '@/core/theme';
 
+// The list is always at the root, so the tab opens on it even when a ballot was opened from Home.
+export const unstable_settings = { initialRouteName: 'index' };
+
 // Coming up: list → ballot → candidate or topic, with native push transitions and a back button.
 export default function ElectionsLayout() {
   const c = usePalette();

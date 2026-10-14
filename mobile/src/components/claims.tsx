@@ -57,6 +57,7 @@ export function ClaimItem({ c, applies, names = [] }: { c: AppClaim; applies: bo
             <SourceRow k="Address" v={src.url} />
             <Button label="Open the source" onPress={() => openLink(src.url, p)} />
             {src.archive_url ? <Button label="Open the archived copy" kind="secondary" onPress={() => openLink(src.archive_url!, p)} /> : null}
+            <Pressable onPress={() => setOpen(false)} accessibilityRole="button" style={{ minHeight: TAP, justifyContent: 'center', alignItems: 'center' }}><Text style={[s.link, { color: p.accent }]}>Close</Text></Pressable>
           </Sheet>
         </>
       ) : <Small>Source unavailable</Small>}

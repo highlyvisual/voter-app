@@ -1,7 +1,8 @@
 // Main roads and place names around a voting area, from OpenStreetMap (ODbL) via the Overpass API, so the app's drawn
 // map shows where the area is. Server only: the phone never contacts OpenStreetMap. Two public Overpass mirrors are
-// asked at once and the first good answer wins; if neither answers within 7 seconds the map is drawn without them
-// (the outline alone), and the next request tries again. A good answer is cached for a week.
+// asked at once and the first good answer wins. The app's request waits at most 7 seconds; if that isn't enough the
+// map is drawn without them (the outline alone) and the route keeps asking in the background for up to 25 seconds
+// (next/server after), which fills the data cache so the next request has them. A good answer is cached for a week.
 export const OSM_CREDIT = "Roads and place names © OpenStreetMap contributors (ODbL)";
 const MIRRORS = ["https://overpass-api.de/api/interpreter", "https://maps.mail.ru/osm/tools/overpass/api/interpreter"];
 
@@ -13,17 +14,18 @@ type OsmEl = { type: string; lat?: number; lon?: number; tags?: Record<string, s
 const r5 = (x: number) => Math.round(x * 1e5) / 1e5;
 
 // bbox as [minLng, minLat, maxLng, maxLat]. A large area (a parliamentary seat) gets only the biggest roads and places.
-export async function fetchMapContext(bbox: [number, number, number, number]): Promise<{ roads: MapRoad[]; places: MapPlace[] } | null> {
+export async function fetchMapContext(bbox: [number, number, number, number], waitMs = 7000): Promise<{ roads: MapRoad[]; places: MapPlace[] } | null> {
   const [x0, y0, x1, y1] = bbox;
   const padX = (x1 - x0) * 0.35, padY = (y1 - y0) * 0.35;
   const box = `${(y0 - padY).toFixed(4)},${(x0 - padX).toFixed(4)},${(y1 + padY).toFixed(4)},${(x1 + padX).toFixed(4)}`;
   const big = (x1 - x0) * (y1 - y0) > 0.02; // roughly 10 km by 15 km in England
   const roads = big ? "motorway|trunk|primary" : "motorway|trunk|primary|secondary";
   const places = big ? "city|town|village" : "city|town|village|suburb|neighbourhood|quarter";
-  const q = `[out:json][timeout:6];(way["highway"~"^(${roads})$"](${box});node["place"~"^(${places})$"]["name"](${box}););out tags geom qt;`;
+  const q = `[out:json][timeout:25];(way["highway"~"^(${roads})$"](${box});node["place"~"^(${places})$"]["name"](${box}););out tags geom qt;`;
 
   const ask = async (url: string) => {
-    const r = await fetch(url, { method: "POST", body: new URLSearchParams({ data: q }), headers: { "User-Agent": "whatsittome.org area map" }, signal: AbortSignal.timeout(7000), next: { revalidate: 604800 } });
+    // A GET, so the same query is the same cache entry.
+    const r = await fetch(`${url}?data=${encodeURIComponent(q)}`, { headers: { "User-Agent": "whatsittome.org area map" }, signal: AbortSignal.timeout(waitMs), next: { revalidate: 604800 } });
     if (!r.ok) throw new Error(String(r.status));
     const j = (await r.json()) as { elements?: OsmEl[] };
     if (!Array.isArray(j.elements)) throw new Error("no elements");

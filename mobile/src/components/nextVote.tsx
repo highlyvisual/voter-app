@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { router } from 'expo-router';
 import { useState, type ReactNode } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View, useWindowDimensions } from 'react-native';
 import type { AppCandidate, AppClaim, AppElection, AppKeyDate, AppParty } from '@/lib/appApi';
 import { conditionText } from '@/lib/claims';
 import { claimApplies, type Household } from '@/lib/household';
@@ -73,6 +73,8 @@ export function Countdown({ date, name, area }: { date: string; name: string; ar
 // Register, postal, proxy and photo ID: each with where it stands today, and the GOV.UK page to do it.
 export function Deadlines({ items, idRequired }: { items: AppKeyDate[]; idRequired: boolean }) {
   const c = usePalette();
+  // With the largest text sizes the row stacks: text first at full width, the state under it.
+  const big = useWindowDimensions().fontScale > 1.35;
   const icon: Record<AppKeyDate['kind'], keyof typeof Ionicons.glyphMap> = { register: 'person-add-outline', postal: 'mail-outline', proxy: 'people-outline', voter_id: 'id-card-outline' };
   return (
     <View style={{ backgroundColor: c.sand, borderRadius: 20, paddingHorizontal: 6 }}>
@@ -84,18 +86,20 @@ export function Deadlines({ items, idRequired }: { items: AppKeyDate[]; idRequir
         return (
           <Pressable key={i.kind} onPress={() => { haptic.choose(); openLink(i.href, c); }} accessibilityRole="link" accessibilityHint="Opens GOV.UK"
             accessibilityLabel={`${i.label}. ${state}. ${closed ? 'Closed on' : 'Deadline'} ${shortDate(i.date)}${i.time ? ` ${i.time}` : ''}.`}
-            style={({ pressed }) => [{ minHeight: TAP + 12, flexDirection: 'row', alignItems: 'center', gap: 12, paddingHorizontal: 10, borderTopWidth: n ? 1 : 0, borderTopColor: c.line, opacity: pressed ? 0.6 : 1 }]}>
-            <View style={{ width: 36, height: 36, borderRadius: 18, backgroundColor: closed ? c.line : c.panel, alignItems: 'center', justifyContent: 'center' }}>
-              <Ionicons name={icon[i.kind]} size={18} color={closed ? c.muted : c.aubergine} />
-            </View>
-            <View style={{ flex: 1, gap: 1 }}>
+            style={({ pressed }) => [{ minHeight: TAP + 12, flexDirection: big ? 'column' : 'row', alignItems: big ? 'flex-start' : 'center', gap: big ? 6 : 12, paddingHorizontal: 10, paddingVertical: big ? 10 : 0, borderTopWidth: n ? 1 : 0, borderTopColor: c.line, opacity: pressed ? 0.6 : 1 }]}>
+            {big ? null : (
+              <View style={{ width: 36, height: 36, borderRadius: 18, backgroundColor: closed ? c.line : c.panel, alignItems: 'center', justifyContent: 'center' }}>
+                <Ionicons name={icon[i.kind]} size={18} color={closed ? c.muted : c.aubergine} />
+              </View>
+            )}
+            <View style={{ flex: big ? undefined : 1, gap: 1 }}>
               <Text style={{ fontFamily: F.semi, fontSize: 16, color: closed ? c.muted : c.ink }}>{i.label}</Text>
               <Text style={[s.small, { color: c.muted }]}>{closed ? 'Closed' : 'By'} {shortDate(i.date)}{i.time ? `, ${i.time}` : ''}</Text>
             </View>
             <View style={{ borderRadius: 999, paddingHorizontal: 10, paddingVertical: 5, backgroundColor: closed ? 'transparent' : soon ? c.accentSoft : c.aubergineSoft }}>
               <Text style={{ fontFamily: F.bold, fontSize: 12, color: closed ? c.muted : soon ? c.accent : c.aubergine }}>{closed ? 'Closed' : d <= 1 ? (d === 0 ? 'Today' : 'Tomorrow') : `${d} days`}</Text>
             </View>
-            <Ionicons name="open-outline" size={16} color={c.muted} />
+            {big ? null : <Ionicons name="open-outline" size={16} color={c.muted} />}
           </Pressable>
         );
       })}
@@ -113,6 +117,7 @@ function initials(name: string) {
 // Initials, never photos, in a list (round five). The party label sits in the party's own colour.
 export function NameCards({ ballotId, candidates, parties }: { ballotId: string; candidates: AppCandidate[]; parties: AppParty[] }) {
   const c = usePalette();
+  const big = useWindowDimensions().fontScale > 1.35; // one card to a row with the largest text
   const byId = new Map(parties.map((p) => [p.ec_id, p]));
   return (
     <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
@@ -123,7 +128,7 @@ export function NameCards({ ballotId, candidates, parties }: { ballotId: string;
           <Pressable key={k.id}
             onPress={() => { haptic.choose(); router.push({ pathname: '/elections/[ballotId]/candidate/[candidateId]', params: { ballotId, candidateId: String(k.id) } }); }}
             accessibilityRole="button" accessibilityLabel={`Number ${k.position}, ${k.name}, ${k.party_label}`} accessibilityHint="Opens what they have said"
-            style={({ pressed }) => [{ flexBasis: '47%', flexGrow: 1, minHeight: 132, backgroundColor: c.panel, borderRadius: 18, borderWidth: 1, borderColor: c.line, padding: 14, gap: 8, transform: [{ scale: pressed ? 0.97 : 1 }] }]}>
+            style={({ pressed }) => [{ flexBasis: big ? '100%' : '47%', flexGrow: 1, minHeight: 132, backgroundColor: c.panel, borderRadius: 18, borderWidth: 1, borderColor: c.line, padding: 14, gap: 8, transform: [{ scale: pressed ? 0.97 : 1 }] }]}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
               <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: c.roseSoft, alignItems: 'center', justifyContent: 'center' }}>
                 <Text style={{ fontFamily: F.bold, fontSize: 14, color: c.rose }}>{initials(k.name)}</Text>
