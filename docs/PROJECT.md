@@ -45,7 +45,7 @@ The shared folder `/Volumes/BTJ_ONE/Projects/UKPolitcs` on Barny's Mac Studio is
 
 - **Hosting:** Netlify site `voter-app-uk` (https://voter-app-uk.netlify.app), Next.js App Router. Chosen so the build session can deploy directly. The site shares a Netlify credit pot with other sites; see research paper 07 for the cost problem and the options.
 - **Domains and DNS:** whatsittome.org registered via Vercel, DNS at Vercel (A records, www CNAME, MX, SPF). hustings.org and thisshitmatters.org 301 to it with the path preserved.
-- **Database:** Supabase project `voter-app` (ref `urufvcutpksjppbjxouc`, London / eu-west-2, free tier), Postgres + PostGIS. Append-only claims ledger enforced by trigger.
+- **Database:** Supabase project `voter-app` (ref `urufvcutpksjppbjxouc`, London / eu-west-2, free tier), Postgres (PostGIS removed 13 Oct, never used). Append-only claims ledger enforced by trigger.
 - **Repo:** https://github.com/highlyvisual/voter-app — private for now, AGPL. Working copy on the Mac Studio at `~/code/voter-app`; the clone's remote carries a fine-grained token so the build session can commit and push directly.
 - **Nightly job:** `.github/workflows/ingest.yml` (05:17 UTC) — Democracy Club ballots and candidates, then the leaflet scan. Needs the `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` repository secrets; `DEMOCRACY_CLUB_TOKEN` (candidates-API token) is optional and not yet issued.
 - **Democracy Club developers API:** account "What's It To Me?" on developers.democracyclub.org.uk (created 24 Sep from Romily's login link), hobbyist plan: one key, 1,000 requests a day, `?auth_token=`. Held in Netlify as `DEMOCRACY_CLUB_DEVELOPERS_KEY`; used for postcode lookup. It is not accepted by the candidates API (tested). Peter Keeling (Democracy Club) offered a call: Monday 28 Sep 3–5pm UK, or 7–9 Oct; he also pointed at localintelligencehub.com (Climate Coalition / mySociety / Green Alliance) and dashboard.constituencies.org.uk as data sources.
@@ -94,6 +94,7 @@ Dates are when the decision was made or relayed. Newest last.
 | 28 Sep | Barny | Release: phase 1, open data and items 1–7 merged to main (cc1af60) and deployed (6aba1ab1). Migration, loaders and workflows not yet run; the climate-emergency quotes stay off until Romily answers round eight q28. |
 | 9 Oct | Claude (for Barny) | Eve-of-poll archive copies had never captured a page: GitHub started the scheduled runs hours late, and a run after midnight BST took "tomorrow" to be the day after the poll (30 Sep run looked for 2 Oct, 7 Oct run looked for 9 Oct). Fix on `fix/poll-eve-dates`: until 07:00 London time the job also looks for polls on the current date, and the schedule moves to 14:05 and 16:35 UTC. The 1 and 8 Oct polls, including Holborn and St Pancras, have no eve-of-poll copies and cannot be recovered. |
 | 13 Oct | Barny | Phone apps (Expo) read the website through a versioned API, /api/app/v1, contract in lib/appApi.ts; content stays on the website. |
+| 13 Oct | Barny | PostGIS removed: migration `2026-10-13-remove-postgis.sql` (PR #10) applied to Supabase and verified (extension gone, `current_claims` intact). Clears the spatial_ref_sys, st_estimatedextent and extension_in_public advisor warnings. |
 
 ## Open decisions (waiting on a person)
 
