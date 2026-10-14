@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import DefineTerms from "@/components/DefineTerms";
 
 // Leaflet map: the voting area's boundary (ONS), an approximate marker for the postcode district if one was supplied (outward code only),
 // and the area's representative point. Tiles from OpenStreetMap. Nothing about the viewer is recorded.
@@ -8,7 +9,6 @@ declare global { interface Window { L?: any } }
 
 export default function AreaMap({ ballotId = "", areaName, lat, lng, outcode, levelLabel, loc = null }: Props) {
   const [layers, setLayers] = useState<{ label: string; colour: string; n: number; whatItMeans?: string; more?: string }[]>([]);
-  const [explain, setExplain] = useState<string | null>(null);
   const [hidden, setHidden] = useState<Record<string, boolean>>({});
   const groups = (typeof window !== "undefined" ? ((window as unknown as { __tsmLayers?: Record<string, { addTo: (m: unknown) => void; remove: () => void }> }).__tsmLayers ??= {}) : {}) as Record<string, { addTo: (m: unknown) => void; remove: () => void }>;
   const mapRefObj = useRef<unknown>(null);
@@ -110,14 +110,14 @@ export default function AreaMap({ ballotId = "", areaName, lat, lng, outcode, le
             <span className="key-swatch" style={{ background: l.colour }} aria-hidden /> {l.label} ({l.n})
           </button>
         ))}
-        {layers.map((l) => l.whatItMeans ? <button key={`${l.label}-q`} type="button" className={`key-what${explain === l.label ? " on" : ""}`} aria-expanded={explain === l.label} onClick={() => setExplain((e) => (e === l.label ? null : l.label))} title={`What "${l.label}" means`}>What does "{l.label.replace(/ \(.*\)$/, "")}" mean?</button> : null)}
-        {explain ? (() => { const l = layers.find((x) => x.label === explain); return l?.whatItMeans ? <span className="key-explain" role="note"><strong>{l.label.replace(/ \(.*\)$/, "")}:</strong> {l.whatItMeans}{l.more ? <> <a href={l.more} target="_blank" rel="noopener">Official guidance →</a></> : null}</span> : null; })() : null} Tap any shape or dot for what it is, the official record, and what candidates here have published on it.</p>
+{" "}Tap any shape or dot for what it is, the official record, and what candidates here have published on it.</p>
       ) : null}
-      {/* Romily, 29 Sept: the map's sources "less in your face". Kept one tap away, and credited on the map itself. */}
-      <details className="map-credits">
-        <summary>About this map</summary>
-        <p>{outcode ? "The highlighted circle is the centre of your postcode district, not your address. " : ""}{layers.length ? "The layers are facts about the ground, not anyone's proposals, and their colours are chosen to be unlike any party's. " : ""}Boundaries: ONS Open Geography Portal (Open Government Licence). Map tiles: &copy; OpenStreetMap contributors.</p>
-      </details>
+      {/* Romily, 29 Sept: the map's sources "less in your face"; 14 Oct: the layer definitions and the sources behind one
+          "Define these terms" toggle, closed by default. Leaflet's own small credit stays in the map's corner. */}
+      <DefineTerms
+        terms={layers.filter((l) => l.whatItMeans).map((l) => ({ term: l.label.replace(/ \(.*\)$/, ""), meaning: l.whatItMeans!, more: l.more ? { href: l.more, label: "Official guidance →" } : undefined }))}
+        sources={<>{outcode ? "The highlighted circle is the centre of your postcode district, not your address. " : ""}{layers.length ? "The layers are facts about the ground, not anyone's proposals, and their colours are chosen to be unlike any party's. " : ""}Boundaries: ONS Open Geography Portal (Open Government Licence). Map tiles: &copy; OpenStreetMap contributors.</>}
+      />
     </div>
   );
 }

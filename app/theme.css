@@ -325,8 +325,6 @@ details.said-where blockquote.quote { border-left: 3px solid var(--rose-gold); p
   .home-map .map-key { display: block; white-space: nowrap; overflow-x: auto; overflow-y: hidden; padding: 0.5rem 1rem 0.4rem; scrollbar-width: thin; }
   .home-map .map-key > strong { display: inline-block; margin-right: 0.5rem; }
   .home-map .map-key .key-toggle { display: inline-flex; vertical-align: middle; min-height: 40px; margin: 0 0.35rem 0 0; }
-  .home-map .map-key .key-what { display: inline-block; vertical-align: middle; min-height: 40px; line-height: 40px; }
-  .home-map .map-key .key-explain { display: block; white-space: normal; }
   .home-map .map-note:not(.map-key) { font-size: 0.78rem; }
 }
 /* The Display button stays quiet in both themes. */
@@ -348,7 +346,7 @@ body:has(.cand-foot) .hdyk { bottom: 5.4rem; }
 /* ===== Romily's notes, 29 Sept (afternoon) ===== */
 /* The map's sources, one tap away rather than a paragraph under every map. */
 .map-credits { margin: 0.25rem 0 0; padding: 0 0.1rem; font-size: 0.8rem; color: var(--muted); text-align: right; }
-.home-map .map-credits { padding: 0 1rem; }
+.home-map .map-credits, .home-map .define-terms { padding: 0 1rem; }
 .map-credits > summary { display: inline-flex; align-items: center; gap: 0.3rem; min-height: 32px; cursor: pointer; list-style: none; color: var(--muted); font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
 .map-credits > summary::-webkit-details-marker { display: none; }
 .map-credits > summary::before { content: "i"; display: inline-grid; place-items: center; width: 1.05rem; height: 1.05rem; border-radius: 50%; border: 1.5px solid currentColor; font: italic 700 0.7rem/1 var(--display); text-decoration: none; }
