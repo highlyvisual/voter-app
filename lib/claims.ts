@@ -1,4 +1,4 @@
-import type { Claim } from "@/lib/data";
+import type { Claim } from "@/lib/types";
 import { FIELDS, type Household } from "@/lib/household";
 
 // Layer label: what kind of publication a claim rests on.
