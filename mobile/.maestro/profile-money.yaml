@@ -1,0 +1,84 @@
+# Profile filled in → the household split and the money tables. Run after journey.yaml (it keeps the app's state):
+#   MAESTRO_CLI_NO_ANALYTICS=1 maestro test mobile/.maestro/profile-money.yaml --test-output-dir <dir>
+# Uses the Holborn and St Pancras by-election (8 Oct 2026, archived), which has three parties' pledges modelled, opened
+# by deep link. The household is an example: 35 to 49, a couple, one school-age child, renting privately,
+# £25,000 to £40,000, employed, not a student.
+appId: org.whatsittome.app
+env:
+  BALLOT: parl.holborn-and-st-pancras.by.2026-10-08
+---
+- launchApp
+- tapOn: "Profile"
+- assertVisible: "Your answers never leave this phone"
+- tapOn: "35 to 49"
+- scrollUntilVisible:
+    element: "A couple"
+- tapOn: "A couple"
+- scrollUntilVisible:
+    element: "School age \\(5 to 17\\)"
+- tapOn: "School age \\(5 to 17\\)"
+- scrollUntilVisible:
+    element: "Rent privately.*"
+- tapOn: "Rent privately.*"
+- scrollUntilVisible:
+    element: "£25,000 to £40,000"
+- tapOn: "£25,000 to £40,000"
+- scrollUntilVisible:
+    element: "Employed"
+- tapOn: "Employed"
+- scrollUntilVisible:
+    element: "Not a student"
+- tapOn: "Not a student"
+- scrollUntilVisible:
+    element: "All questions answered.*"
+    direction: UP
+- takeScreenshot: 10-profile-filled
+- openLink: whatsittome://elections/${BALLOT}
+- tapOn:
+    text: "Open"
+    optional: true
+- extendedWaitUntil:
+    visible: "Key dates"
+    timeout: 20000
+- takeScreenshot: 11-holborn-ballot
+- scrollUntilVisible:
+    element: "Housing.*"
+- tapOn:
+    text: "Housing.*"
+- extendedWaitUntil:
+    visible: "Housing and property"
+    timeout: 10000
+- scrollUntilVisible:
+    element: "Applies to you.*"
+- takeScreenshot: 12-housing-applies-to-you
+- scrollUntilVisible:
+    element: "Applies to others.*"
+    timeout: 90000
+- tapOn: "Applies to others.*"
+- takeScreenshot: 13-housing-applies-to-others
+- tapOn: "Back"
+- scrollUntilVisible:
+    element: "Money.*"
+    direction: UP
+    timeout: 60000
+- tapOn:
+    text: "Money.*"
+- extendedWaitUntil:
+    visible: "A household like this one, under current law"
+    timeout: 20000
+- takeScreenshot: 14-money-current-law
+- scrollUntilVisible:
+    element: "Modelled:.*"
+    timeout: 90000
+- takeScreenshot: 15-money-pledge
+- tapOn: "Back"
+- scrollUntilVisible:
+    element: "Peter Newman.*"
+    direction: UP
+    timeout: 60000
+- tapOn:
+    text: "Peter Newman.*"
+- extendedWaitUntil:
+    visible: "Positions by topic"
+    timeout: 10000
+- takeScreenshot: 16-candidate-reform

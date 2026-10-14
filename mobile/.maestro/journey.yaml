@@ -9,14 +9,22 @@ env:
     clearState: true
 - assertVisible: "What’s It To Me?"
 - takeScreenshot: 01-home
+- scrollUntilVisible:
+    element:
+      id: postcode
 - tapOn:
     id: postcode
 - inputText: ${POSTCODE}
+- hideKeyboard
+- scrollUntilVisible:
+    element: "Find my elections"
 - tapOn: "Find my elections"
-- extendedWaitUntil:
-    visible: "Coming up in.*"
-    timeout: 20000
+- scrollUntilVisible:
+    element: "Coming up in.*"
+    timeout: 30000
 - takeScreenshot: 02-elections
+- scrollUntilVisible:
+    element: "Flintshire local election.*"
 - tapOn:
     text: "Flintshire local election.*"
 - extendedWaitUntil:
@@ -30,9 +38,9 @@ env:
     element: "Josh Swash.*"
 - tapOn:
     text: "Josh Swash.*"
-- extendedWaitUntil:
-    visible: "In their own words"
-    timeout: 10000
+- scrollUntilVisible:
+    element: "In their own words"
+    timeout: 20000
 - takeScreenshot: 05-candidate
 - scrollUntilVisible:
     element: "Positions by topic"

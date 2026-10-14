@@ -1,6 +1,6 @@
 import { Image } from 'expo-image';
 import { Stack, useLocalSearchParams } from 'expo-router';
-import { Text, View } from 'react-native';
+import { Text, View, useWindowDimensions } from 'react-native';
 import { TOPICS } from '@/lib/types';
 import { savedAtText } from '@/core/api';
 import { useStore } from '@/core/store';
@@ -15,6 +15,8 @@ import { Banner, Card, ErrorState, H1, H2, H3, LinkRow, Loading, Screen, Small, 
 export default function CandidateScreen() {
   const { ballotId, candidateId } = useLocalSearchParams<{ ballotId: string; candidateId: string }>();
   const c = usePalette();
+  // With large text (Dynamic Type), the photo goes above the name so the name keeps the full width.
+  const stacked = useWindowDimensions().fontScale > 1.4;
   const { household, complete } = useStore();
   const { ballot: b, fromCache, savedAt, error, refreshing, refresh, retry } = useBallot(ballotId);
   const k = b?.candidates.find((x) => String(x.id) === candidateId);
@@ -30,11 +32,11 @@ export default function CandidateScreen() {
       {b && !k ? <ErrorState message="This candidate is no longer on the ballot." /> : null}
       {k ? (
         <>
-          <View style={{ flexDirection: 'row', gap: 16, alignItems: 'center' }}>
+          <View style={{ flexDirection: stacked ? 'column' : 'row', gap: 16, alignItems: stacked ? 'flex-start' : 'center' }}>
             {k.photo_url ? (
               <Image source={{ uri: k.photo_url }} style={{ width: 96, height: 120, borderRadius: 12, backgroundColor: c.skeleton }} contentFit="cover" accessible accessibilityLabel={`Photo of ${k.name}`} />
             ) : null}
-            <View style={{ flex: 1, gap: 6 }}>
+            <View style={{ flex: stacked ? undefined : 1, gap: 6 }}>
               <H1>{k.name}</H1>
               {/* The party's own colour, on its own candidate's screen only (party material). */}
               <View style={{ alignSelf: 'flex-start', borderRadius: 999, paddingHorizontal: 12, paddingVertical: 6, backgroundColor: party?.colour ?? c.chip }}>
