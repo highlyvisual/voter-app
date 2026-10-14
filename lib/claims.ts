@@ -1,12 +1,21 @@
 import type { Claim } from "@/lib/types";
 import { FIELDS, type Household } from "@/lib/household";
 
+// The fields these helpers read. A website Claim fits, and so does the phone app's AppClaim (lib/appApi.ts), so both run
+// the same ordering and household logic.
+export type ClaimLike = {
+  candidate_id: number | null;
+  applies_if: unknown;
+  precision?: "measurable" | "aspiration";
+  sources?: { layer?: string | null; publisher?: string; published_on?: string | null } | null;
+};
+
 // Layer label: what kind of publication a claim rests on.
 // Fixed layer set (docs/claims-style-guide.md). Grey chips, identical weight, no order implied in the UI; ordering below is for reading only.
 export const LAYERS: Record<string, string> = {
   manifesto: "Manifesto", enacted_record: "Public record", candidate_statement: "Candidate's own words", campaign_leaflet: "Campaign leaflet", third_party_analysis: "Third-party report",
 };
-export function layerKey(c: Claim): string {
+export function layerKey(c: ClaimLike): string {
   const l = c.sources?.layer;
   if (l && l in LAYERS) return l;
   if (c.candidate_id !== null) return "candidate_statement";
@@ -15,13 +24,13 @@ export function layerKey(c: Claim): string {
   if (pub.includes("press association") || pub.includes("via ")) return "third_party_analysis";
   return "manifesto";
 }
-export function layerOf(c: Claim): string { return LAYERS[layerKey(c)]; }
+export function layerOf(c: ClaimLike): string { return LAYERS[layerKey(c)]; }
 export const LEGEND = "Candidate statements and leaflets are published as written; we check they are real, not that they are true.";
-export function precisionLabel(c: Claim): string | null { return c.precision === "aspiration" ? "Stated aim, no measurable commitment found" : null; }
+export function precisionLabel(c: Pick<ClaimLike, "precision">): string | null { return c.precision === "aspiration" ? "Stated aim, no measurable commitment found" : null; }
 const RANK: Record<string, number> = { candidate_statement: 0, enacted_record: 1, third_party_analysis: 2, campaign_leaflet: 3, manifesto: 4 };
 
 // Own words first, then the most recent and most binding party material.
-export function orderClaims(list: Claim[]): Claim[] {
+export function orderClaims<T extends ClaimLike>(list: T[]): T[] {
   return [...list].sort((a, b) => {
     const r = (RANK[layerKey(a)] ?? 9) - (RANK[layerKey(b)] ?? 9);
     if (r !== 0) return r;
@@ -46,8 +55,8 @@ export function conditionText(appliesIf: unknown): string | null {
   return parts.length ? `Applies if: ${parts.join("; ")}` : null;
 }
 
-export type Split = { shown: Claim[]; hidden: Claim[] };
-export function splitForHousehold(list: Claim[], household: Household, complete: boolean, applies: (a: unknown, h: Household) => boolean): Split {
+export type Split<T extends ClaimLike = Claim> = { shown: T[]; hidden: T[] };
+export function splitForHousehold<T extends ClaimLike>(list: T[], household: Household, complete: boolean, applies: (a: unknown, h: Household) => boolean): Split<T> {
   const ordered = orderClaims(list);
   if (!complete) return { shown: ordered, hidden: [] };
   return { shown: ordered.filter((c) => applies(c.applies_if, household)), hidden: ordered.filter((c) => !applies(c.applies_if, household)) };
