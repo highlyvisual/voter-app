@@ -36,8 +36,9 @@ export function Eyebrow({ children, color }: { children: string; color?: string 
 
 export function SectionTitle({ children, right }: { children: string; right?: ReactNode }) {
   const c = usePalette();
+  const big = useWindowDimensions().fontScale > 1.35; // the note goes under the title with the largest text
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 18 }}>
+    <View style={{ flexDirection: big ? 'column' : 'row', alignItems: big ? 'flex-start' : 'center', justifyContent: 'space-between', marginTop: 18 }}>
       <Text style={[s.h2, { color: c.ink, marginTop: 0, flexShrink: 1 }]} accessibilityRole="header">{children}</Text>
       {right}
     </View>

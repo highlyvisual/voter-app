@@ -70,7 +70,7 @@ env:
     visible: "Your answers never leave this phone.*"
 - takeScreenshot: 08-you
 - scrollUntilVisible:
-    element: "Does your household own or regularly drive a car\\?"
+    element: "Is anyone in your household disabled.*"
     centerElement: true
     timeout: 20000
 - tapOn:

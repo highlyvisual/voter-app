@@ -17,7 +17,7 @@ env:
     timeout: 30000
 - takeScreenshot: L2-ballot
 - scrollUntilVisible:
-    element: "The \\d+ on your paper"
+    element: "in ballot order"
     visibilityPercentage: 30
 - takeScreenshot: L3-ballot-candidates
 - tapOn: "Number 1, .*"

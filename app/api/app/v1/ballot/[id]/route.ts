@@ -101,7 +101,7 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
     })),
     parties: [...parties.values()],
     receipts: base ? { version: base.policyengine_version, baseline_id: baselineId, compare_baseline_id: sets.some((s) => s.reform_set_id === compareId) ? compareId : null, sets: refs } : null,
-    source: "Democracy Club (CC BY 4.0), official notices, and the sources linked from each claim",
+    source: "Democracy Club (CC BY 4.0), the council’s notice of election where linked, and the source under each position (whatsittome.org/ledger)",
   });
 }
 

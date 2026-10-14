@@ -45,7 +45,7 @@ export default function BallotScreen() {
           <TopicsForYou ballotId={ballotId} b={b} household={household} complete={complete} personal={personal} />
 
           <LinkRow label="This ballot on the website" url={b.ballot.web_url} />
-          <Small style={{ color: c.muted }}>Sources: {b.source}.</Small>
+          <LinkRow label="Sources for everything in this app" onPress={() => router.push('/sources')} />
         </>
       ) : null}
     </Screen>
