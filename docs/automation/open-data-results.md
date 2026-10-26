@@ -193,6 +193,15 @@ was started.
   so the line says what a document said then, not what the council does now. If that is not good enough for a council
   page, drop the second step from `council-register.yml` and the rendering block in the page; the data job is harmless on
   its own. Romily's call.
+- **Round ten q15 (26 Oct): released on the motion's-own-words rule.** Romily: "Show only the ones quoting the motion's
+  own words." The script now takes only a present-tense resolution ("resolves / declares / commits / agrees", "declare a
+  climate emergency"), cuts off who moved and seconded it (the words after are still verbatim), skips news pages by their
+  address, and drops reports of the decision ("has been declared", "decision to declare", "is requested to"), agenda
+  furniture ("proposed the following", "presented the recommendations", "notice of motion", amended-motion wording),
+  first-person speech, and any sentence naming a party or a party politician. The step in `council-register.yml` is back
+  on. Dry run from a laptop on 26 Oct (seven councils' sites refused or timed out there: Cherwell, Cotswold, East Sussex,
+  Medway, North Norfolk, South Kesteven, Stevenage; their September sentences were checked against the rule instead) is in
+  the round-ten report.
 
 ## Checks
 
