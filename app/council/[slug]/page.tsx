@@ -143,7 +143,7 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
               <div key={l.url} className="council-fact">
                 <p className="small"><b>The council&rsquo;s climate-emergency motion</b>, in its own words{l.doc_date ? <>, {fmt(l.doc_date)}</> : null}:</p>
                 <blockquote className="council-quote">&ldquo;{l.quote}&rdquo;</blockquote>
-                <p className="meta">{l.doc_date ? `${fmt(l.doc_date)} is when the motion was passed, as dated in the council's document` : "The council's document gives no date for the motion"}: it shows what the council resolved then, not what it does now. <a href={L(l.url)} rel="noopener">{l.title ?? `${l.publisher}'s document`}</a> ({l.publisher}), found through {l.dataset}; the sentence was checked word for word on {fmt(l.checked_at.slice(0, 10))}.</p>
+                <p className="meta">{l.doc_date ? `The council's document is dated ${fmt(l.doc_date)}` : "The council's document gives no date for the motion"}: it shows what the council resolved then, not what it does now. <a href={L(l.url)} rel="noopener">{l.title ?? `${l.publisher}'s document`}</a> ({l.publisher}), found through {l.dataset}; the sentence was checked word for word on {fmt(l.checked_at.slice(0, 10))}.</p>
               </div>
             ))}
             {found.length ? found.map((f, i) => (
