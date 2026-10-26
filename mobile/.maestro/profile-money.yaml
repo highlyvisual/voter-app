@@ -1,0 +1,98 @@
+# A full household → "Applies to you", the money tables and a candidate by scale, on a ballot with sourced positions.
+# Run after journey.yaml or welcome-home.yaml (it keeps the app's state):
+#   MAESTRO_CLI_NO_ANALYTICS=1 maestro test mobile/.maestro/profile-money.yaml --test-output-dir <dir>
+# Uses the Holborn and St Pancras by-election (8 Oct 2026, archived), which has three parties' pledges modelled, opened
+# by deep link. The household is an example: 35 to 49, a couple, one school-age child, renting privately,
+# £25,000 to £40,000, employed, not a student.
+appId: org.whatsittome.app
+env:
+  BALLOT: parl.holborn-and-st-pancras.by.2026-10-08
+---
+- launchApp
+- tapOn: "You"
+- extendedWaitUntil:
+    visible: "Your answers never leave this phone.*"
+- tapOn: "Age: .*"
+- tapOn: "35 to 49"
+- tapOn: "Adults in the household: .*"
+- tapOn: "A couple"
+- tapOn: "Children or dependants: .*"
+- tapOn: "School age \\(5 to 17\\)"
+- tapOn: "Housing: .*"
+- tapOn: "Rent privately.*"
+- tapOn: "Household income before tax, per year: .*"
+- tapOn: "£25,000 to £40,000"
+- tapOn: "Work: .*"
+- tapOn: "Employed"
+- tapOn: "Studying: .*"
+- tapOn: "Not a student"
+- extendedWaitUntil:
+    visible: "All answered"
+- takeScreenshot: 20-you-filled
+- openLink: whatsittome://elections/${BALLOT}
+- tapOn:
+    text: "Open"
+    optional: true
+- extendedWaitUntil:
+    visible: "Before polling day"
+    timeout: 20000
+- takeScreenshot: 21-holborn-ballot
+- scrollUntilVisible:
+    element: "What changes for you"
+    centerElement: true
+    timeout: 30000
+- takeScreenshot: 22-holborn-topics
+- tapOn: "Why Housing is near the top"
+- extendedWaitUntil:
+    visible: "Why it’s near the top"
+- takeScreenshot: 23-why-housing
+- tapOn: "Close"
+- tapOn: "Housing.*"
+- extendedWaitUntil:
+    visible: "Housing and property"
+    timeout: 10000
+- scrollUntilVisible:
+    element: "Applies to you"
+    timeout: 60000
+- takeScreenshot: 24-housing-applies-to-you
+- scrollUntilVisible:
+    element: "Sourced: .*"
+    timeout: 30000
+- tapOn: "Sourced: .*"
+- extendedWaitUntil:
+    visible: "Open the source"
+- takeScreenshot: 25-sourced-sheet
+- tapOn: "Close"
+- scrollUntilVisible:
+    element: "Applies to others.*"
+    timeout: 90000
+- tapOn: "Applies to others.*"
+- takeScreenshot: 26-housing-applies-to-others
+- tapOn: "Back"
+- scrollUntilVisible:
+    element: "Money.*"
+    timeout: 60000
+- tapOn: "Money.*"
+- extendedWaitUntil:
+    visible: "A household like this one, under current law"
+    timeout: 20000
+- takeScreenshot: 27-money-current-law
+- scrollUntilVisible:
+    element: "Modelled:.*"
+    timeout: 90000
+- takeScreenshot: 28-money-pledge
+- tapOn: "Back"
+- scrollUntilVisible:
+    element: ".*Peter Newman.*"
+    direction: UP
+    timeout: 60000
+- tapOn: ".*Peter Newman.*"
+- extendedWaitUntil:
+    visible: "In their own words"
+    timeout: 10000
+- scrollUntilVisible:
+    element: "Housing.*"
+    centerElement: true
+- tapOn: "Housing.*"
+- waitForAnimationToEnd
+- takeScreenshot: 29-candidate-housing-open

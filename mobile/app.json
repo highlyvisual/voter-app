@@ -3,16 +3,19 @@
     "name": "What's It To Me?",
     "slug": "whatsittome",
     "scheme": "whatsittome",
-    "version": "0.1.0",
+    "version": "0.3.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "ios": {
       "bundleIdentifier": "org.whatsittome.app",
-      "buildNumber": "2",
+      "buildNumber": "3",
       "supportsTablet": true,
       "config": {
         "usesNonExemptEncryption": false
+      },
+      "infoPlist": {
+        "NSLocationDefaultAccuracyReduced": true
       }
     },
     "android": {
@@ -28,7 +31,9 @@
       "blockedPermissions": [
         "android.permission.SYSTEM_ALERT_WINDOW",
         "android.permission.READ_EXTERNAL_STORAGE",
-        "android.permission.WRITE_EXTERNAL_STORAGE"
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_BACKGROUND_LOCATION"
       ]
     },
     "web": {
@@ -48,13 +53,29 @@
           }
         }
       ],
-      "./plugins/withSceneLifecycle"
+      "./plugins/withSceneLifecycle",
+      "expo-router",
+      "expo-secure-store",
+      "expo-image",
+      "expo-font",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Only if you tap “Use my location”: your approximate location is used once to find your postcode area and the elections there. It is not kept.",
+          "isAndroidBackgroundLocationEnabled": false,
+          "isIosBackgroundLocationEnabled": false,
+          "isAndroidForegroundServiceEnabled": false
+        }
+      ]
     ],
     "extra": {
       "eas": {
         "projectId": "a0ea29b8-fd21-4214-b225-3d01f6c2adaf"
       }
     },
-    "owner": "barnytj"
+    "owner": "barnytj",
+    "experiments": {
+      "typedRoutes": true
+    }
   }
 }

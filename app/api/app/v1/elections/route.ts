@@ -14,11 +14,25 @@ const SITE = "https://whatsittome.org";
 type Pio = { latitude: number | null; longitude: number | null; country?: string };
 
 export async function POST(req: NextRequest) {
-  let body: { postcode?: unknown } = {};
+  let body: { postcode?: unknown; lat?: unknown; lng?: unknown } = {};
   try { body = await req.json(); } catch { /* empty body handled below */ }
-  const raw = String(body.postcode ?? "").replace(/\s+/g, "").toUpperCase();
+  let raw = String(body.postcode ?? "").replace(/\s+/g, "").toUpperCase();
   const reply = (res: ElectionsResponse, status = 200) => NextResponse.json(res, { status, headers: { "Cache-Control": "no-store" } });
   const fail = (message: string, status = 400) => reply({ ok: false, message }, status);
+
+  // App 0.3.0, "Use my location": an approximate location instead of a postcode. It is turned into the nearest postcode
+  // once (postcodes.io, within 2 km) and then handled exactly like a typed one. Neither is stored or logged.
+  const found_by: "postcode" | "location" = !raw && typeof body.lat === "number" && typeof body.lng === "number" ? "location" : "postcode";
+  if (found_by === "location") {
+    const lat = Math.round((body.lat as number) * 1000) / 1000, lng = Math.round((body.lng as number) * 1000) / 1000;
+    if (!(lat >= 49.8 && lat <= 60.9 && lng >= -8.7 && lng <= 1.8)) return fail("That location is outside the UK. This app covers elections in England, Scotland, Wales and Northern Ireland.");
+    try {
+      const r = await fetch(`https://api.postcodes.io/postcodes?lon=${lng}&lat=${lat}&radius=2000&limit=1`, { signal: AbortSignal.timeout(6000), cache: "no-store" });
+      const near = r.ok ? ((await r.json()) as { result?: { postcode?: string }[] | null }).result?.[0]?.postcode : undefined;
+      if (!near) return fail("We couldn't find a postcode near you. Please type your postcode instead.");
+      raw = near.replace(/\s+/g, "").toUpperCase();
+    } catch { return fail("We couldn't look up your location just now. Please type your postcode instead.", 503); }
+  }
   if (!/^[A-Z]{1,2}\d[A-Z\d]?\d[A-Z]{2}$/.test(raw)) return fail("That doesn't look like a UK postcode. Check it and try again, for example WC1H 9JE.");
 
   let pio: Pio | null = null;
@@ -50,5 +64,5 @@ export async function POST(req: NextRequest) {
       url: covered.has(b.ballot_paper_id) ? `${SITE}/ballot/${encodeURIComponent(b.ballot_paper_id)}/area?${q}` : null,
     }));
 
-  return reply({ ok: true, outcode, elections, placeUrl: `${SITE}/place?${q}`, source: "Democracy Club (CC BY 4.0) and postcodes.io" });
+  return reply({ ok: true, outcode, elections, placeUrl: `${SITE}/place?${q}`, source: "Democracy Club (CC BY 4.0) and postcodes.io", found_by });
 }

@@ -1,0 +1,92 @@
+# The 0.3.0 journey: welcome → postcode → Home → the paper → a candidate → Next and swipe through the paper → a topic
+# → Coming up → You (the extras as a conversation, the optional questions about you) → More → Sources. Run with:
+#   MAESTRO_CLI_NO_ANALYTICS=1 maestro test mobile/.maestro/journey.yaml --test-output-dir <dir>
+# Uses BH14 9BA (Penn Hill ward by-election, 5 Nov 2026); swap the postcode once that has passed.
+appId: org.whatsittome.app
+env:
+  POSTCODE: BH14 9BA
+---
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible: "Get started"
+    timeout: 15000
+- tapOn: "Get started"
+- tapOn:
+    id: postcode
+- inputText: ${POSTCODE}
+- pressKey: Enter
+- extendedWaitUntil:
+    visible: "Not now, take me to my next vote"
+    timeout: 30000
+- tapOn: "Not now, take me to my next vote"
+- extendedWaitUntil:
+    visible: ".*polling day.*"
+    timeout: 30000
+- waitForAnimationToEnd
+- takeScreenshot: 01-home-not-personalised
+- scrollUntilVisible:
+    element: "Independent. No rankings.*"
+- takeScreenshot: 02-home-foot
+- scrollUntilVisible:
+    element: "Number 1, .*"
+    direction: UP
+    centerElement: true
+- tapOn: "Number 1, .*"
+- extendedWaitUntil:
+    visible: "In their own words"
+    timeout: 20000
+- waitForAnimationToEnd
+- takeScreenshot: 03-candidate-1
+- tapOn: "Next on the paper: number 2.*"
+- extendedWaitUntil:
+    visible: "No. 2 of \\d+"
+- waitForAnimationToEnd
+- takeScreenshot: 04-candidate-2-by-next
+- swipe:
+    start: 85%, 45%
+    end: 15%, 45%
+- extendedWaitUntil:
+    visible: "No. 3 of \\d+"
+- waitForAnimationToEnd
+- takeScreenshot: 05-candidate-3-by-swipe
+- scrollUntilVisible:
+    element: "The UK"
+    centerElement: true
+- tapOn: "The UK"
+- waitForAnimationToEnd
+- takeScreenshot: 06-candidate-scale-uk
+- tapOn: "Back to the paper"
+- extendedWaitUntil:
+    visible: "Before polling day"
+- takeScreenshot: 06b-ballot
+- tapOn: "Coming up"
+- extendedWaitUntil:
+    visible: "Near .*"
+- takeScreenshot: 07-coming-up
+- tapOn: "You"
+- extendedWaitUntil:
+    visible: "Your answers never leave this phone.*"
+- takeScreenshot: 08-you
+- scrollUntilVisible:
+    element: "Is anyone in your household disabled.*"
+    centerElement: true
+    timeout: 20000
+- tapOn: "No"
+- extendedWaitUntil:
+    visible: "Is anyone in your household an unpaid carer\\?"
+- waitForAnimationToEnd
+- takeScreenshot: 09-you-conversation
+- scrollUntilVisible:
+    element: "Which ethnic group are you\\?"
+    centerElement: true
+    timeout: 20000
+- takeScreenshot: 10-you-about-you
+- tapOn: "More"
+- extendedWaitUntil:
+    visible: "Sources"
+- tapOn: "Sources"
+- extendedWaitUntil:
+    visible: "Independent"
+- takeScreenshot: 11-sources
