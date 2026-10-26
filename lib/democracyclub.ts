@@ -145,3 +145,29 @@ export function organiserIn(title: string): string | null {
 function domainOf(u: string): string | null {
   try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return null; }
 }
+
+// Who stood on one past ballot (Romily, round eleven q5: outside an election, the parties that stood where you live at
+// the last general election). From the candidates API by ballot id, CC BY 4.0. A finished general election does not
+// change, so the answer is cached for a week. Null when the API could not be read or has no such ballot; the page then
+// says so rather than guessing.
+export type StoodParty = { ec_id: string; name: string };
+export type BallotStood = { ballot_paper_id: string; label: string; parties: StoodParty[]; independents: number; url: string };
+export async function ballotStood(ballotPaperId: string): Promise<BallotStood | null> {
+  try {
+    const r = await fetch(withToken(`${BASE}/ballots/${encodeURIComponent(ballotPaperId)}/`), {
+      signal: AbortSignal.timeout(6000), headers: { "User-Agent": "What's It To Me? (whatsittome.org; hello@whatsittome.org)" }, next: { revalidate: 604800 },
+    });
+    if (!r.ok) return null;
+    const j = (await r.json()) as { post?: { label?: string }; candidacies?: { party?: { ec_id?: string; name?: string } | null }[] };
+    const seen = new Map<string, string>();
+    let independents = 0;
+    for (const c of j.candidacies ?? []) {
+      const id = c.party?.ec_id ?? "";
+      if (!id || id === "ynmp-party:2") { independents++; continue; }
+      if (!seen.has(id)) seen.set(id, c.party?.name ?? id);
+    }
+    return { ballot_paper_id: ballotPaperId, label: j.post?.label ?? "", parties: [...seen].map(([ec_id, name]) => ({ ec_id, name })), independents, url: `https://candidates.democracyclub.org.uk/elections/${encodeURIComponent(ballotPaperId)}/` };
+  } catch {
+    return null;
+  }
+}

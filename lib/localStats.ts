@@ -32,6 +32,8 @@ export const PLAIN: Record<string, { name: string; means: string; unit?: string 
   "gigabit-capable-broadband": { name: "Homes and businesses that can get the fastest broadband", means: "The share of addresses that can get gigabit broadband (1,000 Mbps)." },
   "electric-vehicle-public-charging-devices": { name: "Public chargers for electric cars", means: "Public charging points at all speeds, for every 100,000 people.", unit: "per 100,000 people" },
   "active-businesses": { name: "Businesses trading here", means: "Businesses with sales or staff in the year.", unit: "businesses" },
+  // Your Home (round eleven): used on the housing pages only, not in the fixed list above. England only.
+  "net-additions-housing-stock": { name: "Homes added in a year, for every 1,000 homes", means: "New homes built, buildings converted to homes and other changes, less homes demolished, for every 1,000 homes already here.", unit: "per 1,000 homes" },
 };
 
 // Wider areas for the same figures (round eight q7: "the option to expand the geographical area"). ONS codes checked
@@ -74,7 +76,7 @@ function format(value: number, e: Item["extension"], unit?: string): string {
   return `${e.prefix ?? ""}${n}${e.suffix ?? ""}${tail ? ` ${tail}` : ""}`;
 }
 
-export async function localStats(gss: string | null | undefined): Promise<LocalStat[]> {
+export async function localStats(gss: string | null | undefined, slugs: string[] = LOCAL_STAT_SLUGS): Promise<LocalStat[]> {
   if (!gss || !/^[ENSWK]\d{8}$/.test(gss)) return [];
   try {
     const r = await fetch(`https://www.ons.gov.uk/explore-local-statistics/api/v1/data.json?geo=${gss}&time=latest`, {
@@ -84,7 +86,7 @@ export async function localStats(gss: string | null | undefined): Promise<LocalS
     const j = (await r.json()) as { link?: { item?: Item[] } };
     const bySlug = new Map((j.link?.item ?? []).map((it) => [it.extension?.slug, it]));
     const out: LocalStat[] = [];
-    for (const slug of LOCAL_STAT_SLUGS) {
+    for (const slug of slugs) {
       const it = bySlug.get(slug);
       if (!it || !it.value?.length) continue;
       // With confidence intervals the measure dimension holds value, lower and upper bounds; take the value.
