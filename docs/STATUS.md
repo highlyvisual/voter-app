@@ -1,4 +1,21 @@
-# Status, 6 October 2026
+# Status, 26 October 2026
+
+## Live on whatsittome.org
+
+Deploy `6adf1f70e0259670ed1216e4` (26 Oct, 09:41 UTC), branch `site/round-10` (PR "Round ten"), which contains
+`app/v0.2.0` (PR #15) and five round-ten branches: the home page (next vote first, one idea per screen, map credits
+behind an (i)), source tags and calmer positions pages, the "Your next election" widget (/embed), council business
+personalised plus hustings plus the climate-emergency lines, and combined authority pages (/authority). What was done
+for each of Romily's answers: `docs/romily/feedback-log.md`, round ten. Climate lines: "Council register" workflow,
+run 26 Oct from the branch, 18 lines.
+
+Draft, not live: Q33 money ranges, deploy `6adf21914ee84ff21d7c821e`, branch `site/r10-q33-draft`, for Romily.
+
+App: 0.3.0 iOS build 4 (release, whatsittome.org) in TestFlight, Founders internal group only. Android: not rebuilt.
+
+Before it: deploy `6acf1e9c` (14 Oct), app/v0.2.0 + site/map-define-terms. The history below is from 6 October.
+
+# Status, 6 October 2026 (kept for history)
 
 Where everything stands after the 27–29 September build sessions (Claude in Cowork and Claude Code). Replace this file
 rather than adding to it; history is in git, `CHANGELOG.md` and the decisions log in `docs/PROJECT.md`.
