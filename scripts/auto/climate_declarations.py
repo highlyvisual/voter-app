@@ -58,6 +58,10 @@ PARTY = re.compile(r"\b(Labour|Conservatives?|Tory|Tories|Liberal Democrats?|Lib
 MOVER = re.compile(r"(?i)\b(?:(?:moved|proposed|seconded|supported|motion)\s+by\s+(?:councillors?|cllrs?\.?)\s+[\w’'.-]+|(?:councillors?|cllrs?\.?)\s+[\w’'.-]+\s+moved\b:?)")
 LEAD_IN = re.compile(r"^[\s)\]”\"'’,;:–—-]*(?:that\b)?[\s:–—-]*")
 # News pages report a decision in their own words; only the council's own record of the motion counts (round ten q15).
+# Round ten q15, after the first live run (26 Oct): reported speech and minutes narrative that the patterns above let
+# through ("He confirmed that he was minded to recommend…", "It was moved by County Councillor…", "Members would consider
+# whether to declare…"), and a motion that agrees with a campaign group's view rather than declaring (held for Romily).
+NARRATIVE = re.compile(r"(?i)\b(?:he|she|they) confirmed\b|\bminded to\b|\bit was (?:moved|proposed|seconded|resolved)\b|\bwould (?:also )?(?:bring forward|consider)\b|\bwhether to declare\b|\bagrees? with the view\b|\bview held by\b")
 NEWS_URL = re.compile(r"(?i)//news\.|/news/|/newsroom/|/press-?releases?/|/media-centre/")
 
 
@@ -68,7 +72,7 @@ def first_sentence_with(text: str, phrase: str) -> str | None:
         movers = list(MOVER.finditer(s))
         if movers: s = LEAD_IN.sub("", s[movers[-1].end():]).strip()
         if phrase not in s.lower(): continue
-        if 30 <= len(s) <= 400 and DECLARE.search(s) and not NOT_THE_DECISION.search(s) and not PARTY.search(s): return s
+        if 30 <= len(s) <= 400 and DECLARE.search(s) and not NOT_THE_DECISION.search(s) and not PARTY.search(s) and not NARRATIVE.search(s): return s
     return None
 
 
