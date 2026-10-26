@@ -103,3 +103,45 @@ export async function electionTimetable(ballotPaperId: string): Promise<Timetabl
     return null;
   }
 }
+
+// Hustings for a ballot (Romily, round ten q14: "Yes, list them all and say who runs each"). From Democracy Club's Who Can I
+// Vote For API (candidates_for_ballots, by ballot id, no key): the same hustings records the developers API returns on each
+// ballot, CC BY 4.0. Democracy Club records no organiser, so one is named only where the hustings' own title names it
+// verbatim ("... organised by X", "hosted by X"); otherwise the page says to see the event page, with its domain. Every
+// record is listed, by date; nothing is filtered by organiser. Null when the API could not be read (the page then says
+// nothing rather than "none").
+export type Husting = { title: string; url: string | null; starts: string; ends: string | null; location: string | null; postevent_url: string | null; organiser: string | null; domain: string | null };
+export const HUSTINGS_SOURCE = "https://whocanivotefor.co.uk/";
+export async function hustingsFor(ballotPaperId: string): Promise<Husting[] | null> {
+  try {
+    const r = await fetch(`https://whocanivotefor.co.uk/api/candidates_for_ballots/?ballot_ids=${encodeURIComponent(ballotPaperId)}`, {
+      signal: AbortSignal.timeout(6000), headers: { "User-Agent": "What's It To Me? (whatsittome.org; hello@whatsittome.org)" }, next: { revalidate: 3600 },
+    });
+    if (!r.ok) return null;
+    type Raw = { title?: string; url?: string; starts?: string; ends?: string | null; location?: string; postevent_url?: string };
+    const j = (await r.json()) as { ballot_paper_id: string; hustings?: Raw[] | null }[];
+    const b = Array.isArray(j) ? j.find((x) => x.ballot_paper_id === ballotPaperId) : undefined;
+    if (!b) return null;
+    const web = (u?: string | null) => (u && /^https?:\/\//i.test(u) ? u : null);
+    const when = (d?: string | null) => (d && !Number.isNaN(Date.parse(d)) ? d : null);
+    return (b.hustings ?? [])
+      .filter((h): h is Raw & { title: string; starts: string } => Boolean(h.title?.trim() && when(h.starts)))
+      .map((h) => {
+        const url = web(h.url);
+        return { title: h.title.trim(), url, starts: h.starts, ends: when(h.ends), location: h.location?.trim() || null, postevent_url: web(h.postevent_url), organiser: organiserIn(h.title), domain: url ? domainOf(url) : null };
+      })
+      .sort((a, b) => Date.parse(a.starts) - Date.parse(b.starts));
+  } catch {
+    return null;
+  }
+}
+
+/** The organiser, only where the title itself names it: the words after "organised by", "hosted by" and the like. */
+export function organiserIn(title: string): string | null {
+  const m = title.match(/\b(?:organi[sz]ed|hosted|run|arranged|convened|presented|chaired|held) by\s+([^,.;:()|–—]+?)\s*(?:[,.;:()|–—]|$)/i);
+  return m && m[1].trim().length > 1 ? m[1].trim() : null;
+}
+
+function domainOf(u: string): string | null {
+  try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return null; }
+}

@@ -57,22 +57,23 @@ export function contextTag(title: string): string {
   if (/reading|report stage|committee of the whole|lords amendments|money resolution|ways and means/.test(t)) return "Bill stage (sponsor not classified)";
   return "Motion";
 }
-// Topic mapping by keyword; null when no keyword matches. Used only to group, never to summarise.
+// Topic mapping by keyword; null when no keyword matches. Used only to group, never to summarise. The list is also used,
+// unchanged, to file council agenda titles under topics (lib/councilBusiness.ts, Romily round ten q13).
+export const TITLE_TOPICS: [RegExp, string][] = [
+  [/tax|budget|finance|national insurance|universal credit|benefit|pension|welfare|cost of living|employment/, "money_and_cost_of_living"],
+  [/\bhousing|\brenters?\b|\brent\b|planning|leasehold|homeless/, "housing_and_property"],
+  [/nhs|health|social care|mental health|hospital|assisted dying|terminally ill/, "healthcare_and_social_care"],
+  [/school|education|university|student|children.?s wellbeing|skills/, "education_and_universities"],
+  [/climate|energy|environment|water|net zero|great british energy|nature|flood/, "environment_climate_and_energy"],
+  [/\brail|railway|\bbus(es)?\b|transport|\broads?\b|highways|aviation|airport|driving|motorists?|vehicle|cycling/, "transport"],
+  [/immigration|asylum|border|migration|nationality|citizenship/, "immigration_and_borders"],
+  [/crime|police|sentenc|justice|prison|offender|terrorism|public order/, "crime_policing_and_justice"],
+  [/defence|armed forces|ukraine|foreign|european union|nato|israel|gaza|trade/, "defence_foreign_affairs_and_eu"],
+  [/equality|discrimination|rights|gender|disab|race relations|conversion/, "equality_and_rights"],
+];
 export function topicOf(title: string): string | null {
   const t = title.toLowerCase();
-  const map: [RegExp, string][] = [
-    [/tax|budget|finance|national insurance|universal credit|benefit|pension|welfare|cost of living|employment/, "money_and_cost_of_living"],
-    [/\bhousing|\brenters?\b|\brent\b|planning|leasehold|homeless/, "housing_and_property"],
-    [/nhs|health|social care|mental health|hospital|assisted dying|terminally ill/, "healthcare_and_social_care"],
-    [/school|education|university|student|children.?s wellbeing|skills/, "education_and_universities"],
-    [/climate|energy|environment|water|net zero|great british energy|nature|flood/, "environment_climate_and_energy"],
-    [/\brail|railway|\bbus(es)?\b|transport|\broads?\b|highways|aviation|airport|driving|motorists?|vehicle|cycling/, "transport"],
-    [/immigration|asylum|border|migration|nationality|citizenship/, "immigration_and_borders"],
-    [/crime|police|sentenc|justice|prison|offender|terrorism|public order/, "crime_policing_and_justice"],
-    [/defence|armed forces|ukraine|foreign|european union|nato|israel|gaza|trade/, "defence_foreign_affairs_and_eu"],
-    [/equality|discrimination|rights|gender|disab|race relations|conversion/, "equality_and_rights"],
-  ];
-  for (const [re, k] of map) if (re.test(t)) return k;
+  for (const [re, k] of TITLE_TOPICS) if (re.test(t)) return k;
   return null;
 }
 

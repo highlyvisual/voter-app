@@ -1,0 +1,42 @@
+/* Round ten q13 (council business by profile) and q14 (hustings). Uses the theme variables only, so light and dark follow. */
+
+/* q13: the two groups, each a short list with "Show all" */
+.cb-heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.6rem; }
+.cb-count { font-family: var(--sans); font-size: 0.85rem; font-weight: 400; color: var(--muted); }
+.cb-list { list-style: none; padding: 0; margin: 0.3rem 0 0.6rem; }
+.cb-item { display: flex; align-items: flex-start; gap: 0.5rem; border-top: 1px solid var(--rule); padding: 0.5rem 0 0.35rem; position: relative; }
+.cb-body { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.cb-when { display: block; font-size: 0.85rem; margin: 0.1rem 0 0.2rem; }
+.cb-more { margin: 0 0 1rem; min-height: 44px; }
+.cb-invite { margin-top: 0.4rem; }
+.cb-split + .meta, .cb-split > .meta:last-child { margin-top: 0.5rem; }
+
+/* The small (i): a 44px target around a small round mark */
+.cb-why { flex: none; }
+.cb-why-btn {
+  width: 44px; height: 44px; min-height: 44px; padding: 0; margin: -0.35rem -0.35rem 0 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: transparent; border: 0; color: var(--link); cursor: pointer; box-shadow: none;
+}
+.cb-why-btn span {
+  width: 1.4rem; height: 1.4rem; border-radius: 50%; border: 2px solid currentColor;
+  display: inline-flex; align-items: center; justify-content: center;
+  font: italic 700 0.85rem/1 var(--serif);
+}
+/* The theme-wide button colour must not reach it, in either theme (as for button.link in theme.css). */
+:root:not(.x) button.cb-why-btn, :root:not(.x) button.cb-why-btn:hover { background: transparent; border: 0; color: var(--link); box-shadow: none; transform: none; }
+.cb-why-btn:hover span, .cb-why-btn[aria-expanded="true"] span { background: var(--link); color: var(--paper); border-color: var(--link); }
+.cb-why-panel {
+  position: absolute; right: 0; top: calc(100% - 0.2rem); z-index: 5; width: min(22rem, calc(100vw - 2.5rem));
+  background: var(--paper); color: var(--ink); border: 2px solid var(--ink); box-shadow: var(--shadow); padding: 0.7rem 0.85rem;
+  font-size: 0.92rem;
+}
+.cb-why-panel p { margin: 0 0 0.4rem; }
+.cb-why-panel p:last-child { margin: 0; }
+
+/* q14: hustings on a ballot page */
+.hustings { margin: 1.5rem 0; }
+.hustings-list { list-style: none; padding: 0; margin: 0.4rem 0 0.6rem; }
+.hustings-list li { border-top: 1px solid var(--rule); padding: 0.55rem 0 0.45rem; overflow-wrap: anywhere; }
+.hustings-list .h-title { font-weight: 700; }
+.hustings-list .h-line { display: block; font-size: 0.92rem; }

@@ -18,6 +18,7 @@ import HouseholdForm from "@/components/HouseholdForm";
 import LastTime from "@/components/LastTime";
 import { baselineIdFor, bumpUsage, getBallot, getElectionDates, getReceipts, listCandidates, listCouncilPledges, listInvitationStatus, listLeaflets, listPreviousCandidacies, listResources, listVerifiedClaims } from "@/lib/data";
 import CouncilPledges from "@/components/CouncilPledges";
+import Hustings from "@/components/Hustings";
 import PlacePanel from "@/components/PlacePanel";
 import SinceThen from "@/components/SinceThen";
 import Journey from "@/components/Journey";
@@ -222,6 +223,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
       ))}
 
       <p className="meta">Photos appear only on each candidate's own page, so every candidate looks the same in this list. <Link href={`/coverage/${encodeURIComponent(ballotId)}`}>How much sourced material we found per party</Link>{isLocal ? <> · <Link href="/about/parties-standing">Why isn't my party standing here?</Link></> : null}</p>
+      <Suspense fallback={null}><Hustings ballotId={ballotId} archived={Boolean(ballot.archived)} /></Suspense>
       {previous && !ballot.archived ? <LastTime result={previous} label={prevLabel} /> : null}
 
       {loc && !ballot.archived ? (

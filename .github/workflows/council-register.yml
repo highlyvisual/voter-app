@@ -1,7 +1,7 @@
 name: Council register
 # Every UK council from mySociety's UK Local Authorities list (CC BY 4.0) joined to the WhatDoTheyKnow authorities list
 # (CC BY-SA 4.0), with a check against ONS's names-and-codes lists (scripts/auto/council_register.py). Weekly and on demand.
-# The climate-emergency step is paused (see below).
+# Then each council's own climate-emergency motion (see below).
 on:
   schedule:
     - cron: "50 5 * * 1"   # Mondays 05:50 UTC, after the council meetings job
@@ -24,7 +24,7 @@ jobs:
         with: { python-version: "3.12" }
       - name: Council register
         run: python scripts/auto/council_register.py
-      # Climate-emergency motions (scripts/auto/climate_declarations.py) are off until Romily decides (round eight, q28).
-      # To switch them on, restore this step:
-      #   - name: Climate-emergency motions from the councils' own documents
-      #     run: pip install --quiet pdfminer.six && (sudo apt-get install -y -qq poppler-utils > /dev/null || true) && python scripts/auto/climate_declarations.py
+      # Climate-emergency motions (scripts/auto/climate_declarations.py). Romily, round ten q15: released on the motion's-own-words
+      # rule (only a sentence that is the motion's own resolution words; no headings, news or party names).
+      - name: Climate-emergency motions from the councils' own documents
+        run: pip install --quiet pdfminer.six && (sudo apt-get install -y -qq poppler-utils > /dev/null || true) && python scripts/auto/climate_declarations.py

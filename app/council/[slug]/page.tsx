@@ -9,6 +9,7 @@ import { notFound } from "next/navigation";
 import { publicClient } from "@/lib/data";
 import { councilBySlug, councilSlugFor, EVERYDAY_SERVICES, REGISTER_ATTRIBUTION, TOPIC_ORDER, type CouncilFact } from "@/lib/councils";
 import WriteToThem from "@/components/WriteToThem";
+import CouncilBusiness, { type BusinessItem } from "@/components/CouncilBusiness";
 import AreaNumbers from "@/components/AreaNumbers";
 import { CouncilSpending, CouncilTaxDevolved } from "@/components/CouncilFinance";
 import { councilFinance } from "@/lib/councilFinance";
@@ -137,9 +138,12 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
               <p className="small">Band D set by {ctax.authority} for 2026&ndash;27: <b>{gbp(Number(ctax.own_band_d))}</b>{ctax.area_band_d ? <> of a {gbp(Number(ctax.area_band_d))} total bill in the area</> : null}. <span className="meta">MHCLG, Council Tax levels set by local authorities in England 2026 to 2027 (Open Government Licence).</span></p>
             ) : t === "council_tax" ? <CouncilTaxDevolved fin={fin} name={c.name} /> : null}
             {jobLines.filter((l) => l.topic === t).map((l) => (
+              // Romily, round ten q15: released on the motion's-own-words rule (scripts/auto/climate_declarations.py). Labelled
+              // as the council's own motion, with its date, and said plainly to be what was resolved then, not what it does now.
               <div key={l.url} className="council-fact">
+                <p className="small"><b>The council&rsquo;s climate-emergency motion</b>, in its own words{l.doc_date ? <>, {fmt(l.doc_date)}</> : null}:</p>
                 <blockquote className="council-quote">&ldquo;{l.quote}&rdquo;</blockquote>
-                <p className="meta"><a href={L(l.url)} rel="noopener">{l.publisher}</a>{l.doc_date ? `, ${fmt(l.doc_date)}` : ", undated"}{l.title ? `: ${l.title}` : ""}. The council&rsquo;s own document, found through {l.dataset}; the sentence was checked word for word on {fmt(l.checked_at.slice(0, 10))}.</p>
+                <p className="meta">{l.doc_date ? `${fmt(l.doc_date)} is when the motion was passed, as dated in the council's document` : "The council's document gives no date for the motion"}: it shows what the council resolved then, not what it does now. <a href={L(l.url)} rel="noopener">{l.title ?? `${l.publisher}'s document`}</a> ({l.publisher}), found through {l.dataset}; the sentence was checked word for word on {fmt(l.checked_at.slice(0, 10))}.</p>
               </div>
             ))}
             {found.length ? found.map((f, i) => (
@@ -214,7 +218,8 @@ type LineRow = { topic: string; url: string; quote: string; title: string | null
 // Romily, round six (q13): every Full Council motion shown, labelled with who proposed it. The proposer is taken from the
 // council's own agenda text; a councillor's party comes from Open Council Data. Where the agenda does not name the
 // proposer, the line says so and links the papers. Nothing is ranked, selected or matched to a ward (her q12 asked for the
-// ward rule to be rethought).
+// ward rule to be rethought). Round ten q13: with a saved profile, the browser re-groups the same items into "about your
+// household" and the rest by a published word rule (lib/councilBusiness.ts); without one, the lists by meeting stay.
 function Decisions({ rows, outcomes, queued, councillors, councilName, meetingsUrl }: { rows: AgendaRow[]; outcomes: OutcomeRow[]; queued: QueueRow[]; councillors: { name: string; party_name: string | null }[]; councilName: string; meetingsUrl: string }) {
   if (!rows.length) return null;
   const today = new Date().toISOString().slice(0, 10);
@@ -254,33 +259,43 @@ function Decisions({ rows, outcomes, queued, councillors, councilName, meetingsU
     return hits.length === 1 ? hits[0].party_name : null;
   };
   const proposers = (raw: string) => raw.replace(/^(cllrs?|councillors?)\.?\s+/i, "").split(/\s*(?:,|\band\b|&)\s*/).filter(Boolean).map((n) => { if (/^the\b/i.test(n.trim())) return n.trim(); const p = party(n); return `Cllr ${n.trim()}${p ? ` (${p})` : ""}`; }).join(" and ");
+  const Item = ({ it, when }: { it: AgendaRow; when?: ReactNode }) => (
+    <>
+      {it.kind === "motion" ? <span className="chip none">Motion</span> : null} {it.title}
+      {it.kind === "motion" ? <span className="meta"> — {it.proposer ? `from ${proposers(it.proposer)}` : "proposer named in the council's papers"}</span> : null}
+      {when}
+      <Result it={it} />
+    </>
+  );
   const Meeting = ({ m }: { m: (typeof meetings)[number] }) => (
     <li className="dec-meeting">
       <p className="dec-head"><a href={L(m.url)} rel="noopener"><b>{fmt(m.date)}</b> · {m.body}</a>{m.status && !/^confirmed$/i.test(m.status) ? <span className="meta"> · {m.status.replace(/^Confirmed;?\s*/i, "")}</span> : null}</p>
       {m.items.length ? (
         <ul className="dec-items">
-          {m.items.map((it) => (
-            <li key={it.item_id}>
-              {it.kind === "motion" ? <span className="chip none">Motion</span> : null} {it.title}
-              {it.kind === "motion" ? <span className="meta"> — {it.proposer ? `from ${proposers(it.proposer)}` : "proposer named in the council's papers"}</span> : null}
-              <Result it={it} />
-            </li>
-          ))}
+          {m.items.map((it) => <li key={it.item_id}><Item it={it} /></li>)}
         </ul>
       ) : <p className="meta">Agenda not yet published.</p>}
     </li>
   );
+  // Round ten q13: the same items, one by one with their meeting, for the browser to re-group by the profile
+  // (components/CouncilBusiness). Coming up soonest first, then the most recent first, as in the lists by meeting.
+  const business: BusinessItem[] = [...upcoming, ...recent].flatMap((m) => m.items.map((it) => ({
+    id: `${it.meeting_id}:${it.item_id}`, title: it.title,
+    node: <Item it={it} when={<span className="cb-when meta"><a href={L(m.url)} rel="noopener">{fmt(m.date)} · {m.body}</a></span>} />,
+  })));
   const retrieved = rows.reduce((a, r) => (r.retrieved_at > a ? r.retrieved_at : a), "");
   return (
     <section className="council-topic" aria-labelledby="decisions-heading">
       <h2 id="decisions-heading">What {councilName} is deciding</h2>
       <p className="meta">Every item on the agendas of Full Council and the Cabinet, as the council titled it, from about six months back to three months ahead. Left out: section headings, procedural items (apologies, minutes, declarations of interest, announcements, questions, appointments), anything about councillors&rsquo; attendance or allowances (which this site does not show), and private items the council itself withholds. Motions are shown with whoever the council&rsquo;s agenda says proposed them; a councillor&rsquo;s party is from Open Council Data.</p>
-      {upcoming.length ? (<><h3>Coming up</h3><ul className="dec-list">{upcoming.slice(0, 4).map((m) => <Meeting key={m.url} m={m} />)}</ul></>) : null}
-      {recent.length ? (<>
-        <h3>Recently</h3>
-        <ul className="dec-list">{recent.slice(0, 3).map((m) => <Meeting key={m.url} m={m} />)}</ul>
-        {recent.length > 3 ? <details className="more"><summary className="meta">{recent.length - 3} earlier meetings</summary><ul className="dec-list">{recent.slice(3).map((m) => <Meeting key={m.url} m={m} />)}</ul></details> : null}
-      </>) : null}
+      <CouncilBusiness items={business}>
+        {upcoming.length ? (<><h3>Coming up</h3><ul className="dec-list">{upcoming.slice(0, 4).map((m) => <Meeting key={m.url} m={m} />)}</ul></>) : null}
+        {recent.length ? (<>
+          <h3>Recently</h3>
+          <ul className="dec-list">{recent.slice(0, 3).map((m) => <Meeting key={m.url} m={m} />)}</ul>
+          {recent.length > 3 ? <details className="more"><summary className="meta">{recent.length - 3} earlier meetings</summary><ul className="dec-list">{recent.slice(3).map((m) => <Meeting key={m.url} m={m} />)}</ul></details> : null}
+        </>) : null}
+      </CouncilBusiness>
       <p className="meta">From the council&rsquo;s own <a href={L(meetingsUrl)} rel="noopener">meeting papers</a> (Modern.gov){retrieved ? `, read ${new Date(retrieved).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}` : ""}. Refreshed weekly. Once a meeting&rsquo;s minutes are published, each item shows the result in the minutes&rsquo; own words (carried, lost, withdrawn, deferred, noted or agreed), the recorded vote where the minutes give one, and a link to the minutes; where those words are not found, the page says so rather than guessing.</p>
     </section>
   );
