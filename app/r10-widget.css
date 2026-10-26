@@ -1,0 +1,37 @@
+/* The "Your next election" box for other sites, and the /embed page that explains it (Romily, round ten, q8).
+   The box must read at 300px wide inside someone else's page, in light and dark, so it is plain and compact. */
+
+/* Inside the frame: no page padding, a transparent-looking edge, and nothing fixed to the bottom of the screen. */
+html body:has(.ne-box) { background: var(--panel); margin: 0; padding: 0; } /* no room kept for the tab bar, which is not here */
+/* A stable scrollbar gutter, so a scrollbar appearing never rewraps the text and sets the resizing snippet see-sawing. */
+html:has(.ne-box) { scrollbar-gutter: stable; }
+body:has(.ne-box) main { max-width: none; margin: 0; padding: 0; }
+
+.ne-box { padding: 1rem; font-family: var(--sans); color: var(--ink); background: var(--panel); min-width: 0; }
+.ne-title { font-family: var(--display); font-size: 1.35rem; line-height: 1.2; margin: 0 0 0.75rem; }
+.ne-form label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.3rem; }
+.ne-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.ne-row input { flex: 1 1 9rem; min-width: 0; min-height: 44px; padding: 0.5rem 0.75rem; font: inherit; font-size: 1rem; color: var(--ink); background: var(--field); border: 1px solid var(--ink-soft); border-radius: 10px; text-transform: uppercase; }
+.ne-row input::placeholder { text-transform: none; color: var(--faint); }
+.ne-row button { flex: 0 0 auto; min-height: 44px; }
+.ne-result:focus { outline: none; }
+.ne-result:empty { display: none; }
+.ne-result { margin-top: 0.9rem; }
+.ne-error { color: var(--accent-ink); font-size: 0.95rem; margin: 0; }
+.ne-note { font-size: 0.95rem; margin: 0.5rem 0 0; }
+.ne-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.ne-list a { display: grid; gap: 0.1rem; min-height: 44px; padding: 0.65rem 0.8rem; border: 1px solid var(--rule); border-radius: 12px; background: var(--paper); color: var(--ink); text-decoration: none; }
+.ne-list a:hover, .ne-list a:focus-visible { border-color: var(--ink-soft); background: var(--hover); }
+.ne-name { font-weight: 700; color: var(--accent-ink); text-decoration: underline; text-underline-offset: 2px; }
+.ne-place { font-size: 0.95rem; color: var(--ink-soft); }
+.ne-date { font-size: 0.9rem; color: var(--muted); }
+.ne-date strong { color: var(--ink); }
+.ne-foot { margin: 1rem 0 0; padding-top: 0.6rem; border-top: 1px solid var(--rule); font-size: 0.78rem; line-height: 1.45; color: var(--muted); }
+.ne-foot a { color: var(--ink-soft); }
+
+/* /embed, the page for publishers */
+.embed-preview { max-width: 26rem; border: 1px solid var(--rule); border-radius: 14px; overflow: hidden; background: var(--panel); }
+.embed-preview iframe { display: block; width: 100%; border: 0; }
+.embed-snippet { position: relative; margin: 0.5rem 0 1rem; }
+.embed-snippet pre { margin: 0; padding: 0.8rem 0.9rem; background: var(--sand); border: 1px solid var(--rule); border-radius: 10px; font-size: 0.8rem; line-height: 1.5; white-space: pre-wrap; word-break: break-all; color: var(--ink); }
+.embed-snippet button { margin-top: 0.5rem; min-height: 44px; }

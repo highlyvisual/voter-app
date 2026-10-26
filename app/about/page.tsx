@@ -123,6 +123,7 @@ export default function About() {
         Open source under AGPL-3.0: <a href="https://github.com/highlyvisual/whatsittome">github.com/highlyvisual/whatsittome</a>. Anyone can run the same
         ballot and household and get the same result.
       </p>
+      <p>Run a website? <Link href="/embed">Put a free &ldquo;Your next election&rdquo; box on it</Link>.</p>
       <h2 id="limits">What this site can't tell you</h2>
       <p>Every source has limits, and some matter a great deal when deciding how to vote:</p>
       <ul>

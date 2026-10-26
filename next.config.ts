@@ -2,7 +2,8 @@ import type { NextConfig } from "next";
 
 // Security policy. Inline scripts stay allowed because Next.js streams its page data in inline scripts; everything
 // else is limited to this site and the few services the pages actually use (map tiles, postcode lookups, Netlify's
-// page-speed beacon). Only /ballot/*/embed may be shown inside another site's page.
+// page-speed beacon). Only /ballot/*/embed and the /embed/* boxes (Romily, round ten, q8) may be shown inside another
+// site's page.
 const csp = (frameAncestors: string) => [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline'",
@@ -40,8 +41,9 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
-      { source: "/:path((?!ballot/[^/]+/embed).*)", headers: [...common, { key: "Content-Security-Policy", value: csp("'none'") }, { key: "X-Frame-Options", value: "DENY" }] },
+      { source: "/:path((?!ballot/[^/]+/embed|embed/).*)", headers: [...common, { key: "Content-Security-Policy", value: csp("'none'") }, { key: "X-Frame-Options", value: "DENY" }] },
       { source: "/ballot/:id/embed", headers: [...common, { key: "Content-Security-Policy", value: csp("*") }] },
+      { source: "/embed/:path+", headers: [...common, { key: "Content-Security-Policy", value: csp("*") }, { key: "X-Robots-Tag", value: "noindex" }] },
       { source: "/:path((?!review|candidates/submit|api|_next|sw\\.js|\\.netlify).*)", headers: edgeCache },
       { source: "/sw.js", headers: [{ key: "Cache-Control", value: "no-cache, no-store, must-revalidate" }, { key: "Netlify-CDN-Cache-Control", value: "no-store" }] },
       { source: "/brand/:file*", headers: [{ key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" }] },
