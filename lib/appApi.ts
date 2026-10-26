@@ -126,8 +126,14 @@ export type BallotResponse =
       parties: AppParty[];
       receipts: { version: string; baseline_id: string; compare_baseline_id: string | null; sets: AppReceiptSetRef[] } | null;
       source: string;
+      // Added in round ten (q14). Optional: absent when the list could not be read; an empty list means none listed yet.
+      hustings?: AppHusting[];
     }
   | AppError;
+
+// A hustings for this ballot, by date (Democracy Club, CC BY 4.0). starts/ends are ISO date-times. organiser is set only
+// where the hustings' own title names it; otherwise null and the app says to see the event page (domain is its host).
+export type AppHusting = { title: string; starts: string; ends: string | null; location: string | null; url: string | null; postevent_url: string | null; organiser: string | null; domain: string | null };
 
 // GET /api/app/v1/receipts/sets/[id]?v=<policyengine_version>  Every household in one reform set, keyed by the grid key
 // (lib/household.ts gridKey). rows[key] holds the figures in the order of fields. Static and cacheable; the household's

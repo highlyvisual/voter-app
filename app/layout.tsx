@@ -3,6 +3,7 @@ import Link from "next/link";
 import "./globals.css";
 import "./enhance.css";
 import "./theme.css";
+import "./r10-council.css";
 import JsonLd from "@/components/JsonLd";
 import { siteGraph } from "@/lib/schema";
 import { SITE } from "@/lib/site";

@@ -3,12 +3,14 @@ import { publicClient } from "@/lib/data";
 import { councilBySlug } from "@/lib/councils";
 import { fixLink, linkFixes, type LinkFix } from "@/lib/links";
 import { parliamentNow, type HouseNow } from "@/lib/parliamentNow";
+import CouncilBusiness from "@/components/CouncilBusiness";
 
 // "What matters to me right now" (Romily, 6 Oct): what is happening this month that touches the person's own address,
 // from the jobs that already run: open consultations, the council's next meetings and what it has just decided, new
 // traffic orders, schools proposed to open or close, and whether Parliament is sitting. Each line is dated and links to
-// the record it came from. Ordered by date only: how a profile should order council business is still being discussed
-// with Romily (round eight q15), so nothing here is sorted by importance or matched to the person.
+// the record it came from. Ordered by date; with a saved profile the next meeting's items are re-grouped in the browser,
+// those the published word rule ties to the household first (Romily, round ten q13; components/CouncilBusiness). Nothing
+// is sorted by importance.
 const WINDOW = 42; // days either side of today for meetings
 const RECENT_NOTICES = 30;
 
@@ -85,7 +87,9 @@ export default async function RightNow({ councilSlug, district }: { councilSlug:
         {nextItems.length ? (
           <li>
             <h3>Next at the council: {day(nextItems[0].meeting_date, true)}, {nextItems[0].body}</h3>
-            <ul className="auto-list">{nextItems.slice(0, 4).map((it) => <li key={it.item_id}>{it.kind === "motion" ? <span className="chip none">Motion</span> : null} {it.title}</li>)}</ul>
+            <CouncilBusiness heading="h4" show={4} items={nextItems.map((it) => ({ id: String(it.item_id), title: it.title, node: <>{it.kind === "motion" ? <span className="chip none">Motion</span> : null} {it.title}</> }))}>
+              <ul className="auto-list">{nextItems.slice(0, 4).map((it) => <li key={it.item_id}>{it.kind === "motion" ? <span className="chip none">Motion</span> : null} {it.title}</li>)}</ul>
+            </CouncilBusiness>
             <p className="meta"><a href={L(nextItems[0].url)} rel="noopener">The agenda</a>, as the council titled each item{nextItems.length > 4 ? `; ${nextItems.length - 4} more on it` : ""}.</p>
           </li>
         ) : null}

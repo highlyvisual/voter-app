@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import { ballotLabel, baselineIdFor, effectivePartyId, getBallot, getElectionDates, listCandidates, listReceiptSets, listVerifiedClaims, type Candidate, type Claim } from "@/lib/data";
-import { electionTimetable } from "@/lib/democracyclub";
+import { electionTimetable, hustingsFor } from "@/lib/democracyclub";
 import { layerOf, precisionLabel } from "@/lib/claims";
 import { keyDates } from "@/lib/deadlines";
 import { inkOn } from "@/lib/partyColour";
 import { baselineYear } from "@/lib/receipts";
-import { APP_API_PATH, type AppClaim, type AppParty, type AppReceiptSetRef, type AppSource, type BallotResponse } from "@/lib/appApi";
+import { APP_API_PATH, type AppClaim, type AppHusting, type AppParty, type AppReceiptSetRef, type AppSource, type BallotResponse } from "@/lib/appApi";
 export const dynamic = "force-dynamic";
 
 // Phone app, contract v1 (lib/appApi.ts: add optional fields only, never rename or remove).
@@ -27,9 +27,10 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
   try { ballot = await getBallot(ballotId); } catch { return reply({ ok: false, message: "We couldn't load this ballot just now. Please try again in a minute." }, 503); }
   if (!ballot) return reply({ ok: false, message: "We don't have a page for this ballot yet." }, 404);
 
-  const [candidates, claims, dates, sets, timetable] = await Promise.all([
+  const [candidates, claims, dates, sets, timetable, hustings] = await Promise.all([
     listCandidates(ballotId), listVerifiedClaims(ballotId), getElectionDates(ballotId).catch(() => null), listReceiptSets().catch(() => []),
     ballot.archived ? Promise.resolve(null) : electionTimetable(ballotId),
+    hustingsFor(ballotId).catch(() => null),
   ]);
 
   const appClaim = (c: Claim): AppClaim => ({
@@ -102,6 +103,8 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
     parties: [...parties.values()],
     receipts: base ? { version: base.policyengine_version, baseline_id: baselineId, compare_baseline_id: sets.some((s) => s.reform_set_id === compareId) ? compareId : null, sets: refs } : null,
     source: "Democracy Club (CC BY 4.0), the council’s notice of election where linked, and the source under each position (whatsittome.org/ledger)",
+    // Round ten q14, optional: every hustings Democracy Club lists, by date; left out when the list could not be read.
+    ...(hustings ? { hustings: hustings.map((h): AppHusting => ({ title: h.title, starts: h.starts, ends: h.ends, location: h.location, url: h.url, postevent_url: h.postevent_url, organiser: h.organiser, domain: h.domain })) } : {}),
   });
 }
 
