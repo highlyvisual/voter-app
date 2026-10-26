@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import ExplainThis from "@/components/ExplainThis";
+import ClaimLayers from "@/components/ClaimLayers";
+import HowThisPage from "@/components/HowThisPage";
+import { SourceTagKey } from "@/components/SourceTag";
+import ViewMode from "@/components/ViewMode";
 import PartyFunding from "@/components/PartyFunding";
 import { PartyMoney, PartyRegisterEntry } from "@/components/PartyRegister";
 import { partyEntry } from "@/lib/partyRegister";
 import { TOPICS, publicClient, type Claim } from "@/lib/data";
-import { layerOf } from "@/lib/claims";
 import { img } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbs, graph, webPage } from "@/lib/schema";
@@ -41,23 +43,25 @@ export default async function Party({ params }: { params: Promise<{ ec: string }
         {party.emblem_url ? <img src={img(party.emblem_url)} alt="" style={{ height: "2.2rem", width: "auto", background: "#fff" }} /> : null}
         {party.name}
       </h1>
-      <p className="lede">{unique.length} published positions, by topic, each with the date it was published and the date we fetched it. {party.official_site_url ? <>Their own site: <a href={party.official_site_url} rel="noopener">{party.official_site_url.replace(/^https?:\/\//, "")}</a>.</> : null}</p>
-      {TOPICS.map(([k, label]) => {
+      <p className="lede">Their published positions, by topic.</p>
+      <HowThisPage>
+        <p>{unique.length} published positions. Each one is quoted exactly from its source, with the date it was published and the date we fetched it; open &ldquo;Sourced&rdquo; under any position to see both.</p>
+        {party.official_site_url ? <p>Their own site: <a href={party.official_site_url} rel="noopener">{party.official_site_url.replace(/^https?:\/\//, "")}</a>.</p> : null}
+      </HowThisPage>
+      <div className="claims-tools"><ViewMode /><SourceTagKey /></div>
+      {/* Romily, round ten, q2: "a bit less busy". One topic open at a time; the rest are a tap away, in the usual order.
+          Each position uses the same card as the candidate pages. */}
+      {TOPICS.filter(([k]) => unique.some((c) => c.topic === k)).map(([k, label], i) => {
         const mine = unique.filter((c) => c.topic === k);
-        if (!mine.length) return null;
         return (
-          <section key={k}>
-            <h2>{label}</h2>
+          <details key={k} className="topic-fold" open={i === 0 || undefined}>
+            <summary><h2>{label}</h2></summary>
             {mine.map((c) => (
               <article key={c.id} className="claim">
-                <p className="meta" style={{ margin: "0 0 0.25rem" }}><span className="chip layer-chip">{layerOf(c)}</span>{c.sources ? <> · {c.sources.publisher}{c.sources.published_on ? `, published ${c.sources.published_on}` : ""} · last checked {c.sources.retrieved_at.slice(0, 10)}</> : null}</p>
-                <blockquote className="quote">{c.source_quote}</blockquote>
-                <p className="summary">{c.claim_text}</p>
-                <ExplainThis text={`${c.source_quote} ${c.claim_text}`} />
-                {c.sources ? <details className="evidence said-where"><summary><span className="sw-label">Sourced:</span> {c.sources.title}</summary><p className="meta"><a href={c.sources.url} rel="noopener">{c.sources.title}</a>, {c.sources.publisher}. <span className="sw-url">{c.sources.url}</span>{(c as { supersedes?: number | null }).supersedes ? <> · <Link href={`/ledger#claim-${c.id}`}>Previous version and why it changed →</Link></> : null}</p></details> : null}
+                <ClaimLayers c={c} footnote={(c as { supersedes?: number | null }).supersedes ? <p className="small" style={{ margin: "0.3rem 0 0" }}><Link href={`/ledger#claim-${c.id}`}>Previous version and why it changed →</Link></p> : null} />
               </article>
             ))}
-          </section>
+          </details>
         );
       })}
       <PartyRegisterEntry p={entry} />

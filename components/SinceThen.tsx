@@ -1,5 +1,6 @@
 import { publicClient, type Claim } from "@/lib/data";
 import { layerKey } from "@/lib/claims";
+import SourceTag from "@/components/SourceTag";
 
 // "Since then" on an archive page (Romily's decision, 19 Sept 2026): the enacted record of the party that won, drawn from the live
 // ballot that succeeded this one, clearly separated and dated. It never rewrites the archive; it sits beside it.
@@ -21,7 +22,7 @@ export default async function SinceThen({ archiveId, winnerParty }: { archiveId:
       <ul className="small">
         {enacted.map((c) => (
           <li key={c.id} style={{ marginBottom: "0.5rem" }}>
-            <span className="chip layer-chip">Enacted record</span> {c.claim_text} <span className="meta">— {c.sources?.publisher}{c.sources?.published_on ? `, ${c.sources.published_on}` : ""}: <a href={c.sources?.url} rel="noopener">{c.sources?.title}</a></span>
+            <SourceTag kind="enacted_record" /> {c.claim_text} <span className="meta">— {c.sources?.publisher}{c.sources?.published_on ? `, ${c.sources.published_on}` : ""}: <a href={c.sources?.url} rel="noopener">{c.sources?.title}</a></span>
           </li>
         ))}
       </ul>

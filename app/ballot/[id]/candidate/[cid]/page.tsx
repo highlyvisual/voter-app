@@ -11,7 +11,7 @@ import CiteThis from "@/components/CiteThis";
 import { claimsFor } from "@/components/CandidateCard";
 import { TOPICS, TOPIC_SHORT, getBallot, listCandidates, listVerifiedClaims, listPreviousCandidacies, listLeaflets, ballotLabel, type Claim } from "@/lib/data";
 import { claimApplies, householdComplete, householdFromParams } from "@/lib/household";
-import { layerKey, layerOf } from "@/lib/claims";
+import { SourceTagKey } from "@/components/SourceTag";
 import { img } from "@/lib/site";
 import { longDate } from "@/lib/dates";
 import JsonLd from "@/components/JsonLd";
@@ -30,17 +30,10 @@ const MAP_LAYER: Record<string, string> = { housing_and_property: "land for new 
 function Layered({ c, applies = false }: { c: Claim; applies?: boolean }) {
   return (
     <article className="claim">
-      <ClaimLayers c={c} applies={applies} chip={<span className="chip layer-chip">{badge(c)}</span>} />
+      {/* The kind of source is the small tag beside "What they say" (Romily, round ten, q4). */}
+      <ClaimLayers c={c} applies={applies} />
     </article>
   );
-}
-function badge(c: Claim): string {
-  const k = layerKey(c);
-  if (k === "enacted_record") return "Public record";
-  if (k === "candidate_statement") return "Candidate's own words";
-  if (k === "third_party_analysis") return "Third-party report";
-  if (k === "campaign_leaflet") return "Campaign leaflet";
-  return layerOf(c);
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string; cid: string }> }) { const p = await params; return candidatePageTitle(p.id, p.cid); }
@@ -97,6 +90,7 @@ export default async function CandidatePage({ params, searchParams }: { params: 
           one tap away for the topics it has a layer for. Same cards, same order, for every candidate. */}
       <h2>What&rsquo;s it to {complete ? "your household" : "you"}?</h2>
       <p className="meta">{complete ? "Showing what applies to a household like yours." : <>Showing everything they have published. <Link href="/start">Add your profile</Link> to see only what applies to you.</>} Open a topic for what they say, what it could mean for you, and where they said it.</p>
+      <SourceTagKey />
       <ScaleTabs initial={isLocal ? "council" : "uk"} tabs={isLocal ? [
         { key: "council", label: "Your council" },
         { key: "region", label: "Your region", note: "A councillor doesn't decide regional matters; in England a mayor and combined authority, where there is one, and in Scotland, Wales and Northern Ireland their own parliament or assembly, do.", href: "/learn/who-decides", hrefText: "Who decides what" },

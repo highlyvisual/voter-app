@@ -2,6 +2,7 @@ import Link from "next/link";
 import { publicClient } from "@/lib/data";
 import { img } from "@/lib/site";
 import { partyVars } from "@/lib/partyColour";
+import HowThisPage from "@/components/HowThisPage";
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Explore the parties", description: "What each UK party has published, by topic, quoted exactly with the date it was published and the date we checked. Listed alphabetically.", alternates: { canonical: "/parties" } };
 
@@ -26,7 +27,12 @@ export default async function Parties() {
     <>
       <p className="eyebrow">Between elections too</p>
       <h1>Explore the parties</h1>
-      <p className="lede">What each party has published, by topic, with the date it was published and the date we last checked. Listed alphabetically. Parties whose published positions we have not yet sourced are not shown; that is a gap in our work, not a judgement of them.</p>
+      <p className="lede">What each party has published, by topic. Listed alphabetically.</p>
+      {/* Romily, round ten, q2: "a bit less busy". The method notes are one tap away. */}
+      <HowThisPage>
+        <p>Each position is quoted exactly, with the date it was published and the date we last checked.</p>
+        <p>Parties whose published positions we have not yet sourced are not shown; that is a gap in our work, not a judgement of them.</p>
+      </HowThisPage>
       <ul className="party-grid">
         {rows.map((p) => (
           <li key={p.ec_id}>

@@ -25,6 +25,22 @@ export function layerKey(c: ClaimLike): string {
   return "manifesto";
 }
 export function layerOf(c: ClaimLike): string { return LAYERS[layerKey(c)]; }
+// The small source tag shown on every claim (Romily, round ten, q4: "a visible tag on each", "keep the tag small").
+// Short words keep the tag small; the full layer name is its tooltip. The same five kinds for every candidate and party.
+export const TAG: Record<string, string> = {
+  candidate_statement: "Own words", manifesto: "Manifesto", campaign_leaflet: "Leaflet", enacted_record: "Public record", third_party_analysis: "Third party",
+};
+// Peter Keeling's point (Democracy Club): a clear line between what candidates and parties publish about themselves and
+// what someone else recorded. The first kinds get outlined tags, these two shaded ones.
+export const INDEPENDENT = new Set(["enacted_record", "third_party_analysis"]);
+// What each kind of source is, in plain words (the source filter on /positions).
+export const KIND_HELP: Record<string, string> = {
+  candidate_statement: "Something the candidate published themselves, such as their statement to voters.",
+  manifesto: "The party's own published programme or policy paper.",
+  campaign_leaflet: "A leaflet the campaign delivered.",
+  enacted_record: "An official record of what was done, such as a vote or a government document.",
+  third_party_analysis: "Someone else's report of what was said, such as a news agency.",
+};
 export const LEGEND = "Candidate statements and leaflets are published as written; we check they are real, not that they are true.";
 export function precisionLabel(c: Pick<ClaimLike, "precision">): string | null { return c.precision === "aspiration" ? "Stated aim, no measurable commitment found" : null; }
 const RANK: Record<string, number> = { candidate_statement: 0, enacted_record: 1, third_party_analysis: 2, campaign_leaflet: 3, manifesto: 4 };

@@ -5,6 +5,7 @@ import "./enhance.css";
 import "./theme.css";
 import "./r10-home.css";
 import "./r10-widget.css";
+import "./r10-claims.css";
 import JsonLd from "@/components/JsonLd";
 import { siteGraph } from "@/lib/schema";
 import { SITE } from "@/lib/site";
