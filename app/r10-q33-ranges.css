@@ -1,0 +1,5 @@
+/* Round ten q33 (Romily and Barny): money figures as a range for a partly described household. */
+.receipt-range .range-narrow { margin: 0 0 0.4rem; color: var(--ink-soft); }
+.receipt-range .range-why { margin-top: 0.2rem; }
+.receipt-range .range-why > summary { min-height: 44px; box-sizing: border-box; padding: 0.6rem 0; cursor: pointer; width: fit-content; }
+.receipt-range .range-why .meta { margin: 0.2rem 0 0; }

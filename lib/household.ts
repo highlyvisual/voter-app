@@ -174,18 +174,20 @@ export function claimApplies(appliesIf: unknown, h: Household): boolean {
 // Economic key for the receipt grid: the fields that change a tax-and-benefit result.
 // Student status is not modelled; "adult_dependant" is treated as "none". See scripts/compute_grid.py.
 export const GRID_KEYS = ["age_band", "household", "children", "tenure", "income_band", "employment"] as const;
+export type GridField = (typeof GRID_KEYS)[number];
+// One answer as the grid holds it. Also used for a partly answered household (lib/moneyRange.ts).
+export function foldGridValue(k: GridField, v: string): string {
+  if (k === "children" && v === "adult_dependant") return "none";
+  // Student-friendly options (Romily, 24 Sept) fold into the bands the grid was computed for.
+  if (k === "household" && v === "shared") return "other";
+  if (k === "tenure" && v === "student_halls") return "other";
+  if (k === "employment" && v === "student") return "not_working_other";
+  if (k === "employment" && v === "student_working") return "employed";
+  return v;
+}
 export function gridKey(h: Household): string | null {
   if (!householdComplete(h)) return null;
-  return GRID_KEYS.map((k) => {
-    let v = h[k] as string;
-    if (k === "children" && v === "adult_dependant") v = "none";
-    // Student-friendly options (Romily, 24 Sept) fold into the bands the grid was computed for.
-    if (k === "household" && v === "shared") v = "other";
-    if (k === "tenure" && v === "student_halls") v = "other";
-    if (k === "employment" && v === "student") v = "not_working_other";
-    if (k === "employment" && v === "student_working") v = "employed";
-    return `${k}=${v}`;
-  }).join("|");
+  return GRID_KEYS.map((k) => `${k}=${foldGridValue(k, h[k] as string)}`).join("|");
 }
 
 // Persona test (28 Sept 2026): the PolicyEngine grid assumes Universal Credit is claimed wherever the bands give an

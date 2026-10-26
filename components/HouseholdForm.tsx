@@ -36,7 +36,7 @@ export default function HouseholdForm({ household, complete, optional = false }:
     return (
       <details className="household">
         <summary>
-          <span className="summary-line"><b>This household:</b> {describe(household)} <span className="meta">Not answered: {missing.join(", ")}. Money figures need every answer.</span></span>
+          <span className="summary-line"><b>This household:</b> {describe(household)} <span className="meta">Not answered: {missing.join(", ")}. {/* Round ten q33: a range once income is answered, the full table with every answer. */}{household.income_band ? "Money figures show as a range until every question is answered." : "Money figures start once you give your household income."}</span></span>
           <span className="change">Change</span>
         </summary>
         {fields}
