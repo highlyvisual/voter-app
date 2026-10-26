@@ -61,7 +61,7 @@ LEAD_IN = re.compile(r"^[\s)\]”\"'’,;:–—-]*(?:that\b)?[\s:–—-]*")
 # Round ten q15, after the first live run (26 Oct): reported speech and minutes narrative that the patterns above let
 # through ("He confirmed that he was minded to recommend…", "It was moved by County Councillor…", "Members would consider
 # whether to declare…"), and a motion that agrees with a campaign group's view rather than declaring (held for Romily).
-NARRATIVE = re.compile(r"(?i)\b(?:he|she|they) confirmed\b|\bminded to\b|\bit was (?:moved|proposed|seconded|resolved)\b|\bwould (?:also )?(?:bring forward|consider)\b|\bwhether to declare\b|\bagrees? with the view\b|\bview held by\b")
+NARRATIVE = re.compile(r"(?i)\b(?:he|she|they) confirmed\b|\bminded to\b|\bit was (?:moved|proposed|seconded|resolved)\b|\bwould (?:also )?(?:bring forward|consider)\b|\bwhether to declare\b|\bagrees? with the view\b|\bview held by\b|\bwelcomed\b|\bindication\b|\bwould declare\b")
 NEWS_URL = re.compile(r"(?i)//news\.|/news/|/newsroom/|/press-?releases?/|/media-centre/")
 
 
