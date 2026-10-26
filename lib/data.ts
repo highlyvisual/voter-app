@@ -126,14 +126,20 @@ export async function getReceipts(householdKey: string): Promise<ReceiptRow[]> {
 // gridPattern). Read in pages of 1,000; income alone matches 1,350 rows a set.
 export type NetRow = { reform_set_id: string; household_key: string; net: number };
 export async function getNetIncomeLike(pattern: string, setIds: string[]): Promise<NetRow[]> {
-  const out: NetRow[] = [];
-  for (let from = 0; ; from += 1000) {
-    const { data, error } = await publicClient().from("receipt_grid").select("reform_set_id, household_key, net:results->household_net_income").in("reform_set_id", setIds).like("household_key", pattern).order("reform_set_id").order("household_key").range(from, from + 999);
-    if (error) throw error;
-    const rows = (data ?? []) as unknown as { reform_set_id: string; household_key: string; net: unknown }[];
-    out.push(...rows.map((r) => ({ reform_set_id: r.reform_set_id, household_key: r.household_key, net: Number(r.net ?? 0) })));
-    if (rows.length < 1000) return out;
-  }
+  // One set at a time in parallel (at most 1,350 rows each), with one retry: read in sequence, the 20,000-odd rows for an
+  // income-only household were slow enough on a cold function to fail, and a failed read must not quietly drop the ranges.
+  const one = async (setId: string): Promise<NetRow[]> => {
+    const out: NetRow[] = [];
+    for (let from = 0; ; from += 1000) {
+      const { data, error } = await publicClient().from("receipt_grid").select("reform_set_id, household_key, net:results->household_net_income").eq("reform_set_id", setId).like("household_key", pattern).order("household_key").range(from, from + 999);
+      if (error) throw error;
+      const rows = (data ?? []) as unknown as { reform_set_id: string; household_key: string; net: unknown }[];
+      out.push(...rows.map((r) => ({ reform_set_id: r.reform_set_id, household_key: r.household_key, net: Number(r.net ?? 0) })));
+      if (rows.length < 1000) return out;
+    }
+  };
+  const read = (setId: string) => one(setId).catch(() => one(setId));
+  return (await Promise.all(setIds.map(read))).flat();
 }
 
 // Phone app: the reform sets in the grid, one row each. Every set holds every household, so any one household_key gives

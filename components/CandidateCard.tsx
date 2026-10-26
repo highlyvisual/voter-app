@@ -109,8 +109,8 @@ export function claimsFor(candidate: Candidate, claims: Claim[]) {
 }
 
 export default async function CandidateCard({
-  candidate, position, claims, receipts, ranges = [], household, complete, baselineId = "baseline", invitation = null, level = "parliamentary", areaName = "", councilSiteUrl = null, leaflets = [], pollDate = null, stoodBefore = [],
-}: { candidate: Candidate; position: number; claims: Claim[]; receipts: ReceiptRow[]; ranges?: PartyRange[]; household: Household; complete: boolean; baselineId?: string; invitation?: InvitationStatus | null; level?: string; areaName?: string; councilSiteUrl?: string | null; leaflets?: Leaflet[]; pollDate?: string | null; stoodBefore?: PreviousCandidacy[] }) {
+  candidate, position, claims, receipts, ranges = [], rangesFailed = false, household, complete, baselineId = "baseline", invitation = null, level = "parliamentary", areaName = "", councilSiteUrl = null, leaflets = [], pollDate = null, stoodBefore = [],
+}: { candidate: Candidate; position: number; claims: Claim[]; receipts: ReceiptRow[]; ranges?: PartyRange[]; rangesFailed?: boolean; household: Household; complete: boolean; baselineId?: string; invitation?: InvitationStatus | null; level?: string; areaName?: string; councilSiteUrl?: string | null; leaflets?: Leaflet[]; pollDate?: string | null; stoodBefore?: PreviousCandidacy[] }) {
   const campaignStart = pollDate ? new Date(new Date(pollDate + "T00:00:00Z").getTime() - 60 * 86400000).toISOString().slice(0, 10) : null;
   const current = leaflets.filter((l) => campaignStart && (l.date_uploaded ?? "") >= campaignStart);
   const earlier = leaflets.filter((l) => !(campaignStart && (l.date_uploaded ?? "") >= campaignStart));
@@ -255,7 +255,7 @@ export default async function CandidateCard({
                     </>
                   )}
                   {key === "money_and_cost_of_living" && complete && !modelCaveat(household) ? <Receipt rows={receipts} partyEcId={effectivePartyId(candidate)} verifiedSourceIds={verifiedSourceIds} baselineId={baselineId} /> : null}
-                  {key === "money_and_cost_of_living" && !complete && ranges.length ? <ReceiptRange ranges={ranges} partyEcId={effectivePartyId(candidate)} verifiedSourceIds={verifiedSourceIds} /> : null}
+                  {key === "money_and_cost_of_living" && !complete && ranges.length ? <ReceiptRange ranges={ranges} partyEcId={effectivePartyId(candidate)} verifiedSourceIds={verifiedSourceIds} /> : key === "money_and_cost_of_living" && !complete && rangesFailed ? <p className="meta range-narrow">The money figures couldn&rsquo;t be loaded just now. Reload the page to try again.</p> : null}
                 </div>
               );
             })}</div>
