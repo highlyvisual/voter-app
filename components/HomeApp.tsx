@@ -1,16 +1,18 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import AreaMap from "@/components/AreaMap";
 import BallotsMap from "@/components/BallotsMap";
-import { readProfile } from "@/lib/profile";
+import HomeLookup, { LookupView } from "@/components/HomeLookup";
+import { profileQuery, readProfile } from "@/lib/profile";
 
 // The home page's first screen (Romily, 29 Sept: rows 3 and 10, design E; "I like the big map"). The map comes first:
 // for someone this device already knows, their own area with the local-issues layers; for anyone else, every election
-// coming up. Beside it (below it on a phone): what this person can open next, and the elections coming up, nearest
-// first when we know where they are. Everything here is read from the profile kept in this browser; nothing is sent.
+// coming up. Beside it (below it on a phone): their next vote (Romily, round ten, q1: "Your next vote: who's standing
+// and what it means for you" is the main aim). Everything here is read from the profile kept in this browser; nothing
+// is sent. The map's own "Personalise my politics" button went in round ten: one main action per screen (q2).
 export type HomeBallot = { id: string; area: string; date: string; level: string; lat: number | null; lng: number | null };
-type Saved = { you: string; outcode: string | null; loc: { lat: number; lng: number } | null; ballot: string | null };
+type Saved = { you: string; household: string; outcode: string | null; loc: { lat: number; lng: number } | null; ballot: string | null };
 
 function useSaved(): Saved | null {
   const [s, setS] = useState<Saved | null>(null);
@@ -20,7 +22,7 @@ function useSaved(): Saved | null {
       if (!p?.you) { setS(null); return; }
       const q = new URLSearchParams(p.you);
       const m = (q.get("loc") ?? "").match(/^(-?\d{1,2}\.\d{1,3}),(-?\d{1,3}\.\d{1,3})$/);
-      setS({ you: p.you, outcode: q.get("pc"), loc: m ? { lat: Number(m[1]), lng: Number(m[2]) } : null, ballot: q.get("ballot") ?? p.ballot ?? null });
+      setS({ you: p.you, household: profileQuery(p), outcode: q.get("pc"), loc: m ? { lat: Number(m[1]), lng: Number(m[2]) } : null, ballot: q.get("ballot") ?? p.ballot ?? null });
     };
     load(); window.addEventListener("profile-changed", load);
     return () => window.removeEventListener("profile-changed", load);
@@ -28,12 +30,10 @@ function useSaved(): Saved | null {
   return s;
 }
 
-const when = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
 const daysTo = (d: string, today: string) => Math.round((Date.parse(d + "T00:00:00Z") - Date.parse(today + "T00:00:00Z")) / 86400000);
-const inDays = (n: number) => (n <= 0 ? "today" : n === 1 ? "tomorrow" : `in ${n} days`);
+const longWhen = (d: string) => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" });
 const kind = (level: string) => (level === "parliamentary" ? "UK Parliament by-election" : "Council by-election");
 const place = (area: string) => area.replace(/ ward$/, "").replace(/^(.*?): /, "");
-const dist = (a: { lat: number; lng: number }, b: { lat: number; lng: number }) => (a.lat - b.lat) ** 2 + ((a.lng - b.lng) * Math.cos((a.lat * Math.PI) / 180)) ** 2;
 
 export function HomeMap({ ballots }: { ballots: HomeBallot[] }) {
   const s = useSaved();
@@ -53,47 +53,60 @@ export function HomeMap({ ballots }: { ballots: HomeBallot[] }) {
           <span><strong>Every election coming up</strong> · <Link href="/start">Show my area</Link></span>
         )}
       </div>
-      <Link href={s ? `/you?${s.you}` : "/start"} className="map-cta">{s ? "Your politics" : "Personalise my politics"} <span aria-hidden>&rarr;</span></Link>
     </div>
   );
 }
 
-export function HomeTiles({ ballots }: { ballots: HomeBallot[] }) {
+// Screen one (Romily, round ten, q1 and q2): the person's next vote, and one thing to do about it. Known ballot: where,
+// when, how long to go, and who is standing. Otherwise: the postcode box, with the full profile as the second choice.
+export function HomeNextVote({ ballots, today }: { ballots: HomeBallot[]; today: string }) {
   const s = useSaved();
-  const own = s?.ballot ? ballots.find((b) => b.id === s.ballot) : undefined;
-  const you = s ? `/you?${s.you}` : null;
-  const tiles: [string, string, string][] = [
-    ["What you’re voting for", own ? `${place(own.area)}, ${when(own.date)}` : "Every election coming up, with a calendar and a map", you ? `${you}#you-vote` : "/next"],
-    ["Life where you live", "Crime, schools, homes and flood risk: the official facts", you ? `${you}#you-area` : "/start"],
-    ["Who decides what", "Your council, your MP, the government, and the bodies nobody elects", you ? `${you}#you-decides` : "/learn/who-decides"],
-    ["What’s at stake", "Your council, your region, the UK and the world, in each party’s own words", you ? `${you}#you-stake` : "/you#you-stake"],
-  ];
+  const own = s?.ballot ? ballots.find((b) => b.id === s.ballot && b.date >= today) : undefined;
+  if (own && s) {
+    const n = daysTo(own.date, today);
+    const id = encodeURIComponent(own.id);
+    const hq = s.household ? `?${s.household}` : "";
+    return (
+      <div className="nv">
+        <h1 className="nv-h">Your next vote</h1>
+        <div className="nv-card">
+          <p className="nv-place">{place(own.area)}</p>
+          <p className="nv-what">{kind(own.level)} · {longWhen(own.date)}</p>
+          <p className="nv-count">{n <= 0 ? <b>Polling day is today</b> : <><b>{n}</b> {n === 1 ? "day" : "days"} to go</>}</p>
+          <Link href={`/ballot/${id}${hq}#ballot-paper`} className="button big">See who&rsquo;s standing &rarr;</Link>
+          <p className="nv-second"><Link href={`/ballot/${id}/stakes${hq}`}>What it could mean for you</Link></p>
+        </div>
+      </div>
+    );
+  }
   return (
-    <section className="home-tiles" aria-labelledby="tiles-h">
-      <h2 id="tiles-h">{s ? "Your politics" : "Your politics, once we know your area"}</h2>
-      <ul>
-        {tiles.map(([t, sub, href]) => (
-          <li key={t}><Link href={href} className="tile card-link"><span className="tile-t">{t}</span><span className="tile-s">{sub}</span><span className="tile-go" aria-hidden>&rarr;</span></Link></li>
-        ))}
-      </ul>
-    </section>
+    <div className="nv">
+      <h1 className="nv-h">Your next vote</h1>
+      {s ? (
+        <>
+          <p className="nv-lede">There&rsquo;s no election we cover at {s.outcode ?? "your postcode"} right now. We add each election as soon as its list of candidates is confirmed.</p>
+          <Link href="/next" className="button big">See every election coming up &rarr;</Link>
+          <p className="nv-second"><Link href={`/you?${s.you}`}>Your politics, in one place</Link></p>
+        </>
+      ) : (
+        <>
+          <p className="nv-lede">Who&rsquo;s standing where you live, and what it could mean for you.</p>
+          <Suspense fallback={<LookupView error={null} />}><HomeLookup /></Suspense>
+          <p className="nv-second"><Link href="/start">Or personalise my politics &rarr;</Link></p>
+        </>
+      )}
+    </div>
   );
 }
 
-export function HomeComingUp({ ballots, today }: { ballots: HomeBallot[]; today: string }) {
+// Screen two (Romily, round ten, q1: "What's happening near me" stays central, close behind the vote).
+export function HomeLocal() {
   const s = useSaved();
-  const loc = s?.loc ?? null;
-  const upcoming = ballots.filter((b) => b.date >= today);
-  const list = loc ? [...upcoming].sort((a, b) => (a.lat == null || b.lat == null ? 0 : dist(loc, { lat: a.lat, lng: a.lng! }) - dist(loc, { lat: b.lat, lng: b.lng! }))) : upcoming;
-  if (!list.length) return null;
+  const you = s ? `/you?${s.you}` : null;
   return (
-    <section className="coming-up" aria-labelledby="coming-h">
-      <h2 id="coming-h">{loc ? "Coming up near you" : "Coming up"} <Link href="/next" className="see-all">See all</Link></h2>
-      <ul className="rows">
-        {list.slice(0, 4).map((b) => (
-          <li key={b.id}><Link href={`/ballot/${encodeURIComponent(b.id)}`} className="row-link"><span><span className="row-t">{place(b.area)}</span><span className="row-s">{kind(b.level)} · {when(b.date)} · {inDays(daysTo(b.date, today))}</span></span><svg viewBox="0 0 24 24" aria-hidden className="chev"><path d="M9 6l6 6-6 6" /></svg></Link></li>
-        ))}
-      </ul>
-    </section>
+    <>
+      <Link href={you ? `${you}#you-now` : "/start"} className="button big">{you ? "See what’s happening near me" : "Show me my area"} &rarr;</Link>
+      <p className="nv-second"><Link href={you ? `${you}#you-decides` : "/learn/who-decides"}>Who decides what for your address</Link></p>
+    </>
   );
 }

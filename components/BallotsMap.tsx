@@ -1,6 +1,7 @@
 "use client";
 import { shortMonth } from "@/lib/dates";
 import { useEffect, useRef, useState } from "react";
+import MapInfo from "@/components/MapInfo";
 declare global { interface Window { L?: any } }
 const MARKER = "#B8004F";
 type B = { ballot_paper_id: string; area_name: string; poll_date: string; level: string; lat: number | null; lng: number | null };
@@ -16,9 +17,9 @@ export default function BallotsMap({ ballots }: { ballots: B[] }) {
     s.onload = () => {
       if (cancelled || !ref.current || !window.L) return;
       const L = window.L;
-      map = L.map(ref.current, { scrollWheelZoom: false }).setView([54.5, -3], 5);
+      map = L.map(ref.current, { scrollWheelZoom: false, attributionControl: false }).setView([54.5, -3], 5);
       map.getContainer().setAttribute("role", "region");
-      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "&copy; OpenStreetMap contributors · Boundaries: ONS (OGL)" }).addTo(map);
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19 }).addTo(map);
       const pts: [number, number][] = [];
       for (const b of ballots) {
         if (b.lat == null || b.lng == null) continue;
@@ -40,12 +41,13 @@ export default function BallotsMap({ ballots }: { ballots: B[] }) {
   }, [ballots]);
   return (
     <div className="map-wrap">
-      <div ref={ref} className="map map-tall" role="region" aria-label="Map of upcoming elections" />
+      {/* Romily, round ten, q2: the credits behind the (i) in the map's corner, not a line across it. The old "About this
+          map" note is merged into the same panel. */}
+      <div className="map-frame">
+        <div ref={ref} className="map map-tall" role="region" aria-label="Map of upcoming elections" />
+        <MapInfo><p>Each marker sits at the centre of an election&rsquo;s area, worked out from the ONS boundaries.</p></MapInfo>
+      </div>
       <p className="meta map-note">{err ? "Map couldn't load." : "Each marker is an election you can open. Larger marker: UK Parliament by-election."}</p>
-      <details className="map-credits">
-        <summary>About this map</summary>
-        <p>Boundary centres: ONS Open Geography Portal (Open Government Licence). Map tiles: &copy; OpenStreetMap contributors.</p>
-      </details>
     </div>
   );
 }

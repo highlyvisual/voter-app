@@ -1,0 +1,67 @@
+/* ===== Romily, round ten (26 Oct): the home page, one idea per screen (q1, q2), and the map credits behind an (i) ===== */
+
+/* Screen one: the next vote leads; the lockup and her slogan stay, smaller. */
+.home-sheet .home-lockup img { width: 104px; }
+.home-sheet .home-slogan { font-family: var(--display); font-size: 1.05rem; line-height: 1.3; color: var(--ink-soft); margin: 0.2rem 0 1.1rem; max-width: 30ch; }
+.home-slogan em { color: var(--rose-ink); }
+.nv-h { font-size: clamp(2.1rem, 4.2vw, 3rem); line-height: 1.04; margin: 0 0 0.6rem; }
+.nv-lede { font-family: var(--sans); font-size: 1.12rem; color: var(--ink-soft); margin: 0 0 0.4rem; max-width: 34ch; }
+.nv-form { margin: 0.9rem 0 0.6rem; }
+.nv-form .row button { min-height: 52px; }
+.nv-card { background: var(--panel); border: 1px solid var(--rule); border-radius: 18px; padding: 1.1rem 1.2rem 1rem; box-shadow: var(--shadow); }
+.nv-place { font-family: var(--display); font-weight: 600; font-size: 1.6rem; line-height: 1.1; margin: 0 0 0.25rem; color: var(--ink); }
+.nv-what { margin: 0 0 0.6rem; font-family: var(--sans); color: var(--muted); }
+.nv-count { margin: 0 0 1rem; font-family: var(--sans); font-size: 1.05rem; color: var(--ink); }
+.nv-count b { font-family: var(--display); font-size: 2.2rem; line-height: 1; color: var(--accent-ink); margin-right: 0.15rem; }
+.nv .button.big, .home-screen .button.big { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 52px; padding: 0 1.4rem; font-size: 1.02rem; font-weight: 700;
+  background: var(--rose); border-color: var(--rose); color: var(--on-rose); }
+.nv .button.big:hover, .home-screen .button.big:hover { background: var(--rose-dark); border-color: var(--rose-dark); color: var(--on-rose); }
+.nv-second { margin: 0.7rem 0 0; font-family: var(--sans); }
+.nv-second a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
+.nv-independent { margin: 1.6rem 0 0; padding-top: 0.8rem; border-top: 1px solid var(--rule); }
+
+/* Screens two and three: full width, one heading, one sentence, one button. */
+.home-screen { margin: 0 calc(50% - 50vw); background: var(--paper); border-top: 1px solid var(--rule); }
+.home-screen.alt { background: var(--sand); }
+.home-screen-in { max-width: var(--measure); margin: 0 auto; padding: 3rem 1.25rem 3.2rem; }
+.home-screen h2 { margin: 0 0 0.6rem; font-size: clamp(1.7rem, 3.4vw, 2.4rem); border-top: 0; padding-top: 0; }
+.home-screen h2::after { display: none; }
+.home-screen-lede { font-family: var(--sans); font-size: 1.1rem; color: var(--ink-soft); max-width: 40ch; margin: 0 0 1.2rem; }
+@media (min-width: 58.01rem) { .home-screen-in { padding: 4.5rem 1.25rem; } }
+
+/* The quiet foot: the feedback invitation, then folds. */
+.home-foot { padding: 1.6rem 0 0; }
+.home-foot .fb-invite { margin: 0 0 1rem; }
+.home-fold { border-top: 1px solid var(--rule); }
+.home-fold:last-child { border-bottom: 1px solid var(--rule); }
+.home-fold > summary { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; min-height: 52px; cursor: pointer; list-style: none;
+  font-family: var(--sans); font-weight: 700; font-size: 1rem; color: var(--ink); }
+.home-fold > summary::-webkit-details-marker { display: none; }
+.home-fold > summary::after { content: "+"; font-size: 1.4rem; font-weight: 400; color: var(--accent-ink); }
+.home-fold[open] > summary::after { content: "\2212"; }
+.home-fold > summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.home-fold[open] { padding-bottom: 1rem; }
+.home-fold-h { font-size: 1.25rem; margin: 1.4rem 0 0.4rem; }
+
+/* The map's credits behind a round (i) in its bottom corner (q2). Leaflet's own credit line is switched off. */
+.map-frame { position: relative; }
+.home-map .map-frame { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.map-info { position: absolute; right: 10px; bottom: 10px; z-index: 600; display: flex; flex-direction: column-reverse; align-items: flex-end; gap: 6px; max-width: calc(100% - 20px); }
+.map-info-btn { display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0; border-radius: 50%; background: var(--panel) !important; border: 1px solid var(--rule) !important;
+  color: var(--ink) !important; box-shadow: 0 2px 8px rgba(43, 27, 20, 0.22); }
+.map-info-btn span { font: italic 700 1.1rem/1 var(--display); }
+.map-info-btn:hover, .map-info-btn[aria-expanded="true"] { border-color: var(--ink) !important; }
+.map-info-btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.map-info-panel { width: 19rem; max-width: 100%; box-sizing: border-box; padding: 0.6rem 0.8rem; border-radius: 12px; background: var(--panel); border: 1px solid var(--rule);
+  box-shadow: 0 4px 14px rgba(43, 27, 20, 0.2); font-family: var(--sans); font-size: 0.82rem; line-height: 1.45; color: var(--ink-soft); }
+.map-info-panel p { margin: 0; }
+.map-info-panel p + p { margin-top: 0.4rem; }
+.map-info-panel[hidden] { display: none; }
+
+/* On a phone the next vote should be on the first screen: a shorter map, and the lockup left to the header (which
+   already carries the logo). The map stays (Romily: "I like the big map"). */
+@media (max-width: 58rem) {
+  .home-map .map, .home-map .map-tall { height: 40vh; min-height: 260px; }
+  .home-sheet .home-lockup { display: none; }
+  .home-sheet .home-slogan { margin-top: 0.4rem; }
+}

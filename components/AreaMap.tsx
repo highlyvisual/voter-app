@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import DefineTerms from "@/components/DefineTerms";
+import MapInfo from "@/components/MapInfo";
 
 // Leaflet map: the voting area's boundary (ONS), an approximate marker for the postcode district if one was supplied (outward code only),
 // and the area's representative point. Tiles from OpenStreetMap. Nothing about the viewer is recorded.
@@ -21,9 +22,9 @@ export default function AreaMap({ ballotId = "", areaName, lat, lng, outcode, le
     s.onload = async () => {
       if (cancelled || !ref.current || !window.L) return;
       const L = window.L;
-      mapRefObj.current = map = L.map(ref.current, { scrollWheelZoom: false, attributionControl: true }).setView([lat ?? 51.5, lng ?? -0.12], 13);
+      mapRefObj.current = map = L.map(ref.current, { scrollWheelZoom: false, attributionControl: false }).setView([lat ?? 51.5, lng ?? -0.12], 13);
       map.getContainer().setAttribute("role", "region");
-      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "&copy; OpenStreetMap contributors · Boundaries: ONS (OGL)" }).addTo(map);
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19 }).addTo(map);
       try {
         const gj = ballotId ? await fetch(`/api/boundary?ballot=${encodeURIComponent(ballotId)}`).then((r) => r.json()) : null;
         if (gj?.features?.length) {
@@ -101,7 +102,11 @@ export default function AreaMap({ ballotId = "", areaName, lat, lng, outcode, le
   }, [ballotId, areaName, lat, lng, outcode, levelLabel, loc]);
   return (
     <div className="map-wrap">
-      <div ref={ref} className="map" role="region" aria-label={`Map of ${areaName}`} />
+      {/* Romily, round ten, q2: OpenStreetMap's and the ONS's credits behind the (i) in the map's corner. */}
+      <div className="map-frame">
+        <div ref={ref} className="map" role="region" aria-label={`Map of ${areaName}`} />
+        <MapInfo />
+      </div>
       {status === "loading" ? <p className="meta map-note">Loading map…</p> : null}
       {status === "error" ? <p className="meta map-note">Map couldn't load. Boundary data: ONS Open Geography Portal.</p> : null}
       {layers.length ? (
@@ -113,7 +118,7 @@ export default function AreaMap({ ballotId = "", areaName, lat, lng, outcode, le
 {" "}Tap any shape or dot for what it is, the official record, and what candidates here have published on it.</p>
       ) : null}
       {/* Romily, 29 Sept: the map's sources "less in your face"; 14 Oct: the layer definitions and the sources behind one
-          "Define these terms" toggle, closed by default. Leaflet's own small credit stays in the map's corner. */}
+          "Define these terms" toggle, closed by default. Round ten (q2): the map's own credit is the (i) on the map. */}
       <DefineTerms
         terms={layers.filter((l) => l.whatItMeans).map((l) => ({ term: l.label.replace(/ \(.*\)$/, ""), meaning: l.whatItMeans!, more: l.more ? { href: l.more, label: "Official guidance →" } : undefined }))}
         sources={<>{outcode ? "The highlighted circle is the centre of your postcode district, not your address. " : ""}{layers.length ? "The layers are facts about the ground, not anyone's proposals, and their colours are chosen to be unlike any party's. " : ""}Boundaries: ONS Open Geography Portal (Open Government Licence). Map tiles: &copy; OpenStreetMap contributors.</>}

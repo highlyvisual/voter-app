@@ -143,7 +143,7 @@ export default async function You({ searchParams }: { searchParams: Promise<Reco
 
       {loc ? (
         <section id="you-now" className="you-sec" aria-labelledby="you-now-h">
-          <h2 id="you-now-h">What matters to you right now</h2>
+          <h2 id="you-now-h">What matters to me right now</h2>
           <Suspense fallback={<p className="meta">Looking up what is happening near you…</p>}><RightNow councilSlug={councilSlug} district={place.district} /></Suspense>
         </section>
       ) : null}
