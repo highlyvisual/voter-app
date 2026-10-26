@@ -22,7 +22,7 @@ The household summary line now says "Money figures show as a range until every q
 
 ## Where to look
 
-Open the draft link Barny sends, then add these paths. The Holborn and St Pancras by-election (8 October 2026) is the only current ballot with modelled pledges: Reform UK, the Liberal Democrats and the Green Party. Open a candidate and scroll to "Money and cost of living".
+The draft is https://6adf21914ee84ff21d7c821e--voter-app-uk.netlify.app (built 26 Oct). Add these paths to it. The first page to load after a quiet spell can take up to 12 seconds while the server wakes and reads the grid. The Holborn and St Pancras by-election (8 October 2026) is the only current ballot with modelled pledges: Reform UK, the Liberal Democrats and the Green Party. Open a candidate and scroll to "Money and cost of living".
 
 | What | Path to add to the draft link |
 |---|---|
