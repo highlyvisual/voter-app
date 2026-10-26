@@ -1,8 +1,33 @@
 {
-  "cli": { "version": ">= 16.0.0", "appVersionSource": "local" },
-  "build": {
-    "preview": { "distribution": "internal", "android": { "buildType": "apk" } },
-    "production": {}
+  "cli": {
+    "version": ">= 16.0.0",
+    "appVersionSource": "local"
   },
-  "submit": { "production": {} }
+  "build": {
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {},
+    "preview-draft": {
+      "extends": "preview",
+      "env": {
+        "EXPO_PUBLIC_SITE": "https://6acf67e7f6b710ae3ed2ddb3--voter-app-uk.netlify.app"
+      }
+    },
+    "testflight-draft-TESTING-ONLY": {
+      "distribution": "store",
+      "ios": {
+        "buildConfiguration": "Release"
+      },
+      "env": {
+        "EXPO_PUBLIC_SITE": "https://6acf67e7f6b710ae3ed2ddb3--voter-app-uk.netlify.app"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
 }

@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import type { Claim, ReceiptRow, Topic } from "@/lib/types";
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
@@ -8,22 +9,8 @@ export function publicClient() {
   return createClient(url, key, { auth: { persistSession: false } });
 }
 
-export const TOPICS = [
-  ["money_and_cost_of_living", "Money and cost of living"],
-  ["housing_and_property", "Housing and property"],
-  ["healthcare_and_social_care", "Healthcare and social care"],
-  ["education_and_universities", "Education and universities"],
-  ["environment_climate_and_energy", "Environment, climate and energy"],
-  // Tenth topic, added 29 Sept 2026 at Romily's request (round eight q17).
-  ["transport", "Transport and roads"],
-  ["immigration_and_borders", "Immigration and borders"],
-  ["crime_policing_and_justice", "Crime, policing and justice"],
-  ["defence_foreign_affairs_and_eu", "Defence, foreign affairs and the EU"],
-  ["equality_and_rights", "Equality and rights"],
-] as const;
-export type Topic = (typeof TOPICS)[number][0];
-// The one set of short topic names, used wherever space is tight (chips, cards). Full names are in TOPICS.
-export const TOPIC_SHORT: Record<string, string> = { money_and_cost_of_living: "Money", housing_and_property: "Housing", healthcare_and_social_care: "Health and care", education_and_universities: "Education", environment_climate_and_energy: "Environment", transport: "Transport", immigration_and_borders: "Immigration", crime_policing_and_justice: "Crime and policing", defence_foreign_affairs_and_eu: "Defence and the EU", equality_and_rights: "Equality and rights" };
+// Topics and the Claim and ReceiptRow shapes live in lib/types.ts (no server code, so the phone app can share them).
+export { TOPICS, TOPIC_SHORT, type Topic, type Claim, type ReceiptRow } from "@/lib/types";
 
 export type Ballot = {
   ballot_paper_id: string;
@@ -82,32 +69,6 @@ export type Candidate = {
   parties?: { name: string; official_site_url: string | null; colour_hex: string | null; parent_party_ec_id: string | null; emblem_url: string | null; emblem_description: string | null } | null;
 };
 
-export type Claim = {
-  id: number;
-  ballot_paper_id: string;
-  candidate_id: number | null;
-  party_ec_id: string | null;
-  topic: Topic;
-  tier: "computed" | "documented";
-  claim_text: string;
-  source_quote: string;
-  applies_if: Record<string, unknown>;
-  status: string;
-  drafted_by: string;
-  created_at: string;
-  precision?: "measurable" | "aspiration";
-  sources?: { id: number; title: string; url: string; publisher: string; published_on: string | null; retrieved_at: string; layer?: string | null; archive_url?: string | null } | null;
-};
-
-export type ReceiptRow = {
-  reform_set_id: string;
-  party_ec_id: string | null;
-  household_key: string;
-  results: Record<string, number | string>;
-  policyengine_version: string;
-  computed_at: string;
-};
-
 export async function listBallots(): Promise<Ballot[]> {
   const { data, error } = await publicClient()
     .from("ballots")
@@ -161,7 +122,33 @@ export async function getReceipts(householdKey: string): Promise<ReceiptRow[]> {
   return (data ?? []) as ReceiptRow[];
 }
 
-export type ChangeLogRow = { id: number; claim_id: number | null; event: string; actor: string; detail: string | null; created_at: string };
+// Phone app: the reform sets in the grid, one row each. Every set holds every household, so any one household_key gives
+// the set metadata (label, party, law year, sources, model version); this fixed key is only a probe, nobody's answers.
+const PROBE_KEY = "age_band=35_49|household=couple|children=none|tenure=own_mortgage|income_band=40k_60k|employment=employed";
+export type ReceiptSetMeta = { reform_set_id: string; party_ec_id: string | null; policyengine_version: string; computed_at: string; label: string | null; year: string; source_ids: number[] };
+export async function listReceiptSets(): Promise<ReceiptSetMeta[]> {
+  const { data, error } = await publicClient().from("receipt_grid").select("reform_set_id, party_ec_id, policyengine_version, computed_at, results").eq("household_key", PROBE_KEY);
+  if (error) throw error;
+  return ((data ?? []) as ReceiptRow[]).map((r) => ({
+    reform_set_id: r.reform_set_id, party_ec_id: r.party_ec_id, policyengine_version: r.policyengine_version, computed_at: r.computed_at,
+    label: typeof r.results._label === "string" ? r.results._label : null,
+    year: String(r.results._year ?? (r.reform_set_id.startsWith("baseline-") ? r.reform_set_id.replace("baseline-", "") : "2026")),
+    source_ids: Array.isArray(r.results._source_ids) ? (r.results._source_ids as unknown as number[]) : [],
+  }));
+}
+
+// Phone app: every household in one reform set (8,100 rows), read in pages because the API returns at most 1,000 at a time.
+export async function getReceiptSet(reformSetId: string): Promise<Pick<ReceiptRow, "household_key" | "results">[]> {
+  const out: Pick<ReceiptRow, "household_key" | "results">[] = [];
+  for (let from = 0; ; from += 1000) {
+    const { data, error } = await publicClient().from("receipt_grid").select("household_key, results").eq("reform_set_id", reformSetId).order("household_key").range(from, from + 999);
+    if (error) throw error;
+    out.push(...((data ?? []) as Pick<ReceiptRow, "household_key" | "results">[]));
+    if (!data || data.length < 1000) return out;
+  }
+}
+
+export type ChangeLogRow ={ id: number; claim_id: number | null; event: string; actor: string; detail: string | null; created_at: string };
 
 export async function listChangeLog(limit = 200): Promise<ChangeLogRow[]> {
   const { data, error } = await publicClient().from("change_log").select("*").order("created_at", { ascending: false }).limit(limit);

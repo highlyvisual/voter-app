@@ -210,3 +210,37 @@ Where each piece lives: `docs/design/2026-09-29-directions.md`.
 | "Could we put the citing of the map less in your face." | **Built 29 Sep.** The sources are behind "About this map" under each map, and credited in small type on the map itself. |
 
 Also 29 Sep, from Barny: a short online questionnaire before she sends the site out for critique. **Built:** whatsittome.org/feedback.
+
+## Round ten — 14 October (form `romily-answers-round-10`), audited 26 October
+
+Romily said on 26 October that the app and site didn't reflect this round. On that day the live site was still deploy
+6acf1e9c (14 Oct), so most of the website answers were indeed not live. Audit against production and app 0.3.0 (PR #15,
+branch `app/v0.2.0`), then built on `site/round-10`, live on **26 Oct as deploy 6adf1f70**. Before = state on 26 Oct
+morning; After = state on 26 Oct evening. Under the round-eight rule, an item marked **Done** here is live and waits
+for her look.
+
+| # | She said | Before | After |
+|---|---|---|---|
+| 1 | One thing: "Your next vote: who's standing and what it means for you"; area and Learn close behind. | Site: **not done** (home led with "Personalise my politics"). App: **done** (Home is "Your next vote"). | **Done.** Home screen one is "Your next vote" (your election and countdown if the browser knows it, otherwise a postcode box); screen two "What's happening where you live"; screen three "Understand how it works". |
+| 2 | One idea per screen, home page first. | **Not done.** | **Done** for the home page: three screens, one action each. Ticker, stats band, steps and timeline removed; trust lines, the "What's it to me?" questions and "Two kinds of statement" folded under "More about this site". |
+| 2 | Home map source line behind a tap. | **Partly:** done on the area map panel (14 Oct), not on the home map. | **Done** on both maps: a small (i) on the map opens the OpenStreetMap and ONS credits. |
+| 2 | Positions pages "a bit less busy". | **Not done.** | **Done:** /positions, /parties, each party page and the ballot topic pages. Method notes behind "How this page works"; filters fold on phones; party pages fold by topic. Words above the first claim: /positions 159 → 126 (phone 140 → 69), /parties 51 → 19, a topic page 109 → 62. |
+| 2 | "Recheck the feedback as i know one of them did say there was too much writing on a certain page." | Round ten said none of the five did. | **She's right that one did, and we missed it.** It came in on 10 October, after the "five" count: "Presentation of information was clear but I suspect it might need to be cut down or simplified if undecided voters were genuinely to use it as a means of making voting decisions. (Most people aren't policy wonks and want short, sharp summaries. They also, I suspect vote with their guts, rather than their brains.)" It is about the whole site rather than one named page. No other answer says a page is too wordy. The form has 8 submissions; 2 (7 and 19 Oct) are spam. |
+| 3 | Coverage: start now, combined authorities and mayors first, parishes later. | **Not done.** | **Partly.** /authority: 16 pages (13 mayoral combined authorities, Devon and Torbay, Lancashire, the GLA): what it is and decides (government factsheets, quoted), the mayor and party (Democracy Club), its councils (ONS), links; refreshed weekly. Linked from the decision chain and each member council's page. **Not yet:** the newest strategic authorities (not in ONS's lookup yet; they'll appear when ONS publishes), next mayoral election dates (Democracy Club hasn't listed them; the government's own line is quoted instead), budgets for most. Parishes: later, as she said. |
+| 4 | A small visible source tag on each claim. | **Not done** (the kind was inside the closed "Sourced:"). | **Done** on the website: Own words, Manifesto, Leaflet, Public record, Third party, beside every claim, with "What the tags mean" behind an (i). **App: not yet** (it shows "Sourced:" only). |
+| 8 | Embeddable "Your next election" box. | **Not done.** | **Done:** whatsittome.org/embed (copy-paste code and preview); the box itself is /embed/next-election. No cookies or tracking; linked from /about only. |
+| 11 | "What matters to me right now". | **Not done.** | **Done.** |
+| 12 | Local news plus impartial national sources (GOV.UK, Parliament); no newspaper headlines. | **Partly:** "Right now" uses council papers, The Gazette, DfE and Parliament's calendar; no headlines; nothing from GOV.UK. | Unchanged. **Still to do:** GOV.UK items (needs a new reader). |
+| 13 | Council business personalised; "not immediate to you" below, in sharper wording. | **Not done** (by date only). | **Done** on council pages and in "Right now": items whose titles match the profile's first topics, or name a group chosen in About you (on the device only), come first under "About your household"; the rest under "**Not about you directly — still worth a look**". Five each, "Show all"; the reason is behind an (i). Without a profile: by date, with an invite. Her wording to confirm; alternatives "Also on the council's agenda", "Everything else the council is deciding". |
+| 13 | Identity matching (Barny's decision 1). | Decided yes, under the three rules; built in the app on 14 Oct and on /you since 29 Sep. | Also used for council business (names-tier only, on the device). |
+| 14 | List every hustings and say who runs each. | **Not done.** | **Done:** a Hustings section on every ballot page, from Democracy Club's Who Can I Vote For. Democracy Club records have no organiser field, so the organiser is named only where the listing's own title names it, otherwise "see the event page" with its website. None of the 28 current ballots has one listed yet. Also in the app's data (optional field). |
+| 15 | Show only climate quotes in the motion's own words; release the 17. | **Not done** (the job had never run live). | **Done:** 18 councils now show their own resolution sentence, dated where the document is. The rule is mechanical; first live run caught three that weren't the motion (Hampshire, Lancashire's first pick, Melton), fixed the same day. Held for her: West Dunbartonshire ("agrees with the view held by the movement Extinction Rebellion…"). Not shown: Brent (names a party), Charnwood, Hackney, Havering (news pages), Medway and others (heading or narrative). |
+| 19–28 | Park "Thinking of moving here?" and "What people are reading". | Parked (branch `area/moving-and-reading`, unmerged). | Unchanged. Her Q20–22, Q24 answers kept for later. |
+| 29 | Household's topics first; reason in a pop-up. | **Done** in the app (14 Oct). | Unchanged. |
+| 30 | "None of these positions mention households like yours." | **Done** in the app. | Unchanged. |
+| 31 | Keep "No published position found yet." | **Done.** | Unchanged. |
+| 32 | "Applies to others" closed. | **Done.** | Unchanged. |
+| 33 | Show what we can with fewer answers (Barny's decision 2: go ahead). | Proposal only. | **Built on a draft for her to see**, not live: https://6adf21914ee84ff21d7c821e--voter-app-uk.netlify.app (paths and five questions in `docs/romily/q33-ranges.md`). Website only; the app can follow with the same code. |
+| 5, 6, 7, 9, 10, 16, 18 | Not code. | For Cowork and Barny. | No change. Nothing sent to any organisation. No social template built (her Q10 answer). |
+
+**App 0.3.0 build 4** (26 Oct): release build pointing at whatsittome.org, in TestFlight for the Founders internal group only.

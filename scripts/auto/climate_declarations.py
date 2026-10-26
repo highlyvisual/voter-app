@@ -35,19 +35,44 @@ def domain(url: str) -> str:
     return h
 
 
-# The sentence shown must be the council declaring: "this Council resolves / declares / commits", "declares a climate
-# emergency", "resolves to declare", "has been declared by", "decision to declare"; and not a petition, an amendment,
-# another council, reported speech ("he said"), a declaration of interest, or the website's furniture. Fixed words, no
-# judgement: a document with no such sentence gets no line.
-DECLARE = re.compile(r"(?i)\b(?:this |the )?council\b[^.;]{0,40}?\b(?:resolves|declares|commits|declared|has declared)\b|\bdeclar(?:e|es|ed|ing)\s+(?:an?\s+)?(?:immediate\s+)?[‘'\"]?climate emergency|\bresolves?\s+to\s+declare\b|\bclimate emergency has been declared by\b|\bdecision to declare a climate emergency\b")
-NOT_THE_DECISION = re.compile(r"(?i)\b(petition|amendment|cookies?|spoke on|statement made by|should have been|list of motions|other (?:councils|authorities)|councils across|calls? for councils|urging|(?:he|she|they) (?:said|stated|added|considered|noted)|a member|declared an interest|sign in|asking the|around the world|on behalf of)\b")
+# The sentence shown must be the motion's own resolution words (Romily, round ten q15: "Show only the ones quoting the
+# motion's own words"): the council resolving, declaring, committing or agreeing in the present tense ("this Council
+# resolves / declares / commits / agrees", "resolves to declare", "declare(s) a climate emergency"), never a report of it
+# ("has been declared by", "the decision to declare ... is the latest step", "the Council is requested to"). Not a
+# petition, an amendment, another council, reported speech ("he said"), a declaration of interest, the website's
+# furniture, or a sentence that names a political party or a party politician. Fixed words, no judgement: a document with
+# no such sentence gets no line.
+DECLARE = re.compile(r"(?i)\b(?:this |the )?council\b[^.;]{0,40}?\b(?:resolves|declares|commits|agrees)\b|\bdeclar(?:e|es)\s+(?:an?\s+)?(?:immediate\s+)?[‘'\"]?climate emergency|\bresolves?\s+to\s+declare\b")
+NOT_THE_DECISION = re.compile(r"(?i)\b(petition|amendment|altered motion|cookies?|spoke on|statement made by|should have been|list of motions|other (?:councils|authorities)|councils across|calls? for councils|urging|(?:he|she|they) (?:said|stated|added|considered|noted)|a member|declared an interest|sign in|asking the|around the world|on behalf of"
+                              # News and reports about the decision, not the decision (round ten q15)
+                              r"|has been declared|decision to declare|latest step|will rightly ask|published:|(?:is|are|be|was|were) (?:requested|recommended|asked|invited) to"
+                              # Agenda furniture that is not the motion's text (round ten q15)
+                              r"|presented the recommendations?|proposed the following|budget and policy framework|notice of motions?|be added to|additional words|italicised"
+                              # A speaker, not a motion: no motion speaks as "I"; a call on someone else to declare; a web address
+                              r"|I (?:can|will|am|have|would)|calls? (?:on|upon) the mayor|https?)\b")
+# Parties and party politicians: a line that names one is a party's words, not the council's (round ten q15). Case matters,
+# so "reform of" or "green spaces" are not parties.
+PARTY = re.compile(r"\b(Labour|Conservatives?|Tory|Tories|Liberal Democrats?|Lib Dems?|Green Party|Greens|Reform UK|SNP|Scottish National Party|Plaid(?: Cymru)?|UKIP|Brexit Party|Co-operative Party)\b|\bMayor\s+(?:of\s+[A-Z]\w+\s+)?[A-Z][a-z]+\s+[A-Z][a-z]+")
+# Who moved and seconded a motion comes before its words in many minutes ("It was proposed by Councillor A and seconded by
+# Councillor B that - The Council ..."). That part is cut off and only the words after it are shown, still verbatim.
+MOVER = re.compile(r"(?i)\b(?:(?:moved|proposed|seconded|supported|motion)\s+by\s+(?:councillors?|cllrs?\.?)\s+[\w’'.-]+|(?:councillors?|cllrs?\.?)\s+[\w’'.-]+\s+moved\b:?)")
+LEAD_IN = re.compile(r"^[\s)\]”\"'’,;:–—-]*(?:that\b)?[\s:–—-]*")
+# News pages report a decision in their own words; only the council's own record of the motion counts (round ten q15).
+# Round ten q15, after the first live run (26 Oct): reported speech and minutes narrative that the patterns above let
+# through ("He confirmed that he was minded to recommend…", "It was moved by County Councillor…", "Members would consider
+# whether to declare…"), and a motion that agrees with a campaign group's view rather than declaring (held for Romily).
+NARRATIVE = re.compile(r"(?i)\b(?:he|she|they) confirmed\b|\bminded to\b|\bit was (?:moved|proposed|seconded|resolved)\b|\bwould (?:also )?(?:bring forward|consider)\b|\bwhether to declare\b|\bagrees? with the view\b|\bview held by\b|\bwelcomed\b|\bindication\b|\bwould declare\b")
+NEWS_URL = re.compile(r"(?i)//news\.|/news/|/newsroom/|/press-?releases?/|/media-centre/")
 
 
 def first_sentence_with(text: str, phrase: str) -> str | None:
     flat = re.sub(r"\s+", " ", text)
     for m in re.finditer(r"[^.!?\n]*?" + re.escape(phrase) + r"[^.!?\n]*[.!?]?", flat, re.I):
         s = m.group(0).strip(" -•·")
-        if 30 <= len(s) <= 400 and DECLARE.search(s) and not NOT_THE_DECISION.search(s): return s
+        movers = list(MOVER.finditer(s))
+        if movers: s = LEAD_IN.sub("", s[movers[-1].end():]).strip()
+        if phrase not in s.lower(): continue
+        if 30 <= len(s) <= 400 and DECLARE.search(s) and not NOT_THE_DECISION.search(s) and not PARTY.search(s) and not NARRATIVE.search(s): return s
     return None
 
 
@@ -74,6 +99,7 @@ def title_of(body: bytes, content_type: str) -> str | None:
 
 def check(lead: dict, council: dict):
     url = lead["motion_url"]
+    if NEWS_URL.search(url): return None, "a news page, not the council's record of the motion"
     try:
         st, body, h = fetch(url, browser=True, timeout=45, tries=1)
     except Exception as ex:

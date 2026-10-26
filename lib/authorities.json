@@ -1,0 +1,2105 @@
+{
+ "retrieved_at": "2026-10-26T09:33:20Z",
+ "sources": {
+  "ons_ca": {
+   "name": "ONS Open Geography Portal, Local Authority District to Combined Authority lookup (LAD25_CAUTH25_EN_LU)",
+   "url": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LAD25_CAUTH25_EN_LU/FeatureServer/0",
+   "publisher": "Office for National Statistics",
+   "licence": "Open Government Licence v3.0",
+   "retrieved": "2026-10-26"
+  },
+  "ons_cty": {
+   "name": "ONS Open Geography Portal, Local Authority District to County and Unitary Authority lookup (LAD25_CTYUA25_EW_LU_v2)",
+   "url": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LAD25_CTYUA25_EW_LU_v2/FeatureServer/0",
+   "publisher": "Office for National Statistics",
+   "licence": "Open Government Licence v3.0",
+   "retrieved": "2026-10-26"
+  },
+  "ons_rgn": {
+   "name": "ONS Open Geography Portal, Local Authority District to Region lookup (LAD25_RGN25_EN_LU_v2)",
+   "url": "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/LAD25_RGN25_EN_LU_v2/FeatureServer/0",
+   "publisher": "Office for National Statistics",
+   "licence": "Open Government Licence v3.0",
+   "retrieved": "2026-10-26"
+  },
+  "factsheets": {
+   "name": "MHCLG, English devolution: Area factsheets",
+   "url": "https://www.gov.uk/government/publications/english-devolution-area-factsheets/english-devolution-area-factsheets",
+   "publisher": "Ministry of Housing, Communities and Local Government",
+   "licence": "Open Government Licence v3.0",
+   "updated": "2025-07-10",
+   "retrieved": "2026-10-26"
+  },
+  "explainers": {
+   "name": "MHCLG, Devolution Framework Explainers",
+   "url": "https://www.gov.uk/government/publications/english-devolution-and-community-empowerment-bill-devolution-framework-explainers",
+   "publisher": "Ministry of Housing, Communities and Local Government",
+   "licence": "Open Government Licence v3.0",
+   "updated": "2026-06-08",
+   "retrieved": "2026-10-26"
+  },
+  "everyelection": {
+   "name": "Democracy Club, EveryElection",
+   "url": "https://elections.democracyclub.org.uk/",
+   "publisher": "Democracy Club",
+   "licence": "CC BY 4.0",
+   "retrieved": "2026-10-26"
+  },
+  "dc_candidates": {
+   "name": "Democracy Club candidates",
+   "url": "https://candidates.democracyclub.org.uk/",
+   "publisher": "Democracy Club",
+   "licence": "CC BY 4.0",
+   "retrieved": "2026-10-26"
+  },
+  "register": {
+   "name": "mySociety, UK Local Authorities, with WhatDoTheyKnow home pages",
+   "url": "https://pages.mysociety.org/uk_local_authority_names_and_codes/",
+   "publisher": "mySociety",
+   "licence": "CC BY 4.0 / CC BY-SA 4.0",
+   "retrieved": "2026-09-27"
+  },
+  "wikidata": {
+   "name": "Wikidata, official website (P856)",
+   "url": "https://www.wikidata.org/",
+   "publisher": "Wikimedia Foundation",
+   "licence": "CC0",
+   "retrieved": "2026-10-26"
+  },
+  "ifg": {
+   "name": "Institute for Government, Regional mayors (explainer)",
+   "url": "https://www.instituteforgovernment.org.uk/explainer/regional-mayors-devolution",
+   "publisher": "Institute for Government",
+   "licence": "Quoted for reference; © Institute for Government",
+   "retrieved": "2026-10-26"
+  }
+ },
+ "ifg_quotes": [
+  "Regional mayors are directly-elected leaders who chair mayoral strategic authorities (also known as combined authorities) to which specified functions and budgets have been devolved from Whitehall.",
+  "The specifics of the powers of MSAs vary from place to place but typically include aspects of transport, skills, housing, and local infrastructure investment, and in some cases spatial planning, policing, health and employment support."
+ ],
+ "authorities": [
+  {
+   "code": "E47000008",
+   "name": "Cambridgeshire and Peterborough",
+   "kind": "combined",
+   "councils": [
+    {
+     "gss": "E10000003",
+     "name": "Cambridgeshire",
+     "tier": "county"
+    },
+    {
+     "gss": "E07000008",
+     "name": "Cambridge",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000009",
+     "name": "East Cambridgeshire",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000010",
+     "name": "Fenland",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000011",
+     "name": "Huntingdonshire",
+     "tier": "lad"
+    },
+    {
+     "gss": "E06000031",
+     "name": "Peterborough",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000012",
+     "name": "South Cambridgeshire",
+     "tier": "lad"
+    }
+   ],
+   "slug": "cambridgeshire-and-peterborough",
+   "factsheet_anchor": "cambridgeshire-and-peterborough",
+   "what": "Cambridgeshire and Peterborough Combined Authority (CPCA) is a Mayoral Strategic Authority with the functions and funding associated with that tier.",
+   "formal_name": "Cambridgeshire and Peterborough Combined Authority",
+   "tier": "Mayoral Strategic Authority",
+   "election_note": "The Mayor is elected on a 4 year term. The most recent election was held in May 2025 with the next election scheduled for 2029. This will be done by Supplementary Vote, as will further elections.",
+   "members_quote": "Its constituent councils are Cambridge City, Cambridgeshire County, East Cambridgeshire District, Fenland District, Huntingdonshire District, Peterborough City and South Cambridgeshire District.",
+   "police": [
+    {
+     "p": "As CPCA’s geography aligns with the Police and Crime Commissioner boundaries, the English Devolution and Community Empowerment Bill will enable the transfer of Police and Crime Commissioner functions to the Mayor, subject to secondary legislation."
+    }
+   ],
+   "fire": [
+    {
+     "p": "As CPCA’s geography aligns with the Fire and Rescue Authority boundaries, the English Devolution and Community Empowerment Bill will enable CPCA to become the Fire and Rescue Authority for the area, subject to secondary legislation."
+    }
+   ],
+   "distinctive": [
+    {
+     "p": "CPCA will continue to have the following distinctive governance arrangements:"
+    },
+    {
+     "p": "Any decisions surrounding (a) the Local Transport Plan; and (b) any spending plans or plans for the allocation of transport-related funding require:"
+    },
+    {
+     "list": [
+      "a vote at which all CPCA members are present",
+      "a two-thirds majority of members appointed by the constituent councils, with members for Cambridgeshire County Council and Peterborough City Council in that majority, for any vote to pass"
+     ]
+    },
+    {
+     "p": "CPCA will also retain some additional powers in relation to nursery schools and education."
+    }
+   ],
+   "mayoral": true,
+   "competences": {
+    "tier_title": "Devolution Framework Explainer: Mayoral Strategic Authorities",
+    "url": "https://assets.publishing.service.gov.uk/media/6a26d63b56960b0542c0b1bf/Devolution_Framework_Explainer_-_Mayoral_Strategic_Authorities.pdf",
+    "headings": [
+     "Transport and Infrastructure",
+     "Skills and Employment Support",
+     "Housing and Strategic Planning",
+     "Economic Development and Regeneration",
+     "Environment and Net Zero",
+     "Health, Wellbeing and Public Service Reform",
+     "Public Safety",
+     "Culture",
+     "Rural Affairs and Coastal Communities"
+    ]
+   },
+   "ee_org": "cambridgeshire-and-peterborough",
+   "next_election": null,
+   "mayor": {
+    "name": "Paul Bristow",
+    "party": "Conservative and Unionist Party",
+    "party_id": "party:52",
+    "elected_on": "2025-05-01",
+    "election": "Mayor of Cambridgeshire and Peterborough Combined Authority",
+    "ballot_id": "mayor.cambridgeshire-and-peterborough.2025-05-01",
+    "source": "https://candidates.democracyclub.org.uk/elections/mayor.cambridgeshire-and-peterborough.2025-05-01/",
+    "person_page": "https://candidates.democracyclub.org.uk/person/1259/",
+    "retrieved": "2026-10-26"
+   },
+   "links": {
+    "website": {
+     "url": "https://cambridgeshirepeterborough-ca.gov.uk/",
+     "source": "register",
+     "ref": null,
+     "checked": "2026-10-26",
+     "opened": true
+    },
+    "meetings": {
+     "url": "https://cambridgeshirepeterborough-ca.gov.uk/how-we-deliver/",
+     "words": "Democracy & Transparency",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    }
+   }
+  },
+  {
+   "code": "E47000015",
+   "name": "Devon and Torbay",
+   "kind": "combined",
+   "councils": [
+    {
+     "gss": "E10000008",
+     "name": "Devon",
+     "tier": "county"
+    },
+    {
+     "gss": "E07000040",
+     "name": "East Devon",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000041",
+     "name": "Exeter",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000042",
+     "name": "Mid Devon",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000043",
+     "name": "North Devon",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000044",
+     "name": "South Hams",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000045",
+     "name": "Teignbridge",
+     "tier": "lad"
+    },
+    {
+     "gss": "E06000027",
+     "name": "Torbay",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000046",
+     "name": "Torridge",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000047",
+     "name": "West Devon",
+     "tier": "lad"
+    }
+   ],
+   "slug": "devon-and-torbay",
+   "factsheet_anchor": "devon-and-torbay",
+   "what": "Devon and Torbay Combined County Authority (DTCCA) is a Foundation Strategic Authority with the functions and funding associated with that tier.",
+   "formal_name": "Devon and Torbay Combined County Authority",
+   "tier": "Foundation Strategic Authority",
+   "election_note": null,
+   "members_quote": "Its constituent councils are Devon County and Torbay.",
+   "police": [
+    {
+     "p": "DTCCA does not have a directly elected Mayor and its geography doesn’t align with the area’s police force boundaries. Therefore, DTCCA cannot take on Police and Crime Commissioner functions."
+    }
+   ],
+   "fire": [
+    {
+     "p": "DTCCA does not have a directly elected Mayor and its geography doesn’t align with the area’s Fire and Rescue Authority. Therefore, DTCCA cannot become the FRA."
+    }
+   ],
+   "distinctive": [
+    {
+     "p": "Constituent councils of DTCCA must appoint one of their members on the Combined County Authority to be the ‘lead member’."
+    },
+    {
+     "p": "For votes to be carried, lead members from both constituent councils must be in the majority when voting on:"
+    },
+    {
+     "list": [
+      "DTCCA’s budget",
+      "appointment of DTCCA’s chief executive",
+      "adoption of a Local Transport Plan",
+      "approval or amendment of DTCCA’s constitution or standing orders"
+     ]
+    },
+    {
+     "p": "For votes to be carried, the lead member from the relevant constituent council must be in the majority when a function is being exercised by DTCCA in its area in a way that could result in a financial liability falling on that council."
+    },
+    {
+     "p": "DTCCA will also retain some additional powers in relation to permit schemes."
+    }
+   ],
+   "mayoral": false,
+   "competences": {
+    "tier_title": "Devolution Framework Explainer: Non-Mayoral Foundation Strategic Authorities",
+    "url": "https://assets.publishing.service.gov.uk/media/6a26d6498e85b4e5346ac0e3/Devolution_Framework_Explainer_-_Non-Mayoral_Foundation_Strategic_Authorities.pdf",
+    "headings": [
+     "Transport and Infrastructure",
+     "Skills and Employment Support",
+     "Housing and Strategic Planning",
+     "Economic Development and Regeneration",
+     "Environment and Net Zero",
+     "Health, Wellbeing and Public Service Reform",
+     "Public Safety",
+     "Culture",
+     "Rural Affairs and Coastal Communities"
+    ]
+   },
+   "ee_org": null,
+   "next_election": null,
+   "mayor": null,
+   "links": {
+    "website": {
+     "url": "https://www.devonandtorbay-cca.gov.uk/",
+     "source": "wikidata",
+     "ref": "https://www.wikidata.org/wiki/Q125966109",
+     "checked": "2026-10-26",
+     "opened": true
+    },
+    "meetings": {
+     "url": "https://www.devonandtorbay-cca.gov.uk/governance/",
+     "words": "Governance",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    }
+   }
+  },
+  {
+   "code": "E47000013",
+   "name": "East Midlands",
+   "kind": "combined",
+   "councils": [
+    {
+     "gss": "E10000007",
+     "name": "Derbyshire",
+     "tier": "county"
+    },
+    {
+     "gss": "E10000024",
+     "name": "Nottinghamshire",
+     "tier": "county"
+    },
+    {
+     "gss": "E07000032",
+     "name": "Amber Valley",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000170",
+     "name": "Ashfield",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000171",
+     "name": "Bassetlaw",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000033",
+     "name": "Bolsover",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000172",
+     "name": "Broxtowe",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000034",
+     "name": "Chesterfield",
+     "tier": "lad"
+    },
+    {
+     "gss": "E06000015",
+     "name": "Derby",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000035",
+     "name": "Derbyshire Dales",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000036",
+     "name": "Erewash",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000173",
+     "name": "Gedling",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000037",
+     "name": "High Peak",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000174",
+     "name": "Mansfield",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000175",
+     "name": "Newark and Sherwood",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000038",
+     "name": "North East Derbyshire",
+     "tier": "lad"
+    },
+    {
+     "gss": "E06000018",
+     "name": "Nottingham",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000176",
+     "name": "Rushcliffe",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000039",
+     "name": "South Derbyshire",
+     "tier": "lad"
+    }
+   ],
+   "slug": "east-midlands",
+   "factsheet_anchor": "east-midlands",
+   "what": "East Midlands Combined County Authority (EMCCA) is a Mayoral Strategic Authority with the functions and funding associated with that tier.",
+   "formal_name": "East Midlands Combined County Authority",
+   "tier": "Mayoral Strategic Authority",
+   "election_note": "The Mayor is elected on a 4 year term. The most recent election was in 2024 with the next election scheduled for 2028. This will be done by Supplementary Vote, as will further elections.",
+   "members_quote": "Its constituent councils are Derby, Derbyshire, Nottingham and Nottinghamshire",
+   "police": [
+    {
+     "p": "EMCCA has conterminous borders with two police forces when taken together. The Bill will allow the Mayor to take on the Police and Crime Commissioner functions over both areas with the appointment of a Deputy Mayor for Policing and Crime for each police force area. The transfer of PCC functions is subject to secondary legislation."
+    }
+   ],
+   "fire": [
+    {
+     "p": "EMCCA has coterminous borders with two Fire and Rescue Authorities (FRAs) when taken together. We will explore options to merge the two FRAs and for EMCCA to become the FRA for the area, this would be subject to separate secondary legislation."
+    }
+   ],
+   "distinctive": [
+    {
+     "p": "EMCCA will continue to have different governance arrangements when it comes to transport and local infrastructure functions. A number of EMCCA’s public transport powers are also held concurrently with its constituent councils. This is to allow the continued operation of the Nottingham tram as well as Nottingham City Council’s operation of its Nottingham City Transport bus service. Ordinarily, these functions would be held solely by the Strategic Authority."
+    },
+    {
+     "p": "EMCCA will also retain some different functions in relation to public health; bus operator grants; workplace parking levy schemes; and permit schemes."
+    }
+   ],
+   "mayoral": true,
+   "competences": {
+    "tier_title": "Devolution Framework Explainer: Mayoral Strategic Authorities",
+    "url": "https://assets.publishing.service.gov.uk/media/6a26d63b56960b0542c0b1bf/Devolution_Framework_Explainer_-_Mayoral_Strategic_Authorities.pdf",
+    "headings": [
+     "Transport and Infrastructure",
+     "Skills and Employment Support",
+     "Housing and Strategic Planning",
+     "Economic Development and Regeneration",
+     "Environment and Net Zero",
+     "Health, Wellbeing and Public Service Reform",
+     "Public Safety",
+     "Culture",
+     "Rural Affairs and Coastal Communities"
+    ]
+   },
+   "ee_org": "east-midlands-cca",
+   "next_election": null,
+   "mayor": {
+    "name": "Claire Ward",
+    "party": "Labour and Co-operative Party",
+    "party_id": "joint-party:53-119",
+    "elected_on": "2024-05-02",
+    "election": "Mayor of East Midlands Combined County Authority",
+    "ballot_id": "mayor.east-midlands-cca.2024-05-02",
+    "source": "https://candidates.democracyclub.org.uk/elections/mayor.east-midlands-cca.2024-05-02/",
+    "person_page": "https://candidates.democracyclub.org.uk/person/1979/",
+    "retrieved": "2026-10-26"
+   },
+   "links": {
+    "website": {
+     "url": "https://www.eastmidlands-cca.gov.uk/",
+     "source": "wikidata",
+     "ref": "https://www.wikidata.org/wiki/Q121568187",
+     "checked": "2026-10-26",
+     "opened": true
+    },
+    "mayor_page": {
+     "url": "https://www.eastmidlands-cca.gov.uk/the-mayor/",
+     "words": "The Mayor",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    },
+    "meetings": {
+     "url": "https://www.eastmidlands-cca.gov.uk/governance/",
+     "words": "Governance",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    }
+   }
+  },
+  {
+   "code": "E47000017",
+   "name": "Greater Lincolnshire",
+   "kind": "combined",
+   "councils": [
+    {
+     "gss": "E10000019",
+     "name": "Lincolnshire",
+     "tier": "county"
+    },
+    {
+     "gss": "E07000136",
+     "name": "Boston",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000137",
+     "name": "East Lindsey",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000138",
+     "name": "Lincoln",
+     "tier": "lad"
+    },
+    {
+     "gss": "E06000012",
+     "name": "North East Lincolnshire",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000139",
+     "name": "North Kesteven",
+     "tier": "lad"
+    },
+    {
+     "gss": "E06000013",
+     "name": "North Lincolnshire",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000140",
+     "name": "South Holland",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000141",
+     "name": "South Kesteven",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000142",
+     "name": "West Lindsey",
+     "tier": "lad"
+    }
+   ],
+   "slug": "greater-lincolnshire",
+   "factsheet_anchor": "greater-lincolnshire",
+   "what": "Greater Lincolnshire Combined County Authority (GLCCA) is a Mayoral Strategic Authority with the functions and funding associated with that tier.",
+   "formal_name": "Greater Lincolnshire Combined County Authority",
+   "tier": "Mayoral Strategic Authority",
+   "election_note": "The Mayor is elected on a 4 year term. The most recent election was held in May 2025 with the next election scheduled for 2029. This will be done by Supplementary Vote, as will further elections.",
+   "members_quote": "Its constituent councils are North East Lincolnshire, North Lincolnshire, and Lincolnshire County.",
+   "police": [
+    {
+     "p": "GLCCA’s geography does not align with the area’s police force. Therefore GLCCA cannot take on Police and Crime Commissioner functions."
+    }
+   ],
+   "fire": [
+    {
+     "p": "GLCCA’s geography does not align with the area’s Fire and Rescue Authority (FRA). Therefore GLCCA cannot become the FRA."
+    }
+   ],
+   "distinctive": [
+    {
+     "p": "GLCCA will continue to have different governance arrangements when it comes to transport and local infrastructure functions. A number of GLCCA’s public transport powers are also held concurrently with its constituent councils. Their functions relating to providing grants for bus services also require the consent of the constituent council where the function will be exercised. This is to allow the continued operation of services operated by Lincolnshire County Council. Ordinarily, these functions would be held solely by the Strategic Authority and would not require constituent council consent."
+    },
+    {
+     "p": "GLCCA will also retain some different powers in relation to bus operator grants; workplace parking levy schemes; and permit schemes."
+    }
+   ],
+   "mayoral": true,
+   "competences": {
+    "tier_title": "Devolution Framework Explainer: Mayoral Strategic Authorities",
+    "url": "https://assets.publishing.service.gov.uk/media/6a26d63b56960b0542c0b1bf/Devolution_Framework_Explainer_-_Mayoral_Strategic_Authorities.pdf",
+    "headings": [
+     "Transport and Infrastructure",
+     "Skills and Employment Support",
+     "Housing and Strategic Planning",
+     "Economic Development and Regeneration",
+     "Environment and Net Zero",
+     "Health, Wellbeing and Public Service Reform",
+     "Public Safety",
+     "Culture",
+     "Rural Affairs and Coastal Communities"
+    ]
+   },
+   "ee_org": "greater-lincolnshire-cca",
+   "next_election": null,
+   "mayor": {
+    "name": "Andrea Marie Jenkyns",
+    "party": "Reform UK",
+    "party_id": "party:7931",
+    "elected_on": "2025-05-01",
+    "election": "Mayor of Greater Lincolnshire Combined County Authority",
+    "ballot_id": "mayor.greater-lincolnshire-cca.2025-05-01",
+    "source": "https://candidates.democracyclub.org.uk/elections/mayor.greater-lincolnshire-cca.2025-05-01/",
+    "person_page": "https://candidates.democracyclub.org.uk/person/4210/",
+    "retrieved": "2026-10-26"
+   },
+   "links": {
+    "website": {
+     "url": "https://greaterlincolnshire-cca.gov.uk/",
+     "source": "wikidata",
+     "ref": "https://www.wikidata.org/wiki/Q125121226",
+     "checked": "2026-10-26",
+     "opened": true
+    },
+    "mayor_page": {
+     "url": "https://greaterlincolnshire-cca.gov.uk/about-1/mayor",
+     "words": "The Mayor",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    },
+    "meetings": {
+     "url": "https://greaterlincolnshire-cca.gov.uk/meetings-1",
+     "words": "Meetings",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    },
+    "budget": {
+     "url": "https://greaterlincolnshire-cca.gov.uk/downloads/file/75/mayor-s-budget-speech-2026-2027",
+     "words": "The Mayor's Budget Speech",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    }
+   }
+  },
+  {
+   "code": "E61000001",
+   "name": "Greater London Authority",
+   "kind": "gla",
+   "councils": [
+    {
+     "gss": "E09000002",
+     "name": "Barking and Dagenham",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000003",
+     "name": "Barnet",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000004",
+     "name": "Bexley",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000005",
+     "name": "Brent",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000006",
+     "name": "Bromley",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000007",
+     "name": "Camden",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000001",
+     "name": "City of London",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000008",
+     "name": "Croydon",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000009",
+     "name": "Ealing",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000010",
+     "name": "Enfield",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000011",
+     "name": "Greenwich",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000012",
+     "name": "Hackney",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000013",
+     "name": "Hammersmith and Fulham",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000014",
+     "name": "Haringey",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000015",
+     "name": "Harrow",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000016",
+     "name": "Havering",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000017",
+     "name": "Hillingdon",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000018",
+     "name": "Hounslow",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000019",
+     "name": "Islington",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000020",
+     "name": "Kensington and Chelsea",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000021",
+     "name": "Kingston upon Thames",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000022",
+     "name": "Lambeth",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000023",
+     "name": "Lewisham",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000024",
+     "name": "Merton",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000025",
+     "name": "Newham",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000026",
+     "name": "Redbridge",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000027",
+     "name": "Richmond upon Thames",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000028",
+     "name": "Southwark",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000029",
+     "name": "Sutton",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000030",
+     "name": "Tower Hamlets",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000031",
+     "name": "Waltham Forest",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000032",
+     "name": "Wandsworth",
+     "tier": "lad"
+    },
+    {
+     "gss": "E09000033",
+     "name": "Westminster",
+     "tier": "lad"
+    }
+   ],
+   "slug": "greater-london-authority",
+   "factsheet_anchor": "greater-london-authority",
+   "what": "Greater London Authority (GLA) is an Established Mayoral Strategic Authority.",
+   "formal_name": "Greater London Authority",
+   "tier": "Established Mayoral Strategic Authority",
+   "what_more": [
+    {
+     "p": "Given the GLA’s distinct devolution settlement, the powers, functions and funding within the devolution framework will be applied to the GLA on a case-by-case basis. This will enable the GLA to benefit from the devolution framework, while maintaining its bespoke arrangements. We have set out how the powers in the devolution framework apply to the GLA in the devolution framework explainer."
+    },
+    {
+     "p": "The GLA is comprised of:"
+    },
+    {
+     "list": [
+      "The Mayor of London, who is responsible for representing all Londoners and taking decisions on key matters. The Mayor is elected on a 4 year term. The most recent election was in May 2024 with the next election scheduled for 2028. This will be done by Supplementary Vote, as will further elections.",
+      "The London Assembly, which scrutinises the exercise of the Mayor of London’s functions and conducts investigations into London issues. There are 25 members of the Assembly, 14 of which represent constituencies, 11 represent all of London. Constituency members are elected via first-past-the-post, London-wide members are elected via the additional member system. The next elections for the Assembly take place in 2028."
+     ]
+    },
+    {
+     "p": "The Mayor also oversees 5 functional bodies, known as the ‘GLA Group’. The functional bodies provide statutory services that the Mayor oversees and include two mayoral development corporations. The bodies are:"
+    },
+    {
+     "list": [
+      "Transport for London (TfL)",
+      "The London Fire Commissioner (LFC)",
+      "The Mayor’s Office for Policing and Crime (MOPAC)",
+      "The London Legacy Development Corporation (LLDC)",
+      "The Old Oak and Park Royal Development Corporation (ODPC)"
+     ]
+    }
+   ],
+   "election_note": "The Mayor of London, who is responsible for representing all Londoners and taking decisions on key matters. The Mayor is elected on a 4 year term. The most recent election was in May 2024 with the next election scheduled for 2028. This will be done by Supplementary Vote, as will further elections.",
+   "members_quote": null,
+   "police": [
+    {
+     "p": "The Mayor of London is responsible for Police and Crime Commissioner functions."
+    }
+   ],
+   "fire": [
+    {
+     "p": "The Mayor of London is responsible for Fire and Rescue Authority functions."
+    }
+   ],
+   "distinctive": [
+    {
+     "p": "The Mayor of London is the executive decision maker for the GLA. The Mayor is required by law to take some decisions and is not allowed to delegate them. For other decisions, the Mayor is able to delegate decisions to:"
+    },
+    {
+     "list": [
+      "the Deputy Mayor",
+      "any member of staff of the Authority",
+      "Transport for London",
+      "any Mayoral development corporation",
+      "Homes England",
+      "the Common Council (also known as the City of London)",
+      "any local authority"
+     ]
+    },
+    {
+     "p": "The GLA has a decision-making framework, which ensure decisions are taken at the correct level."
+    }
+   ],
+   "mayoral": true,
+   "competences": null,
+   "ee_org": "london",
+   "next_election": null,
+   "mayor": {
+    "name": "Sadiq Khan",
+    "party": "Labour Party",
+    "party_id": "party:53",
+    "elected_on": "2024-05-02",
+    "election": "Mayor of London",
+    "ballot_id": "mayor.london.2024-05-02",
+    "source": "https://candidates.democracyclub.org.uk/elections/mayor.london.2024-05-02/",
+    "person_page": "https://candidates.democracyclub.org.uk/person/7455/",
+    "retrieved": "2026-10-26"
+   },
+   "links": {
+    "website": {
+     "url": "https://www.london.gov.uk",
+     "source": "register",
+     "ref": null,
+     "checked": "2026-10-26",
+     "opened": true
+    },
+    "mayor_page": {
+     "url": "https://www.london.gov.uk/who-we-are/what-mayor-does/mayor-and-his-team",
+     "words": "The Mayor and his team",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    },
+    "meetings": {
+     "url": "https://www.london.gov.uk/who-we-are/governance-and-spending",
+     "words": "Governance and spending",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    }
+   }
+  },
+  {
+   "code": "E47000001",
+   "name": "Greater Manchester",
+   "kind": "combined",
+   "councils": [
+    {
+     "gss": "E08000001",
+     "name": "Bolton",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000002",
+     "name": "Bury",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000003",
+     "name": "Manchester",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000004",
+     "name": "Oldham",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000005",
+     "name": "Rochdale",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000006",
+     "name": "Salford",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000007",
+     "name": "Stockport",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000008",
+     "name": "Tameside",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000009",
+     "name": "Trafford",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000010",
+     "name": "Wigan",
+     "tier": "lad"
+    }
+   ],
+   "slug": "greater-manchester",
+   "factsheet_anchor": "greater-manchester",
+   "what": "Greater Manchester Combined Authority (GMCA) is an Established Mayoral Strategic Authority with the functions and funding associated with that tier.",
+   "formal_name": "Greater Manchester Combined Authority",
+   "tier": "Established Mayoral Strategic Authority",
+   "election_note": "The Mayor is elected on a 4 year term. The last election was in May 2024 with the next election scheduled for 2028. This will be done by Supplementary Vote, as will further elections.",
+   "members_quote": "Its constituent councils are Bolton, Bury, Manchester, Oldham, Rochdale, Salford, Stockport, Tameside, Trafford, and Wigan.",
+   "police": [
+    {
+     "p": "The Mayor of GMCA is responsible for Police and Crime Commissioner functions."
+    }
+   ],
+   "fire": [
+    {
+     "p": "The Mayor of GMCA is responsible for Fire and Rescue Authority functions."
+    }
+   ],
+   "distinctive": [
+    {
+     "p": "Many of GMCA’s public transport functions are, and will continue to be, exercisable only by the Mayor. Ordinarily, these functions would be exercised by the Strategic Authority. The Mayor of GMCA also has the ability to establish a joint transport committee to exercise their public transport functions (this is currently the ‘Bee Network Committee’). The membership must be made up of members of the GMCA or its constituent councils. All decisions are subject to a majority vote."
+    },
+    {
+     "p": "GMCA has maintained its passenger transport executive, Transport for Greater Manchester, which provides transport services in its area."
+    },
+    {
+     "p": "GMCA will also retain some unique functions compared to other Strategic Authorities, including in relation to public health; air quality; waste disposal; education; road safety; bus operator grants; roads; and traffic."
+    }
+   ],
+   "mayoral": true,
+   "competences": {
+    "tier_title": "Devolution Framework Explainer: Established Mayoral Strategic Authorities",
+    "url": "https://assets.publishing.service.gov.uk/media/6a26d62c8e85b4e5346ac0e2/Devolution_Framework_Explainer_-_Established_Mayoral_Strategic_Authorities.pdf",
+    "headings": [
+     "Transport and Infrastructure",
+     "Skills and Employment Support",
+     "Housing and Strategic Planning",
+     "Economic Development and Regeneration",
+     "Environment and Net Zero",
+     "Health, Wellbeing and Public Service Reform",
+     "Public Safety",
+     "Culture",
+     "Rural Affairs and Coastal Communities"
+    ]
+   },
+   "ee_org": "greater-manchester-ca",
+   "next_election": null,
+   "mayor": {
+    "name": "Bev Craig",
+    "party": "Labour and Co-operative Party",
+    "party_id": "joint-party:53-119",
+    "elected_on": "2026-07-30",
+    "election": "Mayor of Greater Manchester Combined Authority by-election",
+    "ballot_id": "mayor.greater-manchester-ca.by.2026-07-30",
+    "source": "https://candidates.democracyclub.org.uk/elections/mayor.greater-manchester-ca.by.2026-07-30/",
+    "person_page": "https://candidates.democracyclub.org.uk/person/14571/",
+    "retrieved": "2026-10-26"
+   },
+   "links": {
+    "website": {
+     "url": "http://www.greatermanchester-ca.gov.uk",
+     "source": "register",
+     "ref": null,
+     "checked": "2026-10-26",
+     "opened": true
+    },
+    "mayor_page": {
+     "url": "http://www.greatermanchester-ca.gov.uk/the-mayor/",
+     "words": "The Mayor",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    }
+   }
+  },
+  {
+   "code": "E47000016",
+   "name": "Hull and East Yorkshire",
+   "kind": "combined",
+   "councils": [
+    {
+     "gss": "E06000011",
+     "name": "East Riding of Yorkshire",
+     "tier": "lad"
+    },
+    {
+     "gss": "E06000010",
+     "name": "Kingston upon Hull, City of",
+     "tier": "lad"
+    }
+   ],
+   "slug": "hull-and-east-yorkshire",
+   "factsheet_anchor": "hull-and-east-yorkshire",
+   "what": "Hull and East Yorkshire Combined Authority (HEYCA) is a Mayoral Strategic Authority with the functions and funding associated with that tier.",
+   "formal_name": "Hull and East Yorkshire Combined Authority",
+   "tier": "Mayoral Strategic Authority",
+   "election_note": "The Mayor is elected on a 4 year term. The most recent election was held in May 2025 with the next election scheduled for 2029. This will be done by Supplementary Vote, as will further elections.",
+   "members_quote": "Its constituent councils are Hull City and East Riding of Yorkshire.",
+   "police": [
+    {
+     "p": "HEYCA’s geography does not align with the area’s police force. Therefore, HEYCA cannot take on Police and Crime Commissioner functions."
+    }
+   ],
+   "fire": [
+    {
+     "p": "HEYCA’s geography does not align with the area’s Fire and Rescue Authority (FRA). Therefore, HEYCA cannot become the FRA."
+    }
+   ],
+   "distinctive": [
+    {
+     "p": "At the time of publication, we do not expect HEYCA to have any distinctive governance arrangements."
+    },
+    {
+     "p": "HEYCA will also retain some different powers in relation to bus operator grants and permit schemes."
+    }
+   ],
+   "mayoral": true,
+   "competences": {
+    "tier_title": "Devolution Framework Explainer: Mayoral Strategic Authorities",
+    "url": "https://assets.publishing.service.gov.uk/media/6a26d63b56960b0542c0b1bf/Devolution_Framework_Explainer_-_Mayoral_Strategic_Authorities.pdf",
+    "headings": [
+     "Transport and Infrastructure",
+     "Skills and Employment Support",
+     "Housing and Strategic Planning",
+     "Economic Development and Regeneration",
+     "Environment and Net Zero",
+     "Health, Wellbeing and Public Service Reform",
+     "Public Safety",
+     "Culture",
+     "Rural Affairs and Coastal Communities"
+    ]
+   },
+   "ee_org": "hull-and-east-yorkshire-ca",
+   "next_election": null,
+   "mayor": {
+    "name": "Luke Campbell",
+    "party": "Reform UK",
+    "party_id": "party:7931",
+    "elected_on": "2025-05-01",
+    "election": "Mayor of Hull and East Yorkshire Combined Authority",
+    "ballot_id": "mayor.hull-and-east-yorkshire-ca.2025-05-01",
+    "source": "https://candidates.democracyclub.org.uk/elections/mayor.hull-and-east-yorkshire-ca.2025-05-01/",
+    "person_page": "https://candidates.democracyclub.org.uk/person/118745/",
+    "retrieved": "2026-10-26"
+   },
+   "links": {}
+  },
+  {
+   "code": "E47000018",
+   "name": "Lancashire",
+   "kind": "combined",
+   "councils": [
+    {
+     "gss": "E10000017",
+     "name": "Lancashire",
+     "tier": "county"
+    },
+    {
+     "gss": "E06000008",
+     "name": "Blackburn with Darwen",
+     "tier": "lad"
+    },
+    {
+     "gss": "E06000009",
+     "name": "Blackpool",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000117",
+     "name": "Burnley",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000118",
+     "name": "Chorley",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000119",
+     "name": "Fylde",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000120",
+     "name": "Hyndburn",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000121",
+     "name": "Lancaster",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000122",
+     "name": "Pendle",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000123",
+     "name": "Preston",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000124",
+     "name": "Ribble Valley",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000125",
+     "name": "Rossendale",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000126",
+     "name": "South Ribble",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000127",
+     "name": "West Lancashire",
+     "tier": "lad"
+    },
+    {
+     "gss": "E07000128",
+     "name": "Wyre",
+     "tier": "lad"
+    }
+   ],
+   "slug": "lancashire",
+   "factsheet_anchor": "lancashire",
+   "what": "Lancashire Combined County Authority (LCCA) is a non-mayoral Foundation Strategic Authority with the functions and funding associated with that tier.",
+   "formal_name": "Lancashire Combined County Authority",
+   "tier": "non-mayoral Foundation Strategic Authority",
+   "election_note": null,
+   "members_quote": "Its constituent councils are Lancashire County, Blackburn with Darwen, and Blackpool.",
+   "police": [
+    {
+     "p": "LCCA does not have a directly elected Mayor and therefore cannot hold Police and Crime Commissioner functions. However, LCCA’s geography does align with Lancashire Police Force boundaries so a transfer of police functions would be possible should a Mayor be elected, subject to secondary legislation."
+    }
+   ],
+   "fire": [
+    {
+     "p": "LCCA does not have a directly elected Mayor and therefore cannot hold Fire and Rescue Authority functions. However, LCCA’s geography does align with Lancashire Fire and Rescue Authority boundaries so LCCA could become the FRA should a Mayor be elected, subject to secondary legislation."
+    }
+   ],
+   "distinctive": [
+    {
+     "p": "LCCA will continue to have different governance arrangements when it comes transport and local infrastructure functions. Firstly, a number of LCCA’s public transport powers are also held concurrently with its constituent councils to ensure that transport services owned and operated by Blackpool Council can continue to operate. Ordinarily, these functions would be held solely by the Strategic Authority. Secondly, any votes on the following matters must include the member appointed by Blackpool Borough Council in the majority for it to pass: a) any question which could result in a financial liability accruing to BTS Ltd; (b) any question which could have an impact on BTS Ltd which is significant, material and direct, as provided for in the Combined County Authority’s standing orders."
+    },
+    {
+     "p": "Lancashire County Council must appoint one of its members as the ‘lead member’."
+    },
+    {
+     "p": "A unanimous vote is required when voting on:"
+    },
+    {
+     "list": [
+      "LCCA’s budget",
+      "appointment of LCCA’s chief executive",
+      "adoption of a Local Transport Plan",
+      "approval or amendment of LCCA’s constitution or standing orders"
+     ]
+    },
+    {
+     "p": "For votes to be carried, members from the relevant constituent council must be in the majority when a function is being exercised by LCCA in its area in a way that could result in a financial liability falling on that council. If Lancashire County Council is the relevant constituent council, the lead member must be in the majority."
+    },
+    {
+     "p": "LCCA will retain some different powers in relation to workplace parking levy schemes and permit schemes."
+    }
+   ],
+   "mayoral": false,
+   "competences": {
+    "tier_title": "Devolution Framework Explainer: Non-Mayoral Foundation Strategic Authorities",
+    "url": "https://assets.publishing.service.gov.uk/media/6a26d6498e85b4e5346ac0e3/Devolution_Framework_Explainer_-_Non-Mayoral_Foundation_Strategic_Authorities.pdf",
+    "headings": [
+     "Transport and Infrastructure",
+     "Skills and Employment Support",
+     "Housing and Strategic Planning",
+     "Economic Development and Regeneration",
+     "Environment and Net Zero",
+     "Health, Wellbeing and Public Service Reform",
+     "Public Safety",
+     "Culture",
+     "Rural Affairs and Coastal Communities"
+    ]
+   },
+   "ee_org": null,
+   "next_election": null,
+   "mayor": null,
+   "links": {
+    "website": {
+     "url": "https://lancashire-cca.gov.uk/",
+     "source": "wikidata",
+     "ref": "https://www.wikidata.org/wiki/Q126049909",
+     "checked": "2026-10-26",
+     "opened": false
+    }
+   }
+  },
+  {
+   "code": "E47000004",
+   "name": "Liverpool City Region",
+   "kind": "combined",
+   "councils": [
+    {
+     "gss": "E06000006",
+     "name": "Halton",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000011",
+     "name": "Knowsley",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000012",
+     "name": "Liverpool",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000014",
+     "name": "Sefton",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000013",
+     "name": "St. Helens",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000015",
+     "name": "Wirral",
+     "tier": "lad"
+    }
+   ],
+   "slug": "liverpool-city-region",
+   "factsheet_anchor": "liverpool-city-region",
+   "what": "Liverpool City Region Combined Authority (LCRCA) is an Established Mayoral Combined Authority with the functions and funding associated with that tier.",
+   "formal_name": "Liverpool City Region Combined Authority",
+   "tier": "Established Mayoral Combined Authority",
+   "election_note": "The Mayor is elected on a 4 year term. The most recent election was in May 2024 with the next election scheduled for 2028. This will be done by Supplementary Vote, as will further elections.",
+   "members_quote": "Its constituent councils are Halton, Knowsley, Liverpool, St. Helens, Sefton, and Wirral.",
+   "police": [
+    {
+     "p": "LCRCA’s geography does not align with the area’s police force. Therefore, LCRCA cannot take on Police and Crime Commissioner functions."
+    }
+   ],
+   "fire": [
+    {
+     "p": "LCRCA’s geography does not align with the area’s Fire and Rescue Authority (FRA). Therefore, LCRCA cannot become the FRA."
+    }
+   ],
+   "distinctive": [
+    {
+     "p": "LCRCA will continue to have different governance arrangements when it comes transport and local infrastructure functions. These are:"
+    },
+    {
+     "list": [
+      "LCRCA has maintained its passenger transport executive, Merseytravel, which provides transport services in its area.",
+      "LCR must issue two transport levies to: (a) Knowsley, Liverpool, St. Helens, Sefton, and Wirral; and (b) Halton. This reflects the different provision and governance of transport in the Merseytravel area, given its history as a passenger transport executive."
+     ]
+    },
+    {
+     "p": "LCRCA will retain some different powers in relation to education and road safety."
+    }
+   ],
+   "mayoral": true,
+   "competences": {
+    "tier_title": "Devolution Framework Explainer: Established Mayoral Strategic Authorities",
+    "url": "https://assets.publishing.service.gov.uk/media/6a26d62c8e85b4e5346ac0e2/Devolution_Framework_Explainer_-_Established_Mayoral_Strategic_Authorities.pdf",
+    "headings": [
+     "Transport and Infrastructure",
+     "Skills and Employment Support",
+     "Housing and Strategic Planning",
+     "Economic Development and Regeneration",
+     "Environment and Net Zero",
+     "Health, Wellbeing and Public Service Reform",
+     "Public Safety",
+     "Culture",
+     "Rural Affairs and Coastal Communities"
+    ]
+   },
+   "ee_org": "liverpool-city-ca",
+   "next_election": null,
+   "mayor": {
+    "name": "Steve Rotheram",
+    "party": "Labour Party",
+    "party_id": "party:53",
+    "elected_on": "2024-05-02",
+    "election": "Mayor of Liverpool City Region",
+    "ballot_id": "mayor.liverpool-city-ca.2024-05-02",
+    "source": "https://candidates.democracyclub.org.uk/elections/mayor.liverpool-city-ca.2024-05-02/",
+    "person_page": "https://candidates.democracyclub.org.uk/person/822/",
+    "retrieved": "2026-10-26"
+   },
+   "links": {
+    "website": {
+     "url": "https://www.liverpoolcityregion-ca.gov.uk",
+     "source": "register",
+     "ref": null,
+     "checked": "2026-10-26",
+     "opened": true
+    },
+    "mayor_page": {
+     "url": "https://www.liverpoolcityregion-ca.gov.uk/your-metro-mayor",
+     "words": "Your Mayor",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    }
+   }
+  },
+  {
+   "code": "E47000014",
+   "name": "North East",
+   "kind": "combined",
+   "councils": [
+    {
+     "gss": "E06000047",
+     "name": "County Durham",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000037",
+     "name": "Gateshead",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000021",
+     "name": "Newcastle upon Tyne",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000022",
+     "name": "North Tyneside",
+     "tier": "lad"
+    },
+    {
+     "gss": "E06000057",
+     "name": "Northumberland",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000023",
+     "name": "South Tyneside",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000024",
+     "name": "Sunderland",
+     "tier": "lad"
+    }
+   ],
+   "slug": "north-east",
+   "factsheet_anchor": "north-east",
+   "what": "North East Combined Authority (NECA) is an Established Mayoral Strategic Authority with the functions and funding associated with that tier.",
+   "formal_name": "North East Combined Authority",
+   "tier": "Established Mayoral Strategic Authority",
+   "election_note": "The Mayor is elected on a 4 year term. The most recent election was in May 2024 with the next election scheduled for 2028.This will be done by Supplementary Vote, as will further elections.",
+   "members_quote": "Its constituent councils are County Durham, Northumberland, Newcastle-upon-Tyne, North Tyneside, South Tyneside, Sunderland, and Gateshead.",
+   "police": [
+    {
+     "p": "NECA’s geography does not align with the area’s police force. Therefore, NECA cannot take on Police and Crime Commissioner functions."
+    }
+   ],
+   "fire": [
+    {
+     "p": "NECA’s geography does not align with the area’s Fire and Rescue Authority (FRA). Therefore, NECA cannot become the FRA."
+    }
+   ],
+   "distinctive": [
+    {
+     "p": "NECA will continue to have different governance arrangements when it comes transport and local infrastructure functions. These are:"
+    },
+    {
+     "list": [
+      "NECA has maintained its passenger transport executive, Nexus, which provides transport services in its area.",
+      "NECA must issue three transport levies to: (a) Newcastle-upon-Tyne, North Tyneside, South Tyneside, Sunderland, and Gateshead; (b) Northumberland; and (c) Durham. This reflects the different provision and governance of transport in the Nexus (Tyne & Wear) area, given its history as a passenger transport executive.",
+      "NECA must get the consent of each constituent council before exercising its road safety functions in relation to the council’s area. Not all strategic authorities have this function – NECA is the only one which requires constituent council consent to exercise it."
+     ]
+    },
+    {
+     "p": "NECA will retain some different powers in relation to education; road safety; bus operator grants; and permit schemes."
+    }
+   ],
+   "mayoral": true,
+   "competences": {
+    "tier_title": "Devolution Framework Explainer: Established Mayoral Strategic Authorities",
+    "url": "https://assets.publishing.service.gov.uk/media/6a26d62c8e85b4e5346ac0e2/Devolution_Framework_Explainer_-_Established_Mayoral_Strategic_Authorities.pdf",
+    "headings": [
+     "Transport and Infrastructure",
+     "Skills and Employment Support",
+     "Housing and Strategic Planning",
+     "Economic Development and Regeneration",
+     "Environment and Net Zero",
+     "Health, Wellbeing and Public Service Reform",
+     "Public Safety",
+     "Culture",
+     "Rural Affairs and Coastal Communities"
+    ]
+   },
+   "ee_org": "north-east-ca",
+   "next_election": null,
+   "mayor": {
+    "name": "Kim McGuinness",
+    "party": "Labour and Co-operative Party",
+    "party_id": "joint-party:53-119",
+    "elected_on": "2024-05-02",
+    "election": "Mayor of North East Combined Authority",
+    "ballot_id": "mayor.north-east-ca.2024-05-02",
+    "source": "https://candidates.democracyclub.org.uk/elections/mayor.north-east-ca.2024-05-02/",
+    "person_page": "https://candidates.democracyclub.org.uk/person/13236/",
+    "retrieved": "2026-10-26"
+   },
+   "links": {
+    "website": {
+     "url": "https://www.northeast-ca.gov.uk/",
+     "source": "wikidata",
+     "ref": "https://www.wikidata.org/wiki/Q116179003",
+     "checked": "2026-10-26",
+     "opened": true
+    },
+    "mayor_page": {
+     "url": "https://www.northeast-ca.gov.uk/about/the-mayor",
+     "words": "The Mayor",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    },
+    "meetings": {
+     "url": "https://www.northeast-ca.gov.uk/governance",
+     "words": "Governance",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    }
+   }
+  },
+  {
+   "code": "E47000002",
+   "name": "South Yorkshire",
+   "kind": "combined",
+   "councils": [
+    {
+     "gss": "E08000038",
+     "name": "Barnsley",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000017",
+     "name": "Doncaster",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000018",
+     "name": "Rotherham",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000039",
+     "name": "Sheffield",
+     "tier": "lad"
+    }
+   ],
+   "slug": "south-yorkshire",
+   "factsheet_anchor": "south-yorkshire",
+   "what": "South Yorkshire Mayoral Combined Authority (SYMCA) is an Established Mayoral Strategic Authority with the functions and funding associated with that tier.",
+   "formal_name": "South Yorkshire Mayoral Combined Authority",
+   "tier": "Established Mayoral Strategic Authority",
+   "election_note": "The Mayor is elected on a 4 year term. The most recent election was in May 2024 with the next election scheduled for 2028. This will be done by Supplementary Vote, as will further elections.",
+   "members_quote": "Its constituent councils are Barnsley, Doncaster, Rotherham and Sheffield.",
+   "police": [
+    {
+     "p": "Police and Crime Commissioner functions for South Yorkshire are the responsibility of the Mayor of SYMCA."
+    }
+   ],
+   "fire": [
+    {
+     "p": "As SYMCA’s geography aligns with the Fire and Rescue Authority boundaries, The English Devolution and Community Empowerment Bill will enable SYMCA to become the Fire and Rescue Authority for the area, subject to secondary legislation."
+    }
+   ],
+   "distinctive": [
+    {
+     "p": "At the time of publication, we do not expect SYMCA to have any distinctive governance arrangements."
+    },
+    {
+     "p": "SYMCA will retain some different powers in relation to education and SYMCA holds the powers of the former Passenger Transport Executive for its area."
+    }
+   ],
+   "mayoral": true,
+   "competences": {
+    "tier_title": "Devolution Framework Explainer: Established Mayoral Strategic Authorities",
+    "url": "https://assets.publishing.service.gov.uk/media/6a26d62c8e85b4e5346ac0e2/Devolution_Framework_Explainer_-_Established_Mayoral_Strategic_Authorities.pdf",
+    "headings": [
+     "Transport and Infrastructure",
+     "Skills and Employment Support",
+     "Housing and Strategic Planning",
+     "Economic Development and Regeneration",
+     "Environment and Net Zero",
+     "Health, Wellbeing and Public Service Reform",
+     "Public Safety",
+     "Culture",
+     "Rural Affairs and Coastal Communities"
+    ]
+   },
+   "ee_org": "sheffield-city-ca",
+   "next_election": null,
+   "mayor": {
+    "name": "Oliver James Coppard",
+    "party": "Labour and Co-operative Party",
+    "party_id": "joint-party:53-119",
+    "elected_on": "2024-05-02",
+    "election": "Mayor of South Yorkshire",
+    "ballot_id": "mayor.sheffield-city-ca.2024-05-02",
+    "source": "https://candidates.democracyclub.org.uk/elections/mayor.sheffield-city-ca.2024-05-02/",
+    "person_page": "https://candidates.democracyclub.org.uk/person/4420/",
+    "retrieved": "2026-10-26"
+   },
+   "links": {
+    "website": {
+     "url": "https://southyorkshire-ca.gov.uk/",
+     "source": "wikidata",
+     "ref": "https://www.wikidata.org/wiki/Q17020947",
+     "checked": "2026-10-26",
+     "opened": false
+    }
+   }
+  },
+  {
+   "code": "E47000006",
+   "name": "Tees Valley",
+   "kind": "combined",
+   "councils": [
+    {
+     "gss": "E06000005",
+     "name": "Darlington",
+     "tier": "lad"
+    },
+    {
+     "gss": "E06000001",
+     "name": "Hartlepool",
+     "tier": "lad"
+    },
+    {
+     "gss": "E06000002",
+     "name": "Middlesbrough",
+     "tier": "lad"
+    },
+    {
+     "gss": "E06000003",
+     "name": "Redcar and Cleveland",
+     "tier": "lad"
+    },
+    {
+     "gss": "E06000004",
+     "name": "Stockton-on-Tees",
+     "tier": "lad"
+    }
+   ],
+   "slug": "tees-valley",
+   "factsheet_anchor": "tees-valley",
+   "what": "Tees Valley Combined Authority is a Mayoral Strategic Authority with the functions and funding associated with that tier.",
+   "formal_name": "Tees Valley Combined Authority",
+   "tier": "Mayoral Strategic Authority",
+   "election_note": "The Mayor is elected on a 4 year term. The most recent election was in May 2024 with the next election scheduled for 2028. This will be done by Supplementary Vote, as will further elections.",
+   "members_quote": "Its constituent councils are Hartlepool, Middlesborough, Redcar and Cleveland, Stockton-on-Tees, and Darlington.",
+   "police": [
+    {
+     "p": "TVCA’s geography does not align with the area’s police force boundaries. Therefore, TVCA cannot take on Police and Crime Commissioner functions."
+    }
+   ],
+   "fire": [
+    {
+     "p": "TVCA’s geography does not align with the area’s Fire and Rescue Authority (FRA) boundaries. Therefore, TVCA cannot become the FRA."
+    }
+   ],
+   "distinctive": [
+    {
+     "p": "At the time of publication, we do not expect Tees Valley to have any distinctive governance arrangements."
+    },
+    {
+     "p": "Tees Valley will retain some different powers in relation to nursery schools and education."
+    }
+   ],
+   "mayoral": true,
+   "competences": {
+    "tier_title": "Devolution Framework Explainer: Mayoral Strategic Authorities",
+    "url": "https://assets.publishing.service.gov.uk/media/6a26d63b56960b0542c0b1bf/Devolution_Framework_Explainer_-_Mayoral_Strategic_Authorities.pdf",
+    "headings": [
+     "Transport and Infrastructure",
+     "Skills and Employment Support",
+     "Housing and Strategic Planning",
+     "Economic Development and Regeneration",
+     "Environment and Net Zero",
+     "Health, Wellbeing and Public Service Reform",
+     "Public Safety",
+     "Culture",
+     "Rural Affairs and Coastal Communities"
+    ]
+   },
+   "ee_org": "tees-valley",
+   "next_election": null,
+   "mayor": {
+    "name": "Ben Houchen",
+    "party": "Conservative and Unionist Party",
+    "party_id": "party:52",
+    "elected_on": "2024-05-02",
+    "election": "Mayor of Tees Valley",
+    "ballot_id": "mayor.tees-valley.2024-05-02",
+    "source": "https://candidates.democracyclub.org.uk/elections/mayor.tees-valley.2024-05-02/",
+    "person_page": "https://candidates.democracyclub.org.uk/person/19734/",
+    "retrieved": "2026-10-26"
+   },
+   "links": {
+    "website": {
+     "url": "https://teesvalley-ca.gov.uk/",
+     "source": "register",
+     "ref": null,
+     "checked": "2026-10-26",
+     "opened": true
+    },
+    "mayor_page": {
+     "url": "https://teesvalley-ca.gov.uk/about/leadership/mayor/",
+     "words": "Mayor",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    },
+    "meetings": {
+     "url": "https://teesvalley-ca.gov.uk/about/leadership/cabinet-boards-committees/",
+     "words": "Cabinet, Boards & Committees",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    }
+   }
+  },
+  {
+   "code": "E47000007",
+   "name": "West Midlands",
+   "kind": "combined",
+   "councils": [
+    {
+     "gss": "E08000025",
+     "name": "Birmingham",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000026",
+     "name": "Coventry",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000027",
+     "name": "Dudley",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000028",
+     "name": "Sandwell",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000029",
+     "name": "Solihull",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000030",
+     "name": "Walsall",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000031",
+     "name": "Wolverhampton",
+     "tier": "lad"
+    }
+   ],
+   "slug": "west-midlands",
+   "factsheet_anchor": "west-midlands",
+   "what": "West Midlands Combined Authority (WMCA) is an Established Mayoral Strategic Authority with the functions and funding associated with that tier.",
+   "formal_name": "West Midlands Combined Authority",
+   "tier": "Established Mayoral Strategic Authority",
+   "election_note": "The Mayor is elected on a 4 year term. The most recent election was in May 2024 with the next election scheduled for 2028. This will be done by Supplementary Vote, as will further elections.",
+   "members_quote": "Its constituent councils are Birmingham, Coventry, Dudley, Sandwell, Solihull, Walsall, and Wolverhampton.",
+   "police": [
+    {
+     "p": "As WMCA’s geography aligns with Police and Crime Commissioner boundaries, the English Devolution and Community Empowerment Bill will enable the transfer of Police and Crime Commissioner functions to the Mayor of WMCA, subject to secondary legislation."
+    }
+   ],
+   "fire": [
+    {
+     "p": "As WMCA’s geography aligns with the Fire and Rescue Authority boundaries, the Bill will enable WMCA to become the Fire and Rescue Authority for the area, subject to secondary legislation."
+    }
+   ],
+   "distinctive": [
+    {
+     "p": "At the time of publication, we do not expect WMCA to have any distinctive governance arrangements."
+    },
+    {
+     "p": "WMCA will retain some different powers in relation to anti-social behaviour; smoking enforcement; air quality; education; road safety; permit schemes; and roadworks. WMCA also holds the powers of the former Passenger Transport Executive for its area."
+    }
+   ],
+   "mayoral": true,
+   "competences": {
+    "tier_title": "Devolution Framework Explainer: Established Mayoral Strategic Authorities",
+    "url": "https://assets.publishing.service.gov.uk/media/6a26d62c8e85b4e5346ac0e2/Devolution_Framework_Explainer_-_Established_Mayoral_Strategic_Authorities.pdf",
+    "headings": [
+     "Transport and Infrastructure",
+     "Skills and Employment Support",
+     "Housing and Strategic Planning",
+     "Economic Development and Regeneration",
+     "Environment and Net Zero",
+     "Health, Wellbeing and Public Service Reform",
+     "Public Safety",
+     "Culture",
+     "Rural Affairs and Coastal Communities"
+    ]
+   },
+   "ee_org": "west-midlands",
+   "next_election": null,
+   "mayor": {
+    "name": "Richard Parker",
+    "party": "Labour and Co-operative Party",
+    "party_id": "joint-party:53-119",
+    "elected_on": "2024-05-02",
+    "election": "Mayor of West Midlands",
+    "ballot_id": "mayor.west-midlands.2024-05-02",
+    "source": "https://candidates.democracyclub.org.uk/elections/mayor.west-midlands.2024-05-02/",
+    "person_page": "https://candidates.democracyclub.org.uk/person/109003/",
+    "retrieved": "2026-10-26"
+   },
+   "links": {
+    "website": {
+     "url": "https://www.wmca.org.uk/",
+     "source": "register",
+     "ref": null,
+     "checked": "2026-10-26",
+     "opened": true
+    },
+    "mayor_page": {
+     "url": "https://www.wmca.org.uk/mayor-of-the-west-midlands-more-information-about-the-role/",
+     "words": "The Mayor",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    },
+    "budget": {
+     "url": "https://www.wmca.org.uk/what-we-do/budget-spending-and-transparency/",
+     "words": "Budget, spending and transparency",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    }
+   }
+  },
+  {
+   "code": "E47000003",
+   "name": "West Yorkshire",
+   "kind": "combined",
+   "councils": [
+    {
+     "gss": "E08000032",
+     "name": "Bradford",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000033",
+     "name": "Calderdale",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000034",
+     "name": "Kirklees",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000035",
+     "name": "Leeds",
+     "tier": "lad"
+    },
+    {
+     "gss": "E08000036",
+     "name": "Wakefield",
+     "tier": "lad"
+    }
+   ],
+   "slug": "west-yorkshire",
+   "factsheet_anchor": "west-yorkshire",
+   "what": "West Yorkshire Combined Authority (WYCA) is an Established Mayoral Strategic Authority with the functions and funding associated with that tier.",
+   "formal_name": "West Yorkshire Combined Authority",
+   "tier": "Established Mayoral Strategic Authority",
+   "election_note": "The Mayor is elected on a 4 year term. The most recent election was in May 2024 with the next election scheduled for 2028. This will be done by Supplementary Vote, as will further elections.",
+   "members_quote": "Its constituent councils are Bradford, Calderdale, Kirklees, Leeds, and Wakefield.",
+   "police": [
+    {
+     "p": "Police and Crime Commissioner functions for West Yorkshire are the responsibility of the Mayor of WYCA."
+    }
+   ],
+   "fire": [
+    {
+     "p": "As WYCA’s geography aligns with Fire and Rescue Authority boundaries, the English Devolution and Community Empowerment Bill will enable WYCA to become the Fire and Rescue Authority for the area, subject to secondary legislation."
+    }
+   ],
+   "distinctive": [
+    {
+     "p": "At the time of publication, we do not expect WYCA to have any distinctive governance arrangements."
+    },
+    {
+     "p": "WYCA will retain some different powers in relation to education; bus operator grants; roadworks; traffic regulation; and traffic signs and crossings. WYCA also holds the powers of the former Passenger Transport Executive for its area."
+    }
+   ],
+   "mayoral": true,
+   "competences": {
+    "tier_title": "Devolution Framework Explainer: Established Mayoral Strategic Authorities",
+    "url": "https://assets.publishing.service.gov.uk/media/6a26d62c8e85b4e5346ac0e2/Devolution_Framework_Explainer_-_Established_Mayoral_Strategic_Authorities.pdf",
+    "headings": [
+     "Transport and Infrastructure",
+     "Skills and Employment Support",
+     "Housing and Strategic Planning",
+     "Economic Development and Regeneration",
+     "Environment and Net Zero",
+     "Health, Wellbeing and Public Service Reform",
+     "Public Safety",
+     "Culture",
+     "Rural Affairs and Coastal Communities"
+    ]
+   },
+   "ee_org": "west-yorkshire",
+   "next_election": null,
+   "mayor": {
+    "name": "Tracy Brabin",
+    "party": "Labour and Co-operative Party",
+    "party_id": "joint-party:53-119",
+    "elected_on": "2024-05-02",
+    "election": "Mayor of West Yorkshire",
+    "ballot_id": "mayor.west-yorkshire.2024-05-02",
+    "source": "https://candidates.democracyclub.org.uk/elections/mayor.west-yorkshire.2024-05-02/",
+    "person_page": "https://candidates.democracyclub.org.uk/person/34125/",
+    "retrieved": "2026-10-26"
+   },
+   "links": {
+    "website": {
+     "url": "https://www.westyorks-ca.gov.uk",
+     "source": "register",
+     "ref": null,
+     "checked": "2026-10-26",
+     "opened": false
+    }
+   }
+  },
+  {
+   "code": "E47000009",
+   "name": "West of England",
+   "kind": "combined",
+   "councils": [
+    {
+     "gss": "E06000022",
+     "name": "Bath and North East Somerset",
+     "tier": "lad"
+    },
+    {
+     "gss": "E06000023",
+     "name": "Bristol, City of",
+     "tier": "lad"
+    },
+    {
+     "gss": "E06000025",
+     "name": "South Gloucestershire",
+     "tier": "lad"
+    }
+   ],
+   "slug": "west-of-england",
+   "factsheet_anchor": "west-of-england",
+   "what": "West of England Combined Authority (WECA) is a Mayoral Strategic Authority with the functions and funding associated with that tier.",
+   "formal_name": "West of England Combined Authority",
+   "tier": "Mayoral Strategic Authority",
+   "election_note": "The Mayor is elected on a 4 year term. The most recent election was held in May 2025 with the next election scheduled for 2029. This will be done by Supplementary Vote, as will further elections.",
+   "members_quote": "Its constituent councils are Bath and North East Somerset, City of Bristol, and South Gloucestershire.",
+   "police": [
+    {
+     "p": "WECA’s geography does not align with the area’s police force boundaries. Therefore, WECA cannot take on Police and Crime Commissioner functions."
+    }
+   ],
+   "fire": [
+    {
+     "p": "WECA’s geography does not align with the area’s Fire and Rescue Authority (FRA) boundaries. Therefore, WECA cannot become the FRA."
+    }
+   ],
+   "distinctive": [
+    {
+     "p": "At the time of publication, we do not expect WECA to have any distinctive governance arrangements."
+    },
+    {
+     "p": "WECA will retain some different powers in relation to nursery schools and education."
+    }
+   ],
+   "mayoral": true,
+   "competences": {
+    "tier_title": "Devolution Framework Explainer: Mayoral Strategic Authorities",
+    "url": "https://assets.publishing.service.gov.uk/media/6a26d63b56960b0542c0b1bf/Devolution_Framework_Explainer_-_Mayoral_Strategic_Authorities.pdf",
+    "headings": [
+     "Transport and Infrastructure",
+     "Skills and Employment Support",
+     "Housing and Strategic Planning",
+     "Economic Development and Regeneration",
+     "Environment and Net Zero",
+     "Health, Wellbeing and Public Service Reform",
+     "Public Safety",
+     "Culture",
+     "Rural Affairs and Coastal Communities"
+    ]
+   },
+   "ee_org": "west-of-england",
+   "next_election": null,
+   "mayor": {
+    "name": "Helen Godwin",
+    "party": "Labour Party",
+    "party_id": "party:53",
+    "elected_on": "2025-05-01",
+    "election": "Mayor of West of England Combined Authority",
+    "ballot_id": "mayor.west-of-england.2025-05-01",
+    "source": "https://candidates.democracyclub.org.uk/elections/mayor.west-of-england.2025-05-01/",
+    "person_page": "https://candidates.democracyclub.org.uk/person/10543/",
+    "retrieved": "2026-10-26"
+   },
+   "links": {
+    "website": {
+     "url": "https://www.westofengland-ca.gov.uk",
+     "source": "register",
+     "ref": null,
+     "checked": "2026-10-26",
+     "opened": true
+    },
+    "mayor_page": {
+     "url": "https://www.westofengland-ca.gov.uk/about-us/the-mayor/",
+     "words": "Mayor",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    },
+    "meetings": {
+     "url": "https://www.westofengland-ca.gov.uk/about-us/west-of-england-combined-authority-committee/",
+     "words": "Committee",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    }
+   }
+  },
+  {
+   "code": "E47000012",
+   "name": "York and North Yorkshire",
+   "kind": "combined",
+   "councils": [
+    {
+     "gss": "E06000065",
+     "name": "North Yorkshire",
+     "tier": "lad"
+    },
+    {
+     "gss": "E06000014",
+     "name": "York",
+     "tier": "lad"
+    }
+   ],
+   "slug": "york-and-north-yorkshire",
+   "factsheet_anchor": "york-and-north-yorkshire",
+   "what": "York and North Yorkshire Combined Authority (YNYCA) is a Mayoral Strategic Authority with the functions and funding associated with that tier.",
+   "formal_name": "York and North Yorkshire Combined Authority",
+   "tier": "Mayoral Strategic Authority",
+   "election_note": "The Mayor is elected on a 4 year term. The most recent election was in May 2024 with the next election scheduled for 2028. This will be done by Supplementary Vote, as will further elections.",
+   "members_quote": "Its constituent councils are York City and North Yorkshire.",
+   "police": [
+    {
+     "p": "Police and Crime Commissioner functions for York and North Yorkshire are the responsibility of the Mayor of YNYCA."
+    }
+   ],
+   "fire": [
+    {
+     "p": "The Mayor of YNYCA is responsible for Fire and Rescue Authority functions."
+    }
+   ],
+   "distinctive": [
+    {
+     "p": "At the time of publication, we do not expect YNYCA to have any distinctive governance arrangements."
+    },
+    {
+     "p": "Unlike other Strategic Authorities, YNYCA will retain a power to create a lane rental scheme in its area (subject to the consent of constituent councils where a scheme would operate). It also has unique powers in relation to bus operator grants; permit schemes; and roadworks."
+    }
+   ],
+   "mayoral": true,
+   "competences": {
+    "tier_title": "Devolution Framework Explainer: Mayoral Strategic Authorities",
+    "url": "https://assets.publishing.service.gov.uk/media/6a26d63b56960b0542c0b1bf/Devolution_Framework_Explainer_-_Mayoral_Strategic_Authorities.pdf",
+    "headings": [
+     "Transport and Infrastructure",
+     "Skills and Employment Support",
+     "Housing and Strategic Planning",
+     "Economic Development and Regeneration",
+     "Environment and Net Zero",
+     "Health, Wellbeing and Public Service Reform",
+     "Public Safety",
+     "Culture",
+     "Rural Affairs and Coastal Communities"
+    ]
+   },
+   "ee_org": "york-and-north-yorkshire-ca",
+   "next_election": null,
+   "mayor": {
+    "name": "David Skaith",
+    "party": "Labour and Co-operative Party",
+    "party_id": "joint-party:53-119",
+    "elected_on": "2024-05-02",
+    "election": "Mayor of York and North Yorkshire",
+    "ballot_id": "mayor.york-and-north-yorkshire-ca.2024-05-02",
+    "source": "https://candidates.democracyclub.org.uk/elections/mayor.york-and-north-yorkshire-ca.2024-05-02/",
+    "person_page": "https://candidates.democracyclub.org.uk/person/101759/",
+    "retrieved": "2026-10-26"
+   },
+   "links": {
+    "website": {
+     "url": "https://yorknorthyorks-ca.gov.uk/",
+     "source": "wikidata",
+     "ref": "https://www.wikidata.org/wiki/Q123082103",
+     "checked": "2026-10-26",
+     "opened": true
+    },
+    "mayor_page": {
+     "url": "https://yorknorthyorks-ca.gov.uk/meet-your-mayor/",
+     "words": "Mayor",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    },
+    "meetings": {
+     "url": "https://yorknorthyorks-ca.gov.uk/governance-and-meetings/",
+     "words": "Governance and meetings",
+     "source": "home_page",
+     "checked": "2026-10-26"
+    }
+   }
+  }
+ ]
+}

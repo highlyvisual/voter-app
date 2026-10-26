@@ -2,8 +2,10 @@ import Link from "next/link";
 import PositionsExplorer, { type Election, type Row } from "@/components/PositionsExplorer";
 import { TOPICS, TOPIC_SHORT, listBallots, listArchivedBallots, publicClient } from "@/lib/data";
 import { layerOf, layerKey } from "@/lib/claims";
+import type { Claim } from "@/lib/types";
 import { whenText } from "@/components/ClaimLayers";
 import { fixLink, linkFixes } from "@/lib/links";
+import HowThisPage from "@/components/HowThisPage";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Every position", description: "Find what each candidate and party has said on the topics you care about, election by election, with the exact words and the source. Nothing is ranked.", alternates: { canonical: "/positions" } };
@@ -27,7 +29,7 @@ export default async function Positions({ searchParams }: { searchParams: Promis
   const ballotOf = new Map(ballots.map((b) => [b.ballot_paper_id, b]));
   const topicLabel = Object.fromEntries(TOPICS) as Record<string, string>;
   const fixes = await linkFixes();
-  const rows: Row[] = ((data ?? []) as Parameters<typeof layerOf>[0][]).map((c) => {
+  const rows: Row[] = ((data ?? []) as Claim[]).map((c) => {
     const cand = c.candidate_id ? byId.get(c.candidate_id) : null;
     const pname = c.party_ec_id ? partyName.get(c.party_ec_id) ?? null : null;
     return {
@@ -69,14 +71,17 @@ export default async function Positions({ searchParams }: { searchParams: Promis
     <>
       <p className="eyebrow">Everything, in one place</p>
       <h1>What they say</h1>
-      <p className="lede">Every position we have sourced, from candidates and parties, with the exact words and where they come from. Pick an election, a topic, or both, or search for a word. Nobody is ranked: people appear in ballot-paper order.</p>
+      <p className="lede">Every position we have sourced, from candidates and parties. Nobody is ranked: people appear in ballot-paper order.</p>
+      {/* Romily, round ten, q2: "a bit less busy". How to use the page is one tap away. */}
+      <HowThisPage>
+        <p>Pick an election, a topic, or both, or search for a word. Each position has a short summary; open &ldquo;Sourced&rdquo; for the exact words and where they come from, or switch to &ldquo;Exact quotations&rdquo; under More options.</p>
+        <p>The quotation is the record; the short version is a reading aid. Reuse this list as JSON from <Link href="/data">the open data page</Link>.</p>
+      </HowThisPage>
       <PositionsExplorer
         rows={rows}
         elections={elections}
         topics={TOPICS.map(([k, l]) => ({ key: k, label: l, short: TOPIC_SHORT[k] ?? l }))}
         initial={{ election: one("election"), topic: topicLabel[topicParam] ? topicParam : "", q: one("q"), kind: one("kind"), past: one("past") === "1" }}
-      />
-      <p className="meta">The quotation is the record; the short version is a reading aid. Reuse this list as JSON from <Link href="/data">the open data page</Link>.</p>
-    </>
+      />    </>
   );
 }

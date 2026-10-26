@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { readPersonal } from "@/lib/profile";
 import { PERSONAL_FIELDS, PERSONAL_KEYS, personalMatchers, tierHits, type PersonalKey } from "@/lib/personal";
 import { partyVars } from "@/lib/partyColour";
+import SourceTag, { SourceTagKey } from "@/components/SourceTag";
 
 // Round eight q6 (Romily, 29 Sept; agreed with Barny: no verdicts, more personal): "What's at stake", from your street to
 // the world, with the topics that touch you first. Every party's own words, same template for each, parties in
@@ -12,7 +13,7 @@ import { partyVars } from "@/lib/partyColour";
 // the group chosen are gathered at the top, from every party that has any: first those whose words name that group, then
 // those about the subject in general (Romily, 29 Sept). "Someone else's" lets you describe another person, just for this
 // page, to see which parties' words name them; nothing about them is saved.
-export type StakePosition = { id: number; scale: string; party: string; topic: string; quote: string; summary: string; source: string; url: string; published: string | null };
+export type StakePosition = { id: number; scale: string; party: string; topic: string; quote: string; summary: string; source: string; url: string; published: string | null; kind?: string };
 export type StakeTopic = { key: string; label: string; reason: string | null };
 export type Scale = { key: string; title: string; intro: string; topics: string[]; who: string[]; whoLabel?: string; extra?: { text: string; href: string } };
 
@@ -23,9 +24,10 @@ function Position({ p }: { p: StakePosition }) {
     <li className="sx-pos">
       <blockquote>&ldquo;{p.quote}&rdquo;</blockquote>
       <p className="meta">In short: {p.summary}</p>
-      {/* Row 7 (Romily, 29 Sept): the source in one line; one tap opens the full link. */}
+      {/* Row 7 (Romily, 29 Sept): the source in one line; one tap opens the full link. Round ten, q4: with the small
+          tag for the kind of source on the same line. */}
       <details className="evidence said-where">
-        <summary><span className="sw-label">Sourced:</span> {p.source}, {fmtDate(p.published)}</summary>
+        <summary><span className="sw-label">Sourced:</span> {p.kind ? <><SourceTag kind={p.kind} /> </> : null}{p.source}, {fmtDate(p.published)}</summary>
         <p className="small sx-src">{p.url ? <a href={p.url} rel="noopener">{p.source}</a> : p.source}, published {fmtDate(p.published)}. {p.url ? <span className="sw-url">{p.url}</span> : null}</p>
       </details>
     </li>
@@ -159,6 +161,7 @@ export default function StakeExplorer({ positions, topics, scales, parties, sour
         {cur.topics.length ? ordered(cur.topics).map((t) => <TopicBlock colours={colours} key={t.key} t={t} positions={positions.filter((p) => p.scale === cur.key && p.topic === t.key)} parties={cur.who} reason={reasonFor(t.key)} />) : null}
       </div>
       <p className="meta">{sourceNote}</p>
+      <SourceTagKey />
     </div>
   );
 }

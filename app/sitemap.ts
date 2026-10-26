@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { TOPICS, listBallots, listArchivedBallots, listCandidates, publicClient } from "@/lib/data";
 import { listAllCouncils } from "@/lib/councils";
+import { AUTHORITIES } from "@/lib/authorities";
 
 // Rebuilt hourly. Advertised in robots.txt only once ALLOW_INDEXING is set.
 export const revalidate = 3600;
@@ -12,7 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     publicClient().from("parties").select("ec_id").then((r) => (r.data ?? []) as { ec_id: string }[]),
     listAllCouncils(),
   ]);
-  const statics = ["", "/start", "/next", "/how-to-vote", "/learn", "/learn/who-decides", "/learn/first-past-the-post", "/learn/when-you-vote", "/learn/words", "/learn/council-tax", "/positions", "/parties", "/place", "/about", "/about/accuracy", "/about/data-use", "/about/moderation", "/about/parties-standing", "/who-we-are", "/contact", "/ledger", "/status", "/data", "/accessibility", "/explore/housing"]
+  const statics = ["", "/start", "/next", "/how-to-vote", "/learn", "/learn/who-decides", "/authority", "/learn/first-past-the-post", "/learn/when-you-vote", "/learn/words", "/learn/council-tax", "/positions", "/parties", "/place", "/about", "/about/accuracy", "/about/data-use", "/about/moderation", "/about/parties-standing", "/who-we-are", "/contact", "/ledger", "/status", "/data", "/accessibility", "/explore/housing"]
     .map((p) => ({ url: `${base}${p}` }));
   const liveEntries = (await Promise.all(live.map(async (b) => {
     const id = encodeURIComponent(b.ballot_paper_id);
@@ -28,6 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...statics,
     ...councils.map((c) => ({ url: `${base}/council/${c.slug}` })),
+    ...AUTHORITIES.map((a) => ({ url: `${base}/authority/${a.slug}` })),
     ...parties.map((p) => ({ url: `${base}/parties/${encodeURIComponent(p.ec_id)}` })),
     ...liveEntries,
     ...archived.map((b) => ({ url: `${base}/ballot/${encodeURIComponent(b.ballot_paper_id)}` })),

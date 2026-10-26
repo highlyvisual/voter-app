@@ -1,7 +1,8 @@
 import { topicsForHousehold } from "@/lib/topicOrder";
 import { TOPICS, TOPIC_SHORT, effectivePartyId, type Candidate, type Claim, type ReceiptRow } from "@/lib/data";
 import { claimApplies, modelCaveat, type Household } from "@/lib/household";
-import { layerOf, precisionLabel, splitForHousehold, LEGEND } from "@/lib/claims";
+import { layerOf, precisionLabel, splitForHousehold } from "@/lib/claims";
+import { SourceTagKey } from "@/components/SourceTag";
 import { interestsFor, parliamentExtras, parliamentRecord, withPartySplits } from "@/lib/parliament";
 import ParliamentaryRecordView from "@/components/ParliamentaryRecord";
 import ActionBlock from "@/components/ActionBlock";
@@ -12,13 +13,15 @@ import { layerKey } from "@/lib/claims";
 import { ballotLabel, type InvitationStatus, type Leaflet, type PreviousCandidacy } from "@/lib/data";
 import { img } from "@/lib/site";
 import { partyFill, partyVars } from "@/lib/partyColour";
+import { PLEDGE_LABELS, RECEIPT_FIELDS, baselineYear, monthlyGist } from "@/lib/receipts";
 
 const gbp = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", maximumFractionDigits: 0 });
 const SHORT = TOPIC_SHORT;
 
 function ClaimView({ c, applies = false }: { c: Claim; applies?: boolean }) {
   const level = layerOf(c);
-  const chip = <><span className="chip layer-chip">{level}</span>{c.tier === "computed" ? <span className="tier">Computed</span> : null}{precisionLabel(c) ? <span className="tier">{precisionLabel(c)}</span> : null}</>;
+  // The kind of source is the small tag beside "What they say" (round ten, q4), so it is not repeated here.
+  const chip = c.tier === "computed" || precisionLabel(c) ? <>{c.tier === "computed" ? <span className="tier">Computed</span> : null}{precisionLabel(c) ? <span className="tier">{precisionLabel(c)}</span> : null}</> : null;
   const footnote = c.party_ec_id === "PP53" && c.candidate_id === null && level === "Manifesto"
     ? <p className="small" style={{ margin: "0.3rem 0 0" }}>Delivery tracked independently by <a href="https://fullfact.org/government-tracker/" rel="noopener">Full Fact's Government Tracker</a> (states: Achieved · On track · Signs of progress · Wait and see · Unclear).</p>
     : null;
@@ -33,14 +36,13 @@ function Receipt({ rows, partyEcId, verifiedSourceIds, baselineId }: { rows: Rec
   const baseline = rows.find((r) => r.reform_set_id === baselineId);
   // A party's modelled pledge is shown only when a published claim cites the same source the model was built from.
   // Only a reform set computed under the same law year as the baseline is comparable.
-  const year = baselineId === "baseline" ? "2026" : baselineId.replace("baseline-", "");
+  const year = baselineYear(baselineId);
   const party = partyEcId
     ? rows.find((r) => r.party_ec_id === partyEcId && String(r.results._year ?? "2026") === year && ((r.results._source_ids as unknown as number[]) ?? []).some((id) => verifiedSourceIds.has(id)))
     : undefined;
   if (!baseline || !party) return null;
   const label = typeof party.results._label === "string" ? party.results._label : "Modelled pledge";
-  const keys = ["income_tax", "national_insurance", "universal_credit", "child_benefit", "household_net_income"] as const;
-  const labels: Record<string, string> = { income_tax: "Income tax", national_insurance: "National Insurance", universal_credit: "Universal Credit", child_benefit: "Child Benefit", household_net_income: "Net income" };
+  const keys = RECEIPT_FIELDS, labels = PLEDGE_LABELS;
   const a0 = Number(baseline.results.household_net_income ?? 0), b0 = Number(party.results.household_net_income ?? 0);
   const maxV = Math.max(a0, b0, 1), delta = b0 - a0;
   return (
@@ -48,7 +50,7 @@ function Receipt({ rows, partyEcId, verifiedSourceIds, baselineId }: { rows: Rec
       <p className="meta" style={{ margin: "0.4rem 0 0.2rem" }}>Modelled: {label}</p>
       {/* Direction before precision (review, 25 Sept, after the Dutch CPB and Nibud): the rough monthly change first,
           the exact figures underneath. */}
-      <p className="receipt-gist">{Math.abs(delta) < 60 ? "Little or no change" : `About £${Math.round(Math.abs(delta) / 12 / 5) * 5 || 5} a month ${delta > 0 ? "more" : "less"}`} <span className="meta">for a household like this one</span></p>
+      <p className="receipt-gist">{monthlyGist(delta)} <span className="meta">for a household like this one</span></p>
       <div className="bars" aria-label={`Net income: current law ${gbp.format(a0)}, under this pledge ${gbp.format(b0)}`}>
         <div className="bar-row"><span className="bar-label">Current law</span><span className="bar"><span style={{ width: `${(100 * a0) / maxV}%` }} /></span><span className="bar-val">{gbp.format(a0)}</span></div>
         <div className="bar-row"><span className="bar-label">Under this pledge</span><span className="bar"><span style={{ width: `${(100 * b0) / maxV}%` }} /></span><span className="bar-val">{gbp.format(b0)}</span></div>
@@ -185,7 +187,7 @@ export default async function CandidateCard({
 
         <section className="slot">
           <h4>Published positions on the ten topics{complete ? ", for this household" : ""}</h4>
-          {total > 0 ? <p className="meta" style={{ margin: "0 0 0.4rem" }}>{LEGEND} Switch between summaries and exact quotations with the control above the list.</p> : null}
+          {total > 0 ? <SourceTagKey /> : null}
           {total === 0 && perTopic.every((t) => t.relevant.length === 0) ? (
             <ActionBlock level={level} areaName={areaName} councilSiteUrl={councilSiteUrl} partySiteUrl={candidate.parties?.official_site_url} />
           ) : (

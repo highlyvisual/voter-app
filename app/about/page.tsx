@@ -123,6 +123,7 @@ export default function About() {
         Open source under AGPL-3.0: <a href="https://github.com/highlyvisual/whatsittome">github.com/highlyvisual/whatsittome</a>. Anyone can run the same
         ballot and household and get the same result.
       </p>
+      <p>Run a website? <Link href="/embed">Put a free &ldquo;Your next election&rdquo; box on it</Link>.</p>
       <h2 id="limits">What this site can't tell you</h2>
       <p>Every source has limits, and some matter a great deal when deciding how to vote:</p>
       <ul>
@@ -133,7 +134,7 @@ export default function About() {
         <li><strong>Area statistics describe places, not people.</strong> Deprivation, claimants and crime are about an area, and can hide big differences street by street.</li>
         <li><strong>Recorded crime isn't all crime,</strong> and near-real-time sewage data is the water companies' own unverified feed, not the Environment Agency's audited annual figures.</li>
         <li><strong>Council data can lag.</strong> Councillor lists are as recorded after the May 2026 elections; by-elections mean some seats have changed since.</li>
-        <li><strong>Coverage is uneven.</strong> Some statistics exist for England only, and Scottish, Welsh and Northern Irish sources differ. Where something is missing for your area, we say so rather than fill the gap.</li>
+        <li><strong>Coverage is uneven.</strong> Some statistics exist for England only, and Scottish, Welsh and Northern Irish sources differ. Where something is missing for your area, we say so rather than fill the gap. Councils, <Link href="/authority">combined authorities and mayors</Link> are covered; parish and town councils are not yet.</li>
       </ul>
     </>
   );

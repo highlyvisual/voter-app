@@ -14,6 +14,7 @@ import { householdFromParams } from "@/lib/household";
 import { topicsForHousehold } from "@/lib/topicOrder";
 import { councilSlugFor, registerRows } from "@/lib/councils";
 import { longDate } from "@/lib/dates";
+import { layerKey } from "@/lib/claims";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Your politics", robots: { index: false } };
@@ -23,7 +24,7 @@ export const metadata = { title: "Your politics", robots: { index: false } };
 // them, and what is at stake from their street to the world in each party's own words ("what's at stake"), with the
 // topics that touch them first. No verdicts, no ranking, no scores. Only the outward code and a rounded point travel in
 // the address, as on the ballot pages; answers about the person never leave the browser (components/StakeExplorer).
-type Row = { id: number; candidate_id: number | null; party_ec_id: string | null; topic: string; claim_text: string; source_quote: string; sources: { title: string; url: string; published_on: string | null } | null };
+type Row = { id: number; candidate_id: number | null; party_ec_id: string | null; topic: string; claim_text: string; source_quote: string; sources: { title: string; url: string; published_on: string | null; layer: string | null; publisher: string } | null };
 
 export default async function You({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const sp = await searchParams;
@@ -51,7 +52,7 @@ export default async function You({ searchParams }: { searchParams: Promise<Reco
   // party in alphabetical order. Local: the candidates on this person's own council ballot, in ballot-paper order.
   const db = publicClient();
   const [{ data: partyRows }, { data: parties }] = await Promise.all([
-    db.from("current_claims").select("id, candidate_id, party_ec_id, topic, claim_text, source_quote, sources(title, url, published_on)").eq("status", "verified").is("candidate_id", null).not("party_ec_id", "is", null),
+    db.from("current_claims").select("id, candidate_id, party_ec_id, topic, claim_text, source_quote, sources(title, url, published_on, layer, publisher)").eq("status", "verified").is("candidate_id", null).not("party_ec_id", "is", null),
     db.from("parties").select("ec_id, name, colour_hex"),
   ]);
   const partyName = new Map((parties ?? []).map((p) => [p.ec_id as string, p.name as string]));
@@ -65,7 +66,7 @@ export default async function You({ searchParams }: { searchParams: Promise<Reco
     if (!party) continue;
     const k = `${party}|${c.topic}|${c.source_quote}`;
     if (seen.has(k)) continue; seen.add(k);
-    positions.push({ id: c.id, scale: WORLD.has(c.topic) ? "world" : "uk", party, topic: c.topic, quote: c.source_quote, summary: c.claim_text, source: c.sources?.title ?? "", url: c.sources?.url ?? "", published: c.sources?.published_on ?? null });
+    positions.push({ id: c.id, scale: WORLD.has(c.topic) ? "world" : "uk", party, topic: c.topic, quote: c.source_quote, summary: c.claim_text, source: c.sources?.title ?? "", url: c.sources?.url ?? "", published: c.sources?.published_on ?? null, kind: layerKey({ ...c, applies_if: null }) });
   }
   const partyList = [...new Set(positions.map((p) => p.party))].sort((a, b) => a.localeCompare(b));
 
@@ -75,10 +76,10 @@ export default async function You({ searchParams }: { searchParams: Promise<Reco
     const label = new Map(cands.map((c) => [c.id, `${c.name}${c.party_name_on_ballot ? ` (${c.party_name_on_ballot})` : ""}`]));
     localWho = cands.map((c) => label.get(c.id)!);
     for (const c of cands) colours[label.get(c.id)!] = c.parties?.colour_hex ?? null;
-    const { data: lc } = await db.from("current_claims").select("id, candidate_id, party_ec_id, topic, claim_text, source_quote, sources(title, url, published_on)").eq("status", "verified").eq("ballot_paper_id", ballot.ballot_paper_id).not("candidate_id", "is", null);
+    const { data: lc } = await db.from("current_claims").select("id, candidate_id, party_ec_id, topic, claim_text, source_quote, sources(title, url, published_on, layer, publisher)").eq("status", "verified").eq("ballot_paper_id", ballot.ballot_paper_id).not("candidate_id", "is", null);
     for (const c of (lc ?? []) as unknown as Row[]) {
       const who = c.candidate_id ? label.get(c.candidate_id) : undefined;
-      if (who) positions.push({ id: c.id, scale: "local", party: who, topic: c.topic, quote: c.source_quote, summary: c.claim_text, source: c.sources?.title ?? "", url: c.sources?.url ?? "", published: c.sources?.published_on ?? null });
+      if (who) positions.push({ id: c.id, scale: "local", party: who, topic: c.topic, quote: c.source_quote, summary: c.claim_text, source: c.sources?.title ?? "", url: c.sources?.url ?? "", published: c.sources?.published_on ?? null, kind: layerKey({ ...c, applies_if: null }) });
     }
   }
 
@@ -143,7 +144,7 @@ export default async function You({ searchParams }: { searchParams: Promise<Reco
 
       {loc ? (
         <section id="you-now" className="you-sec" aria-labelledby="you-now-h">
-          <h2 id="you-now-h">What matters to you right now</h2>
+          <h2 id="you-now-h">What matters to me right now</h2>
           <Suspense fallback={<p className="meta">Looking up what is happening near you…</p>}><RightNow councilSlug={councilSlug} district={place.district} /></Suspense>
         </section>
       ) : null}
