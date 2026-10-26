@@ -1,0 +1,106 @@
+/* ===== Romily, round eleven (26 Oct): life areas as the main way in, and Your Home, the first one built =====
+   Theme variables only (app/theme.css), so light and dark follow. Touch targets 44px or more. */
+
+/* Level one: the ten themes as large tappable icons */
+.theme-grid { list-style: none; padding: 0; margin: 1rem 0 1.2rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(9.5rem, 45%), 1fr)); gap: 0.7rem; }
+.theme-tile { display: flex; flex-direction: column; align-items: flex-start; gap: 0.45rem; height: 100%; box-sizing: border-box; min-height: 7.5rem; padding: 0.95rem 0.95rem 0.85rem;
+  background: var(--panel); border: 1px solid var(--rule); border-radius: 16px; box-shadow: var(--shadow); color: var(--ink); text-decoration: none; }
+.theme-tile:hover { border-color: var(--ink); box-shadow: var(--shadow-lift); color: var(--ink); }
+.theme-tile:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.theme-tile .theme-icon { color: var(--rose-ink); }
+.theme-name { overflow-wrap: normal; hyphens: manual; font-family: var(--display); font-weight: 600; font-size: 1.12rem; line-height: 1.15; }
+.theme-subs { font-family: var(--sans); font-size: 0.85rem; color: var(--muted); line-height: 1.3; }
+.theme-note { white-space: nowrap; margin-top: auto; font-family: var(--sans); font-size: 0.75rem; color: var(--muted); border: 1px solid var(--rule); border-radius: 999px; padding: 0.05rem 0.5rem; }
+.theme-grid.compact { gap: 0.55rem; margin: 0.4rem 0 0.8rem; grid-template-columns: repeat(auto-fill, minmax(min(11rem, 45%), 1fr)); }
+.theme-grid.compact .theme-icon { flex: none; }
+.theme-grid.compact .theme-tile { min-height: 0; flex-direction: row; align-items: center; gap: 0.6rem; padding: 0.7rem 0.8rem; border-radius: 14px; box-shadow: none; min-height: 52px; }
+.theme-grid.compact .theme-name { font-size: 0.98rem; }
+
+
+.theme-h1 { display: flex; align-items: center; gap: 0.6rem; }
+.theme-h1 .theme-icon { color: var(--rose-ink); flex: none; }
+.theme-parts { padding-left: 1.1rem; }
+.theme-redesign { margin: 1rem 0; }
+.theme-links { list-style: none; padding: 0; margin: 0.6rem 0 1.2rem; }
+.theme-links li { margin: 0 0 0.5rem; }
+.theme-links .card-link { display: flex; align-items: center; min-height: 44px; font-weight: 600; }
+
+/* Level two: the sub-topics as cards, the (i) beside a card that comes first */
+.sub-cards { list-style: none; padding: 0; margin: 1rem 0 1.2rem; display: grid; gap: 0.7rem; }
+@media (min-width: 40rem) { .sub-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } .sub-cards.small { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.sub-card { position: relative; display: flex; align-items: stretch; background: var(--panel); border: 1px solid var(--rule); border-radius: 16px; box-shadow: var(--shadow); }
+.sub-card:hover { border-color: var(--ink); }
+.sub-link { flex: 1; display: flex; flex-direction: column; gap: 0.3rem; min-height: 5.2rem; padding: 1rem 1.1rem; color: var(--ink); text-decoration: none; border-radius: 16px; }
+.sub-link:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.sub-title { font-family: var(--display); font-weight: 600; font-size: 1.2rem; line-height: 1.15; }
+.sub-blurb { font-family: var(--sans); font-size: 0.9rem; color: var(--muted); }
+.sub-cards.small .sub-link { min-height: 0; padding: 0.8rem 1rem; }
+.sub-cards.small .sub-title { font-size: 1.05rem; }
+.sub-card .info-tip { padding: 0.5rem 0.5rem 0 0; }
+.info-tip { position: relative; display: inline-block; }
+.info-tip .cb-why-panel { display: block; text-align: left; font-family: var(--sans); font-weight: 400; }
+
+/* Level three */
+.showing-for { margin: 0.4rem 0 1.4rem; padding: 0.7rem 0.9rem; background: var(--sand); border-radius: 12px; }
+.showing-for p { margin: 0 0 0.3rem; }
+.as-switch { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem; }
+.as-switch a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.9rem; border-radius: 999px; border: 1.5px solid var(--rule); background: var(--panel);
+  color: var(--ink); font-weight: 600; font-size: 0.92rem; text-decoration: none; }
+.as-switch a:hover { border-color: var(--ink); }
+.as-switch a.on { border-color: var(--accent); background: var(--accent-soft); }
+
+.yh-sec { margin: 0 0 2rem; }
+.yh-sec > h2 { margin-top: 0; }
+.now-items { list-style: none; padding: 0; margin: 0.4rem 0 0.6rem; }
+.now-item { border-top: 1px solid var(--rule); padding: 0.55rem 0 0.4rem; overflow-wrap: anywhere; }
+.now-top { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.5rem; margin: 0; position: relative; }
+.now-where { font-family: var(--sans); font-size: 0.82rem; color: var(--muted); }
+.now-label { font-family: var(--sans); font-size: 0.75rem; font-weight: 700; padding: 0.08rem 0.55rem; border-radius: 999px; border: 1px solid var(--ink); color: var(--ink); background: var(--panel); }
+.now-consultation { border-color: var(--accent-ink); color: var(--accent-ink); }
+.now-title { margin: 0.15rem 0 0.1rem; font-weight: 600; }
+.now-detail { margin: 0; }
+
+.means { list-style: none; padding: 0; margin: 0.4rem 0 0.8rem; }
+.means li { border-top: 1px solid var(--rule); padding: 0.55rem 0 0.45rem; }
+.means li .applies-yes { margin: 0 0 0.2rem; }
+.yh-figures { margin: 0.6rem 0 0.4rem; }
+
+.compare-grid { list-style: none; padding: 0; margin: 0.6rem 0 0.8rem; display: grid; gap: 0.8rem; }
+@media (min-width: 46rem) { .compare-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 72rem) { .compare-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.compare-card { min-width: 0; background: var(--panel); border: 1px solid var(--rule); border-radius: 14px; padding: 0.8rem 0.9rem; overflow-wrap: anywhere; }
+.cc-who { margin: 0 0 0.5rem; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.15rem 0.45rem; }
+.cc-n { min-width: 1.1rem; }
+.cc-party { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.9rem; color: var(--ink-soft); flex-basis: 100%; }
+.cc-party.solo { flex-basis: auto; font-size: 1.05rem; color: var(--ink); }
+.party-swatch { flex: none; width: 0.8rem; height: 0.8rem; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15); }
+.cc-none { margin: 0 0 0.3rem; font-size: 0.95rem; }
+.cc-label { margin: 0.4rem 0 0.2rem; font-family: var(--sans); font-size: 0.82rem; font-weight: 700; color: var(--ink-soft); }
+.compare-card .claim { margin: 0.3rem 0 0.6rem; }
+.missing-line { border-left: 3px solid var(--ink); padding: 0.5rem 0.8rem; background: var(--sand); border-radius: 0 8px 8px 0; font-size: 0.95rem; }
+.yh-form { margin: 0.6rem 0; }
+
+/* Who has the power: one compact row of three boxes, stacked on a phone */
+.power-row { list-style: none; padding: 0; margin: 0.6rem 0 0.6rem; display: grid; gap: 0.6rem; }
+@media (min-width: 46rem) { .power-row { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.power-box { background: var(--panel); border: 1px solid var(--rule); border-top: 4px solid var(--aubergine); border-radius: 12px; padding: 0.7rem 0.85rem; }
+.power-council { border-top-color: var(--rose); }
+.power-other { border-top-color: var(--rule-strong); }
+.pw-title { margin: 0; font-family: var(--sans); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.pw-body { margin: 0.1rem 0 0.4rem; font-family: var(--display); font-weight: 600; font-size: 1.08rem; line-height: 1.2; }
+.power-box ul { margin: 0; padding-left: 1.05rem; font-size: 0.95rem; }
+.power-box li { margin: 0 0 0.25rem; }
+.power-box li a { display: inline-block; padding: 0.4rem 0.15rem; }
+
+.word-list { font-size: 0.92rem; }
+.more-home { margin: 1.5rem 0 0; border-top: 1px solid var(--rule); padding-top: 0.6rem; }
+
+/* Home page: the themes as a screen of their own, after the next vote */
+.home-themes .theme-grid { margin-bottom: 0.4rem; }
+.compare-card .empty, .compare-card .cc-none { font-size: 0.95rem; margin: 0 0 0.3rem; }
+.sub-card .info-tip { position: static; }
+.sub-card .info-tip .cb-why-panel { left: 0; right: 0; width: auto; top: calc(100% + 4px); }
+:root:not(.x) .info-tip button.cb-why-btn, :root:not(.x) .info-tip button.cb-why-btn:hover { color: var(--accent-ink); }
+.info-tip .cb-why-btn:hover span, .info-tip .cb-why-btn[aria-expanded="true"] span { background: var(--accent-ink); border-color: var(--accent-ink); color: var(--paper); }
+.now-top .info-tip { position: static; }
+.now-top .info-tip .cb-why-panel { left: 0; right: auto; top: 100%; }

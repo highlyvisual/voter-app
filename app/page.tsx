@@ -3,6 +3,7 @@ import { longDate } from "@/lib/dates";
 import { countClaimsPerBallot, listArchivedBallots, listBallots } from "@/lib/data";
 import { HomeLocal, HomeMap, HomeNextVote, type HomeBallot } from "@/components/HomeApp";
 import JsonLd from "@/components/JsonLd";
+import ThemeGrid from "@/components/ThemeGrid";
 import { graph, webPage } from "@/lib/schema";
 
 // Cached and rebuilt every five minutes: the home page is the same for everyone, so it can be served straight from the edge.
@@ -57,6 +58,16 @@ export default async function Home() {
           <HomeNextVote ballots={homeBallots} today={today} />
           {/* The same line the app uses on its Home screen. */}
           <p className="meta nv-independent">Independent. No rankings, no recommendations, not affiliated with any government.</p>
+        </div>
+      </section>
+
+      {/* Romily, round eleven q2: life areas become the main way in, "tappable as the main icons". Their own screen,
+          straight after the next vote (one idea per screen, round ten). Only Your Home is built so far. */}
+      <section className="home-screen alt home-themes" aria-labelledby="themes-h">
+        <div className="home-screen-in">
+          <h2 id="themes-h">What part of your life?</h2>
+          <p className="home-screen-lede">Pick one to see what&rsquo;s happening, what it could mean for you, and what each party or candidate would do.</p>
+          <ThemeGrid compact />
         </div>
       </section>
 

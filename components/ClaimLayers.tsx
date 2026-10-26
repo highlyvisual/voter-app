@@ -31,7 +31,9 @@ export function sourcedLabel(s: Claim["sources"] | null | undefined): string {
   return `${s.title}${s.published_on ? `, ${longDate(s.published_on)}` : ""}`;
 }
 
-export default function ClaimLayers({ c, chip, children, footnote, applies = false, blind = false }: { c: Claim; chip?: ReactNode; children?: ReactNode; footnote?: ReactNode; applies?: boolean; blind?: boolean }) {
+// `because` (Your Home, round eleven): where the page knows which answer matched, it says so in the reader's terms
+// ("Applies to you because you told us you're renting privately") instead of repeating the condition.
+export default function ClaimLayers({ c, chip, children, footnote, applies = false, blind = false, because, appliesTo = "Applies to you" }: { c: Claim; chip?: ReactNode; children?: ReactNode; footnote?: ReactNode; applies?: boolean; blind?: boolean; because?: string | null; appliesTo?: string }) {
   const s = c.sources;
   const when = whenText(c.applies_if);
   const tag = <SourceTag kind={layerKey(c)} />;
@@ -45,7 +47,7 @@ export default function ClaimLayers({ c, chip, children, footnote, applies = fal
       <blockquote className="quote only-verbatim">{c.source_quote}</blockquote>
       {/* Row 8 (design A): with a profile, a claim that applies is marked plainly, with the reason. */}
       {when ? (applies ? (
-        <p className="applies-yes"><svg viewBox="0 0 24 24" aria-hidden><path d="M5 12l5 5 9-10" /></svg><span><strong>Applies to you:</strong> {when}.</span></p>
+        <p className="applies-yes"><svg viewBox="0 0 24 24" aria-hidden><path d="M5 12l5 5 9-10" /></svg>{because ? <span><strong>{appliesTo}</strong> because {because}.</span> : <span><strong>Applies to you:</strong> {when}.</span>}</p>
       ) : (
         <>
           <p className="layer-label">What this could mean for you</p>

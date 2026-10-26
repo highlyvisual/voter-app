@@ -8,6 +8,7 @@ import { councilBySlug, councilSlugFor } from "@/lib/councils";
 import { publicClient } from "@/lib/data";
 import { longDate } from "@/lib/dates";
 import wider from "@/lib/widerBodies.json";
+import { HOUSING_SRC } from "@/lib/homeFacts";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Housing: who decides what", description: "Housing from your front door to Parliament: what your council, any mayor, the devolved government and the UK Government each control, with sources.", alternates: { canonical: "/explore/housing" } };
@@ -15,25 +16,9 @@ export const metadata = { title: "Housing: who decides what", description: "Hous
 // The scale explorer (Romily, round eight, point 8), Housing first. The same question asked at each level: You, your
 // area, the wider area, the country. Each level says what it controls, where that comes from, what is published there,
 // and where it touches the household described. Nothing is ranked, and no level is said to matter more.
-type Src = { label: string; url: string };
-const S: Record<string, Src> = {
-  councilHousing: { label: "GOV.UK, Council housing", url: "https://www.gov.uk/council-housing" },
-  homeless: { label: "GOV.UK, Help if you're homeless", url: "https://www.gov.uk/if-youre-homeless-at-risk-of-homelessness" },
-  councils: { label: "GOV.UK, Understand how your council works", url: "https://www.gov.uk/understand-how-your-council-works/types-of-council" },
-  planMaking: { label: "GOV.UK, Plan-making guidance (updated 27 November 2025)", url: "https://www.gov.uk/guidance/plan-making" },
-  londonPlan: { label: "Greater London Authority Act 1999, section 334", url: "https://www.legislation.gov.uk/ukpga/1999/29/section/334" },
-  mayors: { label: "Institute for Government, Regional mayors", url: "https://www.instituteforgovernment.org.uk/explainer/regional-mayors-devolution" },
-  scot: { label: "Scottish Government, Housing", url: "https://www.gov.scot/housing/" },
-  wales: { label: "Welsh Government, Housing", url: "https://www.gov.wales/housing" },
-  ni: { label: "Department for Communities (Northern Ireland), Housing", url: "https://www.communities-ni.gov.uk/topics/housing" },
-  renters: { label: "Renters' Rights Act 2025 (Royal Assent 27 October 2025; applies to England)", url: "https://www.legislation.gov.uk/ukpga/2025/26/contents" },
-  nppf: { label: "GOV.UK, National Planning Policy Framework", url: "https://www.gov.uk/guidance/national-planning-policy-framework" },
-  sdlt: { label: "GOV.UK, Stamp Duty Land Tax", url: "https://www.gov.uk/stamp-duty-land-tax" },
-  lbtt: { label: "Revenue Scotland, Land and Buildings Transaction Tax", url: "https://revenue.scot/taxes/land-buildings-transaction-tax" },
-  ltt: { label: "Welsh Government, Land Transaction Tax guide", url: "https://www.gov.wales/land-transaction-tax-guide" },
-  hb: { label: "GOV.UK, Housing Benefit: what you'll get", url: "https://www.gov.uk/housing-benefit/what-youll-get" },
-  uc: { label: "GOV.UK, Housing costs and Universal Credit", url: "https://www.gov.uk/housing-and-universal-credit" },
-};
+// The sources are shared with the Your Home pages (lib/homeFacts.ts, round eleven).
+const S = HOUSING_SRC;
+type Src = (typeof S)[string];
 type Item = { text: string; src: Src; you?: string };
 type Level = { key: string; title: string; body: string; items: Item[]; extra?: React.ReactNode };
 
