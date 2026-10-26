@@ -4,6 +4,8 @@ name: Data files
 #                             (scripts/loaders/council_finance.py)
 #   lib/party_register.json   each party's Electoral Commission register entry, latest accounts, recent loans and 2024
 #                             general election spending (scripts/loaders/party_register.py)
+#   lib/authorities.json      combined authorities and the GLA: councils, mayor, powers quoted from GOV.UK, links
+#                             (scripts/loaders/authorities.py; Romily, round ten, q3)
 # Weekly. When a file's figures change it pushes a branch and opens a pull request rather than pushing to main, so a data
 # change never triggers a deploy on its own (deploys are batched by hand).
 on:
@@ -12,7 +14,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["scripts/loaders/council_finance.py", "scripts/loaders/party_register.py", ".github/workflows/data-files.yml"]
+    paths: ["scripts/loaders/council_finance.py", "scripts/loaders/party_register.py", "scripts/loaders/authorities.py", ".github/workflows/data-files.yml"]
 concurrency: { group: data-files, cancel-in-progress: false }
 permissions:
   contents: write
@@ -28,20 +30,22 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
         with: { python-version: "3.12" }
-      - run: pip install --quiet pandas odfpy openpyxl requests
+      - run: pip install --quiet pandas odfpy openpyxl requests && (sudo apt-get install -y -qq poppler-utils > /dev/null || true)   # pdftotext, for the devolution explainers
       - name: Council finance
         run: python scripts/loaders/council_finance.py
       - name: Party register
         run: python scripts/loaders/party_register.py
+      - name: Combined authorities and mayors
+        run: python scripts/loaders/authorities.py
       - name: Open a pull request if the figures changed
         run: |
           # retrieved_at changes every run; only the figures count as a change.
-          if git diff --quiet -I '"retrieved_at"' -- lib/council_finance.json && git diff --quiet -I '"retrieved_at"' -- lib/party_register.json; then echo "No change"; exit 0; fi
+          if git diff --quiet -I '"retrieved_at"' -- lib/council_finance.json && git diff --quiet -I '"retrieved_at"' -- lib/party_register.json && git diff --quiet -I '"retrieved_at"' -I '"retrieved"' -I '"checked"' -I '"updated"' -- lib/authorities.json; then echo "No change"; exit 0; fi
           branch="data/files-$(date -u +%Y-%m-%d)"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "$branch"
-          git add lib/council_finance.json lib/party_register.json
+          git add lib/council_finance.json lib/party_register.json lib/authorities.json
           git commit -m "Data files: figures changed at source"
           git push -u origin "$branch"
           gh pr create --title "Data files: figures changed at source" --body "The weekly run of scripts/loaders/council_finance.py and scripts/loaders/party_register.py found changed figures. Check the diff against the sources named in each file, then merge with the next batched deploy." --base main --head "$branch" \

@@ -16,6 +16,7 @@ import { councilFinance } from "@/lib/councilFinance";
 import CiteThis from "@/components/CiteThis";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbs, graph, webPage } from "@/lib/schema";
+import { authorityForCouncil } from "@/lib/authorities";
 
 // Romily, round six (24 Sept): "Lets focus on Councils as the major data set - What's happening where you live",
 // five lines (housing, transport, council tax, environment, education) with sources, then introduce the councillors
@@ -83,6 +84,8 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
     : [["Council website", c.site || null], ["Publication scheme", reg?.publication_scheme ?? null], ["Disclosure log", reg?.disclosure_log ?? null]];
   // The same words for every council whose publications have not been read yet (section 2 of the brief): never a guess.
   const unread = "We haven't read this council's own publications yet.";
+  // Round ten q3: the combined authority (or the GLA) this council is in, by ONS code.
+  const area = authorityForCouncil([c.gss, reg?.gss_code, reg?.ons_gss_code]);
 
   return (
     <>
@@ -168,6 +171,7 @@ export default async function CouncilPage({ params }: { params: Promise<{ slug: 
 
       <section className="council-topic">
         <h2>Who runs the council</h2>
+        {area ? <p className="small auth-link-line">This council&rsquo;s area is covered by <Link href={`/authority/${area.slug}`}>{area.kind === "gla" ? "the Greater London Authority" : `${area.name} combined authority`}</Link>{area.kind === "gla" ? ", with the Mayor of London" : area.mayoral ? ", with its elected mayor" : ""}.</p> : null}
         {control ? (
           <p className="small">{control.total} seats in 2026. Run by: <b>{describeControl(control.majority)}</b>. <span className="meta">Open Council Data (public domain).</span></p>
         ) : null}
