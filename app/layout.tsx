@@ -4,6 +4,7 @@ import "./globals.css";
 import "./enhance.css";
 import "./theme.css";
 import "./r10-home.css";
+import "./r10-widget.css";
 import JsonLd from "@/components/JsonLd";
 import { siteGraph } from "@/lib/schema";
 import { SITE } from "@/lib/site";
@@ -14,6 +15,7 @@ import SwRegister from "@/components/SwRegister";
 import HowDoYouKnow from "@/components/HowDoYouKnow";
 import TabBar from "@/components/TabBar";
 import FreshnessLine from "@/components/FreshnessLine";
+import SiteChrome from "@/components/SiteChrome";
 import { Suspense } from "react";
 
 export const viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" as const, colorScheme: "light dark" as const, themeColor: [{ media: "(prefers-color-scheme: light)", color: "#FFFBF6" }, { media: "(prefers-color-scheme: dark)", color: "#241A15" }] };
@@ -46,6 +48,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: "try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);var s=localStorage.getItem('textsize');if(s)document.documentElement.style.fontSize=s+'%';if(localStorage.getItem('contrast')==='high')document.documentElement.classList.add('high-contrast');if(localStorage.getItem('lite')==='1')document.documentElement.classList.add('lite');localStorage.removeItem('look')}catch(e){}" }} />
         <script id="img-error-guard" dangerouslySetInnerHTML={{ __html: "addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('gone');var p=t.parentElement;if(p&&!p.querySelector('.avatar-fallback')){var s=document.createElement('span');s.className='avatar-fallback';s.style.width=(t.width||24)+'px';s.style.height=(t.height||24)+'px';s.setAttribute('aria-hidden','true');p.insertBefore(s,t);}}},true)" }} />
         <script id="img-fallback" dangerouslySetInnerHTML={{ __html: "addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'){t.classList.add('gone');var p=t.parentElement;if(p){p.classList.add('gone-parent');if(!p.dataset.initials&&t.dataset.initials)p.dataset.initials=t.dataset.initials;}}},true)" }} />
+        {/* The chrome is left out of /embed/ pages, which sit inside other sites (Romily, round ten, q8). */}
+        <SiteChrome>
         <div className="progress-rail" aria-hidden><span /></div>
         <a className="skip" href="#main">Skip to content</a>
         <header className="site-header">
@@ -60,7 +64,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </MobileNav>
           </div>
         </header>
+        </SiteChrome>
         <main id="main">{children}</main>
+        <SiteChrome>
         <HowDoYouKnow />
         <footer className="imprint">
           <p>
@@ -93,6 +99,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <TabBar />
         <PrintOpen />
         <SwRegister />
+        </SiteChrome>
       </body>
     </html>
   );
