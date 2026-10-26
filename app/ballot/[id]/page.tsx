@@ -16,7 +16,7 @@ import Link from "next/link";
 import { TOPICS } from "@/lib/data";
 import HouseholdForm from "@/components/HouseholdForm";
 import LastTime from "@/components/LastTime";
-import { baselineIdFor, bumpUsage, getBallot, getElectionDates, getReceipts, listCandidates, listCouncilPledges, listInvitationStatus, listLeaflets, listPreviousCandidacies, listResources, listVerifiedClaims } from "@/lib/data";
+import { baselineIdFor, bumpUsage, effectivePartyId, getBallot, getElectionDates, getNetIncomeLike, getReceipts, listCandidates, listReceiptSets, listCouncilPledges, listInvitationStatus, listLeaflets, listPreviousCandidacies, listResources, listVerifiedClaims } from "@/lib/data";
 import CouncilPledges from "@/components/CouncilPledges";
 import Hustings from "@/components/Hustings";
 import PlacePanel from "@/components/PlacePanel";
@@ -39,6 +39,9 @@ import SeatContext from "@/components/SeatContext";
 import SystemExplainer from "@/components/SystemExplainer";
 import OfficeExplainer from "@/components/OfficeExplainer";
 import { electionTimetable, previousResult } from "@/lib/democracyclub";
+import { deltaRows, gridPattern, moneyRange } from "@/lib/moneyRange";
+import { baselineYear } from "@/lib/receipts";
+import type { PartyRange } from "@/components/CandidateCard";
 import { gridKey, householdComplete, householdFromParams, modelCaveat } from "@/lib/household";
 
 export const dynamic = "force-dynamic";
@@ -88,6 +91,16 @@ export default async function BallotPage({ params, searchParams }: Props) {
   void bumpUsage(ballotId);
   const year = ballot.poll_date.slice(0, 4);
   const verifiedSources = new Set(claims.map((c) => c.sources?.id));
+  // Round ten q33 (Romily and Barny): once the income band is answered, a partly described household sees each modelled
+  // pledge as a range across every matching household in the grid. Same rule for every party; CandidateCard shows it.
+  let ranges: PartyRange[] = [];
+  if (!complete && household.income_band && !isLocal) {
+    const parties = new Set(candidates.map((c) => effectivePartyId(c)).filter(Boolean));
+    const sets = (await listReceiptSets().catch(() => [])).filter((s) => s.party_ec_id && parties.has(s.party_ec_id) && s.year === baselineYear(baselineId) && s.source_ids.some((id) => verifiedSources.has(id)));
+    const rows = sets.length ? await getNetIncomeLike(gridPattern(household), [baselineId, ...sets.map((s) => s.reform_set_id)]).catch(() => []) : [];
+    const base = rows.filter((r) => r.reform_set_id === baselineId);
+    ranges = base.length ? sets.map((s) => ({ ...s, range: moneyRange(household, deltaRows(base, rows.filter((r) => r.reform_set_id === s.reform_set_id))) })) : [];
+  }
   const anyModelled = receipts.some((r) => !r.reform_set_id.startsWith("baseline") && String(r.results._year ?? "2026") === ballot.poll_date.slice(0, 4).replace(/^202[5-9]$/, "2026") && ((r.results._source_ids as unknown as number[]) ?? []).some((id) => verifiedSources.has(id)));
 
   return (
@@ -218,7 +231,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
       </p>
       {candidates.map((c, i) => (
         <Suspense key={c.id} fallback={<details className="candidate"><summary><div className="who"><span className="avatar" aria-hidden /><div><h3 className="name"><span className="meta" style={{ marginRight: "0.5rem" }}>{i + 1}</span>{c.name}</h3><p className="party">{c.party_name_on_ballot}</p></div></div><span className="disclosure">Loading</span></summary></details>}>
-        <CandidateCard candidate={c} position={i + 1} claims={claims} receipts={receipts} household={household} complete={complete} baselineId={baselineId} invitation={invitations.find((v) => v.candidate_id === c.id) ?? null} level={ballot.level} areaName={ballot.area_name} councilSiteUrl={councilSite} leaflets={leaflets.filter((l) => l.candidate_id === c.id)} pollDate={ballot.poll_date} stoodBefore={stood.filter((p) => p.candidate_id === c.id)} />
+        <CandidateCard candidate={c} position={i + 1} claims={claims} receipts={receipts} ranges={ranges} household={household} complete={complete} baselineId={baselineId} invitation={invitations.find((v) => v.candidate_id === c.id) ?? null} level={ballot.level} areaName={ballot.area_name} councilSiteUrl={councilSite} leaflets={leaflets.filter((l) => l.candidate_id === c.id)} pollDate={ballot.poll_date} stoodBefore={stood.filter((p) => p.candidate_id === c.id)} />
         </Suspense>
       ))}
 

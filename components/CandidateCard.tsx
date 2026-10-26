@@ -14,6 +14,8 @@ import { ballotLabel, type InvitationStatus, type Leaflet, type PreviousCandidac
 import { img } from "@/lib/site";
 import { partyFill, partyVars } from "@/lib/partyColour";
 import { PLEDGE_LABELS, RECEIPT_FIELDS, baselineYear, monthlyGist } from "@/lib/receipts";
+import { moneyRangeText, type MoneyRange } from "@/lib/moneyRange";
+import type { ReceiptSetMeta } from "@/lib/data";
 
 const gbp = new Intl.NumberFormat("en-GB", { style: "currency", currency: "GBP", maximumFractionDigits: 0 });
 const SHORT = TOPIC_SHORT;
@@ -70,14 +72,45 @@ function Receipt({ rows, partyEcId, verifiedSourceIds, baselineId }: { rows: Rec
   );
 }
 
+// Round ten q33 (Romily and Barny): a partly described household, income band answered, sees each modelled pledge as a
+// range, the lowest to the highest change across every household in the grid that matches the answers given. Never a
+// middle figure. The same template for every candidate; the full table needs every answer.
+export type PartyRange = ReceiptSetMeta & { range: MoneyRange };
+function ReceiptRange({ ranges, partyEcId, verifiedSourceIds }: { ranges: PartyRange[]; partyEcId: string | null; verifiedSourceIds: Set<number> }) {
+  // As for the full table: shown only when one of this candidate's published claims cites the source the model was built from.
+  const set = partyEcId ? ranges.find((s) => s.party_ec_id === partyEcId && s.source_ids.some((id) => verifiedSourceIds.has(id))) : undefined;
+  const text = set ? moneyRangeText(set.range) : null;
+  if (!set || !text || set.range.kind === "none") return null;
+  const r = set.range;
+  const n = r.rows.toLocaleString("en-GB");
+  return (
+    <div className="receipt receipt-range" role="region" aria-label="What this pledge could change for households like yours">
+      <p className="meta" style={{ margin: "0.4rem 0 0.2rem" }}>Modelled: {set.label ?? "Modelled pledge"}</p>
+      <p className="receipt-gist">{text.gist}</p>
+      {text.narrow ? <p className="range-narrow">{text.narrow}</p> : null}
+      <details className="small range-why">
+        <summary>Why {r.kind === "single" ? "one figure" : r.kind === "mixed" ? "no figure" : "a range"}?</summary>
+        <p className="meta">
+          {r.kind === "single"
+            ? `All ${n} households in our grid that match your answers get the same change, to the nearest pound. `
+            : r.kind === "mixed"
+              ? `Some of the ${n} households in our grid that match your answers would get more and some less, so one figure here would mislead. `
+              : `You haven't answered every household question, so this runs from the lowest to the highest change across the ${n} households in our grid that match your answers. The middle of the range is no more likely than the ends. `}
+          Answer every question to see the full table. One pledge, modelled on its own with PolicyEngine UK {set.policyengine_version}, {set.computed_at.slice(0, 10)}, from the sourced pledge above. Not a forecast of your income, and not a voting guide.
+        </p>
+      </details>
+    </div>
+  );
+}
+
 export function claimsFor(candidate: Candidate, claims: Claim[]) {
   const party = effectivePartyId(candidate);
   return claims.filter((c) => c.candidate_id === candidate.id || (c.candidate_id === null && c.party_ec_id === party));
 }
 
 export default async function CandidateCard({
-  candidate, position, claims, receipts, household, complete, baselineId = "baseline", invitation = null, level = "parliamentary", areaName = "", councilSiteUrl = null, leaflets = [], pollDate = null, stoodBefore = [],
-}: { candidate: Candidate; position: number; claims: Claim[]; receipts: ReceiptRow[]; household: Household; complete: boolean; baselineId?: string; invitation?: InvitationStatus | null; level?: string; areaName?: string; councilSiteUrl?: string | null; leaflets?: Leaflet[]; pollDate?: string | null; stoodBefore?: PreviousCandidacy[] }) {
+  candidate, position, claims, receipts, ranges = [], household, complete, baselineId = "baseline", invitation = null, level = "parliamentary", areaName = "", councilSiteUrl = null, leaflets = [], pollDate = null, stoodBefore = [],
+}: { candidate: Candidate; position: number; claims: Claim[]; receipts: ReceiptRow[]; ranges?: PartyRange[]; household: Household; complete: boolean; baselineId?: string; invitation?: InvitationStatus | null; level?: string; areaName?: string; councilSiteUrl?: string | null; leaflets?: Leaflet[]; pollDate?: string | null; stoodBefore?: PreviousCandidacy[] }) {
   const campaignStart = pollDate ? new Date(new Date(pollDate + "T00:00:00Z").getTime() - 60 * 86400000).toISOString().slice(0, 10) : null;
   const current = leaflets.filter((l) => campaignStart && (l.date_uploaded ?? "") >= campaignStart);
   const earlier = leaflets.filter((l) => !(campaignStart && (l.date_uploaded ?? "") >= campaignStart));
@@ -222,6 +255,7 @@ export default async function CandidateCard({
                     </>
                   )}
                   {key === "money_and_cost_of_living" && complete && !modelCaveat(household) ? <Receipt rows={receipts} partyEcId={effectivePartyId(candidate)} verifiedSourceIds={verifiedSourceIds} baselineId={baselineId} /> : null}
+                  {key === "money_and_cost_of_living" && !complete && ranges.length ? <ReceiptRange ranges={ranges} partyEcId={effectivePartyId(candidate)} verifiedSourceIds={verifiedSourceIds} /> : null}
                 </div>
               );
             })}</div>
