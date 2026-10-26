@@ -244,3 +244,21 @@ for her look.
 | 5, 6, 7, 9, 10, 16, 18 | Not code. | For Cowork and Barny. | No change. Nothing sent to any organisation. No social template built (her Q10 answer). |
 
 **App 0.3.0 build 4** (26 Oct): release build pointing at whatsittome.org, in TestFlight for the Founders internal group only.
+
+## Round eleven — 26 October (form `romily-answers-round-11`)
+
+Her answers: [ROMILY-ROUND-11-ANSWERS-2026-10-26.md](ROMILY-ROUND-11-ANSWERS-2026-10-26.md). Background: her 26 Oct
+WhatsApp feedback. These override the 26 Oct triage where they differ.
+
+| # | She said | Status (26 Oct) |
+|---|---|---|
+| 9 | Order of work: 1 presentation, 2 party and candidate comparisons, 3 smarter profile questions, 4 local issues. | **Adopted** as the order of work. |
+| 2 | Life areas **replace** the topics as the main way in: ten themes, three levels (theme icons → sub-topics → the information, the part that fits the profile first, the rest below). | **In progress:** the navigation and the first theme are being built as a mock-up on a draft. The nine topics stay live until she has seen it. Open: does energy move from Transport to Environment? Environment's sub-topics are proposed (climate, energy, nature, pollution, flooding), for her to confirm. |
+| 6 | First life area to mock up: **Your Home**. | **In progress** (draft): Housing, Renting, Owning and mortgages; each in her four parts (what's happening, what it means for you, what each party or candidate would do, explore further) plus who has the power. |
+| 3 | A candidate with nothing of their own: show party policy, labelled "[Party]'s national policy, not [name]'s own commitment", and say plainly they've published nothing themselves. Replaces round six. | **In the mock-up** first; the ballot and candidate pages follow with the comparisons work (priority 2). |
+| 5 | Outside an election, compare the parties that stood locally at the 2024 general election, alphabetically, saying clearly when parties are missing. | **In the mock-up**, from Democracy Club's 2024 candidate lists. |
+| 7 | "What's happening now": items touching the profile first, then newest first. | **Done for council business** (round ten): household items first; then coming-up meetings soonest first and past meetings most recent first. Read as "newest first" without putting a meeting three months off above this week's; for her to confirm. The Your Home mock-up uses the same order. |
+| 4 | Figures outside money: sourced examples for now; **student finance next**. | **Next** after the mock-up: needs the student-loan rules (repayment plans, thresholds, maintenance) from GOV.UK and the Student Loans Company, and how each party's pledge would change them; checked rule by rule before any figure is shown. |
+| 8 | Every election with the basics, some in more depth ("highest voter turn-out areas with a bit more depth"). | **Not started.** Turnout is an objective rule; the page will say how areas were chosen. |
+| 1 | Points 2–4 were the profile questions (still being refined); the other two ideas scrapped. | **Waiting on Romily** (priority 3). |
+| 10 | Android testers: "working on this". | **Waiting on Romily.** |
