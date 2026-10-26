@@ -1,7 +1,8 @@
 import { topicsForHousehold } from "@/lib/topicOrder";
 import { TOPICS, TOPIC_SHORT, effectivePartyId, type Candidate, type Claim, type ReceiptRow } from "@/lib/data";
 import { claimApplies, modelCaveat, type Household } from "@/lib/household";
-import { layerOf, precisionLabel, splitForHousehold, LEGEND } from "@/lib/claims";
+import { layerOf, precisionLabel, splitForHousehold } from "@/lib/claims";
+import { SourceTagKey } from "@/components/SourceTag";
 import { interestsFor, parliamentExtras, parliamentRecord, withPartySplits } from "@/lib/parliament";
 import ParliamentaryRecordView from "@/components/ParliamentaryRecord";
 import ActionBlock from "@/components/ActionBlock";
@@ -19,7 +20,8 @@ const SHORT = TOPIC_SHORT;
 
 function ClaimView({ c, applies = false }: { c: Claim; applies?: boolean }) {
   const level = layerOf(c);
-  const chip = <><span className="chip layer-chip">{level}</span>{c.tier === "computed" ? <span className="tier">Computed</span> : null}{precisionLabel(c) ? <span className="tier">{precisionLabel(c)}</span> : null}</>;
+  // The kind of source is the small tag beside "What they say" (round ten, q4), so it is not repeated here.
+  const chip = c.tier === "computed" || precisionLabel(c) ? <>{c.tier === "computed" ? <span className="tier">Computed</span> : null}{precisionLabel(c) ? <span className="tier">{precisionLabel(c)}</span> : null}</> : null;
   const footnote = c.party_ec_id === "PP53" && c.candidate_id === null && level === "Manifesto"
     ? <p className="small" style={{ margin: "0.3rem 0 0" }}>Delivery tracked independently by <a href="https://fullfact.org/government-tracker/" rel="noopener">Full Fact's Government Tracker</a> (states: Achieved · On track · Signs of progress · Wait and see · Unclear).</p>
     : null;
@@ -185,7 +187,7 @@ export default async function CandidateCard({
 
         <section className="slot">
           <h4>Published positions on the ten topics{complete ? ", for this household" : ""}</h4>
-          {total > 0 ? <p className="meta" style={{ margin: "0 0 0.4rem" }}>{LEGEND} Switch between summaries and exact quotations with the control above the list.</p> : null}
+          {total > 0 ? <SourceTagKey /> : null}
           {total === 0 && perTopic.every((t) => t.relevant.length === 0) ? (
             <ActionBlock level={level} areaName={areaName} councilSiteUrl={councilSiteUrl} partySiteUrl={candidate.parties?.official_site_url} />
           ) : (

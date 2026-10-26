@@ -1,0 +1,70 @@
+/* ===== Round ten (Romily, 14 Oct 2026): q4 source tags and q2 calmer positions pages =====
+   q4: "Yes, a visible tag on each", "keep the tag small". Neutral theme colours only, never a party's. Outlined tags are
+   what candidates and parties publish themselves; shaded tags are a public record or someone else's report (Peter
+   Keeling, Democracy Club: a clear line between the two). Text is --ink-soft, 4.5:1 or better on every surface here,
+   light and dark. */
+
+.src-tag {
+  display: inline-block; vertical-align: 0.08em; margin: 0 0.1rem;
+  font-family: var(--sans); font-size: 0.7rem; font-weight: 600; line-height: 1.35; letter-spacing: 0.01em;
+  text-transform: none; white-space: nowrap; color: var(--ink-soft);
+  padding: 0 0.42rem; border-radius: 999px; border: 1px solid var(--muted); background: transparent;
+}
+.src-tag-other { background: var(--aubergine-soft); border-color: var(--aubergine-soft); }
+.layer-label .src-tag { margin-left: 0.35rem; }
+details.said-where > summary .src-tag { align-self: center; }
+html.high-contrast .src-tag { color: #000; border-color: #000; }
+html.high-contrast .src-tag-other { background: #e6e6e6; }
+@media (forced-colors: active) {
+  .src-tag { border: 1px solid CanvasText; }
+  .src-tag-other { border-style: double; border-width: 3px; }
+}
+@media print { .src-tag { border: 1px solid #000; } .src-tag-other { background: #eee; } }
+
+/* The key, behind a small (i). */
+.src-key { margin: 0.2rem 0 0.4rem; font-size: 0.85rem; color: var(--ink-soft); }
+.src-key > summary { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 44px; cursor: pointer; list-style: none; color: var(--ink-soft); }
+.src-key > summary::-webkit-details-marker { display: none; }
+.src-key > summary::before { content: none !important; }
+.src-key > summary svg { flex: none; color: var(--accent-ink); }
+.src-key > summary:hover span { text-decoration: underline; text-decoration-color: var(--accent); }
+.src-key-line { margin: 0 0 0.4rem; max-width: 68ch; line-height: 1.7; }
+.src-key-tags .src-tag { margin-right: 0.2rem; }
+
+/* q2: "a bit less busy". Method notes one tap away, tools in one quiet row, more air between positions. */
+.how-page { margin: 0 0 0.8rem; font-size: 0.92rem; color: var(--ink-soft); }
+.how-page > summary { display: inline-flex; align-items: center; min-height: 44px; cursor: pointer; font-weight: 600; color: var(--ink); }
+.how-page > summary, .topic-switch > summary { list-style: none; gap: 0.35rem; }
+.how-page > summary::-webkit-details-marker, .topic-switch > summary::-webkit-details-marker { display: none; }
+.how-page > summary::before, .topic-switch > summary::before { content: "\25B8"; color: var(--accent-ink); display: inline-block; transition: transform 0.15s ease; }
+.how-page[open] > summary::before, .topic-switch[open] > summary::before { transform: rotate(90deg); }
+.how-page-body { max-width: 68ch; }
+.how-page-body p { margin: 0 0 0.5rem; }
+.claims-tools { display: flex; gap: 0.4rem 1rem; align-items: center; flex-wrap: wrap; margin: 0.3rem 0 0.8rem; }
+.claims-tools p, .claims-tools .src-key { margin: 0; }
+
+.topic-switch { margin: 0 0 0.4rem; }
+.topic-switch > summary { display: inline-flex; align-items: center; min-height: 44px; cursor: pointer; font-weight: 600; }
+.topic-switch .topic-nav { margin: 0.3rem 0 0.6rem; }
+
+.topic-fold { border-top: 1px solid var(--rule); padding: 0.2rem 0; }
+.topic-fold:last-of-type { border-bottom: 1px solid var(--rule); }
+.topic-fold > summary { display: flex; align-items: center; gap: 0.5rem; min-height: 48px; cursor: pointer; list-style: none; }
+.topic-fold > summary::-webkit-details-marker { display: none; }
+.topic-fold > summary::before { content: "\25B8"; font-size: 1.1rem; color: var(--accent-ink); transition: transform var(--t-fast, 0.15s) ease; }
+.topic-fold[open] > summary::before { transform: rotate(90deg); }
+.topic-fold > summary h2 { margin: 0.4rem 0; font-size: 1.25rem; }
+.topic-fold > .claim:last-child { margin-bottom: 1rem; }
+
+.claim + .claim, .px-card + .px-card { margin-top: 1rem; }
+.px-card .px-topic { margin: 0 0 0.15rem; font-size: 0.8rem; }
+
+/* /positions: the choices fold behind one button on a phone. */
+.px-filters-toggle { display: none; }
+@media (max-width: 699px) {
+  .px-filters-toggle { display: inline-flex; align-items: center; min-height: 48px; margin: 0.6rem 0 0.4rem; }
+  .explorer-controls:not(.open) { display: none; }
+}
+
+/* "Hide names and parties while I read": the full source line inside "Sourced" hides too. */
+html.blind .blind-hide { visibility: hidden; }

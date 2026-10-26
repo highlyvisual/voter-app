@@ -9,12 +9,12 @@ import { topicsForHousehold } from "@/lib/topicOrder";
 import HouseholdForm from "@/components/HouseholdForm";
 import { TOPICS, getBallot, listCandidates, listVerifiedClaims } from "@/lib/data";
 import { claimApplies, householdComplete, householdFromParams, FIELD_KEYS } from "@/lib/household";
-import { layerOf, splitForHousehold, LEGEND } from "@/lib/claims";
+import { layerKey, splitForHousehold } from "@/lib/claims";
 import { partyVars } from "@/lib/partyColour";
+import SourceTag, { SourceTagKey } from "@/components/SourceTag";
 
 export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ id: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
-const SHORT_LAYER: Record<string, string> = { "Candidate's own statement": "Own words", "In government (enacted or announced)": "In government", "Party announcement": "Announcement", "Party position": "Party", "Party manifesto": "Manifesto" };
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) { return ballotPageTitle((await params).id, "Compare the candidates", "/compare"); }
 
@@ -63,7 +63,7 @@ export default async function ComparePage({ params, searchParams }: Props) {
       </details>
 
       <HouseholdForm household={household} complete={complete} optional />
-      <div style={{ display: "flex", gap: "1rem", alignItems: "center", flexWrap: "wrap", margin: "0.3rem 0 0.8rem" }}><ViewMode /><BlindRead /></div>
+      <div style={{ display: "flex", gap: "1rem", alignItems: "center", flexWrap: "wrap", margin: "0.3rem 0 0.8rem" }}><ViewMode /><BlindRead /><SourceTagKey /></div>
 
       <nav className="topic-tabs" aria-label="Compare one topic at a time">
         <Link prefetch={false} href={`/ballot/${encodeURIComponent(ballotId)}/compare${tabQs("")}`} aria-current={!topicTab ? "page" : undefined}>All topics</Link>
@@ -101,7 +101,7 @@ export default async function ComparePage({ params, searchParams }: Props) {
                           {shown.slice(0, 3).map((cl) => (
                             <li key={cl.id}>
                               <details className="cell">
-                                <summary><span className="meta layer">{SHORT_LAYER[layerOf(cl)] ?? layerOf(cl)}</span>{" "}<span className="view-summary">{cl.claim_text.replace(/\s*\((relevant to|enacted policy)[^)]*\)/gi, "").trim()}</span>{" "}<span className="view-verbatim">{cl.source_quote}</span></summary>
+                                <summary><SourceTag kind={layerKey(cl)} />{" "}<span className="view-summary">{cl.claim_text.replace(/\s*\((relevant to|enacted policy)[^)]*\)/gi, "").trim()}</span>{" "}<span className="view-verbatim">{cl.source_quote}</span></summary>
                                 <blockquote className="quote view-summary">{cl.source_quote}</blockquote>
                                 {cl.sources ? <p className="meta">{cl.sources.publisher}{cl.sources.published_on ? `, ${cl.sources.published_on}` : ""} · <a href={cl.sources.url} rel="noopener">{cl.sources.title}</a></p> : null}
                               </details>
@@ -119,7 +119,7 @@ export default async function ComparePage({ params, searchParams }: Props) {
           </tbody>
         </table>
       </ScrollHint>
-      <p className="meta">Short versions are reading aids; the quotation and its source are the record. {LEGEND} Columns are in ballot-paper order; nothing is ranked.</p>
+      <p className="meta">Short versions are reading aids; the quotation and its source are the record. Columns are in ballot-paper order; nothing is ranked.</p>
     </>
   );
 }

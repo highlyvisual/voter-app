@@ -9,8 +9,10 @@ import HouseholdForm from "@/components/HouseholdForm";
 import { TOPICS, getBallot, listCandidates, listResources, listVerifiedClaims, type Topic } from "@/lib/data";
 import FurtherReading from "@/components/FurtherReading";
 import { claimApplies, householdComplete, householdFromParams } from "@/lib/household";
-import { conditionText, layerOf, splitForHousehold } from "@/lib/claims";
+import { splitForHousehold } from "@/lib/claims";
 import { partyVars } from "@/lib/partyColour";
+import ClaimLayers, { whenText } from "@/components/ClaimLayers";
+import { SourceTagKey } from "@/components/SourceTag";
 
 export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ id: string; topic: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
@@ -33,17 +35,21 @@ export default async function TopicPage({ params, searchParams }: Props) {
     <>
       <p className="eyebrow"><Link href={`/ballot/${encodeURIComponent(ballotId)}${qs ? `?${qs}` : ""}`}>{ballot.area_name}</Link> · by topic</p>
       <h1>{label}</h1>
-      <p className="lede">Every candidate's published position on this one topic, side by side, in ballot-paper order.</p>
+      <p className="lede">Every candidate, in ballot-paper order.</p>
 
-      <p className="meta" style={{ margin: "0 0 0.5rem" }}><Link href={`/ballot/${encodeURIComponent(ballotId)}/compare${qs ? `?${qs}` : ""}`}>All ten topics side by side</Link></p>
-      <nav className="topic-nav" aria-label="Topics">
-        {TOPICS.map(([k, l]) => (
-          <Link prefetch={false} key={k} href={`/ballot/${encodeURIComponent(ballotId)}/topic/${k}${qs ? `?${qs}` : ""}`} aria-current={k === topic ? "page" : undefined}>{l}</Link>
-        ))}
-      </nav>
-
+      {/* Romily, round ten, q2: "a bit less busy". The other topics and the household filter fold away; the positions
+          come first, each in the same card as on the candidate pages. */}
+      <details className="topic-switch">
+        <summary>Another topic</summary>
+        <nav className="topic-nav" aria-label="Topics">
+          {TOPICS.map(([k, l]) => (
+            <Link prefetch={false} key={k} href={`/ballot/${encodeURIComponent(ballotId)}/topic/${k}${qs ? `?${qs}` : ""}`} aria-current={k === topic ? "page" : undefined}>{l}</Link>
+          ))}
+        </nav>
+        <p className="meta" style={{ margin: 0 }}><Link href={`/ballot/${encodeURIComponent(ballotId)}/compare${qs ? `?${qs}` : ""}`}>All ten topics side by side</Link></p>
+      </details>
       <HouseholdForm household={household} complete={complete} optional />
-      <div style={{ display: "flex", gap: "1rem", alignItems: "center", flexWrap: "wrap", margin: "0.3rem 0 0.8rem" }}><ViewMode /><BlindRead /></div>
+      <div className="claims-tools"><ViewMode /><BlindRead /><SourceTagKey /></div>
 
       <ol className="topic-list">
         {candidates.map((c, i) => {
@@ -61,25 +67,13 @@ export default async function TopicPage({ params, searchParams }: Props) {
                 {shown.length === 0 ? (
                   <p className="empty">{mine.length === 0 ? "Nothing published that we could source on this topic." : `${mine.length} published ${mine.length === 1 ? "position" : "positions"}; none applies to this household.`}</p>
                 ) : shown.slice(0, 3).map((cl) => (
-                  <div className="claim" key={cl.id}>
-                    <p className="meta" style={{ margin: "0 0 0.2rem" }}>
-                      <span className="blindable" data-blind={layerOf(cl)}>{layerOf(cl)}</span>
-                      {cl.sources ? <> · <span className="blindable" data-blind="source hidden">{cl.sources.publisher}{cl.sources.published_on ? `, ${cl.sources.published_on}` : ""}</span> · <a className="blindable" data-blind="link" href={cl.sources.url} rel="noopener">{cl.sources.title}</a></> : null}
-                    </p>
-                    <blockquote className="quote view-verbatim">{cl.source_quote}</blockquote>
-                    <p className="summary view-summary">{cl.claim_text}</p>
-                    {conditionText(cl.applies_if) ? <p className="meta" style={{ margin: "0.2rem 0 0" }}>{conditionText(cl.applies_if)}.</p> : null}
-                  </div>
+                  <div className="claim" key={cl.id}><ClaimLayers c={cl} blind applies={complete && Boolean(whenText(cl.applies_if))} /></div>
                 ))}
                 {shown.length > 3 ? (
                   <details className="more">
                     <summary className="meta">{shown.length - 3} more</summary>
                     {shown.slice(3).map((cl) => (
-                      <div className="claim" key={cl.id}>
-                        <p className="meta" style={{ margin: "0 0 0.2rem" }}><span className="blindable" data-blind={layerOf(cl)}>{layerOf(cl)}</span>{cl.sources ? <> · <span className="blindable" data-blind="source hidden">{cl.sources.publisher}{cl.sources.published_on ? `, ${cl.sources.published_on}` : ""}</span></> : null}</p>
-                        <blockquote className="quote view-verbatim">{cl.source_quote}</blockquote>
-                        <p className="summary view-summary">{cl.claim_text}</p>
-                      </div>
+                      <div className="claim" key={cl.id}><ClaimLayers c={cl} blind applies={complete && Boolean(whenText(cl.applies_if))} /></div>
                     ))}
                   </details>
                 ) : null}
@@ -89,7 +83,7 @@ export default async function TopicPage({ params, searchParams }: Props) {
           );
         })}
       </ol>
-      <p className="meta">Each position is quoted exactly from its source; the line beneath is a reading aid, not the record. <Link href={`/ballot/${encodeURIComponent(ballotId)}${qs ? `?${qs}` : ""}`}>Back to all candidates</Link>.</p>
+      <p className="meta">Each summary is a reading aid; the exact quotation under &ldquo;Sourced&rdquo; is the record. <Link href={`/ballot/${encodeURIComponent(ballotId)}${qs ? `?${qs}` : ""}`}>Back to all candidates</Link>.</p>
       <FurtherReading resources={resources} heading={`Go deeper on ${label.toLowerCase()}: independent sources`} />
     </>
   );

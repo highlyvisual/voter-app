@@ -4,6 +4,8 @@ import { longDate } from "@/lib/dates";
 import { index, matches, queryTokens, suggest, normalise, stem } from "@/lib/search";
 import ViewMode from "@/components/ViewMode";
 import { partyFill, partyVars } from "@/lib/partyColour";
+import { KIND_HELP } from "@/lib/claims";
+import SourceTag, { SourceTagKey } from "@/components/SourceTag";
 
 export type Row = {
   id: number; who: string; whoKind: "candidate" | "party"; party: string; sortKey: string; ballot: string; candidateId: number | null;
@@ -14,14 +16,7 @@ export type Row = {
 export type Election = { id: string; name: string; date: string | null; upcoming: boolean };
 type TopicOpt = { key: string; label: string; short: string };
 
-// What each kind of source is, in plain words, shown beside the filter. The same kinds as the grey chips on every card.
-const KIND_HELP: Record<string, string> = {
-  candidate_statement: "Something the candidate published themselves, such as their statement to voters.",
-  manifesto: "The party's own published programme or policy paper.",
-  campaign_leaflet: "A leaflet the campaign delivered.",
-  enacted_record: "An official record of what was done, such as a vote or a government document.",
-  third_party_analysis: "Someone else's report of what was said, such as a news agency.",
-};
+// What each kind of source is, in plain words (KIND_HELP), shown beside the filter with the same small tag every card carries.
 const KIND_ORDER = ["candidate_statement", "manifesto", "campaign_leaflet", "enacted_record", "third_party_analysis"];
 const PAGE = 60;
 
@@ -34,7 +29,11 @@ export default function PositionsExplorer({ rows, elections, topics, initial }: 
   const [tp, setTp] = useState(initial.topic);
   const [q, setQ] = useState(initial.q);
   const [kind, setKind] = useState(KIND_HELP[initial.kind] ? initial.kind : "");
-  const [past, setPast] = useState(initial.past || Boolean(initial.election && elections.find((e) => e.id === initial.election && !e.upcoming)));
+  // When no election coming up has any positions yet, start with the past ones rather than an empty page.
+  const anyUpcoming = elections.some((e) => e.upcoming);
+  const [past, setPast] = useState(initial.past || !anyUpcoming || Boolean(initial.election && elections.find((e) => e.id === initial.election && !e.upcoming)));
+  // Round ten, q2 (Romily: "a bit less busy"): on a phone the choices fold behind one button, so the positions come first.
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const [show, setShow] = useState(PAGE);
   const reset = () => setShow(PAGE);
 
@@ -45,10 +44,10 @@ export default function PositionsExplorer({ rows, elections, topics, initial }: 
     if (tp) p.set("topic", tp);
     if (q.trim()) p.set("q", q.trim());
     if (kind) p.set("kind", kind);
-    if (past) p.set("past", "1");
+    if (past && anyUpcoming) p.set("past", "1");
     const s = p.toString();
     window.history.replaceState(null, "", s ? `?${s}` : window.location.pathname);
-  }, [el, tp, q, kind, past]);
+  }, [el, tp, q, kind, past, anyUpcoming]);
 
   const upcoming = useMemo(() => new Set(elections.filter((e) => e.upcoming).map((e) => e.id)), [elections]);
   const inScope = (r: Row) => (el ? r.ballot === el : past || upcoming.has(r.ballot));
@@ -93,14 +92,17 @@ export default function PositionsExplorer({ rows, elections, topics, initial }: 
   const elName = el ? elections.find((e) => e.id === el)?.name : null;
   const tpName = tp ? topics.find((t) => t.key === tp)?.label : null;
   const summary = [elName ?? (past ? "all elections, including past ones" : "elections coming up"), tpName, kind ? KIND_LABEL(kind, rows) : null, q.trim() ? `“${q.trim()}”` : null].filter(Boolean).join(" · ");
-  const anyFilter = Boolean(el || tp || q || kind || past);
-  const clearAll = () => { setEl(""); setTp(""); setQ(""); setKind(""); setPast(false); reset(); };
+  const anyFilter = Boolean(el || tp || q || kind || (past && anyUpcoming));
+  const clearAll = () => { setEl(""); setTp(""); setQ(""); setKind(""); setPast(!anyUpcoming); reset(); };
   const pastCount = elections.filter((e) => !e.upcoming).length;
 
   return (
     <div className="explorer">
       <a className="skip-results" href="#results">Skip to the results</a>
-      <form className="explorer-controls" role="search" aria-label="Find positions" onSubmit={(e) => e.preventDefault()}>
+      <button type="button" className="px-filters-toggle secondary" aria-expanded={filtersOpen} aria-controls="px-controls" onClick={() => setFiltersOpen((o) => !o)}>
+        {filtersOpen ? "Hide the choices" : "Choose an election, topic or word"}
+      </button>
+      <form id="px-controls" className={`explorer-controls${filtersOpen ? " open" : ""}`} role="search" aria-label="Find positions" onSubmit={(e) => e.preventDefault()}>
         <fieldset>
           <legend>1. Which election?</legend>
           <label htmlFor="px-election" className="sr-only">Election</label>
@@ -115,7 +117,7 @@ export default function PositionsExplorer({ rows, elections, topics, initial }: 
               </optgroup>
             ) : null}
           </select>
-          {pastCount ? (
+          {pastCount && anyUpcoming ? (
             <label className="check">
               <input type="checkbox" checked={past} onChange={(e) => { setPast(e.target.checked); if (!e.target.checked && el && !upcoming.has(el)) setEl(""); reset(); }} />
               Include past elections ({pastCount})
@@ -156,7 +158,7 @@ export default function PositionsExplorer({ rows, elections, topics, initial }: 
               {kindsPresent.map((k) => (
                 <label key={k} className="kind">
                   <input type="radio" name="px-kind" checked={kind === k} onChange={() => { setKind(k); reset(); }} />
-                  <span><b>{KIND_LABEL(k, rows)}</b><span className="meta"> {KIND_HELP[k]}</span></span>
+                  <span><SourceTag kind={k} /><span className="meta"> {KIND_HELP[k]}</span></span>
                 </label>
               ))}
             </div>
@@ -172,6 +174,7 @@ export default function PositionsExplorer({ rows, elections, topics, initial }: 
           {anyFilter ? <button type="button" className="secondary small" onClick={clearAll}>Clear all choices</button> : null}
         </span>
       </div>
+      {filtered.length ? <SourceTagKey /> : null}
 
       {filtered.length === 0 ? (
         <div className="deadend">
@@ -200,10 +203,12 @@ export default function PositionsExplorer({ rows, elections, topics, initial }: 
                 <ul className="px-list">
                   {p.rows.map((r) => (
                     <li key={r.id} className="px-card">
-                      <p className="px-tags"><span className="chip none">{r.topicShort}</span> <span className="chip none">{r.layer}</span>{r.precision === "aspiration" ? <> <span className="chip none">Stated aim</span></> : null}</p>
-                      <p className="layer-label not-verbatim">{r.record ? "What the record shows" : "What they say"}</p>
+                      {/* Round ten (Romily, q2 and q4): the same card as everywhere else, the small source tag beside
+                          "What they say", and the topic named only when the list is not already one topic. */}
+                      {!tp || r.precision === "aspiration" ? <p className="px-topic meta">{tp ? null : r.topicShort}{!tp && r.precision === "aspiration" ? " · " : null}{r.precision === "aspiration" ? "Stated aim" : null}</p> : null}
+                      <p className="layer-label not-verbatim">{r.record ? "What the record shows" : "What they say"} <SourceTag kind={r.layerKey} /></p>
                       <p className="summary not-verbatim">{mark(r.claim)}</p>
-                      <p className="layer-label only-verbatim">In their exact words</p>
+                      <p className="layer-label only-verbatim">In their exact words <SourceTag kind={r.layerKey} /></p>
                       <blockquote className="quote only-verbatim">{mark(r.quote)}</blockquote>
                       {r.applies ? <><p className="layer-label">What this could mean for you</p><p className="small for-you">This would apply to you if: {r.applies}.</p></> : null}
                       {/* Opened while searching, so a match inside the quotation is visible. */}
