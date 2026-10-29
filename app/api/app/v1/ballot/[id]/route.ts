@@ -4,6 +4,7 @@ import { electionTimetable, hustingsFor } from "@/lib/democracyclub";
 import { layerOf, precisionLabel } from "@/lib/claims";
 import { keyDates } from "@/lib/deadlines";
 import { inkOn } from "@/lib/partyColour";
+import { isHeld, nationalPartyClaims } from "@/lib/partyPolicy";
 import { baselineYear } from "@/lib/receipts";
 import { APP_API_PATH, type AppClaim, type AppHusting, type AppParty, type AppReceiptSetRef, type AppSource, type BallotResponse } from "@/lib/appApi";
 export const dynamic = "force-dynamic";
@@ -32,6 +33,9 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
     ballot.archived ? Promise.resolve(null) : electionTimetable(ballotId),
     hustingsFor(ballotId).catch(() => null),
   ]);
+  // Optional (29 Oct): each party's national policy, for the app to show, labelled, where a candidate has nothing of
+  // their own on a topic (lib/partyPolicy.ts). Not for elections already held. Left out if it can't be read.
+  const national = isHeld(ballot.poll_date) ? null : await nationalPartyClaims().catch(() => null);
 
   const appClaim = (c: Claim): AppClaim => ({
     id: c.id, ballot_paper_id: c.ballot_paper_id, candidate_id: c.candidate_id, party_ec_id: c.party_ec_id, topic: c.topic, tier: c.tier,
@@ -49,7 +53,8 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
     // Democracy Club's pseudo-parties ("ynmp-party:2" Independent, Speaker) aren't parties: no party material, no colour.
     if (!ec || ec.startsWith("ynmp-party:") || parties.has(ec)) continue;
     const colour = c.parties?.colour_hex && HEX.test(c.parties.colour_hex) ? c.parties.colour_hex : null;
-    parties.set(ec, { ec_id: ec, name: c.parties?.name ?? c.party_name_on_ballot, colour, ink: colour ? inkOn(colour) : null, claims: served.filter((cl) => cl.candidate_id === null && cl.party_ec_id === ec).map(appClaim) });
+    const nat = (national?.get(ec) ?? []).filter((cl) => cl.sources);
+    parties.set(ec, { ec_id: ec, name: c.parties?.name ?? c.party_name_on_ballot, colour, ink: colour ? inkOn(colour) : null, claims: served.filter((cl) => cl.candidate_id === null && cl.party_ec_id === ec).map(appClaim), ...(nat.length ? { national_claims: nat.map(appClaim) } : {}) });
   }
 
   // Reform sets: the baseline for this ballot's law year, the other baseline for comparison, and each party's modelled pledge

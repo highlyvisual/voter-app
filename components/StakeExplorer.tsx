@@ -13,7 +13,7 @@ import SourceTag, { SourceTagKey } from "@/components/SourceTag";
 // the group chosen are gathered at the top, from every party that has any: first those whose words name that group, then
 // those about the subject in general (Romily, 29 Sept). "Someone else's" lets you describe another person, just for this
 // page, to see which parties' words name them; nothing about them is saved.
-export type StakePosition = { id: number; scale: string; party: string; topic: string; quote: string; summary: string; source: string; url: string; published: string | null; kind?: string };
+export type StakePosition = { id: number; scale: string; party: string; topic: string; quote: string; summary: string; source: string; url: string; published: string | null; kind?: string; national?: string };
 export type StakeTopic = { key: string; label: string; reason: string | null };
 export type Scale = { key: string; title: string; intro: string; topics: string[]; who: string[]; whoLabel?: string; extra?: { text: string; href: string } };
 
@@ -39,22 +39,25 @@ function TopicBlock({ t, positions, parties, reason, colours }: { t: StakeTopic;
   for (const p of positions) byParty.set(p.party, [...(byParty.get(p.party) ?? []), p]);
   const withAny = parties.filter((x) => byParty.has(x));
   const none = parties.filter((x) => !byParty.has(x));
+  const ownAny = withAny.filter((x) => byParty.get(x)!.some((p) => !p.national));
   return (
     <details className="sx-topic" open={Boolean(reason) || undefined}>
       <summary>
         <span className="sx-tname">{t.label}</span>
         {reason ? <span className="sx-why">First {reason}</span> : null}
-        <span className="meta">{withAny.length ? (withAny.length === parties.length ? "Published by all of them" : "Published by some of them") : "Nothing published yet"}</span>
+        <span className="meta">{!withAny.length ? "Nothing published yet" : !ownAny.length ? "Party national policy only" : ownAny.length === parties.length ? "Published by all of them" : "Published by some of them"}</span>
       </summary>
       <div className="sx-body">
         {withAny.map((party) => (
           <section key={party} className={`sx-party${colours[party] ? " party-scope" : ""}`} style={partyVars(colours[party])}>
             <h4><span className="party-swatch" aria-hidden />{party}</h4>
+            {byParty.get(party)![0].national ? <p className="cc-label">Nothing of their own found on this. {byParty.get(party)![0].national}:</p> : null}
             <ul>{byParty.get(party)!.slice(0, 3).map((p) => <Position key={p.id} p={p} />)}</ul>
-            {byParty.get(party)!.length > 3 ? <p className="meta"><Link href={`/positions?topic=${t.key}&q=${encodeURIComponent(party)}`}>More from {party} on this &rarr;</Link></p> : null}
+            {byParty.get(party)!.length > 3 && !byParty.get(party)![0].national ? <p className="meta"><Link href={`/positions?topic=${t.key}&q=${encodeURIComponent(party)}`}>More from {party} on this &rarr;</Link></p> : null}
           </section>
         ))}
-        {none.length ? <p className="meta">Nothing found on this topic yet from: {none.join(", ")}.</p> : null}
+        {/* One line, not a list of every name (Romily, 29 Oct). Those with something are named above. */}
+        {none.length ? <p className="meta">{withAny.length ? `Nothing found on this topic yet from the other ${none.length === 1 ? "one" : none.length}.` : "Nothing found on this topic yet from any of them."}</p> : null}
         <p className="meta"><Link href={`/positions?topic=${t.key}`}>Every position on {t.label.toLowerCase()}, with the full sources &rarr;</Link></p>
       </div>
     </details>
@@ -92,7 +95,9 @@ export default function StakeExplorer({ positions, topics, scales, parties, sour
   const matchers = useMemo(() => personalMatchers(lens === "other" ? other : mine), [lens, other, mine]);
   const subjects = matchers.map((m) => SUBJECT[m.key]).filter((v, i, a) => a.indexOf(v) === i).join(", ");
   const personalReason = matchers.length ? (lens === "other" ? `for the person you described (${subjects})` : `because you told us about your ${subjects}`) : null;
-  const reasonFor = (k: string) => (k === "equality_and_rights" && personalReason ? personalReason : topics.find((t) => t.key === k)?.reason ?? null);
+  // A topic with nothing to show in this scale is never put first (Romily, 29 Oct: no "First because…" over an empty card).
+  const hasContent = (k: string) => positions.some((p) => p.scale === (scales.find((x) => x.key === scale) ?? scales[0])?.key && p.topic === k);
+  const reasonFor = (k: string) => (!hasContent(k) ? null : k === "equality_and_rights" && personalReason ? personalReason : topics.find((t) => t.key === k)?.reason ?? null);
   const ordered = (keys: string[]) => {
     const rel = topics.filter((t) => keys.includes(t.key) && reasonFor(t.key));
     // Equality first when it has a personal reason; then the household's own order; then the rest in the fixed order.

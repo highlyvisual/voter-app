@@ -24,6 +24,7 @@ import SinceThen from "@/components/SinceThen";
 import Journey from "@/components/Journey";
 import CiteThis from "@/components/CiteThis";
 import { topicsForHousehold } from "@/lib/topicOrder";
+import { candidateOnTopic, isHeld, nationalPartyClaims } from "@/lib/partyPolicy";
 import CountUp from "@/components/CountUp";
 import NameCards from "@/components/NameCards";
 import ProfileApply from "@/components/ProfileApply";
@@ -78,13 +79,14 @@ export default async function BallotPage({ params, searchParams }: Props) {
     prevId ? previousResult(prevId) : Promise.resolve(null),
     ballot.archived || ballot.poll_date <= new Date().toISOString().slice(0, 10) ? previousResult(ballotId) : Promise.resolve(null),
   ]);
+  const national = isHeld(ballot.poll_date) ? null : await nationalPartyClaims();
   const timetable = ballot.archived ? null : await electionTimetable(ballotId);
   const prevLabel = prevId ? (prevId.includes("2024-07-04") ? "general election, 4 July 2024" : `election of ${fmt(prevId.slice(-10))}`) : "";
 
   const covered = candidates.filter((c) => claimsFor(c, claims).length > 0).length;
-  const topicOrder = topicsForHousehold(household);
+  const topicOrder = topicsForHousehold(household, (t) => candidates.some((c) => candidateOnTopic(c, claims, national, t).list.length > 0));
   const qsTopic = new URLSearchParams(Object.entries(sp).filter(([, v]) => typeof v === "string") as [string, string][]).toString();
-  const topicCounts: Record<number, Record<string, number>> = Object.fromEntries(candidates.map((c) => [c.id, Object.fromEntries(TOPICS.map(([k]) => [k, claimsFor(c, claims).filter((cl) => cl.topic === k).length]))]));
+  const topicCounts: Record<number, Record<string, number>> = Object.fromEntries(candidates.map((c) => [c.id, Object.fromEntries(TOPICS.map(([k]) => [k, candidateOnTopic(c, claims, national, k).list.length]))]));
   void bumpUsage(ballotId);
   const year = ballot.poll_date.slice(0, 4);
   const verifiedSources = new Set(claims.map((c) => c.sources?.id));
@@ -191,7 +193,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
       </div>
       {covered === 0 ? (
         <div className="notice small">
-          <p>No sourced positions have been published for this ballot yet, so every candidate shows the same empty slots. Every claim that appears carries its source, date and exact quotation; see the <a href="/ledger">public ledger</a>.</p>
+          <p>{national ? "None of these candidates has published anything of their own that we could source yet. Where a candidate's party has national policy on a topic, that is shown instead, labelled as the party's national policy and not the candidate's own commitment." : "No sourced positions have been published for this ballot yet, so every candidate shows the same empty slots."} Every claim that appears carries its source, date and exact quotation; see the <a href="/ledger">public ledger</a>.</p>
         </div>
       ) : null}
 
@@ -218,7 +220,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
       </p>
       {candidates.map((c, i) => (
         <Suspense key={c.id} fallback={<details className="candidate"><summary><div className="who"><span className="avatar" aria-hidden /><div><h3 className="name"><span className="meta" style={{ marginRight: "0.5rem" }}>{i + 1}</span>{c.name}</h3><p className="party">{c.party_name_on_ballot}</p></div></div><span className="disclosure">Loading</span></summary></details>}>
-        <CandidateCard candidate={c} position={i + 1} claims={claims} receipts={receipts} household={household} complete={complete} baselineId={baselineId} invitation={invitations.find((v) => v.candidate_id === c.id) ?? null} level={ballot.level} areaName={ballot.area_name} councilSiteUrl={councilSite} leaflets={leaflets.filter((l) => l.candidate_id === c.id)} pollDate={ballot.poll_date} stoodBefore={stood.filter((p) => p.candidate_id === c.id)} />
+        <CandidateCard national={national} candidate={c} position={i + 1} claims={claims} receipts={receipts} household={household} complete={complete} baselineId={baselineId} invitation={invitations.find((v) => v.candidate_id === c.id) ?? null} level={ballot.level} areaName={ballot.area_name} councilSiteUrl={councilSite} leaflets={leaflets.filter((l) => l.candidate_id === c.id)} pollDate={ballot.poll_date} stoodBefore={stood.filter((p) => p.candidate_id === c.id)} />
         </Suspense>
       ))}
 

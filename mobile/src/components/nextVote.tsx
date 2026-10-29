@@ -7,11 +7,12 @@ import { conditionText } from '@/lib/claims';
 import { claimApplies, type Household } from '@/lib/household';
 import { PERSONAL_KEYS } from '@/lib/personal';
 import { topicsForHousehold } from '@/lib/topicOrder';
-import { TOPIC_SHORT } from '@/lib/types';
+import { TOPICS, TOPIC_SHORT } from '@/lib/types';
 import type { Personal } from '@/core/store';
 import type { Ballot } from '@/core/useBallot';
 import { F, TAP, usePalette } from '@/core/theme';
 import { InfoButton, Sheet } from '@/components/Sheet';
+import { candidateOnTopic } from '@/components/claims';
 import { haptic, longDate, openLink, s, shortDate } from '@/components/ui';
 
 // The pieces of "Your next vote" on Home (Romily, round ten Q1): the countdown, the deadlines, the paper as name cards,
@@ -161,7 +162,9 @@ export function orderedTopics(household: Household, personal: Personal) {
 export function TopicsForYou({ ballotId, b, household, complete, personal }: { ballotId: string; b: Ballot; household: Household; complete: boolean; personal: Personal }) {
   const c = usePalette();
   const [why, setWhy] = useState<{ label: string; reason: string } | null>(null);
-  const claims: AppClaim[] = [...b.parties.flatMap((p) => p.claims), ...b.candidates.flatMap((k) => k.claims)];
+  // Own words, else the party's national policy (components/claims.tsx candidateOnTopic): a topic is listed when anyone
+  // on the paper has something on it.
+  const claims: AppClaim[] = b.candidates.flatMap((k) => TOPICS.flatMap(([t]) => candidateOnTopic(k, b.parties.find((p) => p.ec_id === k.party_ec_id), t).list));
   const appliesOn = new Set(complete ? claims.filter((x) => conditionText(x.applies_if) && claimApplies(x.applies_if, household)).map((x) => x.topic) : []);
   const published = new Set(claims.map((x) => x.topic));
   const list = orderedTopics(household, personal).filter((t) => published.has(t.topic));

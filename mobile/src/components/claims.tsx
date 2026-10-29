@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
-import type { AppClaim } from '@/lib/appApi';
+import type { AppCandidate, AppClaim, AppParty } from '@/lib/appApi';
 import { conditionText, splitForHousehold } from '@/lib/claims';
 import { claimApplies, type Household } from '@/lib/household';
 import { personalMatchers, type PersonalMatch } from '@/lib/personal';
@@ -17,6 +17,17 @@ export function namedGroups(c: AppClaim, matchers: PersonalMatch[]): string[] {
   return matchers.filter((m) => m.names && m.names.re.test(c.source_quote)).map((m) => m.names!.label);
 }
 export function useMatchers(personal: Personal) { return personalMatchers(personal); }
+
+// One candidate on one topic (round six, option 4; Romily, 29 Oct): their own words and their party's for this ballot;
+// if there are none, their party's national policy (served from 29 Oct as national_claims), with the label the
+// website uses. Older servers don't send national_claims, so this falls back to the plain list.
+const poss = (name: string) => (/s$/i.test(name) ? `${name}\u2019` : `${name}\u2019s`);
+export function candidateOnTopic(k: AppCandidate, party: AppParty | undefined, topic: string): { list: AppClaim[]; label: string | null } {
+  const list = [...k.claims, ...(party?.claims ?? [])].filter((x) => x.topic === topic);
+  if (list.length || !party?.national_claims) return { list, label: null };
+  const nat = party.national_claims.filter((x) => x.topic === topic);
+  return { list: nat, label: nat.length ? `${poss(party.name)} national policy, not ${poss(k.name)} own commitment` : null };
+}
 
 // One claim, laid out the same way for every candidate and party (Romily's choices C and A): what kind of source it is,
 // our one-line summary, the exact words as a hanging quotation, "Applies to you" only where its own condition matches,
@@ -82,7 +93,7 @@ export function Tag({ label, bg, fg }: { label: string; bg: string; fg: string }
 // A list of claims split for this household, on the phone: those that apply first, the rest under "Applies to others"
 // (closed to start, Romily round ten Q32). Within each, claims whose words name a group the person chose come first.
 // Without a complete profile, everything is shown in one list, as on the website.
-export function ClaimGroup({ claims, household, complete, personal = {}, emptyText }: { claims: AppClaim[]; household: Household; complete: boolean; personal?: Personal; emptyText: string }) {
+export function ClaimGroup({ claims, household, complete, personal = {}, emptyText, label }: { claims: AppClaim[]; household: Household; complete: boolean; personal?: Personal; emptyText: string; label?: string | null }) {
   const p = usePalette();
   const [open, setOpen] = useState(false);
   const matchers = useMatchers(personal);
@@ -91,6 +102,7 @@ export function ClaimGroup({ claims, household, complete, personal = {}, emptyTe
   if (!claims.length) return <Small>{emptyText}</Small>;
   return (
     <View>
+      {label ? <Text style={{ fontFamily: F.bold, fontSize: 13, color: p.soft, paddingTop: 4 }}>{label}</Text> : null}
       {complete && !shown.length ? <Small style={{ paddingVertical: 8 }}>None of these positions mention households like yours.</Small> : null}
       {byName(shown).map((c) => <ClaimItem key={c.id} c={c} applies={complete && claimApplies(c.applies_if, household)} names={namedGroups(c, matchers)} />)}
       {hidden.length ? (

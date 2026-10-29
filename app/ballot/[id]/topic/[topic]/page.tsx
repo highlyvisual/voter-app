@@ -2,7 +2,7 @@ import { ballotPageTitle } from "@/lib/meta";
 import { TOPICS as TOPIC_LIST } from "@/lib/data";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { claimsFor } from "@/components/CandidateCard";
+import { candidateOnTopic, isHeld, nationalLabel, nationalPartyClaims } from "@/lib/partyPolicy";
 import BlindRead from "@/components/BlindRead";
 import ViewMode from "@/components/ViewMode";
 import HouseholdForm from "@/components/HouseholdForm";
@@ -29,6 +29,7 @@ export default async function TopicPage({ params, searchParams }: Props) {
   const household = householdFromParams(sp);
   const complete = householdComplete(household);
   const [candidates, claims, resources] = await Promise.all([listCandidates(ballotId), listVerifiedClaims(ballotId), listResources(topic)]);
+  const national = isHeld(ballot.poll_date) ? null : await nationalPartyClaims();
   const qs = new URLSearchParams(Object.entries(sp).filter(([, v]) => typeof v === "string") as [string, string][]).toString();
 
   return (
@@ -53,7 +54,7 @@ export default async function TopicPage({ params, searchParams }: Props) {
 
       <ol className="topic-list">
         {candidates.map((c, i) => {
-          const mine = claimsFor(c, claims).filter((cl) => cl.topic === (topic as Topic));
+          const { list: mine, national: isNational } = candidateOnTopic(c, claims, national, topic as Topic);
           const { shown, hidden } = splitForHousehold(mine, household, complete, claimApplies);
           const partyLabel = c.party_description_on_ballot && c.party_description_on_ballot !== "[blank]" ? c.party_description_on_ballot : c.party_name_on_ballot;
           return (
@@ -64,6 +65,7 @@ export default async function TopicPage({ params, searchParams }: Props) {
                 <span className="party blindable" data-blind="party hidden">{partyLabel}</span>
               </div>
               <div className="what">
+                {isNational ? <p className="cc-label blindable" data-blind="Their party's national policy, not the candidate's own commitment">{c.name} hasn&rsquo;t published anything themselves on this that we could find. {nationalLabel(c)}:</p> : null}
                 {shown.length === 0 ? (
                   <p className="empty">{mine.length === 0 ? "Nothing published that we could source on this topic." : `${mine.length} published ${mine.length === 1 ? "position" : "positions"}; none applies to this household.`}</p>
                 ) : shown.slice(0, 3).map((cl) => (
