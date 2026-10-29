@@ -4,26 +4,29 @@
 // answer and every party: Equality and rights moves to the top of "What's at stake", with the reason; and positions whose
 // own words mention the group you chose are listed first, from every party that has any, in ballot order. The site
 // never says whether a policy is good or bad for anyone.
+// 29 Oct 2026 (Mike's feedback; wording approved by Romily): "Your sex" is "Sex registered at birth"; the yes/no
+// question about gender identity is replaced by "Your gender" with five answers; every question has "Prefer not to
+// say", which is kept as an answer and matches nothing.
 export const PERSONAL_FIELDS = {
   ethnicity: {
     label: "Your ethnic group",
-    options: [["asian", "Asian or Asian British"], ["black", "Black, Black British, Caribbean or African"], ["mixed", "Mixed or multiple ethnic groups"], ["white", "White"], ["other_ethnic", "Another ethnic group"]],
+    options: [["asian", "Asian or Asian British"], ["black", "Black, Black British, Caribbean or African"], ["mixed", "Mixed or multiple ethnic groups"], ["white", "White"], ["other_ethnic", "Another ethnic group"], ["prefer_not", "Prefer not to say"]],
   },
   religion: {
     label: "Your religion",
-    options: [["none", "No religion"], ["christian", "Christian"], ["buddhist", "Buddhist"], ["hindu", "Hindu"], ["jewish", "Jewish"], ["muslim", "Muslim"], ["sikh", "Sikh"], ["other_religion", "Another religion"]],
+    options: [["none", "No religion"], ["christian", "Christian"], ["buddhist", "Buddhist"], ["hindu", "Hindu"], ["jewish", "Jewish"], ["muslim", "Muslim"], ["sikh", "Sikh"], ["other_religion", "Another religion"], ["prefer_not", "Prefer not to say"]],
   },
   sex: {
-    label: "Your sex",
-    options: [["female", "Female"], ["male", "Male"]],
+    label: "Sex registered at birth",
+    options: [["female", "Female"], ["male", "Male"], ["prefer_not", "Prefer not to say"]],
   },
-  trans: {
-    label: "Is the gender you identify with the same as your sex registered at birth?",
-    options: [["same", "Yes"], ["trans", "No"]],
+  gender: {
+    label: "Your gender",
+    options: [["woman", "Woman"], ["man", "Man"], ["non_binary", "Non-binary"], ["other_gender", "Another gender"], ["prefer_not", "Prefer not to say"]],
   },
   orientation: {
     label: "Your sexual orientation",
-    options: [["straight", "Straight or heterosexual"], ["gay", "Gay or lesbian"], ["bi", "Bisexual"], ["other_orientation", "Another sexual orientation"]],
+    options: [["straight", "Straight or heterosexual"], ["gay", "Gay or lesbian"], ["bi", "Bisexual"], ["other_orientation", "Another sexual orientation"], ["prefer_not", "Prefer not to say"]],
   },
 } as const;
 export type PersonalKey = keyof typeof PERSONAL_FIELDS;
@@ -34,7 +37,7 @@ export const PERSONAL_WHY: Record<PersonalKey, string> = {
   ethnicity: "Parties publish positions on race equality and discrimination. If you answer, positions that name your ethnic group come first, then those about race in general, from every party.",
   religion: "Parties publish positions on faith, religious freedom and hate crime. If you answer, positions that name your religion (or none) come first, then those about religion in general, from every party.",
   sex: "Parties publish positions on women's and men's rights, maternity and pay. If you answer, positions that name women or men come first, from every party.",
-  trans: "Parties publish positions on gender recognition and trans rights. If you answer, positions that name trans people come first, then those about sex and gender in general, from every party.",
+  gender: "Parties publish positions on women's and men's rights, gender recognition and trans and non-binary people. If you answer, positions that name your gender come first, then those about sex and gender in general, from every party.",
   orientation: "Parties publish positions on LGBT+ rights. If you answer, positions that name your group come first, then those about sexual orientation in general, from every party.",
 };
 
@@ -50,6 +53,9 @@ const RACE = String.raw`\b(race|racial|racis\w*|ethnic\w*|anti-racis\w*|Windrush
 const MINORITY = String.raw`\b(ethnic minorit\w*|minority ethnic|BAME|global majority|people of colou?r)\b`;
 const RELIGION = String.raw`\b(religio\w*|faith|faiths|worship|blasphem\w*)\b`;
 const SEXGENDER = String.raw`\b(gender|sex-based|single[- ]sex|biological sex|sex in law|change their sex)\b`;
+const WOMEN = String.raw`\b(women|woman|girls?|females?|maternity|mothers?|misogyn\w*|femin\w*)\b`;
+const MEN = String.raw`\b(men|boys?|males?|paternity|fathers?)\b`;
+const TRANS = String.raw`\b(trans|transgender|gender identity|gender recognition|gender reassignment|non-binary|social transitioning|LGBT\w*)\b`;
 const ORIENT = String.raw`\b(sexual orientation|LGBT\w*|same-sex|gay|lesbians?|bisexual\w*|homosexual\w*|conversion (therapy|practices))\b`;
 const PATTERNS: Record<string, { names: Tier | null; about: Tier }> = {
   asian: { names: { label: "Asian people, or ethnic minorities", re: String.raw`\b(Asian|Asians|British Asian|South Asian|East Asian)\b|${MINORITY}` }, about: { label: "race or ethnicity", re: RACE } },
@@ -65,10 +71,12 @@ const PATTERNS: Record<string, { names: Tier | null; about: Tier }> = {
   muslim: { names: { label: "Muslims", re: String.raw`\b(Muslims?|Islam\w*|mosques?)\b` }, about: { label: "religion or belief", re: RELIGION } },
   sikh: { names: { label: "Sikhs", re: String.raw`\b(Sikhs?|Sikhism|gurdwaras?)\b` }, about: { label: "religion or belief", re: RELIGION } },
   other_religion: { names: null, about: { label: "religion or belief", re: RELIGION } },
-  female: { names: { label: "women or girls", re: String.raw`\b(women|woman|girls?|females?|maternity|mothers?|misogyn\w*|femin\w*)\b` }, about: { label: "sex and gender", re: SEXGENDER } },
-  male: { names: { label: "men or boys", re: String.raw`\b(men|boys?|males?|paternity|fathers?)\b` }, about: { label: "sex and gender", re: SEXGENDER } },
-  same: { names: null, about: { label: "sex and gender", re: String.raw`${SEXGENDER}|\b(trans|transgender|gender recognition|non-binary)\b` } },
-  trans: { names: { label: "trans or non-binary people", re: String.raw`\b(trans|transgender|gender identity|gender recognition|gender reassignment|non-binary|social transitioning|LGBT\w*)\b` }, about: { label: "sex and gender", re: SEXGENDER } },
+  female: { names: { label: "women or girls", re: WOMEN }, about: { label: "sex and gender", re: SEXGENDER } },
+  male: { names: { label: "men or boys", re: MEN }, about: { label: "sex and gender", re: SEXGENDER } },
+  woman: { names: { label: "women or girls", re: WOMEN }, about: { label: "sex and gender", re: SEXGENDER } },
+  man: { names: { label: "men or boys", re: MEN }, about: { label: "sex and gender", re: SEXGENDER } },
+  non_binary: { names: { label: "non-binary or trans people", re: TRANS }, about: { label: "sex and gender", re: SEXGENDER } },
+  other_gender: { names: { label: "trans or non-binary people", re: TRANS }, about: { label: "sex and gender", re: SEXGENDER } },
   straight: { names: { label: "straight people", re: String.raw`\b(heterosexual\w*|opposite-sex)\b` }, about: { label: "sexual orientation", re: ORIENT } },
   gay: { names: { label: "gay and lesbian people, or LGBT+ people", re: String.raw`\b(LGBT\w*|gay|lesbians?|homosexual\w*|same-sex|conversion (therapy|practices))\b` }, about: { label: "sexual orientation", re: ORIENT } },
   bi: { names: { label: "bisexual people, or LGBT+ people", re: String.raw`\b(LGBT\w*|bisexual\w*|same-sex|conversion (therapy|practices))\b` }, about: { label: "sexual orientation", re: ORIENT } },
@@ -83,7 +91,8 @@ export function personalMatchers(p: Partial<Record<string, string>> | null): Per
     const a = p[k];
     const opt = (PERSONAL_FIELDS[k].options as readonly (readonly [string, string])[]).find(([c]) => c === a);
     const pat = a ? PATTERNS[a] : undefined;
-    if (opt && pat) out.push({ key: k, answer: opt[0], answerText: opt[1], names: pat.names ? { label: pat.names.label, re: new RegExp(pat.names.re, "i") } : null, about: { label: pat.about.label, re: new RegExp(pat.about.re, "i") } });
+    // The same group named twice (sex "Female" and gender "Woman") is listed once.
+    if (opt && pat && !(pat.names && out.some((o) => o.names?.label === pat.names!.label))) out.push({ key: k, answer: opt[0], answerText: opt[1], names: pat.names ? { label: pat.names.label, re: new RegExp(pat.names.re, "i") } : null, about: { label: pat.about.label, re: new RegExp(pat.about.re, "i") } });
   }
   return out;
 }

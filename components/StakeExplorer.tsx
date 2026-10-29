@@ -80,7 +80,7 @@ function PartyGroup({ items, parties, colours }: { items: StakePosition[]; parti
   );
 }
 
-const SUBJECT: Record<PersonalKey, string> = { ethnicity: "ethnic group", religion: "religion", sex: "sex and gender", trans: "sex and gender", orientation: "sexual orientation" };
+const SUBJECT: Record<PersonalKey, string> = { ethnicity: "ethnic group", religion: "religion", sex: "sex and gender", gender: "sex and gender", orientation: "sexual orientation" };
 
 export default function StakeExplorer({ positions, topics, scales, parties, sourceNote, colours = {} }: { positions: StakePosition[]; topics: StakeTopic[]; scales: Scale[]; parties: string[]; sourceNote: string; colours?: Record<string, string | null> }) {
   const [mine, setMine] = useState<Record<string, string> | null>(null);
@@ -126,7 +126,7 @@ export default function StakeExplorer({ positions, topics, scales, parties, sour
             <div className="sx-other-grid">
               {PERSONAL_KEYS.map((k) => (
                 <label key={k} className="sx-field">
-                  <span>{PERSONAL_FIELDS[k].label.replace(/^Your /, "Their ").replace("you identify", "they identify").replace("your sex", "their sex")}</span>
+                  <span>{PERSONAL_FIELDS[k].label.replace(/^Your /, "Their ")}</span>
                   <select value={other[k] ?? ""} onChange={(e) => setOther((o) => ({ ...o, [k]: e.target.value }))}>
                     <option value="">Not set</option>
                     {(PERSONAL_FIELDS[k].options as readonly (readonly [string, string])[]).map(([code, text]) => <option key={code} value={code}>{text}</option>)}
