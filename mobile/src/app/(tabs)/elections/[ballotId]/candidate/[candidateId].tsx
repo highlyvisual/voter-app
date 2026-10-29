@@ -6,12 +6,12 @@ import { PanResponder, Pressable, RefreshControl, ScrollView, Text, View, useWin
 import type { AppClaim } from '@/lib/appApi';
 import { conditionText } from '@/lib/claims';
 import { claimApplies } from '@/lib/household';
-import { TOPIC_SHORT } from '@/lib/types';
+import { TOPICS, TOPIC_SHORT } from '@/lib/types';
 import { SITE, savedAtText } from '@/core/api';
 import { useStore } from '@/core/store';
 import { F, TAP, usePalette } from '@/core/theme';
 import { useBallot } from '@/core/useBallot';
-import { ClaimGroup, Tag } from '@/components/claims';
+import { ClaimGroup, Tag, candidateOnTopic } from '@/components/claims';
 import { PledgeReceipt } from '@/components/money';
 import { orderedTopics } from '@/components/nextVote';
 import { Banner, ErrorState, LinkRow, Loading, Small, haptic, s } from '@/components/ui';
@@ -65,7 +65,8 @@ export default function CandidateScreen() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [next?.id, prev?.id]);
 
-  const all: AppClaim[] = k ? [...k.claims, ...(party?.claims ?? [])] : [];
+  const onTopic = (topic: string) => (k ? candidateOnTopic(k, party, topic) : { list: [] as AppClaim[], label: null });
+  const all: AppClaim[] = k ? TOPICS.flatMap(([t]) => onTopic(t).list) : [];
   const topics = orderedTopics(household, personal).filter((t) => (isLocal ? 'council' : WORLD.has(t.topic) ? 'world' : 'uk') === on);
   const tab = scales.find((x) => x.key === on)!;
 
@@ -136,10 +137,10 @@ export default function CandidateScreen() {
                 <Text style={[s.body, { color: c.soft }]}>Nothing published that we could source for {k.name} yet. That means nothing found, not nothing to say.</Text>
               </View>
             ) : topics.map((t) => {
-              const list = all.filter((x) => x.topic === t.topic);
+              const { list, label } = onTopic(t.topic);
               return <TopicCard key={t.topic} title={TOPIC_SHORT[t.topic] ?? t.label} list={list}
                 applies={complete && list.some((x) => conditionText(x.applies_if) && claimApplies(x.applies_if, household))}>
-                <ClaimGroup claims={list} household={household} complete={complete} personal={personal} emptyText={`Nothing published that we could source on ${(TOPIC_SHORT[t.topic] ?? t.label).toLowerCase()}. That means nothing found, not nothing to say.`} />
+                <ClaimGroup claims={list} label={label} household={household} complete={complete} personal={personal} emptyText={`Nothing published that we could source on ${(TOPIC_SHORT[t.topic] ?? t.label).toLowerCase()}. That means nothing found, not nothing to say.`} />
                 {t.topic === 'money_and_cost_of_living' ? <PledgeReceipt receipts={b!.receipts} partyEcId={k.party_ec_id} household={household} complete={complete} /> : null}
               </TopicCard>;
             })}

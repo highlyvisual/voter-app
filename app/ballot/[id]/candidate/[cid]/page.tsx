@@ -8,7 +8,7 @@ import { topicsForHousehold } from "@/lib/topicOrder";
 import ProfileApply from "@/components/ProfileApply";
 import ReadAloud from "@/components/ReadAloud";
 import CiteThis from "@/components/CiteThis";
-import { claimsFor } from "@/components/CandidateCard";
+import { candidateOnTopic, isHeld, nationalLabel, nationalPartyClaims } from "@/lib/partyPolicy";
 import { TOPICS, TOPIC_SHORT, getBallot, listCandidates, listVerifiedClaims, listPreviousCandidacies, listLeaflets, ballotLabel, type Claim } from "@/lib/data";
 import { claimApplies, householdComplete, householdFromParams } from "@/lib/household";
 import { SourceTagKey } from "@/components/SourceTag";
@@ -45,7 +45,10 @@ export default async function CandidatePage({ params, searchParams }: { params: 
   const idx = candidates.findIndex((c) => c.id === Number(cid)); if (idx < 0) notFound();
   const c = candidates[idx];
   const h = householdFromParams(sp); const complete = householdComplete(h);
-  const mine = claimsFor(c, claims);
+  // Own words, else the party's national policy on that topic, labelled (lib/partyPolicy.ts).
+  const national = isHeld(ballot.poll_date) ? null : await nationalPartyClaims();
+  const onTopic = Object.fromEntries(TOPICS.map(([k]) => [k, candidateOnTopic(c, claims, national, k)]));
+  const mine = TOPICS.flatMap(([k]) => onTopic[k].list);
   const applying = complete ? mine.filter((cl) => claimApplies(cl.applies_if, h)) : mine;
   const qs = new URLSearchParams(Object.entries(sp).filter(([, v]) => typeof v === "string") as [string, string][]).toString();
   const colour = c.parties?.colour_hex ?? null;
@@ -57,7 +60,7 @@ export default async function CandidatePage({ params, searchParams }: { params: 
   const statement = c.statement_to_voters ?? "";
   const topicLabel = Object.fromEntries(TOPICS);
   const isLocal = ballot.level === "local";
-  const order = topicsForHousehold(h).all;
+  const order = topicsForHousehold(h, (k) => applying.some((cl) => cl.topic === k)).all;
   return (
     <>
       {/* The same structured data for every candidate (lib/schema.ts): who they are, what they are standing for, their place on the ballot paper. */}
@@ -109,8 +112,9 @@ export default async function CandidatePage({ params, searchParams }: { params: 
             const map = MAP_LAYER[k];
             return (
               <details key={k} className={`topic-card${list.length ? "" : " empty"}`} data-scale={scale}>
-                <summary><span className="tc-title">{TOPIC_SHORT[k] ?? t}</span>{list.length ? (complete && list.some((cl) => whenText(cl.applies_if))) ? <span className="tc-tag applies">Applies to you</span> : <span className="tc-unit">Published</span> : <span className="tc-unit">Nothing found</span>}</summary>
+                <summary><span className="tc-title">{TOPIC_SHORT[k] ?? t}</span>{list.length ? (complete && list.some((cl) => whenText(cl.applies_if))) ? <span className="tc-tag applies">Applies to you</span> : <span className="tc-unit">{onTopic[k].national ? "Party policy" : "Published"}</span> : <span className="tc-unit">Nothing found</span>}</summary>
                 <div className="tc-body">
+                  {list.length && onTopic[k].national ? <p className="cc-label">{c.name} hasn&rsquo;t published anything themselves on this that we could find. {nationalLabel(c)}:</p> : null}
                   {list.length ? list.map((cl) => <Layered key={cl.id} c={cl} applies={complete && Boolean(whenText(cl.applies_if)) && claimApplies(cl.applies_if, h)} />) : <p className="small">Nothing published that we could source on {topicLabel[k].toLowerCase()}. That means nothing found, not nothing to say.</p>}
                   {map ? <p className="on-map"><Link href={`/ballot/${encodeURIComponent(ballotId)}/area${qs ? `?${qs}` : ""}#map`}><svg viewBox="0 0 24 24" aria-hidden><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3zM9 3v15M15 6v15" /></svg>On the map: {map} near you</Link></p> : null}
                 </div>

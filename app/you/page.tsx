@@ -15,6 +15,7 @@ import { topicsForHousehold } from "@/lib/topicOrder";
 import { councilSlugFor, registerRows } from "@/lib/councils";
 import { longDate } from "@/lib/dates";
 import { layerKey } from "@/lib/claims";
+import { candidateOnTopic, isHeld, nationalLabel, nationalPartyClaims } from "@/lib/partyPolicy";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Your politics", robots: { index: false } };
@@ -80,6 +81,20 @@ export default async function You({ searchParams }: { searchParams: Promise<Reco
     for (const c of (lc ?? []) as unknown as Row[]) {
       const who = c.candidate_id ? label.get(c.candidate_id) : undefined;
       if (who) positions.push({ id: c.id, scale: "local", party: who, topic: c.topic, quote: c.source_quote, summary: c.claim_text, source: c.sources?.title ?? "", url: c.sources?.url ?? "", published: c.sources?.published_on ?? null, kind: layerKey({ ...c, applies_if: null }) });
+    }
+    // Round six decision (option 4): where a candidate has published nothing on a topic, their party's national policy,
+    // labelled as such (Romily, 29 Oct: the Emsworth cards were promoted to the top and then empty). lib/partyPolicy.ts.
+    if (!isHeld(ballot.poll_date)) {
+      const national = await nationalPartyClaims();
+      for (const cand of cands) {
+        const who = label.get(cand.id)!;
+        for (const t of TOPICS.map(([k]) => k as string)) {
+          if (positions.some((p) => p.scale === "local" && p.party === who && p.topic === t)) continue;
+          const { list, national: isNational } = candidateOnTopic(cand, [], national, t);
+          if (!isNational) continue;
+          for (const c of list) positions.push({ id: c.id, scale: "local", party: who, topic: c.topic, quote: c.source_quote, summary: c.claim_text, source: c.sources?.title ?? "", url: c.sources?.url ?? "", published: c.sources?.published_on ?? null, kind: layerKey(c), national: nationalLabel(cand) });
+        }
+      }
     }
   }
 

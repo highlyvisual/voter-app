@@ -85,8 +85,11 @@ export type AppClaim = {
 };
 
 // A party on this ballot. colour is the party's own colour, for its own material only; ink is black or white, whichever
-// reads on it. claims are its verified party-level claims for this ballot.
-export type AppParty = { ec_id: string; name: string; colour: string | null; ink: "#000000" | "#ffffff" | null; claims: AppClaim[] };
+// reads on it. claims are its verified party-level claims for this ballot. national_claims (optional, 29 Oct 2026): the
+// party's national policy from its own documents, whatever ballot they were read for; served for elections still to
+// come. Show one only on a topic where the candidate has nothing of their own and claims has nothing, always labelled
+// "[Party]'s national policy, not [candidate]'s own commitment".
+export type AppParty = { ec_id: string; name: string; colour: string | null; ink: "#000000" | "#ffffff" | null; claims: AppClaim[]; national_claims?: AppClaim[] };
 
 // A candidate, in ballot-paper order (position 1 first). party_ec_id is the party whose claims apply (a joint candidacy
 // takes its parent party's). photo_url is for the candidate's own screen only (Romily, round five). claims are the

@@ -5,6 +5,8 @@ import wider from "@/lib/widerBodies.json";
 import { councilSlugFor } from "@/lib/councils";
 import chain from "@/lib/decision-chain.json";
 import { authorityByCode, type Authority } from "@/lib/authorities";
+import { LIFE_AREAS, areaResponsible, lpaAt, type PlaceFacts } from "@/lib/lifeAreas";
+import { Icon } from "@/components/LifeAreaIcon";
 // Round ten q3: each combined authority and the GLA has its own page; the chain step for it links there.
 const authLink = (a: Authority | null) => (a ? { href: `/authority/${a.slug}`, text: a.kind === "gla" ? "The Mayor of London, and what the GLA decides" : `${a.mayoral ? "The mayor, and w" : "W"}hat ${a.name} combined authority decides` } : undefined);
 // Everyone who represents this postcode, layer by layer. Areas overlap rather than nest: a postcode has one MP, one or
@@ -34,6 +36,10 @@ export default async function Layers({ lat, lng, electionCouncil }: { lat: numbe
   // the DEA they sit in ("Botanic_Q"), and postcodes.io gives the zone, so the DEA is its name without the letter.
   // Checked against Open Council Data's DEA names: 48 of 48 random NI postcodes, all 11 councils.
   const niDea = pc.country === "Northern Ireland" ? (pc.lsoa21?.match(/^(.*)_[A-Z]{1,2}$/)?.[1].replace(/_/g, " ") ?? null) : null;
+  // Round eleven (Romily, 29 Oct: "those categories could be used under who makes decisions where you live - to make
+  // it more layered"): the map's five life areas first, each with who is responsible for it at this address, simple
+  // first and one tap for the roles and sources (lib/lifeAreas.ts, the same lines as the map's pop-ups).
+  const facts: PlaceFacts = { country: pc.country, district: pc.admin_district, county: pc.admin_county, lad, parish: pc.parish, pfa: pc.pfa, lpa: pc.country === "England" ? await lpaAt(lat, lng) : null };
   const [mp, district, county] = await Promise.all([
     pc.parliamentary_constituency ? currentMp(pc.parliamentary_constituency) : Promise.resolve(null),
     cllrs(pc.admin_district, niDea ?? pc.admin_ward),
@@ -92,6 +98,28 @@ export default async function Layers({ lat, lng, electionCouncil }: { lat: numbe
       <h2 id="layers-heading">Who makes decisions where you live?</h2>
       <p className="meta">Your address sits inside several areas at once, each with different people and different powers. From the most local to the most national{electionCouncil ? "; the one this election is for is marked" : ""}. Bodies nobody votes for are shown too, marked "Not elected".</p>
       <p className="small"><Link href={`/explore/housing?pc=${encodeURIComponent(pc.postcode.split(" ")[0])}&loc=${lat.toFixed(3)},${lng.toFixed(3)}`}>Housing here: who decides what, from your front door to Parliament &rarr;</Link></p>
+      <ul className="la-groups">
+        {LIFE_AREAS.map((a) => {
+          const who = areaResponsible(a.key, facts);
+          const bodies = [...new Set(who.map((r) => r.body))];
+          return (
+            <li key={a.key} className={`la-group wa-card wa-${a.key}`}>
+              <details>
+                <summary>
+                  <span className="wa-ico"><Icon k={a.key} size={18} /></span>
+                  <span className="la-text"><span className="la-title">{a.title}</span><span className="la-who">{bodies.join(" · ")}</span></span>
+                </summary>
+                <ul className="la-roles">
+                  {who.map((r) => (
+                    <li key={`${r.role}|${r.body}`}><strong>{r.role}:</strong> {r.body}.{r.note ? <> <span className="meta">{r.note}</span></> : null} <span className="meta">Source: <a href={r.src[1]} rel="noopener">{r.src[0]}</a></span></li>
+                  ))}
+                </ul>
+              </details>
+            </li>
+          );
+        })}
+      </ul>
+      <h3 className="la-chain-h">Everyone who represents this address</h3>
       <ol className="chain">
         {steps.map((r) => (
           <li key={`${r.layer} ${r.area}`} className={`chain-step${r.now ? " now" : ""}${r.unelected ? " unelected" : ""}`}>

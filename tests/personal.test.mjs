@@ -22,7 +22,17 @@ test("religions are named only by their own words", () => {
 });
 
 test("'transport' is not a mention of trans people", () => {
-  assert.deepEqual(tier({ trans: "trans" }, [rail]), [0, 0]);
+  assert.deepEqual(tier({ gender: "non_binary" }, [rail]), [0, 0]);
+});
+
+const women = { quote: "Our landmark mission to halve violence against women and girls in a decade will require a national effort." };
+test("'Prefer not to say' is kept as an answer and matches nothing", () => {
+  assert.deepEqual(personalMatchers({ sex: "prefer_not", gender: "prefer_not", ethnicity: "prefer_not", religion: "prefer_not", orientation: "prefer_not" }), []);
+});
+test("sex Female and gender Woman name women once, not twice", () => {
+  const ms = personalMatchers({ sex: "female", gender: "woman" });
+  assert.equal(ms.length, 1);
+  assert.deepEqual(tier({ gender: "woman" }, [women]), [1, 0]);
 });
 
 test("unknown or missing answers match nothing", () => {

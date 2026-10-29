@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import Journey, { JourneyNext } from "@/components/Journey";
 import ProfileApply from "@/components/ProfileApply";
-import { claimsFor } from "@/components/CandidateCard";
+import { candidateOnTopic, isHeld, nationalPartyClaims } from "@/lib/partyPolicy";
 import { getBallot, listCandidates, listVerifiedClaims } from "@/lib/data";
 import { claimApplies, householdComplete, householdFromParams } from "@/lib/household";
 export const dynamic = "force-dynamic";
@@ -18,13 +18,13 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 export default async function Stakes({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const { id } = await params; const sp = await searchParams; const ballotId = decodeURIComponent(id);
   const ballot = await getBallot(ballotId); if (!ballot) notFound();
-  const [candidates, claims] = await Promise.all([listCandidates(ballotId), listVerifiedClaims(ballotId)]);
+  const [candidates, claims, national] = await Promise.all([listCandidates(ballotId), listVerifiedClaims(ballotId), isHeld(ballot.poll_date) ? Promise.resolve(null) : nationalPartyClaims()]);
   const h = householdFromParams(sp); const complete = householdComplete(h);
   const qs = new URLSearchParams(Object.entries(sp).filter(([, v]) => typeof v === "string") as [string, string][]).toString();
   const topicCard = (k: string) => {
-    const relevant = claims.filter((c) => c.topic === k && claimApplies(c.applies_if, h));
-    const who = candidates.filter((c) => claimsFor(c, relevant).length > 0);
-    return { n: relevant.length, who: who.length };
+    // Each candidate's own words, or else their party's national policy (lib/partyPolicy.ts).
+    const per = candidates.map((c) => candidateOnTopic(c, claims, national, k)).map((r) => ({ ...r, list: r.list.filter((c) => claimApplies(c.applies_if, h)) }));
+    return { n: per.reduce((a, r) => a + r.list.length, 0), who: per.filter((r) => r.list.length).length, own: per.filter((r) => r.list.length && !r.national).length };
   };
   const tenureText: Record<string, string> = { private_rent: "You rent privately.", social_rent: "You rent from a council or housing association.", own_mortgage: "You own with a mortgage.", own_outright: "You own outright." };
   const cards: { key: string; title: string; lead: string; topic: string }[] = [
@@ -39,7 +39,7 @@ export default async function Stakes({ params, searchParams }: { params: Promise
     { key: "world", title: "Defence, the world and the EU", lead: "Armed forces, Ukraine, Europe, trade.", topic: "defence_foreign_affairs_and_eu" },
     { key: "rights", title: "Equality and rights", lead: "Discrimination law, disability rights, sex and gender.", topic: "equality_and_rights" },
   ];
-  const order = topicsForHousehold(h);
+  const order = topicsForHousehold(h, (t) => topicCard(t).n > 0);
   const reason = Object.fromEntries(order.relevant.map((r) => [r.topic, r.reason])) as Record<string, string>;
   const rank = Object.fromEntries(order.all.map((r, i) => [r.topic, i])) as Record<string, number>;
   cards.sort((a, b) => rank[a.topic] - rank[b.topic]);
@@ -58,7 +58,7 @@ export default async function Stakes({ params, searchParams }: { params: Promise
             <Link key={c.key} href={`/ballot/${encodeURIComponent(ballotId)}/topic/${c.topic}${qs ? `?${qs}` : ""}`} className={`stake${s.n ? "" : " empty"}`}>
               <span className="stake-title">{c.title}</span>
               {reason[c.topic] ? <span className="meta stake-why">First {reason[c.topic]}</span> : null}
-              <span className="stake-unit">{s.n ? "Published positions to compare" : "Nobody has published on this yet"}</span>
+              <span className="stake-unit">{!s.n ? "Nobody has published on this yet" : s.own ? "Published positions to compare" : "Party national policy to compare"}</span>
               <span className="stake-lead">{c.lead}</span>
               <span className="stake-go">{s.n ? `Compare them →` : `See the topic →`}</span>
             </Link>

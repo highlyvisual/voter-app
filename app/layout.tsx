@@ -9,6 +9,7 @@ import "./r10-claims.css";
 import "./r10-council.css";
 import "./r10-authorities.css";
 import "./r11-your-home.css";
+import "./r11-map.css";
 import JsonLd from "@/components/JsonLd";
 import { siteGraph } from "@/lib/schema";
 import { SITE } from "@/lib/site";

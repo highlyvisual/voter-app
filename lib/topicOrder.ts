@@ -31,10 +31,12 @@ const REASONS: [Topic, (h: Household) => string | null][] = [
   ["defence_foreign_affairs_and_eu", (h) => (h.veteran === "yes" ? "because you told us you're a veteran" : null)],
 ];
 
-export function topicsForHousehold(h: Household): { relevant: TopicReason[]; all: TopicReason[] } {
+// `has`, where the page knows it, says whether there is anything to show on a topic. A topic with nothing is never put
+// first: no "First because you told us…" over an empty card (Romily, 29 Oct).
+export function topicsForHousehold(h: Household, has?: (t: Topic) => boolean): { relevant: TopicReason[]; all: TopicReason[] } {
   const label = Object.fromEntries(TOPICS) as Record<Topic, string>;
   const reasons = new Map<Topic, string>();
-  for (const [t, f] of REASONS) { const r = f(h); if (r) reasons.set(t, r); }
+  for (const [t, f] of REASONS) { const r = f(h); if (r && (!has || has(t))) reasons.set(t, r); }
   const relevant: TopicReason[] = REASONS.filter(([t]) => reasons.has(t)).map(([t]) => ({ topic: t, label: label[t], reason: reasons.get(t)! }));
   const rest: TopicReason[] = TOPICS.filter(([t]) => !reasons.has(t)).map(([t, l]) => ({ topic: t, label: l, reason: null }));
   return { relevant, all: [...relevant, ...rest] };

@@ -2,6 +2,7 @@ import { TOPIC_SHORT } from "@/lib/data";
 import { getBallot, listCandidates, listVerifiedClaims, TOPICS } from "@/lib/data";
 import { claimApplies, householdComplete, householdFromParams, type Household } from "@/lib/household";
 import { claimsFor } from "@/components/CandidateCard";
+import { candidateOnTopic, isHeld, nationalPartyClaims } from "@/lib/partyPolicy";
 import { topicsForHousehold } from "@/lib/topicOrder";
 
 // One plain data object for the two journey prototypes (Romily, round 5, q6), so both draw on exactly the same facts.
@@ -16,18 +17,19 @@ const SHORT = TOPIC_SHORT;
 
 export async function loadJourney(ballotId: string, sp: Record<string, string | string[] | undefined>): Promise<JourneyData | null> {
   const ballot = await getBallot(ballotId); if (!ballot) return null;
-  const [candidates, claims] = await Promise.all([listCandidates(ballotId), listVerifiedClaims(ballotId)]);
+  const [candidates, claims, national] = await Promise.all([listCandidates(ballotId), listVerifiedClaims(ballotId), isHeld(ballot.poll_date) ? Promise.resolve(null) : nationalPartyClaims()]);
+  // Own words, else the party's national policy on the topic (lib/partyPolicy.ts).
+  const onTopic = (c: (typeof candidates)[number], t: string) => candidateOnTopic(c, claims, national, t).list.filter((cl) => claimApplies(cl.applies_if, household));
   const household = householdFromParams(sp); const complete = householdComplete(household);
   const qs = new URLSearchParams(Object.entries(sp).filter(([k, v]) => typeof v === "string" && k !== "s") as [string, string][]).toString();
   const today = new Date().toISOString().slice(0, 10);
   const days = Math.max(0, Math.round((new Date(ballot.poll_date + "T00:00:00Z").getTime() - new Date(today + "T00:00:00Z").getTime()) / 86400000));
   const [council, place] = ballot.area_name.includes(":") ? ballot.area_name.split(":").map((x) => x.trim()) : [null, ballot.area_name];
-  const order = topicsForHousehold(household);
+  const order = topicsForHousehold(household, (t) => candidates.some((c) => onTopic(c, t).length > 0));
   const label = Object.fromEntries(TOPICS) as Record<string, string>;
   const topics = order.all.map((t) => {
-    const relevant = claims.filter((c) => c.topic === t.topic && claimApplies(c.applies_if, household));
-    const who = candidates.filter((c) => claimsFor(c, relevant).length > 0).length;
-    return { topic: t.topic, label: label[t.topic], short: SHORT[t.topic] ?? t.label, reason: t.reason, n: relevant.length, who };
+    const per = candidates.map((c) => onTopic(c, t.topic).length);
+    return { topic: t.topic, label: label[t.topic], short: SHORT[t.topic] ?? t.label, reason: t.reason, n: per.reduce((a, b) => a + b, 0), who: per.filter(Boolean).length };
   });
   return {
     ballot: { id: ballotId, area: ballot.area_name, council, place: (place ?? ballot.area_name).replace(/\s+ward$/i, ""), date: ballot.poll_date, dateText: new Date(ballot.poll_date + "T00:00:00Z").toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" }), days, level: ballot.level, seats: ballot.winner_count, system: ballot.voting_system, lat: ballot.area_lat, lng: ballot.area_lng, gss: ballot.area_gss },

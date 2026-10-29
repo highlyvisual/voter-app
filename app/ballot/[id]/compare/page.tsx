@@ -1,7 +1,7 @@
 import { ballotPageTitle } from "@/lib/meta";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { claimsFor } from "@/components/CandidateCard";
+import { candidateOnTopic, isHeld, nationalPartyClaims } from "@/lib/partyPolicy";
 import BlindRead from "@/components/BlindRead";
 import ScrollHint from "@/components/ScrollHint";
 import ViewMode from "@/components/ViewMode";
@@ -26,11 +26,13 @@ export default async function ComparePage({ params, searchParams }: Props) {
   if (!ballot) notFound();
   const household = householdFromParams(sp);
   const complete = householdComplete(household);
-  const [candidates, claims] = await Promise.all([listCandidates(ballotId), listVerifiedClaims(ballotId)]);
+  const [candidates, claims, national] = await Promise.all([listCandidates(ballotId), listVerifiedClaims(ballotId), isHeld(ballot.poll_date) ? Promise.resolve(null) : nationalPartyClaims()]);
+  // Own words, else the party's national policy on the topic, labelled (lib/partyPolicy.ts).
+  const claimsFor = (c: (typeof candidates)[number]) => TOPICS.flatMap(([k]) => candidateOnTopic(c, claims, national, k).list);
 
   // Which candidates to show: ?c=id,id,… ; default = everyone with at least one published position, in ballot order.
   const requested = typeof sp.c === "string" ? sp.c.split(",").map(Number).filter(Boolean) : [];
-  const withAny = candidates.filter((c) => claimsFor(c, claims).length > 0).map((c) => c.id);
+  const withAny = candidates.filter((c) => claimsFor(c).length > 0).map((c) => c.id);
   const chosen = requested.length ? requested : candidates.map((c) => c.id); // every candidate by default (WP-A1)
   const topicTab = typeof sp.topic === "string" && TOPICS.some(([k]) => k === sp.topic) ? sp.topic : "";
   const rowsToShow = topicTab ? TOPICS.filter(([k]) => k === topicTab) : TOPICS;
@@ -54,7 +56,7 @@ export default async function ComparePage({ params, searchParams }: Props) {
             {candidates.map((c) => (
               <label key={c.id} className="small" style={{ display: "flex", gap: "0.5rem", alignItems: "baseline" }}>
                 <input type="checkbox" name="c" value={c.id} defaultChecked={chosen.includes(c.id)} />
-                <span><b>{c.name}</b> <span className="muted">{partyLabel(c)}</span>{claimsFor(c, claims).length === 0 ? <span className="muted"> · nothing published</span> : null}</span>
+                <span><b>{c.name}</b> <span className="muted">{partyLabel(c)}</span>{claimsFor(c).length === 0 ? <span className="muted"> · nothing published</span> : null}</span>
               </label>
             ))}
           </div>
@@ -67,7 +69,7 @@ export default async function ComparePage({ params, searchParams }: Props) {
 
       <nav className="topic-tabs" aria-label="Compare one topic at a time">
         <Link prefetch={false} href={`/ballot/${encodeURIComponent(ballotId)}/compare${tabQs("")}`} aria-current={!topicTab ? "page" : undefined}>All topics</Link>
-        {topicsForHousehold(household).all.map(({ topic: k, label: l, reason }) => <Link prefetch={false} key={k} href={`/ballot/${encodeURIComponent(ballotId)}/compare${tabQs(k)}`} aria-current={topicTab === k ? "page" : undefined} title={reason ? `First ${reason}` : undefined}>{l.split(",")[0].replace(" and cost of living", "")}</Link>)}
+        {topicsForHousehold(household, (k) => candidates.some((c) => candidateOnTopic(c, claims, national, k).list.length > 0)).all.map(({ topic: k, label: l, reason }) => <Link prefetch={false} key={k} href={`/ballot/${encodeURIComponent(ballotId)}/compare${tabQs(k)}`} aria-current={topicTab === k ? "page" : undefined} title={reason ? `First ${reason}` : undefined}>{l.split(",")[0].replace(" and cost of living", "")}</Link>)}
       </nav>
       <p className="meta">No winner, no score, no match. Switch topics and decide for yourself which differences matter.</p>
       <ScrollHint>
@@ -90,7 +92,7 @@ export default async function ComparePage({ params, searchParams }: Props) {
               <tr key={key}>
                 <th scope="row" id={`row-${key}`}><Link href={`/ballot/${encodeURIComponent(ballotId)}/topic/${key}${hhQs ? `?${hhQs}` : ""}`}>{label}</Link></th>
                 {cols.map((c) => {
-                  const mine = claimsFor(c, claims).filter((cl) => cl.topic === key);
+                  const { list: mine, national: isNational } = candidateOnTopic(c, claims, national, key);
                   const { shown, hidden } = splitForHousehold(mine, household, complete, claimApplies);
                   return (
                     <td key={c.id} data-candidate={`${candidates.indexOf(c) + 1}. ${c.name} — ${c.parties?.name ?? c.party_name_on_ballot}`}>
@@ -98,6 +100,7 @@ export default async function ComparePage({ params, searchParams }: Props) {
                         <span className="empty">{mine.length ? `${mine.length} only for other households` : "—"}</span>
                       ) : (
                         <ul>
+                          {isNational ? <li className="meta cc-label">Party&rsquo;s national policy, not {c.name}&rsquo;s own commitment</li> : null}
                           {shown.slice(0, 3).map((cl) => (
                             <li key={cl.id}>
                               <details className="cell">

@@ -1,4 +1,5 @@
 import { topicsForHousehold } from "@/lib/topicOrder";
+import { candidateOnTopic, nationalLabel } from "@/lib/partyPolicy";
 import { TOPICS, TOPIC_SHORT, effectivePartyId, type Candidate, type Claim, type ReceiptRow } from "@/lib/data";
 import { claimApplies, modelCaveat, type Household } from "@/lib/household";
 import { layerOf, precisionLabel, splitForHousehold } from "@/lib/claims";
@@ -76,8 +77,8 @@ export function claimsFor(candidate: Candidate, claims: Claim[]) {
 }
 
 export default async function CandidateCard({
-  candidate, position, claims, receipts, household, complete, baselineId = "baseline", invitation = null, level = "parliamentary", areaName = "", councilSiteUrl = null, leaflets = [], pollDate = null, stoodBefore = [],
-}: { candidate: Candidate; position: number; claims: Claim[]; receipts: ReceiptRow[]; household: Household; complete: boolean; baselineId?: string; invitation?: InvitationStatus | null; level?: string; areaName?: string; councilSiteUrl?: string | null; leaflets?: Leaflet[]; pollDate?: string | null; stoodBefore?: PreviousCandidacy[] }) {
+  candidate, position, claims, receipts, household, complete, baselineId = "baseline", invitation = null, level = "parliamentary", areaName = "", councilSiteUrl = null, leaflets = [], pollDate = null, stoodBefore = [], national = null,
+}: { national?: Map<string, Claim[]> | null; candidate: Candidate; position: number; claims: Claim[]; receipts: ReceiptRow[]; household: Household; complete: boolean; baselineId?: string; invitation?: InvitationStatus | null; level?: string; areaName?: string; councilSiteUrl?: string | null; leaflets?: Leaflet[]; pollDate?: string | null; stoodBefore?: PreviousCandidacy[] }) {
   const campaignStart = pollDate ? new Date(new Date(pollDate + "T00:00:00Z").getTime() - 60 * 86400000).toISOString().slice(0, 10) : null;
   const current = leaflets.filter((l) => campaignStart && (l.date_uploaded ?? "") >= campaignStart);
   const earlier = leaflets.filter((l) => !(campaignStart && (l.date_uploaded ?? "") >= campaignStart));
@@ -90,14 +91,16 @@ export default async function CandidateCard({
     if (extras) record.extras = extras;
     record.divisions = splits;
   }
-  const mine = claimsFor(candidate, claims);
+  // Own words and this ballot's party words; topic by topic, the party's national policy where there are none.
+  const onTopic = Object.fromEntries(TOPICS.map(([key]) => [key, candidateOnTopic(candidate, claims, national, key)]));
+  const mine = TOPICS.flatMap(([key]) => onTopic[key].list);
   const verifiedSourceIds = new Set(mine.map((c) => c.sources?.id).filter((x): x is number => typeof x === "number"));
   const partyColour = candidate.parties?.colour_hex ?? null; // only ever on this candidate's own panel, labels and positions
   const partyLabel = candidate.party_description_on_ballot && candidate.party_description_on_ballot !== "[blank]" ? candidate.party_description_on_ballot : candidate.party_name_on_ballot;
   const perTopic = TOPICS.map(([key]) => {
-    const relevant = mine.filter((c) => c.topic === key);
+    const relevant = onTopic[key].list;
     const { shown, hidden } = splitForHousehold(relevant, household, complete, claimApplies);
-    return { key, relevant, applying: shown, hidden };
+    return { key, relevant, applying: shown, hidden, national: onTopic[key].national };
   });
   const total = perTopic.reduce((n, t) => n + t.applying.length, 0);
 
@@ -191,7 +194,7 @@ export default async function CandidateCard({
           {total === 0 && perTopic.every((t) => t.relevant.length === 0) ? (
             <ActionBlock level={level} areaName={areaName} councilSiteUrl={councilSiteUrl} partySiteUrl={candidate.parties?.official_site_url} />
           ) : (
-            <div className="topics">{topicsForHousehold(household).all.map(({ topic: key, label, reason }) => {
+            <div className="topics">{topicsForHousehold(household, (k) => perTopic.some((t) => t.key === k && t.applying.length > 0)).all.map(({ topic: key, label, reason }) => {
               const t = perTopic.find((x) => x.key === key)!;
               return (
                 <div className="topic" key={key} data-topic={key}>
@@ -202,7 +205,7 @@ export default async function CandidateCard({
                     <p className="empty">{t.relevant.length} published {t.relevant.length === 1 ? "position" : "positions"}; none applies to this household.</p>
                   ) : (
                     <>
-                      {([["own", "What this candidate says"], ["record", "What was done in office"], ["party", "What their party says"]] as [string, string][]).map(([g, gl]) => {
+                      {([["own", "What this candidate says"], ["record", "What was done in office"], ["party", t.national ? nationalLabel(candidate) : "What their party says"]] as [string, string][]).map(([g, gl]) => {
                         const inGroup = t.applying.filter((c) => (c.candidate_id !== null ? "own" : layerKey(c) === "enacted_record" ? "record" : "party") === g);
                         if (!inGroup.length) return null;
                         return (

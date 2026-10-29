@@ -21,8 +21,8 @@ const EXTRA_ASK: Record<string, string> = {
 const ABOUT_ASK: Record<string, string> = {
   ethnicity: 'Which ethnic group are you?',
   religion: 'What is your religion, if any?',
-  sex: 'What is your sex?',
-  trans: 'Is the gender you identify with the same as your sex registered at birth?',
+  sex: 'What sex were you registered at birth?',
+  gender: 'What is your gender?',
   orientation: 'What is your sexual orientation?',
 };
 // The website's reason, first sentence, then what the app does with it: only positions whose own words name the group.

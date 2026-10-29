@@ -5,7 +5,7 @@ import { savedAtText } from '@/core/api';
 import { useStore } from '@/core/store';
 import { F, TAP, usePalette } from '@/core/theme';
 import { useBallot } from '@/core/useBallot';
-import { ClaimGroup } from '@/components/claims';
+import { ClaimGroup, candidateOnTopic } from '@/components/claims';
 import { CurrentLaw, PledgeReceipt } from '@/components/money';
 import { Eyebrow } from '@/components/nextVote';
 import { Banner, ErrorState, Loading, Screen, Small, haptic, s } from '@/components/ui';
@@ -36,7 +36,7 @@ export default function TopicScreen() {
           {money ? <CurrentLaw receipts={b.receipts} household={household} complete={complete} /> : null}
           {b.candidates.map((k) => {
             const party = k.party_ec_id ? b.parties.find((p) => p.ec_id === k.party_ec_id) : undefined;
-            const list = [...k.claims, ...(party?.claims ?? [])].filter((x) => x.topic === topic);
+            const { list, label } = candidateOnTopic(k, party, String(topic));
             return (
               <View key={k.id} style={{ backgroundColor: c.panel, borderRadius: 20, borderWidth: 1, borderColor: c.line, padding: 16, gap: 6 }}>
                 <Pressable onPress={() => { haptic.choose(); router.push({ pathname: '/elections/[ballotId]/candidate/[candidateId]', params: { ballotId, candidateId: String(k.id) } }); }}
@@ -47,7 +47,7 @@ export default function TopicScreen() {
                     <Text style={{ fontFamily: F.semi, fontSize: 12, color: party?.colour ? (party.ink ?? '#000000') : c.muted }}>{k.party_label || 'Independent'}</Text>
                   </View>
                 </Pressable>
-                <ClaimGroup claims={list} household={household} complete={complete} personal={personal} emptyText="No published position found yet." />
+                <ClaimGroup claims={list} label={label} household={household} complete={complete} personal={personal} emptyText="No published position found yet." />
                 {money ? <PledgeReceipt receipts={b.receipts} partyEcId={k.party_ec_id} household={household} complete={complete} /> : null}
               </View>
             );
