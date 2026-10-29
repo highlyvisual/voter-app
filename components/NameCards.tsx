@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { TOPIC_SHORT, type Candidate, type Claim } from "@/lib/data";
+import { TOPICS, TOPIC_SHORT, type Candidate, type Claim } from "@/lib/data";
+import { candidateOnTopic } from "@/lib/partyPolicy";
 import { claimApplies, type Household } from "@/lib/household";
 import { claimsFor } from "@/components/CandidateCard";
 import { partyFill, partyVars } from "@/lib/partyColour";
@@ -17,7 +18,7 @@ function firstSentence(text: string | null | undefined): string | null {
   return s.length < t.length && !m ? `${s.replace(/\s+\S*$/, "")}…` : s;
 }
 
-export default function NameCards({ ballotId, candidates, claims, household, complete, qs }: { ballotId: string; candidates: Candidate[]; claims: Claim[]; household: Household; complete: boolean; qs: string }) {
+export default function NameCards({ ballotId, candidates, claims, household, complete, qs, national = null }: { ballotId: string; candidates: Candidate[]; claims: Claim[]; household: Household; complete: boolean; qs: string; national?: Map<string, Claim[]> | null }) {
   return (
     <section className="name-cards" id="ballot-paper" aria-labelledby="names-h">
       <h2 id="names-h">The {candidates.length === 1 ? "candidate" : `${candidates.length} on your paper`} <span className="names-sub">in the order you&rsquo;ll see them</span></h2>
@@ -33,6 +34,8 @@ export default function NameCards({ ballotId, candidates, claims, household, com
           const low = (t: string) => { const l = TOPIC_SHORT[t] ?? t; return l.charAt(0).toLowerCase() + l.slice(1); };
           const topics = [...new Set((byYou ? specific : mine).map((cl) => cl.topic))].map(low);
           const words = firstSentence(c.statement_to_voters);
+          // Nothing of their own: say so, and that their party's national policy is on their page (lib/partyPolicy.ts).
+          const partyOnly = !mine.length && TOPICS.some(([k]) => candidateOnTopic(c, claims, national, k).national);
           const href = `/ballot/${encodeURIComponent(ballotId)}/candidate/${c.id}${qs ? `?${qs}` : ""}`;
           return (
             <li key={c.id} className={`name-card${colour ? " party-scope" : ""}`} style={partyVars(colour)}>
@@ -40,7 +43,7 @@ export default function NameCards({ ballotId, candidates, claims, household, com
               <h3 className="nc-name"><Link href={href} className="card-link">{c.name}</Link></h3>
               {words ? <p className="nc-words">&ldquo;{words}&rdquo;</p> : <p className="nc-words none">No statement supplied{mine.length ? "; the published positions are shown on their page" : ""}.</p>}
               <p className="nc-foot">
-                <span className="nc-topics">{topics.length ? `${byYou ? "Applies to you on" : "Published on"}: ${topics.slice(0, 3).join(", ")}${topics.length > 3 ? " and more" : ""}` : "Nothing published that we could source yet"}</span>
+                <span className="nc-topics">{topics.length ? `${byYou ? "Applies to you on" : "Published on"}: ${topics.slice(0, 3).join(", ")}${topics.length > 3 ? " and more" : ""}` : partyOnly ? "Nothing of their own found yet; their party\u2019s national policy is on their page" : "Nothing published that we could source yet"}</span>
                 <span className="nc-go" aria-hidden>What&rsquo;s it to me? &rarr;</span>
               </p>
             </li>

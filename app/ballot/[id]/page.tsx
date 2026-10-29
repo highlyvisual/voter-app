@@ -159,7 +159,7 @@ export default async function BallotPage({ params, searchParams }: Props) {
         </aside>
       </div>
 
-      {candidates.length ? <NameCards ballotId={ballotId} candidates={candidates} claims={claims} household={household} complete={complete} qs={qs} /> : null}
+      {candidates.length ? <NameCards national={national} ballotId={ballotId} candidates={candidates} claims={claims} household={household} complete={complete} qs={qs} /> : null}
 
       <SectionNav items={([["ballot-paper", "Candidates"], ["household", "Household"], ["compare", "Compare"], ["map", "Map"], ["area", "Area"], ["sources-heading", "Sources"]] as [string, string][]).filter(([id]) => !(ballot.archived && id === "area"))} />
 

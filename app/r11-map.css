@@ -1,0 +1,139 @@
+/* Round eleven: the map's "What's around you?" (Romily's design, 29 Oct 2026), components/AreaMap.tsx.
+   Five life areas, each a pale tint with a darker accent for its icon and switch, chosen unlike any party's colour and
+   unlike each other (checked with CIEDE2000 against every party colour on the site; see lib/lifeAreas.ts). Dark mode
+   has its own deep tints (the earlier dark map key was too bright). Touch targets 44px or more. */
+:root {
+  --wa-safety: #4a5a68; --wa-safety-tint: #edf0f3;
+  --wa-homes: #8a5a3b; --wa-homes-tint: #f8ede4;
+  --wa-environment: #55663a; --wa-environment-tint: #eef2e6;
+  --wa-transport: #9a4d65; --wa-transport-tint: #f8eaef;
+  --wa-education: #7a6a9e; --wa-education-tint: #f0edf7;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --wa-safety: #9fb0bf; --wa-safety-tint: #1f262c;
+    --wa-homes: #d9a98a; --wa-homes-tint: #2e231b;
+    --wa-environment: #b3c48f; --wa-environment-tint: #232a1c;
+    --wa-transport: #e0a3b6; --wa-transport-tint: #2f1f26;
+    --wa-education: #b9a9de; --wa-education-tint: #252131;
+  }
+}
+:root[data-theme="dark"] {
+  --wa-safety: #9fb0bf; --wa-safety-tint: #1f262c;
+  --wa-homes: #d9a98a; --wa-homes-tint: #2e231b;
+  --wa-environment: #b3c48f; --wa-environment-tint: #232a1c;
+  --wa-transport: #e0a3b6; --wa-transport-tint: #2f1f26;
+  --wa-education: #b9a9de; --wa-education-tint: #252131;
+}
+
+/* Leaflet's own layers (z-index 400 and up) stay inside the map, under the sticky header. */
+.map-frame { isolation: isolate; }
+/* The floating hint on the map, top right (zoom stays top left). */
+.wa-hint { position: absolute; top: 10px; right: 10px; z-index: 600; margin: 0; max-width: calc(100% - 70px); display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.35rem 0.65rem; border-radius: 999px; background: var(--panel); border: 1px solid var(--rule); box-shadow: var(--shadow);
+  font: 600 0.8rem/1.25 var(--sans); color: var(--ink); pointer-events: none; }
+.wa-hint svg { flex: none; }
+@media (max-width: 30rem) { .wa-hint { font-size: 0.72rem; } }
+.map-frame:has(.leaflet-popup) .wa-hint { display: none; }
+
+.wa { margin-top: 1rem; }
+.wa button { box-shadow: none !important; transform: none !important; }
+.wa-title { display: flex; align-items: center; gap: 0.5rem; }
+.wa-title h3 { margin: 0; }
+.wa-q, .wa-i { display: inline-grid; place-items: center; width: 44px; height: 44px; padding: 0 !important; border-radius: 50% !important; background: transparent !important;
+  border: 0 !important; color: var(--ink) !important; font: 700 1rem/1 var(--display); position: relative; }
+.wa-q::before, .wa-i::before { content: ""; position: absolute; inset: 9px; border-radius: 50%; border: 1.5px solid var(--ink-soft); }
+.wa-i { font-style: italic; font-size: 0.9rem; }
+.wa-q:hover::before, .wa-i:hover::before, .wa-q[aria-expanded="true"]::before, .wa-i[aria-expanded="true"]::before { border-color: var(--ink); background: var(--hover); }
+.wa-q:focus-visible, .wa-i:focus-visible { outline: 3px solid var(--accent); outline-offset: -2px; }
+.wa-help { margin: 0.3rem 0 0.6rem; padding: 0.7rem 0.9rem; border-radius: var(--radius); background: var(--sand); border: 1px solid var(--rule); font-size: 0.95rem; }
+.wa-help p { margin: 0 0 0.45rem; }
+.wa-help p:last-child { margin-bottom: 0; }
+
+/* The five cards: one row on a wide screen, two columns on a tablet, a sideways row on a phone (never squashed). */
+.wa-cards { list-style: none; margin: 0.6rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.6rem; }
+@media (max-width: 62rem) { .wa-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 44rem) { .wa-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 26rem) {
+  .wa-cards { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 0.4rem; -webkit-overflow-scrolling: touch; }
+  .wa-card { flex: 0 0 72%; scroll-snap-align: start; }
+}
+.wa-card { --c: var(--wa-safety); --t: var(--wa-safety-tint); display: flex; flex-direction: column; gap: 0.2rem; padding: 0.75rem 0.8rem 0.4rem; border-radius: var(--radius);
+  background: var(--t); border: 1px solid color-mix(in srgb, var(--c) 22%, transparent); min-width: 0; }
+.wa-homes { --c: var(--wa-homes); --t: var(--wa-homes-tint); }
+.wa-environment { --c: var(--wa-environment); --t: var(--wa-environment-tint); }
+.wa-transport { --c: var(--wa-transport); --t: var(--wa-transport-tint); }
+.wa-education { --c: var(--wa-education); --t: var(--wa-education-tint); }
+.wa-card-top { display: flex; align-items: center; justify-content: space-between; min-height: 44px; }
+.wa-ico { display: inline-grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--c); color: var(--t); }
+.wa-card-title { margin: 0.15rem 0 0.1rem; font: 700 1rem/1.25 var(--display); color: var(--ink); }
+.wa-stat { margin: 0; font-family: var(--sans); color: var(--ink); line-height: 1.3; }
+.wa-stat b { font: 800 1.45rem/1.1 var(--display); color: var(--ink); margin-right: 0.15rem; }
+.wa-stat span { font-size: 0.85rem; color: var(--ink-soft); }
+.wa-stat .wa-sub { display: block; font-size: 0.78rem; color: var(--muted); }
+.wa-card.none { opacity: 0.85; }
+.wa-view { margin-top: auto; align-self: flex-start; min-height: 44px; padding: 0 !important; background: transparent !important; border: 0 !important;
+  color: var(--c) !important; font: 700 0.88rem/1 var(--sans); text-decoration: underline; text-underline-offset: 3px; }
+:root[data-theme="dark"] .wa-view { color: var(--c) !important; }
+.wa-view:hover { text-decoration-thickness: 2px; }
+
+/* An on/off switch: 44px tall to the finger, a 40 x 22 track to the eye, in the card's colour. */
+.wa-switch { position: relative; width: 52px; height: 44px; padding: 0 !important; background: transparent !important; border: 0 !important; border-radius: 0 !important; flex: none; }
+.wa-switch span { position: absolute; left: 6px; top: 11px; width: 40px; height: 22px; border-radius: 999px; background: color-mix(in srgb, var(--ink) 25%, var(--panel)); transition: background var(--t-fast) var(--ease); }
+.wa-switch span::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--panel); transition: transform var(--t-fast) var(--ease); }
+.wa-switch[aria-checked="true"] span { background: var(--c, var(--ink)); }
+.wa-switch[aria-checked="true"] span::after { transform: translateX(18px); }
+.wa-switch:focus-visible { outline: 3px solid var(--accent); outline-offset: -4px; border-radius: 999px !important; }
+@media (prefers-reduced-motion: reduce) { .wa-switch span, .wa-switch span::after { transition: none; } }
+
+/* The fold: every layer, three columns wide, one on a phone. */
+.wa-fold { margin-top: 0.7rem; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--panel); }
+.wa-fold > summary { display: flex; align-items: center; gap: 0.5rem; min-height: 48px; padding: 0 0.9rem; cursor: pointer; font: 600 0.95rem/1.3 var(--sans); list-style: none; }
+.wa-fold > summary::-webkit-details-marker { display: none; }
+.wa-fold > summary::after { content: ""; margin-left: auto; width: 9px; height: 9px; border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink); transform: rotate(45deg); transition: transform var(--t-fast) var(--ease); }
+.wa-fold[open] > summary::after { transform: rotate(-135deg); }
+.wa-layers { list-style: none; margin: 0; padding: 0.2rem 0.6rem 0.6rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 0.8rem; }
+@media (max-width: 52rem) { .wa-layers { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 36rem) { .wa-layers { grid-template-columns: 1fr; } }
+.wa-lrow { display: flex; align-items: center; gap: 0.3rem; min-height: 44px; }
+.wa-lrow .wa-switch.wa-safety, .wa-lrow .wa-switch.wa-homes, .wa-lrow .wa-switch.wa-environment, .wa-lrow .wa-switch.wa-transport, .wa-lrow .wa-switch.wa-education { background: transparent !important; }
+.wa-swatch { flex: none; width: 14px; height: 14px; border-radius: 4px; border: 1px solid color-mix(in srgb, var(--ink) 35%, transparent); }
+.wa-lname { flex: 1; min-width: 0; font: 0.9rem/1.3 var(--sans); }
+.wa-ltext { margin: 0 0 0.5rem 3.6rem; font-size: 0.88rem; color: var(--ink-soft); }
+
+/* The pop-up card, the same for every layer. Leaflet draws its own close (x). */
+.mp-popup .leaflet-popup-content-wrapper { border-radius: 14px; }
+.mp-popup .leaflet-popup-content { margin: 0.8rem 1rem; font-family: var(--sans); font-size: 0.88rem; line-height: 1.4; color: #2B1B14; }
+.mp-popup a { color: #9E1F4F; }
+.mp-popup a.leaflet-popup-close-button { width: 32px; height: 32px; font-size: 22px; line-height: 30px; color: #4A3A31; }
+.mp-head { display: flex; align-items: center; gap: 0.5rem; margin: 0 1.6rem 0.4rem 0; }
+.mp-head strong { font-size: 1rem; }
+.mp-ico { flex: none; display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; color: #fff; }
+.mp-row { margin: 0.1rem 0; }
+.mp-row span:first-child { font-weight: 700; }
+.mp-row span:first-child::after { content: ":"; }
+.mp-note { display: block; margin: 0.3rem 0 0; font-size: 0.8rem; color: #5F4E45; }
+.mp-source { margin: 0.4rem 0 0; font-size: 0.8rem; color: #5F4E45; }
+.mp-block { margin-top: 0.6rem; padding-top: 0.55rem; border-top: 1px solid #E6D8CC; }
+.mp-bh { display: flex; align-items: center; gap: 0.35rem; font-weight: 700; margin-bottom: 0.25rem; }
+.mp-block ul { margin: 0; padding-left: 1rem; }
+.mp-block li { margin: 0.15rem 0; }
+.mp-block p { margin: 0 0 0.25rem; }
+.mp-src { font-size: 0.78rem; color: #5F4E45; }
+.mp-go { font-weight: 700; }
+
+/* "Who makes decisions where you live": the same five life areas as the map, simple first, one tap for the detail. */
+.la-groups { list-style: none; margin: 0.6rem 0 1rem; padding: 0; display: grid; gap: 0.5rem; }
+.la-group { padding: 0; }
+.la-group summary { display: flex; align-items: center; gap: 0.7rem; min-height: 56px; padding: 0.5rem 0.8rem; cursor: pointer; list-style: none; }
+.la-group summary::-webkit-details-marker { display: none; }
+.la-group summary::after { content: ""; flex: none; margin-left: auto; width: 8px; height: 8px; border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink); transform: rotate(45deg); }
+.la-group details[open] summary::after { transform: rotate(-135deg); }
+.la-group .wa-ico { flex: none; }
+.la-text { display: flex; flex-direction: column; min-width: 0; }
+.la-title { font: 700 1rem/1.25 var(--display); color: var(--ink); }
+.la-who { font: 0.88rem/1.35 var(--sans); color: var(--ink-soft); }
+.la-roles { margin: 0 0.8rem 0.7rem 3.6rem; padding: 0; list-style: none; font-size: 0.92rem; }
+.la-roles li { margin: 0.3rem 0; }
+@media (max-width: 30rem) { .la-roles { margin-left: 0.9rem; } }
+.la-chain-h { margin: 1rem 0 0.4rem; font-size: 1.05rem; }
